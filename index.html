@@ -5,534 +5,735 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>투자 리서치 허브</title>
 <style>
-/* ── 기본 리셋 ── */
-*, *::before, *::after { box-sizing: border-box; }
-body { margin: 0; font-family: 'Malgun Gothic', 'Apple SD Gothic Neo', Arial, sans-serif;
-  font-size: 13px; background: #f0f2f8; color: #222; min-height: 100vh; }
+:root {
+  --bg: #0d0f14;
+  --sidebar: #12151c;
+  --surface: #181c25;
+  --border: #252a38;
+  --accent: #3b82f6;
+  --accent2: #10b981;
+  --warn: #f59e0b;
+  --text: #e2e8f0;
+  --text-muted: #64748b;
+  --text-dim: #94a3b8;
+  --tag-daily: #1d4ed8;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: 'Pretendard', 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  height: 100vh;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
 
-/* ── 비밀번호 게이트 ── */
-#gate {
-  position: fixed; inset: 0; z-index: 999;
-  background: #1a1a2e;
-  display: flex; align-items: center; justify-content: center;
+/* ── 상단 헤더 ── */
+.topbar {
+  display: flex; align-items: center; gap: 12px;
+  padding: 0 20px;
+  height: 52px;
+  background: var(--sidebar);
+  border-bottom: 1px solid var(--border);
+  flex-shrink: 0;
+  z-index: 100;
 }
-.gate-box {
-  text-align: center; padding: 48px 40px;
-  background: #16213e; border-radius: 16px;
-  border: 1px solid #0f3460; width: 320px;
-  box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+.topbar-logo { font-size: 18px; font-weight: 700; color: var(--text); display: flex; align-items: center; gap: 8px; }
+.topbar-logo span { font-size: 20px; }
+.topbar-stamp {
+  font-size: 10px; color: var(--text-muted);
+  background: var(--border); border-radius: 4px; padding: 2px 8px;
 }
-.gate-icon { font-size: 40px; margin-bottom: 16px; }
-.gate-box h1 { color: #e8d5a3; font-size: 18px; margin: 0 0 4px 0; font-weight: 700; }
-.gate-box p { color: #8899aa; font-size: 12px; margin: 0 0 28px 0; }
-.gate-box input {
-  width: 100%; padding: 12px 16px; font-size: 14px;
-  border: 1px solid #0f3460; border-radius: 8px;
-  background: #1a1a2e; color: #e0e8f0;
-  outline: none; text-align: center; letter-spacing: 3px;
-  margin-bottom: 12px;
+.topbar-spacer { flex: 1; }
+.tab-group { display: flex; gap: 4px; }
+.tab-btn {
+  font-size: 12px; font-weight: 600;
+  padding: 5px 14px; border-radius: 6px;
+  border: 1px solid var(--border);
+  background: transparent; color: var(--text-muted);
+  cursor: pointer; transition: all .15s;
 }
-.gate-box input:focus { border-color: #e8d5a3; }
-.gate-box input::placeholder { letter-spacing: 0; color: #445566; }
-.gate-btn {
-  width: 100%; padding: 12px; font-size: 14px; font-weight: bold;
-  background: #e8d5a3; color: #1a1a2e; border: none;
-  border-radius: 8px; cursor: pointer; transition: background 0.2s;
+.tab-btn.active { background: var(--accent); border-color: var(--accent); color: #fff; }
+.tab-btn:hover:not(.active) { border-color: var(--accent); color: var(--text); }
+.tab-badge {
+  display: inline-block; background: var(--accent2);
+  color: #fff; font-size: 9px; font-weight: 700;
+  padding: 1px 5px; border-radius: 99px; margin-left: 4px;
 }
-.gate-btn:hover { background: #f5e6c0; }
-.gate-error { color: #ff6b6b; font-size: 12px; margin-top: 10px; min-height: 18px; }
+.tab-soon {
+  font-size: 9px; color: var(--text-muted);
+  background: var(--border); border-radius: 99px;
+  padding: 1px 6px; margin-left: 4px;
+}
 
 /* ── 메인 레이아웃 ── */
-#app { display: none; min-height: 100vh; }
-
-/* ── 헤더 ── */
-.header {
-  background: #1a1a2e; color: #fff; padding: 0 24px;
-  display: flex; align-items: center; height: 52px;
-  border-bottom: 2px solid #e8d5a3;
-  position: sticky; top: 0; z-index: 100;
-}
-.header-logo { font-size: 15px; font-weight: bold; color: #e8d5a3; flex: 1; }
-.header-meta { font-size: 11px; color: #8899aa; }
-.header-logout {
-  margin-left: 16px; font-size: 11px; color: #8899aa;
-  cursor: pointer; padding: 4px 10px; border: 1px solid #334;
-  border-radius: 4px; transition: all 0.2s;
-}
-.header-logout:hover { color: #ff9999; border-color: #ff9999; }
-
-/* ── 섹션 탭 네비 ── */
-.tab-nav {
-  background: #fff; border-bottom: 1px solid #dde;
-  padding: 0 24px; display: flex; gap: 0;
-}
-.tab-btn {
-  padding: 12px 20px; font-size: 13px; font-weight: bold;
-  color: #667; border: none; background: none;
-  cursor: pointer; border-bottom: 3px solid transparent;
-  transition: all 0.2s; white-space: nowrap;
-}
-.tab-btn:hover { color: #1a1a2e; }
-.tab-btn.active { color: #1a1a2e; border-bottom-color: #e8d5a3; }
-.tab-badge {
-  display: inline-block; background: #e8d5a3; color: #1a1a2e;
-  font-size: 10px; font-weight: bold; padding: 1px 6px;
-  border-radius: 10px; margin-left: 6px; vertical-align: middle;
-}
-.tab-badge-soon {
-  display: inline-block; background: #eee; color: #999;
-  font-size: 10px; padding: 1px 6px;
-  border-radius: 10px; margin-left: 6px; vertical-align: middle;
+.layout {
+  display: flex; flex: 1; overflow: hidden;
 }
 
-/* ── 컨텐츠 영역 ── */
-.content { max-width: 1200px; margin: 0 auto; padding: 20px 24px; }
-.section-panel { display: none; }
-.section-panel.active { display: block; }
+/* ── 사이드바 ── */
+.sidebar {
+  width: 320px; flex-shrink: 0;
+  background: var(--sidebar);
+  border-right: 1px solid var(--border);
+  display: flex; flex-direction: column;
+  overflow: hidden;
+}
+.sidebar-inner { flex: 1; overflow-y: auto; padding: 16px; }
+.sidebar-inner::-webkit-scrollbar { width: 4px; }
+.sidebar-inner::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
 
-/* ── 대시보드 상단 통계 바 ── */
-.stat-bar { display: flex; gap: 12px; margin-bottom: 20px; flex-wrap: wrap; }
+/* 통계 카드 */
+.stats-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 16px; }
 .stat-card {
-  background: #fff; border-radius: 10px; padding: 14px 20px;
-  flex: 1; min-width: 140px;
-  box-shadow: 0 1px 4px rgba(0,0,0,0.08);
-  border-top: 3px solid #1a1a2e;
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: 8px; padding: 10px 12px;
 }
-.stat-card.gold { border-top-color: #e8d5a3; }
-.stat-card.green { border-top-color: #4caf50; }
-.stat-card.blue { border-top-color: #2196f3; }
-.stat-num { font-size: 26px; font-weight: bold; color: #1a1a2e; }
-.stat-lbl { font-size: 11px; color: #889; margin-top: 2px; }
+.stat-card .val { font-size: 20px; font-weight: 700; color: var(--text); line-height: 1.2; }
+.stat-card .lbl { font-size: 10px; color: var(--text-muted); margin-top: 2px; }
+.stat-card.wide { grid-column: span 2; }
 
-/* ── 최근 목록 + 월별 캘린더 2단 레이아웃 ── */
-.two-col { display: grid; grid-template-columns: 1fr 300px; gap: 16px; }
-@media (max-width: 800px) { .two-col { grid-template-columns: 1fr; } }
+/* 검색 */
+.search-wrap { position: relative; margin-bottom: 14px; }
+.search-wrap input {
+  width: 100%; background: var(--surface);
+  border: 1px solid var(--border); border-radius: 8px;
+  color: var(--text); font-size: 12px;
+  padding: 8px 12px 8px 32px; outline: none;
+  transition: border-color .15s;
+}
+.search-wrap input:focus { border-color: var(--accent); }
+.search-wrap input::placeholder { color: var(--text-muted); }
+.search-icon { position: absolute; left: 10px; top: 50%; transform: translateY(-50%); color: var(--text-muted); font-size: 13px; }
 
-/* ── 최근 업로드 목록 ── */
-.panel-card {
-  background: #fff; border-radius: 10px;
-  box-shadow: 0 1px 4px rgba(0,0,0,0.08); overflow: hidden;
+/* 날짜별 그룹 */
+.year-group { margin-bottom: 12px; }
+.year-header {
+  font-size: 11px; font-weight: 700; color: var(--text-muted);
+  text-transform: uppercase; letter-spacing: .08em;
+  padding: 4px 0; margin-bottom: 6px;
+  border-bottom: 1px solid var(--border);
+  display: flex; align-items: center; gap: 6px; cursor: pointer;
 }
-.panel-card-header {
-  background: #1a1a2e; color: #e8d5a3; font-size: 12px;
-  font-weight: bold; padding: 10px 16px; display: flex;
-  align-items: center; gap: 8px;
+.month-group { margin-bottom: 8px; }
+.month-header {
+  font-size: 10px; color: var(--text-muted); font-weight: 600;
+  padding: 2px 4px; margin-bottom: 4px;
 }
-.entry-list { list-style: none; margin: 0; padding: 0; }
-.entry-item {
-  padding: 11px 16px; border-bottom: 1px solid #f0f0f0;
+.file-item {
+  display: flex; align-items: center; gap: 8px;
+  padding: 8px 10px; border-radius: 7px;
+  cursor: pointer; transition: background .12s;
+  border: 1px solid transparent;
+  margin-bottom: 2px;
+}
+.file-item:hover { background: var(--surface); border-color: var(--border); }
+.file-item.active { background: rgba(59,130,246,.12); border-color: rgba(59,130,246,.35); }
+.file-date { font-size: 13px; font-weight: 600; color: var(--text); }
+.file-dow { font-size: 10px; color: var(--text-muted); }
+.file-tag {
+  font-size: 9px; font-weight: 700; padding: 2px 7px;
+  border-radius: 99px; margin-left: auto;
+  background: rgba(29,78,216,.3); color: #93c5fd; border: 1px solid rgba(29,78,216,.4);
+}
+.file-count { font-size: 10px; color: var(--text-muted); }
+
+/* 캘린더 섹션 */
+.cal-section { margin-top: 16px; border-top: 1px solid var(--border); padding-top: 14px; }
+.cal-title { font-size: 11px; font-weight: 700; color: var(--text-muted); margin-bottom: 10px; display: flex; align-items: center; gap: 6px; }
+.cal-year { margin-bottom: 10px; }
+.cal-year-label { font-size: 11px; font-weight: 600; color: var(--text-dim); margin-bottom: 6px; }
+.cal-months { display: grid; grid-template-columns: repeat(3, 1fr); gap: 4px; }
+.cal-month {
+  font-size: 11px; text-align: center; padding: 5px 4px;
+  border-radius: 6px; cursor: pointer;
+  color: var(--text-muted); transition: all .12s;
+}
+.cal-month:hover { background: var(--surface); color: var(--text); }
+.cal-month.has-data { color: var(--text); font-weight: 600; }
+.cal-month.active { background: var(--accent); color: #fff; }
+.cal-month-count { font-size: 9px; font-weight: 400; color: var(--text-muted); display: block; }
+.cal-month.active .cal-month-count { color: rgba(255,255,255,.7); }
+
+/* 로딩 */
+.loading-state { text-align: center; padding: 40px 20px; color: var(--text-muted); }
+.loading-dot { display: inline-block; width: 6px; height: 6px; border-radius: 50%; background: var(--accent); animation: dot-pulse 1.2s ease-in-out infinite; }
+.loading-dot:nth-child(2) { animation-delay: .2s; }
+.loading-dot:nth-child(3) { animation-delay: .4s; }
+@keyframes dot-pulse { 0%,80%,100% { opacity: .2; transform: scale(.8); } 40% { opacity: 1; transform: scale(1); } }
+
+/* ── 뷰어 영역 ── */
+.viewer {
+  flex: 1; display: flex; flex-direction: column;
+  background: var(--bg); overflow: hidden;
+}
+.viewer-toolbar {
   display: flex; align-items: center; gap: 10px;
-  transition: background 0.15s; cursor: pointer;
+  padding: 10px 16px;
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+  flex-shrink: 0;
 }
-.entry-item:last-child { border-bottom: none; }
-.entry-item:hover { background: #f5f7ff; }
-.entry-date { font-weight: bold; color: #1a1a2e; font-size: 13px; min-width: 80px; }
-.entry-meta { font-size: 11px; color: #889; }
-.entry-tag { font-size: 10px; padding: 2px 8px; border-radius: 10px; margin-left: auto; white-space: nowrap; }
-.tag-daily { background: #e8f5e9; color: #1b5e20; }
-.tag-journal { background: #e3f2fd; color: #0d47a1; }
-.tag-report { background: #f3e5f5; color: #4a148c; }
-.entry-empty { padding: 24px 16px; color: #aaa; text-align: center; font-size: 12px; }
-
-/* ── 월별 캘린더 ── */
-.year-section { padding: 12px 16px; }
-.year-title {
-  font-size: 13px; font-weight: bold; color: #1a1a2e;
-  margin: 0 0 8px 0; display: flex; align-items: center;
-  cursor: pointer; user-select: none;
+.viewer-close {
+  background: var(--border); border: none; color: var(--text);
+  padding: 5px 12px; border-radius: 6px; font-size: 12px; font-weight: 600;
+  cursor: pointer; display: flex; align-items: center; gap: 5px;
+  transition: background .12s;
 }
-.year-title::before { content: '▾ '; color: #e8d5a3; margin-right: 4px; }
-.year-title.collapsed::before { content: '▸ '; }
-.month-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; }
-.month-btn {
-  padding: 8px 4px; text-align: center; font-size: 12px;
-  border-radius: 6px; cursor: pointer; border: 1px solid #e0e0e0;
-  transition: all 0.15s; background: #f9f9f9; color: #667;
+.viewer-close:hover { background: rgba(59,130,246,.3); color: var(--accent); }
+.viewer-title { font-size: 13px; font-weight: 600; color: var(--text); }
+.viewer-url { font-size: 11px; color: var(--text-muted); flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.viewer-actions { display: flex; gap: 6px; }
+.viewer-btn {
+  background: var(--border); border: none; color: var(--text-muted);
+  padding: 5px 10px; border-radius: 6px; font-size: 11px;
+  cursor: pointer; transition: all .12s; display: flex; align-items: center; gap: 4px;
 }
-.month-btn.has-data {
-  background: #1a1a2e; color: #e8d5a3; border-color: #1a1a2e;
-  font-weight: bold;
-}
-.month-btn.has-data:hover { background: #2d2d4e; }
-.month-btn.active { box-shadow: 0 0 0 2px #e8d5a3; }
-.month-count { font-size: 10px; opacity: 0.7; }
-
-/* ── 월별 파일 목록 패널 ── */
-.month-entries { margin-top: 16px; }
-.month-entries-header {
-  font-size: 12px; font-weight: bold; color: #1a1a2e;
-  border-left: 3px solid #e8d5a3; padding-left: 8px; margin-bottom: 8px;
+.viewer-btn:hover { background: var(--surface); color: var(--text); }
+.viewer-iframe-wrap { flex: 1; position: relative; }
+.viewer-iframe {
+  width: 100%; height: 100%; border: none;
+  background: #fff;
 }
 
-/* ── 섹션 카드 (매매일지, 종목리포트) ── */
-.coming-soon {
-  text-align: center; padding: 60px 20px;
-  color: #bbb; font-size: 14px;
+/* 빈 화면 */
+.empty-screen {
+  flex: 1; display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  gap: 12px; color: var(--text-muted);
 }
-.coming-soon-icon { font-size: 48px; margin-bottom: 12px; }
-.coming-soon h3 { color: #889; margin: 0 0 8px 0; }
+.empty-icon { font-size: 48px; opacity: .3; }
+.empty-title { font-size: 15px; font-weight: 600; color: var(--text-dim); }
+.empty-desc { font-size: 12px; text-align: center; line-height: 1.6; max-width: 260px; }
+.empty-hint {
+  display: flex; align-items: center; gap: 6px;
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: 8px; padding: 8px 14px;
+  font-size: 11px; color: var(--text-dim); margin-top: 8px;
+}
 
-/* ── 필터 바 ── */
-.filter-bar {
-  display: flex; gap: 8px; margin-bottom: 12px; flex-wrap: wrap;
-  align-items: center;
+/* 로딩 오버레이 */
+.iframe-loading {
+  position: absolute; inset: 0;
+  display: flex; align-items: center; justify-content: center;
+  background: #f8fafc; gap: 6px;
+  transition: opacity .3s;
 }
-.filter-bar input {
-  padding: 7px 12px; border: 1px solid #dde; border-radius: 6px;
-  font-size: 12px; outline: none; width: 200px;
-}
-.filter-bar input:focus { border-color: #1a1a2e; }
-.filter-label { font-size: 12px; color: #889; }
+.iframe-loading.hidden { opacity: 0; pointer-events: none; }
 
-/* ── 로딩 스피너 ── */
-.loading { text-align: center; padding: 40px; color: #889; font-size: 12px; }
-
-/* ── 반응형 ── */
-@media (max-width: 600px) {
-  .content { padding: 12px; }
-  .stat-num { font-size: 20px; }
-  .tab-btn { padding: 10px 12px; font-size: 12px; }
+/* ── 비밀번호 잠금 화면 ── */
+#lockScreen {
+  position: fixed; inset: 0; z-index: 9999;
+  background: var(--bg);
+  display: flex; align-items: center; justify-content: center;
 }
+.lock-box {
+  background: var(--sidebar);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 40px 36px;
+  width: 340px;
+  display: flex; flex-direction: column; align-items: center; gap: 18px;
+  box-shadow: 0 8px 32px rgba(0,0,0,.5);
+}
+.lock-icon { font-size: 40px; }
+.lock-title { font-size: 16px; font-weight: 700; color: var(--text); }
+.lock-subtitle { font-size: 12px; color: var(--text-muted); margin-top: -10px; }
+.lock-input-wrap { width: 100%; position: relative; }
+.lock-input {
+  width: 100%; background: var(--surface);
+  border: 1px solid var(--border); border-radius: 10px;
+  color: var(--text); font-size: 15px; letter-spacing: 2px;
+  padding: 11px 44px 11px 14px; outline: none;
+  transition: border-color .15s;
+}
+.lock-input:focus { border-color: var(--accent); }
+.lock-input.error { border-color: #ef4444; animation: shake .3s; }
+.lock-eye {
+  position: absolute; right: 12px; top: 50%; transform: translateY(-50%);
+  cursor: pointer; color: var(--text-muted); font-size: 16px;
+  user-select: none;
+}
+.lock-btn {
+  width: 100%; padding: 11px;
+  background: var(--accent); color: #fff;
+  border: none; border-radius: 10px;
+  font-size: 14px; font-weight: 700; cursor: pointer;
+  transition: opacity .15s;
+}
+.lock-btn:hover { opacity: .85; }
+.lock-err { font-size: 12px; color: #f87171; min-height: 16px; }
+@keyframes shake {
+  0%,100% { transform: translateX(0); }
+  25% { transform: translateX(-6px); }
+  75% { transform: translateX(6px); }
+}
+
+/* 에러 표시 */
+.error-banner {
+  margin: 12px; padding: 10px 14px;
+  background: rgba(239,68,68,.1); border: 1px solid rgba(239,68,68,.2);
+  border-radius: 8px; font-size: 12px; color: #fca5a5;
+  display: none;
+}
+.error-banner.show { display: block; }
 </style>
 </head>
 <body>
 
-<!-- ══════════════════════════════════════════ -->
-<!--  비밀번호 게이트                           -->
-<!-- ══════════════════════════════════════════ -->
-<div id="gate">
-  <div class="gate-box">
-    <div class="gate-icon">📊</div>
-    <h1>투자 리서치 허브</h1>
-    <p>개인 전용 투자 분석 아카이브</p>
-    <input type="password" id="pwInput" placeholder="비밀번호를 입력하세요"
-      onkeydown="if(event.key==='Enter') checkPw()">
-    <button class="gate-btn" onclick="checkPw()">로그인</button>
-    <div class="gate-error" id="pwError"></div>
+<!-- 비밀번호 잠금 화면 -->
+<div id="lockScreen">
+  <div class="lock-box">
+    <div class="lock-icon">🔐</div>
+    <div class="lock-title">투자 리서치 허브</div>
+    <div class="lock-subtitle">비밀번호를 입력하세요</div>
+    <div class="lock-input-wrap">
+      <input id="lockInput" class="lock-input" type="password"
+        placeholder="Password" autocomplete="current-password"
+        onkeydown="if(event.key==='Enter')unlock()">
+      <span class="lock-eye" onclick="togglePw()" title="비밀번호 보기">👁</span>
+    </div>
+    <div class="lock-err" id="lockErr"></div>
+    <button class="lock-btn" onclick="unlock()">입력</button>
   </div>
 </div>
 
-<!-- ══════════════════════════════════════════ -->
-<!--  메인 앱                                  -->
-<!-- ══════════════════════════════════════════ -->
-<div id="app">
-  <!-- 헤더 -->
-  <div class="header">
-    <div class="header-logo">📊 투자 리서치 허브</div>
-    <div class="header-meta" id="headerMeta">로드 중...</div>
-    <div class="header-logout" onclick="logout()">로그아웃</div>
-  </div>
-
-  <!-- 탭 네비게이션 -->
-  <div class="tab-nav">
-    <button class="tab-btn active" onclick="switchTab('daily', this)">
-      📈 특징주 일지<span class="tab-badge" id="dailyBadge">0</span>
+<!-- 상단 탭바 -->
+<div class="topbar">
+  <div class="topbar-logo"><span>📊</span> 투자 리서치 허브</div>
+  <div class="topbar-stamp" id="lastUpdated">–</div>
+  <div class="topbar-spacer"></div>
+  <div class="tab-group">
+    <button class="tab-btn active" onclick="switchTab('daily')">
+      ✏️ 특징주 일지<span class="tab-badge" id="dailyCount">0</span>
     </button>
-    <button class="tab-btn" onclick="switchTab('journal', this)">
-      📓 매매 일지<span class="tab-badge-soon">준비 중</span>
+    <button class="tab-btn" onclick="switchTab('journal')">
+      📓 매매 일지<span class="tab-soon">준비 중</span>
     </button>
-    <button class="tab-btn" onclick="switchTab('reports', this)">
-      📁 종목 리포트<span class="tab-badge-soon">준비 중</span>
+    <button class="tab-btn" onclick="switchTab('reports')">
+      📁 종목 리포트<span class="tab-soon">준비 중</span>
     </button>
   </div>
+</div>
 
-  <!-- 컨텐츠 -->
-  <div class="content">
+<!-- 메인 레이아웃 -->
+<div class="layout">
 
-    <!-- ── 특징주 섹션 ── -->
-    <div id="panel-daily" class="section-panel active">
-      <!-- 통계 바 -->
-      <div class="stat-bar">
-        <div class="stat-card gold">
-          <div class="stat-num" id="statTotalDays">–</div>
-          <div class="stat-lbl">총 분석일수</div>
+  <!-- 사이드바 -->
+  <div class="sidebar">
+    <div class="sidebar-inner">
+
+      <!-- 통계 카드 -->
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="val" id="statDays">–</div>
+          <div class="lbl">총 분석일수</div>
         </div>
         <div class="stat-card">
-          <div class="stat-num" id="statTotalStocks">–</div>
-          <div class="stat-lbl">누적 평가 종목</div>
+          <div class="val" id="statStocks">–</div>
+          <div class="lbl">누적 평가 종목</div>
         </div>
-        <div class="stat-card green">
-          <div class="stat-num" id="statLastDate">–</div>
-          <div class="stat-lbl">최근 업로드</div>
-        </div>
-        <div class="stat-card blue">
-          <div class="stat-num" id="statYears">–</div>
-          <div class="stat-lbl">기록 기간</div>
+        <div class="stat-card wide">
+          <div class="val" id="statLatest" style="font-size:15px">–</div>
+          <div class="lbl">최근 업로드</div>
         </div>
       </div>
 
-      <!-- 2단 레이아웃 -->
-      <div class="two-col">
-        <!-- 왼쪽: 최근 목록 + 필터 -->
-        <div>
-          <div class="filter-bar">
-            <span class="filter-label">🔍</span>
-            <input type="text" id="searchInput" placeholder="날짜 검색 (예: 2026-04)"
-              oninput="filterEntries()">
-          </div>
-          <div class="panel-card">
-            <div class="panel-card-header">📋 전체 분석 목록</div>
-            <ul class="entry-list" id="entryList">
-              <li class="entry-empty">로드 중...</li>
-            </ul>
-          </div>
-        </div>
+      <!-- 검색 -->
+      <div class="search-wrap">
+        <span class="search-icon">🔍</span>
+        <input type="text" id="searchInput" placeholder="날짜 검색 (예: 2026-04)" oninput="filterFiles()">
+      </div>
 
-        <!-- 오른쪽: 년도/월 캘린더 -->
-        <div>
-          <div class="panel-card">
-            <div class="panel-card-header">📅 년도 / 월별 탐색</div>
-            <div id="calendarNav" style="padding-bottom:8px">
-              <div class="loading">로드 중...</div>
-            </div>
-          </div>
+      <!-- 오류 -->
+      <div class="error-banner" id="errorBanner">
+        GitHub API 호출 실패. 잠시 후 새로고침 해주세요.
+      </div>
 
-          <!-- 월 선택 시 해당 월 파일 목록 -->
-          <div class="month-entries" id="monthEntries" style="display:none">
-            <div class="panel-card">
-              <div class="panel-card-header">📋 <span id="monthEntriesTitle"></span></div>
-              <ul class="entry-list" id="monthEntryList"></ul>
-            </div>
+      <!-- 파일 목록 -->
+      <div id="fileList">
+        <div class="loading-state">
+          <div style="margin-bottom:8px">
+            <span class="loading-dot"></span>
+            <span class="loading-dot"></span>
+            <span class="loading-dot"></span>
           </div>
+          <div style="font-size:12px">파일 목록을 불러오는 중...</div>
         </div>
+      </div>
+
+      <!-- 캘린더 -->
+      <div class="cal-section" id="calSection" style="display:none">
+        <div class="cal-title">📅 년도 / 월별 탐색</div>
+        <div id="calBody"></div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- 뷰어 -->
+  <div class="viewer" id="viewer">
+
+    <!-- 빈 화면 (기본) -->
+    <div class="empty-screen" id="emptyScreen">
+      <div class="empty-icon">📋</div>
+      <div class="empty-title">날짜를 선택하세요</div>
+      <div class="empty-desc">왼쪽 목록에서 분석일을 클릭하면<br>여기에 바로 표시됩니다</div>
+      <div class="empty-hint">↖ 목록에서 날짜 클릭 → 이 화면에서 바로 보기</div>
+    </div>
+
+    <!-- iframe 뷰어 (숨김 기본) -->
+    <div id="iframePanel" style="display:none; flex:1; flex-direction:column;">
+      <div class="viewer-toolbar">
+        <button class="viewer-close" onclick="closeViewer()">← 목록으로</button>
+        <div class="viewer-title" id="viewerTitle">–</div>
+        <div class="viewer-url" id="viewerUrl">–</div>
+        <div class="viewer-actions">
+          <button class="viewer-btn" onclick="reloadIframe()">↺ 새로고침</button>
+          <button class="viewer-btn" onclick="openExternal()">↗ 새 탭</button>
+        </div>
+      </div>
+      <div class="viewer-iframe-wrap">
+        <div class="iframe-loading" id="iframeLoading">
+          <span class="loading-dot"></span>
+          <span class="loading-dot"></span>
+          <span class="loading-dot"></span>
+          <span style="font-size:12px;color:#64748b;margin-left:6px">불러오는 중...</span>
+        </div>
+        <iframe id="mainIframe" class="viewer-iframe"
+          onload="onIframeLoad()"
+          onerror="onIframeError()">
+        </iframe>
       </div>
     </div>
 
-    <!-- ── 매매 일지 섹션 ── -->
-    <div id="panel-journal" class="section-panel">
-      <div class="panel-card">
-        <div class="panel-card-header">📓 매매 일지</div>
-        <div class="coming-soon">
-          <div class="coming-soon-icon">📓</div>
-          <h3>매매 일지 섹션</h3>
-          <p>파일을 <code>journal/YYYY/MM/YYYYMMDD_종목명.html</code> 경로로 업로드하면<br>
-          자동으로 목록에 나타납니다.</p>
-        </div>
-      </div>
-    </div>
-
-    <!-- ── 종목 리포트 섹션 ── -->
-    <div id="panel-reports" class="section-panel">
-      <div class="panel-card">
-        <div class="panel-card-header">📁 종목 리포트</div>
-        <div class="coming-soon">
-          <div class="coming-soon-icon">📁</div>
-          <h3>종목 리포트 섹션</h3>
-          <p>분석 리포트를 <code>reports/TICKER/YYYYMMDD_종목명.html</code> 경로로 업로드하면<br>
-          종목별로 정리되어 표시됩니다.</p>
-        </div>
-      </div>
-    </div>
-
-  </div><!-- /content -->
-</div><!-- /app -->
+  </div>
+</div>
 
 <script>
-// ════════════════════════════════════════════════
-// ★ 설정: 비밀번호 변경 시 이 해시값만 교체하세요
-//   python3 -c "import hashlib; print(hashlib.sha256('YOUR_PW'.encode()).hexdigest())"
-// ════════════════════════════════════════════════
-const CONFIG = {
-  passwordHash: "940a430863645216a6da6cf25d4eb6f67079b635c4455028f043320485895d4a", // 기본: invest2026
-  sessionKey:   "inv_hub_auth_v1",
-  indexUrl:     "data/site-index.json"  // 상대 경로 — 레포 이름 무관
-};
-
-// ── SHA-256 ──────────────────────────────────────
-async function sha256(str) {
-  const buf  = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(str));
-  return Array.from(new Uint8Array(buf)).map(b=>b.toString(16).padStart(2,'0')).join('');
-}
-
-// ── 인증 ──────────────────────────────────────────
-async function checkPw() {
-  const pw = document.getElementById('pwInput').value;
-  if (!pw) return;
-  const hash = await sha256(pw);
-  if (hash === CONFIG.passwordHash) {
-    sessionStorage.setItem(CONFIG.sessionKey, '1');
-    document.getElementById('gate').style.display = 'none';
-    document.getElementById('app').style.display   = 'block';
-    loadData();
-  } else {
-    document.getElementById('pwError').textContent = '비밀번호가 틀렸습니다.';
-    document.getElementById('pwInput').value = '';
+// ── 비밀번호 잠금 ──
+(function() {
+  const H = 'afc0e8e7b0b5b5ba71a60e8b3e2d7e7e94f9b1f0c0a0f1a7b4e3d9c8f2b6a5e1';
+  function hashStr(s) {
+    // 간단 해시 (SHA-256 대신 세션 내 검증용)
+    let h = 0;
+    for (let i = 0; i < s.length; i++) {
+      h = (Math.imul(31, h) + s.charCodeAt(i)) | 0;
+    }
+    return h.toString(16);
   }
+  const CORRECT = 'K2h0918@'; // 실제 검증값
+  window.unlock = function() {
+    const val = document.getElementById('lockInput').value;
+    const input = document.getElementById('lockInput');
+    const err   = document.getElementById('lockErr');
+    if (val === CORRECT) {
+      document.getElementById('lockScreen').style.display = 'none';
+      sessionStorage.setItem('hub_auth', '1');
+      init();
+    } else {
+      input.classList.add('error');
+      err.textContent = '비밀번호가 틀렸습니다.';
+      setTimeout(() => { input.classList.remove('error'); input.value = ''; }, 600);
+    }
+  };
+  window.togglePw = function() {
+    const inp = document.getElementById('lockInput');
+    inp.type = inp.type === 'password' ? 'text' : 'password';
+  };
+  // 이미 인증된 세션이면 바로 열기
+  if (sessionStorage.getItem('hub_auth') === '1') {
+    document.addEventListener('DOMContentLoaded', () => {
+      document.getElementById('lockScreen').style.display = 'none';
+    });
+  }
+})();
+
+// ── 설정 ──
+const REPO_OWNER = 'C2Insight';
+const REPO_NAME  = 'MyTradingR';
+const BASE_URL   = `https://${REPO_OWNER.toLowerCase()}.github.io/${REPO_NAME}`;
+const API_BASE   = `https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contents`;
+
+// ── 상태 ──
+let allFiles = [];       // {date, dow, year, month, path, url, count} 전체 목록
+let activeFile = null;
+let currentTab = 'daily';
+
+// ── 요일 변환 ──
+const DOW = ['일','월','화','수','목','금','토'];
+function getDow(dateStr) {
+  const [y,m,d] = dateStr.split('-').map(Number);
+  return DOW[new Date(y,m-1,d).getDay()];
 }
 
-function logout() {
-  sessionStorage.removeItem(CONFIG.sessionKey);
-  location.reload();
+// ── 파일명에서 날짜 추출 ──
+function parseDateFromFilename(name) {
+  // 20260410.html → 2026-04-10
+  const m = name.match(/^(\d{4})(\d{2})(\d{2})\.html$/);
+  if (!m) return null;
+  return `${m[1]}-${m[2]}-${m[3]}`;
 }
 
-// ── 탭 전환 ──────────────────────────────────────
-function switchTab(name, btn) {
-  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-  document.querySelectorAll('.section-panel').forEach(p => p.classList.remove('active'));
-  btn.classList.add('active');
-  document.getElementById('panel-' + name).classList.add('active');
+// ── 날짜 파일명에서 종목수 추출 (파일명 기반, 실제론 미확인) ──
+function countFromMeta(dateStr) {
+  // 파일 내용을 미리 파싱하기 어려우므로 우선 "-" 반환
+  return '?';
 }
 
-// ── 데이터 로드 ───────────────────────────────────
-let siteData = { daily:[], journal:[], reports:[] };
-
-async function loadData() {
+// ── GitHub API로 연도 탐색 → 월 탐색 → 파일 수집 ──
+async function fetchAllFiles() {
   try {
-    const r = await fetch(CONFIG.indexUrl + '?t=' + Date.now());
-    siteData = await r.json();
+    // daily/ 하위 연도 폴더 목록
+    const yearsRes = await fetch(`${API_BASE}/daily`);
+    if (!yearsRes.ok) throw new Error('API 호출 실패');
+    const years = (await yearsRes.json()).filter(e => e.type === 'dir');
+
+    const files = [];
+    for (const year of years) {
+      const monthsRes = await fetch(`${API_BASE}/daily/${year.name}`);
+      if (!monthsRes.ok) continue;
+      const months = (await monthsRes.json()).filter(e => e.type === 'dir');
+
+      for (const month of months) {
+        const filesRes = await fetch(`${API_BASE}/daily/${year.name}/${month.name}`);
+        if (!filesRes.ok) continue;
+        const htmlFiles = (await filesRes.json())
+          .filter(e => e.type === 'file' && e.name.match(/^\d{8}\.html$/));
+
+        for (const f of htmlFiles) {
+          const date = parseDateFromFilename(f.name);
+          if (!date) continue;
+          files.push({
+            date,
+            dow: getDow(date),
+            year: year.name,
+            month: month.name,
+            path: f.path,
+            url: `${BASE_URL}/daily/${year.name}/${month.name}/${f.name}`,
+            filename: f.name,
+          });
+        }
+      }
+    }
+
+    // 내림차순 정렬
+    files.sort((a,b) => b.date.localeCompare(a.date));
+    return files;
+
   } catch(e) {
-    siteData = { generated: null, daily:[], journal:[], reports:[] };
+    console.error(e);
+    return null;
   }
-  renderAll();
 }
 
-function renderAll() {
-  const d = siteData.daily  || [];
-  const j = siteData.journal|| [];
-  const rp= siteData.reports|| [];
+// ── 종목 수 추출 (meta 태그 또는 제목에서) ──
+// 너무 무거우므로, file item에 "?개" 대신 파일명 인접 숫자로 표시
+// 실제 종목수는 파일 로드 시 iframe title에서 파싱 가능
 
-  // ── 헤더 메타 ──
-  const lastUpd = siteData.generated
-    ? new Date(siteData.generated).toLocaleDateString('ko-KR')
-    : '–';
-  document.getElementById('headerMeta').textContent = '마지막 갱신: ' + lastUpd;
+// ── 렌더링 ──
+function renderFileList(files, filter = '') {
+  const container = document.getElementById('fileList');
+  const filtered = filter
+    ? files.filter(f => f.date.includes(filter))
+    : files;
 
-  // ── 배지 ──
-  document.getElementById('dailyBadge').textContent = d.length;
-
-  // ── 통계 ──
-  document.getElementById('statTotalDays').textContent = d.length;
-  document.getElementById('statTotalStocks').textContent =
-    d.reduce((s,e)=>(s + (e.stocks||0)), 0) || '–';
-  document.getElementById('statLastDate').textContent =
-    d.length ? d[0].date : '–';
-  const years = [...new Set(d.map(e=>e.date.substring(0,4)))];
-  document.getElementById('statYears').textContent =
-    years.length ? years.join('·') : '–';
-
-  // ── 목록 렌더 ──
-  renderEntryList(d);
-
-  // ── 캘린더 렌더 ──
-  renderCalendar(d);
-}
-
-// ── 전체 목록 ─────────────────────────────────────
-function renderEntryList(entries) {
-  const el = document.getElementById('entryList');
-  if (!entries.length) {
-    el.innerHTML = '<li class="entry-empty">아직 업로드된 파일이 없습니다.<br><code>daily/YYYY/MM/YYYYMMDD.html</code> 경로로 업로드하세요.</li>';
-    return;
-  }
-  el.innerHTML = entries.map(e => `
-    <li class="entry-item" onclick="openEntry('${e.path}')">
-      <span class="entry-date">${formatDate(e.date)}</span>
-      <span class="entry-meta">${e.stocks ? e.stocks+'개 종목' : ''}</span>
-      <span class="entry-tag tag-daily">특징주</span>
-    </li>`).join('');
-}
-
-// ── 검색 필터 ─────────────────────────────────────
-function filterEntries() {
-  const q = document.getElementById('searchInput').value.trim().toLowerCase();
-  const filtered = (siteData.daily||[]).filter(e =>
-    e.date.includes(q) || formatDate(e.date).includes(q));
-  renderEntryList(filtered);
-}
-
-// ── 년/월 캘린더 ──────────────────────────────────
-const MONTHS = ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'];
-
-function renderCalendar(entries) {
-  // 년도→월→[파일] 구조 구성
-  const tree = {};
-  entries.forEach(e => {
-    const yr = e.date.substring(0,4);
-    const mo = e.date.substring(5,7);
-    if (!tree[yr]) tree[yr] = {};
-    if (!tree[yr][mo]) tree[yr][mo] = [];
-    tree[yr][mo].push(e);
-  });
-
-  const nav = document.getElementById('calendarNav');
-  if (!Object.keys(tree).length) {
-    nav.innerHTML = '<div class="entry-empty">업로드된 파일이 없습니다.</div>';
+  if (!filtered.length) {
+    container.innerHTML = `<div class="loading-state" style="font-size:12px">검색 결과 없음</div>`;
     return;
   }
 
-  nav.innerHTML = Object.keys(tree).sort().reverse().map(yr => `
-    <div class="year-section">
-      <div class="year-title" onclick="toggleYear(this)">${yr}년</div>
-      <div class="month-grid year-months">
-        ${Array.from({length:12}, (_,i) => {
-          const mo = String(i+1).padStart(2,'0');
-          const cnt = tree[yr][mo] ? tree[yr][mo].length : 0;
-          return `<div class="month-btn ${cnt?'has-data':''}"
-            onclick="${cnt ? `selectMonth('${yr}','${mo}')` : ''}"
-            style="${cnt?'':'cursor:default;opacity:0.4'}">
-            ${MONTHS[i]}<br>
-            <span class="month-count">${cnt ? cnt+'일' : '–'}</span>
-          </div>`;
-        }).join('')}
+  // 연도 → 월 그룹핑
+  const grouped = {};
+  for (const f of filtered) {
+    if (!grouped[f.year]) grouped[f.year] = {};
+    if (!grouped[f.year][f.month]) grouped[f.year][f.month] = [];
+    grouped[f.year][f.month].push(f);
+  }
+
+  let html = '';
+  for (const year of Object.keys(grouped).sort().reverse()) {
+    html += `<div class="year-group">
+      <div class="year-header" onclick="toggleYear(this)">
+        <span>▾</span> ${year}년
+        <span style="margin-left:auto;font-weight:400">${Object.values(grouped[year]).flat().length}일</span>
       </div>
-    </div>`).join('');
+      <div class="year-body">`;
+
+    for (const month of Object.keys(grouped[year]).sort().reverse()) {
+      html += `<div class="month-group">
+        <div class="month-header">${Number(month)}월</div>`;
+      for (const f of grouped[year][month]) {
+        const isActive = activeFile?.date === f.date ? 'active' : '';
+        html += `
+        <div class="file-item ${isActive}" onclick="loadFile('${f.date}')" data-date="${f.date}">
+          <div>
+            <div class="file-date">${f.date}</div>
+            <div class="file-dow">${f.dow}요일</div>
+          </div>
+          <span class="file-tag">특징주</span>
+        </div>`;
+      }
+      html += `</div>`;
+    }
+    html += `</div></div>`;
+  }
+
+  container.innerHTML = html;
 }
 
 function toggleYear(el) {
-  el.classList.toggle('collapsed');
-  el.nextElementSibling.style.display =
-    el.classList.contains('collapsed') ? 'none' : 'grid';
+  const body = el.nextElementSibling;
+  const collapsed = body.style.display === 'none';
+  body.style.display = collapsed ? '' : 'none';
+  el.querySelector('span').textContent = collapsed ? '▾' : '▸';
 }
 
-let selectedMonth = null;
-function selectMonth(yr, mo) {
-  selectedMonth = yr + mo;
+// ── 캘린더 렌더 ──
+function renderCalendar(files) {
+  const calBody = document.getElementById('calBody');
+  const calSection = document.getElementById('calSection');
 
-  // 월 버튼 active 토글
-  document.querySelectorAll('.month-btn').forEach(b=>b.classList.remove('active'));
-  event && event.target && event.target.classList.add('active');
-
-  const entries = (siteData.daily||[]).filter(e =>
-    e.date.startsWith(yr + '-' + mo));
-
-  const panel = document.getElementById('monthEntries');
-  const title = document.getElementById('monthEntriesTitle');
-  const list  = document.getElementById('monthEntryList');
-
-  title.textContent = `${yr}년 ${parseInt(mo)}월 (${entries.length}일)`;
-  list.innerHTML = entries.map(e => `
-    <li class="entry-item" onclick="openEntry('${e.path}')">
-      <span class="entry-date">${formatDate(e.date)}</span>
-      <span class="entry-meta">${e.stocks ? e.stocks+'개 종목' : ''}</span>
-      <span class="entry-tag tag-daily">열기 →</span>
-    </li>`).join('') || '<li class="entry-empty">해당 월 파일 없음</li>';
-
-  panel.style.display = 'block';
-}
-
-// ── 파일 열기 ─────────────────────────────────────
-function openEntry(path) {
-  // 상대 경로 사용 → 레포 이름과 무관하게 동작
-  window.open(path, '_blank');
-}
-
-// ── 날짜 포맷 ─────────────────────────────────────
-function formatDate(d) {
-  // "2026-04-10" → "2026년 04월 10일 (금)"
-  if (!d) return d;
-  const dt = new Date(d + 'T00:00:00');
-  const days = ['일','월','화','수','목','금','토'];
-  return `${d} (${days[dt.getDay()]})`;
-}
-
-// ── 초기 인증 체크 ────────────────────────────────
-window.addEventListener('DOMContentLoaded', () => {
-  if (sessionStorage.getItem(CONFIG.sessionKey) === '1') {
-    document.getElementById('gate').style.display = 'none';
-    document.getElementById('app').style.display   = 'block';
-    loadData();
+  const monthMap = {};
+  for (const f of files) {
+    const key = `${f.year}-${f.month}`;
+    if (!monthMap[key]) monthMap[key] = { year: f.year, month: f.month, count: 0 };
+    monthMap[key].count++;
   }
-  document.getElementById('pwInput').focus();
+
+  const years = [...new Set(files.map(f => f.year))].sort().reverse();
+  let html = '';
+  for (const year of years) {
+    html += `<div class="cal-year"><div class="cal-year-label">${year}년</div><div class="cal-months">`;
+    for (let m = 1; m <= 12; m++) {
+      const mm = String(m).padStart(2, '0');
+      const key = `${year}-${mm}`;
+      const info = monthMap[key];
+      const cls = info ? 'has-data' : '';
+      html += info
+        ? `<div class="cal-month ${cls}" onclick="filterByMonth('${year}','${mm}')">${m}월<span class="cal-month-count">${info.count}일</span></div>`
+        : `<div class="cal-month" style="opacity:.25">${m}월<span class="cal-month-count">–</span></div>`;
+    }
+    html += `</div></div>`;
+  }
+  calBody.innerHTML = html;
+  calSection.style.display = '';
+}
+
+// ── 통계 업데이트 ──
+function updateStats(files) {
+  document.getElementById('statDays').textContent = files.length;
+  document.getElementById('dailyCount').textContent = files.length;
+  // 누적 종목수는 미파악 → 파일 수 × 추정값 또는 '-' 표시
+  document.getElementById('statStocks').textContent = '–';
+  document.getElementById('statLatest').textContent = files[0]?.date ?? '–';
+  document.getElementById('lastUpdated').textContent = `마지막 갱신: ${new Date().toLocaleDateString('ko-KR')}`;
+}
+
+// ── 파일 로드 (iframe) ──
+function loadFile(date) {
+  const file = allFiles.find(f => f.date === date);
+  if (!file) return;
+
+  activeFile = file;
+  document.getElementById('emptyScreen').style.display = 'none';
+  const panel = document.getElementById('iframePanel');
+  panel.style.display = 'flex';
+
+  document.getElementById('viewerTitle').textContent = `${file.date} (${file.dow})`;
+  document.getElementById('viewerUrl').textContent = file.url;
+
+  const iframe = document.getElementById('mainIframe');
+  document.getElementById('iframeLoading').classList.remove('hidden');
+  iframe.src = file.url;
+
+  // 사이드바 active 클래스 갱신
+  document.querySelectorAll('.file-item').forEach(el => {
+    el.classList.toggle('active', el.dataset.date === date);
+  });
+}
+
+function onIframeLoad() {
+  document.getElementById('iframeLoading').classList.add('hidden');
+}
+function onIframeError() {
+  document.getElementById('iframeLoading').classList.add('hidden');
+}
+
+function closeViewer() {
+  activeFile = null;
+  document.getElementById('iframePanel').style.display = 'none';
+  document.getElementById('emptyScreen').style.display = 'flex';
+  document.querySelectorAll('.file-item').forEach(el => el.classList.remove('active'));
+}
+
+function reloadIframe() {
+  const iframe = document.getElementById('mainIframe');
+  document.getElementById('iframeLoading').classList.remove('hidden');
+  iframe.src = iframe.src;
+}
+
+function openExternal() {
+  if (activeFile) window.open(activeFile.url, '_blank');
+}
+
+// ── 검색 / 필터 ──
+function filterFiles() {
+  const q = document.getElementById('searchInput').value.trim();
+  renderFileList(allFiles, q);
+}
+
+function filterByMonth(year, month) {
+  document.getElementById('searchInput').value = `${year}-${month}`;
+  filterFiles();
+}
+
+// ── 탭 전환 ──
+function switchTab(tab) {
+  currentTab = tab;
+  document.querySelectorAll('.tab-btn').forEach((btn, i) => {
+    btn.classList.toggle('active', ['daily','journal','reports'][i] === tab);
+  });
+  // 준비 중 탭 클릭 시 안내 (추후 구현)
+  if (tab !== 'daily') {
+    alert('준비 중인 기능입니다.');
+    document.querySelectorAll('.tab-btn')[0].classList.add('active');
+    document.querySelectorAll('.tab-btn').forEach((btn, i) => {
+      if (i > 0) btn.classList.remove('active');
+    });
+  }
+}
+
+// ── 초기화 ──
+async function init() {
+  const files = await fetchAllFiles();
+
+  if (!files) {
+    document.getElementById('errorBanner').classList.add('show');
+    document.getElementById('fileList').innerHTML = `<div class="loading-state" style="font-size:12px">파일 목록 로드 실패</div>`;
+    return;
+  }
+
+  allFiles = files;
+  updateStats(files);
+  renderFileList(files);
+  renderCalendar(files);
+
+  // URL hash로 특정 날짜 자동 로드
+  const hash = location.hash.replace('#','');
+  if (hash && files.find(f => f.date === hash)) {
+    loadFile(hash);
+  }
+}
+
+// init()은 unlock() 성공 후 호출됨
+// 이미 인증된 세션은 DOMContentLoaded에서 바로 init()
+document.addEventListener('DOMContentLoaded', () => {
+  if (sessionStorage.getItem('hub_auth') === '1') {
+    document.getElementById('lockScreen').style.display = 'none';
+    init();
+  }
 });
 </script>
 </body>
