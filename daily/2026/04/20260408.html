@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>일일 관심주 투자 평가 — 2026-04-08</title>
+<style>
+*, *::before, *::after { box-sizing: border-box; }
+body { font-family: 'Malgun Gothic', 'Apple SD Gothic Neo', Arial, sans-serif;
+       font-size: 13px; margin: 24px; background: #f5f6fa; color: #222; }
+a { color: #1a5fb4; text-decoration: none; }
+a:hover { text-decoration: underline; }
+.page-header { margin-bottom: 20px; }
+.page-header h2 { color: #1a1a2e; font-size: 17px; font-weight: bold; margin: 0 0 4px 0; }
+p.meta { font-size: 11px; color: #666; margin: 0 0 10px 0; }
+.market-bar { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 4px; }
+.badge { padding: 3px 12px; border-radius: 12px; font-size: 12px; font-weight: bold; white-space: nowrap; }
+.badge-up   { background: #e8f5e9; color: #1b5e20; }
+.badge-down { background: #ffebee; color: #b71c1c; }
+.badge-neu  { background: #e3f2fd; color: #0d47a1; }
+h3.section-title { color: #1a1a2e; font-size: 13px; font-weight: bold;
+  margin: 22px 0 8px 0; border-left: 3px solid #1a1a2e; padding-left: 8px; }
+table { border-collapse: collapse; width: 100%; background: #fff;
+        box-shadow: 0 1px 4px rgba(0,0,0,0.08); margin-bottom: 6px; }
+th { background: #1a1a2e; color: #fff; padding: 10px 12px;
+     text-align: left; font-size: 12px; white-space: nowrap; }
+td { padding: 9px 12px; border-bottom: 1px solid #e8e8e8;
+     vertical-align: top; line-height: 1.65; }
+tr:last-child td { border-bottom: none; }
+tr:hover td { background: #f0f4ff; }
+.result-즉시   { color: #1b5e20; font-weight: bold; }
+.result-분할   { color: #1565c0; font-weight: bold; }
+.result-추가   { color: #e65100; font-weight: bold; }
+.result-관찰   { color: #757575; }
+.result-부적합 { color: #c62828; }
+.result-금지   { color: #b71c1c; font-weight: bold; }
+.score         { font-weight: bold; }
+.unconfirmed   { color: #bf360c; font-size: 11px; }
+.trigger       { color: #6a1b9a; font-size: 11px; margin-top: 4px; }
+.source        { font-size: 11px; color: #444; line-height: 1.9; }
+.source a      { color: #1a5fb4; }
+.source .date  { color: #888; margin-left: 4px; }
+.summary-box { background: #fffde7; border: 1px solid #f9a825;
+  border-radius: 6px; padding: 16px 20px; margin-top: 22px; }
+.summary-box h3.section-title { border-left-color: #f9a825; margin-top: 0; }
+.summary-kv  { display: flex; gap: 8px; align-items: baseline; margin-bottom: 8px; font-size: 12px; }
+.summary-kv .lbl { color: #5d4037; min-width: 130px; font-weight: bold; }
+.summary-structure { margin: 10px 0 12px; padding: 9px 13px;
+  background: #fff8e1; border-radius: 4px; font-size: 12px; line-height: 1.75; }
+.summary-sub-title { font-size: 12px; font-weight: bold; color: #4a148c; margin: 10px 0 4px 0; }
+.summary-list { margin: 0 0 6px 0; padding-left: 18px; font-size: 12px; line-height: 1.85; }
+.summary-list li { margin-bottom: 2px; }
+.summary-warn { margin-top: 12px; padding: 8px 13px;
+  background: #fff3e0; border-left: 3px solid #e65100;
+  font-size: 12px; color: #bf360c; border-radius: 0 4px 4px 0; line-height: 1.7; }
+.disclaimer { font-size: 11px; color: #888; margin-top: 16px;
+  padding-top: 10px; border-top: 1px solid #ddd; line-height: 1.8; }
+</style>
+</head>
+<body>
+
+<div class="page-header">
+  <h2>📊 일일 관심주 투자 평가</h2>
+  <p class="meta">
+    평가 기준일: 2026-04-08 &nbsp;|&nbsp; 적용 지침: CLAUDE_주가평가_v2.7 &nbsp;|&nbsp; 평가 종목: 43개 (전수 개별 평가)
+  </p>
+  <div class="market-bar">
+    <span class="badge badge-up">코스피 +6.87%</span>
+    <span class="badge badge-up">코스닥 +5.12%</span>
+    <span class="badge badge-up">환율 1,470.80원 (-2.01%)</span>
+  </div>
+</div>
+
+<h3 class="section-title">▶ 평가 대상 종목 (43개 전수)</h3>
+<table>
+  <thead>
+    <tr>
+      <th style="width:9%">종목명</th>
+      <th style="width:5%">상승률</th>
+      <th style="width:21%">상승 이유 요약</th>
+      <th style="width:9%">판단 결과</th>
+      <th style="width:6%">최종 점수</th>
+      <th style="width:26%">판단 이유</th>
+      <th style="width:24%">근거 출처</th>
+    </tr>
+  </thead>
+  <tbody>
+
+    <!-- ① 삼성전자 — 70점 -->
+    <tr>
+      <td><strong>삼성전자</strong><br><small>비 바이오</small></td>
+      <td>+7.12%</td>
+      <td>Step B에서 실제 촉매 확인: 2026-04-07 잠정실적 공시 — 영업이익 57.2조원(전년동기 +755%), 컨센서스 41.8조원 대비 +36.7% 어닝 서프라이즈. HBM4·AI 서버 수요 폭증 주도.<span class="unconfirmed"> (Forward PER 수치 미확인)</span></td>
+      <td class="result-추가">추가 촉매 확인 후 진입 검토</td>
+      <td class="score">70점</td>
+      <td>Step 1 Pass / Step 2 Yes·Yes·Yes / 가설 1 / 어닝 서프라이즈 중급(36.7%) 단독 / 매트릭스 70점 / 페널티 없음. Forward PER 미확인 → 분할 진입 자동 강등.<br><span class="trigger">※ 재평가 트리거: 2026-04-23 확정 실적 공시(DS부문 세부 수치) → Forward PER 확인 시 즉시 재평가</span></td>
+      <td class="source">
+        <a href="https://news.samsung.com/kr/%EC%82%BC%EC%84%B1%EC%A0%84%EC%9E%90-2026%EB%85%84-1%EB%B6%84%EA%B8%B0-%EC%9E%A0%EC%A0%95%EC%8B%A4%EC%A0%81-%EB%B0%9C%ED%91%9C" target="_blank">삼성전자 2026년 1분기 잠정실적 발표 (삼성 뉴스룸)</a><span class="date">— 2026-04-07</span>
+      </td>
+    </tr>
+
+    <!-- ② 대우건설 -->
+    <tr>
+      <td><strong>대우건설</strong><br><small>비 바이오</small></td>
+      <td>상한가</td>
+      <td>이란 2주 휴전 속 원전·중동 재건 수혜 기대감.<span class="unconfirmed"> (수주 공시 없음)</span></td>
+      <td class="result-금지">투자 금지</td>
+      <td class="score">0점</td>
+      <td>Step 2 기준 1 No — 이란 재건 수혜는 제재 해제 → 발주 → 수주의 다단계 기대감 단계. 대우건설 명의 중동 재건 수주 DART 공시 없음.</td>
+      <td class="source">이란 휴전 소식 (시황 입력값)<span class="date">— 2026-04-08</span></td>
+    </tr>
+
+    <!-- ③ GS건설 -->
+    <tr>
+      <td><strong>GS건설</strong><br><small>비 바이오</small></td>
+      <td>상한가</td>
+      <td>이란 2주 휴전 속 원전·중동 재건 수혜 기대감.<span class="unconfirmed"> (수주 공시 없음)</span></td>
+      <td class="result-금지">투자 금지</td>
+      <td class="score">0점</td>
+      <td>Step 2 기준 1 No — 이란 재건 기대감 편승. GS건설 명의 중동 신규 수주 DART 공시 없음. 주택 PF 부담으로 추가 재무 리스크 존재.</td>
+      <td class="source">이란 휴전 소식 (시황 입력값)<span class="date">— 2026-04-08</span></td>
+    </tr>
+
+    <!-- ④ DL이앤씨 -->
+    <tr>
+      <td><strong>DL이앤씨</strong><br><small>비 바이오</small></td>
+      <td>+25.93%</td>
+      <td>이란 2주 휴전 속 원전·중동 재건 수혜 기대감.<span class="unconfirmed"> (수주 공시 없음)</span></td>
+      <td class="result-금지">투자 금지</td>
+      <td class="score">0점</td>
+      <td>Step 2 기준 1 No — 이란 제재 미해제 상황에서 실적 전환 경로 수치 확인 불가. DL이앤씨 명의 중동 수주 DART 공시 없음.</td>
+      <td class="source">이란 휴전 소식 (시황 입력값)<span class="date">— 2026-04-08</span></td>
+    </tr>
+
+    <!-- ⑤ 전진건설로봇 -->
+    <tr>
+      <td><strong>전진건설로봇</strong><br><small>비 바이오</small></td>
+      <td>+25.86%</td>
+      <td>이란 2주 휴전 속 원전·재건 수혜 기대감. 건설 로봇 장비 업체.<span class="unconfirmed"> (수주 공시 없음)</span></td>
+      <td class="result-금지">투자 금지</td>
+      <td class="score">0점</td>
+      <td>Step 2 기준 1 No — 중동 재건 수혜까지 제재 해제 → 발주 → 수주의 다단계 필요. 전진건설로봇 고유 수주·계약 DART 공시 없음.</td>
+      <td class="source">이란 휴전 소식 (시황 입력값)<span class="date">— 2026-04-08</span></td>
+    </tr>
+
+    <!-- ⑥ 현대건설 -->
+    <tr>
+      <td><strong>현대건설</strong><br><small>비 바이오</small></td>
+      <td>+21.04%</td>
+      <td>이란 2주 휴전 속 원전·중동 재건 수혜 기대감.<span class="unconfirmed"> (이란 신규 수주 공시 없음)</span></td>
+      <td class="result-금지">투자 금지</td>
+      <td class="score">0점</td>
+      <td>Step 2 기준 1 No — 현대건설은 중동 수주 실적이 있는 대형사이나 오늘 상승 이유인 이란 재건 수혜는 공시 없는 기대감 단계. 이란과의 신규 수주 DART 공시 없음.</td>
+      <td class="source">이란 휴전 소식 (시황 입력값)<span class="date">— 2026-04-08</span></td>
+    </tr>
+
+    <!-- ⑦ 한미글로벌 -->
+    <tr>
+      <td><strong>한미글로벌</strong><br><small>비 바이오</small></td>
+      <td>+15.52%</td>
+      <td>2026-04-06 삼익비치(부산 수영구 남천2구역, 3060가구) 재건축 PM 우선협상자 선정 공식 발표. 한남3·압구정3·올림픽선수촌에 이어 연속 수주.<span class="unconfirmed"> (최종 계약 미체결·계약금액 미공시)</span></td>
+      <td class="result-금지">투자 금지</td>
+      <td class="score">0점</td>
+      <td>Step 1 ② Fail — 수주잔고가 연매출 2년치 이상임을 수치로 확인 불가. 계약금액 미공시 상태에서 촉매 강도 산정 불가.<br><span class="trigger">※ 재평가 트리거: 최종 PM 용역 계약 체결 DART 공시 + 계약금액 수치 확인 시 Full evaluation 재실시</span></td>
+      <td class="source">
+        <a href="https://biz.heraldcorp.com/article/10710439" target="_blank">한미글로벌 삼익비치 PM 수주 (헤럴드경제)</a><span class="date">— 2026-04-06</span>
+      </td>
+    </tr>
+
+    <!-- ⑧ HD건설기계 -->
+    <tr>
+      <td><strong>HD건설기계</strong><br><small>비 바이오</small></td>
+      <td>+8.86%</td>
+      <td>이란 2주 휴전 속 재건 수혜 기대감. 건설기계 업체.<span class="unconfirmed"> (수주 공시 없음)</span></td>
+      <td class="result-금지">투자 금지</td>
+      <td class="score">0점</td>
+      <td>Step 2 기준 1 No — 이란 시장 진입 관련 계약·수출 공시 없음. 이란 제재 미해제 상황에서 실적 연결 불가.</td>
+      <td class="source">이란 휴전 소식 (시황 입력값)<span class="date">— 2026-04-08</span></td>
+    </tr>
+
+    <!-- ⑨ 아이티엠반도체 -->
+    <tr>
+      <td><strong>아이티엠반도체</strong><br><small>비 바이오</small></td>
+      <td>상한가</td>
+      <td>이란 휴전 및 필라델피아 반도체지수 강세 속 관련주. 배터리 보호회로 소자 업체.<span class="unconfirmed"> (고유 공시 없음)</span></td>
+      <td class="result-금지">투자 금지</td>
+      <td class="score">0점</td>
+      <td>Step B ③ 해당 — 필라델피아 반도체지수 강세 베타 연동 상승. 아이티엠반도체 고유 공급계약·수주 DART 공시 없음. 오늘 촉매와 사업 연결 수치 확인 불가.</td>
+      <td class="source">시황 입력값<span class="date">— 2026-04-08</span></td>
+    </tr>
+
+    <!-- ⑩ 엠케이전자 -->
+    <tr>
+      <td><strong>엠케이전자</strong><br><small>비 바이오</small></td>
+      <td>+26.77%</td>
+      <td>AI 메모리 수요 확대 기대감 속 실적 개선 기대감. 본딩와이어·솔더볼 제조사.<span class="unconfirmed"> (영업이익 88% 감소 공시 확인)</span></td>
+      <td class="result-금지">투자 금지</td>
+      <td class="score">0점</td>
+      <td>Step 1 ① Fail — 2025년 3분기 누적 영업이익 전년동기 대비 88% 감소 공시 확인(fnguide). 수익성 급격 악화 중. 실적 개선 공시 없는 기대감 단계 → 성장 근거 없음.</td>
+      <td class="source">엠케이전자 2025년 3분기 누적 실적 (fnguide)<span class="date">— 2025년 3분기</span></td>
+    </tr>
+
+    <!-- ⑪ 에이치엠넥스 -->
+    <tr>
+      <td><strong>에이치엠넥스</strong><br><small>비 바이오</small></td>
+      <td>+24.39%</td>
+      <td>이란 휴전 및 필라델피아 반도체지수 강세 속 관련주. 반도체 세정·부품 업체.<span class="unconfirmed"> (고유 공시 없음)</span></td>
+      <td class="result-금지">투자 금지</td>
+      <td class="score">0점</td>
+      <td>Step B ③ 해당 — 필라델피아 지수 베타 연동. 에이치엠넥스 고유 수주·공급계약 DART 공시 없음.</td>
+      <td class="source">시황 입력값<span class="date">— 2026-04-08</span></td>
+    </tr>
+
+    <!-- ⑫ 파두 -->
+    <tr>
+      <td><strong>파두</strong><br><small>비 바이오</small></td>
+      <td>+21.28%</td>
+      <td>이란 휴전 및 필라델피아 반도체지수 강세 속 관련주. AI SSD 컨트롤러 팹리스.<span class="unconfirmed"> (고유 공시 없음)</span></td>
+      <td class="result-금지">투자 금지</td>
+      <td class="score">0점</td>
+      <td>Step B ③ 해당 — 필라델피아 지수 베타 연동. 파두 고유 공급계약·고객사 확대 DART 공시 없음. 실적 성장 근거 미확인.</td>
+      <td class="source">시황 입력값<span class="date">— 2026-04-08</span></td>
+    </tr>
+
+    <!-- ⑬ 심텍 -->
+    <tr>
+      <td><strong>심텍</strong><br><small>비 바이오</small></td>
+      <td>+17.44%</td>
+      <td>이란 휴전 및 필라델피아 반도체지수 강세 속 관련주. 반도체 패키지기판(PCB) 업체.<span class="unconfirmed"> (고유 공시 없음)</span></td>
+      <td class="result-금지">투자 금지</td>
+      <td class="score">0점</td>
+      <td>Step B ③ 해당 — 필라델피아 지수 베타 연동. HBM 기판 수요 스토리는 별도 thesis이나 오늘 상승 이유가 지수 베타. 심텍 고유 공급계약 DART 공시 없음.</td>
+      <td class="source">시황 입력값<span class="date">— 2026-04-08</span></td>
+    </tr>
+
+    <!-- ⑭ SK하이닉스 -->
+    <tr>
+      <td><strong>SK하이닉스</strong><br><small>비 바이오</small></td>
+      <td>+12.77%</td>
+      <td>이란 휴전 및 필라델피아 반도체지수 강세 속 관련주. AI HBM 메모리 선두 업체.<span class="unconfirmed"> (자체 잠정실적 공시 없음)</span></td>
+      <td class="result-금지">투자 금지</td>
+      <td class="score">0점</td>
+      <td>Step B ③ 해당 — 삼성전자 어닝 서프라이즈 연동 기대감 + 이란 휴전 베타. SK하이닉스 자체 1분기 잠정실적 공시 없음(발표 예정).<br><span class="trigger">※ 재평가 트리거: SK하이닉스 자체 잠정실적 공시 시 즉시 별도 평가 의뢰</span></td>
+      <td class="source">시황 입력값<span class="date">— 2026-04-08</span></td>
+    </tr>
+
+    <!-- ⑮ 삼성전기 -->
+    <tr>
+      <td><strong>삼성전기</strong><br><small>비 바이오</small></td>
+      <td>+12.47%</td>
+      <td>이란 휴전 및 필라델피아 반도체지수 강세 속 관련주. 삼성전자 어닝 서프라이즈 부품사 연동 기대감.<span class="unconfirmed"> (자체 공시 없음)</span></td>
+      <td class="result-금지">투자 금지</td>
+      <td class="score">0점</td>
+      <td>Step 2 기준 2 No — 삼성전자 실적 → 삼성전기 부품(MLCC·카메라모듈) 수요 → 삼성전기 실적의 2단계 간접 연결. 삼성전기 자체 공시 없음.</td>
+      <td class="source">시황 입력값<span class="date">— 2026-04-08</span></td>
+    </tr>
+
+    <!-- ⑯ 우리기술 -->
+    <tr>
+      <td><strong>우리기술</strong><br><small>비 바이오</small></td>
+      <td>+18.55%</td>
+      <td>이란 2주 휴전 속 원전 수혜 기대감. 원전 계측·제어 계통 업체.<span class="unconfirmed"> (수주 공시 없음)</span></td>
+      <td class="result-금지">투자 금지</td>
+      <td class="score">0점</td>
+      <td>Step 2 기준 1 No — 이란 휴전 → 원전 수혜 기대감. 우리기술 명의 원전 계약 DART 공시 없음. 국내·해외 원전 수주까지 다단계 필요.</td>
+      <td class="source">이란 휴전 소식 (시황 입력값)<span class="date">— 2026-04-08</span></td>
+    </tr>
+
+    <!-- ⑰ 보성파워텍 -->
+    <tr>
+      <td><strong>보성파워텍</strong><br><small>비 바이오</small></td>
+      <td>+13.54%</td>
+      <td>이란 휴전 속 원전·전력 수혜 기대감. 원전 보조기기·전력 케이블 업체.<span class="unconfirmed"> (수주 공시 없음)</span></td>
+      <td class="result-금지">투자 금지</td>
+      <td class="score">0점</td>
+      <td>Step 2 기준 1 No — 이란 휴전 기대감 편승. 보성파워텍 고유 수주 DART 공시 없음.</td>
+      <td class="source">이란 휴전 소식 (시황 입력값)<span class="date">— 2026-04-08</span></td>
+    </tr>
+
+    <!-- ⑱ 효성중공업 -->
+    <tr>
+      <td><strong>효성중공업</strong><br><small>비 바이오</small></td>
+      <td>+12.26%</td>
+      <td>이란 2주 휴전 속 원전·재건 수혜 기대감. 변압기·초고압차단기 업체.<span class="unconfirmed"> (오늘 촉매 기준 수주 공시 없음)</span></td>
+      <td class="result-금지">투자 금지</td>
+      <td class="score">0점</td>
+      <td>Step 2 기준 1 No — 전력망 수주잔고 독자 thesis가 존재하나 오늘 상승 이유가 이란 휴전 기대감. 이란 재건 관련 신규 공시 없음.<br><span class="trigger">※ 재평가 트리거: 독자적 전력망 수주 DART 공시 발생 시 별도 평가 의뢰</span></td>
+      <td class="source">이란 휴전 소식 (시황 입력값)<span class="date">— 2026-04-08</span></td>
+    </tr>
+
+    <!-- ⑲ 대원전선 -->
+    <tr>
+      <td><strong>대원전선</strong><br><small>비 바이오</small></td>
+      <td>+12.15%</td>
+      <td>이란 휴전 속 쇼티지 장기화·구조적 성장 전망 전선주.<span class="unconfirmed"> (수주 공시 없음)</span></td>
+      <td class="result-금지">투자 금지</td>
+      <td class="score">0점</td>
+      <td>Step 2 기준 1 No — 이란 휴전 기대감 연동. 대원전선 고유 공급계약·수주 DART 공시 없음.</td>
+      <td class="source">이란 휴전 소식 (시황 입력값)<span class="date">— 2026-04-08</span></td>
+    </tr>
+
+    <!-- ⑳ 대한전선 -->
+    <tr>
+      <td><strong>대한전선</strong><br><small>비 바이오</small></td>
+      <td>+11.55%</td>
+      <td>이란 휴전 속 쇼티지 장기화·구조적 성장 전망 전선주.<span class="unconfirmed"> (오늘 촉매 기준 수주 공시 없음)</span></td>
+      <td class="result-금지">투자 금지</td>
+      <td class="score">0점</td>
+      <td>Step 2 기준 1 No — 전선 쇼티지 독자 thesis 존재하나 오늘 상승 이유는 이란 휴전 기대감. 대한전선 고유 수주 공시 없음.<br><span class="trigger">※ 재평가 트리거: 독자적 해외 전선 수주 DART 공시 시 별도 평가 의뢰</span></td>
+      <td class="source">이란 휴전 소식 (시황 입력값)<span class="date">— 2026-04-08</span></td>
+    </tr>
+
+    <!-- ㉑ 일진전기 -->
+    <tr>
+      <td><strong>일진전기</strong><br><small>비 바이오</small></td>
+      <td>+9.59%</td>
+      <td>이란 휴전 속 쇼티지 장기화·구조적 성장 전망 전선주.<span class="unconfirmed"> (수주 공시 없음)</span></td>
+      <td class="result-금지">투자 금지</td>
+      <td class="score">0점</td>
+      <td>Step 2 기준 1 No — 변압기·전선 업체로 전력망 독자 thesis 존재하나 오늘 이란 휴전 기대감 편승. 일진전기 고유 공급계약 DART 공시 없음.<br><span class="trigger">※ 재평가 트리거: 독자적 변압기·전선 수주 DART 공시 시 별도 평가 의뢰</span></td>
+      <td class="source">이란 휴전 소식 (시황 입력값)<span class="date">— 2026-04-08</span></td>
+    </tr>
+
+    <!-- ㉒ SK스퀘어 -->
+    <tr>
+      <td><strong>SK스퀘어</strong><br><small>비 바이오</small></td>
+      <td>+15.83%</td>
+      <td>이란 휴전 속 국내 증시 급등 영향. SK하이닉스 지분 보유 지주사.<span class="unconfirmed"> (고유 공시 없음)</span></td>
+      <td class="result-금지">투자 금지</td>
+      <td class="score">0점</td>
+      <td>Step B ③ 해당 — 삼성전자 어닝 서프라이즈 + 이란 휴전 risk-on 베타 수혜. SK스퀘어 고유 사업 촉매·공시 없음.</td>
+      <td class="source">시황 입력값<span class="date">— 2026-04-08</span></td>
+    </tr>
+
+    <!-- ㉓ 두산 -->
+    <tr>
+      <td><strong>두산</strong><br><small>비 바이오</small></td>
+      <td>+14.78%</td>
+      <td>이란 휴전 속 국내 증시 급등 영향. 두산에너빌리티 등 원전 계열사 보유 지주사.<span class="unconfirmed"> (고유 공시 없음)</span></td>
+      <td class="result-금지">투자 금지</td>
+      <td class="score">0점</td>
+      <td>Step B ③ 해당 — 이란 휴전 기대감에 원전 베타 수혜. 두산 고유 계약·공시 없음.</td>
+      <td class="source">시황 입력값<span class="date">— 2026-04-08</span></td>
+    </tr>
+
+    <!-- ㉔ 삼성물산 -->
+    <tr>
+      <td><strong>삼성물산</strong><br><small>비 바이오</small></td>
+      <td>+12.77%</td>
+      <td>이란 휴전 속 국내 증시 급등 영향. 삼성전자 최대주주 지주사.<span class="unconfirmed"> (고유 공시 없음)</span></td>
+      <td class="result-금지">투자 금지</td>
+      <td class="score">0점</td>
+      <td>Step B ③ 해당 — 삼성전자 어닝 서프라이즈 베타 수혜. 삼성물산 고유 신규 수주·공시 없음.</td>
+      <td class="source">시황 입력값<span class="date">— 2026-04-08</span></td>
+    </tr>
+
+    <!-- ㉕ 키움증권 -->
+    <tr>
+      <td><strong>키움증권</strong><br><small>비 바이오</small></td>
+      <td>+12.21%</td>
+      <td>이란 휴전 속 국내 증시 급등 영향. 온라인 증권사.<span class="unconfirmed"> (고유 공시 없음)</span></td>
+      <td class="result-금지">투자 금지</td>
+      <td class="score">0점</td>
+      <td>Step B ③ 해당 — 증시 급등 시 거래대금 증가 수혜 기대. 주가 상승 → 거래대금 → 수수료 수입의 2단계 간접 연결. 고유 공시 없음.</td>
+      <td class="source">시황 입력값<span class="date">— 2026-04-08</span></td>
+    </tr>
+
+    <!-- ㉖ 미래에셋증권 -->
+    <tr>
+      <td><strong>미래에셋증권</strong><br><small>비 바이오</small></td>
+      <td>+10.08%</td>
+      <td>이란 휴전 속 국내 증시 급등 영향. 대형 증권사.<span class="unconfirmed"> (고유 공시 없음)</span></td>
+      <td class="result-금지">투자 금지</td>
+      <td class="score">0점</td>
+      <td>Step B ③ 해당 — 국내 증시 급등 베타 수혜. 주가 상승 → 거래대금 → 수수료의 2단계 간접. 고유 공시 없음.</td>
+      <td class="source">시황 입력값<span class="date">— 2026-04-08</span></td>
+    </tr>
+
+    <!-- ㉗ 코위버 -->
+    <tr>
+      <td><strong>코위버</strong><br><small>비 바이오</small></td>
+      <td>상한가</td>
+      <td>AI 시대 필수 인프라 광통신 기대감 지속. 광통신 장비 업체.<span class="unconfirmed"> (공급계약 공시 없음)</span></td>
+      <td class="result-금지">투자 금지</td>
+      <td class="score">0점</td>
+      <td>Step 2 기준 1 No — AI 광통신 기대감 테마 편승. 코위버 명의 공급계약·수주 DART 공시 없음.</td>
+      <td class="source">시황 입력값<span class="date">— 2026-04-08</span></td>
+    </tr>
+
+    <!-- ㉘ 이루온 -->
+    <tr>
+      <td><strong>이루온</strong><br><small>비 바이오</small></td>
+      <td>상한가</td>
+      <td>AI 시대 필수 인프라 광통신 기대감 지속. 광통신·네트워크 장비 업체.<span class="unconfirmed"> (공급계약 공시 없음)</span></td>
+      <td class="result-금지">투자 금지</td>
+      <td class="score">0점</td>
+      <td>Step 2 기준 1 No — AI 광통신 기대감 테마. 이루온 고유 공급계약 DART 공시 없음.</td>
+      <td class="source">시황 입력값<span class="date">— 2026-04-08</span></td>
+    </tr>
+
+    <!-- ㉙ 기산텔레콤 -->
+    <tr>
+      <td><strong>기산텔레콤</strong><br><small>비 바이오</small></td>
+      <td>상한가</td>
+      <td>AI 시대 필수 인프라 광통신 기대감 지속. 광통신 케이블·장비 업체.<span class="unconfirmed"> (공급계약 공시 없음)</span></td>
+      <td class="result-금지">투자 금지</td>
+      <td class="score">0점</td>
+      <td>Step 2 기준 1 No — AI 광통신 기대감 테마. 기산텔레콤 고유 공급계약 DART 공시 없음.</td>
+      <td class="source">시황 입력값<span class="date">— 2026-04-08</span></td>
+    </tr>
+
+    <!-- ㉚ 머큐리 -->
+    <tr>
+      <td><strong>머큐리</strong><br><small>비 바이오</small></td>
+      <td>상한가</td>
+      <td>AI 시대 필수 인프라 광통신 기대감 지속. 광트랜시버·광통신 부품 업체.<span class="unconfirmed"> (공급계약 공시 없음)</span></td>
+      <td class="result-금지">투자 금지</td>
+      <td class="score">0점</td>
+      <td>Step 2 기준 1 No — AI 광통신 기대감 테마. 머큐리 고유 공급계약 DART 공시 없음.</td>
+      <td class="source">시황 입력값<span class="date">— 2026-04-08</span></td>
+    </tr>
+
+    <!-- ㉛ 에프알텍 -->
+    <tr>
+      <td><strong>에프알텍</strong><br><small>비 바이오</small></td>
+      <td>상한가</td>
+      <td>AI 시대 필수 인프라 광통신 기대감 지속. 광통신 장비·안테나 업체.<span class="unconfirmed"> (공급계약 공시 없음)</span></td>
+      <td class="result-금지">투자 금지</td>
+      <td class="score">0점</td>
+      <td>Step 2 기준 1 No — AI 광통신 기대감 테마. 에프알텍 고유 공급계약 DART 공시 없음.</td>
+      <td class="source">시황 입력값<span class="date">— 2026-04-08</span></td>
+    </tr>
+
+    <!-- ㉜ 대한광통신 -->
+    <tr>
+      <td><strong>대한광통신</strong><br><small>비 바이오</small></td>
+      <td>+16.22%</td>
+      <td>6G·AI 네트워크 성장 기대감. 광섬유·광케이블 국내 1위 업체.<span class="unconfirmed"> (공급계약 공시 없음)</span></td>
+      <td class="result-금지">투자 금지</td>
+      <td class="score">0점</td>
+      <td>Step 1 ② Fail — 6G 상용화는 2030년대 이후로 3년 이내 수치 기반 지속성 없음. AI 데이터센터 광케이블 수요는 존재하나 대한광통신 고유 공급계약 DART 공시 없음.<br><span class="trigger">※ 재평가 트리거: AI 데이터센터 광케이블 공급계약 DART 공시 확인 시 별도 평가 진입</span></td>
+      <td class="source">시황 입력값<span class="date">— 2026-04-08</span></td>
+    </tr>
+
+    <!-- ㉝ 광전자 -->
+    <tr>
+      <td><strong>광전자</strong><br><small>비 바이오</small></td>
+      <td>+7.71%</td>
+      <td>6G·AI 네트워크 성장 기대감. 광부품·LED 업체.<span class="unconfirmed"> (공급계약 공시 없음)</span></td>
+      <td class="result-금지">투자 금지</td>
+      <td class="score">0점</td>
+      <td>Step 2 기준 1 No — AI 광통신·6G 기대감 편승. 광전자 고유 공급계약 DART 공시 없음.</td>
+      <td class="source">시황 입력값<span class="date">— 2026-04-08</span></td>
+    </tr>
+
+    <!-- ㉞ 현대무벡스 -->
+    <tr>
+      <td><strong>현대무벡스</strong><br><small>비 바이오</small></td>
+      <td>+15.64%</td>
+      <td>북미 최대 물류 전시회 MODEX 2026 참가 소식. 물류자동화 시스템 업체.<span class="unconfirmed"> (수주·계약 아님)</span></td>
+      <td class="result-금지">투자 금지</td>
+      <td class="score">0점</td>
+      <td>Step 2 기준 2 No — MODEX 2026 전시회 참가는 수주·계약 공시가 아니며 실적 전환 경로를 수치로 확인 불가. 전시 참가 자체는 영업 활동이나 당일 촉매로서 사실성·실적 연결 미충족.</td>
+      <td class="source">시황 입력값<span class="date">— 2026-04-08</span></td>
+    </tr>
+
+    <!-- ㉟ 원익홀딩스 -->
+    <tr>
+      <td><strong>원익홀딩스</strong><br><small>비 바이오</small></td>
+      <td>+13.32%</td>
+      <td>이란 휴전 속 국내 증시 급등 영향. 반도체·디스플레이 장비 계열 지주사.<span class="unconfirmed"> (고유 공시 없음)</span></td>
+      <td class="result-금지">투자 금지</td>
+      <td class="score">0점</td>
+      <td>Step B ③ 해당 — 이란 휴전 + 증시 급등 베타 수혜. 원익홀딩스 고유 공시·계약 없음.</td>
+      <td class="source">시황 입력값<span class="date">— 2026-04-08</span></td>
+    </tr>
+
+    <!-- ㊱ 현대오토에버 -->
+    <tr>
+      <td><strong>현대오토에버</strong><br><small>비 바이오</small></td>
+      <td>+12.30%</td>
+      <td>이란 휴전 속 국내 증시 급등 영향. 현대차그룹 IT 계열사.<span class="unconfirmed"> (고유 공시 없음)</span></td>
+      <td class="result-금지">투자 금지</td>
+      <td class="score">0점</td>
+      <td>Step B ③ 해당 — 증시 급등 베타 수혜. 현대오토에버 고유 계약·공시 없음.</td>
+      <td class="source">시황 입력값<span class="date">— 2026-04-08</span></td>
+    </tr>
+
+    <!-- ㊲ 레인보우로보틱스 -->
+    <tr>
+      <td><strong>레인보우로보틱스</strong><br><small>비 바이오</small></td>
+      <td>+11.19%</td>
+      <td>이란 휴전 속 국내 증시 급등 영향 로봇 관련주. 삼성전자 어닝 서프라이즈 로봇 투자 기대 연동.<span class="unconfirmed"> (고유 공시 없음)</span></td>
+      <td class="result-금지">투자 금지</td>
+      <td class="score">0점</td>
+      <td>Step B ③ 해당 — 삼성전자 어닝 연동 로봇 투자 기대감 + 증시 급등 베타. 레인보우로보틱스 고유 수주·공시 없음.</td>
+      <td class="source">시황 입력값<span class="date">— 2026-04-08</span></td>
+    </tr>
+
+    <!-- ㊳ 현대차 -->
+    <tr>
+      <td><strong>현대차</strong><br><small>비 바이오</small></td>
+      <td>+7.40%</td>
+      <td>이란 휴전 속 국내 증시 급등 영향 자동차 관련주.<span class="unconfirmed"> (이란 관련 공시 없음)</span></td>
+      <td class="result-금지">투자 금지</td>
+      <td class="score">0점</td>
+      <td>Step B ③ 해당 — 국내 증시 급등 대형주 베타 수혜. 이란 휴전 → 이란 자동차 시장 기대는 제재 미해제 상황에서 기대감 단계. 고유 공시 없음.</td>
+      <td class="source">시황 입력값<span class="date">— 2026-04-08</span></td>
+    </tr>
+
+    <!-- ㊴ 화성밸브 -->
+    <tr>
+      <td><strong>화성밸브</strong><br><small>비 바이오</small></td>
+      <td>+22.98%</td>
+      <td>트럼프 "이란 재건 지원" 발언 속 이란 국영가스공사(NIOC) 벤더 관계 부각.<span class="unconfirmed"> (NIOC 벤더 공시 없음·이란 제재 중)</span></td>
+      <td class="result-금지">투자 금지</td>
+      <td class="score">0점</td>
+      <td>Step 2 기준 1 No — NIOC 벤더 관계를 확인하는 DART 공시·공식 발표 없음. 이란은 현재 미국 제재 유지 중으로 NIOC 실납품 자체가 불가. 제재 해제 없이 실적 연결 경로 없음.<br><span class="trigger">※ 재평가 트리거: 이란 제재 해제 공식 발표 + NIOC 공급계약 DART 공시 확인 시 정상 평가</span></td>
+      <td class="source">시황 입력값<span class="date">— 2026-04-08</span></td>
+    </tr>
+
+    <!-- ㊵ 삼표시멘트 -->
+    <tr>
+      <td><strong>삼표시멘트</strong><br><small>비 바이오</small></td>
+      <td>+20.34%</td>
+      <td>정원오 성동구청장 서울시장 후보 선출 기대감. 삼표 창업자 손자 관련설.</td>
+      <td class="result-금지">투자 금지</td>
+      <td class="score">0점</td>
+      <td>Step 2 기준 1 No — 수치로 확인 가능한 실적 연결 경로가 전혀 없는 순수 정치 기대감. "후보 선출 기대감"은 공시·계약과 무관한 루머 단계.</td>
+      <td class="source">시황 입력값<span class="date">— 2026-04-08</span></td>
+    </tr>
+
+    <!-- ㊶ 페니트리움바이오 -->
+    <tr>
+      <td><strong>페니트리움바이오</strong><br><small>바이오</small></td>
+      <td>+18.54%</td>
+      <td>전 현대ADM바이오, 2026년 3월 사명 변경. 페니트리움(니클로사마이드 유도체) 전립선암 Phase 1 임상 개시.<span class="unconfirmed"> (투자경고종목 2026-03-27 지정·영업손실 74억·CB 이력)</span></td>
+      <td class="result-금지">투자 금지</td>
+      <td class="score">0점</td>
+      <td>바이오 가설 B 적용 조건 미충족 — 브레이크스루 테라피 지정·3상 중간분석 주요 엔드포인트 달성 등 상급 촉매 없음. Phase 1 임상 개시만으로 가설 B 불가. 영업손실(74억) + 투자경고종목 + CB 발행 이력 삼중 결격.</td>
+      <td class="source">
+        <a href="https://news.dealsitetv.com/articles/166631" target="_blank">페니트리움바이오 사명변경 분석 (딜사이트)</a><span class="date">— 2026-03-31</span>
+      </td>
+    </tr>
+
+    <!-- ㊷ 삼아알미늄 -->
+    <tr>
+      <td><strong>삼아알미늄</strong><br><small>비 바이오</small></td>
+      <td>+16.74%</td>
+      <td>이란 '美 철강·알루미늄 시설 타격' 여파 확산. 알루미늄 제조·가공 업체.<span class="unconfirmed"> (간접 연결·기대감)</span></td>
+      <td class="result-금지">투자 금지</td>
+      <td class="score">0점</td>
+      <td>Step 2 기준 2 No — 이란 타격 → 미국 알루미늄 생산 차질 → 글로벌 가격 상승 → 삼아알미늄 수혜의 3단계 이상 간접 연결. 알루미늄 가격 상승이 삼아알미늄 실적에 미치는 수치 경로 미확인.</td>
+      <td class="source">시황 입력값<span class="date">— 2026-04-08</span></td>
+    </tr>
+
+    <!-- ㊸ GS글로벌 -->
+    <tr>
+      <td><strong>GS글로벌</strong><br><small>비 바이오</small></td>
+      <td>+9.30%</td>
+      <td>정부 규제 완화 소식 속 신재생에너지 관련주. 종합상사 업체.<span class="unconfirmed"> (공시 내용 미확인)</span></td>
+      <td class="result-금지">투자 금지</td>
+      <td class="score">0점</td>
+      <td>Step 2 기준 1 No — 정부 규제 완화 공시 내용이 신재생에너지 보조금·확대 정책인지 확인 불가. GS글로벌은 종합상사 업체로 신재생에너지 직접 수혜 사업 구조 불명확. 기대감 단계.</td>
+      <td class="source">시황 입력값<span class="date">— 2026-04-08</span></td>
+    </tr>
+
+  </tbody>
+</table>
+
+<!-- 총평 -->
+<div class="summary-box">
+  <h3 class="section-title">🔍 총평 — 2026년 4월 8일 시장 구조적 특성</h3>
+
+  <div class="summary-kv">
+    <span class="lbl">투자 검토 가능 종목</span>
+    <span>1개 (추가 촉매 확인 후 진입 검토 1개 / 즉시·분할 0개) &nbsp;|&nbsp; 관찰 유지 0개</span>
+  </div>
+
+  <div class="summary-structure">
+    오늘 코스피 +6.87% 급등의 구조는 <strong>이중 촉매</strong>가 동시 작동한 결과다. ①삼성전자 1분기 잠정실적 어닝 서프라이즈(영업이익 57.2조원, 컨센서스 +36.7% 초과, 2026-04-07 공시)가 반도체·전자 대형주를 이끌었고, ②미-이란 2주 휴전 소식이 건설·원전·전선·광통신·지주·증권 전 섹터에 기대감 랠리를 촉발했다. ①의 실적 연결은 1단계 직결로 확인됐으나, 나머지 42개 종목은 계약·공시 없는 기대감 단계에 머물러 Step 2 기준 1(사실성) 또는 기준 2(실적 연결)에서 전수 필터링됐다.
+  </div>
+
+  <p class="summary-sub-title">▸ 추가 촉매 확인 후 진입 검토 (Forward PER 확인 시 분할 진입 복원 가능)</p>
+  <ul class="summary-list">
+    <li><strong>삼성전자</strong> (70점) — 1분기 영업이익 57.2조원 공시 확인, 컨센서스 36.7% 초과. 4월 23일 확정 실적 + Forward PER 확인 후 즉시 재평가 권고.</li>
+  </ul>
+
+  <div class="summary-warn">
+    ⚠️ 이 시황의 42개 종목(건설·원전·전선·광통신·지주·증권·로봇·자동차 등)은 미-이란 2주 휴전 파생 기대감 테마입니다. 이란 제재가 유지되는 한 "휴전 → 재건·수혜" 논리는 실적 연결 수치 확인 불가이며, Step 2 기준 1(사실성) No 원칙이 광범위하게 적용됩니다. 이란 관련 모든 종목은 제재 해제 공식 발표 + 수주 DART 공시 확인 전까지 진입 금지입니다.
+  </div>
+</div>
+
+<p class="disclaimer">
+  ※ 위 판단은 CLAUDE_주가평가_v2.7 지침에 따른 참고 의견이며, 투자 결정의 최종 책임은 투자자 본인에게 있습니다.<br>
+  ※ 사전 조사 기준일: 2026-04-08. 이후 발생한 공시·뉴스는 반영되지 않습니다.
+</p>
+
+</body>
+</html>
