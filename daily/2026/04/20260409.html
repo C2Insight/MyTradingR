@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>일일 관심주 투자 평가 — 2026-04-09</title>
+<style>
+*, *::before, *::after { box-sizing: border-box; }
+body {
+  font-family: 'Malgun Gothic', 'Apple SD Gothic Neo', Arial, sans-serif;
+  font-size: 13px; margin: 24px; background: #f5f6fa; color: #222;
+}
+a { color: #1a5fb4; text-decoration: none; }
+a:hover { text-decoration: underline; }
+.page-header { margin-bottom: 20px; }
+.page-header h2 { color: #1a1a2e; font-size: 17px; font-weight: bold; margin: 0 0 4px 0; }
+p.meta { font-size: 11px; color: #666; margin: 0 0 10px 0; }
+.market-bar { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 4px; }
+.badge { padding: 3px 12px; border-radius: 12px; font-size: 12px; font-weight: bold; white-space: nowrap; }
+.badge-up   { background: #e8f5e9; color: #1b5e20; }
+.badge-down { background: #ffebee; color: #b71c1c; }
+.badge-neu  { background: #e3f2fd; color: #0d47a1; }
+h3.section-title {
+  color: #1a1a2e; font-size: 13px; font-weight: bold;
+  margin: 22px 0 8px 0; border-left: 3px solid #1a1a2e; padding-left: 8px;
+}
+table { border-collapse: collapse; width: 100%; background: #fff; box-shadow: 0 1px 4px rgba(0,0,0,0.08); margin-bottom: 6px; }
+th { background: #1a1a2e; color: #fff; padding: 10px 12px; text-align: left; font-size: 12px; white-space: nowrap; }
+td { padding: 9px 12px; border-bottom: 1px solid #e8e8e8; vertical-align: top; line-height: 1.65; }
+tr:last-child td { border-bottom: none; }
+tr:hover td { background: #f0f4ff; }
+.result-즉시   { color: #1b5e20; font-weight: bold; }
+.result-분할   { color: #1565c0; font-weight: bold; }
+.result-추가   { color: #e65100; font-weight: bold; }
+.result-관찰   { color: #757575; }
+.result-부적합 { color: #c62828; }
+.result-금지   { color: #b71c1c; font-weight: bold; }
+.score { font-weight: bold; }
+.unconfirmed { color: #bf360c; font-size: 11px; }
+.trigger { color: #6a1b9a; font-size: 11px; margin-top: 4px; }
+.source { font-size: 11px; color: #444; line-height: 1.9; }
+.source .date { color: #888; margin-left: 4px; }
+.summary-box { background: #fffde7; border: 1px solid #f9a825; border-radius: 6px; padding: 16px 20px; margin-top: 22px; }
+.summary-box h3.section-title { border-left-color: #f9a825; margin-top: 0; }
+.summary-kv { display: flex; gap: 8px; align-items: baseline; margin-bottom: 8px; font-size: 12px; }
+.summary-kv .lbl { color: #5d4037; min-width: 130px; font-weight: bold; }
+.summary-structure { margin: 10px 0 12px; padding: 9px 13px; background: #fff8e1; border-radius: 4px; font-size: 12px; line-height: 1.75; }
+.summary-sub-title { font-size: 12px; font-weight: bold; color: #4a148c; margin: 10px 0 4px 0; }
+.summary-list { margin: 0 0 6px 0; padding-left: 18px; font-size: 12px; line-height: 1.85; }
+.summary-list li { margin-bottom: 2px; }
+.summary-warn { margin-top: 12px; padding: 8px 13px; background: #fff3e0; border-left: 3px solid #e65100; font-size: 12px; color: #bf360c; border-radius: 0 4px 4px 0; line-height: 1.7; }
+.disclaimer { font-size: 11px; color: #888; margin-top: 16px; padding-top: 10px; border-top: 1px solid #ddd; line-height: 1.8; }
+</style>
+</head>
+<body>
+
+<!-- 블록 1: 헤더 -->
+<div class="page-header">
+  <h2>📊 일일 관심주 투자 평가</h2>
+  <p class="meta">
+    평가 기준일: 2026-04-09
+    &nbsp;|&nbsp; 적용 지침: CLAUDE_주가평가_v2.6
+    &nbsp;|&nbsp; 평가 종목: 35개 (전수 개별 평가)
+  </p>
+  <div class="market-bar">
+    <span class="badge badge-down">코스피 -1.61%</span>
+    <span class="badge badge-down">코스닥 -1.27%</span>
+    <span class="badge badge-neu">환율 1,483.10원 (+0.26%)</span>
+  </div>
+</div>
+
+<!-- 블록 2: 평가 대상 종목 (전수 단일 표) -->
+<h3 class="section-title">▶ 평가 대상 종목 (35개 전수)</h3>
+<table>
+  <thead>
+    <tr>
+      <th style="width:9%">종목명</th>
+      <th style="width:5%">상승률</th>
+      <th style="width:21%">상승 이유 요약</th>
+      <th style="width:9%">판단 결과</th>
+      <th style="width:6%">최종 점수</th>
+      <th style="width:26%">판단 이유<br><small style="font-weight:normal;">(재평가 트리거 있으면 하단 병기)</small></th>
+      <th style="width:24%">근거 출처 (제목·링크·발간일)</th>
+    </tr>
+  </thead>
+  <tbody>
+
+    <!-- ── 점수 있는 종목 (80 → 70 → 60점 순) ── -->
+
+    <tr>
+      <td><strong>LIG넥스원</strong><br><small>비 바이오</small></td>
+      <td>+6.48%</td>
+      <td>트럼프 나토 일부 회원국 대상 주둔 미군 철수 및 이란 호르무즈 재봉쇄 소식으로 방산주 상승. 기존 확정 수주잔고 26조원(2026년 3월 DART 기준) + 2025년 매출 4.3조(+31.5%), 영업이익 3229억(+44.5%)이 독립된 실질 근거. 오늘 지정학 촉매는 신규 확정 계약 없는 기대감 단계.</td>
+      <td class="result-추가">추가 촉매 확인 후 진입 검토</td>
+      <td class="score">80점 / 100점<br><small style="color:#e65100;">(Forward PER 미확인→강등)</small></td>
+      <td>
+        Step 1 Pass/Pass — 2025년 영업이익 3229억 확인, 수주잔고 6년치 수치 확인. Step 2 Yes/Yes/Yes. 가설 1 + 상급(수주잔고 6년치 + 국가 발주처) + 단독 = 90점. 컨센서스 반영 페널티 -10점(다수 증권사 이미 TP 기상향). 최종 80점 → Forward PER 37배(2026E) 미확인으로 분할→추가 촉매 자동 강등.
+      </td>
+      <td class="source">
+        <a href="https://v.daum.net/v/20260327060700114" target="_blank">LIG넥스원 50년 분석: 26조 수주잔고 (한국경제매거진)</a><span class="date">— 2026-03-27</span><br>
+        <a href="https://v.daum.net/v/20260227082644659" target="_blank">LIG넥스원 장기 성장 전망 (한국투자증권)</a><span class="date">— 2026-02-27</span>
+      </td>
+    </tr>
+
+    <tr>
+      <td><strong>에이피알</strong><br><small>비 바이오</small></td>
+      <td>+8.94%</td>
+      <td>복수 증권사 오늘 TP 동시 상향: 삼성증권 37만→50만원(+35%), NH투자 40만→47만원(+17.5%). 1Q26 예상 매출 5806-5895억(+118-122% YoY), 영업이익 1436-1461억(+163-168% YoY), 컨센서스 19% 상회 전망. 2025년 확정 실적: 영업이익 3654억(+198% YoY), 2025년 해외 비중 80%.</td>
+      <td class="result-추가">추가 촉매 확인 후 진입 검토</td>
+      <td class="score">70점 / 100점<br><small style="color:#e65100;">(Forward PER 미확인→강등)</small></td>
+      <td>
+        Step 1 Pass/Pass — 2025년 OPM 25%+ 고성장 확인, 미국→유럽→일본 순차 확대 구조. Step 2 Yes/Yes/Yes. 가설 1 + 중급(어닝 서프라이즈 19% 상회 + TP 35% 상향) + 복합 = 80점. 컨센서스 반영 페널티 -10점(오늘 3곳 이상 동시 TP 상향). 최종 70점 → Forward PER 28배(2026E) 역사적 비교 미확인으로 분할→추가 촉매 강등.
+      </td>
+      <td class="source">
+        <a href="https://www.sedaily.com/article/20030282" target="_blank">에이피알 역대 최대 실적 전망 52주 신고가 (서울경제)</a><span class="date">— 2026-04-09</span><br>
+        <a href="https://www.news1.kr/industry/general-industry/6061440" target="_blank">에이피알 영업익 3654억 사상 최대 (뉴스1)</a><span class="date">— 2026-02-04</span>
+      </td>
+    </tr>
+
+    <tr>
+      <td><strong>효성티엔씨</strong><br><small>비 바이오</small></td>
+      <td>+11.00%</td>
+      <td>스판덱스 업사이클 진입: 2026년 신규 증설 5-6만톤 vs 수요 증가 10-12만톤(수급 밸런스 구조적 개선). 중국 스판덱스 가격 연4회 인상(+15% 연초 대비), 화하이(글로벌 3위권) 파산 절차 진행. 1Q26 영업이익 759-818억 예상(컨센서스 부합~상회). 2026E 영업이익 3720-4075억(+37~51% YoY).</td>
+      <td class="result-추가">추가 촉매 확인 후 진입 검토</td>
+      <td class="score">60점 / 100점<br><small style="color:#e65100;">(Forward PER 미확인→관찰 유지)</small></td>
+      <td>
+        Step 1 Pass/Pass — 2024년 영업이익 2707억 확인, 2026년 증설 급감·수요 증가 수치 확인. Step 2 Yes/Yes/Yes. 가설 2 + 중급(화하이 파산 반사수혜 + 어닝 서프라이즈) + 복합 = 70점. 컨센서스 반영 페널티 -10점(2026년 1월부터 다수 증권사 TP 상향 완료). 최종 60점 → Forward PER 9-10배(2026E) 역사적 비교 미확인으로 추가 촉매→관찰 유지 강등.<br>
+        <span class="trigger">※ 재평가 트리거: 1Q26 실적 발표(2026년 5월)에서 영업이익 818억 이상 확인 시 재평가</span>
+      </td>
+      <td class="source">
+        <a href="https://www.biztribune.co.kr/news/articleView.html?idxno=351910" target="_blank">효성티앤씨 스판덱스 업황 반등 실적 전망 (비즈트리뷴)</a><span class="date">— 2026-04-06</span><br>
+        <a href="https://biz.newdaily.co.kr/site/data/html/2026/04/03/2026040300125.html" target="_blank">효성티앤씨 수익성 중심 체질개선 (뉴데일리)</a><span class="date">— 2026-04-03</span>
+      </td>
+    </tr>
+
+    <!-- ── 0점 종목: 철강 그룹 ── -->
+
+    <tr>
+      <td><strong>금강철강</strong><br><small>비 바이오</small></td>
+      <td>+29.98%</td>
+      <td>중동 전쟁 재건 수혜 기대감 <span class="unconfirmed">(수주·계약 공시 없음)</span></td>
+      <td class="result-금지">투자 금지</td>
+      <td class="score">0점 / 100점</td>
+      <td>Step 2 기준 1 No — 중동 재건 수혜는 공시·계약 없는 순수 기대감 단계로 사실성 미확인. 소형 내수 철강사로 중동 직접 수출 구조 없음.</td>
+      <td class="source">이투데이 급등락주 특징주 (이투데이)<span class="date">— 2026-04-09</span></td>
+    </tr>
+
+    <tr>
+      <td><strong>부국철강</strong><br><small>비 바이오</small></td>
+      <td>+29.85%</td>
+      <td>중동 전쟁 재건 수혜 기대감 + 미국 철강 관세 개편 <span class="unconfirmed">(재건 수혜 공시 없음)</span></td>
+      <td class="result-금지">투자 금지</td>
+      <td class="score">0점 / 100점</td>
+      <td>Step 2 기준 1 No — 중동 재건은 기대감 단계, 미국 철강 232조 관세 개편은 내수 중심 소형 철강사의 실적 직결 경로 수치 미확인.</td>
+      <td class="source">이투데이 급등락주 특징주 (이투데이)<span class="date">— 2026-04-09</span></td>
+    </tr>
+
+    <tr>
+      <td><strong>동일스틸럭스</strong><br><small>비 바이오</small></td>
+      <td>+15.27%</td>
+      <td>중동 전쟁 재건 수혜 기대감 <span class="unconfirmed">(공시 없음)</span></td>
+      <td class="result-금지">투자 금지</td>
+      <td class="score">0점 / 100점</td>
+      <td>Step 2 기준 1 No — 중동 재건 수혜는 기대감 단계, 확정 수주·계약 공시 없음.</td>
+      <td class="source">시장 테마 동반 상승 확인<span class="date">— 2026-04-09</span></td>
+    </tr>
+
+    <tr>
+      <td><strong>넥스틸</strong><br><small>비 바이오</small></td>
+      <td>+14.80%</td>
+      <td>중동 전쟁 재건 수혜 기대감 <span class="unconfirmed">(공시 없음)</span></td>
+      <td class="result-금지">투자 금지</td>
+      <td class="score">0점 / 100점</td>
+      <td>Step 2 기준 1 No — 중동 재건 수혜 기대감 단계, 사실성 미확인.</td>
+      <td class="source">시장 테마 동반 상승 확인<span class="date">— 2026-04-09</span></td>
+    </tr>
+
+    <tr>
+      <td><strong>하이스틸</strong><br><small>비 바이오</small></td>
+      <td>+13.07%</td>
+      <td>중동 전쟁 재건 수혜 기대감 <span class="unconfirmed">(공시 없음)</span></td>
+      <td class="result-금지">투자 금지</td>
+      <td class="score">0점 / 100점</td>
+      <td>Step 2 기준 1 No — 중동 재건 수혜 기대감 단계, 사실성 미확인.</td>
+      <td class="source">시장 테마 동반 상승 확인<span class="date">— 2026-04-09</span></td>
+    </tr>
+
+    <!-- ── 0점 종목: 광통신 그룹 ── -->
+
+    <tr>
+      <td><strong>이노인스트루먼트</strong><br><small>비 바이오</small></td>
+      <td>+29.83%<br><small>(6연상)</small></td>
+      <td>6G·AI 네트워크 성장 기대감에 6일 연속 상한가. 3월 24일 2025년 연간 영업손실 91.9억(전년 대비 적자폭 축소) 공시 후 광통신 테마 유입. <span class="unconfirmed">(6G·AI 수주 공시 없음)</span></td>
+      <td class="result-금지">투자 금지</td>
+      <td class="score">0점 / 100점</td>
+      <td>Step 1 ① Fail — 2025년 영업손실 91.9억 지속(적자폭 축소는 있으나 성장 전환 근거 없음). 영업적자 기업+테마 연동 → Step B 조기 0점 처리 요건 충족. 6연상 이후 추격 매수 금지.</td>
+      <td class="source">
+        <a href="https://www.seoulwire.com/news/articleView.html?idxno=712838" target="_blank">이노인스트루먼트 실적 개선 기대감에 상한가 (서울와이어)</a><span class="date">— 2026-03-24</span>
+      </td>
+    </tr>
+
+    <tr>
+      <td><strong>광전자</strong><br><small>비 바이오</small></td>
+      <td>+30.00%</td>
+      <td>6G·AI 네트워크 성장 기대감 <span class="unconfirmed">(수주·계약 공시 없음)</span></td>
+      <td class="result-금지">투자 금지</td>
+      <td class="score">0점 / 100점</td>
+      <td>Step 2 기준 1 No — 6G·AI 기대감은 공시·계약 없는 순수 테마 단계, 사실성 미확인.</td>
+      <td class="source">이투데이 급등락주 특징주 (이투데이)<span class="date">— 2026-04-09</span></td>
+    </tr>
+
+    <tr>
+      <td><strong>빛과전자</strong><br><small>비 바이오</small></td>
+      <td>+30.00%</td>
+      <td>6G·AI 네트워크 성장 기대감 <span class="unconfirmed">(공시 없음)</span></td>
+      <td class="result-금지">투자 금지</td>
+      <td class="score">0점 / 100점</td>
+      <td>Step 2 기준 1 No — 6G·AI 기대감, 공시·계약 없는 순수 테마. 사실성 미확인.</td>
+      <td class="source">시장 테마 동반 상승 확인<span class="date">— 2026-04-09</span></td>
+    </tr>
+
+    <tr>
+      <td><strong>머큐리</strong><br><small>비 바이오</small></td>
+      <td>+19.08%</td>
+      <td>6G·AI 네트워크 성장 기대감 <span class="unconfirmed">(공시 없음)</span></td>
+      <td class="result-금지">투자 금지</td>
+      <td class="score">0점 / 100점</td>
+      <td>Step 2 기준 1 No — 6G·AI 기대감 단계, 사실성 미확인.</td>
+      <td class="source">시장 테마 동반 상승 확인<span class="date">— 2026-04-09</span></td>
+    </tr>
+
+    <tr>
+      <td><strong>이루온</strong><br><small>비 바이오</small></td>
+      <td>+14.45%</td>
+      <td>6G·AI 네트워크 성장 기대감 <span class="unconfirmed">(공시 없음)</span></td>
+      <td class="result-금지">투자 금지</td>
+      <td class="score">0점 / 100점</td>
+      <td>Step 2 기준 1 No — 6G·AI 기대감 단계, 사실성 미확인.</td>
+      <td class="source">시장 테마 동반 상승 확인<span class="date">— 2026-04-09</span></td>
+    </tr>
+
+    <!-- ── 0점 종목: 방산 소형 그룹 ── -->
+
+    <tr>
+      <td><strong>퍼스텍</strong><br><small>비 바이오</small></td>
+      <td>+30.00%</td>
+      <td>트럼프 나토 일부 회원국 주둔 미군 철수 + 이란 호르무즈 재봉쇄 소식에 방산주 상승. <span class="unconfirmed">(신규 확정 수주 공시 없음)</span></td>
+      <td class="result-금지">투자 금지</td>
+      <td class="score">0점 / 100점</td>
+      <td>Step 2 기준 1 No — v2.6 지정학 촉매 평가 기준 적용: 나토 철수·호르무즈 재봉쇄가 퍼스텍의 확정 계약·예산 집행으로 이어진 공시 없음. 기대감 단계에 해당, 사실성 미확인.</td>
+      <td class="source">시장 테마 동반 상승 확인<span class="date">— 2026-04-09</span></td>
+    </tr>
+
+    <tr>
+      <td><strong>한일단조</strong><br><small>비 바이오</small></td>
+      <td>+14.98%</td>
+      <td>이스라엘 레바논 공격 + 이란 호르무즈 재봉쇄 불안감에 방산 관련주 상승. <span class="unconfirmed">(확정 계약 공시 없음)</span></td>
+      <td class="result-금지">투자 금지</td>
+      <td class="score">0점 / 100점</td>
+      <td>Step 2 기준 1 No — 지정학 기대감 단계, 한일단조의 방산 직접 수주 공시 없음. 사실성 미확인.</td>
+      <td class="source">시장 테마 동반 상승 확인<span class="date">— 2026-04-09</span></td>
+    </tr>
+
+    <tr>
+      <td><strong>빅텍</strong><br><small>비 바이오</small></td>
+      <td>+6.67%</td>
+      <td>방산 테마 동반 상승 — 지정학 기대감 <span class="unconfirmed">(확정 계약 없음)</span></td>
+      <td class="result-금지">투자 금지</td>
+      <td class="score">0점 / 100점</td>
+      <td>Step 2 기준 1 No — 지정학 기대감 단계, 신규 확정 수주 공시 없음.</td>
+      <td class="source">시장 테마 동반 상승 확인<span class="date">— 2026-04-09</span></td>
+    </tr>
+
+    <tr>
+      <td><strong>RF머트리얼즈</strong><br><small>비 바이오</small></td>
+      <td>+5.43%</td>
+      <td>방산 테마 동반 상승 — 지정학 기대감 <span class="unconfirmed">(확정 계약 없음)</span></td>
+      <td class="result-금지">투자 금지</td>
+      <td class="score">0점 / 100점</td>
+      <td>Step 2 기준 1 No — 지정학 기대감 단계, 신규 확정 수주 공시 없음.</td>
+      <td class="source">시장 테마 동반 상승 확인<span class="date">— 2026-04-09</span></td>
+    </tr>
+
+    <!-- ── 0점 종목: 전쟁/호르무즈 관련 그룹 ── -->
+
+    <tr>
+      <td><strong>삼아알미늄</strong><br><small>비 바이오</small></td>
+      <td>+16.11%</td>
+      <td>이란 '美 철강·알루미늄 시설 타격' 여파로 관련주 강세 <span class="unconfirmed">(직접 수급 공시 없음)</span></td>
+      <td class="result-금지">투자 금지</td>
+      <td class="score">0점 / 100점</td>
+      <td>Step 2 기준 1 No — 이란 타격 → 알루미늄 수급 차질 → 삼아알미늄 수혜는 2단계 이상 간접 논리, 직접 수급 계약·공시 없음.</td>
+      <td class="source">시장 테마 동반 상승 확인<span class="date">— 2026-04-09</span></td>
+    </tr>
+
+    <tr>
+      <td><strong>한국팩키지</strong><br><small>비 바이오</small></td>
+      <td>+7.97%</td>
+      <td>호르무즈 재봉쇄 원재료 수급 불안 테마 동반 <span class="unconfirmed">(공시 없음)</span></td>
+      <td class="result-금지">투자 금지</td>
+      <td class="score">0점 / 100점</td>
+      <td>Step 2 기준 1 No — 호르무즈 재봉쇄→원재료 수급 차질 2단계 논리, 사실성 미확인.</td>
+      <td class="source">시장 테마 동반 상승 확인<span class="date">— 2026-04-09</span></td>
+    </tr>
+
+    <tr>
+      <td><strong>에코플라스틱</strong><br><small>비 바이오</small></td>
+      <td>+6.27%</td>
+      <td>호르무즈 재봉쇄 원재료 수급 불안 테마 동반 <span class="unconfirmed">(공시 없음)</span></td>
+      <td class="result-금지">투자 금지</td>
+      <td class="score">0점 / 100점</td>
+      <td>Step 2 기준 1 No — 원재료 수급 불안 기대감, 직접 수급 영향 수치 미확인.</td>
+      <td class="source">시장 테마 동반 상승 확인<span class="date">— 2026-04-09</span></td>
+    </tr>
+
+    <tr>
+      <td><strong>남선알미늄</strong><br><small>비 바이오</small></td>
+      <td>+5.10%</td>
+      <td>호르무즈 재봉쇄 알루미늄 수급 불안 테마 <span class="unconfirmed">(공시 없음)</span></td>
+      <td class="result-금지">투자 금지</td>
+      <td class="score">0점 / 100점</td>
+      <td>Step 2 기준 1 No — 이란 타격→알루미늄 수급 차질 2단계 논리, 사실성 미확인.</td>
+      <td class="source">시장 테마 동반 상승 확인<span class="date">— 2026-04-09</span></td>
+    </tr>
+
+    <tr>
+      <td><strong>흥아해운</strong><br><small>비 바이오</small></td>
+      <td>+4.68%</td>
+      <td>호르무즈 재봉쇄 해운 수급 불안 테마 <span class="unconfirmed">(공시 없음)</span></td>
+      <td class="result-금지">투자 금지</td>
+      <td class="score">0점 / 100점</td>
+      <td>Step 2 기준 1 No — 호르무즈 재봉쇄→해운 운임 상승 기대감은 2단계 이상 간접 논리, 직접 화물 계약·실적 연결 수치 미확인.</td>
+      <td class="source">시장 테마 동반 상승 확인<span class="date">— 2026-04-09</span></td>
+    </tr>
+
+    <!-- ── 0점 종목: 2차전지/ESS 그룹 ── -->
+
+    <tr>
+      <td><strong>디이엔티</strong><br><small>비 바이오</small></td>
+      <td>+24.60%</td>
+      <td>ESS 등에 따른 2차전지 반등 기대감에 강세 <span class="unconfirmed">(공시·계약 없음)</span></td>
+      <td class="result-금지">투자 금지</td>
+      <td class="score">0점 / 100점</td>
+      <td>Step 2 기준 1 No — ESS 2차전지 반등 기대감은 공시·계약 없는 순수 기대감 단계, 사실성 미확인.</td>
+      <td class="source">시장 테마 동반 상승 확인<span class="date">— 2026-04-09</span></td>
+    </tr>
+
+    <tr>
+      <td><strong>후성</strong><br><small>비 바이오</small></td>
+      <td>+15.76%</td>
+      <td>호르무즈 해협 재봉쇄 → 특수가스 수급 차질 우려감에 강세 <span class="unconfirmed">(직접 수급 계약·공시 없음)</span></td>
+      <td class="result-금지">투자 금지</td>
+      <td class="score">0점 / 100점</td>
+      <td>Step 2 기준 1 No — 호르무즈 재봉쇄→특수가스 수급 차질은 2단계 이상 간접 논리(이란 석유화학 원료→특수가스 연결 수치 미확인). 사실성 미확인.</td>
+      <td class="source">시장 테마 동반 상승 확인<span class="date">— 2026-04-09</span></td>
+    </tr>
+
+    <tr>
+      <td><strong>엠플러스</strong><br><small>비 바이오</small></td>
+      <td>+15.37%</td>
+      <td>오늘(4/9) 전고체 배터리 양산 핵심 기술 개발 완료 및 파일럿 장비 수주 성공 공식 발표(이투데이). 2025년 매출 1842억, OPM 13.3%(흑자 기업). <span class="unconfirmed">(고객사·계약 규모 비공개, DART 미공시)</span></td>
+      <td class="result-금지">투자 금지</td>
+      <td class="score">0점 / 100점</td>
+      <td>Step 1 ② Fail — 전고체 파일럿은 초기 단계(연매출 대비 파일럿 규모 50~100억 추정), 이차전지 기존 수주잔고 1년치 미만. 3년 지속성 수치 확인 불가. 파일럿 계약 고객사·규모 미공시로 매출 전환 경로 수치 산정 불가.<br>
+        <span class="trigger">※ 재평가 트리거: 전고체 양산라인 대형 계약 DART 공시(고객사 명시, 연매출 대비 10% 이상 규모)</span>
+      </td>
+      <td class="source">
+        <a href="https://www.etoday.co.kr/news/view/2574231" target="_blank">엠플러스 전고체 양산 난제 해결 파일럿 수주 (이투데이)</a><span class="date">— 2026-04-09</span>
+      </td>
+    </tr>
+
+    <tr>
+      <td><strong>더블유씨피</strong><br><small>비 바이오</small></td>
+      <td>+7.78%</td>
+      <td>대규모 운영자금 투자 목적 CB 발행 소식에 강세(이례적 상승). <span class="unconfirmed">(CB 발행 = 주식 희석 리스크, 분리막 업황 부진)</span></td>
+      <td class="result-금지">투자 금지</td>
+      <td class="score">0점 / 100점</td>
+      <td>Step 1 ① Fail — 2차전지 분리막 업황 부진으로 영업이익 실적 성장 근거 미확인. CB 발행 소식에 상승은 실질 투자 근거 없는 혼선 매수로 판단. Step 6 CB 페널티 자동 적용 대상.</td>
+      <td class="source">시장 특징주 보도 확인<span class="date">— 2026-04-09</span></td>
+    </tr>
+
+    <!-- ── 0점 종목: 화장품 동반 그룹 ── -->
+
+    <tr>
+      <td><strong>오가닉티코스메틱</strong><br><small>비 바이오</small></td>
+      <td>+30.00%</td>
+      <td>에이피알 급등에 동반 상승. <span class="unconfirmed">(종목 고유 뉴스·공시 없음)</span></td>
+      <td class="result-금지">투자 금지</td>
+      <td class="score">0점 / 100점</td>
+      <td>Step B 조기 0점 — 종목 고유 뉴스 없이 에이피알 지수 베타 동반 상승. 에이피알 상승 논리가 오가닉티코스메틱 실적에 직결되는 공시·계약 없음.</td>
+      <td class="source">시장 테마 동반 상승 확인<span class="date">— 2026-04-09</span></td>
+    </tr>
+
+    <tr>
+      <td><strong>제닉</strong><br><small>비 바이오</small></td>
+      <td>+10.71%</td>
+      <td>에이피알 실적 기대 동반 상승 <span class="unconfirmed">(개별 뉴스 없음)</span></td>
+      <td class="result-금지">투자 금지</td>
+      <td class="score">0점 / 100점</td>
+      <td>Step B 조기 0점 — 종목 고유 공시·뉴스 없이 에이피알 동반. 사실성 미확인.</td>
+      <td class="source">시장 테마 동반 상승 확인<span class="date">— 2026-04-09</span></td>
+    </tr>
+
+    <tr>
+      <td><strong>브이티</strong><br><small>비 바이오</small></td>
+      <td>+7.20%</td>
+      <td>에이피알 실적 기대 동반 상승 <span class="unconfirmed">(개별 뉴스 없음)</span></td>
+      <td class="result-금지">투자 금지</td>
+      <td class="score">0점 / 100점</td>
+      <td>Step B 조기 0점 — 종목 고유 공시·뉴스 없이 에이피알 동반. 사실성 미확인.</td>
+      <td class="source">시장 테마 동반 상승 확인<span class="date">— 2026-04-09</span></td>
+    </tr>
+
+    <tr>
+      <td><strong>달바글로벌</strong><br><small>비 바이오</small></td>
+      <td>+6.37%</td>
+      <td>에이피알 실적 기대 동반 상승 <span class="unconfirmed">(오늘 개별 추가 촉매 없음)</span></td>
+      <td class="result-금지">투자 금지</td>
+      <td class="score">0점 / 100점</td>
+      <td>Step B 조기 0점 — 오늘 종목 고유 뉴스 없이 에이피알 동반. 기존 워치리스트 재평가 조건(검증된 매출 성장 + 채널 확장 공시) 미충족.<br>
+        <span class="trigger">※ 재평가 트리거: 추가 글로벌 채널 확장 공시 + 분기 매출 성장률 수치 확인</span>
+      </td>
+      <td class="source">시장 테마 동반 상승 확인<span class="date">— 2026-04-09</span></td>
+    </tr>
+
+    <tr>
+      <td><strong>실리콘투</strong><br><small>비 바이오</small></td>
+      <td>+4.24%</td>
+      <td>에이피알 실적 기대 동반 상승 <span class="unconfirmed">(개별 뉴스 없음)</span></td>
+      <td class="result-금지">투자 금지</td>
+      <td class="score">0점 / 100점</td>
+      <td>Step B 조기 0점 — 종목 고유 공시·뉴스 없이 에이피알 동반. 사실성 미확인.</td>
+      <td class="source">시장 테마 동반 상승 확인<span class="date">— 2026-04-09</span></td>
+    </tr>
+
+    <!-- ── 0점 종목: 기타 ── -->
+
+    <tr>
+      <td><strong>위지트</strong><br><small>비 바이오</small></td>
+      <td>+19.07%</td>
+      <td>두나무 소송 승소에 따른 빗썸 소송 승소 기대감에 강세 <span class="unconfirmed">(판결 미확정)</span></td>
+      <td class="result-금지">투자 금지</td>
+      <td class="score">0점 / 100점</td>
+      <td>Step 2 기준 1 No — 빗썸 소송 승소는 아직 기대감 단계, 판결 확정 공시 없음. 법적 결과 기대감은 사실성 미확인.</td>
+      <td class="source">시장 특징주 보도 확인<span class="date">— 2026-04-09</span></td>
+    </tr>
+
+    <tr>
+      <td><strong>희림</strong><br><small>비 바이오</small></td>
+      <td>+13.97%</td>
+      <td>중동 2주 휴전 소식 속 재건 수혜 기대감 <span class="unconfirmed">(공시·계약 없음)</span></td>
+      <td class="result-금지">투자 금지</td>
+      <td class="score">0점 / 100점</td>
+      <td>Step 2 기준 1 No — 중동 재건 수혜 기대감은 기대감 단계, 확정 설계·건설 계약 공시 없음.</td>
+      <td class="source">시장 특징주 보도 확인<span class="date">— 2026-04-09</span></td>
+    </tr>
+
+    <tr>
+      <td><strong>상지건설</strong><br><small>비 바이오</small></td>
+      <td>+11.95%</td>
+      <td>중동 2주 휴전 소식 속 재건 수혜 기대감 <span class="unconfirmed">(공시·계약 없음)</span></td>
+      <td class="result-금지">투자 금지</td>
+      <td class="score">0점 / 100점</td>
+      <td>Step 2 기준 1 No — 중동 재건 수혜 기대감 단계, 확정 계약 공시 없음.</td>
+      <td class="source">시장 특징주 보도 확인<span class="date">— 2026-04-09</span></td>
+    </tr>
+
+    <tr>
+      <td><strong>에스엔에스텍</strong><br><small>비 바이오</small></td>
+      <td>+12.57%</td>
+      <td>EUV 팰리클 양산에 따른 실적 기대감에 강세. 용인 EUV 전용 센터 준공(2025년 10월), 삼성 적용 예상(2026년 하반기). <span class="unconfirmed">(공급계약 DART 공시 없음)</span></td>
+      <td class="result-금지">투자 금지</td>
+      <td class="score">0점 / 100점</td>
+      <td>Step 2 기준 1 No — EUV 팰리클 양산시설 준공은 확인되나 삼성·SK하이닉스 공급계약 DART 공시 없음. 오늘 신규 공시 없는 지속 기대감 단계.<br>
+        <span class="trigger">※ 재평가 트리거: EUV 팰리클 공급계약 DART 공시(고객사 및 연간 공급 규모 명시)</span>
+      </td>
+      <td class="source">
+        <a href="https://zdnet.co.kr/view/?no=20251015142601" target="_blank">에스앤에스텍 EUV 전용 센터 준공 (ZDNet Korea)</a><span class="date">— 2025-10-15</span>
+      </td>
+    </tr>
+
+  </tbody>
+</table>
+
+<!-- 블록 3: 총평 박스 -->
+<div class="summary-box">
+  <h3 class="section-title">🔍 총평 — 2026년 4월 9일 시장 구조적 특성</h3>
+
+  <div class="summary-kv">
+    <span class="lbl">투자 검토 가능 종목</span>
+    <span>2개 (분할 0개 / 추가 촉매 2개) | 관찰 유지 1개</span>
+  </div>
+
+  <div class="summary-structure">
+    오늘 시장은 <strong>지정학 기대감이 전방위적으로 지배한 날</strong>로, 35개 종목 중 32개가 중동 전쟁·재건·호르무즈·방산 기대감, 6G·AI 테마, 에이피알 동반 등 공시 없는 기대감으로 상승했다. 평가 가능한 3개 종목(LIG넥스원·에이피알·효성티엔씨) 중 LIG넥스원은 지정학이 아닌 기확정 수주잔고 26조원을 실질 근거로 평가했고, 에이피알은 복수 증권사 어닝 서프라이즈 전망, 효성티엔씨는 스판덱스 수급 밸런스 개선 수치가 각각 사실성을 충족했다. 세 종목 모두 컨센서스 반영 페널티(-10점)와 Forward PER 미확인에 따른 자동 강등이 적용됐다.
+  </div>
+
+  <p class="summary-sub-title">▸ 투자 검토 종목 (50점 이상)</p>
+  <ul class="summary-list">
+    <li><strong>LIG넥스원</strong> (80점, 추가 촉매 확인 후 진입 검토) — 확정 수주잔고 26조원(연매출 6배), 2025년 영업이익 3229억(+44.5% YoY). Forward PER 37배 역사적 비교 확인 후 재판단.</li>
+    <li><strong>에이피알</strong> (70점, 추가 촉매 확인 후 진입 검토) — 삼성증권·NH투자 등 복수 TP 35% 상향, 1Q26 어닝 서프라이즈 19% 상회 전망. 1Q26 실적 발표(5월) 확인 후 재판단.</li>
+  </ul>
+
+  <p class="summary-sub-title">▸ 관찰 유지 종목 (30~60점)</p>
+  <ul class="summary-list">
+    <li><strong>효성티엔씨</strong> (60점, 관찰 유지) — 스판덱스 수급 밸런스 구조적 개선 수치 확인. 재평가 트리거: 1Q26 실적 발표(5월) 영업이익 818억 이상 확인.</li>
+  </ul>
+
+  <div class="summary-warn">
+    ⚠️ 오늘 시장의 32개 종목(91%)은 중동 전쟁 재건·호르무즈 재봉쇄·6G·AI 광통신·에이피알 동반 파생 기대감 테마입니다. 지정학 촉매 평가 기준(v2.6): 계약 공시·예산 집행·법제화 수치 확인 없는 지정학 이벤트는 Step 2 기준 1 No로 자동 필터링됩니다. 철강·방산·알루미늄·해운 소형주의 연속 상한가 추격 매수는 금지입니다. 이노인스트루먼트(6연상, 영업손실 기업)를 포함한 광통신 테마주도 동일하게 투자 금지 판정입니다.
+  </div>
+</div>
+
+<p class="disclaimer">
+  ※ 위 판단은 CLAUDE_주가평가_v2.6 지침에 따른 참고 의견이며, 투자 결정의 최종 책임은 투자자 본인에게 있습니다.<br>
+  ※ 사전 조사 기준일: 2026-04-09. 이후 발생한 공시·뉴스는 반영되지 않습니다.
+</p>
+
+</body>
+</html>
