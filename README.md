@@ -1,0 +1,2 @@
+# MyTradingR
+My training room 
