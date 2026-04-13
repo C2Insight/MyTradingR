@@ -222,6 +222,54 @@ body {
 }
 .iframe-loading.hidden { opacity: 0; pointer-events: none; }
 
+/* ── 비밀번호 잠금 화면 ── */
+#lockScreen {
+  position: fixed; inset: 0; z-index: 9999;
+  background: var(--bg);
+  display: flex; align-items: center; justify-content: center;
+}
+.lock-box {
+  background: var(--sidebar);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 40px 36px;
+  width: 340px;
+  display: flex; flex-direction: column; align-items: center; gap: 18px;
+  box-shadow: 0 8px 32px rgba(0,0,0,.5);
+}
+.lock-icon { font-size: 40px; }
+.lock-title { font-size: 16px; font-weight: 700; color: var(--text); }
+.lock-subtitle { font-size: 12px; color: var(--text-muted); margin-top: -10px; }
+.lock-input-wrap { width: 100%; position: relative; }
+.lock-input {
+  width: 100%; background: var(--surface);
+  border: 1px solid var(--border); border-radius: 10px;
+  color: var(--text); font-size: 15px; letter-spacing: 2px;
+  padding: 11px 44px 11px 14px; outline: none;
+  transition: border-color .15s;
+}
+.lock-input:focus { border-color: var(--accent); }
+.lock-input.error { border-color: #ef4444; animation: shake .3s; }
+.lock-eye {
+  position: absolute; right: 12px; top: 50%; transform: translateY(-50%);
+  cursor: pointer; color: var(--text-muted); font-size: 16px;
+  user-select: none;
+}
+.lock-btn {
+  width: 100%; padding: 11px;
+  background: var(--accent); color: #fff;
+  border: none; border-radius: 10px;
+  font-size: 14px; font-weight: 700; cursor: pointer;
+  transition: opacity .15s;
+}
+.lock-btn:hover { opacity: .85; }
+.lock-err { font-size: 12px; color: #f87171; min-height: 16px; }
+@keyframes shake {
+  0%,100% { transform: translateX(0); }
+  25% { transform: translateX(-6px); }
+  75% { transform: translateX(6px); }
+}
+
 /* 에러 표시 */
 .error-banner {
   margin: 12px; padding: 10px 14px;
@@ -233,6 +281,23 @@ body {
 </style>
 </head>
 <body>
+
+<!-- 비밀번호 잠금 화면 -->
+<div id="lockScreen">
+  <div class="lock-box">
+    <div class="lock-icon">🔐</div>
+    <div class="lock-title">투자 리서치 허브</div>
+    <div class="lock-subtitle">비밀번호를 입력하세요</div>
+    <div class="lock-input-wrap">
+      <input id="lockInput" class="lock-input" type="password"
+        placeholder="Password" autocomplete="current-password"
+        onkeydown="if(event.key==='Enter')unlock()">
+      <span class="lock-eye" onclick="togglePw()" title="비밀번호 보기">👁</span>
+    </div>
+    <div class="lock-err" id="lockErr"></div>
+    <button class="lock-btn" onclick="unlock()">입력</button>
+  </div>
+</div>
 
 <!-- 상단 탭바 -->
 <div class="topbar">
@@ -347,6 +412,44 @@ body {
 </div>
 
 <script>
+// ── 비밀번호 잠금 ──
+(function() {
+  const H = 'afc0e8e7b0b5b5ba71a60e8b3e2d7e7e94f9b1f0c0a0f1a7b4e3d9c8f2b6a5e1';
+  function hashStr(s) {
+    // 간단 해시 (SHA-256 대신 세션 내 검증용)
+    let h = 0;
+    for (let i = 0; i < s.length; i++) {
+      h = (Math.imul(31, h) + s.charCodeAt(i)) | 0;
+    }
+    return h.toString(16);
+  }
+  const CORRECT = 'K2h0918@'; // 실제 검증값
+  window.unlock = function() {
+    const val = document.getElementById('lockInput').value;
+    const input = document.getElementById('lockInput');
+    const err   = document.getElementById('lockErr');
+    if (val === CORRECT) {
+      document.getElementById('lockScreen').style.display = 'none';
+      sessionStorage.setItem('hub_auth', '1');
+      init();
+    } else {
+      input.classList.add('error');
+      err.textContent = '비밀번호가 틀렸습니다.';
+      setTimeout(() => { input.classList.remove('error'); input.value = ''; }, 600);
+    }
+  };
+  window.togglePw = function() {
+    const inp = document.getElementById('lockInput');
+    inp.type = inp.type === 'password' ? 'text' : 'password';
+  };
+  // 이미 인증된 세션이면 바로 열기
+  if (sessionStorage.getItem('hub_auth') === '1') {
+    document.addEventListener('DOMContentLoaded', () => {
+      document.getElementById('lockScreen').style.display = 'none';
+    });
+  }
+})();
+
 // ── 설정 ──
 const REPO_OWNER = 'C2Insight';
 const REPO_NAME  = 'MyTradingR';
@@ -624,7 +727,14 @@ async function init() {
   }
 }
 
-init();
+// init()은 unlock() 성공 후 호출됨
+// 이미 인증된 세션은 DOMContentLoaded에서 바로 init()
+document.addEventListener('DOMContentLoaded', () => {
+  if (sessionStorage.getItem('hub_auth') === '1') {
+    document.getElementById('lockScreen').style.display = 'none';
+    init();
+  }
+});
 </script>
 </body>
 </html>
