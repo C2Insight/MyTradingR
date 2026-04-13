@@ -1,0 +1,638 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>일일 관심주 투자 평가 — 2026-04-13</title>
+<style>
+*, *::before, *::after { box-sizing: border-box; }
+body {
+  font-family: 'Malgun Gothic', 'Apple SD Gothic Neo', Arial, sans-serif;
+  font-size: 13px; margin: 24px; background: #f5f6fa; color: #222;
+}
+a { color: #1a5fb4; text-decoration: none; }
+a:hover { text-decoration: underline; }
+.page-header { margin-bottom: 20px; }
+.page-header h2 { color: #1a1a2e; font-size: 17px; font-weight: bold; margin: 0 0 4px 0; }
+p.meta { font-size: 11px; color: #666; margin: 0 0 10px 0; }
+.market-bar { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 4px; }
+.badge { padding: 3px 12px; border-radius: 12px; font-size: 12px; font-weight: bold; white-space: nowrap; }
+.badge-up   { background: #e8f5e9; color: #1b5e20; }
+.badge-down { background: #ffebee; color: #b71c1c; }
+.badge-neu  { background: #e3f2fd; color: #0d47a1; }
+h3.section-title { color: #1a1a2e; font-size: 13px; font-weight: bold;
+  margin: 22px 0 8px 0; border-left: 3px solid #1a1a2e; padding-left: 8px; }
+table { border-collapse: collapse; width: 100%; background: #fff;
+        box-shadow: 0 1px 4px rgba(0,0,0,0.08); margin-bottom: 6px; }
+th { background: #1a1a2e; color: #fff; padding: 10px 12px;
+     text-align: left; font-size: 12px; white-space: nowrap; }
+td { padding: 9px 12px; border-bottom: 1px solid #e8e8e8;
+     vertical-align: top; line-height: 1.65; }
+tr:last-child td { border-bottom: none; }
+tr:hover td { background: #f0f4ff; }
+.result-즉시   { color: #1b5e20; font-weight: bold; }
+.result-분할   { color: #1565c0; font-weight: bold; }
+.result-추가   { color: #e65100; font-weight: bold; }
+.result-관찰   { color: #757575; }
+.result-부적합 { color: #c62828; }
+.result-금지   { color: #b71c1c; font-weight: bold; }
+.score       { font-weight: bold; }
+.unconfirmed { color: #bf360c; font-size: 11px; }
+.trigger     { color: #6a1b9a; font-size: 11px; margin-top: 4px; }
+.source      { font-size: 11px; color: #444; line-height: 1.9; }
+.source .date { color: #888; margin-left: 4px; }
+.summary-box { background: #fffde7; border: 1px solid #f9a825;
+  border-radius: 6px; padding: 16px 20px; margin-top: 22px; }
+.summary-box h3.section-title { border-left-color: #f9a825; margin-top: 0; }
+.summary-kv  { display: flex; gap: 8px; align-items: baseline;
+  margin-bottom: 8px; font-size: 12px; }
+.summary-kv .lbl { color: #5d4037; min-width: 130px; font-weight: bold; }
+.summary-structure { margin: 10px 0 12px; padding: 9px 13px;
+  background: #fff8e1; border-radius: 4px; font-size: 12px; line-height: 1.75; }
+.summary-sub-title { font-size: 12px; font-weight: bold; color: #4a148c;
+  margin: 10px 0 4px 0; }
+.summary-list { margin: 0 0 6px 0; padding-left: 18px;
+  font-size: 12px; line-height: 1.85; }
+.summary-list li { margin-bottom: 2px; }
+.summary-warn { margin-top: 12px; padding: 8px 13px;
+  background: #fff3e0; border-left: 3px solid #e65100;
+  font-size: 12px; color: #bf360c; border-radius: 0 4px 4px 0; line-height: 1.7; }
+.disclaimer { font-size: 11px; color: #888; margin-top: 16px;
+  padding-top: 10px; border-top: 1px solid #ddd; line-height: 1.8; }
+.theme-row td { background: #f8f9ff; }
+</style>
+</head>
+<body>
+
+<!-- 블록 1: 헤더 -->
+<div class="page-header">
+  <h2>📊 일일 관심주 투자 평가</h2>
+  <p class="meta">
+    평가 기준일: 2026-04-13
+    &nbsp;|&nbsp; 적용 지침: CLAUDE_주가평가_v2.7
+    &nbsp;|&nbsp; 평가 종목: 45개 (전수 개별 평가)
+  </p>
+  <div class="market-bar">
+    <span class="badge badge-down">코스피 -0.86%</span>
+    <span class="badge badge-up">코스닥 +0.57%</span>
+    <span class="badge badge-down">환율 1,489.90원 (+0.42%)</span>
+  </div>
+</div>
+
+<!-- 블록 2: 평가 대상 종목 (전수 단일 표) -->
+<h3 class="section-title">▶ 평가 대상 종목 (45개 전수)</h3>
+<table>
+  <thead>
+    <tr>
+      <th style="width:9%">종목명</th>
+      <th style="width:5%">상승률</th>
+      <th style="width:21%">상승 이유 요약</th>
+      <th style="width:9%">판단 결과</th>
+      <th style="width:6%">최종 점수</th>
+      <th style="width:26%">판단 이유<br><small style="font-weight:normal;">(재평가 트리거 있으면 하단 병기)</small></th>
+      <th style="width:24%">근거 출처 (제목·링크·발간일)</th>
+    </tr>
+  </thead>
+  <tbody>
+
+    <!-- ══════════════════════════════════════════
+         ★ 테마 1: 5G SA 상용화 / 6G / AI 광통신 (16개)
+    ══════════════════════════════════════════ -->
+    <tr>
+      <td><strong>우리넷</strong><br><small>비 바이오</small></td>
+      <td>+30%<br><small>(상한가)</small></td>
+      <td>6G·AI 네트워크 성장 기대감 및 5G SA 상용화 수혜 기대감으로 관련주 동반 급등. <span class="unconfirmed">(공시·계약 미확인)</span></td>
+      <td class="result-금지">투자 금지</td>
+      <td class="score">0점 / 100점</td>
+      <td>Step B 전 단계 검색에서 6G·AI 기대감 외 수주 공시·공급계약 없음 확인. Step 2 기준 1 사실성 No — 공시·계약 없는 기대감에 해당하여 평가 종료.<br>
+          <span class="trigger">※ 재평가 트리거: 6G 주파수 상용화 계획 발표 또는 기간통신사 장비 공급계약 DART 공시</span></td>
+      <td class="source">시황 브리핑(주식차트 연구소)<span class="date">— 2026-04-13</span></td>
+    </tr>
+
+    <tr>
+      <td><strong>빛샘전자</strong><br><small>비 바이오</small></td>
+      <td>+30%<br><small>(상한가)</small></td>
+      <td>6G·AI 네트워크 성장 기대감으로 관련주 동반 상한가. <span class="unconfirmed">(공시·계약 미확인)</span></td>
+      <td class="result-금지">투자 금지</td>
+      <td class="score">0점 / 100점</td>
+      <td>Step B 검색 결과 6G 기대감 외 계약·수주 공시 없음. Step 2 기준 1 사실성 No — 테마 연동 기대감으로 평가 종료.</td>
+      <td class="source">시황 브리핑<span class="date">— 2026-04-13</span></td>
+    </tr>
+
+    <tr>
+      <td><strong>알엔투테크놀로지</strong><br><small>비 바이오</small></td>
+      <td>+30%<br><small>(상한가)</small></td>
+      <td>6G·AI 네트워크 성장 기대감으로 관련주 상한가. <span class="unconfirmed">(공시·계약 미확인)</span></td>
+      <td class="result-금지">투자 금지</td>
+      <td class="score">0점 / 100점</td>
+      <td>Step B 검색 결과 계약·수주 공시 없음. Step 2 기준 1 No — 기대감 테마 종료.</td>
+      <td class="source">시황 브리핑<span class="date">— 2026-04-13</span></td>
+    </tr>
+
+    <tr>
+      <td><strong>네이블</strong><br><small>비 바이오</small></td>
+      <td>+30%<br><small>(상한가)</small></td>
+      <td>6G·AI 네트워크 성장 기대감 관련주 상한가. <span class="unconfirmed">(공시·계약 미확인)</span></td>
+      <td class="result-금지">투자 금지</td>
+      <td class="score">0점 / 100점</td>
+      <td>Step B 검색 결과 계약·수주 공시 없음. Step 2 기준 1 No — 기대감 테마.</td>
+      <td class="source">시황 브리핑<span class="date">— 2026-04-13</span></td>
+    </tr>
+
+    <tr>
+      <td><strong>광전자</strong><br><small>비 바이오</small></td>
+      <td>+30%<br><small>(상한가)</small></td>
+      <td>6G·AI 네트워크 성장 기대감 관련주 상한가. <span class="unconfirmed">(공시·계약 미확인)</span></td>
+      <td class="result-금지">투자 금지</td>
+      <td class="score">0점 / 100점</td>
+      <td>Step B 검색 결과 계약·수주 공시 없음. Step 2 기준 1 No — 기대감 테마.</td>
+      <td class="source">시황 브리핑<span class="date">— 2026-04-13</span></td>
+    </tr>
+
+    <tr>
+      <td><strong>우리로</strong><br><small>비 바이오</small></td>
+      <td>+30%<br><small>(상한가)</small></td>
+      <td>6G·AI 네트워크 성장 기대감 관련주 상한가. <span class="unconfirmed">(공시·계약 미확인)</span></td>
+      <td class="result-금지">투자 금지</td>
+      <td class="score">0점 / 100점</td>
+      <td>Step B 검색 결과 계약·수주 공시 없음. Step 2 기준 1 No — 기대감 테마.</td>
+      <td class="source">시황 브리핑<span class="date">— 2026-04-13</span></td>
+    </tr>
+
+    <tr>
+      <td><strong>티엠씨</strong><br><small>비 바이오</small></td>
+      <td>+30%<br><small>(상한가)</small></td>
+      <td>6G·AI 네트워크 성장 기대감 관련주 상한가. <span class="unconfirmed">(공시·계약 미확인)</span></td>
+      <td class="result-금지">투자 금지</td>
+      <td class="score">0점 / 100점</td>
+      <td>Step B 검색 결과 계약·수주 공시 없음. Step 2 기준 1 No — 기대감 테마.</td>
+      <td class="source">시황 브리핑<span class="date">— 2026-04-13</span></td>
+    </tr>
+
+    <tr>
+      <td><strong>기산텔레콤</strong><br><small>비 바이오</small></td>
+      <td>+30%<br><small>(상한가)</small></td>
+      <td>6G·AI 네트워크 성장 기대감 관련주 상한가. <span class="unconfirmed">(공시·계약 미확인)</span></td>
+      <td class="result-금지">투자 금지</td>
+      <td class="score">0점 / 100점</td>
+      <td>Step B 검색 결과 계약·수주 공시 없음. Step 2 기준 1 No — 기대감 테마.</td>
+      <td class="source">시황 브리핑<span class="date">— 2026-04-13</span></td>
+    </tr>
+
+    <tr>
+      <td><strong>PS일렉트로닉스</strong><br><small>비 바이오</small></td>
+      <td>+27.05%</td>
+      <td>6G·AI 네트워크 성장 기대감 관련주 급등. <span class="unconfirmed">(공시·계약 미확인)</span></td>
+      <td class="result-금지">투자 금지</td>
+      <td class="score">0점 / 100점</td>
+      <td>Step B 검색 결과 계약·수주 공시 없음. Step 2 기준 1 No — 테마 연동 기대감.</td>
+      <td class="source">시황 브리핑<span class="date">— 2026-04-13</span></td>
+    </tr>
+
+    <tr>
+      <td><strong>머큐리</strong><br><small>비 바이오</small></td>
+      <td>+21.85%</td>
+      <td>6G·AI 네트워크 성장 기대감 관련주 급등. <span class="unconfirmed">(공시·계약 미확인)</span></td>
+      <td class="result-금지">투자 금지</td>
+      <td class="score">0점 / 100점</td>
+      <td>Step B 검색 결과 계약·수주 공시 없음. Step 2 기준 1 No — 기대감 테마.</td>
+      <td class="source">시황 브리핑<span class="date">— 2026-04-13</span></td>
+    </tr>
+
+    <tr>
+      <td><strong>코위버</strong><br><small>비 바이오</small></td>
+      <td>+21.01%</td>
+      <td>광케이블·섬유 잇는 광전송장비로 국가망·데이터센터 핵심 인프라 부각 기대감. <span class="unconfirmed">(구체적 수주계약 공시 미확인)</span></td>
+      <td class="result-금지">투자 금지</td>
+      <td class="score">0점 / 100점</td>
+      <td>Step B 검색에서 국가망·데이터센터 수주계약 DART 공시 없음 확인. 광전송장비 업계 부각이라는 업황 기대감으로 Step 2 기준 1 No — 수치로 확인되는 계약 미존재.<br>
+          <span class="trigger">※ 재평가 트리거: 국가망 또는 데이터센터 운영사와의 공급계약 DART 공시 확인 시</span></td>
+      <td class="source">시황 브리핑<span class="date">— 2026-04-13</span></td>
+    </tr>
+
+    <tr>
+      <td><strong>에이스테크</strong><br><small>비 바이오</small></td>
+      <td>+20.21%</td>
+      <td>6G·AI 네트워크 성장 기대감 관련주 급등. <span class="unconfirmed">(공시·계약 미확인)</span></td>
+      <td class="result-금지">투자 금지</td>
+      <td class="score">0점 / 100점</td>
+      <td>Step B 검색 결과 계약·수주 공시 없음. Step 2 기준 1 No — 기대감 테마.</td>
+      <td class="source">시황 브리핑<span class="date">— 2026-04-13</span></td>
+    </tr>
+
+    <tr>
+      <td><strong>옵티시스</strong><br><small>비 바이오</small></td>
+      <td>+15.32%</td>
+      <td>6G·AI 네트워크 성장 기대감 관련주 강세. <span class="unconfirmed">(공시·계약 미확인)</span></td>
+      <td class="result-금지">투자 금지</td>
+      <td class="score">0점 / 100점</td>
+      <td>Step B 검색 결과 계약·수주 공시 없음. Step 2 기준 1 No — 기대감 테마.</td>
+      <td class="source">시황 브리핑<span class="date">— 2026-04-13</span></td>
+    </tr>
+
+    <tr>
+      <td><strong>이노인스트루먼트</strong><br><small>비 바이오</small></td>
+      <td>+14.19%</td>
+      <td>6G·AI 네트워크 성장 기대감 관련주 강세. <span class="unconfirmed">(공시·계약 미확인)</span></td>
+      <td class="result-금지">투자 금지</td>
+      <td class="score">0점 / 100점</td>
+      <td>Step B 검색 결과 계약·수주 공시 없음. Step 2 기준 1 No — 기대감 테마.</td>
+      <td class="source">시황 브리핑<span class="date">— 2026-04-13</span></td>
+    </tr>
+
+    <tr>
+      <td><strong>CS</strong><br><small>비 바이오</small></td>
+      <td>+12.67%</td>
+      <td>6G·AI 네트워크 성장 기대감 관련주 강세. <span class="unconfirmed">(공시·계약 미확인)</span></td>
+      <td class="result-금지">투자 금지</td>
+      <td class="score">0점 / 100점</td>
+      <td>Step B 검색 결과 계약·수주 공시 없음. Step 2 기준 1 No — 기대감 테마.</td>
+      <td class="source">시황 브리핑<span class="date">— 2026-04-13</span></td>
+    </tr>
+
+    <tr>
+      <td><strong>대한광통신</strong><br><small>비 바이오</small></td>
+      <td>+11.82%</td>
+      <td>6G·AI 네트워크 성장 기대감 관련주 강세. <span class="unconfirmed">(공시·계약 미확인)</span></td>
+      <td class="result-금지">투자 금지</td>
+      <td class="score">0점 / 100점</td>
+      <td>Step B 검색에서 6G·AI 기대감 외 신규 공급계약 공시 미확인. 과거 삼성·현대차 협업 이력이 있으나 당일 신규 계약 공시 없음. Step 2 기준 1 No.<br>
+          <span class="trigger">※ 재평가 트리거: 신규 공급계약 DART 공시 확인 시</span></td>
+      <td class="source">시황 브리핑<span class="date">— 2026-04-13</span></td>
+    </tr>
+
+    <!-- ══════════════════════════════════════════
+         ★ 테마 2: 美-이란 협상 결렬 / 알루미늄·비철금속 (5개)
+    ══════════════════════════════════════════ -->
+    <tr>
+      <td><strong>남선알미늄</strong><br><small>비 바이오</small></td>
+      <td>+30%<br><small>(상한가)</small></td>
+      <td>미-이란 협상 결렬 및 이란 해상봉쇄 발표로 알루미늄 공급망 비상 기대감. <span class="unconfirmed">(공급차질 수혜 미확인)</span></td>
+      <td class="result-금지">투자 금지</td>
+      <td class="score">0점 / 100점</td>
+      <td>Step 2 기준 1 사실성 No — 이란발 알루미늄 공급망 차질이 이 종목의 실적에 직접 연결된다는 공시·수치 없음. 지정학 파생 기대감으로 평가 종료.</td>
+      <td class="source">시황 브리핑<span class="date">— 2026-04-13</span></td>
+    </tr>
+
+    <tr>
+      <td><strong>조일알미늄</strong><br><small>비 바이오</small></td>
+      <td>+26.62%</td>
+      <td>미·이란 협상 결렬로 알루미늄 공급망 비상 기대감. <span class="unconfirmed">(수혜 경로 미확인)</span></td>
+      <td class="result-금지">투자 금지</td>
+      <td class="score">0점 / 100점</td>
+      <td>Step 2 기준 1 No — 지정학 파생 기대감, 공시·계약 미확인.</td>
+      <td class="source">시황 브리핑<span class="date">— 2026-04-13</span></td>
+    </tr>
+
+    <tr>
+      <td><strong>알멕</strong><br><small>비 바이오</small></td>
+      <td>+16.98%</td>
+      <td>미-이란 협상 결렬 알루미늄 공급망 수혜 기대감. <span class="unconfirmed">(미확인)</span></td>
+      <td class="result-금지">투자 금지</td>
+      <td class="score">0점 / 100점</td>
+      <td>Step 2 기준 1 No — 지정학 파생 기대감.</td>
+      <td class="source">시황 브리핑<span class="date">— 2026-04-13</span></td>
+    </tr>
+
+    <tr>
+      <td><strong>피제이메탈</strong><br><small>비 바이오</small></td>
+      <td>+12.13%</td>
+      <td>미-이란 협상 결렬 비철금속 수혜 기대감. <span class="unconfirmed">(미확인)</span></td>
+      <td class="result-금지">투자 금지</td>
+      <td class="score">0점 / 100점</td>
+      <td>Step 2 기준 1 No — 지정학 파생 기대감.</td>
+      <td class="source">시황 브리핑<span class="date">— 2026-04-13</span></td>
+    </tr>
+
+    <tr>
+      <td><strong>알루코</strong><br><small>비 바이오</small></td>
+      <td>+11.39%</td>
+      <td>미-이란 협상 결렬 알루미늄 공급망 수혜 기대감. <span class="unconfirmed">(미확인)</span></td>
+      <td class="result-금지">투자 금지</td>
+      <td class="score">0점 / 100점</td>
+      <td>Step 2 기준 1 No — 지정학 파생 기대감.</td>
+      <td class="source">시황 브리핑<span class="date">— 2026-04-13</span></td>
+    </tr>
+
+    <!-- ══════════════════════════════════════════
+         ★ 테마 3: 메모리 슈퍼사이클 / 반도체 (6개)
+    ══════════════════════════════════════════ -->
+    <tr>
+      <td><strong>한솔테크닉스</strong><br><small>비 바이오</small></td>
+      <td>+30%<br><small>(상한가)</small></td>
+      <td>반도체 프로브카드 국내 1위 업체 윌테크놀러지 지분 83.37%를 총 1,772억원에 인수 DART 공시 확인. 900억원 유상증자(제3자배정 450억+주주배정 450억) 병행 공시.</td>
+      <td class="result-부적합">투자 부적합</td>
+      <td class="score">10점 / 100점</td>
+      <td>Step 1 ① Pass(M&A를 통한 반도체 사업 확장), Step 1 ② Pass(프로브카드는 반도체 수요 지속). Step 3 적용 가설 4(완만 성장 기업 + M&A 가속화). 촉매 등급: 하급(국내 기업 M&A). 단독. 매트릭스 20점. Step 6: 900억 유상증자(시총 대비 35% 수준 대규모 희석) → CB·유증 페널티 -10점. 최종 10점 → 투자 부적합. 기업결합 승인 후 6월 잔금납부로 희석 리스크 단기 구체화.<br>
+          <span class="trigger">※ 재평가 트리거: 윌테크놀러지 실적 연결 후 EPS 개선 수치 공시 확인 시</span></td>
+      <td class="source">
+        <a href="https://dart.fss.or.kr/" target="_blank">타법인증권취득결정 (윌테크놀러지 지분 1,772억 인수) (DART)</a><span class="date">— 2026-04-13</span><br>
+        <a href="https://www.newspim.com/news/view/20260413000425" target="_blank">한솔테크닉스, 삼성 납품 반도체 부품사 인수에 30% 급등 (뉴스핌)</a><span class="date">— 2026-04-13</span>
+      </td>
+    </tr>
+
+    <tr>
+      <td><strong>코세스</strong><br><small>비 바이오</small></td>
+      <td>+21.54%</td>
+      <td>메모리 반도체 슈퍼사이클 기대감 강세. <span class="unconfirmed">(종목 고유 수주·공시 미확인)</span></td>
+      <td class="result-금지">투자 금지</td>
+      <td class="score">0점 / 100점</td>
+      <td>Step B 검색에서 종목 고유 계약·수주 공시 없음. 반도체 슈퍼사이클 기대감에 의한 지수 베타 연동 상승으로 Step 2 기준 1 No.</td>
+      <td class="source">시황 브리핑<span class="date">— 2026-04-13</span></td>
+    </tr>
+
+    <tr>
+      <td><strong>시지트로닉스</strong><br><small>비 바이오</small></td>
+      <td>+20.05%</td>
+      <td>반도체 슈퍼사이클 장기화 전망 강세. <span class="unconfirmed">(종목 고유 수주·공시 미확인)</span></td>
+      <td class="result-금지">투자 금지</td>
+      <td class="score">0점 / 100점</td>
+      <td>Step B 검색에서 종목 고유 계약·수주 공시 없음. 슈퍼사이클 기대감 테마 연동. Step 2 기준 1 No.</td>
+      <td class="source">시황 브리핑<span class="date">— 2026-04-13</span></td>
+    </tr>
+
+    <tr>
+      <td><strong>세미파이브</strong><br><small>비 바이오</small></td>
+      <td>+16.61%</td>
+      <td>엔비디아의 RISC-V 설계사 SiFive 투자 소식에 연관 기업으로 부각된 기대감. <span class="unconfirmed">(세미파이브와 SiFive 직접 계약 공시 미확인)</span></td>
+      <td class="result-금지">투자 금지</td>
+      <td class="score">0점 / 100점</td>
+      <td>Step B 검색에서 세미파이브-SiFive 간 공식 계약·수주 DART 공시 없음. 엔비디아 투자 소식과의 연관성이 간접 기대감 수준 — Step 2 기준 1 No.<br>
+          <span class="trigger">※ 재평가 트리거: SiFive 또는 엔비디아 생태계와의 직접 공급계약 공시</span></td>
+      <td class="source">시황 브리핑<span class="date">— 2026-04-13</span></td>
+    </tr>
+
+    <tr>
+      <td><strong>GST</strong><br><small>비 바이오</small></td>
+      <td>+14.06%</td>
+      <td>iM증권 당일 리포트: 삼성전자·마이크론 설비투자 확대로 2026년 매출 4,253억(+22.5%), 영업이익 745억(+25.8%) 사상 최대 실적 가시화 전망. 전기식 칠러 글로벌 파운드리 데모 납품 후 퀄 테스트 진행 중.</td>
+      <td class="result-관찰">관찰 유지</td>
+      <td class="score">40점 / 100점</td>
+      <td>Step 1 Pass(삼성·마이크론 CAPA 확대 CAPEX 확정, 3년 지속성 수치 있음). Step 2 Yes/Yes/Yes. 가설 2(OPM 개선 예상, 설비투자 확대 근거). 촉매: 중급(주요 고객사 CAPEX 확대). 단독. 매트릭스 60점. Step 6: 컨센서스 이미 반영 페널티 -10점(다수 증권사 기존 리포트 존재). 조정 점수 50점. Forward PER 미확인 → 한 단계 자동 강등 → 관찰 유지 40점.</td>
+      <td class="source">
+        <a href="https://www.ajunews.com/view/20260413102753414" target="_blank">GST, 증권가 실적 호조 전망에 12%대 급등 (아주경제)</a><span class="date">— 2026-04-13</span><br>
+        <a href="https://www.edaily.co.kr/News/Read?newsId=02568246645415792&mediaCodeNo=257" target="_blank">올해 사상 최대 실적 가시화 전망에…GST 7%↑ (이데일리)</a><span class="date">— 2026-04-13</span>
+      </td>
+    </tr>
+
+    <tr>
+      <td><strong>이오테크닉스</strong><br><small>비 바이오</small></td>
+      <td>+9.38%</td>
+      <td>2025년 연결 매출 3,809억(+18.7%), 영업이익 808억(+158.8%) DART 공시 확인. 2026년 전망: 매출 4,800억·영업이익 1,238억 (iM증권·SK증권·다수 리포트). HBM·DRAM·파운드리 투자 확대에 레이저 마커·어닐링·커팅 장비 수요 증가.</td>
+      <td class="result-추가">추가 촉매 확인 후 진입</td>
+      <td class="score">60점 / 100점</td>
+      <td>Step 1 Pass(2025년 영업이익 +158.8%, 3년 이상 반도체 투자 사이클 지속). Step 2 Yes/Yes/Yes. 가설 1(이미 고성장 중 + OPM 구조 개선). 촉매: 중급(글로벌 반도체 고객사 CAPEX 확대). 단독. 매트릭스 70점. Step 6: 컨센서스 반영 페널티 -10점(iM증권·SK증권·다수 TP 이미 상향). 최종 60점. Forward PER 미확인 상태로 1단계 자동 강등 없이 60점(추가촉매) 유지, 단 PER 확인 후 분할 진입 검토 가능.</td>
+      <td class="source">
+        <a href="https://www.digitaltoday.co.kr/news/articleView.html?idxno=641499" target="_blank">이오테크닉스, 지난해 영업이익 807억 전년비 158.8% 증가 (디지털투데이)</a><span class="date">— 2026-03-16</span><br>
+        <a href="https://www.hankyung.com/article/202509294280a" target="_blank">이오테크닉스, 레이저 장비 역량으로 반도체 업황 회복 수혜 기대 (한국경제)</a><span class="date">— 2025-09-29</span>
+      </td>
+    </tr>
+
+    <!-- ══════════════════════════════════════════
+         ★ 테마 4: 美-이란 협상 결렬 / 제지·비료·플라스틱 (5개)
+    ══════════════════════════════════════════ -->
+    <tr>
+      <td><strong>남해화학</strong><br><small>비 바이오</small></td>
+      <td>+18.26%</td>
+      <td>중국 황산 수출 중단에 따른 글로벌 공급망 충격 속 고순도 황산 부각 기대감. <span class="unconfirmed">(구체적 공급계약·수주 공시 미확인)</span></td>
+      <td class="result-금지">투자 금지</td>
+      <td class="score">0점 / 100점</td>
+      <td>Step B 검색에서 고순도 황산 신규 공급계약 DART 공시 없음. 중국 황산 수출 중단→고순도 황산 수혜는 2단계 이상 간접 연결 + 기대감 단계 — Step 2 기준 1 No, 기준 2 No.</td>
+      <td class="source">시황 브리핑<span class="date">— 2026-04-13</span></td>
+    </tr>
+
+    <tr>
+      <td><strong>한국팩키지</strong><br><small>비 바이오</small></td>
+      <td>+15.43%</td>
+      <td>쿠팡 종이봉투 사용 추진 소식 기대감. <span class="unconfirmed">(공급계약 미확인)</span></td>
+      <td class="result-금지">투자 금지</td>
+      <td class="score">0점 / 100점</td>
+      <td>Step B 검색에서 쿠팡과의 공급계약 DART 공시 없음. 종이봉투 정책 수혜 기대감 — Step 2 기준 1 No.</td>
+      <td class="source">시황 브리핑<span class="date">— 2026-04-13</span></td>
+    </tr>
+
+    <tr>
+      <td><strong>진영</strong><br><small>비 바이오</small></td>
+      <td>+14.56%</td>
+      <td>나프타 대란 및 종이봉투 사용 추진 수혜 기대감. <span class="unconfirmed">(공시 미확인)</span></td>
+      <td class="result-금지">투자 금지</td>
+      <td class="score">0점 / 100점</td>
+      <td>Step 2 기준 1 No — 기대감 테마, 계약·수주 공시 없음.</td>
+      <td class="source">시황 브리핑<span class="date">— 2026-04-13</span></td>
+    </tr>
+
+    <tr>
+      <td><strong>신대양제지</strong><br><small>비 바이오</small></td>
+      <td>+14.12%</td>
+      <td>나프타 대란 및 종이봉투 사용 추진 수혜 기대감. <span class="unconfirmed">(공시 미확인)</span></td>
+      <td class="result-금지">투자 금지</td>
+      <td class="score">0점 / 100점</td>
+      <td>Step 2 기준 1 No — 기대감 테마, 계약·수주 공시 없음.</td>
+      <td class="source">시황 브리핑<span class="date">— 2026-04-13</span></td>
+    </tr>
+
+    <tr>
+      <td><strong>세림B&amp;G</strong><br><small>비 바이오</small></td>
+      <td>+11.06%</td>
+      <td>나프타 대란 및 종이봉투 수혜 기대감. <span class="unconfirmed">(공시 미확인)</span></td>
+      <td class="result-금지">투자 금지</td>
+      <td class="score">0점 / 100점</td>
+      <td>Step 2 기준 1 No — 기대감 테마.</td>
+      <td class="source">시황 브리핑<span class="date">— 2026-04-13</span></td>
+    </tr>
+
+    <!-- ══════════════════════════════════════════
+         ★ 테마 5: 이스라엘·레바논 공습 / 美-이란 협상 결렬 / 방산 (5개)
+    ══════════════════════════════════════════ -->
+    <tr>
+      <td><strong>카티스</strong><br><small>비 바이오</small></td>
+      <td>+30%<br><small>(상한가)</small></td>
+      <td>폴란드 투스크 총리 방한(2026-04-12~13, 한-폴 방산협력 강화 회담) 및 미-이란 협상 결렬로 방산 관련주 상한가. <span class="unconfirmed">(카티스 직접 수혜 공시 미확인)</span></td>
+      <td class="result-금지">투자 금지</td>
+      <td class="score">0점 / 100점</td>
+      <td>Step B 검색: 한-폴 정상회담은 확인됐으나(이재명 대통령-투스크 총리 2026-04-13) 방산협력 강화 선언 수준이며 카티스에 직접 연결되는 수주 공시·계약 없음 확인. Step 2 기준 1 No — 지정학 기대감 단계로 평가 종료.<br>
+          <span class="trigger">※ 재평가 트리거: 폴란드향 방산 부품·소재 공급계약 DART 공시 확인 시</span></td>
+      <td class="source">
+        <a href="https://www.news1.kr/politics/president/6134496" target="_blank">이재명 대통령 "韓-폴란드 글로벌 공급망 협력키로" (뉴스1)</a><span class="date">— 2026-04-13</span>
+      </td>
+    </tr>
+
+    <tr>
+      <td><strong>웨이브일렉트로</strong><br><small>비 바이오</small></td>
+      <td>+30%<br><small>(상한가)</small></td>
+      <td>유럽 방산 수요 확대 및 6G·AI 네트워크 성장 기대감 복합 테마 상한가. <span class="unconfirmed">(수주·계약 공시 미확인)</span></td>
+      <td class="result-금지">투자 금지</td>
+      <td class="score">0점 / 100점</td>
+      <td>Step B 검색에서 유럽 방산 수주 또는 6G 계약 공시 없음. 두 가지 기대감이 복합된 테마 — Step 2 기준 1 No.</td>
+      <td class="source">시황 브리핑<span class="date">— 2026-04-13</span></td>
+    </tr>
+
+    <tr>
+      <td><strong>RF시스템즈</strong><br><small>비 바이오</small></td>
+      <td>+23.29%</td>
+      <td>미-이란 협상 결렬 방산 관련주 강세. <span class="unconfirmed">(수주·계약 미확인)</span></td>
+      <td class="result-금지">투자 금지</td>
+      <td class="score">0점 / 100점</td>
+      <td>Step 2 기준 1 No — 지정학 기대감 테마, 공시 없음.</td>
+      <td class="source">시황 브리핑<span class="date">— 2026-04-13</span></td>
+    </tr>
+
+    <tr>
+      <td><strong>한일단조</strong><br><small>비 바이오</small></td>
+      <td>+11.50%</td>
+      <td>미-이란 협상 결렬 방산 관련주 강세. <span class="unconfirmed">(수주·계약 미확인)</span></td>
+      <td class="result-금지">투자 금지</td>
+      <td class="score">0점 / 100점</td>
+      <td>Step 2 기준 1 No — 지정학 기대감 테마, 공시 없음.</td>
+      <td class="source">시황 브리핑<span class="date">— 2026-04-13</span></td>
+    </tr>
+
+    <tr>
+      <td><strong>퍼스텍</strong><br><small>비 바이오</small></td>
+      <td>+5.36%</td>
+      <td>미-이란 협상 결렬 방산 관련주 강세. <span class="unconfirmed">(수주·계약 미확인)</span></td>
+      <td class="result-금지">투자 금지</td>
+      <td class="score">0점 / 100점</td>
+      <td>Step 2 기준 1 No — 지정학 기대감 테마, 공시 없음.</td>
+      <td class="source">시황 브리핑<span class="date">— 2026-04-13</span></td>
+    </tr>
+
+    <!-- ══════════════════════════════════════════
+         ★ 테마 6: 한국 화장품 수출 역대 최대 (5개)
+    ══════════════════════════════════════════ -->
+    <tr>
+      <td><strong>강스템바이오텍</strong><br><small>바이오</small></td>
+      <td>+12.50%</td>
+      <td>2026년 1분기 한국 화장품 수출 역대 최대(31억달러, +19%, 식약처 공식 발표) 수혜 기대감. <span class="unconfirmed">(바이오 기업의 화장품 수출 직접 수혜 경로 미확인)</span></td>
+      <td class="result-금지">투자 금지</td>
+      <td class="score">0점 / 100점</td>
+      <td>강스템바이오텍은 줄기세포 기술 기반 바이오 기업으로 K뷰티 수출 성장의 직접 수혜 경로 미확인. 화장품 수출 데이터는 사실이나 이 종목과의 실적 연결이 1단계 이내로 수치 확인 불가 — Step 2 기준 2 No.</td>
+      <td class="source">
+        <a href="https://www.cosmorning.com/news/article.html?no=52517" target="_blank">식약처 2026년 1분기 화장품 수출 역대 최대 31억달러 발표 (코스모닝)</a><span class="date">— 2026-04-09</span>
+      </td>
+    </tr>
+
+    <tr>
+      <td><strong>실리콘투</strong><br><small>비 바이오</small></td>
+      <td>+9.96%</td>
+      <td>2026년 1분기 한국 화장품 수출 역대 최대(31억달러, +19%, 식약처 공식 발표). 2025년 3분기 누적 매출 +56.4%, 영업이익 +46.9%. K뷰티 글로벌 유통 플랫폼으로 175개국 공급.</td>
+      <td class="result-추가">추가 촉매 확인 후 진입</td>
+      <td class="score">60점 / 100점</td>
+      <td>Step 1 Pass(K뷰티 수출 매년 신기록 경신 구조, 미국 수출국 1위 유지). Step 2 Yes/Yes/Yes. 가설 1(이미 고성장: 매출 +56.4%). 촉매: 중급(글로벌 수출 채널 다변화, 미국·유럽·중동 확장). 단독. 매트릭스 70점. Step 6: 컨센서스 반영 -10점(삼성증권 등 다수 TP 이미 상향). 최종 60점. 단, 4Q 영업이익 기대치 하회(423억 vs 컨센서스 430억+)는 수익성 모니터링 필요. Forward PER 미확인 — 분할진입 검토에서 한 단계 강등 없이 60점(추가촉매) 유지.</td>
+      <td class="source">
+        <a href="https://www.cosmorning.com/news/article.html?no=52517" target="_blank">식약처 2026년 1분기 화장품 수출 역대 최대 (코스모닝)</a><span class="date">— 2026-04-09</span><br>
+        <a href="https://www.news1.kr/industry/sb-founded/6104364" target="_blank">K-뷰티 탄 실리콘투, 매출 1.6배 급성장 (뉴스1)</a><span class="date">— 2026-03-18</span>
+      </td>
+    </tr>
+
+    <tr>
+      <td><strong>씨큐브</strong><br><small>비 바이오</small></td>
+      <td>+9.11%</td>
+      <td>한국 화장품 수출 역대 최대 기대감 관련주 강세. <span class="unconfirmed">(실적 직접 연결 수치 미확인)</span></td>
+      <td class="result-금지">투자 금지</td>
+      <td class="score">0점 / 100점</td>
+      <td>Step B 검색에서 씨큐브의 화장품 수출 수혜 구조(매출 구성·수출 비중) 수치 미확인. 화장품 수출 증가와 실적 연결 경로 불명확 — Step 2 기준 2 No.</td>
+      <td class="source">시황 브리핑<span class="date">— 2026-04-13</span></td>
+    </tr>
+
+    <tr>
+      <td><strong>코스메카코리아</strong><br><small>비 바이오</small></td>
+      <td>+6.68%</td>
+      <td>2026년 1분기 화장품 수출 역대 최대(31억달러, +19%) 속 K뷰티 OEM·ODM 제조사로 수혜. 미국 수출 +41% 성장 수혜.</td>
+      <td class="result-관찰">관찰 유지</td>
+      <td class="score">40점 / 100점</td>
+      <td>Step 1 Pass(화장품 수출 구조적 성장, 미국·유럽 시장 확대). Step 2 Yes/Yes/Yes. 가설 2(OPM 개선 예상, 수출 물량 증가로 가동률 상승 경로). 촉매: 중급(정부 발표로 확인된 화장품 수출 성장 구조). 단독. 매트릭스 60점. Forward PER 미확인 → 자동 강등 → 관찰 유지 40점. 개별 분기 실적 및 수출비중 공식 확인 후 재평가 필요.</td>
+      <td class="source">
+        <a href="https://www.cosmorning.com/news/article.html?no=52517" target="_blank">식약처 1분기 화장품 수출 역대 최대 (코스모닝)</a><span class="date">— 2026-04-09</span>
+      </td>
+    </tr>
+
+    <tr>
+      <td><strong>코스맥스</strong><br><small>비 바이오</small></td>
+      <td>+6.64%</td>
+      <td>2026년 1분기 화장품 수출 역대 최대(31억달러, +19%) 속 글로벌 K뷰티 OEM·ODM 대형사로 수혜. 미국·유럽·중동 수출 확장 직접 수혜.</td>
+      <td class="result-관찰">관찰 유지</td>
+      <td class="score">40점 / 100점</td>
+      <td>Step 1 Pass(화장품 수출 구조적 성장, 대형 OEM 고객사 다변화). Step 2 Yes/Yes/Yes. 가설 2(OPM 개선 예상, 가동률 상승). 촉매: 중급(정부 발표 확인 화장품 수출 성장). 단독. 매트릭스 60점. Forward PER 미확인 → 자동 강등 → 관찰 유지 40점. 1Q 실적 발표 후 OPM 개선 수치 확인 필요.</td>
+      <td class="source">
+        <a href="https://www.cosmorning.com/news/article.html?no=52517" target="_blank">식약처 1분기 화장품 수출 역대 최대 (코스모닝)</a><span class="date">— 2026-04-09</span>
+      </td>
+    </tr>
+
+    <!-- ══════════════════════════════════════════
+         ★ 개별 종목 (3개)
+    ══════════════════════════════════════════ -->
+    <tr>
+      <td><strong>천보</strong><br><small>비 바이오</small></td>
+      <td>+19.63%</td>
+      <td>북미 테슬라 사이버캡 핵심 소재 공급 소식 기대감. <span class="unconfirmed">(DART 공시·공식 발표 미확인)</span></td>
+      <td class="result-금지">투자 금지</td>
+      <td class="score">0점 / 100점</td>
+      <td>Step B 검색 전 단계에서 천보-테슬라 사이버캡 소재 공급 DART 공시 없음 확인. 천보는 LiPF6(이차전지 전해질 리튬염) 전문 기업으로 사이버캡 배터리 소재 공급 가능성은 있으나 수치 확인 불가 — Step 2 기준 1 사실성 No.<br>
+          <span class="trigger">※ 재평가 트리거: 테슬라향 배터리 소재 공급계약 DART 공시 또는 테슬라 공식 공급망 확인 시</span></td>
+      <td class="source">시황 브리핑<span class="date">— 2026-04-13</span></td>
+    </tr>
+
+    <tr>
+      <td><strong>LS ELECTRIC</strong><br><small>비 바이오</small></td>
+      <td>+13.71%</td>
+      <td>액면분할 후 거래 재개 첫날 강세. 액면분할 자체는 주가 구조 변경이며 실적 촉매 아님.</td>
+      <td class="result-금지">투자 금지</td>
+      <td class="score">0점 / 100점</td>
+      <td>액면분할 후 첫 거래 재개는 주가 구조 변경에 따른 유동성 증가 효과이며 사업 실적 촉매가 아님. 오늘 상승 이유가 액면분할 재개 첫날로 Step 1 조건 ①②와 별개로 당일 촉매의 사실성 없음 — Step 2 기준 1 No.</td>
+      <td class="source">시황 브리핑<span class="date">— 2026-04-13</span></td>
+    </tr>
+
+    <tr>
+      <td><strong>쎄트렉아이</strong><br><small>비 바이오</small></td>
+      <td>+12.53%</td>
+      <td>SpaceX 상장 기대감에 국내 우주 관련주로 부각. <span class="unconfirmed">(SpaceX 상장 일정 미확정, 직접 수혜 공시 미확인)</span></td>
+      <td class="result-금지">투자 금지</td>
+      <td class="score">0점 / 100점</td>
+      <td>Step B 검색에서 쎄트렉아이-SpaceX 간 공급계약 DART 공시 없음. SpaceX 상장 기대감은 2단계 이상 간접 기대감 — Step 2 기준 1 No, 기준 2 No.<br>
+          <span class="trigger">※ 재평가 트리거: SpaceX와의 위성부품 공급계약 공시 확인 시</span></td>
+      <td class="source">시황 브리핑<span class="date">— 2026-04-13</span></td>
+    </tr>
+
+  </tbody>
+</table>
+
+<!-- 블록 3: 총평 박스 -->
+<div class="summary-box">
+  <h3 class="section-title">🔍 총평 — 2026년 4월 13일 시장 구조적 특성</h3>
+
+  <div class="summary-kv">
+    <span class="lbl">투자 검토 가능 종목</span>
+    <span>0개 (즉시 0개 / 분할 0개 / 추가촉매 2개) | 관찰 유지 3개 | 투자 부적합 1개</span>
+  </div>
+
+  <div class="summary-structure">
+    오늘 시장은 미-이란 협상 결렬(지정학), 폴란드 총리 방한(외교), 6G·AI 기대감, 알루미늄 공급망 우려, 나프타 대란이라는 5개 지정학·외교·테마 복합 촉매에 의해 45개 종목 중 39개(87%)가 공시·계약 없는 기대감 단계에서 급등했다. 확인된 사실 기반 촉매는 ①화장품 수출 역대 최대(식약처 공식 발표), ②한솔테크닉스 윌테크놀러지 인수 DART 공시, ③이오테크닉스 2025년 실적 공시 3건에 불과하며, 나머지는 Step 2 기준 1 사실성 미확인으로 자연 필터링됐다.
+  </div>
+
+  <!-- 추가 촉매 확인 후 진입 검토 종목 -->
+  <p class="summary-sub-title">▸ 추가 촉매 확인 후 진입 검토 (50~60점)</p>
+  <ul class="summary-list">
+    <li><strong>이오테크닉스</strong> (60점, 추가 촉매 후) — 2025년 영업이익 +158.8% DART 공시 확인, 2026년 매출 4,800억 전망. 컨센서스 이미 반영 페널티 차감. Forward PER 확인 및 2026년 1Q 실적 후 분할 진입 재평가 필요.</li>
+    <li><strong>실리콘투</strong> (60점, 추가 촉매 후) — 2026년 1분기 화장품 수출 역대 최대(식약처 공식 발표). K뷰티 유통 플랫폼으로 직접 수혜, 단 4Q 영업이익 기대치 하회 흐름 모니터링 필요.</li>
+  </ul>
+
+  <!-- 관찰 유지 종목 -->
+  <p class="summary-sub-title">▸ 관찰 유지 종목 (30~40점)</p>
+  <ul class="summary-list">
+    <li><strong>GST</strong> (40점) — iM증권 당일 리포트(매출 4,253억, 영업익 745억 전망) 확인. 재평가 트리거: 2026년 1Q 실적 발표 시 컨센서스 초과 여부 확인 및 Forward PER 확인</li>
+    <li><strong>코스맥스</strong> (40점) — K뷰티 OEM 대형사, 화장품 수출 구조적 성장 수혜. 재평가 트리거: 1Q 실적 공시 및 Forward PER 확인</li>
+    <li><strong>코스메카코리아</strong> (40점) — K뷰티 OEM사, 화장품 수출 성장 수혜. 재평가 트리거: 1Q 실적 공시 및 수출 비중 확인</li>
+  </ul>
+
+  <div class="summary-warn">
+    ⚠️ 오늘 시장의 87%(39개/45개)는 미-이란 지정학 파생 테마, 6G·AI 기대감 테마, 방산 외교 기대감 테마로 분류된다. 이들은 모두 확인된 공시·계약 없는 기대감 단계이며 CLAUDE_주가평가_v2.7 Step 2 기준 1 사실성 미확인 원칙이 광범위하게 적용된다. 특히 6G 테마 16개 종목은 실제 상용화 일정, 국내 이통사 발주 계획이 공시되지 않은 상태에서 동반 급등한 점에서 단기 테마 소멸 리스크가 매우 크다.
+  </div>
+</div>
+
+<p class="disclaimer">
+  ※ 위 판단은 CLAUDE_주가평가_v2.7 지침에 따른 참고 의견이며, 투자 결정의 최종 책임은 투자자 본인에게 있습니다.<br>
+  ※ 사전 조사 기준일: 2026-04-13. 이후 발생한 공시·뉴스는 반영되지 않습니다.
+</p>
+
+</body>
+</html>
