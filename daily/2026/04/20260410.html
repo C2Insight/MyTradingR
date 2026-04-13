@@ -1,0 +1,626 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>일일 관심주 투자 평가 — 2026-04-10</title>
+<style>
+*, *::before, *::after { box-sizing: border-box; }
+body {
+  font-family: 'Malgun Gothic', 'Apple SD Gothic Neo', Arial, sans-serif;
+  font-size: 13px; margin: 24px; background: #f5f6fa; color: #222;
+}
+a { color: #1a5fb4; text-decoration: none; }
+a:hover { text-decoration: underline; }
+.page-header { margin-bottom: 20px; }
+.page-header h2 { color: #1a1a2e; font-size: 17px; font-weight: bold; margin: 0 0 4px 0; }
+p.meta { font-size: 11px; color: #666; margin: 0 0 10px 0; }
+.market-bar { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 4px; }
+.badge { padding: 3px 12px; border-radius: 12px; font-size: 12px; font-weight: bold; white-space: nowrap; }
+.badge-up   { background: #e8f5e9; color: #1b5e20; }
+.badge-down { background: #ffebee; color: #b71c1c; }
+.badge-neu  { background: #e3f2fd; color: #0d47a1; }
+h3.section-title { color: #1a1a2e; font-size: 13px; font-weight: bold;
+  margin: 22px 0 8px 0; border-left: 3px solid #1a1a2e; padding-left: 8px; }
+table { border-collapse: collapse; width: 100%; background: #fff;
+        box-shadow: 0 1px 4px rgba(0,0,0,0.08); margin-bottom: 6px; }
+th { background: #1a1a2e; color: #fff; padding: 10px 12px;
+     text-align: left; font-size: 12px; white-space: nowrap; }
+td { padding: 9px 12px; border-bottom: 1px solid #e8e8e8;
+     vertical-align: top; line-height: 1.65; }
+tr:last-child td { border-bottom: none; }
+tr:hover td { background: #f0f4ff; }
+.result-즉시   { color: #1b5e20; font-weight: bold; }
+.result-분할   { color: #1565c0; font-weight: bold; }
+.result-추가   { color: #e65100; font-weight: bold; }
+.result-관찰   { color: #757575; }
+.result-부적합 { color: #c62828; }
+.result-금지   { color: #b71c1c; font-weight: bold; }
+.score       { font-weight: bold; }
+.unconfirmed { color: #bf360c; font-size: 11px; }
+.trigger     { color: #6a1b9a; font-size: 11px; margin-top: 4px; }
+.source      { font-size: 11px; color: #444; line-height: 1.9; }
+.source .date { color: #888; margin-left: 4px; }
+.summary-box { background: #fffde7; border: 1px solid #f9a825;
+  border-radius: 6px; padding: 16px 20px; margin-top: 22px; }
+.summary-box h3.section-title { border-left-color: #f9a825; margin-top: 0; }
+.summary-kv { display: flex; gap: 8px; align-items: baseline;
+  margin-bottom: 8px; font-size: 12px; }
+.summary-kv .lbl { color: #5d4037; min-width: 130px; font-weight: bold; }
+.summary-structure { margin: 10px 0 12px; padding: 9px 13px;
+  background: #fff8e1; border-radius: 4px; font-size: 12px; line-height: 1.75; }
+.summary-sub-title { font-size: 12px; font-weight: bold; color: #4a148c; margin: 10px 0 4px 0; }
+.summary-list { margin: 0 0 6px 0; padding-left: 18px; font-size: 12px; line-height: 1.85; }
+.summary-list li { margin-bottom: 2px; }
+.summary-warn { margin-top: 12px; padding: 8px 13px;
+  background: #fff3e0; border-left: 3px solid #e65100;
+  font-size: 12px; color: #bf360c; border-radius: 0 4px 4px 0; line-height: 1.7; }
+.disclaimer { font-size: 11px; color: #888; margin-top: 16px;
+  padding-top: 10px; border-top: 1px solid #ddd; line-height: 1.8; }
+</style>
+</head>
+<body>
+
+<!-- 블록 1: 헤더 -->
+<div class="page-header">
+  <h2>📊 일일 관심주 투자 평가</h2>
+  <p class="meta">
+    평가 기준일: 2026-04-10
+    &nbsp;|&nbsp; 적용 지침: CLAUDE_주가평가_v2.6
+    &nbsp;|&nbsp; 평가 종목: 49개 (전수 개별 평가)
+  </p>
+  <div class="market-bar">
+    <span class="badge badge-up">코스피 +1.40%</span>
+    <span class="badge badge-down">코스닥 -1.64%</span>
+    <span class="badge badge-down">환율 1,482.60원 (+0.53%)</span>
+  </div>
+</div>
+
+<!-- 블록 2: 전수 단일 평가 표 -->
+<h3 class="section-title">▶ 평가 대상 종목 (49개 전수)</h3>
+<table>
+  <thead>
+    <tr>
+      <th style="width:9%">종목명</th>
+      <th style="width:5%">상승률</th>
+      <th style="width:21%">상승 이유 요약</th>
+      <th style="width:9%">판단 결과</th>
+      <th style="width:6%">최종 점수</th>
+      <th style="width:26%">판단 이유</th>
+      <th style="width:24%">근거 출처</th>
+    </tr>
+  </thead>
+  <tbody>
+
+    <!-- ── 투자 검토 종목 ── -->
+    <tr>
+      <td><strong>덕산네오룩스</strong><br><small>비 바이오</small></td>
+      <td>+13.14%</td>
+      <td>삼성디스플레이가 하반기 구글 픽셀11·애플 아이폰18 프로·폴더블 아이폰에 M16 OLED 공급 확정. 덕산네오룩스는 Red Prime·Green Prime·HTL·Black PDL 전 소재 공급. 특히 폴더블 아이폰 CoE용 Black PDL 세계 독점 공급 확인.</td>
+      <td class="result-분할">분할 진입 검토</td>
+      <td class="score">90점 / 100점</td>
+      <td>가설 2(이미 고성장, OPM 추가 개선 예상) + 상급 복합 촉매(폴더블 아이폰 Black PDL 독점 신사업 첫 계약·글로벌 1위 애플 발주 + M16 기존사업 확대 중급). 2026 하반기 합산 매출 2,322억원(YoY +117%) 수치 기반 반영 예상. 페널티 없음. Forward PER 미확인으로 즉시→분할 자동 강등.
+      <span class="trigger">※ 재평가 트리거: Forward PER 과거 3년 평균 대비 낮음 확인 시 즉시 진입 검토로 상향</span></td>
+      <td class="source">
+        <a href="https://m.etnews.com/20260409000346" target="_blank">삼성D 하반기 애플·구글에 최신 M16 OLED 공급 (전자신문)</a><span class="date">— 2026-04-09</span><br>
+        iM증권 덕산네오룩스 리포트 (TP 7만원)<span class="date">— 2025-09-24</span><br>
+        교보증권 덕산네오룩스 커버리지 개시 (TP 5만원)<span class="date">— 2025-12-26</span>
+      </td>
+    </tr>
+
+    <!-- ── 관찰 유지 종목 ── -->
+    <tr>
+      <td><strong>LG이노텍</strong><br><small>비 바이오</small></td>
+      <td>+11.44%</td>
+      <td>SK증권: Q1 2026 영업이익 2,402억원(컨센서스 1,762억원 36.3% 상회) 전망. 북미 고객사(애플) 재고 확충 주문 + 유리한 환율 + 기판 업황 반등 3박자. 2026 연간 영업이익 1조 344억원으로 전망치 상향.</td>
+      <td class="result-관찰">관찰 유지</td>
+      <td class="score">60점 / 100점</td>
+      <td>가설 2 + 중급 복합(어닝 서프라이즈 예상 36.3% + 보스턴다이나믹스 로봇향 하급) 매트릭스 70점. 컨센서스 반영 페널티 -10점(SK증권 리포트 2026-04-01 기준 9일 경과) 적용 후 60점. Forward PER 미확인으로 추가 촉매 확인 단계 → 관찰 유지 자동 강등. Q1 실적 발표(4월 말) 임박 시 즉시 재평가 필요.
+      <span class="trigger">※ 재평가 트리거: 2026 Q1 실적 발표(4월 말) + Forward PER 과거 3년 평균 대비 낮음 확인 시</span></td>
+      <td class="source">
+        <a href="https://www.etoday.co.kr/news/view/2571431" target="_blank">SK證 "LG이노텍, 1분기 영업익 컨센서스 상회 전망" (이투데이)</a><span class="date">— 2026-04-01</span>
+      </td>
+    </tr>
+    <tr>
+      <td><strong>쏠리드</strong><br><small>비 바이오</small></td>
+      <td>+20.11%</td>
+      <td>과학기술정보통신부 '차세대네트워크 산업기술개발' 사업 내 'AI 기반 무선 인터페이스 기술 개발' 국책과제 주관연구개발기관으로 선정. 과제 기간 2026.04~2028.12(33개월), 총 사업비 86.5억원.</td>
+      <td class="result-관찰">관찰 유지</td>
+      <td class="score">30점 / 100점</td>
+      <td>Step 2 기준 3 No(단발 연구과제, 제품 공급 계약 아님). 가설 3 + 하급 단독(한국 국내 정책 보조금) → 30점. Forward PER 미확인이지만 관찰 유지 이하라 강등 없음. 86.5억원 연구비가 연매출 대비 얼마나 되는지 미확인.
+      <span class="trigger">※ 재평가 트리거: 6G 기술 개발 완료 후 이동통신사 공급계약 공시, 또는 저궤도 위성통신 관련 수주 공시 확인 시</span></td>
+      <td class="source">
+        <a href="https://www.etoday.co.kr/news/view/2574617" target="_blank">쏠리드, 6G 국책과제 주관기관 선정 (이투데이)</a><span class="date">— 2026-04-10</span>
+      </td>
+    </tr>
+
+    <!-- ── 투자 부적합 ── -->
+    <tr>
+      <td><strong>삼아알미늄</strong><br><small>비 바이오</small></td>
+      <td>+12.65%</td>
+      <td>SK증권 오늘 리포트: 4월부터 실적 반등 시작, ESS 향 LFP 알박 수요 급증으로 가동률 현재 60%→하반기 90%+. 2026 매출 3,722억원(+37%)·영업이익 88억원(흑자전환) 전망. ESS 매출 전년 대비 160% 증가 예상.</td>
+      <td class="result-부적합">투자 부적합</td>
+      <td class="score">20점 / 100점</td>
+      <td>가설 3(아직 흑자전환 없음) + 하급 단독(ESS 향 국내 배터리사 발주, DART 공시 없음) → 매트릭스 30점. 미확정 수주 페널티 -10점(ESS 실적 추정의 30% 이상이 DART 미공시 발주 기대 기반) 적용 → 최종 20점.
+      <span class="trigger">※ 재평가 트리거: ESS 발주처 공급계약 DART 공시 + Q1/Q2 2026 실적 흑자전환 수치 확인 시</span></td>
+      <td class="source">
+        <a href="https://www.etoday.co.kr/news/view/2574520" target="_blank">SK증권 "삼아알미늄, 하반기 풀캐파 가동 예상" (이투데이)</a><span class="date">— 2026-04-10</span>
+      </td>
+    </tr>
+
+    <!-- ── 바이오: 투자 금지 ── -->
+    <tr>
+      <td><strong>오름테라퓨틱</strong><br><small>바이오</small></td>
+      <td>+11.21%</td>
+      <td>AACR 2026에서 AML 후보물질 ORM-1153(CD123 표적 DAC) 전임상 데이터 발표. IND 제출 H2 2026 목표. 세계 최초 신규 항체 DAC 연내 임상 기대. BMS·Vertex 기존 LO 계약 보유.</td>
+      <td class="result-금지">투자 금지</td>
+      <td class="score">0점 / 100점</td>
+      <td>바이오 가설 B 적용 시 상급 촉매(브레이크스루 테라피 지정·3상 중간분석 조기 달성·경쟁 약물 3상 실패) 미존재 → 투자 금지. ORM-1153은 IND 제출 단계(전임상)이며 AACR 발표는 전임상 학술 공개에 해당. 기존 BMS 계약(ORM-6151)은 구 파이프라인으로 오늘 촉매와 무관.
+      <span class="trigger">※ 재평가 트리거: ORM-1153 FDA 브레이크스루 테라피 지정 또는 1상 주요 엔드포인트 조기 달성 공시</span></td>
+      <td class="source">
+        <a href="https://www.newsway.co.kr/news/view?ud=2026040310192587102" target="_blank">오름테라퓨틱, AACR서 ORM-1153 전임상 공개 (뉴스웨이)</a><span class="date">— 2026-04-03</span><br>
+        한국경제 오름테라퓨틱 신규 항체 DAC 연내 임상 보도<span class="date">— 2026-03-29</span>
+      </td>
+    </tr>
+
+    <!-- ── 0점: 스페이스X 기대감 테마 13개 ── -->
+    <tr>
+      <td><strong>네이블</strong><br><small>비 바이오</small></td>
+      <td>상한가</td>
+      <td>스페이스X 통신사업 진출 가능성에 관련주 <span class="unconfirmed">(공시·계약 전무)</span></td>
+      <td class="result-금지">투자 금지</td>
+      <td class="score">0점 / 100점</td>
+      <td>Step B 조기 판정: 스페이스X 통신 사업 진출 "가능성"이라는 기대감에 연동, DART 계약 공시 및 공식 발표 전무. Step 2 기준 1 No → 0점.</td>
+      <td class="source">네이버 뉴스 검색, DART 공시 미확인<span class="date">— 2026-04-10</span></td>
+    </tr>
+    <tr>
+      <td><strong>빛샘전자</strong><br><small>비 바이오</small></td>
+      <td>상한가</td>
+      <td>스페이스X 통신사업 진출 가능성에 관련주 <span class="unconfirmed">(공시·계약 전무)</span></td>
+      <td class="result-금지">투자 금지</td>
+      <td class="score">0점 / 100점</td>
+      <td>Step B 조기 판정: 동일 테마 기대감, DART 고유 공시 없음. Step 2 기준 1 No → 0점.</td>
+      <td class="source">DART 공시 미확인<span class="date">— 2026-04-10</span></td>
+    </tr>
+    <tr>
+      <td><strong>에이스테크</strong><br><small>비 바이오</small></td>
+      <td>상한가</td>
+      <td>스페이스X 통신사업 진출 가능성에 관련주 <span class="unconfirmed">(공시·계약 전무)</span></td>
+      <td class="result-금지">투자 금지</td>
+      <td class="score">0점 / 100점</td>
+      <td>Step B 조기 판정: 동일 테마 기대감. 에이스테크는 4G/5G 안테나 제조사로 스페이스X 직접 납품 공시 없음. Step 2 기준 1 No → 0점.</td>
+      <td class="source">DART 공시 미확인<span class="date">— 2026-04-10</span></td>
+    </tr>
+    <tr>
+      <td><strong>기산텔레콤</strong><br><small>비 바이오</small></td>
+      <td>상한가</td>
+      <td>스페이스X 통신사업 진출 가능성에 관련주 <span class="unconfirmed">(공시·계약 전무)</span></td>
+      <td class="result-금지">투자 금지</td>
+      <td class="score">0점 / 100점</td>
+      <td>Step B 조기 판정: 동일 테마 기대감, 종목 고유 공시 없음. Step 2 기준 1 No → 0점.</td>
+      <td class="source">DART 공시 미확인<span class="date">— 2026-04-10</span></td>
+    </tr>
+    <tr>
+      <td><strong>대한광통신</strong><br><small>비 바이오</small></td>
+      <td>+25.32%</td>
+      <td>스페이스X 통신사업 진출 가능성에 관련주 <span class="unconfirmed">(공시·계약 전무)</span></td>
+      <td class="result-금지">투자 금지</td>
+      <td class="score">0점 / 100점</td>
+      <td>Step B 조기 판정: 광케이블 제조사, 스페이스X 향 직접 공급계약 공시 없음. Step 2 기준 1 No → 0점.</td>
+      <td class="source">DART 공시 미확인<span class="date">— 2026-04-10</span></td>
+    </tr>
+    <tr>
+      <td><strong>라이콤</strong><br><small>비 바이오</small></td>
+      <td>+19.75%</td>
+      <td>스페이스X 통신사업 진출 가능성에 관련주 <span class="unconfirmed">(공시·계약 전무)</span></td>
+      <td class="result-금지">투자 금지</td>
+      <td class="score">0점 / 100점</td>
+      <td>Step B 조기 판정: 동일 테마 기대감. Step 2 기준 1 No → 0점.</td>
+      <td class="source">DART 공시 미확인<span class="date">— 2026-04-10</span></td>
+    </tr>
+    <tr>
+      <td><strong>티엠씨</strong><br><small>비 바이오</small></td>
+      <td>+18.92%</td>
+      <td>스페이스X 통신사업 진출 가능성에 관련주 <span class="unconfirmed">(공시·계약 전무)</span></td>
+      <td class="result-금지">투자 금지</td>
+      <td class="score">0점 / 100점</td>
+      <td>Step B 조기 판정: 동일 테마 기대감. Step 2 기준 1 No → 0점.</td>
+      <td class="source">DART 공시 미확인<span class="date">— 2026-04-10</span></td>
+    </tr>
+    <tr>
+      <td><strong>빛과전자</strong><br><small>비 바이오</small></td>
+      <td>+16.45%</td>
+      <td>스페이스X 통신사업 진출 가능성에 관련주 <span class="unconfirmed">(공시·계약 전무)</span></td>
+      <td class="result-금지">투자 금지</td>
+      <td class="score">0점 / 100점</td>
+      <td>Step B 조기 판정: 동일 테마 기대감. Step 2 기준 1 No → 0점.</td>
+      <td class="source">DART 공시 미확인<span class="date">— 2026-04-10</span></td>
+    </tr>
+    <tr>
+      <td><strong>에치에프알</strong><br><small>비 바이오</small></td>
+      <td>+14.81%</td>
+      <td>스페이스X 통신사업 진출 가능성에 관련주 <span class="unconfirmed">(공시·계약 전무)</span></td>
+      <td class="result-금지">투자 금지</td>
+      <td class="score">0점 / 100점</td>
+      <td>Step B 조기 판정: 동일 테마 기대감. Step 2 기준 1 No → 0점.</td>
+      <td class="source">DART 공시 미확인<span class="date">— 2026-04-10</span></td>
+    </tr>
+    <tr>
+      <td><strong>우리넷</strong><br><small>비 바이오</small></td>
+      <td>+12.75%</td>
+      <td>스페이스X 통신사업 진출 가능성에 관련주 <span class="unconfirmed">(공시·계약 전무)</span></td>
+      <td class="result-금지">투자 금지</td>
+      <td class="score">0점 / 100점</td>
+      <td>Step B 조기 판정: 동일 테마 기대감. Step 2 기준 1 No → 0점.</td>
+      <td class="source">DART 공시 미확인<span class="date">— 2026-04-10</span></td>
+    </tr>
+    <tr>
+      <td><strong>옵티시스</strong><br><small>비 바이오</small></td>
+      <td>+10.56%</td>
+      <td>스페이스X 통신사업 진출 가능성에 관련주 <span class="unconfirmed">(공시·계약 전무)</span></td>
+      <td class="result-금지">투자 금지</td>
+      <td class="score">0점 / 100점</td>
+      <td>Step B 조기 판정: 동일 테마 기대감. Step 2 기준 1 No → 0점.</td>
+      <td class="source">DART 공시 미확인<span class="date">— 2026-04-10</span></td>
+    </tr>
+    <tr>
+      <td><strong>이노인스트루먼트</strong><br><small>비 바이오</small></td>
+      <td>+10.11%</td>
+      <td>스페이스X 통신사업 진출 가능성에 관련주 <span class="unconfirmed">(공시·계약 전무)</span></td>
+      <td class="result-금지">투자 금지</td>
+      <td class="score">0점 / 100점</td>
+      <td>Step B 조기 판정: 동일 테마 기대감. Step 2 기준 1 No → 0점.</td>
+      <td class="source">DART 공시 미확인<span class="date">— 2026-04-10</span></td>
+    </tr>
+
+    <!-- ── 0점: 반도체 테마 7개 ── -->
+    <tr>
+      <td><strong>시지트로닉스</strong><br><small>비 바이오</small></td>
+      <td>미상</td>
+      <td>재료 미노출, 종목 고유 뉴스 없이 반도체 테마 연동 <span class="unconfirmed">(고유 공시 없음)</span></td>
+      <td class="result-금지">투자 금지</td>
+      <td class="score">0점 / 100점</td>
+      <td>Step B 조기 판정: 종목 고유 뉴스·공시 없이 지수 베타·반도체 테마 연동 상승. 조기 0점 처리 조건 ③ 해당. → 0점.</td>
+      <td class="source">DART·네이버 공시 미확인<span class="date">— 2026-04-10</span></td>
+    </tr>
+    <tr>
+      <td><strong>세미파이브</strong><br><small>비 바이오</small></td>
+      <td>상한가</td>
+      <td>최대주주 SiFive(사이파이브)가 엔비디아 포함 $4억 달러 Series G 투자 유치 성공(2026-04-09 확인). 세미파이브는 SiFive 한국 자회사(SiFive 지분 14.83%).</td>
+      <td class="result-금지">투자 금지</td>
+      <td class="score">0점 / 100점</td>
+      <td>SiFive $4억 달러 투자 유치(엔비디아 참여) 확인됨. 그러나 세미파이브 자체는 SiFive 지분 14.83% 수령자에 불과하며 2025년 영업손실 229억원(신규상장 2025-12-29). Step 1 ② 3년 지속성 수치 미확인: 세미파이브 직접 수주잔고·공급계약 수치 없음 → Fail → 0점.
+      <span class="trigger">※ 재평가 트리거: 세미파이브 직접 공급계약 DART 공시 또는 분기 흑자전환 수치 확인 시</span></td>
+      <td class="source">
+        <a href="https://finance.yahoo.com/sectors/technology/articles/sifive-raises-400-million-accelerate-130000131.html" target="_blank">SiFive Raises $400M Series G (BusinessWire via Yahoo Finance)</a><span class="date">— 2026-04-09</span>
+      </td>
+    </tr>
+    <tr>
+      <td><strong>신성이엔지</strong><br><small>비 바이오</small></td>
+      <td>+19.78%</td>
+      <td>반도체 업황 개선과 슈퍼사이클 기대감 <span class="unconfirmed">(기대감, 계약 공시 없음)</span></td>
+      <td class="result-금지">투자 금지</td>
+      <td class="score">0점 / 100점</td>
+      <td>Step B 조기 판정: 반도체 슈퍼사이클 기대감 기반 상승, 고유 수주·계약 DART 공시 없음. Step 2 기준 1 No → 0점.</td>
+      <td class="source">DART 공시 미확인<span class="date">— 2026-04-10</span></td>
+    </tr>
+    <tr>
+      <td><strong>아이티엠반도체</strong><br><small>비 바이오</small></td>
+      <td>+18.67%</td>
+      <td>2차전지 보호회로에서 로봇 배터리팩 사업 확장 기대감 <span class="unconfirmed">(기대감, 계약 공시 없음)</span></td>
+      <td class="result-금지">투자 금지</td>
+      <td class="score">0점 / 100점</td>
+      <td>Step B 조기 판정: 로봇 배터리팩 "기대감" 단계, DART 공급계약 공시 없음. Step 2 기준 1 No → 0점.</td>
+      <td class="source">DART 공시 미확인<span class="date">— 2026-04-10</span></td>
+    </tr>
+    <tr>
+      <td><strong>네패스</strong><br><small>비 바이오</small></td>
+      <td>+15.37%</td>
+      <td>반도체 업황 개선 기대감 연동 <span class="unconfirmed">(고유 공시 없음)</span></td>
+      <td class="result-금지">투자 금지</td>
+      <td class="score">0점 / 100점</td>
+      <td>Step B 조기 판정: 종목 고유 수주·계약 공시 없이 반도체 테마 연동. Step 2 기준 1 No → 0점.</td>
+      <td class="source">DART 공시 미확인<span class="date">— 2026-04-10</span></td>
+    </tr>
+    <tr>
+      <td><strong>테스</strong><br><small>비 바이오</small></td>
+      <td>+10.44%</td>
+      <td>반도체 장비 업황 반등·슈퍼사이클 낙수 기대 <span class="unconfirmed">(기대감, 개별 공시 없음)</span></td>
+      <td class="result-금지">투자 금지</td>
+      <td class="score">0점 / 100점</td>
+      <td>Step B 조기 판정: 업황 기대감 연동 상승, 테스 고유 수주 계약 오늘 DART 공시 없음. Step 2 기준 1 No → 0점.</td>
+      <td class="source">DART 공시 미확인<span class="date">— 2026-04-10</span></td>
+    </tr>
+    <tr>
+      <td><strong>삼성전기</strong><br><small>비 바이오</small></td>
+      <td>+9.50%</td>
+      <td>반도체 업황 개선 기대감 연동 <span class="unconfirmed">(고유 촉매 없음)</span></td>
+      <td class="result-금지">투자 금지</td>
+      <td class="score">0점 / 100점</td>
+      <td>Step B 조기 판정: 오늘 MLCC·반도체 향 삼성전기 고유 공시·실적 발표 없음, 지수 베타 연동 상승. Step 2 기준 1 No → 0점.</td>
+      <td class="source">DART 공시 미확인<span class="date">— 2026-04-10</span></td>
+    </tr>
+
+    <!-- ── 0점: 방산 테마 5개 ── -->
+    <tr>
+      <td><strong>웨이브일렉트로</strong><br><small>비 바이오</small></td>
+      <td>상한가</td>
+      <td>핀란드 K9 자주포 추가 도입 및 폴란드 방산 협력 강화 기대감 <span class="unconfirmed">(계약 공시 없음)</span></td>
+      <td class="result-금지">투자 금지</td>
+      <td class="score">0점 / 100점</td>
+      <td>Step B 조기 판정: 방산 수혜 "기대감" 단계, 웨이브일렉트로 고유 수주 DART 공시 없음. Step 2 기준 1 No → 0점.</td>
+      <td class="source">DART 공시 미확인<span class="date">— 2026-04-10</span></td>
+    </tr>
+    <tr>
+      <td><strong>RF머트리얼즈</strong><br><small>비 바이오</small></td>
+      <td>+22.46%</td>
+      <td>72억원 규모 공급계약 체결 소식 <span class="unconfirmed">(DART 공시 미확인)</span>. 방산·광통신 패키지 기업.</td>
+      <td class="result-금지">투자 금지</td>
+      <td class="score">0점 / 100점</td>
+      <td>72억원 공급계약 뉴스 있으나 Step B DART 검색에서 2026-04-01 이후 해당 공시 미발견. 사실성 미확인 → Step 2 기준 1 No → 0점. 추가로 280억원 유상증자 이사회 결의(2026-04-08) 확인됨 = 시총 대비 11.5% 희석 리스크 존재.
+      <span class="trigger">※ 재평가 트리거: DART 72억원 공급계약 공시 확인 시 즉시 재평가</span></td>
+      <td class="source">
+        <a href="https://www.hellot.net/news/article.html?no=111966" target="_blank">RF머트리얼즈 280억 유상증자 (헬로티)</a><span class="date">— 2026-04-09</span>
+      </td>
+    </tr>
+    <tr>
+      <td><strong>퍼스텍</strong><br><small>비 바이오</small></td>
+      <td>+16.58%</td>
+      <td>핀란드 K9 자주포 추가 도입·폴란드 방산 협력 기대감 <span class="unconfirmed">(계약 공시 없음)</span></td>
+      <td class="result-금지">투자 금지</td>
+      <td class="score">0점 / 100점</td>
+      <td>Step B 조기 판정: 방산 기대감 연동, 퍼스텍 고유 수주 DART 공시 없음. Step 2 기준 1 No → 0점.</td>
+      <td class="source">DART 공시 미확인<span class="date">— 2026-04-10</span></td>
+    </tr>
+    <tr>
+      <td><strong>파이버프로</strong><br><small>비 바이오</small></td>
+      <td>+12.38%</td>
+      <td>방산 기대감 연동 <span class="unconfirmed">(고유 공시 없음)</span></td>
+      <td class="result-금지">투자 금지</td>
+      <td class="score">0점 / 100점</td>
+      <td>Step B 조기 판정: 종목 고유 수주 공시 없음. Step 2 기준 1 No → 0점.</td>
+      <td class="source">DART 공시 미확인<span class="date">— 2026-04-10</span></td>
+    </tr>
+    <tr>
+      <td><strong>비츨로셀</strong><br><small>비 바이오</small></td>
+      <td>+8.90%</td>
+      <td>방산 기대감 연동 <span class="unconfirmed">(고유 공시 없음)</span></td>
+      <td class="result-금지">투자 금지</td>
+      <td class="score">0점 / 100점</td>
+      <td>Step B 조기 판정: 종목 고유 수주 공시 없음. Step 2 기준 1 No → 0점.</td>
+      <td class="source">DART 공시 미확인<span class="date">— 2026-04-10</span></td>
+    </tr>
+
+    <!-- ── 0점: 해운/물류 테마 5개 ── -->
+    <tr>
+      <td><strong>대한해운</strong><br><small>비 바이오</small></td>
+      <td>상한가</td>
+      <td>북극항로 특별법 법안심사소위 통과(2026-04-09 확인) 및 호르무즈 해협 항행 제한 기대감.</td>
+      <td class="result-금지">투자 금지</td>
+      <td class="score">0점 / 100점</td>
+      <td>북극항로 특별법 법안소위 통과 사실 확인됨(헤럴드경제 2026-04-10). 그러나 북극항로 상업 운항 2030년 이후 예상 → 대한해운 고유 수주·운항 계약 수치로 3년 내 실적 전환 경로 미확인. Step 1 ② 3년 지속성 수치 미확인 → Fail → 0점.
+      <span class="trigger">※ 재평가 트리거: 북극항로 쇄빙선 운항 계약 또는 대한해운 고유 수주 DART 공시 확인 시</span></td>
+      <td class="source">
+        <a href="https://biz.heraldcorp.com/article/10714071" target="_blank">북극항로 특별법 법안소위 통과 (헤럴드경제)</a><span class="date">— 2026-04-10</span>
+      </td>
+    </tr>
+    <tr>
+      <td><strong>KSS해운</strong><br><small>비 바이오</small></td>
+      <td>+10.39%</td>
+      <td>북극항로 특별법 법안소위 통과 기대감 <span class="unconfirmed">(고유 수주 공시 없음)</span></td>
+      <td class="result-금지">투자 금지</td>
+      <td class="score">0점 / 100점</td>
+      <td>Step B 조기 판정: 대한해운과 동일 논리 적용. KSS해운 고유 북극항로 관련 수주 계약 없음 → 0점.</td>
+      <td class="source">DART 공시 미확인<span class="date">— 2026-04-10</span></td>
+    </tr>
+    <tr>
+      <td><strong>동방</strong><br><small>비 바이오</small></td>
+      <td>+7.93%</td>
+      <td>북극항로 기대감 연동 <span class="unconfirmed">(고유 공시 없음)</span></td>
+      <td class="result-금지">투자 금지</td>
+      <td class="score">0점 / 100점</td>
+      <td>Step B 조기 판정: 종목 고유 공시 없음. Step 2 기준 1 No → 0점.</td>
+      <td class="source">DART 공시 미확인<span class="date">— 2026-04-10</span></td>
+    </tr>
+    <tr>
+      <td><strong>STX그린로지스</strong><br><small>비 바이오</small></td>
+      <td>+6.71%</td>
+      <td>북극항로 기대감 연동 <span class="unconfirmed">(고유 공시 없음)</span></td>
+      <td class="result-금지">투자 금지</td>
+      <td class="score">0점 / 100점</td>
+      <td>Step B 조기 판정: 종목 고유 공시 없음. Step 2 기준 1 No → 0점.</td>
+      <td class="source">DART 공시 미확인<span class="date">— 2026-04-10</span></td>
+    </tr>
+    <tr>
+      <td><strong>흥아해운</strong><br><small>비 바이오</small></td>
+      <td>+4.95%</td>
+      <td>북극항로 기대감 연동 <span class="unconfirmed">(고유 공시 없음)</span></td>
+      <td class="result-금지">투자 금지</td>
+      <td class="score">0점 / 100점</td>
+      <td>Step B 조기 판정: 종목 고유 공시 없음. Step 2 기준 1 No → 0점.</td>
+      <td class="source">DART 공시 미확인<span class="date">— 2026-04-10</span></td>
+    </tr>
+
+    <!-- ── 0점: 정치 인맥 테마 5개 ── -->
+    <tr>
+      <td><strong>에스제이그룹</strong><br><small>비 바이오</small></td>
+      <td>상한가</td>
+      <td>더불어민주당 서울시장 후보 정원오 확정에 정치/인맥 관련주 <span class="unconfirmed">(실적 연결 전무)</span></td>
+      <td class="result-금지">투자 금지</td>
+      <td class="score">0점 / 100점</td>
+      <td>Step B 조기 판정: 정치 인맥 테마, 에스제이그룹과 정원오 서울시장 후보 간의 실적 연결 경로 전무. Step 2 기준 1 No(기대감) → 0점.</td>
+      <td class="source">네이버 뉴스 검색<span class="date">— 2026-04-10</span></td>
+    </tr>
+    <tr>
+      <td><strong>육일씨엔에쓰</strong><br><small>비 바이오</small></td>
+      <td>+14.97%</td>
+      <td>정원오 서울시장 후보 정치 인맥 테마 <span class="unconfirmed">(실적 연결 전무)</span></td>
+      <td class="result-금지">투자 금지</td>
+      <td class="score">0점 / 100점</td>
+      <td>Step B 조기 판정: 정치 인맥 테마. Step 2 기준 1 No → 0점.</td>
+      <td class="source">네이버 뉴스 검색<span class="date">— 2026-04-10</span></td>
+    </tr>
+    <tr>
+      <td><strong>대주산업</strong><br><small>비 바이오</small></td>
+      <td>+13.04%</td>
+      <td>정원오 서울시장 후보 정치 인맥 테마 <span class="unconfirmed">(실적 연결 전무)</span></td>
+      <td class="result-금지">투자 금지</td>
+      <td class="score">0점 / 100점</td>
+      <td>Step B 조기 판정: 정치 인맥 테마. Step 2 기준 1 No → 0점.</td>
+      <td class="source">네이버 뉴스 검색<span class="date">— 2026-04-10</span></td>
+    </tr>
+    <tr>
+      <td><strong>웹스</strong><br><small>비 바이오</small></td>
+      <td>+11.89%</td>
+      <td>정원오 서울시장 후보 정치 인맥 테마 <span class="unconfirmed">(실적 연결 전무)</span></td>
+      <td class="result-금지">투자 금지</td>
+      <td class="score">0점 / 100점</td>
+      <td>Step B 조기 판정: 정치 인맥 테마. Step 2 기준 1 No → 0점.</td>
+      <td class="source">네이버 뉴스 검색<span class="date">— 2026-04-10</span></td>
+    </tr>
+    <tr>
+      <td><strong>율촌</strong><br><small>비 바이오</small></td>
+      <td>+9.91%</td>
+      <td>정원오 서울시장 후보 정치 인맥 테마 <span class="unconfirmed">(실적 연결 전무)</span></td>
+      <td class="result-금지">투자 금지</td>
+      <td class="score">0점 / 100점</td>
+      <td>Step B 조기 판정: 정치 인맥 테마. Step 2 기준 1 No → 0점.</td>
+      <td class="source">네이버 뉴스 검색<span class="date">— 2026-04-10</span></td>
+    </tr>
+
+    <!-- ── 0점: 이란 재건 기대감 테마 5개 ── -->
+    <tr>
+      <td><strong>남광토건</strong><br><small>비 바이오</small></td>
+      <td>+15.59%</td>
+      <td>이스라엘-레바논 직접 협상 추진·미-이란 휴전 유지 기대감에 재건 수혜 <span class="unconfirmed">(계약 공시 없음)</span></td>
+      <td class="result-금지">투자 금지</td>
+      <td class="score">0점 / 100점</td>
+      <td>Step B 조기 판정: 이란·레바논 재건 수혜 "기대감" 단계, 공식 수주 계약 공시 없음. Step 2 기준 1 No → 0점.</td>
+      <td class="source">DART 공시 미확인<span class="date">— 2026-04-10</span></td>
+    </tr>
+    <tr>
+      <td><strong>다산네트웍스</strong><br><small>비 바이오</small></td>
+      <td>+14.00%</td>
+      <td>이란 재건 기대감 <span class="unconfirmed">(계약 공시 없음)</span></td>
+      <td class="result-금지">투자 금지</td>
+      <td class="score">0점 / 100점</td>
+      <td>Step B 조기 판정: 재건 기대감 연동. Step 2 기준 1 No → 0점.</td>
+      <td class="source">DART 공시 미확인<span class="date">— 2026-04-10</span></td>
+    </tr>
+    <tr>
+      <td><strong>한미글로벌</strong><br><small>비 바이오</small></td>
+      <td>+7.98%</td>
+      <td>이란 재건 기대감 <span class="unconfirmed">(계약 공시 없음)</span></td>
+      <td class="result-금지">투자 금지</td>
+      <td class="score">0점 / 100점</td>
+      <td>Step B 조기 판정: 재건 기대감 연동. Step 2 기준 1 No → 0점.</td>
+      <td class="source">DART 공시 미확인<span class="date">— 2026-04-10</span></td>
+    </tr>
+    <tr>
+      <td><strong>GS건설</strong><br><small>비 바이오</small></td>
+      <td>+5.91%</td>
+      <td>이란 재건 기대감 <span class="unconfirmed">(계약 공시 없음)</span></td>
+      <td class="result-금지">투자 금지</td>
+      <td class="score">0점 / 100점</td>
+      <td>Step B 조기 판정: 재건 기대감 연동. Step 2 기준 1 No → 0점.</td>
+      <td class="source">DART 공시 미확인<span class="date">— 2026-04-10</span></td>
+    </tr>
+    <tr>
+      <td><strong>대우건설</strong><br><small>비 바이오</small></td>
+      <td>+4.07%</td>
+      <td>이란 재건 기대감 <span class="unconfirmed">(계약 공시 없음)</span></td>
+      <td class="result-금지">투자 금지</td>
+      <td class="score">0점 / 100점</td>
+      <td>Step B 조기 판정: 재건 기대감 연동. Step 2 기준 1 No → 0점.</td>
+      <td class="source">DART 공시 미확인<span class="date">— 2026-04-10</span></td>
+    </tr>
+
+    <!-- ── 0점: 기타 개별 기대감 종목 ── -->
+    <tr>
+      <td><strong>아모텍</strong><br><small>비 바이오</small></td>
+      <td>+21.53%</td>
+      <td>MLCC 수요 증가에 따른 기대감 <span class="unconfirmed">(기대감, 계약 공시 없음)</span></td>
+      <td class="result-금지">투자 금지</td>
+      <td class="score">0점 / 100점</td>
+      <td>Step B 조기 판정: "기대감"에 기반한 상승, 아모텍 고유 수주·MLCC 납품 계약 DART 공시 없음. Step 2 기준 1 No → 0점.</td>
+      <td class="source">DART 공시 미확인<span class="date">— 2026-04-10</span></td>
+    </tr>
+    <tr>
+      <td><strong>뉴엔AI</strong><br><small>비 바이오</small></td>
+      <td>+18.70%</td>
+      <td>데이터 최적화로 AI 성능 평가 1위 달성 소식 <span class="unconfirmed">(벤치마크 성과, 계약 공시 없음)</span></td>
+      <td class="result-금지">투자 금지</td>
+      <td class="score">0점 / 100점</td>
+      <td>Step B 조기 판정: AI 성능 벤치마크 1위는 기술 인정이나 "계약→수익" 실적 전환 경로 수치 미확인. 기업 규모·기존 실적 성장 근거 미확인. Step 2 기준 2 No → 0점.</td>
+      <td class="source">DART·네이버 공시 검색<span class="date">— 2026-04-10</span></td>
+    </tr>
+    <tr>
+      <td><strong>TCC스틸</strong><br><small>비 바이오</small></td>
+      <td>+10.11%</td>
+      <td>이란 재건 기대감 <span class="unconfirmed">(기대감, 계약 공시 없음)</span></td>
+      <td class="result-금지">투자 금지</td>
+      <td class="score">0점 / 100점</td>
+      <td>Step B 조기 판정: 이란 재건 기대감 연동. TCC스틸 고유 이란 수주 공시 없음. Step 2 기준 1 No → 0점.</td>
+      <td class="source">DART 공시 미확인<span class="date">— 2026-04-10</span></td>
+    </tr>
+    <tr>
+      <td><strong>다날</strong><br><small>비 바이오</small></td>
+      <td>+11.17%</td>
+      <td>K-스테이블코인 결제 실증 완료 기대감 <span class="unconfirmed">(기대감, 완료 공시 없음)</span></td>
+      <td class="result-금지">투자 금지</td>
+      <td class="score">0점 / 100점</td>
+      <td>Step B 조기 판정: "기대감" 단계, 실증 완료 공식 발표 미확인. Step 2 기준 1 No → 0점.</td>
+      <td class="source">DART 공시 미확인<span class="date">— 2026-04-10</span></td>
+    </tr>
+    <tr>
+      <td><strong>캡스톤파트너스</strong><br><small>비 바이오</small></td>
+      <td>+10.23%</td>
+      <td>당근마켓 투자 성과 기대감 지속 <span class="unconfirmed">(기대감, 미실현)</span></td>
+      <td class="result-금지">투자 금지</td>
+      <td class="score">0점 / 100점</td>
+      <td>Step B 조기 판정: 당근마켓 지분 가치 "기대감" — 실현된 투자 회수 공시 없음. Step 2 기준 1 No → 0점.</td>
+      <td class="source">DART 공시 미확인<span class="date">— 2026-04-10</span></td>
+    </tr>
+
+  </tbody>
+</table>
+
+<!-- 블록 3: 총평 박스 -->
+<div class="summary-box">
+  <h3 class="section-title">🔍 총평 — 2026년 04월 10일 시장 구조적 특성</h3>
+
+  <div class="summary-kv">
+    <span class="lbl">투자 검토 가능 종목</span>
+    <span>1개 (분할 진입 1개) &nbsp;|&nbsp; 관찰 유지 2개 (LG이노텍 60점·쏠리드 30점)</span>
+  </div>
+  <div class="summary-kv">
+    <span class="lbl">투자 부적합</span>
+    <span>1개 (삼아알미늄 20점) &nbsp;|&nbsp; 투자 금지 45개</span>
+  </div>
+
+  <div class="summary-structure">
+    오늘 시장은 크게 세 개의 기대감 테마(스페이스X 광통신, 이란 재건, 정치 인맥)가 코스닥 하락 속 개별 종목 단발 급등을 이끌었다. 확인된 촉매는 소수였으며 Step 2 기준 1(사실성)에서 자연 필터링이 집중적으로 발생했다. 실질적으로 전일 업계 보도로 확인된 덕산네오룩스(M16 OLED + 폴더블 아이폰 Black PDL 독점)만이 상급 촉매·직접 실적 연결 구조를 갖춘 유일한 진입 검토 종목으로 분류됐다. LG이노텍은 Q1 실적 발표 임박(4월 말)으로 재평가 트리거가 가장 가까운 관찰 종목이다.
+  </div>
+
+  <p class="summary-sub-title">▸ 투자 검토 종목 (50점 이상)</p>
+  <ul class="summary-list">
+    <li><strong>덕산네오룩스</strong> (90점, 분할 진입 검토) — 삼성디스플레이 M16 OLED 재료세트 신규 채택 + 폴더블 아이폰 Black PDL 세계 독점 공급 확인. Forward PER 미확인으로 즉시→분할 강등. 하반기 아이폰18 출시 시점에 실적 가시성 극대화.</li>
+  </ul>
+
+  <p class="summary-sub-title">▸ 관찰 유지 종목 (30~60점)</p>
+  <ul class="summary-list">
+    <li><strong>LG이노텍</strong> (60점) — 재평가 트리거: 2026 Q1 실적 발표(4월 말) + Forward PER 확인. 실적 발표 직후 즉시 재평가 권장.</li>
+    <li><strong>쏠리드</strong> (30점) — 재평가 트리거: 6G AI 무선 인터페이스 기술 개발 완료 후 이동통신사 공급계약 공시.</li>
+  </ul>
+
+  <div class="summary-warn">
+    ⚠️ 오늘 시장 상승 종목의 약 90%(45개)는 스페이스X 기대감·이란 재건·정치 인맥·반도체 업황 기대 파생 테마입니다. 공시·공식 발표 없는 기대감 단계 종목에 Step 2 기준 1(사실성) No 원칙이 광범위하게 적용됩니다. 세미파이브(SiFive $400M 투자 유치 확인)는 모회사 이벤트이며 세미파이브 자체 3년 지속성 수치 미확인으로 0점 처리됐음을 특히 주의하십시오.
+  </div>
+</div>
+
+<p class="disclaimer">
+  ※ 위 판단은 CLAUDE_주가평가_v2.6 지침에 따른 참고 의견이며, 투자 결정의 최종 책임은 투자자 본인에게 있습니다.<br>
+  ※ 사전 조사 기준일: 2026-04-10. 이후 발생한 공시·뉴스는 반영되지 않습니다.
+</p>
+
+</body>
+</html>
