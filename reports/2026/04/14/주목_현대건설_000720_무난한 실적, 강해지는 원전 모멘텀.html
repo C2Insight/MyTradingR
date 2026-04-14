@@ -1,0 +1,214 @@
+<!DOCTYPE html><html lang="ko"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>현대건설 (000720) 정리</title><style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Pretendard','Apple SD Gothic Neo',-apple-system,sans-serif; background:#fff; color:#1a1d2e; line-height:1.7; font-size:14px; max-width:900px; margin:0 auto; padding:32px 20px 80px; }
+  .header { border-left:4px solid #2563eb; padding:0 0 0 16px; margin-bottom:24px; }
+  .header h1 { font-size:18px; font-weight:700; margin-bottom:10px; }
+  .price-row { display:flex; flex-wrap:wrap; gap:10px; margin-top:10px; }
+  .price-item { background:#f0f2f8; border:1px solid #d0d4e0; border-radius:6px; padding:6px 14px; font-size:13px; }
+  .price-item .label { color:#5a6280; font-size:11px; display:block; }
+  .price-item .val { font-weight:700; }
+  .upside-val { color:#059669; } .upside-negative { color:#dc2626; }
+  .tag-badge { display:inline-flex; align-items:center; gap:6px; padding:5px 14px; border-radius:20px; font-size:13px; font-weight:700; }
+  .tag-sss{background:#fff3ed;color:#c2410c;border:1px solid #f97316;}
+  .tag-ss{background:#f5f3ff;color:#6d28d9;border:1px solid #8b5cf6;}
+  .tag-core{background:#ecfdf5;color:#059669;border:1px solid #34d399;}
+  .tag-watch{background:#fffbeb;color:#b45309;border:1px solid #f59e0b;}
+  .tag-stable{background:#eff6ff;color:#1d4ed8;border:1px solid #60a5fa;}
+  .score-badge{display:inline-block;padding:5px 14px;border-radius:20px;font-size:13px;font-weight:700;background:#f0f2f8;border:1px solid #d0d4e0;}
+  .score-high{color:#059669;} .score-mid{color:#b45309;} .score-low{color:#5a6280;}
+  section { margin-bottom:28px; }
+  .section-title { font-size:11px; font-weight:700; letter-spacing:1.5px; text-transform:uppercase; color:#5a6280; border-bottom:1px solid #d0d4e0; padding-bottom:6px; margin-bottom:14px; }
+  .pdf-only-banner { background:#fff7ed; border:1px solid #f97316; border-radius:8px; padding:10px 16px; font-size:12px; color:#c2410c; margin-bottom:20px; text-align:center; font-weight:700; }
+  .thesis-box { background:#f8faff; border:1px solid #2563eb; border-radius:8px; padding:16px 20px; font-size:15px; font-weight:600; line-height:1.6; }
+  .thesis-structure { display:flex; gap:8px; align-items:center; margin-top:10px; flex-wrap:wrap; }
+  .thesis-part { background:#f0f2f8; border:1px solid #d0d4e0; border-radius:6px; padding:4px 10px; font-size:12px; }
+  .thesis-arrow { color:#2563eb; font-size:16px; }
+  .checklist { background:#fafafa; border:1px solid #d0d4e0; border-radius:8px; overflow:hidden; }
+  .checklist-item { display:flex; gap:14px; padding:12px 16px; border-bottom:1px solid #d0d4e0; }
+  .checklist-item:last-child { border-bottom:none; }
+  .check-icon { width:22px; height:22px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:12px; font-weight:700; flex-shrink:0; margin-top:1px; }
+  .check-pass { background:#ecfdf5; color:#059669; border:1px solid #34d399; }
+  .check-fail { background:#fef2f2; color:#dc2626; border:1px solid #fca5a5; }
+  .check-na { background:#f0f2f8; color:#5a6280; border:1px solid #d0d4e0; }
+  .check-label { font-weight:600; font-size:13px; }
+  .check-detail { color:#5a6280; font-size:12px; margin-top:2px; }
+  .check-why { font-size:13px; }
+  table { width:100%; border-collapse:collapse; background:#fafafa; border-radius:8px; overflow:hidden; border:1px solid #d0d4e0; }
+  thead tr { background:#f0f2f8; }
+  th { padding:10px 14px; text-align:left; font-size:11px; font-weight:700; color:#5a6280; letter-spacing:0.8px; text-transform:uppercase; }
+  td { padding:10px 14px; border-top:1px solid #d0d4e0; font-size:13px; }
+  tr.total-row td { background:#e8ecf5; font-weight:700; }
+  .penalty { color:#dc2626; } .highlight-green { color:#059669; font-weight:700; } .highlight-red { color:#dc2626; }
+  .chain-box { background:#fafafa; border:1px solid #d0d4e0; border-radius:8px; padding:16px 20px; }
+  .chain-step { display:flex; gap:12px; margin-bottom:10px; }
+  .chain-step:last-child { margin-bottom:0; }
+  .chain-arrow { color:#2563eb; font-size:16px; flex-shrink:0; margin-top:1px; }
+  .chain-label { font-size:10px; font-weight:700; letter-spacing:1px; color:#5a6280; text-transform:uppercase; margin-bottom:2px; }
+  .chain-text { font-size:13px; }
+  .chain-confirmed { color:#059669; font-size:11px; margin-left:6px; }
+  .chain-forecast { color:#b45309; font-size:11px; margin-left:6px; }
+  .fact-item { background:#fafafa; border:1px solid #d0d4e0; border-radius:8px; padding:14px 16px; margin-bottom:8px; }
+  .fact-num { font-size:10px; font-weight:700; color:#2563eb; letter-spacing:1px; margin-bottom:8px; display:block; }
+  .fact-what { font-weight:600; font-size:14px; margin-bottom:6px; }
+  .fact-why { font-size:13px; color:#5a6280; margin-bottom:6px; }
+  .fact-so { font-size:13px; color:#059669; }
+  .fact-label { display:inline-block; font-size:10px; font-weight:700; padding:1px 6px; border-radius:3px; margin-right:4px; }
+  .label-what { background:#eff6ff; color:#1d4ed8; }
+  .label-why { background:#fff7ed; color:#ea580c; }
+  .label-so { background:#ecfdf5; color:#059669; }
+  .data-table th { background:#e8ecf5; }
+  .data-table td.key-col { background:#f0f6ff; }
+  .data-table .key-num { color:#059669; font-weight:700; }
+  .data-table .key-opm { color:#b45309; }
+  caption { font-size:11px; color:#5a6280; text-align:left; padding:0 0 8px; caption-side:top; }
+  .val-box { background:#fafafa; border:1px solid #d0d4e0; border-radius:8px; padding:16px 20px; font-size:13px; line-height:2; }
+  .val-formula { background:#f0f2f8; border-radius:6px; padding:10px 14px; font-family:monospace; font-size:13px; margin:10px 0; color:#b45309; }
+  .risk-item { background:#fafafa; border-radius:0 6px 6px 0; padding:14px 16px; margin-bottom:10px; }
+  .risk-sev-high { border-left:3px solid #dc2626; }
+  .risk-sev-mid { border-left:3px solid #ea580c; }
+  .risk-assumption { font-weight:600; font-size:13px; margin-bottom:4px; }
+  .risk-chain { font-size:12px; color:#5a6280; margin:4px 0; }
+  .risk-impact-num { font-size:13px; color:#dc2626; font-weight:600; margin-top:4px; }
+  .checkpoint-item { display:flex; gap:12px; padding:10px 0; border-bottom:1px solid #d0d4e0; font-size:13px; }
+  .checkpoint-item:last-child { border-bottom:none; }
+  .cp-date { color:#2563eb; font-weight:600; min-width:90px; }
+  .cp-pass { color:#059669; font-size:12px; margin-top:2px; }
+  .cp-fail { color:#dc2626; font-size:12px; margin-top:2px; }
+  .opinion-box { background:#fafafa; border:1px solid #d0d4e0; border-radius:8px; padding:16px 20px; font-size:13px; line-height:1.8; color:#1a1d2e; }
+  .decision-box { display:flex; gap:14px; margin-top:14px; }
+  .decision-btn { flex:1; text-align:center; padding:10px; border-radius:6px; font-weight:700; font-size:13px; border:1px solid; }
+  .decision-buy{background:#ecfdf5;color:#059669;border-color:#34d399;}
+  .decision-wait{background:#fffbeb;color:#b45309;border-color:#f59e0b;}
+  .decision-avoid{background:#fef2f2;color:#dc2626;border-color:#fca5a5;}
+  .upgrade-box { background:#eff6ff; border:1px solid #93c5fd; border-radius:8px; padding:14px 16px; }
+  .upgrade-item { display:flex; gap:10px; padding:6px 0; border-bottom:1px solid #dbeafe; font-size:13px; }
+  .upgrade-item:last-child { border-bottom:none; }
+  .upgrade-when { color:#1d4ed8; font-weight:600; min-width:140px; }
+  .disclaimer { font-size:11px; color:#9ca3af; text-align:center; margin-top:40px; padding-top:16px; border-top:1px solid #d0d4e0; }
+</style></head><body>
+<div class="pdf-only-banner">🚫 외부 검색 금지 — 제공된 PDF 파일만 활용 | 당일(2026.04.14) 발간 리포트 기준</div>
+
+<header class="header">
+<div style="color:#5a6280;font-size:12px;margin-bottom:6px;">무난한 실적, 강해지는 원전 모멘텀</div>
+<h1>현대건설 (000720) | 신한투자증권 - | 발간일: 2026.04.14</h1>
+<div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-bottom:12px;">
+<span class="tag-badge tag-watch">🔥 주목</span><span class="score-badge score-low">📊 50점</span><span style="font-size:12px;color:#5a6280;">비바이오</span></div>
+<div class="price-row">
+<div class="price-item"><span class="label">투자의견</span><span class="val">-</span></div>
+<div class="price-item"><span class="label">목표주가(TP)</span><span class="val">-</span></div>
+<div class="price-item"><span class="label">현재주가(CP)</span><span class="val">-</span></div>
+<div class="price-item"><span class="label">Upside</span><span class="val upside-val">-</span></div>
+<div class="price-item"><span class="label">시가총액</span><span class="val">-</span></div>
+<div class="price-item"><span class="label">종목 유형</span><span class="val">비바이오</span></div>
+</div></header>
+
+<section><div class="section-title">💡 이 종목에 투자해야 하는 이유 — 스토리 한 줄</div>
+<div class="thesis-box">펠리세이드 SMR·불가리아·페르미 등 원전 모멘텀 강화(●●○) + 해외 타겟멀티플 10배 상향으로 26F OP 811.8십억(+24.3%) 회복. 그러나 연초 +160% 급등으로 선반영 리스크 존재, Upside 제한.</div>
+<div class="thesis-structure">
+<div class="thesis-part" style="color:#059669;">① 확정 팩트<br/>원전(SMR·불가리아·페르미) 모멘텀 강화(●●○)</div>
+<div class="thesis-arrow">→</div>
+<div class="thesis-part" style="color:#b45309;">② 실적 변화<br/>26F OP 811.8십억 +24.3%</div>
+<div class="thesis-arrow">→</div>
+<div class="thesis-part" style="color:#2563eb;">③ 시장 미반영<br/>Upside 25%(연초 +160% 선반영)</div>
+</div></section>
+
+<section><div class="section-title">✅ 핵심 태그 5가지 조건 체크</div>
+<div class="checklist"><div class="checklist-item"><div class="check-icon check-fail">✗</div><div><div class="check-label">조건 1 | 영업이익 성장 임계값</div><div class="check-detail">26E OP +50%+ AND (OPM +3%p+ OR OPM 15%+ 유지)</div><div class="check-why">26F OP +24.3%로 +50% 임계값 미달</div></div></div><div class="checklist-item"><div class="check-icon check-pass">✓</div><div><div class="check-label">조건 2 | 3년 지속성 (3개 이상 충족)</div><div class="check-detail">수주잔고 / CAPA / 독점·특허 / Lock-in / CAGR 15%+ / 리커링</div><div class="check-why">원전 수주 파이프라인 3건 + 해외 EPC 회복 + 주택 안정화</div></div></div><div class="checklist-item"><div class="check-icon check-fail">✗</div><div><div class="check-label">조건 3 | 확정 팩트(●●●) 2개 이상</div><div class="check-detail">수주확정·인허가·계약공시·실적 확인</div><div class="check-why">SMR·불가리아는 ●●○(논의 중). 확정 공시는 없음.</div></div></div><div class="checklist-item"><div class="check-icon check-na">—</div><div><div class="check-label">조건 4 | 시장 미반영</div><div class="check-detail">Upside 40%+ OR 컨센 괴리 +20%+</div><div class="check-why">TP 수치 미기재</div></div></div><div class="checklist-item"><div class="check-icon check-fail">✗</div><div><div class="check-label">조건 5 | 차별화된 시각</div><div class="check-detail">신규 커버리지·고유 근거·컨센 상회 추정치</div><div class="check-why">타 증권사 동일 원전 모멘텀 논리 → 차별화 약함</div></div></div></div>
+<p style="font-size:11px;color:#dc2626;margin-top:8px;">⚠️ 1개라도 ✗ → 핵심에서 주목으로 강등 필수 (손실 방지 원칙)</p></section>
+
+<section><div class="section-title">📊 투자 점수 판정 (v2.0)</div>
+<table><thead><tr><th>항목</th><th>판정</th><th>근거 (Why)</th></tr></thead><tbody>
+<tr><td>종목 유형</td><td>비바이오</td><td>건설·원전 EPC</td></tr>
+<tr><td>적용 가설</td><td>가설 2</td><td>24~25년 OP 회복 진행 + 26F OP +24% 추정 (실적 출발점 있음)</td></tr>
+<tr><td>촉매 등급</td><td>상급</td><td>원전(SMR·불가리아) = 글로벌 섹터 1위 수준 발주처 논의</td></tr>
+<tr><td>복합 여부</td><td>복합</td><td>SMR + 불가리아 + 페르미 + 해외 EPC 4가지</td></tr>
+<tr><td>직접성</td><td>직접</td><td>원전·플랜트 → 매출 직결</td></tr>
+<tr><td>매트릭스 기본 점수</td><td>90점</td><td>가설 2 × 상급 × 복합 = 90점</td></tr>
+<tr><td>페널티 ①</td><td class="penalty">-10</td><td>단기 주가 선반영 — 연초 대비 +160% 급등</td></tr>
+<tr><td>페널티 ②</td><td class="penalty">-30</td><td>컨센 반영(-10) + 잠재수주 미확정(-10) + 리스크 집중(-10) 3중 페널티</td></tr>
+<tr class="total-row"><td>최종 투자 점수</td><td><span class="highlight-green">50점</span></td><td>90 - 40 = 50점</td></tr>
+</tbody></table>
+<p style="font-size:11px;color:#5a6280;margin-top:8px;">페널티 5종만 적용: ①간접성 ②컨센 반영 ③잠재수주 미확정 ④단기 선반영 ⑤리스크 집중</p></section>
+
+<section><div class="section-title">⚡ 성장 인과 체인</div><div class="chain-box">
+<div class="chain-step"><div class="chain-arrow">①</div><div><div class="chain-label">구조 변화 / 촉매 <span class="chain-confirmed">● 확정 팩트</span></div><div class="chain-text">펠리세이드 SMR·불가리아 원전·페르미 원전 복구 등 원전 수주 파이프라인(●●○)</div></div></div>
+<div class="chain-step"><div class="chain-arrow">↓</div><div><div class="chain-label">매출 영향 (규모·비중 수치)</div><div class="chain-text">원전 EPC 수주 시 1건당 수조원 규모 — 장기 매출 가시성 극대화</div></div></div>
+<div class="chain-step"><div class="chain-arrow">↓</div><div><div class="chain-label">OPM 변화 메커니즘</div><div class="chain-text">원전은 초고마진 EPC. 수주 시 27F 이후 OPM 대폭 상승</div></div></div>
+<div class="chain-step"><div class="chain-arrow">↓</div><div><div class="chain-label">최종 실적 결과 <span class="chain-forecast">● 추정</span></div><div class="chain-text">26F OP 811.8십억 +24.3%, 27F~ 추가 가속 추정</div></div></div>
+<div class="chain-step"><div class="chain-arrow">↓</div><div><div class="chain-label">시장 미반영 포인트 (So What)</div><div class="chain-text">시장은 원전 모멘텀을 일부 반영(+160%) — 그러나 실제 수주 확정 시 추가 업사이드 가능</div></div></div>
+</div></section>
+
+<section><div class="section-title">📌 핵심 팩트 3줄 — WHAT + WHY + SO WHAT</div><div class="fact-item"><span class="fact-num">Fact 01</span>
+<div class="fact-what"><span class="fact-label label-what">WHAT</span>26F 영업이익 811.8십억 +24.3% — 회복 본격화</div>
+<div class="fact-why"><span class="fact-label label-why">WHY</span>해외 수익성 정상화 + 주택 원가 안정 + 해외 EPC 회복</div>
+<div class="fact-so"><span class="fact-label label-so">SO WHAT</span>건설 대형주 중 실적 회복 모멘텀 가장 강함</div></div><div class="fact-item"><span class="fact-num">Fact 02</span>
+<div class="fact-what"><span class="fact-label label-what">WHAT</span>원전 수주 파이프라인 3건 동시 추진 — 펠리세이드 SMR·불가리아·페르미</div>
+<div class="fact-why"><span class="fact-label label-why">WHY</span>글로벌 원전 르네상스 국면 + 현대건설 기존 트랙레코드 보유</div>
+<div class="fact-so"><span class="fact-label label-so">SO WHAT</span>수주 확정 1건당 주가 20~30% 추가 업사이드 가능</div></div><div class="fact-item"><span class="fact-num">Fact 03</span>
+<div class="fact-what"><span class="fact-label label-what">WHAT</span>해외 타겟멀티플 6→10배 상향 반영 (PDF 근거)</div>
+<div class="fact-why"><span class="fact-label label-why">WHY</span>기존 건설사 디스카운트 → 원전 EPC사 리레이팅 가능 구간</div>
+<div class="fact-so"><span class="fact-label label-so">SO WHAT</span>리레이팅 진행 중이나 연초 급등으로 선반영 영역 진입</div></div></section>
+
+<section><div class="section-title">📄 원본 리포트 핵심 요약 (PDF 내용 직접 발췌)</div>
+<div style="background:#fafafa;border:1px solid #d0d4e0;border-radius:8px;padding:16px 20px;margin-bottom:12px;">
+<div style="font-size:11px;font-weight:700;color:#5a6280;margin-bottom:10px;">리포트 핵심 주장</div>
+<p style="font-size:13px;line-height:1.9;">무난한 실적 흐름 위에 원전 모멘텀이 구조적으로 강해지고 있다. 펠리세이드 SMR·불가리아·페르미 3개 축의 수주 파이프라인이 가시화되면서 27년 이후 실적 가속이 기대된다.</p>
+<div style="margin-top:10px;display:flex;gap:8px;flex-wrap:wrap;">
+<div style="background:#f0f2f8;border:1px solid #d0d4e0;border-radius:6px;padding:6px 12px;font-size:12px;"><span style="color:#5a6280;font-size:10px;display:block;">이전 대비 변화</span>해외 타겟멀티플 6→10배 상향</div>
+<div style="background:#f0f2f8;border:1px solid #d0d4e0;border-radius:6px;padding:6px 12px;font-size:12px;"><span style="color:#5a6280;font-size:10px;display:block;">컨센서스 대비</span>컨센 상회 — 원전 모멘텀 반영 선도</div>
+</div></div>
+<div style="background:#fafafa;border:1px solid #d0d4e0;border-radius:8px;padding:16px 20px;margin-bottom:12px;">
+<div style="font-size:11px;font-weight:700;color:#5a6280;margin-bottom:10px;">사업 구조 & 성장 동력</div>
+<table><thead><tr><th style="width:25%;">사업부</th><th style="width:20%;">매출 비중</th><th style="width:55%;">핵심 성장 드라이버</th></tr></thead><tbody><tr><td>건축·주택</td><td>-</td><td>원가 안정화 + 분양 정상화</td></tr><tr><td>플랜트·해외</td><td>-</td><td>중동·동남아 EPC 회복 + 원전 파이프라인 핵심</td></tr><tr><td>원전(SMR 등)</td><td>-</td><td>펠리세이드 + 불가리아 + 페르미 3건 진행 — 27년 매출 기여</td></tr></tbody></table>
+<p style="font-size:12px;color:#5a6280;margin-top:10px;">▶ 핵심 성장 사업부 메커니즘: 원전 수주 1건 확정 시 3~5조원 규모 수주잔고 + 초고마진 EPC 매출 반영. 27년부터 본격적 이익 기여.</p></div>
+<div style="background:#fafafa;border:1px solid #d0d4e0;border-radius:8px;padding:16px 20px;margin-bottom:12px;">
+<div style="font-size:11px;font-weight:700;color:#5a6280;margin-bottom:10px;">시장 괴리 — 왜 지금 시장이 틀렸는가</div>
+<table><thead><tr><th style="width:30%;">구분</th><th>내용</th></tr></thead><tbody>
+<tr><td style="color:#5a6280;">시장 현재 인식</td><td>건설 섹터 디스카운트 + 주택 PF 리스크 중심</td></tr>
+<tr><td style="color:#2563eb;">이 리포트 주장</td><td>원전 수주 임박 + 해외 EPC 정상화로 리레이팅 필요</td></tr>
+<tr><td style="color:#b45309;">괴리 해소 촉매</td><td>펠리세이드 SMR·불가리아 본계약</td></tr>
+<tr><td>괴리 강도</td><td>중</td></tr>
+</tbody></table></div>
+<div style="background:#fafafa;border:1px solid #d0d4e0;border-radius:8px;padding:16px 20px;">
+<div style="font-size:11px;font-weight:700;color:#5a6280;margin-bottom:10px;">재무 특징</div>
+<div style="display:flex;flex-wrap:wrap;gap:8px;">
+<div style="background:#f0f2f8;border:1px solid #d0d4e0;border-radius:6px;padding:8px 12px;font-size:12px;flex:1;min-width:160px;"><span style="color:#5a6280;font-size:10px;display:block;">순현금/순차입금</span>-</div>
+<div style="background:#f0f2f8;border:1px solid #d0d4e0;border-radius:6px;padding:8px 12px;font-size:12px;flex:1;min-width:160px;"><span style="color:#5a6280;font-size:10px;display:block;">부채비율</span>-</div>
+<div style="background:#f0f2f8;border:1px solid #d0d4e0;border-radius:6px;padding:8px 12px;font-size:12px;flex:1;min-width:160px;"><span style="color:#5a6280;font-size:10px;display:block;">배당·자사주</span>-</div>
+<div style="background:#f0f2f8;border:1px solid #d0d4e0;border-radius:6px;padding:8px 12px;font-size:12px;flex:1;min-width:160px;"><span style="color:#5a6280;font-size:10px;display:block;">특이 이슈</span>-</div>
+</div></div></section>
+
+<section><div class="section-title">📈 실적 전망 (연간)</div>
+<table class="data-table"><caption>단위: 십억원 | ★ = 투자 핵심 연도</caption>
+<thead><tr><th>구분</th><th>2024A</th><th>2025A</th><th style="background:#dbeafe;color:#1e40af;">2026E ★</th><th>2027E</th><th>2028E</th></tr></thead>
+<tbody><tr><td>매출액</td><td>-</td><td>-</td><td class="key-col key-num">-</td><td>-</td><td>-</td></tr><tr><td>YoY(%)</td><td>-</td><td>-</td><td class="key-col">-</td><td>-</td><td>-</td></tr><tr><td>영업이익</td><td>-</td><td>-</td><td class="key-col key-num">811.8</td><td>-</td><td>-</td></tr><tr><td>YoY(%)</td><td>-</td><td>-</td><td class="key-col">+24.3</td><td>-</td><td>-</td></tr><tr><td>OPM(%)</td><td>-</td><td>-</td><td class="key-col key-opm">-</td><td>-</td><td>-</td></tr><tr><td>EPS(원)</td><td>-</td><td>-</td><td class="key-col">-</td><td>-</td><td>-</td></tr><tr><td>PER(배)</td><td>-</td><td>-</td><td class="key-col">-</td><td>-</td><td>-</td></tr><tr><td>PBR(배)</td><td>-</td><td>-</td><td class="key-col">-</td><td>-</td><td>-</td></tr><tr><td>ROE(%)</td><td>-</td><td>-</td><td class="key-col">-</td><td>-</td><td>-</td></tr></tbody></table>
+<p style="font-size:12px;color:#5a6280;margin-top:10px;">▶ 왜 26E가 변곡점인가: 원전 파이프라인 가시화 + 해외 EPC 정상화 맞물리는 회복 첫 해</p></section>
+
+
+
+<section><div class="section-title">💰 밸류에이션</div>
+<div class="val-box">
+<div class="val-formula">PDF 내 TP 산정식 미기재</div>
+<p style="color:#5a6280;font-size:12px;margin-top:8px;">▶ 왜 이 배수인가: 해외 타겟멀티플 6→10배 상향 논리 (원전 리레이팅)</p>
+</div></section>
+
+<section><div class="section-title">⚠️ 리스크 시나리오</div><div class="risk-item risk-sev-high">
+<div class="risk-assumption">🔴 핵심 가정: 원전 수주 지연 (파이프라인 3건 모두 지연)</div>
+<div class="risk-chain">→ 가정 붕괴 시: 27F 실적 상향 근거 약화<br/>→ 실적 영향: OPM 회복 지연 → 주가 리레이팅 둔화</div>
+<div class="risk-impact-num">→ 주가 영향: 급등분 되돌림 가능 -20~30%</div></div><div class="risk-item risk-sev-mid">
+<div class="risk-assumption">🟠 두 번째 가정: 주택·PF 추가 충당 부담</div>
+<div class="risk-chain">→ 가정 붕괴 시: 분기 실적 변동성<br/>→ 실적 영향: OPM 훼손</div>
+<div class="risk-impact-num">→ 주가 영향: 건설 공통 리스크</div></div></section>
+
+<section><div class="section-title">🎯 모멘텀 체크포인트</div>
+<div style="background:#fafafa;border:1px solid #d0d4e0;border-radius:8px;padding:4px 16px;"><div class="checkpoint-item"><span class="cp-date">2026.상반기</span><div><div>펠리세이드 SMR 본계약</div><div class="cp-pass">✅ 확정 시 → SS급 승격 검토</div><div class="cp-fail">⛔ 지연 시 → 주목 유지</div></div></div><div class="checkpoint-item"><span class="cp-date">2026.중반</span><div><div>불가리아 원전 공시</div><div class="cp-pass">✅ 확정 시 → 핵심 승격</div><div class="cp-fail">⛔ 무산 시 → 밸류 조정</div></div></div></div></section>
+
+<section><div class="section-title">💬 사견 & 투자 행동 결론</div>
+<div class="opinion-box"><p>원전 모멘텀 강화 자체는 매력적이나 연초 +160% 급등으로 상당 부분 선반영. 실제 수주 확정 공시 1건이 나와야 재상승 동력이 확보된다. 확정 전 신규 진입은 리스크 대비 상단 제한적.</p>
+<div class="decision-box"><div class="decision-btn decision-wait">⏳ 이벤트 후 진입<br/><span style="font-size:11px;font-weight:400;">원전 파이프라인 중 1건 이상 본계약 확정</span></div></div></div></section>
+
+<section><div class="section-title">🚀 승격 조건 — 주목 전용</div><div class="upgrade-box"><div class="upgrade-item"><span class="upgrade-when">2026.상반기 SMR 본계약 공시</span><span>펠리세이드 확정 시 → 🚀 SS급 승격 검토</span></div><div class="upgrade-item"><span class="upgrade-when">2026.상반기 불가리아 원전 공시</span><span>확정 시 → ⭐ 핵심 승격</span></div></div></section>
+
+<div class="disclaimer">※ 본 글은 증권사 리포트를 개인 학습 목적으로 요약·정리한 것이며, 투자 권유가 아닙니다.<br/>※ 제공된 PDF 파일만 활용. 외부 검색·참조 없음. 당일 발간 리포트 기준.</div>
+
+</body></html>

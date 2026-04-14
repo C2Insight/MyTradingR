@@ -1,0 +1,214 @@
+<!DOCTYPE html><html lang="ko"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>로보티즈 (108490) 정리</title><style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Pretendard','Apple SD Gothic Neo',-apple-system,sans-serif; background:#fff; color:#1a1d2e; line-height:1.7; font-size:14px; max-width:900px; margin:0 auto; padding:32px 20px 80px; }
+  .header { border-left:4px solid #2563eb; padding:0 0 0 16px; margin-bottom:24px; }
+  .header h1 { font-size:18px; font-weight:700; margin-bottom:10px; }
+  .price-row { display:flex; flex-wrap:wrap; gap:10px; margin-top:10px; }
+  .price-item { background:#f0f2f8; border:1px solid #d0d4e0; border-radius:6px; padding:6px 14px; font-size:13px; }
+  .price-item .label { color:#5a6280; font-size:11px; display:block; }
+  .price-item .val { font-weight:700; }
+  .upside-val { color:#059669; } .upside-negative { color:#dc2626; }
+  .tag-badge { display:inline-flex; align-items:center; gap:6px; padding:5px 14px; border-radius:20px; font-size:13px; font-weight:700; }
+  .tag-sss{background:#fff3ed;color:#c2410c;border:1px solid #f97316;}
+  .tag-ss{background:#f5f3ff;color:#6d28d9;border:1px solid #8b5cf6;}
+  .tag-core{background:#ecfdf5;color:#059669;border:1px solid #34d399;}
+  .tag-watch{background:#fffbeb;color:#b45309;border:1px solid #f59e0b;}
+  .tag-stable{background:#eff6ff;color:#1d4ed8;border:1px solid #60a5fa;}
+  .score-badge{display:inline-block;padding:5px 14px;border-radius:20px;font-size:13px;font-weight:700;background:#f0f2f8;border:1px solid #d0d4e0;}
+  .score-high{color:#059669;} .score-mid{color:#b45309;} .score-low{color:#5a6280;}
+  section { margin-bottom:28px; }
+  .section-title { font-size:11px; font-weight:700; letter-spacing:1.5px; text-transform:uppercase; color:#5a6280; border-bottom:1px solid #d0d4e0; padding-bottom:6px; margin-bottom:14px; }
+  .pdf-only-banner { background:#fff7ed; border:1px solid #f97316; border-radius:8px; padding:10px 16px; font-size:12px; color:#c2410c; margin-bottom:20px; text-align:center; font-weight:700; }
+  .thesis-box { background:#f8faff; border:1px solid #2563eb; border-radius:8px; padding:16px 20px; font-size:15px; font-weight:600; line-height:1.6; }
+  .thesis-structure { display:flex; gap:8px; align-items:center; margin-top:10px; flex-wrap:wrap; }
+  .thesis-part { background:#f0f2f8; border:1px solid #d0d4e0; border-radius:6px; padding:4px 10px; font-size:12px; }
+  .thesis-arrow { color:#2563eb; font-size:16px; }
+  .checklist { background:#fafafa; border:1px solid #d0d4e0; border-radius:8px; overflow:hidden; }
+  .checklist-item { display:flex; gap:14px; padding:12px 16px; border-bottom:1px solid #d0d4e0; }
+  .checklist-item:last-child { border-bottom:none; }
+  .check-icon { width:22px; height:22px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:12px; font-weight:700; flex-shrink:0; margin-top:1px; }
+  .check-pass { background:#ecfdf5; color:#059669; border:1px solid #34d399; }
+  .check-fail { background:#fef2f2; color:#dc2626; border:1px solid #fca5a5; }
+  .check-na { background:#f0f2f8; color:#5a6280; border:1px solid #d0d4e0; }
+  .check-label { font-weight:600; font-size:13px; }
+  .check-detail { color:#5a6280; font-size:12px; margin-top:2px; }
+  .check-why { font-size:13px; }
+  table { width:100%; border-collapse:collapse; background:#fafafa; border-radius:8px; overflow:hidden; border:1px solid #d0d4e0; }
+  thead tr { background:#f0f2f8; }
+  th { padding:10px 14px; text-align:left; font-size:11px; font-weight:700; color:#5a6280; letter-spacing:0.8px; text-transform:uppercase; }
+  td { padding:10px 14px; border-top:1px solid #d0d4e0; font-size:13px; }
+  tr.total-row td { background:#e8ecf5; font-weight:700; }
+  .penalty { color:#dc2626; } .highlight-green { color:#059669; font-weight:700; } .highlight-red { color:#dc2626; }
+  .chain-box { background:#fafafa; border:1px solid #d0d4e0; border-radius:8px; padding:16px 20px; }
+  .chain-step { display:flex; gap:12px; margin-bottom:10px; }
+  .chain-step:last-child { margin-bottom:0; }
+  .chain-arrow { color:#2563eb; font-size:16px; flex-shrink:0; margin-top:1px; }
+  .chain-label { font-size:10px; font-weight:700; letter-spacing:1px; color:#5a6280; text-transform:uppercase; margin-bottom:2px; }
+  .chain-text { font-size:13px; }
+  .chain-confirmed { color:#059669; font-size:11px; margin-left:6px; }
+  .chain-forecast { color:#b45309; font-size:11px; margin-left:6px; }
+  .fact-item { background:#fafafa; border:1px solid #d0d4e0; border-radius:8px; padding:14px 16px; margin-bottom:8px; }
+  .fact-num { font-size:10px; font-weight:700; color:#2563eb; letter-spacing:1px; margin-bottom:8px; display:block; }
+  .fact-what { font-weight:600; font-size:14px; margin-bottom:6px; }
+  .fact-why { font-size:13px; color:#5a6280; margin-bottom:6px; }
+  .fact-so { font-size:13px; color:#059669; }
+  .fact-label { display:inline-block; font-size:10px; font-weight:700; padding:1px 6px; border-radius:3px; margin-right:4px; }
+  .label-what { background:#eff6ff; color:#1d4ed8; }
+  .label-why { background:#fff7ed; color:#ea580c; }
+  .label-so { background:#ecfdf5; color:#059669; }
+  .data-table th { background:#e8ecf5; }
+  .data-table td.key-col { background:#f0f6ff; }
+  .data-table .key-num { color:#059669; font-weight:700; }
+  .data-table .key-opm { color:#b45309; }
+  caption { font-size:11px; color:#5a6280; text-align:left; padding:0 0 8px; caption-side:top; }
+  .val-box { background:#fafafa; border:1px solid #d0d4e0; border-radius:8px; padding:16px 20px; font-size:13px; line-height:2; }
+  .val-formula { background:#f0f2f8; border-radius:6px; padding:10px 14px; font-family:monospace; font-size:13px; margin:10px 0; color:#b45309; }
+  .risk-item { background:#fafafa; border-radius:0 6px 6px 0; padding:14px 16px; margin-bottom:10px; }
+  .risk-sev-high { border-left:3px solid #dc2626; }
+  .risk-sev-mid { border-left:3px solid #ea580c; }
+  .risk-assumption { font-weight:600; font-size:13px; margin-bottom:4px; }
+  .risk-chain { font-size:12px; color:#5a6280; margin:4px 0; }
+  .risk-impact-num { font-size:13px; color:#dc2626; font-weight:600; margin-top:4px; }
+  .checkpoint-item { display:flex; gap:12px; padding:10px 0; border-bottom:1px solid #d0d4e0; font-size:13px; }
+  .checkpoint-item:last-child { border-bottom:none; }
+  .cp-date { color:#2563eb; font-weight:600; min-width:90px; }
+  .cp-pass { color:#059669; font-size:12px; margin-top:2px; }
+  .cp-fail { color:#dc2626; font-size:12px; margin-top:2px; }
+  .opinion-box { background:#fafafa; border:1px solid #d0d4e0; border-radius:8px; padding:16px 20px; font-size:13px; line-height:1.8; color:#1a1d2e; }
+  .decision-box { display:flex; gap:14px; margin-top:14px; }
+  .decision-btn { flex:1; text-align:center; padding:10px; border-radius:6px; font-weight:700; font-size:13px; border:1px solid; }
+  .decision-buy{background:#ecfdf5;color:#059669;border-color:#34d399;}
+  .decision-wait{background:#fffbeb;color:#b45309;border-color:#f59e0b;}
+  .decision-avoid{background:#fef2f2;color:#dc2626;border-color:#fca5a5;}
+  .upgrade-box { background:#eff6ff; border:1px solid #93c5fd; border-radius:8px; padding:14px 16px; }
+  .upgrade-item { display:flex; gap:10px; padding:6px 0; border-bottom:1px solid #dbeafe; font-size:13px; }
+  .upgrade-item:last-child { border-bottom:none; }
+  .upgrade-when { color:#1d4ed8; font-weight:600; min-width:140px; }
+  .disclaimer { font-size:11px; color:#9ca3af; text-align:center; margin-top:40px; padding-top:16px; border-top:1px solid #d0d4e0; }
+</style></head><body>
+<div class="pdf-only-banner">🚫 외부 검색 금지 — 제공된 PDF 파일만 활용 | 당일(2026.04.14) 발간 리포트 기준</div>
+
+<header class="header">
+<div style="color:#5a6280;font-size:12px;margin-bottom:6px;">우즈벡 공장 조기 가동에 따라 '26년 Top-line 증가 기대</div>
+<h1>로보티즈 (108490) | 한화투자증권 김성래 | 발간일: 2026.04.14</h1>
+<div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-bottom:12px;">
+<span class="tag-badge tag-watch">🔥 주목</span><span class="score-badge score-mid">📊 70점</span><span style="font-size:12px;color:#5a6280;">비바이오</span></div>
+<div class="price-row">
+<div class="price-item"><span class="label">투자의견</span><span class="val">Buy (유지)</span></div>
+<div class="price-item"><span class="label">목표주가(TP)</span><span class="val">320,000원</span></div>
+<div class="price-item"><span class="label">현재주가(CP)</span><span class="val">245,500원</span></div>
+<div class="price-item"><span class="label">Upside</span><span class="val upside-val">+30.3%</span></div>
+<div class="price-item"><span class="label">시가총액</span><span class="val">35,972억원</span></div>
+<div class="price-item"><span class="label">종목 유형</span><span class="val">비바이오</span></div>
+</div></header>
+
+<section><div class="section-title">💡 이 종목에 투자해야 하는 이유 — 스토리 한 줄</div>
+<div class="thesis-box">우즈벡 공장 10월 조기 가동(●●●) + 다이나믹셀 글로벌 수요로 26F 매출 713억(+83.1%)·OP 120억(+251%)·OPM 16.7%. 그러나 Upside 30.3%로 40% 미달 + PER 351배 부담 → 핵심 승격 제약.</div>
+<div class="thesis-structure">
+<div class="thesis-part" style="color:#059669;">① 확정 팩트<br/>우즈벡 공장 10월 부분 가동(●●●)</div>
+<div class="thesis-arrow">→</div>
+<div class="thesis-part" style="color:#b45309;">② 실적 변화<br/>26F OP +251%, OPM 8.6→16.7%</div>
+<div class="thesis-arrow">→</div>
+<div class="thesis-part" style="color:#2563eb;">③ 시장 미반영<br/>Upside 30.3%(TP 상향 반영)</div>
+</div></section>
+
+<section><div class="section-title">✅ 핵심 태그 5가지 조건 체크</div>
+<div class="checklist"><div class="checklist-item"><div class="check-icon check-pass">✓</div><div><div class="check-label">조건 1 | 영업이익 성장 임계값</div><div class="check-detail">26E OP +50%+ AND (OPM +3%p+ OR OPM 15%+ 유지)</div><div class="check-why">26F OP +251%(34→120억) + OPM 8.6→16.7% = +8.1%p → 임계값 통과</div></div></div><div class="checklist-item"><div class="check-icon check-pass">✓</div><div><div class="check-label">조건 2 | 3년 지속성 (3개 이상 충족)</div><div class="check-detail">수주잔고 / CAPA / 독점·특허 / Lock-in / CAGR 15%+ / 리커링</div><div class="check-why">우즈벡 500만개 CAPA + Physical AI 플랫폼 연구(Google DeepMind·MIT 등) + 27F 물량 80만개로 +100% 확대 = 3개+</div></div></div><div class="checklist-item"><div class="check-icon check-pass">✓</div><div><div class="check-label">조건 3 | 확정 팩트(●●●) 2개 이상</div><div class="check-detail">수주확정·인허가·계약공시·실적 확인</div><div class="check-why">●●● 우즈벡 공장 건설 중(확정) + ●●● 25.4Q OP 21억 OPM 17.7% 실적 확인 = 2개</div></div></div><div class="checklist-item"><div class="check-icon check-fail">✗</div><div><div class="check-label">조건 4 | 시장 미반영</div><div class="check-detail">Upside 40%+ OR 컨센 괴리 +20%+</div><div class="check-why">Upside 30.3%로 40% 미달. 다만 TP 상향 반영 상태.</div></div></div><div class="checklist-item"><div class="check-icon check-pass">✓</div><div><div class="check-label">조건 5 | 차별화된 시각</div><div class="check-detail">신규 커버리지·고유 근거·컨센 상회 추정치</div><div class="check-why">AI Worker·HX-5 양팔형 로봇 등 독자 제품 차별화 구도</div></div></div></div>
+<p style="font-size:11px;color:#dc2626;margin-top:8px;">⚠️ 1개라도 ✗ → 핵심에서 주목으로 강등 필수 (손실 방지 원칙)</p></section>
+
+<section><div class="section-title">📊 투자 점수 판정 (v2.0)</div>
+<table><thead><tr><th>항목</th><th>판정</th><th>근거 (Why)</th></tr></thead><tbody>
+<tr><td>종목 유형</td><td>비바이오</td><td>로봇 액츄에이터(다이나믹셀)</td></tr>
+<tr><td>적용 가설</td><td>가설 1</td><td>4Q25 OP 21억 OPM 17.7% 고성장·고마진 이미 확인</td></tr>
+<tr><td>촉매 등급</td><td>상급</td><td>Google DeepMind·MIT·Stanford Project ALOHA 적용 = 글로벌 섹터 1위 발주</td></tr>
+<tr><td>복합 여부</td><td>복합</td><td>우즈벡 증설 + Physical AI 수요 + AI Worker 신제품</td></tr>
+<tr><td>직접성</td><td>직접</td><td>액츄에이터 → Physical AI 로봇 직결</td></tr>
+<tr><td>매트릭스 기본 점수</td><td>100점</td><td>가설 1 × 상급 × 복합 = 100점</td></tr>
+<tr><td>페널티 ①</td><td class="penalty">-10</td><td>단기 주가 선반영 — 12M 절대수익률 +701.6%</td></tr>
+<tr><td>페널티 ②</td><td class="penalty">-20</td><td>잠재수주 미확정(ASP 인하·판매 달성률 가정 의존)-10 + 컨센 반영-10</td></tr>
+<tr class="total-row"><td>최종 투자 점수</td><td><span class="highlight-green">70점</span></td><td>100 - 30 = 70점</td></tr>
+</tbody></table>
+<p style="font-size:11px;color:#5a6280;margin-top:8px;">페널티 5종만 적용: ①간접성 ②컨센 반영 ③잠재수주 미확정 ④단기 선반영 ⑤리스크 집중</p></section>
+
+<section><div class="section-title">⚡ 성장 인과 체인</div><div class="chain-box">
+<div class="chain-step"><div class="chain-arrow">①</div><div><div class="chain-label">구조 변화 / 촉매 <span class="chain-confirmed">● 확정 팩트</span></div><div class="chain-text">우즈벡 공장 25.10월 조기 부분 가동(●●●) + 다이나믹셀 Physical AI 연구기관 협업 확산(●●●)</div></div></div>
+<div class="chain-step"><div class="chain-arrow">↓</div><div><div class="chain-label">매출 영향 (규모·비중 수치)</div><div class="chain-text">CAPA 500만개 규모, 26년 50만개 판매 목표(+67%). 27년 80만개(+100%) 확대. 매출 713억→1,376억</div></div></div>
+<div class="chain-step"><div class="chain-arrow">↓</div><div><div class="chain-label">OPM 변화 메커니즘</div><div class="chain-text">물량 증가 + 우즈벡 인건비·OH cost 축소 + 고마진 Hand(HX-5) 신제품 → OPM 8.6→16.7→25.8% 급등</div></div></div>
+<div class="chain-step"><div class="chain-arrow">↓</div><div><div class="chain-label">최종 실적 결과 <span class="chain-forecast">● 추정</span></div><div class="chain-text">26F 매출 713억(+83%)·OP 120억(+251%) / 27F OP 356억(+202%) 추정</div></div></div>
+<div class="chain-step"><div class="chain-arrow">↓</div><div><div class="chain-label">시장 미반영 포인트 (So What)</div><div class="chain-text">시장은 국내 중소기업 이미지 중심 — 글로벌 Physical AI 밸류체인 편입 미반영</div></div></div>
+</div></section>
+
+<section><div class="section-title">📌 핵심 팩트 3줄 — WHAT + WHY + SO WHAT</div><div class="fact-item"><span class="fact-num">Fact 01</span>
+<div class="fact-what"><span class="fact-label label-what">WHAT</span>26F 매출 713억(+83.1%)·OP 120억(+251%)·OPM 16.7%</div>
+<div class="fact-why"><span class="fact-label label-why">WHY</span>우즈벡 공장 10월 부분 가동 + 다이나믹셀 수요 증가(Google DeepMind·Stanford ALOHA 적용 확산)</div>
+<div class="fact-so"><span class="fact-label label-so">SO WHAT</span>로봇 섹터 내 실적 급증 선두 — 재평가 구간</div></div><div class="fact-item"><span class="fact-num">Fact 02</span>
+<div class="fact-what"><span class="fact-label label-what">WHAT</span>우즈벡 500만개 CAPA 조기 가동 + 27년 물량 80만개(+100%)</div>
+<div class="fact-why"><span class="fact-label label-why">WHY</span>중국 경쟁사 대응 + 글로벌 공급 베이스 확보. 인건비·OH cost 축소 효과 가시화.</div>
+<div class="fact-so"><span class="fact-label label-so">SO WHAT</span>구조적 이익 레벨업 + 장기 성장 가시성 확보</div></div><div class="fact-item"><span class="fact-num">Fact 03</span>
+<div class="fact-what"><span class="fact-label label-what">WHAT</span>다이나믹셀이 Google DeepMind·MIT·Stanford Project ALOHA에 적용</div>
+<div class="fact-why"><span class="fact-label label-why">WHY</span>글로벌 Physical AI 연구 표준 제품화 — 진입장벽 구축</div>
+<div class="fact-so"><span class="fact-label label-so">SO WHAT</span>플랫폼 Lock-in 효과 — Peer 대비 프리미엄 멀티플 정당화</div></div></section>
+
+<section><div class="section-title">📄 원본 리포트 핵심 요약 (PDF 내용 직접 발췌)</div>
+<div style="background:#fafafa;border:1px solid #d0d4e0;border-radius:8px;padding:16px 20px;margin-bottom:12px;">
+<div style="font-size:11px;font-weight:700;color:#5a6280;margin-bottom:10px;">리포트 핵심 주장</div>
+<p style="font-size:13px;line-height:1.9;">우즈벡 공장의 점진적 ramp-up에 따른 현지 물량 비중 확대로 수익성 개선이 가시화. 27년 연간 물량 80만개로 증가 시 매출 1,376억(+91.4%)·OP 356억(+202%). 증익 속도가 밸류 부담을 완화할 것.</p>
+<div style="margin-top:10px;display:flex;gap:8px;flex-wrap:wrap;">
+<div style="background:#f0f2f8;border:1px solid #d0d4e0;border-radius:6px;padding:6px 12px;font-size:12px;"><span style="color:#5a6280;font-size:10px;display:block;">이전 대비 변화</span>TP 320,000원으로 상향 / 추정 매출 713억(종전 659억)</div>
+<div style="background:#f0f2f8;border:1px solid #d0d4e0;border-radius:6px;padding:6px 12px;font-size:12px;"><span style="color:#5a6280;font-size:10px;display:block;">컨센서스 대비</span>컨센 상회 — TP 상향 반영</div>
+</div></div>
+<div style="background:#fafafa;border:1px solid #d0d4e0;border-radius:8px;padding:16px 20px;margin-bottom:12px;">
+<div style="font-size:11px;font-weight:700;color:#5a6280;margin-bottom:10px;">사업 구조 & 성장 동력</div>
+<table><thead><tr><th style="width:25%;">사업부</th><th style="width:20%;">매출 비중</th><th style="width:55%;">핵심 성장 드라이버</th></tr></thead><tbody><tr><td>액츄에이터(다이나믹셀)</td><td>-</td><td>우즈벡 공장 + Physical AI 수요 핵심 드라이버</td></tr><tr><td>AI Worker·Hand(HX-5)</td><td>-</td><td>모방학습·양팔형 로봇 신제품 — 고마진</td></tr><tr><td>휴머노이드·다관절</td><td>-</td><td>연구/제조 기술 기반 중장기</td></tr></tbody></table>
+<p style="font-size:12px;color:#5a6280;margin-top:10px;">▶ 핵심 성장 사업부 메커니즘: 우즈벡 CAPA 확대 → 물량 증가 → 원가 절감 → OPM 급등. 다이나믹셀이 Physical AI 연구기관 표준으로 채택되며 진입장벽 구축.</p></div>
+<div style="background:#fafafa;border:1px solid #d0d4e0;border-radius:8px;padding:16px 20px;margin-bottom:12px;">
+<div style="font-size:11px;font-weight:700;color:#5a6280;margin-bottom:10px;">시장 괴리 — 왜 지금 시장이 틀렸는가</div>
+<table><thead><tr><th style="width:30%;">구분</th><th>내용</th></tr></thead><tbody>
+<tr><td style="color:#5a6280;">시장 현재 인식</td><td>국내 중소기업·밸류 부담 PER 351배</td></tr>
+<tr><td style="color:#2563eb;">이 리포트 주장</td><td>글로벌 Physical AI 밸류체인 편입 + 27F OP +202% 가속</td></tr>
+<tr><td style="color:#b45309;">괴리 해소 촉매</td><td>우즈벡 온기 가동 + AI Worker 매출 인식</td></tr>
+<tr><td>괴리 강도</td><td>강</td></tr>
+</tbody></table></div>
+<div style="background:#fafafa;border:1px solid #d0d4e0;border-radius:8px;padding:16px 20px;">
+<div style="font-size:11px;font-weight:700;color:#5a6280;margin-bottom:10px;">재무 특징</div>
+<div style="display:flex;flex-wrap:wrap;gap:8px;">
+<div style="background:#f0f2f8;border:1px solid #d0d4e0;border-radius:6px;padding:8px 12px;font-size:12px;flex:1;min-width:160px;"><span style="color:#5a6280;font-size:10px;display:block;">순현금/순차입금</span>순현금 201억원(26E)</div>
+<div style="background:#f0f2f8;border:1px solid #d0d4e0;border-radius:6px;padding:8px 12px;font-size:12px;flex:1;min-width:160px;"><span style="color:#5a6280;font-size:10px;display:block;">부채비율</span>-</div>
+<div style="background:#f0f2f8;border:1px solid #d0d4e0;border-radius:6px;padding:8px 12px;font-size:12px;flex:1;min-width:160px;"><span style="color:#5a6280;font-size:10px;display:block;">배당·자사주</span>-</div>
+<div style="background:#f0f2f8;border:1px solid #d0d4e0;border-radius:6px;padding:8px 12px;font-size:12px;flex:1;min-width:160px;"><span style="color:#5a6280;font-size:10px;display:block;">특이 이슈</span>CAPEX 투자 지속 국면</div>
+</div></div></section>
+
+<section><div class="section-title">📈 실적 전망 (연간)</div>
+<table class="data-table"><caption>단위: 십억원 | ★ = 투자 핵심 연도</caption>
+<thead><tr><th>구분</th><th>2024A</th><th>2025A</th><th style="background:#dbeafe;color:#1e40af;">2026E ★</th><th>2027E</th><th>2028E</th></tr></thead>
+<tbody><tr><td>매출액</td><td>30</td><td>39</td><td class="key-col key-num">72</td><td>138</td><td>-</td></tr><tr><td>YoY(%)</td><td>-</td><td>29.6</td><td class="key-col">83.1</td><td>91.4</td><td>-</td></tr><tr><td>영업이익</td><td>-3</td><td>3</td><td class="key-col key-num">12</td><td>36</td><td>-</td></tr><tr><td>YoY(%)</td><td>-</td><td>흑전</td><td class="key-col">+251</td><td>+202</td><td>-</td></tr><tr><td>OPM(%)</td><td>(10)</td><td>8.6</td><td class="key-col key-opm">16.7</td><td>25.8</td><td>-</td></tr><tr><td>EPS(원)</td><td>-3</td><td>4</td><td class="key-col">10</td><td>27</td><td>-</td></tr><tr><td>PER(배)</td><td>(1,020.5)</td><td>816.9</td><td class="key-col">351.7</td><td>129.8</td><td>-</td></tr><tr><td>PBR(배)</td><td>33.9</td><td>11.5</td><td class="key-col">11.1</td><td>10.3</td><td>-</td></tr><tr><td>ROE(%)</td><td>-3.3</td><td>1.9</td><td class="key-col">3.2</td><td>8.1</td><td>-</td></tr></tbody></table>
+<p style="font-size:12px;color:#5a6280;margin-top:10px;">▶ 왜 26E가 변곡점인가: 우즈벡 공장 조기 가동 + Physical AI 표준 채택 동시 진행 첫 해</p></section>
+
+
+
+<section><div class="section-title">💰 밸류에이션</div>
+<div class="val-box">
+<div class="val-formula">PER 산정 → TP 320,000원 (한화증권 가정)</div>
+<p style="color:#5a6280;font-size:12px;margin-top:8px;">▶ 왜 이 배수인가: 27F 이익 기준 129배 수준 — Physical AI 플랫폼 프리미엄 반영</p>
+</div></section>
+
+<section><div class="section-title">⚠️ 리스크 시나리오</div><div class="risk-item risk-sev-high">
+<div class="risk-assumption">🔴 핵심 가정: 우즈벡 공장 가동 지연·가동률 저조</div>
+<div class="risk-chain">→ 가정 붕괴 시: 26F 매출 713억 → 600억대로 하향<br/>→ 실적 영향: OPM 개선 시점 이연</div>
+<div class="risk-impact-num">→ 주가 영향: -20~30% (PER 부담 완화 지연)</div></div><div class="risk-item risk-sev-mid">
+<div class="risk-assumption">🟠 두 번째 가정: 중국 경쟁사 가격 경쟁 심화</div>
+<div class="risk-chain">→ 가정 붕괴 시: ASP 추가 -13.7% 가정 초과 하락<br/>→ 실적 영향: OPM 16%→12%대</div>
+<div class="risk-impact-num">→ 주가 영향: -15%</div></div></section>
+
+<section><div class="section-title">🎯 모멘텀 체크포인트</div>
+<div style="background:#fafafa;border:1px solid #d0d4e0;border-radius:8px;padding:4px 16px;"><div class="checkpoint-item"><span class="cp-date">2026.4Q</span><div><div>우즈벡 공장 조기 가동 개시</div><div class="cp-pass">✅ 실제 가동 + 판매 50만개 달성 시 → 핵심 승격</div><div class="cp-fail">⛔ 지연 시 → 주목 유지</div></div></div><div class="checkpoint-item"><span class="cp-date">2026.1Q</span><div><div>1Q26 실적 발표</div><div class="cp-pass">✅ 매출 성장 확인 시 → 단계적 매수</div><div class="cp-fail">⛔ 미달 시 → 관망</div></div></div></div></section>
+
+<section><div class="section-title">💬 사견 & 투자 행동 결론</div>
+<div class="opinion-box"><p>성장 스토리는 업계 최고 수준. Upside 30% + PER 351배로 밸류 부담 상당하지만, 우즈벡 가동 + Physical AI 표준 지위로 중장기 리레이팅 여지. 분할 매수 관점 유효.</p>
+<div class="decision-box"><div class="decision-btn decision-wait">⏳ 이벤트 후 진입<br/><span style="font-size:11px;font-weight:400;">우즈벡 공장 실제 가동(25.10월) + 1Q26 실적 확인</span></div></div></div></section>
+
+<section><div class="section-title">🚀 승격 조건 — 주목 전용</div><div class="upgrade-box"><div class="upgrade-item"><span class="upgrade-when">2026.4Q 우즈벡 공장 실제 가동</span><span>50만개 판매 목표 달성 시 → ⭐ 핵심 승격</span></div><div class="upgrade-item"><span class="upgrade-when">2026.상반기 AI Worker 유의미한 매출</span><span>첫 대규모 계약 시 → ⭐ 핵심 승격</span></div></div></section>
+
+<div class="disclaimer">※ 본 글은 증권사 리포트를 개인 학습 목적으로 요약·정리한 것이며, 투자 권유가 아닙니다.<br/>※ 제공된 PDF 파일만 활용. 외부 검색·참조 없음. 당일 발간 리포트 기준.</div>
+
+</body></html>

@@ -1,0 +1,217 @@
+<!DOCTYPE html><html lang="ko"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>씨어스테크놀로지 (-) 정리</title><style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Pretendard','Apple SD Gothic Neo',-apple-system,sans-serif; background:#fff; color:#1a1d2e; line-height:1.7; font-size:14px; max-width:900px; margin:0 auto; padding:32px 20px 80px; }
+  .header { border-left:4px solid #2563eb; padding:0 0 0 16px; margin-bottom:24px; }
+  .header h1 { font-size:18px; font-weight:700; margin-bottom:10px; }
+  .price-row { display:flex; flex-wrap:wrap; gap:10px; margin-top:10px; }
+  .price-item { background:#f0f2f8; border:1px solid #d0d4e0; border-radius:6px; padding:6px 14px; font-size:13px; }
+  .price-item .label { color:#5a6280; font-size:11px; display:block; }
+  .price-item .val { font-weight:700; }
+  .upside-val { color:#059669; } .upside-negative { color:#dc2626; }
+  .tag-badge { display:inline-flex; align-items:center; gap:6px; padding:5px 14px; border-radius:20px; font-size:13px; font-weight:700; }
+  .tag-sss{background:#fff3ed;color:#c2410c;border:1px solid #f97316;}
+  .tag-ss{background:#f5f3ff;color:#6d28d9;border:1px solid #8b5cf6;}
+  .tag-core{background:#ecfdf5;color:#059669;border:1px solid #34d399;}
+  .tag-watch{background:#fffbeb;color:#b45309;border:1px solid #f59e0b;}
+  .tag-stable{background:#eff6ff;color:#1d4ed8;border:1px solid #60a5fa;}
+  .score-badge{display:inline-block;padding:5px 14px;border-radius:20px;font-size:13px;font-weight:700;background:#f0f2f8;border:1px solid #d0d4e0;}
+  .score-high{color:#059669;} .score-mid{color:#b45309;} .score-low{color:#5a6280;}
+  section { margin-bottom:28px; }
+  .section-title { font-size:11px; font-weight:700; letter-spacing:1.5px; text-transform:uppercase; color:#5a6280; border-bottom:1px solid #d0d4e0; padding-bottom:6px; margin-bottom:14px; }
+  .pdf-only-banner { background:#fff7ed; border:1px solid #f97316; border-radius:8px; padding:10px 16px; font-size:12px; color:#c2410c; margin-bottom:20px; text-align:center; font-weight:700; }
+  .thesis-box { background:#f8faff; border:1px solid #2563eb; border-radius:8px; padding:16px 20px; font-size:15px; font-weight:600; line-height:1.6; }
+  .thesis-structure { display:flex; gap:8px; align-items:center; margin-top:10px; flex-wrap:wrap; }
+  .thesis-part { background:#f0f2f8; border:1px solid #d0d4e0; border-radius:6px; padding:4px 10px; font-size:12px; }
+  .thesis-arrow { color:#2563eb; font-size:16px; }
+  .checklist { background:#fafafa; border:1px solid #d0d4e0; border-radius:8px; overflow:hidden; }
+  .checklist-item { display:flex; gap:14px; padding:12px 16px; border-bottom:1px solid #d0d4e0; }
+  .checklist-item:last-child { border-bottom:none; }
+  .check-icon { width:22px; height:22px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:12px; font-weight:700; flex-shrink:0; margin-top:1px; }
+  .check-pass { background:#ecfdf5; color:#059669; border:1px solid #34d399; }
+  .check-fail { background:#fef2f2; color:#dc2626; border:1px solid #fca5a5; }
+  .check-na { background:#f0f2f8; color:#5a6280; border:1px solid #d0d4e0; }
+  .check-label { font-weight:600; font-size:13px; }
+  .check-detail { color:#5a6280; font-size:12px; margin-top:2px; }
+  .check-why { font-size:13px; }
+  table { width:100%; border-collapse:collapse; background:#fafafa; border-radius:8px; overflow:hidden; border:1px solid #d0d4e0; }
+  thead tr { background:#f0f2f8; }
+  th { padding:10px 14px; text-align:left; font-size:11px; font-weight:700; color:#5a6280; letter-spacing:0.8px; text-transform:uppercase; }
+  td { padding:10px 14px; border-top:1px solid #d0d4e0; font-size:13px; }
+  tr.total-row td { background:#e8ecf5; font-weight:700; }
+  .penalty { color:#dc2626; } .highlight-green { color:#059669; font-weight:700; } .highlight-red { color:#dc2626; }
+  .chain-box { background:#fafafa; border:1px solid #d0d4e0; border-radius:8px; padding:16px 20px; }
+  .chain-step { display:flex; gap:12px; margin-bottom:10px; }
+  .chain-step:last-child { margin-bottom:0; }
+  .chain-arrow { color:#2563eb; font-size:16px; flex-shrink:0; margin-top:1px; }
+  .chain-label { font-size:10px; font-weight:700; letter-spacing:1px; color:#5a6280; text-transform:uppercase; margin-bottom:2px; }
+  .chain-text { font-size:13px; }
+  .chain-confirmed { color:#059669; font-size:11px; margin-left:6px; }
+  .chain-forecast { color:#b45309; font-size:11px; margin-left:6px; }
+  .fact-item { background:#fafafa; border:1px solid #d0d4e0; border-radius:8px; padding:14px 16px; margin-bottom:8px; }
+  .fact-num { font-size:10px; font-weight:700; color:#2563eb; letter-spacing:1px; margin-bottom:8px; display:block; }
+  .fact-what { font-weight:600; font-size:14px; margin-bottom:6px; }
+  .fact-why { font-size:13px; color:#5a6280; margin-bottom:6px; }
+  .fact-so { font-size:13px; color:#059669; }
+  .fact-label { display:inline-block; font-size:10px; font-weight:700; padding:1px 6px; border-radius:3px; margin-right:4px; }
+  .label-what { background:#eff6ff; color:#1d4ed8; }
+  .label-why { background:#fff7ed; color:#ea580c; }
+  .label-so { background:#ecfdf5; color:#059669; }
+  .data-table th { background:#e8ecf5; }
+  .data-table td.key-col { background:#f0f6ff; }
+  .data-table .key-num { color:#059669; font-weight:700; }
+  .data-table .key-opm { color:#b45309; }
+  caption { font-size:11px; color:#5a6280; text-align:left; padding:0 0 8px; caption-side:top; }
+  .val-box { background:#fafafa; border:1px solid #d0d4e0; border-radius:8px; padding:16px 20px; font-size:13px; line-height:2; }
+  .val-formula { background:#f0f2f8; border-radius:6px; padding:10px 14px; font-family:monospace; font-size:13px; margin:10px 0; color:#b45309; }
+  .risk-item { background:#fafafa; border-radius:0 6px 6px 0; padding:14px 16px; margin-bottom:10px; }
+  .risk-sev-high { border-left:3px solid #dc2626; }
+  .risk-sev-mid { border-left:3px solid #ea580c; }
+  .risk-assumption { font-weight:600; font-size:13px; margin-bottom:4px; }
+  .risk-chain { font-size:12px; color:#5a6280; margin:4px 0; }
+  .risk-impact-num { font-size:13px; color:#dc2626; font-weight:600; margin-top:4px; }
+  .checkpoint-item { display:flex; gap:12px; padding:10px 0; border-bottom:1px solid #d0d4e0; font-size:13px; }
+  .checkpoint-item:last-child { border-bottom:none; }
+  .cp-date { color:#2563eb; font-weight:600; min-width:90px; }
+  .cp-pass { color:#059669; font-size:12px; margin-top:2px; }
+  .cp-fail { color:#dc2626; font-size:12px; margin-top:2px; }
+  .opinion-box { background:#fafafa; border:1px solid #d0d4e0; border-radius:8px; padding:16px 20px; font-size:13px; line-height:1.8; color:#1a1d2e; }
+  .decision-box { display:flex; gap:14px; margin-top:14px; }
+  .decision-btn { flex:1; text-align:center; padding:10px; border-radius:6px; font-weight:700; font-size:13px; border:1px solid; }
+  .decision-buy{background:#ecfdf5;color:#059669;border-color:#34d399;}
+  .decision-wait{background:#fffbeb;color:#b45309;border-color:#f59e0b;}
+  .decision-avoid{background:#fef2f2;color:#dc2626;border-color:#fca5a5;}
+  .upgrade-box { background:#eff6ff; border:1px solid #93c5fd; border-radius:8px; padding:14px 16px; }
+  .upgrade-item { display:flex; gap:10px; padding:6px 0; border-bottom:1px solid #dbeafe; font-size:13px; }
+  .upgrade-item:last-child { border-bottom:none; }
+  .upgrade-when { color:#1d4ed8; font-weight:600; min-width:140px; }
+  .disclaimer { font-size:11px; color:#9ca3af; text-align:center; margin-top:40px; padding-top:16px; border-top:1px solid #d0d4e0; }
+</style></head><body>
+<div class="pdf-only-banner">🚫 외부 검색 금지 — 제공된 PDF 파일만 활용 | 당일(2026.04.14) 발간 리포트 기준</div>
+
+<header class="header">
+<div style="color:#5a6280;font-size:12px;margin-bottom:6px;">하늘길만 열리면...</div>
+<h1>씨어스테크놀로지 (-) | 신한투자증권 - | 발간일: 2026.04.14</h1>
+<div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-bottom:12px;">
+<span class="tag-badge tag-watch">🔥 주목</span><span class="score-badge score-low">📊 40점</span><span style="font-size:12px;color:#5a6280;">비바이오</span></div>
+<div class="price-row">
+<div class="price-item"><span class="label">투자의견</span><span class="val">-</span></div>
+<div class="price-item"><span class="label">목표주가(TP)</span><span class="val">-</span></div>
+<div class="price-item"><span class="label">현재주가(CP)</span><span class="val">-</span></div>
+<div class="price-item"><span class="label">Upside</span><span class="val upside-val">-</span></div>
+<div class="price-item"><span class="label">시가총액</span><span class="val">-</span></div>
+<div class="price-item"><span class="label">종목 유형</span><span class="val">비바이오</span></div>
+</div></header>
+
+<section><div class="section-title">💡 이 종목에 투자해야 하는 이유 — 스토리 한 줄</div>
+<div class="thesis-box">씽크 국내 매출 급성장 지속 + UAE 모비케어 잠재 계약(●○○)으로 1Q26F 매출 302억(+642.8%)·OP 105억 흑전·OPM 34.8%. 그러나 UAE 계약 미확정 + 중동 하늘길 의존 + 원가 상승 등 변수 다수.</div>
+<div class="thesis-structure">
+<div class="thesis-part" style="color:#059669;">① 확정 팩트<br/>씽크 1Q26F 매출 +672%·OP 흑전(●●●)</div>
+<div class="thesis-arrow">→</div>
+<div class="thesis-part" style="color:#b45309;">② 실적 변화<br/>1Q26F OPM 34.8%·26F OPM 27.3%</div>
+<div class="thesis-arrow">→</div>
+<div class="thesis-part" style="color:#2563eb;">③ 시장 미반영<br/>TP 미기재</div>
+</div></section>
+
+<section><div class="section-title">✅ 핵심 태그 5가지 조건 체크</div>
+<div class="checklist"><div class="checklist-item"><div class="check-icon check-pass">✓</div><div><div class="check-label">조건 1 | 영업이익 성장 임계값</div><div class="check-detail">26E OP +50%+ AND (OPM +3%p+ OR OPM 15%+ 유지)</div><div class="check-why">26F 매출 1,299억(+169.6%)·OP 355억(흑전 → +182.1%) + OPM 33.4→27.3%(감소) — 성장율 임계 통과, OPM은 이미 20%+</div></div></div><div class="checklist-item"><div class="check-icon check-pass">✓</div><div><div class="check-label">조건 2 | 3년 지속성 (3개 이상 충족)</div><div class="check-detail">수주잔고 / CAPA / 독점·특허 / Lock-in / CAGR 15%+ / 리커링</div><div class="check-why">씽크 의료기기 리커링 + 중동·모비케어 확장 + 인력 40명 충원 = 3개+</div></div></div><div class="checklist-item"><div class="check-icon check-fail">✗</div><div><div class="check-label">조건 3 | 확정 팩트(●●●) 2개 이상</div><div class="check-detail">수주확정·인허가·계약공시·실적 확인</div><div class="check-why">●●● 씽크 25.4Q 매출 189억 확인 1개. UAE 모비케어는 ●○○ 미확정</div></div></div><div class="checklist-item"><div class="check-icon check-na">—</div><div><div class="check-label">조건 4 | 시장 미반영</div><div class="check-detail">Upside 40%+ OR 컨센 괴리 +20%+</div><div class="check-why">TP 미기재</div></div></div><div class="checklist-item"><div class="check-icon check-fail">✗</div><div><div class="check-label">조건 5 | 차별화된 시각</div><div class="check-detail">신규 커버리지·고유 근거·컨센 상회 추정치</div><div class="check-why">중동 하늘길 정상화라는 외부 변수 의존 — 차별화 근거 약함</div></div></div></div>
+<p style="font-size:11px;color:#dc2626;margin-top:8px;">⚠️ 1개라도 ✗ → 핵심에서 주목으로 강등 필수 (손실 방지 원칙)</p></section>
+
+<section><div class="section-title">📊 투자 점수 판정 (v2.0)</div>
+<table><thead><tr><th>항목</th><th>판정</th><th>근거 (Why)</th></tr></thead><tbody>
+<tr><td>종목 유형</td><td>비바이오</td><td>디지털 헬스케어·웨어러블 의료기기</td></tr>
+<tr><td>적용 가설</td><td>가설 1</td><td>4Q25 OP 87억 OPM 42.6% — 이미 고성장 고마진 확인</td></tr>
+<tr><td>촉매 등급</td><td>중급</td><td>국내 씽크 성장 + UAE 논의 (UAE는 미확정)</td></tr>
+<tr><td>복합 여부</td><td>복합</td><td>씽크 + 모비케어 + 해외 3가지</td></tr>
+<tr><td>직접성</td><td>직접</td><td>의료기기 매출 직결</td></tr>
+<tr><td>매트릭스 기본 점수</td><td>80점</td><td>가설 1 × 중급 × 복합 = 80점</td></tr>
+<tr><td>페널티 ①</td><td class="penalty">-10</td><td>잠재수주 미확정(UAE 계약 ●○○)</td></tr>
+<tr><td>페널티 ②</td><td class="penalty">-30</td><td>단기 선반영-10 + 리스크 집중(하늘길 의존)-10 + 컨센 반영-10</td></tr>
+<tr class="total-row"><td>최종 투자 점수</td><td><span class="highlight-green">40점</span></td><td>80 - 40 = 40점</td></tr>
+</tbody></table>
+<p style="font-size:11px;color:#5a6280;margin-top:8px;">페널티 5종만 적용: ①간접성 ②컨센 반영 ③잠재수주 미확정 ④단기 선반영 ⑤리스크 집중</p></section>
+
+<section><div class="section-title">⚡ 성장 인과 체인</div><div class="chain-box">
+<div class="chain-step"><div class="chain-arrow">①</div><div><div class="chain-label">구조 변화 / 촉매 <span class="chain-confirmed">● 확정 팩트</span></div><div class="chain-text">씽크 국내 설치 급증(●●●) + 인력 40명 충원(●●●) + UAE 모비케어 계약 논의(●○○)</div></div></div>
+<div class="chain-step"><div class="chain-arrow">↓</div><div><div class="chain-label">매출 영향 (규모·비중 수치)</div><div class="chain-text">씽크 25.4Q 매출 189억 → 1Q26 28.6억 기저 대비 급증. 중동 정상화 시 3Q 매출 인식</div></div></div>
+<div class="chain-step"><div class="chain-arrow">↓</div><div><div class="chain-label">OPM 변화 메커니즘</div><div class="chain-text">1Q 원가 인상 분 판가 반영 2Q~ + 인력 증원 후 효율화 → OPM 1Q 저점, 2Q~ 회복</div></div></div>
+<div class="chain-step"><div class="chain-arrow">↓</div><div><div class="chain-label">최종 실적 결과 <span class="chain-forecast">● 추정</span></div><div class="chain-text">1Q26F 매출 302억(+642.8%)·OP 105억(흑전)·OPM 34.8% / 26F 매출 1,299억·OP 355억·OPM 27.3%</div></div></div>
+<div class="chain-step"><div class="chain-arrow">↓</div><div><div class="chain-label">시장 미반영 포인트 (So What)</div><div class="chain-text">시장은 원가 상승·인건비 이슈 중심 1Q 변동성 우려 — 구조적 수요 미반영</div></div></div>
+</div></section>
+
+<section><div class="section-title">📌 핵심 팩트 3줄 — WHAT + WHY + SO WHAT</div><div class="fact-item"><span class="fact-num">Fact 01</span>
+<div class="fact-what"><span class="fact-label label-what">WHAT</span>1Q26F 매출 302억(+642.8%)·OP 105억(흑전)·OPM 34.8%</div>
+<div class="fact-why"><span class="fact-label label-why">WHY</span>씽크 국내 설치 본격 확대 + 전분기 대비 원가·인건비 증가로 OPM 4Q 대비 하락</div>
+<div class="fact-so"><span class="fact-label label-so">SO WHAT</span>성장 구간 진입 확인되나 1Q가 마진 저점</div></div><div class="fact-item"><span class="fact-num">Fact 02</span>
+<div class="fact-what"><span class="fact-label label-what">WHAT</span>UAE 모비케어 계약 잠재 — 국내 대비 월등 높은 판가</div>
+<div class="fact-why"><span class="fact-label label-why">WHY</span>일회성 사용 + 대규모 수량 전망. 5월 이후 데모 + 3분기 매출 인식 기대.</div>
+<div class="fact-so"><span class="fact-label label-so">SO WHAT</span>확정 시 해외 매출 첫 본격 기여 — 리레이팅 트리거</div></div><div class="fact-item"><span class="fact-num">Fact 03</span>
+<div class="fact-what"><span class="fact-label label-what">WHAT</span>인력 40명 증원 — 수주 확대 대응</div>
+<div class="fact-why"><span class="fact-label label-why">WHY</span>씽크 설치·운영·CS 인력. 단기 비용 부담이나 수주 회전 속도 상승 포석.</div>
+<div class="fact-so"><span class="fact-label label-so">SO WHAT</span>중장기 실적 체력 강화 — 긍정적 선행지표</div></div></section>
+
+<section><div class="section-title">📄 원본 리포트 핵심 요약 (PDF 내용 직접 발췌)</div>
+<div style="background:#fafafa;border:1px solid #d0d4e0;border-radius:8px;padding:16px 20px;margin-bottom:12px;">
+<div style="font-size:11px;font-weight:700;color:#5a6280;margin-bottom:10px;">리포트 핵심 주장</div>
+<p style="font-size:13px;line-height:1.9;">1Q 마진 훼손은 일시적이고 원가 인상분은 2Q부터 판가 반영이 논의된다. 씽크·모비케어 고성장 구조 유효. '하늘길만 열리면' UAE 매출이 3Q부터 본격 인식.</p>
+<div style="margin-top:10px;display:flex;gap:8px;flex-wrap:wrap;">
+<div style="background:#f0f2f8;border:1px solid #d0d4e0;border-radius:6px;padding:6px 12px;font-size:12px;"><span style="color:#5a6280;font-size:10px;display:block;">이전 대비 변화</span>-</div>
+<div style="background:#f0f2f8;border:1px solid #d0d4e0;border-radius:6px;padding:6px 12px;font-size:12px;"><span style="color:#5a6280;font-size:10px;display:block;">컨센서스 대비</span>컨센 대비 유사</div>
+</div></div>
+<div style="background:#fafafa;border:1px solid #d0d4e0;border-radius:8px;padding:16px 20px;margin-bottom:12px;">
+<div style="font-size:11px;font-weight:700;color:#5a6280;margin-bottom:10px;">사업 구조 & 성장 동력</div>
+<table><thead><tr><th style="width:25%;">사업부</th><th style="width:20%;">매출 비중</th><th style="width:55%;">핵심 성장 드라이버</th></tr></thead><tbody><tr><td>씽크</td><td>87%+</td><td>국내 병원 설치 급증 — 주력 드라이버</td></tr><tr><td>모비케어</td><td>-</td><td>UAE 계약 시 해외 매출 첫 기여 대기</td></tr><tr><td>해외·기타</td><td>-</td><td>중동 하늘길 정상화 의존</td></tr></tbody></table>
+<p style="font-size:12px;color:#5a6280;margin-top:10px;">▶ 핵심 성장 사업부 메커니즘: 씽크 병원 설치가 리커링 매출 구조 창출. 해외(특히 UAE) 진출 시 판가 프리미엄 + 대규모 수량 → OPM 급등 여력.</p></div>
+<div style="background:#fafafa;border:1px solid #d0d4e0;border-radius:8px;padding:16px 20px;margin-bottom:12px;">
+<div style="font-size:11px;font-weight:700;color:#5a6280;margin-bottom:10px;">시장 괴리 — 왜 지금 시장이 틀렸는가</div>
+<table><thead><tr><th style="width:30%;">구분</th><th>내용</th></tr></thead><tbody>
+<tr><td style="color:#5a6280;">시장 현재 인식</td><td>원가·인건비 1Q 마진 훼손 중심 우려</td></tr>
+<tr><td style="color:#2563eb;">이 리포트 주장</td><td>씽크 고성장 + UAE 해외 확장 + 2Q 판가 반영</td></tr>
+<tr><td style="color:#b45309;">괴리 해소 촉매</td><td>UAE 모비케어 계약 확정 + 2Q 판가 반영</td></tr>
+<tr><td>괴리 강도</td><td>중</td></tr>
+</tbody></table></div>
+<div style="background:#fafafa;border:1px solid #d0d4e0;border-radius:8px;padding:16px 20px;">
+<div style="font-size:11px;font-weight:700;color:#5a6280;margin-bottom:10px;">재무 특징</div>
+<div style="display:flex;flex-wrap:wrap;gap:8px;">
+<div style="background:#f0f2f8;border:1px solid #d0d4e0;border-radius:6px;padding:8px 12px;font-size:12px;flex:1;min-width:160px;"><span style="color:#5a6280;font-size:10px;display:block;">순현금/순차입금</span>-</div>
+<div style="background:#f0f2f8;border:1px solid #d0d4e0;border-radius:6px;padding:8px 12px;font-size:12px;flex:1;min-width:160px;"><span style="color:#5a6280;font-size:10px;display:block;">부채비율</span>-</div>
+<div style="background:#f0f2f8;border:1px solid #d0d4e0;border-radius:6px;padding:8px 12px;font-size:12px;flex:1;min-width:160px;"><span style="color:#5a6280;font-size:10px;display:block;">배당·자사주</span>-</div>
+<div style="background:#f0f2f8;border:1px solid #d0d4e0;border-radius:6px;padding:8px 12px;font-size:12px;flex:1;min-width:160px;"><span style="color:#5a6280;font-size:10px;display:block;">특이 이슈</span>설치·인력 CAPEX 확대 구간</div>
+</div></div></section>
+
+<section><div class="section-title">📈 실적 전망 (연간)</div>
+<table class="data-table"><caption>단위: 십억원 | ★ = 투자 핵심 연도</caption>
+<thead><tr><th>구분</th><th>2024A</th><th>2025A</th><th style="background:#dbeafe;color:#1e40af;">2026F ★</th><th>2027F</th><th>2028E</th></tr></thead>
+<tbody><tr><td>매출액</td><td>8.1</td><td>48.2</td><td class="key-col key-num">129.9</td><td>165.9</td><td>-</td></tr><tr><td>YoY(%)</td><td>-</td><td>494.7</td><td class="key-col">169.6</td><td>27.8</td><td>-</td></tr><tr><td>영업이익</td><td>(8.7)</td><td>16.3</td><td class="key-col key-num">35.5</td><td>48.2</td><td>-</td></tr><tr><td>YoY(%)</td><td>-</td><td>흑전</td><td class="key-col">+118.1</td><td>+35.3</td><td>-</td></tr><tr><td>OPM(%)</td><td>(107.2)</td><td>33.9</td><td class="key-col key-opm">27.3</td><td>29.1</td><td>-</td></tr><tr><td>EPS(원)</td><td>-</td><td>-</td><td class="key-col">-</td><td>-</td><td>-</td></tr><tr><td>PER(배)</td><td>-</td><td>-</td><td class="key-col">-</td><td>-</td><td>-</td></tr><tr><td>PBR(배)</td><td>-</td><td>-</td><td class="key-col">-</td><td>-</td><td>-</td></tr><tr><td>ROE(%)</td><td>-</td><td>-</td><td class="key-col">-</td><td>-</td><td>-</td></tr></tbody></table>
+<p style="font-size:12px;color:#5a6280;margin-top:10px;">▶ 왜 26E가 변곡점인가: 씽크 국내 온기 + UAE 해외 첫 기여가 맞물리는 첫 해</p></section>
+
+<section><div class="section-title">📅 분기별 실적 전망</div>
+<table class="data-table"><thead><tr><th>구분</th><th>1Q25</th><th>2Q25</th><th>3Q25</th><th>4Q25</th><th style="background:#dbeafe;color:#1e40af;">1Q26F ★</th><th>2Q26F</th><th>3Q26F</th><th>4Q26F</th></tr></thead>
+<tbody><tr><td>매출액</td><td>4.1</td><td>8.0</td><td>15.7</td><td>20.4</td><td class="key-col key-num">30.2</td><td>31.5</td><td>33.2</td><td>34.9</td></tr><tr><td>영업이익</td><td>(0.6)</td><td>1.5</td><td>6.7</td><td>8.7</td><td class="key-col key-num">10.5</td><td>10.6</td><td>11.4</td><td>-</td></tr><tr><td>OPM(%)</td><td>(14.5)</td><td>18.7</td><td>42.8</td><td>42.6</td><td class="key-col key-opm">34.8</td><td>33.4</td><td>34.8</td><td>-</td></tr></tbody></table>
+<p style="font-size:12px;color:#5a6280;margin-top:10px;">▶ 1Q26 주목: OPM 저점 확인 + 2Q 판가 반영 효과 + 3Q UAE 매출 인식 여부</p></section>
+
+<section><div class="section-title">💰 밸류에이션</div>
+<div class="val-box">
+<div class="val-formula">PDF 내 TP 산정식 미기재</div>
+<p style="color:#5a6280;font-size:12px;margin-top:8px;">▶ 왜 이 배수인가: 디지털 헬스케어 Peer 대비 성장률 극단적 — 밸류 프리미엄 정당화 가능</p>
+</div></section>
+
+<section><div class="section-title">⚠️ 리스크 시나리오</div><div class="risk-item risk-sev-high">
+<div class="risk-assumption">🔴 핵심 가정: UAE 모비케어 계약 무산·중동 하늘길 지연</div>
+<div class="risk-chain">→ 가정 붕괴 시: 해외 매출 시작 시점 이연<br/>→ 실적 영향: 26F 매출 1,299억 → 1,100억대로 하향</div>
+<div class="risk-impact-num">→ 주가 영향: -20~25%</div></div><div class="risk-item risk-sev-mid">
+<div class="risk-assumption">🟠 두 번째 가정: 원가 인상분 판가 반영 지연·병원 예산 집행 지연</div>
+<div class="risk-chain">→ 가정 붕괴 시: OPM 추가 하락<br/>→ 실적 영향: 실적 모멘텀 둔화</div>
+<div class="risk-impact-num">→ 주가 영향: -15%</div></div></section>
+
+<section><div class="section-title">🎯 모멘텀 체크포인트</div>
+<div style="background:#fafafa;border:1px solid #d0d4e0;border-radius:8px;padding:4px 16px;"><div class="checkpoint-item"><span class="cp-date">2026.2~3Q</span><div><div>UAE 모비케어 계약 체결 + 5월 이후 데모</div><div class="cp-pass">✅ 확정 + 3Q 매출 인식 시 → SS급 승격 검토</div><div class="cp-fail">⛔ 지연 시 → 주목 유지</div></div></div><div class="checkpoint-item"><span class="cp-date">2026.2Q</span><div><div>1Q26 실적 발표 + 2Q 판가 반영</div><div class="cp-pass">✅ 확인 시 → 핵심 승격</div><div class="cp-fail">⛔ 미달 시 → 관망</div></div></div></div></section>
+
+<section><div class="section-title">💬 사견 & 투자 행동 결론</div>
+<div class="opinion-box"><p>성장률 자체는 압도적이나 외부 변수(하늘길·UAE·원가) 의존 구조라 확정 전 적극 진입은 리스크 대비 비효율. 확정 이벤트 중 1개만 통과하면 빠른 리레이팅 가능.</p>
+<div class="decision-box"><div class="decision-btn decision-wait">⏳ 이벤트 후 진입<br/><span style="font-size:11px;font-weight:400;">UAE 모비케어 확정 + 2Q 판가 반영 확인</span></div></div></div></section>
+
+<section><div class="section-title">🚀 승격 조건 — 주목 전용</div><div class="upgrade-box"><div class="upgrade-item"><span class="upgrade-when">2026.2~3Q UAE 모비케어 계약 체결</span><span>확정 + 첫 해외 매출 인식 시 → 🚀 SS급 승격 검토</span></div><div class="upgrade-item"><span class="upgrade-when">2Q 판가 반영 + OPM 회복</span><span>확인 시 → ⭐ 핵심 승격</span></div></div></section>
+
+<div class="disclaimer">※ 본 글은 증권사 리포트를 개인 학습 목적으로 요약·정리한 것이며, 투자 권유가 아닙니다.<br/>※ 제공된 PDF 파일만 활용. 외부 검색·참조 없음. 당일 발간 리포트 기준.</div>
+
+</body></html>
