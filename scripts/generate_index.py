@@ -82,7 +82,12 @@ def scan_journal() -> list:
     return entries
 
 def scan_reports() -> list:
-    """reports/TICKER/YYYYMMDD_*.html 파일을 스캔합니다."""
+    """reports/YYYY/MM/DD/*.html 파일을 스캔합니다.
+    
+    경로 구조:
+      reports/2026/04/13/삼성전자.html
+      reports/2026/04/13/덕산네오룩스.html
+    """
     entries = []
     base = ROOT / "reports"
     if not base.exists():
@@ -90,21 +95,25 @@ def scan_reports() -> list:
 
     for html in sorted(base.rglob("*.html"), reverse=True):
         rel  = html.relative_to(ROOT)
-        parts = rel.parts  # ('reports', 'TICKER', 'YYYYMMDD_title.html')
-        if len(parts) != 3:
+        parts = rel.parts  # ('reports', '2026', '04', '13', '삼성전자.html')
+        if len(parts) != 5:
             continue
-        ticker = parts[1]
-        stem   = html.stem
-        m = re.match(r'(\d{8})_(.*)', stem)
-        if not m:
+
+        year_str, month_str, day_str = parts[1], parts[2], parts[3]
+
+        # 유효한 날짜 폴더인지 확인
+        if not (re.fullmatch(r'\d{4}', year_str) and
+                re.fullmatch(r'\d{2}', month_str) and
+                re.fullmatch(r'\d{2}', day_str)):
             continue
-        raw_date, title = m.group(1), m.group(2)
-        date_str = f"{raw_date[0:4]}-{raw_date[4:6]}-{raw_date[6:8]}"
+
+        date_str = f"{year_str}-{month_str}-{day_str}"
+        title = html.stem.replace('_', ' ')
+
         entries.append({
-            "date":   date_str,
-            "ticker": ticker,
-            "title":  title.replace('_', ' '),
-            "path":   str(rel).replace("\\", "/")
+            "date":  date_str,
+            "title": title,
+            "path":  str(rel).replace("\\", "/")
         })
 
     return entries
