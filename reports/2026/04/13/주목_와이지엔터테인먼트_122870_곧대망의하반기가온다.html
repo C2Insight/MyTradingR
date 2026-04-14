@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>와이지엔터테인먼트 (122870) 정리</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Pretendard','Apple SD Gothic Neo',-apple-system,sans-serif; background: #ffffff; color: #1a1d2e; line-height: 1.7; font-size: 14px; max-width: 900px; margin: 0 auto; padding: 32px 20px 80px; }
+  .header { border-left: 4px solid #2563eb; padding: 0 0 0 16px; margin-bottom: 24px; }
+  .header h1 { font-size: 20px; font-weight: 700; margin-bottom: 10px; color: #1a1d2e; }
+  .price-row { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin-top: 10px; }
+  .price-item { background: #f0f2f8; border: 1px solid #d0d4e0; border-radius: 6px; padding: 6px 14px; font-size: 13px; }
+  .price-item .label { color: #5a6280; font-size: 11px; display: block; }
+  .price-item .val { font-weight: 700; color: #1a1d2e; }
+  .upside-val { color: #059669; }
+  .tag-badge { display: inline-flex; align-items: center; gap: 6px; padding: 5px 14px; border-radius: 20px; font-size: 13px; font-weight: 700; }
+  .tag-watch { background: #fffbeb; color: #b45309; border: 1px solid #f59e0b; }
+  .score-badge { display: inline-block; padding: 5px 14px; border-radius: 20px; font-size: 13px; font-weight: 700; background: #f0f2f8; border: 1px solid #d0d4e0; }
+  .score-mid { color: #b45309; }
+  section { margin-bottom: 28px; }
+  .section-title { font-size: 11px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: #5a6280; border-bottom: 1px solid #d0d4e0; padding-bottom: 6px; margin-bottom: 14px; }
+  .pdf-only-banner { background: #fff7ed; border: 1px solid #f97316; border-radius: 8px; padding: 10px 16px; font-size: 12px; color: #c2410c; margin-bottom: 20px; text-align: center; font-weight: 700; }
+  .thesis-box { background: #f8faff; border: 1px solid #2563eb; border-radius: 8px; padding: 16px 20px; font-size: 15px; font-weight: 600; line-height: 1.6; color: #1a1d2e; }
+  .thesis-structure { display: flex; gap: 8px; align-items: center; margin-top: 10px; flex-wrap: wrap; }
+  .thesis-part { background: #f0f2f8; border: 1px solid #d0d4e0; border-radius: 6px; padding: 4px 10px; font-size: 12px; color: #1a1d2e; }
+  .thesis-arrow { color: #2563eb; font-size: 16px; }
+  .checklist { background: #fafafa; border: 1px solid #d0d4e0; border-radius: 8px; overflow: hidden; }
+  .checklist-item { display: flex; gap: 14px; align-items: flex-start; padding: 12px 16px; border-bottom: 1px solid #d0d4e0; }
+  .checklist-item:last-child { border-bottom: none; }
+  .check-icon { width: 22px; height: 22px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; flex-shrink: 0; margin-top: 1px; }
+  .check-pass { background: #ecfdf5; color: #059669; border: 1px solid #34d399; }
+  .check-fail { background: #fef2f2; color: #dc2626; border: 1px solid #fca5a5; }
+  .check-label { font-weight: 600; font-size: 13px; color: #1a1d2e; }
+  .check-detail { color: #5a6280; font-size: 12px; margin-top: 2px; }
+  .check-why { color: #1a1d2e; font-size: 13px; }
+  table { width: 100%; border-collapse: collapse; background: #fafafa; border-radius: 8px; overflow: hidden; border: 1px solid #d0d4e0; }
+  thead tr { background: #f0f2f8; }
+  th { padding: 10px 14px; text-align: left; font-size: 11px; font-weight: 700; color: #5a6280; letter-spacing: 0.8px; }
+  td { padding: 10px 14px; border-top: 1px solid #d0d4e0; font-size: 13px; color: #1a1d2e; }
+  tr.total-row td { background: #e8ecf5; font-weight: 700; }
+  .penalty { color: #dc2626; }
+  .highlight-green { color: #059669; font-weight: 700; }
+  .chain-box { background: #fafafa; border: 1px solid #d0d4e0; border-radius: 8px; padding: 16px 20px; }
+  .chain-step { display: flex; gap: 12px; align-items: flex-start; margin-bottom: 10px; }
+  .chain-step:last-child { margin-bottom: 0; }
+  .chain-arrow { color: #2563eb; font-size: 16px; flex-shrink: 0; margin-top: 1px; }
+  .chain-content { flex: 1; }
+  .chain-label { font-size: 10px; font-weight: 700; letter-spacing: 1px; color: #5a6280; margin-bottom: 2px; }
+  .chain-text { font-size: 13px; color: #1a1d2e; }
+  .chain-confirmed { color: #059669; font-size: 11px; margin-left: 6px; }
+  .chain-forecast { color: #b45309; font-size: 11px; margin-left: 6px; }
+  .fact-item { background: #fafafa; border: 1px solid #d0d4e0; border-radius: 8px; padding: 14px 16px; margin-bottom: 8px; }
+  .fact-item:last-child { margin-bottom: 0; }
+  .fact-num { font-size: 10px; font-weight: 700; color: #2563eb; letter-spacing: 1px; margin-bottom: 8px; display: block; }
+  .fact-what { font-weight: 600; font-size: 14px; margin-bottom: 6px; color: #1a1d2e; }
+  .fact-why { font-size: 13px; color: #5a6280; margin-bottom: 6px; }
+  .fact-so { font-size: 13px; color: #059669; }
+  .fact-label { display: inline-block; font-size: 10px; font-weight: 700; padding: 1px 6px; border-radius: 3px; margin-right: 4px; }
+  .label-what { background: #eff6ff; color: #1d4ed8; }
+  .label-why { background: #fff7ed; color: #ea580c; }
+  .label-so { background: #ecfdf5; color: #059669; }
+  .data-table th { background: #e8ecf5; }
+  .data-table td.key-col { background: #f0f6ff; }
+  .data-table .key-num { color: #059669; font-weight: 700; }
+  .data-table .key-opm { color: #b45309; }
+  caption { font-size: 11px; color: #5a6280; text-align: left; padding: 0 0 8px; caption-side: top; }
+  .val-box { background: #fafafa; border: 1px solid #d0d4e0; border-radius: 8px; padding: 16px 20px; font-size: 13px; line-height: 2; color: #1a1d2e; }
+  .val-formula { background: #f0f2f8; border-radius: 6px; padding: 10px 14px; font-family: monospace; font-size: 13px; margin: 10px 0; color: #b45309; }
+  .risk-item { background: #fafafa; border-radius: 0 6px 6px 0; padding: 14px 16px; margin-bottom: 10px; }
+  .risk-item:last-child { margin-bottom: 0; }
+  .risk-sev-high { border-left: 3px solid #dc2626; }
+  .risk-sev-mid { border-left: 3px solid #ea580c; }
+  .risk-assumption { font-weight: 600; font-size: 13px; margin-bottom: 4px; color: #1a1d2e; }
+  .risk-chain { font-size: 12px; color: #5a6280; margin: 4px 0; }
+  .risk-impact-num { font-size: 13px; color: #dc2626; font-weight: 600; margin-top: 4px; }
+  .checkpoint-item { display: flex; gap: 12px; padding: 10px 0; border-bottom: 1px solid #d0d4e0; font-size: 13px; }
+  .checkpoint-item:last-child { border-bottom: none; }
+  .cp-date { color: #2563eb; font-weight: 600; min-width: 90px; flex-shrink: 0; }
+  .cp-event { flex: 1; color: #1a1d2e; }
+  .cp-pass { color: #059669; font-size: 12px; margin-top: 2px; }
+  .cp-fail { color: #dc2626; font-size: 12px; margin-top: 2px; }
+  .opinion-box { background: #fafafa; border: 1px solid #d0d4e0; border-radius: 8px; padding: 16px 20px; font-size: 13px; line-height: 1.8; color: #5a6280; }
+  .decision-box { display: flex; gap: 14px; margin-top: 14px; }
+  .decision-btn { flex: 1; text-align: center; padding: 10px; border-radius: 6px; font-weight: 700; font-size: 13px; border: 1px solid; }
+  .decision-wait { background: #fffbeb; color: #b45309; border-color: #f59e0b; }
+  .upgrade-box { background: #eff6ff; border: 1px solid #93c5fd; border-radius: 8px; padding: 14px 16px; }
+  .upgrade-item { display: flex; gap: 10px; padding: 6px 0; border-bottom: 1px solid #dbeafe; font-size: 13px; color: #1a1d2e; }
+  .upgrade-item:last-child { border-bottom: none; }
+  .upgrade-when { color: #1d4ed8; font-weight: 600; min-width: 140px; flex-shrink: 0; }
+  .disclaimer { font-size: 11px; color: #9ca3af; text-align: center; margin-top: 40px; padding-top: 16px; border-top: 1px solid #d0d4e0; }
+</style>
+</head>
+<body>
+
+<div class="pdf-only-banner">
+  외부 검색 절대 금지 -- 제공된 PDF 파일만 활용 | 당일 발간 리포트 기준 투자 종목 발굴 전용
+</div>
+
+<header class="header">
+  <h1>와이지엔터테인먼트 (122870) | 곧 대망의 하반기가 온다 | 유진투자증권 이현지 | 발간일: 2026.04.13</h1>
+  <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-bottom:12px;">
+    <span class="tag-badge tag-watch">주목</span>
+    <span class="score-badge score-mid">40점</span>
+    <span style="font-size:12px;color:#5a6280;">비바이오</span>
+  </div>
+  <div class="price-row">
+    <div class="price-item"><span class="label">투자의견</span><span class="val">Buy(유지)</span></div>
+    <div class="price-item"><span class="label">목표주가(TP)</span><span class="val">78,000원</span></div>
+    <div class="price-item"><span class="label">현재주가(CP)</span><span class="val">51,200원</span></div>
+    <div class="price-item"><span class="label">Upside</span><span class="val upside-val">+52.3%</span></div>
+    <div class="price-item"><span class="label">시가총액</span><span class="val">9,570억원</span></div>
+    <div class="price-item"><span class="label">종목 유형</span><span class="val">비바이오</span></div>
+  </div>
+</header>
+
+<section>
+  <div class="section-title">이 종목에 투자해야 하는 이유 -- 스토리 한 줄</div>
+  <div class="thesis-box">
+    블랙핑크 컴백+빅뱅 하반기 투어(보수적 60만명 가정)로 26E OP 79억원(+10.5%), OPM 13.8%이나 하반기 모멘텀이 집중되어 상반기는 부진. TP 13.3% 하향에도 Upside 52.3%
+  </div>
+  <div class="thesis-structure">
+    <div class="thesis-part" style="color:#059669;">1 블랙핑크 컴백+빅뱅 하반기 투어(전망)</div>
+    <div class="thesis-arrow">→</div>
+    <div class="thesis-part" style="color:#b45309;">2 26E OP +10.5%, OPM 13.8%</div>
+    <div class="thesis-arrow">→</div>
+    <div class="thesis-part" style="color:#2563eb;">3 Upside 52.3%</div>
+  </div>
+</section>
+
+<section>
+  <div class="section-title">핵심 태그 5가지 조건 체크</div>
+  <div class="checklist">
+    <div class="checklist-item">
+      <div class="check-icon check-fail">X</div>
+      <div><div class="check-label">조건 1 | OP +50%+</div><div class="check-why">26E OP 79억원(+10.5% YoY). +50% 미달</div></div>
+    </div>
+    <div class="checklist-item">
+      <div class="check-icon check-fail">X</div>
+      <div><div class="check-label">조건 2 | 3년 지속성 3개+</div><div class="check-why">1 베몬 서구권 팬덤 확대 2 MD 매출 성장(25A 400억) -- 2개, 3개 미달. 빅뱅 투어는 일회성</div></div>
+    </div>
+    <div class="checklist-item">
+      <div class="check-icon check-fail">X</div>
+      <div><div class="check-label">조건 3 | 확정 팩트 2개+</div><div class="check-why">블랙핑크 컴백은 확정이나 빅뱅 일정 미확정. 확정 팩트 1개</div></div>
+    </div>
+    <div class="checklist-item">
+      <div class="check-icon check-pass">V</div>
+      <div><div class="check-label">조건 4 | Upside 40%+</div><div class="check-why">Upside 52.3% 통과</div></div>
+    </div>
+    <div class="checklist-item">
+      <div class="check-icon check-fail">X</div>
+      <div><div class="check-label">조건 5 | 차별화 시각</div><div class="check-why">TP 하향 조정, 빅뱅 투어 가정은 보수적이나 업계 공통 기대</div></div>
+    </div>
+  </div>
+  <p style="font-size:11px;color:#dc2626;margin-top:8px;">조건 1,2,3,5 미충족 → 주목</p>
+</section>
+
+<section>
+  <div class="section-title">투자 점수 판정 (v2.0)</div>
+  <table>
+    <thead><tr><th>항목</th><th>판정</th><th>근거</th></tr></thead>
+    <tbody>
+      <tr><td>종목 유형</td><td>비바이오</td><td>K-POP 엔터, 실적 기반</td></tr>
+      <tr><td>적용 가설</td><td>가설 4</td><td>완만한 성장(26E OP +10.5%), 빅뱅 컴백이 가속 요인이나 미확정</td></tr>
+      <tr><td>촉매 등급</td><td>중급</td><td>블랙핑크 컴백(확정) + 빅뱅 투어(전망) = 중급</td></tr>
+      <tr><td>복합 여부</td><td>복합</td><td>블랙핑크+빅뱅+베몬+트레저 다수 아티스트 동시 활동</td></tr>
+      <tr><td>직접성</td><td>직접</td><td>아티스트 활동→매출 직결</td></tr>
+      <tr><td>매트릭스 기본 점수</td><td>50점</td><td>가설4 x 중급 x 복합 = 50점</td></tr>
+      <tr><td>페널티 1</td><td class="penalty">-10점</td><td>잠재수주 미확정: 빅뱅 투어 일정 미확정이 실적 추정의 30%+ 좌우</td></tr>
+      <tr class="total-row"><td>최종 투자 점수</td><td><span class="highlight-green">40점</span></td><td>주목 40점 충족</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section>
+  <div class="section-title">성장 인과 체인</div>
+  <div class="chain-box">
+    <div class="chain-step"><div class="chain-arrow">1</div><div class="chain-content"><div class="chain-label">촉매</div><div class="chain-text">블랙핑크 컴백(앨범 외형 견인) + 빅뱅 하반기 투어(보수적 60만명 가정) + 베몬 월드투어(6월 시작, 서구권 확대) + 트레저 팬콘/컴백 <span class="chain-forecast">전망(빅뱅 미확정)</span></div></div></div>
+    <div class="chain-step"><div class="chain-arrow">↓</div><div class="chain-content"><div class="chain-label">매출 영향</div><div class="chain-text">26E 매출 573십억원(+5.0% YoY). 앨범 65십억원(+132%), 로열티 74십억원(+64.4%), 공연 72십억원(-42.9% -- 빅뱅 보수적)</div></div></div>
+    <div class="chain-step"><div class="chain-arrow">↓</div><div class="chain-content"><div class="chain-label">OPM 메커니즘</div><div class="chain-text">하반기 공연 집중+MD 동반 성장으로 3Q26E OPM 15.0%, 4Q26E OPM 15.7%. 상반기는 제작비 선반영으로 부진</div></div></div>
+    <div class="chain-step"><div class="chain-arrow">↓</div><div class="chain-content"><div class="chain-label">실적 결과</div><div class="chain-text">26E OP 79십억원(+10.5%), OPM 13.8%(+0.7%p)</div></div></div>
+    <div class="chain-step"><div class="chain-arrow">↓</div><div class="chain-content"><div class="chain-label">시장 미반영</div><div class="chain-text">PER 13.8배로 Peer 대비 할인. 빅뱅 투어가 확정되면 하반기 실적 레벨업 + 멀티플 상향 가능</div></div></div>
+  </div>
+</section>
+
+<section>
+  <div class="section-title">핵심 팩트 3줄</div>
+  <div class="fact-item">
+    <span class="fact-num">Fact 01</span>
+    <div class="fact-what"><span class="fact-label label-what">WHAT</span>1Q26E 매출 133십억원(+32.3%), OP 17십억원(+78.8%), 컨센 하회 전망</div>
+    <div class="fact-why"><span class="fact-label label-why">WHY</span>블랙핑크 컴백으로 앨범 매출 견인 + 블핑/트레저 돔 투어 반영. 다만 2Q는 제작비 선반영으로 부진</div>
+    <div class="fact-so"><span class="fact-label label-so">SO WHAT</span>상반기 실적/모멘텀 부진하나 하반기 빅뱅+베몬 투어로 실적 집중 구간 진입</div>
+  </div>
+  <div class="fact-item">
+    <span class="fact-num">Fact 02</span>
+    <div class="fact-what"><span class="fact-label label-what">WHAT</span>TP 78,000원(-13.3% 하향). 26F 지배순이익 69십억원 x PER 21배 적용</div>
+    <div class="fact-why"><span class="fact-label label-why">WHY</span>실적 추정치와 멀티플 모두 하향. 상반기 부진+빅뱅 일정 불확실성 반영</div>
+    <div class="fact-so"><span class="fact-label label-so">SO WHAT</span>하향에도 Upside 52.3%. 빅뱅 투어 확정 시 TP 상향 여력 존재</div>
+  </div>
+  <div class="fact-item">
+    <span class="fact-num">Fact 03</span>
+    <div class="fact-what"><span class="fact-label label-what">WHAT</span>베이비몬스터 월드투어 6월 시작, 직전 투어보다 다양한 지역+큰 규모(서구권 중심 확대)</div>
+    <div class="fact-why"><span class="fact-label label-why">WHY</span>기존 미진출 서구권 팬덤 확대 전략. 작년 MD 매출 약 400억원 기록</div>
+    <div class="fact-so"><span class="fact-label label-so">SO WHAT</span>공연 확대에 따른 MD 매출 가파른 성장 기대. 외형+수익성 동시 개선 가능</div>
+  </div>
+</section>
+
+<section>
+  <div class="section-title">원본 리포트 핵심 요약</div>
+  <div style="background:#fafafa;border:1px solid #d0d4e0;border-radius:8px;padding:16px 20px;margin-bottom:12px;">
+    <div style="font-size:11px;font-weight:700;color:#5a6280;margin-bottom:10px;">리포트 핵심 주장</div>
+    <p style="font-size:13px;line-height:1.9;">상반기는 실적도 모멘텀도 부진하겠으나 하반기 기대 모멘텀 풍부. 빅뱅 컴백이 최대 변수이며 보수적 60만명 투어 가정. 베몬 서구권 확대와 신인 보이그룹 데뷔로 라인업 다채로워짐.</p>
+    <div style="margin-top:10px;display:flex;gap:8px;flex-wrap:wrap;">
+      <div style="background:#f0f2f8;border:1px solid #d0d4e0;border-radius:6px;padding:6px 12px;font-size:12px;">
+        <span style="color:#5a6280;font-size:10px;display:block;">변화 포인트</span>TP 90,000→78,000원(-13.3%), 26E OP 75→79억원 소폭 상향</div>
+    </div>
+  </div>
+  <div style="background:#fafafa;border:1px solid #d0d4e0;border-radius:8px;padding:16px 20px;margin-bottom:12px;">
+    <div style="font-size:11px;font-weight:700;color:#5a6280;margin-bottom:10px;">사업 구조</div>
+    <table style="margin:0;"><thead><tr><th>사업부</th><th>비중</th><th>드라이버</th></tr></thead><tbody>
+      <tr><td>상품매출(앨범/MD)</td><td>42%</td><td>블핑 컴백 앨범+공연 연계 MD 성장</td></tr>
+      <tr><td>콘서트</td><td>13%</td><td>빅뱅 투어(하반기)+베몬 월드투어</td></tr>
+      <tr><td>로열티</td><td>13%</td><td>블핑/빅뱅 활동에 따른 로열티 급증</td></tr>
+      <tr><td>음악서비스/기타</td><td>32%</td><td>안정적 기반 매출</td></tr>
+    </tbody></table>
+  </div>
+  <div style="background:#fafafa;border:1px solid #d0d4e0;border-radius:8px;padding:16px 20px;">
+    <div style="font-size:11px;font-weight:700;color:#5a6280;margin-bottom:10px;">재무 특징</div>
+    <div style="display:flex;flex-wrap:wrap;gap:8px;">
+      <div style="background:#f0f2f8;border:1px solid #d0d4e0;border-radius:6px;padding:8px 12px;font-size:12px;flex:1;min-width:140px;"><span style="color:#5a6280;font-size:10px;display:block;">순현금</span>26E 2,290억원</div>
+      <div style="background:#f0f2f8;border:1px solid #d0d4e0;border-radius:6px;padding:8px 12px;font-size:12px;flex:1;min-width:140px;"><span style="color:#5a6280;font-size:10px;display:block;">ROE</span>26E 12.7%</div>
+      <div style="background:#f0f2f8;border:1px solid #d0d4e0;border-radius:6px;padding:8px 12px;font-size:12px;flex:1;min-width:140px;"><span style="color:#5a6280;font-size:10px;display:block;">배당</span>DPS 250원(수익률 0.5%)</div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="section-title">실적 전망 (연간)</div>
+  <table class="data-table">
+    <caption>단위: 십억원 | 12월 결산</caption>
+    <thead><tr><th>구분</th><th>2024A</th><th>2025A</th><th style="background:#dbeafe;color:#1e40af;">2026E</th><th>2027E</th><th>2028F</th></tr></thead>
+    <tbody>
+      <tr><td>매출액</td><td>365</td><td>545</td><td class="key-col key-num">573</td><td>552</td><td>558</td></tr>
+      <tr><td>YoY(%)</td><td>-35.9</td><td>49.4</td><td class="key-col">5.0</td><td>-3.5</td><td>1.0</td></tr>
+      <tr><td>영업이익</td><td>-21</td><td>71</td><td class="key-col key-num">79</td><td>72</td><td>7</td></tr>
+      <tr><td>OPM(%)</td><td>-5.6</td><td>13.1</td><td class="key-col key-opm">13.8</td><td>13.1</td><td>1.3</td></tr>
+      <tr><td>EPS(원)</td><td>991</td><td>1,974</td><td class="key-col">3,704</td><td>3,409</td><td>1,154</td></tr>
+      <tr><td>PER(배)</td><td>46.2</td><td>35.2</td><td class="key-col">13.8</td><td>15.0</td><td>44.4</td></tr>
+      <tr><td>ROE(%)</td><td>3.9</td><td>7.4</td><td class="key-col">12.7</td><td>10.5</td><td>3.3</td></tr>
+    </tbody>
+  </table>
+  <p style="font-size:12px;color:#5a6280;margin-top:10px;">26E가 EPS 정점(3,704원). 27E부터 빅뱅 투어 일회성 효과 소멸로 역성장. 28F OPM 1.3%로 급락 우려.</p>
+</section>
+
+<section>
+  <div class="section-title">분기별 실적 전망</div>
+  <table class="data-table">
+    <thead><tr><th>구분</th><th>1Q25</th><th>2Q25</th><th>3Q25</th><th>4Q25</th><th style="background:#dbeafe;">1Q26E</th><th>2Q26E</th><th>3Q26E</th><th>4Q26E</th></tr></thead>
+    <tbody>
+      <tr><td>매출액</td><td>100</td><td>100</td><td>173</td><td>172</td><td class="key-col">133</td><td>119</td><td>157</td><td>163</td></tr>
+      <tr><td>영업이익</td><td>10</td><td>8</td><td>31</td><td>22</td><td class="key-col">17</td><td>13</td><td>24</td><td>26</td></tr>
+      <tr><td>OPM(%)</td><td>9.5</td><td>8.3</td><td>18.0</td><td>13.0</td><td class="key-col key-opm">12.9</td><td>10.5</td><td>15.0</td><td>15.7</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section>
+  <div class="section-title">밸류에이션</div>
+  <div class="val-box">
+    <div class="val-formula">26F 지배순이익 69십억원 x PER 21배 = 기업가치 1,454십억원 / 주식수 18,624천주 = TP 78,000원</div>
+    <p style="color:#5a6280;font-size:12px;margin-top:8px;">빅뱅 일정 불확실+상반기 부진으로 Peer(에스엠 23배, JYP 24배) 대비 할인 적용</p>
+  </div>
+</section>
+
+<section>
+  <div class="section-title">리스크</div>
+  <div class="risk-item risk-sev-high">
+    <div class="risk-assumption">핵심 가정: 빅뱅 하반기 60만명 투어 실현</div>
+    <div class="risk-chain">→ 미실현 시: 하반기 공연매출 급감, 26E OP 79→55십억원 수준 축소<br/>→ 주가 영향: TP 55,000원대(-30%)</div>
+  </div>
+  <div class="risk-item risk-sev-mid">
+    <div class="risk-assumption">두 번째 가정: 베몬 서구권 투어 확대 성과</div>
+    <div class="risk-chain">→ 미달 시: 차세대 아티스트 팬덤 확장 정체, 장기 성장 스토리 약화</div>
+  </div>
+</section>
+
+<section>
+  <div class="section-title">모멘텀 체크포인트</div>
+  <div style="background:#fafafa;border:1px solid #d0d4e0;border-radius:8px;padding:4px 16px;">
+    <div class="checkpoint-item">
+      <span class="cp-date">2026.6월</span>
+      <div><div class="cp-event">베몬 월드투어 시작, 서구권 모객 규모 확인</div>
+        <div class="cp-pass">확인 시 → 팬덤 확대 증명, 하반기 실적 기대 강화</div>
+        <div class="cp-fail">미달 시 → 서구권 진출 한계 우려</div></div>
+    </div>
+    <div class="checkpoint-item">
+      <span class="cp-date">2026.하반기</span>
+      <div><div class="cp-event">빅뱅 투어 일정 확정 여부</div>
+        <div class="cp-pass">확정 시 → 실적 레벨업 확정, TP 상향 가능</div>
+        <div class="cp-fail">미확정 시 → 하반기 기대 모멘텀 소멸</div></div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="section-title">사견 & 투자 행동 결론</div>
+  <div class="opinion-box">
+    <p>와이지는 빅뱅 컴백이라는 강력한 단기 촉매가 있으나 일정 미확정이 최대 리스크. 26E 이후 27E OP -8.2%, 28F OPM 1.3%로 급락하는 실적 구조가 우려. 베몬 성장과 신인 라인업 다변화가 장기 해답이나 아직 증명 전. Upside 52.3%는 매력적이나 빅뱅 변수에 크게 의존.</p>
+    <div class="decision-box">
+      <div class="decision-btn decision-wait">⏳ 빅뱅 투어 확정 후 진입</div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="section-title">승격 조건 -- 주목 종목 전용</div>
+  <div class="upgrade-box">
+    <div class="upgrade-item"><span class="upgrade-when">빅뱅 투어 확정 시</span><span>60만명+ 투어 공식 발표 시 → 핵심 승격 검토</span></div>
+    <div class="upgrade-item"><span class="upgrade-when">3Q26 실적 발표 시</span><span>OPM 15%+ 확인+베몬 투어 성과 가시화 시 → 핵심 승격</span></div>
+  </div>
+</section>
+
+<div class="disclaimer">본 글은 증권사 리포트를 개인 학습 목적으로 요약/정리한 것이며, 투자 권유가 아닙니다.<br/>제공된 PDF 파일만 활용. 외부 검색/참조 없음.</div>
+</body>
+</html>

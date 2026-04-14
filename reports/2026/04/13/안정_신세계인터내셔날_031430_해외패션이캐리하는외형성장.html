@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>신세계인터내셔날 (031430) 정리</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Pretendard','Apple SD Gothic Neo',-apple-system,sans-serif;
+    background: #ffffff; color: #1a1d2e;
+    line-height: 1.7; font-size: 14px;
+    max-width: 900px; margin: 0 auto; padding: 32px 20px 80px;
+  }
+  .header { border-left: 4px solid #2563eb; padding: 0 0 0 16px; margin-bottom: 24px; }
+  .header h1 { font-size: 20px; font-weight: 700; margin-bottom: 10px; color: #1a1d2e; }
+  .price-row { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin-top: 10px; }
+  .price-item { background: #f0f2f8; border: 1px solid #d0d4e0; border-radius: 6px; padding: 6px 14px; font-size: 13px; }
+  .price-item .label { color: #5a6280; font-size: 11px; display: block; }
+  .price-item .val { font-weight: 700; color: #1a1d2e; }
+  .upside-val { color: #059669; }
+  .tag-badge { display: inline-flex; align-items: center; gap: 6px; padding: 5px 14px; border-radius: 20px; font-size: 13px; font-weight: 700; }
+  .tag-stable { background: #eff6ff; color: #1d4ed8; border: 1px solid #60a5fa; }
+  .score-badge { display: inline-block; padding: 5px 14px; border-radius: 20px; font-size: 13px; font-weight: 700; background: #f0f2f8; border: 1px solid #d0d4e0; color: #5a6280; }
+  section { margin-bottom: 28px; }
+  .section-title {
+    font-size: 11px; font-weight: 700; letter-spacing: 1.5px;
+    text-transform: uppercase; color: #5a6280;
+    border-bottom: 1px solid #d0d4e0;
+    padding-bottom: 6px; margin-bottom: 14px;
+  }
+  .pdf-only-banner {
+    background: #fff7ed; border: 1px solid #f97316;
+    border-radius: 8px; padding: 10px 16px;
+    font-size: 12px; color: #c2410c;
+    margin-bottom: 20px; text-align: center; font-weight: 700;
+  }
+  .fact-item { background: #fafafa; border: 1px solid #d0d4e0; border-radius: 8px; padding: 14px 16px; margin-bottom: 8px; }
+  .fact-item:last-child { margin-bottom: 0; }
+  .fact-num { font-size: 10px; font-weight: 700; color: #2563eb; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 8px; display: block; }
+  .fact-what { font-weight: 600; font-size: 14px; margin-bottom: 6px; color: #1a1d2e; }
+  .fact-why  { font-size: 13px; color: #5a6280; margin-bottom: 6px; }
+  .fact-so   { font-size: 13px; color: #059669; }
+  .fact-label { display: inline-block; font-size: 10px; font-weight: 700; padding: 1px 6px; border-radius: 3px; margin-right: 4px; }
+  .label-what { background: #eff6ff; color: #1d4ed8; }
+  .label-why  { background: #fff7ed; color: #ea580c; }
+  .label-so   { background: #ecfdf5; color: #059669; }
+  table { width: 100%; border-collapse: collapse; background: #fafafa; border-radius: 8px; overflow: hidden; border: 1px solid #d0d4e0; }
+  thead tr { background: #f0f2f8; }
+  th { padding: 10px 14px; text-align: left; font-size: 11px; font-weight: 700; color: #5a6280; letter-spacing: 0.8px; text-transform: uppercase; }
+  td { padding: 10px 14px; border-top: 1px solid #d0d4e0; font-size: 13px; color: #1a1d2e; }
+  .data-table th { background: #e8ecf5; }
+  .data-table td.key-col { background: #f0f6ff; }
+  .data-table .key-num { color: #059669; font-weight: 700; }
+  .data-table .key-opm { color: #b45309; }
+  caption { font-size: 11px; color: #5a6280; text-align: left; padding: 0 0 8px; caption-side: top; }
+  .opinion-box { background: #fafafa; border: 1px solid #d0d4e0; border-radius: 8px; padding: 16px 20px; font-size: 13px; line-height: 1.8; color: #5a6280; }
+  .decision-box { display: flex; gap: 14px; margin-top: 14px; }
+  .decision-btn { flex: 1; text-align: center; padding: 10px; border-radius: 6px; font-weight: 700; font-size: 13px; border: 1px solid; }
+  .decision-wait  { background: #fffbeb; color: #b45309; border-color: #f59e0b; }
+  .disclaimer { font-size: 11px; color: #9ca3af; text-align: center; margin-top: 40px; padding-top: 16px; border-top: 1px solid #d0d4e0; }
+</style>
+</head>
+<body>
+
+<div class="pdf-only-banner">
+  외부 검색 절대 금지 — 제공된 PDF 파일만 활용 | 당일 발간 리포트 기준 투자 종목 발굴 전용
+</div>
+
+<!-- ══════════ A. 헤더 ══════════ -->
+<header class="header">
+  <h1>신세계인터내셔날 (031430) | 해외패션이 캐리하는 외형 성장 | DB증권 | 발간일: 2026.04.13</h1>
+  <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-bottom:12px;">
+    <span class="tag-badge tag-stable">안정</span>
+    <span class="score-badge">20점</span>
+    <span style="font-size:12px;color:#5a6280;">비바이오</span>
+  </div>
+  <div class="price-row">
+    <div class="price-item"><span class="label">투자의견</span><span class="val">Buy(유지)</span></div>
+    <div class="price-item"><span class="label">목표주가(TP)</span><span class="val">15,000원</span></div>
+    <div class="price-item"><span class="label">현재주가(CP)</span><span class="val">12,540원</span></div>
+    <div class="price-item"><span class="label">Upside</span><span class="val upside-val">+19.6%</span></div>
+    <div class="price-item"><span class="label">시가총액</span><span class="val">4,387억원</span></div>
+  </div>
+</header>
+
+<!-- ══════════ F. 핵심 팩트 3줄 ══════════ -->
+<section>
+  <div class="section-title">핵심 팩트 3줄 — WHAT + WHY + SO WHAT</div>
+
+  <div class="fact-item">
+    <span class="fact-num">Fact 01</span>
+    <div class="fact-what"><span class="fact-label label-what">WHAT</span>1Q26E 연결 OP 141억원(+203% YoY), OPM 4.7%(+3.2%p YoY) — 컨센서스(90억원) 대폭 상회</div>
+    <div class="fact-why"><span class="fact-label label-why">WHY</span>해외패션 사업부 매출이 약 40% 가까운 고신장을 기록하며 영업 레버리지 효과가 발생. 낮은 기저 + 내수 소비 회복 + 백화점 VIP 중심 수입 패션 수요 강세</div>
+    <div class="fact-so"><span class="fact-label label-so">SO WHAT</span>25년 적자(-11억)에서 26E 흑전(42억)으로 전환하는 변곡점. 해외패션이 이끄는 외형 성장이 수익성 개선의 핵심 동력</div>
+  </div>
+
+  <div class="fact-item">
+    <span class="fact-num">Fact 02</span>
+    <div class="fact-what"><span class="fact-label label-what">WHAT</span>26E 연간 매출 1.27조원(+14.1% YoY), OP 420억원(흑전), OPM 3.3%(+4.3%p YoY)</div>
+    <div class="fact-why"><span class="fact-label label-why">WHY</span>해외패션 매출 +22.3% YoY(527억), 코스메틱 +12.3% YoY(511억) 성장. 국내패션은 25년 선제적 고정비 효율화로 매출 반등 시 수익성 개선</div>
+    <div class="fact-so"><span class="fact-label label-so">SO WHAT</span>26E 순이익 기준 PER 9.9배로 밸류에이션 매력 존재하나, OPM 3.3% 수준은 아직 낮아 본격적 레버리지 구간은 아님</div>
+  </div>
+
+  <div class="fact-item">
+    <span class="fact-num">Fact 03</span>
+    <div class="fact-what"><span class="fact-label label-what">WHAT</span>SoTP 밸류에이션 기준 적정주가 15,440원 — 비화장품(해외패션) PER 12배, 코스메틱 PER 15배, 신세계사이먼 지분가치 165억 반영</div>
+    <div class="fact-why"><span class="fact-label label-why">WHY</span>비화장품 부문(해외패션 중심)의 순이익 29억에 PER 12배 적용 = 345억. 화장품(코스메틱) 순이익 3억에 PER 15배 = 40억. 신세계사이먼 지분율 25%, 20% 할인</div>
+    <div class="fact-so"><span class="fact-label label-so">SO WHAT</span>TP 15,000원 대비 현재가 12,540원은 약 19.6% Upside. 다만 성장 강도가 완만하여 안정 등급이 적절</div>
+  </div>
+</section>
+
+<!-- ══════════ G. 실적 전망 (연간) ══════════ -->
+<section>
+  <div class="section-title">실적 전망 (연간) — PDF 원문 수치</div>
+  <table class="data-table">
+    <caption>단위: 십억원 | PDF 원본 단위 확인 완료</caption>
+    <thead>
+      <tr>
+        <th>구분</th>
+        <th>2024A</th><th>2025A</th>
+        <th style="background:#dbeafe;color:#1e40af;font-weight:700;">2026E</th>
+        <th>2027E</th><th>2028E</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td>매출액</td><td>1,074</td><td>1,110</td><td class="key-col key-num">1,266</td><td>1,349</td><td>1,404</td></tr>
+      <tr><td>YoY(%)</td><td>-20.7</td><td>3.4</td><td class="key-col">14.1</td><td>6.5</td><td>4.0</td></tr>
+      <tr><td>영업이익</td><td>7</td><td>-11</td><td class="key-col key-num">42</td><td>55</td><td>62</td></tr>
+      <tr><td>YoY(%)</td><td>-85.1</td><td>적전</td><td class="key-col key-num">흑전</td><td>31.1</td><td>12.8</td></tr>
+      <tr><td>OPM(%)</td><td>0.7</td><td>-1.0</td><td class="key-col key-opm">3.3</td><td>4.1</td><td>4.4</td></tr>
+      <tr><td>EPS(원)</td><td>910</td><td>121</td><td class="key-col">1,254</td><td>1,574</td><td>1,732</td></tr>
+      <tr><td>PER(배)</td><td>11.1</td><td>90.7</td><td class="key-col">9.9</td><td>7.9</td><td>7.2</td></tr>
+      <tr><td>PBR(배)</td><td>0.4</td><td>0.5</td><td class="key-col">0.5</td><td>0.5</td><td>0.5</td></tr>
+      <tr><td>ROE(%)</td><td>3.8</td><td>0.5</td><td class="key-col">5.2</td><td>6.3</td><td>6.6</td></tr>
+    </tbody>
+  </table>
+  <p style="font-size:12px;color:#5a6280;margin-top:10px;padding:0 4px;">
+    ▶ 26E가 변곡점인 이유: 해외패션 매출 고신장(+22.3%)에 따른 영업 레버리지로 전사 OPM이 -1.0% → 3.3%로 흑전. 25년 선제적 고정비 효율화 효과 + 내수 소비 회복이 동시에 작용하는 시점.
+  </p>
+</section>
+
+<!-- ══════════ H. 분기별 실적 ══════════ -->
+<section>
+  <div class="section-title">분기별 실적 전망</div>
+  <table class="data-table">
+    <thead>
+      <tr>
+        <th>구분</th>
+        <th>1Q25</th><th>2Q25</th><th>3Q25</th><th>4Q25</th>
+        <th style="background:#dbeafe;color:#1e40af;font-weight:700;">1Q26E</th>
+        <th>2Q26E</th><th>3Q26E</th><th>4Q26E</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td>매출액</td><td>304</td><td>309</td><td>310</td><td>187</td><td class="key-col key-num">299</td><td>303</td><td>297</td><td>367</td></tr>
+      <tr><td>영업이익</td><td>5</td><td>-2</td><td>-2</td><td>-12</td><td class="key-col key-num">14</td><td>10</td><td>10</td><td>8</td></tr>
+      <tr><td>OPM(%)</td><td>1.5</td><td>-0.7</td><td>-0.7</td><td>-6.3</td><td class="key-col key-opm">4.7</td><td>3.2</td><td>3.2</td><td>2.3</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<!-- ══════════ L. 사견 ══════════ -->
+<section>
+  <div class="section-title">사견 & 투자 행동 결론</div>
+  <div class="opinion-box">
+    <p>
+      해외패션 매출 고신장(+22.3%)이 전사 수익성 흑전의 핵심 동력이나, OPM 3.3% 수준은 여전히 낮고 국내패션은 적자 지속(-9억). 26E OP 성장률은 흑전이지만 절대 규모(42억)가 크지 않아 본격적 영업 레버리지로 보기 어렵다. 중국 소비 둔화, 환율 변동 등 외부 리스크도 존재. PER 9.9배의 밸류에이션 매력은 있으나, 성장의 지속성과 강도가 핵심/주목 등급을 부여하기에는 부족하다. 배당(DPS 400원, 수익률 약 3.2%)과 밸류에이션 매력을 감안한 장기 보유 관점으로 접근하는 것이 적절.
+    </p>
+    <div class="decision-box">
+      <div class="decision-btn decision-wait">⏳ 1Q26 실적 확인 후 진입<br/><span style="font-size:11px;font-weight:400;">해외패션 매출 +40% 실현 여부 확인 필요</span></div>
+    </div>
+  </div>
+</section>
+
+<div class="disclaimer">
+  ※ 본 글은 증권사 리포트를 개인 학습 목적으로 요약·정리한 것이며, 투자 권유가 아닙니다.<br/>
+  ※ 제공된 PDF 파일만 활용. 외부 검색·참조 없음. 당일 발간 리포트 기준.
+</div>
+
+</body>
+</html>

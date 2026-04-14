@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>알멕 (354320) 정리</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Pretendard','Apple SD Gothic Neo',-apple-system,sans-serif; background: #fff; color: #1a1d2e; line-height: 1.7; font-size: 14px; max-width: 900px; margin: 0 auto; padding: 32px 20px 80px; }
+  .header { border-left: 4px solid #2563eb; padding: 0 0 0 16px; margin-bottom: 24px; }
+  .header h1 { font-size: 20px; font-weight: 700; margin-bottom: 10px; }
+  .price-row { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin-top: 10px; }
+  .price-item { background: #f0f2f8; border: 1px solid #d0d4e0; border-radius: 6px; padding: 6px 14px; font-size: 13px; }
+  .price-item .label { color: #5a6280; font-size: 11px; display: block; }
+  .price-item .val { font-weight: 700; }
+  .upside-val { color: #059669; }
+  .tag-watch { background: #fffbeb; color: #b45309; border: 1px solid #f59e0b; }
+  .tag-badge { display: inline-flex; align-items: center; gap: 6px; padding: 5px 14px; border-radius: 20px; font-size: 13px; font-weight: 700; }
+  .score-badge { display: inline-block; padding: 5px 14px; border-radius: 20px; font-size: 13px; font-weight: 700; background: #f0f2f8; border: 1px solid #d0d4e0; }
+  .score-mid { color: #b45309; }
+  section { margin-bottom: 28px; }
+  .section-title { font-size: 11px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: #5a6280; border-bottom: 1px solid #d0d4e0; padding-bottom: 6px; margin-bottom: 14px; }
+  .pdf-only-banner { background: #fff7ed; border: 1px solid #f97316; border-radius: 8px; padding: 10px 16px; font-size: 12px; color: #c2410c; margin-bottom: 20px; text-align: center; font-weight: 700; }
+  .thesis-box { background: #f8faff; border: 1px solid #2563eb; border-radius: 8px; padding: 16px 20px; font-size: 15px; font-weight: 600; line-height: 1.6; }
+  .thesis-structure { display: flex; gap: 8px; align-items: center; margin-top: 10px; flex-wrap: wrap; }
+  .thesis-part { background: #f0f2f8; border: 1px solid #d0d4e0; border-radius: 6px; padding: 4px 10px; font-size: 12px; }
+  .thesis-arrow { color: #2563eb; font-size: 16px; }
+  .checklist { background: #fafafa; border: 1px solid #d0d4e0; border-radius: 8px; overflow: hidden; }
+  .checklist-item { display: flex; gap: 14px; align-items: flex-start; padding: 12px 16px; border-bottom: 1px solid #d0d4e0; }
+  .checklist-item:last-child { border-bottom: none; }
+  .check-icon { width: 22px; height: 22px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; flex-shrink: 0; }
+  .check-pass { background: #ecfdf5; color: #059669; border: 1px solid #34d399; }
+  .check-fail { background: #fef2f2; color: #dc2626; border: 1px solid #fca5a5; }
+  .check-label { font-weight: 600; font-size: 13px; }
+  .check-why { font-size: 13px; }
+  table { width: 100%; border-collapse: collapse; background: #fafafa; border-radius: 8px; overflow: hidden; border: 1px solid #d0d4e0; }
+  thead tr { background: #f0f2f8; }
+  th { padding: 10px 14px; text-align: left; font-size: 11px; font-weight: 700; color: #5a6280; }
+  td { padding: 10px 14px; border-top: 1px solid #d0d4e0; font-size: 13px; }
+  tr.total-row td { background: #e8ecf5; font-weight: 700; }
+  .penalty { color: #dc2626; }
+  .highlight-green { color: #059669; font-weight: 700; }
+  .chain-box { background: #fafafa; border: 1px solid #d0d4e0; border-radius: 8px; padding: 16px 20px; }
+  .chain-step { display: flex; gap: 12px; align-items: flex-start; margin-bottom: 10px; }
+  .chain-step:last-child { margin-bottom: 0; }
+  .chain-arrow { color: #2563eb; font-size: 16px; flex-shrink: 0; }
+  .chain-label { font-size: 10px; font-weight: 700; letter-spacing: 1px; color: #5a6280; margin-bottom: 2px; }
+  .chain-text { font-size: 13px; }
+  .chain-confirmed { color: #059669; font-size: 11px; margin-left: 6px; }
+  .chain-forecast { color: #b45309; font-size: 11px; margin-left: 6px; }
+  .fact-item { background: #fafafa; border: 1px solid #d0d4e0; border-radius: 8px; padding: 14px 16px; margin-bottom: 8px; }
+  .fact-num { font-size: 10px; font-weight: 700; color: #2563eb; letter-spacing: 1px; margin-bottom: 8px; display: block; }
+  .fact-label { display: inline-block; font-size: 10px; font-weight: 700; padding: 1px 6px; border-radius: 3px; margin-right: 4px; }
+  .label-what { background: #eff6ff; color: #1d4ed8; }
+  .label-why { background: #fff7ed; color: #ea580c; }
+  .label-so { background: #ecfdf5; color: #059669; }
+  .fact-what { font-weight: 600; font-size: 14px; margin-bottom: 6px; }
+  .fact-why { font-size: 13px; color: #5a6280; margin-bottom: 6px; }
+  .fact-so { font-size: 13px; color: #059669; }
+  .data-table th { background: #e8ecf5; }
+  .data-table td.key-col { background: #f0f6ff; }
+  .data-table .key-num { color: #059669; font-weight: 700; }
+  .data-table .key-opm { color: #b45309; }
+  caption { font-size: 11px; color: #5a6280; text-align: left; padding: 0 0 8px; caption-side: top; }
+  .val-box { background: #fafafa; border: 1px solid #d0d4e0; border-radius: 8px; padding: 16px 20px; font-size: 13px; line-height: 2; }
+  .val-formula { background: #f0f2f8; border-radius: 6px; padding: 10px 14px; font-family: monospace; font-size: 13px; margin: 10px 0; color: #b45309; }
+  .risk-item { background: #fafafa; border-radius: 0 6px 6px 0; padding: 14px 16px; margin-bottom: 10px; }
+  .risk-sev-high { border-left: 3px solid #dc2626; }
+  .risk-sev-mid { border-left: 3px solid #ea580c; }
+  .risk-assumption { font-weight: 600; font-size: 13px; margin-bottom: 4px; }
+  .risk-chain { font-size: 12px; color: #5a6280; margin: 4px 0; }
+  .risk-impact-num { font-size: 13px; color: #dc2626; font-weight: 600; margin-top: 4px; }
+  .checkpoint-item { display: flex; gap: 12px; padding: 10px 0; border-bottom: 1px solid #d0d4e0; font-size: 13px; }
+  .checkpoint-item:last-child { border-bottom: none; }
+  .cp-date { color: #2563eb; font-weight: 600; min-width: 90px; flex-shrink: 0; }
+  .cp-pass { color: #059669; font-size: 12px; margin-top: 2px; }
+  .cp-fail { color: #dc2626; font-size: 12px; margin-top: 2px; }
+  .opinion-box { background: #fafafa; border: 1px solid #d0d4e0; border-radius: 8px; padding: 16px 20px; font-size: 13px; line-height: 1.8; color: #5a6280; }
+  .decision-box { display: flex; gap: 14px; margin-top: 14px; }
+  .decision-btn { flex: 1; text-align: center; padding: 10px; border-radius: 6px; font-weight: 700; font-size: 13px; border: 1px solid; }
+  .decision-wait { background: #fffbeb; color: #b45309; border-color: #f59e0b; }
+  .upgrade-box { background: #eff6ff; border: 1px solid #93c5fd; border-radius: 8px; padding: 14px 16px; }
+  .upgrade-item { display: flex; gap: 10px; padding: 6px 0; border-bottom: 1px solid #dbeafe; font-size: 13px; }
+  .upgrade-item:last-child { border-bottom: none; }
+  .upgrade-when { color: #1d4ed8; font-weight: 600; min-width: 140px; flex-shrink: 0; }
+  .term-box { background: #fffbeb; border: 1px solid #fcd34d; border-radius: 6px; padding: 8px 12px; font-size: 12px; color: #92400e; margin-top: 6px; }
+  .disclaimer { font-size: 11px; color: #9ca3af; text-align: center; margin-top: 40px; padding-top: 16px; border-top: 1px solid #d0d4e0; }
+</style>
+</head>
+<body>
+
+<div class="pdf-only-banner">외부 검색 절대 금지 — 제공된 PDF 파일만 활용 | 당일 발간 리포트 기준</div>
+
+<!-- A. 헤더 -->
+<header class="header">
+  <h1>알멕 (354320) | The Call of Space | 메리츠증권 정지수 | 발간일: 2026.04.13</h1>
+  <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-bottom:12px;">
+    <span class="tag-badge tag-watch">🔥 주목</span>
+    <span class="score-badge score-mid">📊 60점</span>
+    <span style="font-size:12px;color:#5a6280;">비바이오</span>
+  </div>
+  <div class="price-row">
+    <div class="price-item"><span class="label">투자의견</span><span class="val">Buy(신규)</span></div>
+    <div class="price-item"><span class="label">목표주가(TP)</span><span class="val">120,000원</span></div>
+    <div class="price-item"><span class="label">현재주가(CP)</span><span class="val">69,500원</span></div>
+    <div class="price-item"><span class="label">Upside</span><span class="val upside-val">+72.7%</span></div>
+    <div class="price-item"><span class="label">시가총액</span><span class="val">4,442억원</span></div>
+  </div>
+</header>
+
+<!-- B. 스토리 한 줄 -->
+<section>
+  <div class="section-title">이 종목에 투자해야 하는 이유 — 스토리 한 줄</div>
+  <div class="thesis-box">
+    글로벌 최대 민간 우주기업 협력사 등록(●●● 확정) + EV 배터리 모듈 케이스 국내 1위(●●● 확정)로 26E OP(영업이익) 14.6십억(흑전, +135%), 추가 CAPA 증설 없이 영업 레버리지 가능하여 Upside 72.7% — 다만 OPM 6.1%로 아직 저수준
+  </div>
+  <div class="thesis-structure">
+    <div class="thesis-part" style="color:#059669;">① 우주기업 협력사 등록(●●●) + EV 국내 1위(●●●)</div>
+    <div class="thesis-arrow">→</div>
+    <div class="thesis-part" style="color:#b45309;">② 26E OP 흑전 +135%, OPM 3.3→6.1%(+2.8%p)</div>
+    <div class="thesis-arrow">→</div>
+    <div class="thesis-part" style="color:#2563eb;">③ Upside 72.7%, 신규 커버리지</div>
+  </div>
+  <div class="term-box">💡 알루미늄 압출(Extrusion): 알루미늄을 높은 압력으로 틀에 밀어넣어 원하는 단면 형태의 제품을 만드는 공정. EV 배터리 케이스, 우주 발사체 탑재체 구조물 등에 사용.</div>
+</section>
+
+<!-- C. 핵심 5가지 조건 -->
+<section>
+  <div class="section-title">핵심 태그 5가지 조건 체크</div>
+  <div class="checklist">
+    <div class="checklist-item">
+      <div class="check-icon check-fail">✗</div>
+      <div><div class="check-label">조건 1 | 영업이익 성장 임계값</div>
+      <div class="check-why">26E OP 14.6십억(흑전, 25A 6.2십억 대비 +135%) → OP +50%+ 통과. 그러나 OPM 3.3%→6.1%(+2.8%p) → +3%p 미달, OPM 6.1% → 15% 미달. <strong>(OPM 기준 미충족)</strong></div></div>
+    </div>
+    <div class="checklist-item">
+      <div class="check-icon check-pass">✓</div>
+      <div><div class="check-label">조건 2 | 3년 지속성 (3개 이상)</div>
+      <div class="check-why">① EV 알루미늄 경량화 TAM 확대(글로벌 수요↑) ② 우주항공 사업(10여개 프로젝트 진행, Starlink 위성 포함) ③ 26~28E OP CAGR +70%+ → 3개 충족. <strong>충족</strong></div></div>
+    </div>
+    <div class="checklist-item">
+      <div class="check-icon check-pass">✓</div>
+      <div><div class="check-label">조건 3 | 확정 팩트 2개+</div>
+      <div class="check-why">●●● 글로벌 최대 민간 우주기업 협력사 등록(2025년 말) + ●●● EV 배터리 모듈 케이스 국내 점유율 1위(LG·폭스바겐·아우디·벤츠 고객). <strong>충족</strong></div></div>
+    </div>
+    <div class="checklist-item">
+      <div class="check-icon check-pass">✓</div>
+      <div><div class="check-label">조건 4 | 시장 미반영</div>
+      <div class="check-why">Upside 72.7% ≥ 40%. 신규 커버리지로 시장 인지도 낮음. <strong>충족</strong></div></div>
+    </div>
+    <div class="checklist-item">
+      <div class="check-icon check-pass">✓</div>
+      <div><div class="check-label">조건 5 | 차별화 시각</div>
+      <div class="check-why">신규 커버리지 개시 + "알루미늄 → 우주항공" 사업 전환 시각 고유. <strong>충족</strong></div></div>
+    </div>
+  </div>
+  <p style="font-size:11px;color:#dc2626;margin-top:8px;">⚠️ 조건 1의 OPM 기준 미충족(OPM 6.1% < 15%, +2.8%p < +3%p) → 핵심 불가, 주목 판정. 4개 충족에도 1개 미달로 강등.</p>
+</section>
+
+<!-- D. 투자 점수 -->
+<section>
+  <div class="section-title">투자 점수 판정 (v2.0)</div>
+  <table>
+    <thead><tr><th>항목</th><th>판정</th><th>근거</th></tr></thead>
+    <tbody>
+      <tr><td>종목 유형</td><td>비바이오</td><td>알루미늄 압출 제조업</td></tr>
+      <tr><td>적용 가설</td><td>가설 3</td><td>아직 고성장 아님(25A OP 6.2십억, BEP 수준). 우주·EV 복합 촉매로 성장 기대</td></tr>
+      <tr><td>촉매 등급</td><td>상급</td><td>글로벌 최대 민간 우주기업(SpaceX급) 협력사 등록 → 글로벌 섹터 1위 발주에 해당</td></tr>
+      <tr><td>복합 여부</td><td>복합</td><td>① EV 배터리 케이스 ② 우주항공 구조물 ③ 전도체 → 3가지 촉매 동시</td></tr>
+      <tr><td>직접성</td><td>직접</td><td>알루미늄 압출 → 매출 직결</td></tr>
+      <tr><td>매트릭스 기본 점수</td><td>80점</td><td>가설3 × 상급 × 복합 = 80점</td></tr>
+      <tr><td class="penalty">페널티 ① 잠재수주 미확정</td><td class="penalty">-10점</td><td>우주항공 매출(26E 486억) 중 상당 부분 아직 품질 테스트 단계</td></tr>
+      <tr><td class="penalty">페널티 ② 단기 선반영</td><td class="penalty">-10점</td><td>최근 6개월 +240.7%, 1개월 +23.0% 상승</td></tr>
+      <tr class="total-row"><td>최종 투자 점수</td><td><span class="highlight-green">60점</span></td><td>주목 40+ 충족. 핵심 5조건 OPM 미달로 주목 확정</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<!-- E. 성장 인과 체인 -->
+<section>
+  <div class="section-title">성장 인과 체인</div>
+  <div class="chain-box">
+    <div class="chain-step"><div class="chain-arrow">①</div><div><div class="chain-label">촉매 <span class="chain-confirmed">●●● 확정</span></div><div class="chain-text">글로벌 최대 민간 우주기업 협력사 등록(25년 말) + EV 배터리 모듈 케이스 국내 1위. 현재 10여개 프로젝트 진행 중</div></div></div>
+    <div class="chain-step"><div class="chain-arrow">↓</div><div><div class="chain-label">매출 영향</div><div class="chain-text">26E 매출 239십억(+27.4%). 우주 매출 성장(486억, 27E) 기대. 기존 EV 사업 안정 + 우주 신사업 추가</div></div></div>
+    <div class="chain-step"><div class="chain-arrow">↓</div><div><div class="chain-label">OPM 변화 메커니즘</div><div class="chain-text">추가 CAPA 증설 없이 물량 확대 시 높은 마진율 기반 영업 레버리지. OPM -1.7%(24A) → 3.3%(25A) → 6.1%(26E) → 9.8%(27E) → 11.9%(28E) 급상승</div></div></div>
+    <div class="chain-step"><div class="chain-arrow">↓</div><div><div class="chain-label">실적 <span class="chain-forecast">●●○ 추정</span></div><div class="chain-text">26E OP 14.6십억(흑전), 27E OP 29.8십억(+104%), 28E OP 42.4십억(+42%). BEP 돌파 후 급성장 구간</div></div></div>
+    <div class="chain-step"><div class="chain-arrow">↓</div><div><div class="chain-label">미반영</div><div class="chain-text">신규 커버리지 종목. 시장은 아직 "알루미늄 중소형 압출사"로 인식 중. 우주항공 밸류 리레이팅(시장 재평가) 시 Upside 72.7%</div></div></div>
+  </div>
+</section>
+
+<!-- F. 핵심 팩트 3줄 -->
+<section>
+  <div class="section-title">핵심 팩트 3줄</div>
+  <div class="fact-item">
+    <span class="fact-num">Fact 01 — 실적(BEP 돌파)</span>
+    <div class="fact-what"><span class="fact-label label-what">WHAT</span>26E OP 14.6십억(흑전, +135%), OPM 6.1%. 27E OP 29.8십억(+104%), OPM 9.8%</div>
+    <div class="fact-why"><span class="fact-label label-why">WHY</span>EV 배터리 케이스 매출 안정 + 우주항공 신사업 매출 시작. 추가 CAPA 증설 없이 기존 대비 높은 마진 확보 가능</div>
+    <div class="fact-so"><span class="fact-label label-so">SO WHAT</span>BEP 돌파형(경로③)으로 OPM 급등 구간 진입. 27~28E에 OPM 10%+ 안착 시 밸류 리레이팅 본격화</div>
+  </div>
+  <div class="fact-item">
+    <span class="fact-num">Fact 02 — 구조(우주항공)</span>
+    <div class="fact-what"><span class="fact-label label-what">WHAT</span>글로벌 최대 민간 우주기업 협력사 등록. 현재 샘플 공급·품질 테스트 중. 10여개 프로젝트 진행</div>
+    <div class="fact-why"><span class="fact-label label-why">WHY</span>알루미늄은 우주 발사체·인공위성·Starlink 위성의 핵심 소재(위성 질량의 36.7%). 우주항공 알루미늄 시장 연평균 +7.6% 성장</div>
+    <div class="fact-so"><span class="fact-label label-so">SO WHAT</span>품질 테스트 통과 + 양산 시작이 핵심 이벤트. 상반기 중 일부 통과 전망. 이것이 확인되면 핵심 승격 촉매</div>
+  </div>
+  <div class="fact-item">
+    <span class="fact-num">Fact 03 — 밸류</span>
+    <div class="fact-what"><span class="fact-label label-what">WHAT</span>TP 120,000원(신규). 27E EPS 3,943원(지배) × Target PER 30.3배(아모레퍼시픽 2014~16년 평균 12MF PER 20% 할증)</div>
+    <div class="fact-why"><span class="fact-label label-why">WHY</span>→ 사실 PDF에는 "2027년 예상 EPS(3,943원)에 Target PER 30.3배를 적용"이라고 기재</div>
+    <div class="fact-so"><span class="fact-label label-so">SO WHAT</span>PER 30.3배는 성장 프리미엄 반영. 현 12MF PER 203배(26E 기준)에서 27E PER 82배로 급락 — 이익 급증 구간이라 PER보다 성장 궤적이 중요</div>
+  </div>
+</section>
+
+<!-- G. 실적 전망 -->
+<section>
+  <div class="section-title">실적 전망 (연간)</div>
+  <table class="data-table">
+    <caption>단위: 십억원 | ★ = 투자 핵심 연도</caption>
+    <thead><tr><th>구분</th><th>2024A</th><th>2025A</th><th style="background:#dbeafe;color:#1e40af;">2026E ★</th><th>2027E</th><th>2028E</th></tr></thead>
+    <tbody>
+      <tr><td>매출액</td><td>156.9</td><td>187.8</td><td class="key-col key-num">239.3</td><td>304.9</td><td>355.1</td></tr>
+      <tr><td>YoY(%)</td><td>-27.4</td><td>19.7</td><td class="key-col">27.4</td><td>27.4</td><td>16.5</td></tr>
+      <tr><td>영업이익</td><td>-2.7</td><td>6.2</td><td class="key-col key-num">14.6</td><td>29.8</td><td>42.4</td></tr>
+      <tr><td>YoY(%)</td><td>적자</td><td>흑전</td><td class="key-col key-num">+135%</td><td>+104%</td><td>+42%</td></tr>
+      <tr><td>OPM(%)</td><td>-1.7</td><td>3.3</td><td class="key-col key-opm">6.1</td><td>9.8</td><td>11.9</td></tr>
+      <tr><td>EPS(원)</td><td>103</td><td>-205</td><td class="key-col">341</td><td>844</td><td>1,265</td></tr>
+      <tr><td>PER(배)</td><td>250.2</td><td>적자</td><td class="key-col">203.6</td><td>82.4</td><td>54.9</td></tr>
+      <tr><td>PBR(배)</td><td>1.2</td><td>0.9</td><td class="key-col">2.9</td><td>2.8</td><td>2.7</td></tr>
+      <tr><td>ROE(%)</td><td>0.5</td><td>-0.9</td><td class="key-col">1.4</td><td>3.5</td><td>5.0</td></tr>
+    </tbody>
+  </table>
+  <p style="font-size:12px;color:#5a6280;margin-top:10px;">▶ 26E는 BEP 돌파 원년. 진정한 변곡점은 27E(OP +104%, OPM 9.8%). 우주항공 매출 본격화 + 기존 EV 사업 안정이 이중 성장 축.</p>
+</section>
+
+<!-- I. 밸류에이션 -->
+<section>
+  <div class="section-title">밸류에이션</div>
+  <div class="val-box">
+    <div class="val-formula">27E EPS 3,943원(지배) × Target PER 30.3배 = 적정주가 약 120,000원 → TP 120,000원(신규)</div>
+    <p style="color:#5a6280;font-size:12px;margin-top:8px;">▶ Target PER 30.3배 근거: PDF에 명시. 고성장 소형주 프리미엄 반영.</p>
+  </div>
+</section>
+
+<!-- J. 리스크 -->
+<section>
+  <div class="section-title">리스크</div>
+  <div class="risk-item risk-sev-high">
+    <div class="risk-assumption">🔴 우주항공 품질 테스트 미통과</div>
+    <div class="risk-chain">→ 10여개 프로젝트 중 주요 계약 탈락 시 → 우주 매출 대폭 축소 → 27E OP 29.8→15십억</div>
+    <div class="risk-impact-num">→ 성장 스토리 붕괴, TP 60,000원(-50%)</div>
+  </div>
+  <div class="risk-item risk-sev-mid">
+    <div class="risk-assumption">🟠 EV 수요 둔화 + 알루미늄 가격 급등</div>
+    <div class="risk-chain">→ EV 배터리 케이스 수주 감소 + 원가 부담 → OPM 6.1%→3% 후퇴</div>
+    <div class="risk-impact-num">→ BEP 돌파 지연, 흑자 안착 불확실</div>
+  </div>
+</section>
+
+<!-- K. 체크포인트 -->
+<section>
+  <div class="section-title">모멘텀 체크포인트</div>
+  <div style="background:#fafafa;border:1px solid #d0d4e0;border-radius:8px;padding:4px 16px;">
+    <div class="checkpoint-item">
+      <span class="cp-date">2026.상반기</span>
+      <div><div>우주항공 품질 테스트 통과 여부</div>
+      <div class="cp-pass">✅ 통과 + 양산 계약 시 → ⭐핵심/🚀SS급 승격 검토</div>
+      <div class="cp-fail">⛔ 지연·탈락 시 → 주목 유지 or 하향</div></div>
+    </div>
+    <div class="checkpoint-item">
+      <span class="cp-date">2026.2Q</span>
+      <div><div>26E 실적 OPM 6%+ 확인</div>
+      <div class="cp-pass">✅ OPM 6%+ 안착 시 → BEP 돌파 확정</div>
+      <div class="cp-fail">⛔ OPM 4% 미만 시 → 수익성 개선 지연</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- L. 사견 -->
+<section>
+  <div class="section-title">사견 & 투자 행동 결론</div>
+  <div class="opinion-box">
+    <p>우주항공 + EV 복합 성장 스토리가 매력적이고 Upside 72.7%는 인상적. 신규 커버리지 종목으로 시장 관심 유입 기대. 그러나 OPM 6.1%로 아직 수익성 검증 초기이며, 우주항공 매출의 대부분이 품질 테스트 단계라 확정성 부족. 최근 6개월 +240% 급등으로 단기 선반영 우려도 상당. 시총 4,442억원 소형주 리스크 감안 필요.</p>
+    <div class="decision-box">
+      <div class="decision-btn decision-wait">⏳ 우주항공 품질 테스트 통과 확인 후 진입<br/><span style="font-size:11px;font-weight:400;">양산 계약 확정 + OPM 6%+ 안착 확인</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- M. 승격 조건 -->
+<section>
+  <div class="section-title">승격 조건 — 주목 전용</div>
+  <div class="upgrade-box">
+    <div class="upgrade-item"><span class="upgrade-when">우주항공 양산 계약</span><span>품질 테스트 통과 + 양산 계약 확정 시 → 🚀 SS급 승격 검토(경로④ 사업모델 전환)</span></div>
+    <div class="upgrade-item"><span class="upgrade-when">OPM 10%+ 확인</span><span>27E 이전에 OPM 10%+ 조기 달성 시 → ⭐ 핵심 승격(조건1 OPM 기준 충족)</span></div>
+  </div>
+</section>
+
+<div class="disclaimer">※ 본 글은 증권사 리포트를 개인 학습 목적으로 요약·정리한 것이며, 투자 권유가 아닙니다.<br/>※ 제공된 PDF 파일만 활용. 외부 검색·참조 없음.</div>
+</body>
+</html>

@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>삼양식품 (003230) 정리</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Pretendard','Apple SD Gothic Neo',-apple-system,sans-serif; background: #ffffff; color: #1a1d2e; line-height: 1.7; font-size: 14px; max-width: 900px; margin: 0 auto; padding: 32px 20px 80px; }
+  .header { border-left: 4px solid #2563eb; padding: 0 0 0 16px; margin-bottom: 24px; }
+  .header h1 { font-size: 20px; font-weight: 700; margin-bottom: 10px; }
+  .price-row { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin-top: 10px; }
+  .price-item { background: #f0f2f8; border: 1px solid #d0d4e0; border-radius: 6px; padding: 6px 14px; font-size: 13px; }
+  .price-item .label { color: #5a6280; font-size: 11px; display: block; }
+  .price-item .val { font-weight: 700; }
+  .upside-val { color: #059669; }
+  .tag-badge { display: inline-flex; align-items: center; gap: 6px; padding: 5px 14px; border-radius: 20px; font-size: 13px; font-weight: 700; }
+  .tag-watch { background: #fffbeb; color: #b45309; border: 1px solid #f59e0b; }
+  .score-badge { display: inline-block; padding: 5px 14px; border-radius: 20px; font-size: 13px; font-weight: 700; background: #f0f2f8; border: 1px solid #d0d4e0; color: #1a1d2e; }
+  .score-mid { color: #b45309; }
+  section { margin-bottom: 28px; }
+  .section-title { font-size: 11px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: #5a6280; border-bottom: 1px solid #d0d4e0; padding-bottom: 6px; margin-bottom: 14px; }
+  .pdf-only-banner { background: #fff7ed; border: 1px solid #f97316; border-radius: 8px; padding: 10px 16px; font-size: 12px; color: #c2410c; margin-bottom: 20px; text-align: center; font-weight: 700; }
+  .thesis-box { background: #f8faff; border: 1px solid #2563eb; border-radius: 8px; padding: 16px 20px; font-size: 15px; font-weight: 600; line-height: 1.6; }
+  .thesis-structure { display: flex; gap: 8px; align-items: center; margin-top: 10px; flex-wrap: wrap; }
+  .thesis-part { background: #f0f2f8; border: 1px solid #d0d4e0; border-radius: 6px; padding: 4px 10px; font-size: 12px; }
+  .thesis-arrow { color: #2563eb; font-size: 16px; }
+  .checklist { background: #fafafa; border: 1px solid #d0d4e0; border-radius: 8px; overflow: hidden; }
+  .checklist-item { display: flex; gap: 14px; align-items: flex-start; padding: 12px 16px; border-bottom: 1px solid #d0d4e0; }
+  .checklist-item:last-child { border-bottom: none; }
+  .check-icon { width: 22px; height: 22px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; flex-shrink: 0; }
+  .check-pass { background: #ecfdf5; color: #059669; border: 1px solid #34d399; }
+  .check-fail { background: #fef2f2; color: #dc2626; border: 1px solid #fca5a5; }
+  .check-label { font-weight: 600; font-size: 13px; }
+  .check-why { font-size: 13px; }
+  table { width: 100%; border-collapse: collapse; background: #fafafa; border-radius: 8px; overflow: hidden; border: 1px solid #d0d4e0; }
+  thead tr { background: #f0f2f8; }
+  th { padding: 10px 14px; text-align: left; font-size: 11px; font-weight: 700; color: #5a6280; }
+  td { padding: 10px 14px; border-top: 1px solid #d0d4e0; font-size: 13px; }
+  tr.total-row td { background: #e8ecf5; font-weight: 700; }
+  .penalty { color: #dc2626; }
+  .highlight-green { color: #059669; font-weight: 700; }
+  .chain-box { background: #fafafa; border: 1px solid #d0d4e0; border-radius: 8px; padding: 16px 20px; }
+  .chain-step { display: flex; gap: 12px; align-items: flex-start; margin-bottom: 10px; }
+  .chain-step:last-child { margin-bottom: 0; }
+  .chain-arrow { color: #2563eb; font-size: 16px; flex-shrink: 0; }
+  .chain-label { font-size: 10px; font-weight: 700; letter-spacing: 1px; color: #5a6280; margin-bottom: 2px; }
+  .chain-text { font-size: 13px; }
+  .chain-confirmed { color: #059669; font-size: 11px; margin-left: 6px; }
+  .chain-forecast { color: #b45309; font-size: 11px; margin-left: 6px; }
+  .fact-item { background: #fafafa; border: 1px solid #d0d4e0; border-radius: 8px; padding: 14px 16px; margin-bottom: 8px; }
+  .fact-num { font-size: 10px; font-weight: 700; color: #2563eb; letter-spacing: 1px; margin-bottom: 8px; display: block; }
+  .fact-label { display: inline-block; font-size: 10px; font-weight: 700; padding: 1px 6px; border-radius: 3px; margin-right: 4px; }
+  .label-what { background: #eff6ff; color: #1d4ed8; }
+  .label-why { background: #fff7ed; color: #ea580c; }
+  .label-so { background: #ecfdf5; color: #059669; }
+  .fact-what { font-weight: 600; font-size: 14px; margin-bottom: 6px; }
+  .fact-why { font-size: 13px; color: #5a6280; margin-bottom: 6px; }
+  .fact-so { font-size: 13px; color: #059669; }
+  .data-table th { background: #e8ecf5; }
+  .data-table td.key-col { background: #f0f6ff; }
+  .data-table .key-num { color: #059669; font-weight: 700; }
+  .data-table .key-opm { color: #b45309; }
+  caption { font-size: 11px; color: #5a6280; text-align: left; padding: 0 0 8px; caption-side: top; }
+  .val-box { background: #fafafa; border: 1px solid #d0d4e0; border-radius: 8px; padding: 16px 20px; font-size: 13px; line-height: 2; }
+  .val-formula { background: #f0f2f8; border-radius: 6px; padding: 10px 14px; font-family: monospace; font-size: 13px; margin: 10px 0; color: #b45309; }
+  .risk-item { background: #fafafa; border-radius: 0 6px 6px 0; padding: 14px 16px; margin-bottom: 10px; }
+  .risk-sev-high { border-left: 3px solid #dc2626; }
+  .risk-sev-mid { border-left: 3px solid #ea580c; }
+  .risk-assumption { font-weight: 600; font-size: 13px; margin-bottom: 4px; }
+  .risk-chain { font-size: 12px; color: #5a6280; margin: 4px 0; }
+  .risk-impact-num { font-size: 13px; color: #dc2626; font-weight: 600; margin-top: 4px; }
+  .checkpoint-item { display: flex; gap: 12px; padding: 10px 0; border-bottom: 1px solid #d0d4e0; font-size: 13px; }
+  .checkpoint-item:last-child { border-bottom: none; }
+  .cp-date { color: #2563eb; font-weight: 600; min-width: 90px; flex-shrink: 0; }
+  .cp-pass { color: #059669; font-size: 12px; margin-top: 2px; }
+  .cp-fail { color: #dc2626; font-size: 12px; margin-top: 2px; }
+  .opinion-box { background: #fafafa; border: 1px solid #d0d4e0; border-radius: 8px; padding: 16px 20px; font-size: 13px; line-height: 1.8; color: #5a6280; }
+  .decision-box { display: flex; gap: 14px; margin-top: 14px; }
+  .decision-btn { flex: 1; text-align: center; padding: 10px; border-radius: 6px; font-weight: 700; font-size: 13px; border: 1px solid; }
+  .decision-buy { background: #ecfdf5; color: #059669; border-color: #34d399; }
+  .decision-wait { background: #fffbeb; color: #b45309; border-color: #f59e0b; }
+  .upgrade-box { background: #eff6ff; border: 1px solid #93c5fd; border-radius: 8px; padding: 14px 16px; }
+  .upgrade-item { display: flex; gap: 10px; padding: 6px 0; border-bottom: 1px solid #dbeafe; font-size: 13px; }
+  .upgrade-item:last-child { border-bottom: none; }
+  .upgrade-when { color: #1d4ed8; font-weight: 600; min-width: 140px; flex-shrink: 0; }
+  .disclaimer { font-size: 11px; color: #9ca3af; text-align: center; margin-top: 40px; padding-top: 16px; border-top: 1px solid #d0d4e0; }
+</style>
+</head>
+<body>
+
+<div class="pdf-only-banner">외부 검색 절대 금지 — 제공된 PDF 파일만 활용 | 당일 발간 리포트 기준</div>
+
+<!-- A. 헤더 -->
+<header class="header">
+  <h1>삼양식품 (003230) | 변하지 않은 방향성과 편한 주가 | 교보증권 권우정 | 발간일: 2026.04.13</h1>
+  <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-bottom:12px;">
+    <span class="tag-badge tag-watch">🔥 주목</span>
+    <span class="score-badge score-mid">📊 60점</span>
+    <span style="font-size:12px;color:#5a6280;">비바이오</span>
+  </div>
+  <div class="price-row">
+    <div class="price-item"><span class="label">투자의견</span><span class="val">Buy(유지)</span></div>
+    <div class="price-item"><span class="label">목표주가(TP)</span><span class="val">1,860,000원</span></div>
+    <div class="price-item"><span class="label">현재주가(CP)</span><span class="val">1,238,000원</span></div>
+    <div class="price-item"><span class="label">Upside</span><span class="val upside-val">+50.2%</span></div>
+    <div class="price-item"><span class="label">시가총액</span><span class="val">93,259억원</span></div>
+  </div>
+</header>
+
+<!-- B. 스토리 한 줄 -->
+<section>
+  <div class="section-title">이 종목에 투자해야 하는 이유 — 스토리 한 줄</div>
+  <div class="thesis-box">
+    라면 수출 데이터 사상 최대 행진(●●● 확정) + 중국 공장 증설 완료(●●● 확정)로 26E OP(영업이익) 715십억(+36.5%), OPM(영업이익률) 24.2%를 유지하며, 12MF Fwd PER(주가수익비율) 15배 수준에서 Upside 50.2% — 다만 OP +36.5%는 폭증(+50%+) 기준에 미달
+  </div>
+  <div class="thesis-structure">
+    <div class="thesis-part" style="color:#059669;">① 라면 수출 사상 최대(●●●) + 중국 CAPA 확대(●●●)</div>
+    <div class="thesis-arrow">→</div>
+    <div class="thesis-part" style="color:#b45309;">② 26E OP +36.5%, OPM 24.2%(+1.9%p)</div>
+    <div class="thesis-arrow">→</div>
+    <div class="thesis-part" style="color:#2563eb;">③ Upside 50.2%, 12MF PER 15배</div>
+  </div>
+</section>
+
+<!-- C. 핵심 5가지 조건 -->
+<section>
+  <div class="section-title">핵심 태그 5가지 조건 체크</div>
+  <div class="checklist">
+    <div class="checklist-item">
+      <div class="check-icon check-fail">✗</div>
+      <div><div class="check-label">조건 1 | 영업이익 성장 임계값</div>
+      <div class="check-why">26E OP 715십억(YoY +36.5%) → +50% 미달. OPM 22.3%→24.2%(+1.9%p) → +3%p 미달. OPM 24.2% > 15% 유지는 충족하나, OP 성장률 자체가 +50% 미달. <strong>미충족</strong></div></div>
+    </div>
+    <div class="checklist-item">
+      <div class="check-icon check-pass">✓</div>
+      <div><div class="check-label">조건 2 | 3년 지속성 (3개 이상)</div>
+      <div class="check-why">① 해외 매출 비중 확대(65%→81%) ② 중국 밀양 2공장 3개라인 가동(CAPA 확대) ③ 26~28E OP CAGR +26% ④ 미국/일본/유럽 동시 성장 → 4개 충족. <strong>충족</strong></div></div>
+    </div>
+    <div class="checklist-item">
+      <div class="check-icon check-pass">✓</div>
+      <div><div class="check-label">조건 3 | 확정 팩트 2개+</div>
+      <div class="check-why">●●● 수출 데이터 사상 최대(1Q 국내 라면 수출 YoY 26%, 3월 YoY 45%) + ●●● 중국 공장 증설 완료. <strong>충족</strong></div></div>
+    </div>
+    <div class="checklist-item">
+      <div class="check-icon check-pass">✓</div>
+      <div><div class="check-label">조건 4 | 시장 미반영</div>
+      <div class="check-why">Upside 50.2% ≥ 40%. <strong>충족</strong></div></div>
+    </div>
+    <div class="checklist-item">
+      <div class="check-icon check-fail">✗</div>
+      <div><div class="check-label">조건 5 | 차별화 시각</div>
+      <div class="check-why">라면 수출 성장은 모든 증권사 공통 논리. 이 리포트만의 고유 근거 부족. <strong>미충족</strong></div></div>
+    </div>
+  </div>
+  <p style="font-size:11px;color:#dc2626;margin-top:8px;">⚠️ 조건 1(OP +36.5% < 50%) + 조건 5(차별화 부족) 미달 → 핵심 불가, 주목 판정. 태그-점수 불일치(60점≥핵심 기준이나 조건 미달): 5조건 우선 원칙 적용.</p>
+</section>
+
+<!-- D. 투자 점수 -->
+<section>
+  <div class="section-title">투자 점수 판정 (v2.0)</div>
+  <table>
+    <thead><tr><th>항목</th><th>판정</th><th>근거</th></tr></thead>
+    <tbody>
+      <tr><td>종목 유형</td><td>비바이오</td><td>식품 제조업, 실적 기반 주가 결정</td></tr>
+      <tr><td>적용 가설</td><td>가설 2</td><td>이미 고성장 중(25A OP +52%) + 26E OPM 24.2% 추가 개선 예상</td></tr>
+      <tr><td>촉매 등급</td><td>중급</td><td>수출 데이터 호조(글로벌 상위권 라면 기업), 중국 CAPA 확대</td></tr>
+      <tr><td>복합 여부</td><td>복합</td><td>① 해외 수출 성장 ② 중국 공장 증설 ③ 마케팅비 레버리지(OPM 개선)</td></tr>
+      <tr><td>직접성</td><td>직접</td><td>수출·CAPA → 매출·OP 직결</td></tr>
+      <tr><td>매트릭스 기본 점수</td><td>70점</td><td>가설2 × 중급 × 복합 = 70점</td></tr>
+      <tr><td class="penalty">페널티 ① 컨센 이미 반영</td><td class="penalty">-10점</td><td>모든 증권사가 동일 라면 수출 성장 논리로 TP 상향 중</td></tr>
+      <tr class="total-row"><td>최종 투자 점수</td><td><span class="highlight-green">60점</span></td><td>핵심 60+ 점수 충족이나 5조건 미달로 주목</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<!-- E. 성장 인과 체인 -->
+<section>
+  <div class="section-title">성장 인과 체인</div>
+  <div class="chain-box">
+    <div class="chain-step"><div class="chain-arrow">①</div><div><div class="chain-label">촉매 <span class="chain-confirmed">●●● 확정</span></div><div class="chain-text">라면 수출 사상 최대(3월 YoY 45%, MoM 56%) + 중국 밀양 2공장 증설 완료(3개라인 2교대+용기면 3개라인 2교대)</div></div></div>
+    <div class="chain-step"><div class="chain-arrow">↓</div><div><div class="chain-label">매출 영향</div><div class="chain-text">26E 매출 2,959십억(+25.8%). 해외 매출 비중 81%(2,392십억). 미국/중국/일본/유럽 동시 성장. 중국은 27E CAPA 확보 시 본격 매출 확대</div></div></div>
+    <div class="chain-step"><div class="chain-arrow">↓</div><div><div class="chain-label">OPM 변화 메커니즘</div><div class="chain-text">마케팅비 전분기 대비 감소 + 밀가루 투입단가 개선 → 수익성 QoQ 개선. OPM 22.3%(25A) → 24.2%(26E, +1.9%p). 규모의 경제 효과</div></div></div>
+    <div class="chain-step"><div class="chain-arrow">↓</div><div><div class="chain-label">실적 <span class="chain-forecast">●●○ 추정</span></div><div class="chain-text">26E OP 715십억(+36.5%), 27E OP 880십억(+23%), 28E OP 1,051십억(+19.5%). 26~28E OP CAGR +26%</div></div></div>
+    <div class="chain-step"><div class="chain-arrow">↓</div><div><div class="chain-label">미반영</div><div class="chain-text">12MF Fwd PER 15배 수준. TP 1,860,000원 대비 Upside 50.2%. 다만 시장 공통 인식이라 서프라이즈 강도 제한적. 관세·유가 상승 리스크 상존</div></div></div>
+  </div>
+</section>
+
+<!-- F. 핵심 팩트 3줄 -->
+<section>
+  <div class="section-title">핵심 팩트 3줄</div>
+  <div class="fact-item">
+    <span class="fact-num">Fact 01 — 실적(수출)</span>
+    <div class="fact-what"><span class="fact-label label-what">WHAT</span>1Q26 수출 데이터: 국내 라면 수출 YoY 26%, 3월 단월 YoY 45%, MoM 56% 사상 최대</div>
+    <div class="fact-why"><span class="fact-label label-why">WHY</span>미국·중국·유럽 동시 수요 증가. 특히 중국은 재고 조정 완료 후 2~3Q26 QoQ 반등 전망. 미국은 블랙프라이데이 이후 꾸준한 입점 확대</div>
+    <div class="fact-so"><span class="fact-label label-so">SO WHAT</span>수출 성장 모멘텀 확정. 다만 상반기까지 관세 영향은 제한적이나, 유가 상승에 따른 물류비 부담은 모니터링 필요</div>
+  </div>
+  <div class="fact-item">
+    <span class="fact-num">Fact 02 — 구조(CAPA)</span>
+    <div class="fact-what"><span class="fact-label label-what">WHAT</span>중국 밀양 2공장 현재 3개라인 2교대 + 용기면 1개라인 1교대 운영. 27E 추가 CAPA(11.3억식) 확보 시 본격 레벨업</div>
+    <div class="fact-why"><span class="fact-label label-why">WHY</span>현재는 물량 부족으로 기존 입점 채널 중심 영업. CAPA 확보 후 중국 시장 본격 공략 가능</div>
+    <div class="fact-so"><span class="fact-label label-so">SO WHAT</span>27E가 진정한 변곡점. 26E는 기존 CAPA 내 최적화 구간이며, 27E CAPA 확보가 중장기 성장의 핵심</div>
+  </div>
+  <div class="fact-item">
+    <span class="fact-num">Fact 03 — 밸류</span>
+    <div class="fact-what"><span class="fact-label label-what">WHAT</span>TP 1,860,000원(유지), 12MF Fwd PER 약 15배, Upside 50.2%</div>
+    <div class="fact-why"><span class="fact-label label-why">WHY</span>주가는 최근 건조한 수출 데이터 대비 저평가 구간에서 거래 중. 반도체 업종 수급 쏠림, 전쟁 불확실성으로 소비재 관심 저하</div>
+    <div class="fact-so"><span class="fact-label label-so">SO WHAT</span>수출 데이터 지속 호조 + 2Q26 중국 반등 확인 시 주가 레벨업 가능. 현재는 "편한 주가" 구간</div>
+  </div>
+</section>
+
+<!-- F-2. 원본 요약 -->
+<section>
+  <div class="section-title">원본 리포트 핵심 요약</div>
+  <div style="background:#fafafa;border:1px solid #d0d4e0;border-radius:8px;padding:16px 20px;margin-bottom:12px;">
+    <div style="font-size:11px;font-weight:700;color:#5a6280;margin-bottom:10px;">리포트 핵심 주장</div>
+    <p style="font-size:13px;line-height:1.9;">1Q26 연결 매출 및 영업이익 각각 6.8천억원(YoY 28%), 1,639억원(YoY 22%)으로 시장기대치 부합 전망. 수출 데이터 호조 지속, 중국 재고 소진 후 2~3Q 반등 기대. 27년 중국 공장 증설 완료 시 본격적 의형 레벨업. 투자의견 BUY, TP 186만원 유지.</p>
+    <div style="margin-top:10px;display:flex;gap:8px;flex-wrap:wrap;">
+      <div style="background:#f0f2f8;border:1px solid #d0d4e0;border-radius:6px;padding:6px 12px;font-size:12px;">
+        <span style="color:#5a6280;font-size:10px;display:block;">변화 포인트</span>TP 1,860,000원 유지. 추정치 변경 없음.
+      </div>
+    </div>
+  </div>
+  <div style="background:#fafafa;border:1px solid #d0d4e0;border-radius:8px;padding:16px 20px;margin-bottom:12px;">
+    <div style="font-size:11px;font-weight:700;color:#5a6280;margin-bottom:10px;">사업 구조 & 성장 동력</div>
+    <table style="margin:0;"><thead><tr><th>사업부</th><th>매출 비중(26E)</th><th>핵심 드라이버</th></tr></thead>
+    <tbody>
+      <tr><td>해외(수출)</td><td>81%</td><td>미국·중국·일본·유럽 라면 수출 YoY +27%. 중국 CAPA 확대가 27E 이후 레버리지</td></tr>
+      <tr><td>국내</td><td>19%</td><td>국내 매출 YoY +21%. 안정적 기반이나 성장 기여 제한</td></tr>
+    </tbody></table>
+  </div>
+  <div style="background:#fafafa;border:1px solid #d0d4e0;border-radius:8px;padding:16px 20px;margin-bottom:12px;">
+    <div style="font-size:11px;font-weight:700;color:#5a6280;margin-bottom:10px;">시장 괴리</div>
+    <table style="margin:0;"><thead><tr><th style="width:30%;">구분</th><th>내용</th></tr></thead>
+    <tbody>
+      <tr><td style="color:#5a6280;">시장 현재 인식</td><td>라면 수출 성장은 알고 있지만, 관세·물류비 우려로 주가 할인 중</td></tr>
+      <tr><td style="color:#2563eb;">이 리포트 주장</td><td>관세 영향 제한적(상반기까지), 수출 데이터 사상 최대로 방향성 변함없음</td></tr>
+      <tr><td style="color:#b45309;">괴리 해소 촉매</td><td>2Q26 중국 QoQ 반등 + 27E 중국 CAPA 확보 공시</td></tr>
+      <tr><td>괴리 강도</td><td><span style="color:#b45309;">중</span></td></tr>
+    </tbody></table>
+  </div>
+  <div style="background:#fafafa;border:1px solid #d0d4e0;border-radius:8px;padding:16px 20px;">
+    <div style="font-size:11px;font-weight:700;color:#5a6280;margin-bottom:10px;">재무 특징</div>
+    <div style="display:flex;flex-wrap:wrap;gap:8px;">
+      <div style="background:#f0f2f8;border:1px solid #d0d4e0;border-radius:6px;padding:8px 12px;font-size:12px;flex:1;min-width:160px;"><span style="color:#5a6280;font-size:10px;display:block;">부채비율</span>72.7%(2024A) → 59.0%(26E)</div>
+      <div style="background:#f0f2f8;border:1px solid #d0d4e0;border-radius:6px;padding:8px 12px;font-size:12px;flex:1;min-width:160px;"><span style="color:#5a6280;font-size:10px;display:block;">ROE</span>39.4%(24A) → 36.3%(26E) 고수준 유지</div>
+      <div style="background:#f0f2f8;border:1px solid #d0d4e0;border-radius:6px;padding:8px 12px;font-size:12px;flex:1;min-width:160px;"><span style="color:#5a6280;font-size:10px;display:block;">배당</span>DPS 4,800원(유지)</div>
+      <div style="background:#f0f2f8;border:1px solid #d0d4e0;border-radius:6px;padding:8px 12px;font-size:12px;flex:1;min-width:160px;"><span style="color:#5a6280;font-size:10px;display:block;">FCF</span>76십억(24A) → -185십억(25A) → 155십억(26E)</div>
+    </div>
+  </div>
+</section>
+
+<!-- G. 실적 전망 (연간) -->
+<section>
+  <div class="section-title">실적 전망 (연간)</div>
+  <table class="data-table">
+    <caption>단위: 십억원 | ★ = 투자 핵심 연도</caption>
+    <thead><tr><th>구분</th><th>2024A</th><th>2025A</th><th style="background:#dbeafe;color:#1e40af;">2026E ★</th><th>2027E</th><th>2028E</th></tr></thead>
+    <tbody>
+      <tr><td>매출액</td><td>1,728</td><td>2,352</td><td class="key-col key-num">2,959</td><td>3,594</td><td>4,242</td></tr>
+      <tr><td>YoY(%)</td><td>44.9</td><td>36.1</td><td class="key-col">25.8</td><td>21.5</td><td>18.0</td></tr>
+      <tr><td>영업이익</td><td>345</td><td>524</td><td class="key-col key-num">715</td><td>880</td><td>1,051</td></tr>
+      <tr><td>YoY(%)</td><td>133.6</td><td>52.1</td><td class="key-col key-num">36.5</td><td>23.0</td><td>19.5</td></tr>
+      <tr><td>OPM(%)</td><td>19.9</td><td>22.3</td><td class="key-col key-opm">24.2</td><td>24.5</td><td>24.8</td></tr>
+      <tr><td>EPS(원)</td><td>36,106</td><td>51,697</td><td class="key-col">72,963</td><td>89,535</td><td>106,703</td></tr>
+      <tr><td>PER(배)</td><td>21.2</td><td>23.8</td><td class="key-col">16.3</td><td>13.2</td><td>11.1</td></tr>
+      <tr><td>PBR(배)</td><td>7.1</td><td>7.4</td><td class="key-col">5.1</td><td>3.7</td><td>2.8</td></tr>
+      <tr><td>ROE(%)</td><td>39.4</td><td>37.6</td><td class="key-col">36.3</td><td>32.3</td><td>28.8</td></tr>
+    </tbody>
+  </table>
+  <p style="font-size:12px;color:#5a6280;margin-top:10px;">▶ 왜 26E가 변곡점인가: 25A에 OP +52% 달성 후 26E에도 +36.5% 성장 지속. OPM 24.2%로 수익성 정점 근접. 27E부터 중국 CAPA 확보 시 매출 레벨업 + OPM 24.5% 유지 → 두 번째 변곡점.</p>
+</section>
+
+<!-- H. 분기별 실적 -->
+<section>
+  <div class="section-title">분기별 실적 전망</div>
+  <table class="data-table">
+    <caption>단위: 억원</caption>
+    <thead><tr><th>구분</th><th>1Q25A</th><th>2Q25A</th><th>3Q25A</th><th>4Q25A</th><th style="background:#dbeafe;color:#1e40af;">1Q26F ★</th><th>2Q26F</th><th>3Q26F</th><th>4Q26F</th></tr></thead>
+    <tbody>
+      <tr><td>매출</td><td>5,290</td><td>5,531</td><td>6,320</td><td>6,377</td><td class="key-col key-num">6,773</td><td>7,090</td><td>7,849</td><td>7,876</td></tr>
+      <tr><td>영업이익</td><td>1,340</td><td>1,201</td><td>1,309</td><td>1,390</td><td class="key-col key-num">1,639</td><td>1,741</td><td>1,881</td><td>1,891</td></tr>
+      <tr><td>OPM(%)</td><td>25.3</td><td>21.7</td><td>20.7</td><td>21.8</td><td class="key-col key-opm">24.2</td><td>24.6</td><td>24.0</td><td>24.0</td></tr>
+    </tbody>
+  </table>
+  <p style="font-size:12px;color:#5a6280;margin-top:10px;">▶ 1Q26 주목 포인트: OP 1,639억(YoY +22%) 부합 여부. 확인 시 → OPM 24%+ 안착 입증. 미달 시 → 관세·물류비 영향 체크</p>
+</section>
+
+<!-- I. 밸류에이션 -->
+<section>
+  <div class="section-title">밸류에이션</div>
+  <div class="val-box">
+    <div class="val-formula">12MF Fwd PER 약 15배 수준 × EPS 72,963원(26E) 기반. TP 1,860,000원(유지)</div>
+    <p style="color:#5a6280;font-size:12px;margin-top:8px;">▶ PDF에 별도 밸류에이션 산출식 미기재. 기존 TP 유지 근거: 방향성 변함없음 + 수출 데이터 호조.</p>
+  </div>
+</section>
+
+<!-- J. 리스크 -->
+<section>
+  <div class="section-title">리스크 — 핵심 가정 붕괴 시나리오</div>
+  <div class="risk-item risk-sev-high">
+    <div class="risk-assumption">🔴 핵심 가정: 해외 수출 성장 지속</div>
+    <div class="risk-chain">→ 관세 10%+ 부과 or 유가 급등 → 물류비·원가 압박 → OPM 24%→20% 하락 가능<br/>→ 실적: 26E OP 715→580십억(-19%)</div>
+    <div class="risk-impact-num">→ PER 15배 유지 시 TP 1,500,000원(-19%)</div>
+  </div>
+  <div class="risk-item risk-sev-mid">
+    <div class="risk-assumption">🟠 중국 시장 물량 확보 지연</div>
+    <div class="risk-chain">→ 밀양 2공장 가동률 기대 미달 or 중국 재고 소진 지연 → 27E CAPA 효과 반감</div>
+    <div class="risk-impact-num">→ 27E OP 880→700십억, 장기 성장 스토리 약화</div>
+  </div>
+</section>
+
+<!-- K. 체크포인트 -->
+<section>
+  <div class="section-title">모멘텀 체크포인트</div>
+  <div style="background:#fafafa;border:1px solid #d0d4e0;border-radius:8px;padding:4px 16px;">
+    <div class="checkpoint-item">
+      <span class="cp-date">2026.4~5월</span>
+      <div><div>1Q26 실적 발표 + 4월 수출 데이터</div>
+      <div class="cp-pass">✅ OP 1,639억+ & 수출 YoY 20%+ → 성장 방향 재확인</div>
+      <div class="cp-fail">⛔ 미달 시 → 관세·물류비 영향 본격화 의심</div></div>
+    </div>
+    <div class="checkpoint-item">
+      <span class="cp-date">2026.2~3Q</span>
+      <div><div>중국 QoQ 반등 여부</div>
+      <div class="cp-pass">✅ 중국 매출 QoQ 반등 시 → 핵심 승격 검토</div>
+      <div class="cp-fail">⛔ 반등 미미 시 → 중국 성장 기대 하향</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- L. 사견 -->
+<section>
+  <div class="section-title">사견 & 투자 행동 결론</div>
+  <div class="opinion-box">
+    <p>라면 수출 성장은 확정적이고 방향성은 변함없으나, OP +36.5%는 "폭증" 기준에 미달. OPM 24%대 고수준 유지가 인상적이나 모든 증권사가 동일 논리를 제시하고 있어 차별화 부족. Upside 50.2%는 매력적이나 시장 공통 인식 → 서프라이즈 여지 제한. 최대 우려는 관세·물류비 영향이 하반기부터 본격화될 가능성.</p>
+    <div class="decision-box">
+      <div class="decision-btn decision-wait">⏳ 1Q26 실적 + 중국 반등 확인 후 진입<br/><span style="font-size:11px;font-weight:400;">OPM 24%+ 안착 & 중국 QoQ 반등 확인</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- M. 승격 조건 -->
+<section>
+  <div class="section-title">승격 조건 — 주목 전용</div>
+  <div class="upgrade-box">
+    <div class="upgrade-item"><span class="upgrade-when">2Q26 중국 매출 반등</span><span>중국 QoQ +20%+ 확인 + 27E CAPA 가시화 시 → ⭐ 핵심 승격</span></div>
+    <div class="upgrade-item"><span class="upgrade-when">OP 성장률 재가속</span><span>2Q26 OP YoY +45%+ 달성 시 → ⭐ 핵심 재검토(+50%에 근접)</span></div>
+  </div>
+</section>
+
+<div class="disclaimer">※ 본 글은 증권사 리포트를 개인 학습 목적으로 요약·정리한 것이며, 투자 권유가 아닙니다.<br/>※ 제공된 PDF 파일만 활용. 외부 검색·참조 없음.</div>
+</body>
+</html>

@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>KT (030200) 정리</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Pretendard','Apple SD Gothic Neo',-apple-system,sans-serif;
+    background: #ffffff; color: #1a1d2e;
+    line-height: 1.7; font-size: 14px;
+    max-width: 900px; margin: 0 auto; padding: 32px 20px 80px;
+  }
+  .header { border-left: 4px solid #2563eb; padding: 0 0 0 16px; margin-bottom: 24px; }
+  .header h1 { font-size: 20px; font-weight: 700; margin-bottom: 10px; color: #1a1d2e; }
+  .price-row { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin-top: 10px; }
+  .price-item { background: #f0f2f8; border: 1px solid #d0d4e0; border-radius: 6px; padding: 6px 14px; font-size: 13px; }
+  .price-item .label { color: #5a6280; font-size: 11px; display: block; }
+  .price-item .val { font-weight: 700; color: #1a1d2e; }
+  .upside-val { color: #059669; }
+  .tag-badge { display: inline-flex; align-items: center; gap: 6px; padding: 5px 14px; border-radius: 20px; font-size: 13px; font-weight: 700; }
+  .tag-stable { background: #eff6ff; color: #1d4ed8; border: 1px solid #60a5fa; }
+  .score-badge { display: inline-block; padding: 5px 14px; border-radius: 20px; font-size: 13px; font-weight: 700; background: #f0f2f8; border: 1px solid #d0d4e0; color: #1a1d2e; }
+  .score-low  { color: #5a6280; }
+  section { margin-bottom: 28px; }
+  .section-title {
+    font-size: 11px; font-weight: 700; letter-spacing: 1.5px;
+    text-transform: uppercase; color: #5a6280;
+    border-bottom: 1px solid #d0d4e0;
+    padding-bottom: 6px; margin-bottom: 14px;
+  }
+  .pdf-only-banner {
+    background: #fff7ed; border: 1px solid #f97316;
+    border-radius: 8px; padding: 10px 16px;
+    font-size: 12px; color: #c2410c;
+    margin-bottom: 20px; text-align: center; font-weight: 700;
+  }
+  .fact-item { background: #fafafa; border: 1px solid #d0d4e0; border-radius: 8px; padding: 14px 16px; margin-bottom: 8px; }
+  .fact-item:last-child { margin-bottom: 0; }
+  .fact-num { font-size: 10px; font-weight: 700; color: #2563eb; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 8px; display: block; }
+  .fact-what { font-weight: 600; font-size: 14px; margin-bottom: 6px; color: #1a1d2e; }
+  .fact-why  { font-size: 13px; color: #5a6280; margin-bottom: 6px; }
+  .fact-so   { font-size: 13px; color: #059669; }
+  .fact-label { display: inline-block; font-size: 10px; font-weight: 700; padding: 1px 6px; border-radius: 3px; margin-right: 4px; }
+  .label-what { background: #eff6ff; color: #1d4ed8; }
+  .label-why  { background: #fff7ed; color: #ea580c; }
+  .label-so   { background: #ecfdf5; color: #059669; }
+  table { width: 100%; border-collapse: collapse; background: #fafafa; border-radius: 8px; overflow: hidden; border: 1px solid #d0d4e0; }
+  thead tr { background: #f0f2f8; }
+  th { padding: 10px 14px; text-align: left; font-size: 11px; font-weight: 700; color: #5a6280; letter-spacing: 0.8px; text-transform: uppercase; }
+  td { padding: 10px 14px; border-top: 1px solid #d0d4e0; font-size: 13px; color: #1a1d2e; }
+  .data-table th { background: #e8ecf5; }
+  .data-table td.key-col { background: #f0f6ff; }
+  .data-table .key-num { color: #059669; font-weight: 700; }
+  .data-table .key-opm { color: #b45309; }
+  caption { font-size: 11px; color: #5a6280; text-align: left; padding: 0 0 8px; caption-side: top; }
+  .opinion-box { background: #fafafa; border: 1px solid #d0d4e0; border-radius: 8px; padding: 16px 20px; font-size: 13px; line-height: 1.8; color: #5a6280; }
+  .decision-box { display: flex; gap: 14px; margin-top: 14px; }
+  .decision-btn { flex: 1; text-align: center; padding: 10px; border-radius: 6px; font-weight: 700; font-size: 13px; border: 1px solid; }
+  .decision-buy   { background: #ecfdf5; color: #059669; border-color: #34d399; }
+  .decision-wait  { background: #fffbeb; color: #b45309; border-color: #f59e0b; }
+  .decision-avoid { background: #fef2f2; color: #dc2626; border-color: #fca5a5; }
+  .disclaimer { font-size: 11px; color: #9ca3af; text-align: center; margin-top: 40px; padding-top: 16px; border-top: 1px solid #d0d4e0; }
+</style>
+</head>
+<body>
+
+<div class="pdf-only-banner">
+  외부 검색 절대 금지 -- 제공된 PDF 파일만 활용 | 당일 발간 리포트 기준 투자 종목 발굴 전용
+</div>
+
+<!-- A. 헤더 -->
+<header class="header">
+  <h1>KT (030200) | 주주환원 매력 가장 높음 DB증권 신은정 | 발간일: 2026.04.13</h1>
+  <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-bottom:12px;">
+    <span class="tag-badge tag-stable">안정</span>
+    <span class="score-badge score-low">20점</span>
+    <span style="font-size:12px;color:#5a6280;">비바이오</span>
+  </div>
+  <div class="price-row">
+    <div class="price-item"><span class="label">투자의견</span><span class="val">Buy(유지)</span></div>
+    <div class="price-item"><span class="label">목표주가(TP)</span><span class="val">75,000원</span></div>
+    <div class="price-item"><span class="label">현재주가(CP)</span><span class="val">62,100원</span></div>
+    <div class="price-item"><span class="label">Upside</span><span class="val upside-val">+20.8%</span></div>
+    <div class="price-item"><span class="label">시가총액</span><span class="val">156,505억원</span></div>
+    <div class="price-item"><span class="label">종목 유형</span><span class="val">비바이오</span></div>
+  </div>
+</header>
+
+<!-- F. 핵심 팩트 3줄 -->
+<section>
+  <div class="section-title">핵심 팩트 3줄 -- WHAT + WHY + SO WHAT</div>
+
+  <div class="fact-item">
+    <span class="fact-num">Fact 01</span>
+    <div class="fact-what"><span class="fact-label label-what">WHAT</span>26E 영업이익(OP -- 본업으로 번 돈) 2조 560억원(-16.7%YoY), OPM(영업이익률) 7.5%(-1.2%p)</div>
+    <div class="fact-why"><span class="fact-label label-why">WHY</span>전년도 부동산 개발 일회성 매출(약 1조원)이 제외되며 매출 역성장. 25년 해킹 사고 비용은 대부분 반영 완료되었으나, 위약금 면제 기간 가입자 이탈(1월 순감 23.8만명)로 무선 매출 감소 + 마케팅비 증가가 원인</div>
+    <div class="fact-so"><span class="fact-label label-so">SO WHAT</span>일회성 제외 시 본업은 점진적 성장 궤도. 1Q26이 실적 바닥으로 하반기 갈수록 개선 전망</div>
+  </div>
+
+  <div class="fact-item">
+    <span class="fact-num">Fact 02</span>
+    <div class="fact-what"><span class="fact-label label-what">WHAT</span>26년E 총주주환원수익률 6.0% (DPS 2,490원 + 자사주 매입 약 2,500억원 진행 중 3월~9월)</div>
+    <div class="fact-why"><span class="fact-label label-why">WHY</span>경쟁 통신사 대비 자사주+배당 합산 주주환원 규모가 가장 크며, 배당성향(순이익 중 배당 비중) 43.2%로 안정적</div>
+    <div class="fact-so"><span class="fact-label label-so">SO WHAT</span>주주환원 매력이 경쟁사(SKT, LGU+) 중 가장 높아 배당/장기 관점 투자에 적합</div>
+  </div>
+
+  <div class="fact-item">
+    <span class="fact-num">Fact 03</span>
+    <div class="fact-what"><span class="fact-label label-what">WHAT</span>kt cloud 및 kt estate 중심의 자회사 실적 성장 지속. 에스테이트 26E 매출 9,980억원(25년 7,190억원 대비 +38.8%)</div>
+    <div class="fact-why"><span class="fact-label label-why">WHY</span>에스테이트는 대전 인재개발원 매출 일회성 350억원 + 호텔 사업 호조. 클라우드 사업도 기업 디지털 전환 수요에 기반해 성장</div>
+    <div class="fact-so"><span class="fact-label label-so">SO WHAT</span>통신 본업의 성숙기에도 자회사 포트폴리오가 성장 동력으로 기능, 장기 안정적 이익 체력 보완</div>
+  </div>
+</section>
+
+<!-- G. 실적 전망 (연간) -->
+<section>
+  <div class="section-title">실적 전망 (연간) -- PDF 원문 수치</div>
+  <table class="data-table">
+    <caption>단위: 십억원 | ★ = 투자 핵심 연도</caption>
+    <thead>
+      <tr>
+        <th>구분</th>
+        <th>2024A</th><th>2025A</th>
+        <th style="background:#dbeafe;color:#1e40af;font-weight:700;">2026E ★</th>
+        <th>2027E</th><th>2028E</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td>매출액</td><td>26,431</td><td>28,244</td><td class="key-col key-num">27,589</td><td>28,347</td><td>29,438</td></tr>
+      <tr><td>YoY(%)</td><td>+0.2</td><td>+6.9</td><td class="key-col">-2.3</td><td>+2.7</td><td>+3.8</td></tr>
+      <tr><td>영업이익</td><td>809</td><td>2,469</td><td class="key-col key-num">2,056</td><td>2,254</td><td>2,473</td></tr>
+      <tr><td>YoY(%)</td><td>-50.9</td><td>+205.0</td><td class="key-col key-num">-16.7</td><td>+9.7</td><td>+9.7</td></tr>
+      <tr><td>OPM(%)</td><td>3.1</td><td>8.7</td><td class="key-col key-opm">7.5</td><td>8.0</td><td>8.4</td></tr>
+      <tr><td>EPS(원)</td><td>1,850</td><td>6,869</td><td class="key-col">5,380</td><td>6,047</td><td>6,710</td></tr>
+      <tr><td>PER(배)</td><td>23.7</td><td>7.7</td><td class="key-col">11.5</td><td>10.3</td><td>9.3</td></tr>
+      <tr><td>PBR(배)</td><td>0.7</td><td>0.8</td><td class="key-col">0.9</td><td>0.8</td><td>0.8</td></tr>
+      <tr><td>ROE(%)</td><td>2.9</td><td>10.2</td><td class="key-col">7.5</td><td>8.1</td><td>8.5</td></tr>
+    </tbody>
+  </table>
+  <p style="font-size:12px;color:#5a6280;margin-top:10px;padding:0 4px;">
+    ▶ 26E 실적 하락은 25년 부동산 개발 일회성 매출(약 1조원) 제거 효과. 일회성 제외 시 본업은 완만한 성장 지속.
+  </p>
+</section>
+
+<!-- H. 분기별 실적 -->
+<section>
+  <div class="section-title">분기별 실적 전망</div>
+  <table class="data-table">
+    <thead>
+      <tr>
+        <th>구분</th>
+        <th>1Q25</th><th>2Q25</th><th>3Q25</th><th>4Q25</th>
+        <th style="background:#dbeafe;color:#1e40af;font-weight:700;">1Q26E ★</th>
+        <th>2Q26E</th><th>3Q26E</th><th>4Q26E</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td>매출액</td><td>6,845</td><td>7,427</td><td>7,127</td><td>6,845</td><td class="key-col key-num">6,792</td><td>6,892</td><td>7,049</td><td>6,856</td></tr>
+      <tr><td>영업이익</td><td>689</td><td>1,015</td><td>538</td><td>227</td><td class="key-col key-num">490</td><td>547</td><td>564</td><td>454</td></tr>
+      <tr><td>OPM(%)</td><td>10.1</td><td>13.7</td><td>7.5</td><td>3.3</td><td class="key-col key-opm">7.2</td><td>7.9</td><td>8.0</td><td>6.6</td></tr>
+    </tbody>
+  </table>
+  <p style="font-size:12px;color:#5a6280;margin-top:10px;padding:0 4px;">
+    ▶ 1Q26 주목 포인트: 1Q26 OP 4,900억원(-28.9%YoY)으로 컨센서스(5,610억원) 대비 -12.6% 하회 예상. 1월 위약금 면제 가입자 이탈 영향이 바닥. 2~3월 순증 회복 확인이 핵심.
+  </p>
+</section>
+
+<!-- L. 사견 & 결론 -->
+<section>
+  <div class="section-title">사견 & 투자 행동 결론</div>
+  <div class="opinion-box">
+    <p>KT는 26E OP -16.7%YoY로 역성장 구간이나, 이는 전년 부동산 일회성 제거 효과이며 본업(통신+클라우드+에스테이트)은 완만한 성장을 지속하고 있다. 총주주환원수익률 6.0%는 통신3사 중 가장 높은 수준으로, 배당+자사주 매입을 통한 안정적 주주환원이 핵심 투자 포인트이다. 다만 OP 성장률이 뚜렷하지 않고 Upside 20.8%로 핵심/주목 기준(40%+)에 크게 미달하여 안정 태그가 적절하다. 우려 포인트는 위약금 면제 이후 가입자 이탈 추세가 장기화될 경우 무선 매출 회복이 지연될 수 있다는 점이다.</p>
+    <div class="decision-box">
+      <div class="decision-btn decision-wait" style="opacity:0.3;">지금 진입 가능</div>
+      <div class="decision-btn decision-wait">배당/장기 관점만<br/><span style="font-size:11px;font-weight:400;">총주주환원 6.0% 매력 + 본업 안정</span></div>
+      <div class="decision-btn decision-avoid" style="opacity:0.3;">관망</div>
+    </div>
+  </div>
+</section>
+
+<div class="disclaimer">
+  ※ 본 글은 증권사 리포트를 개인 학습 목적으로 요약·정리한 것이며, 투자 권유가 아닙니다.<br/>
+  ※ 제공된 PDF 파일만 활용. 외부 검색·참조 없음. 당일 발간 리포트 기준.
+</div>
+
+</body>
+</html>

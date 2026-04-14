@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GS리테일 (007070) 정리</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Pretendard','Apple SD Gothic Neo',-apple-system,sans-serif; background: #fff; color: #1a1d2e; line-height: 1.7; font-size: 14px; max-width: 900px; margin: 0 auto; padding: 32px 20px 80px; }
+  .header { border-left: 4px solid #2563eb; padding: 0 0 0 16px; margin-bottom: 24px; }
+  .header h1 { font-size: 20px; font-weight: 700; margin-bottom: 10px; }
+  .price-row { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin-top: 10px; }
+  .price-item { background: #f0f2f8; border: 1px solid #d0d4e0; border-radius: 6px; padding: 6px 14px; font-size: 13px; }
+  .price-item .label { color: #5a6280; font-size: 11px; display: block; }
+  .price-item .val { font-weight: 700; }
+  .upside-val { color: #059669; }
+  .tag-badge { display: inline-flex; align-items: center; gap: 6px; padding: 5px 14px; border-radius: 20px; font-size: 13px; font-weight: 700; }
+  .tag-stable { background: #eff6ff; color: #1d4ed8; border: 1px solid #60a5fa; }
+  .score-badge { display: inline-block; padding: 5px 14px; border-radius: 20px; font-size: 13px; font-weight: 700; background: #f0f2f8; border: 1px solid #d0d4e0; color: #5a6280; }
+  section { margin-bottom: 28px; }
+  .section-title { font-size: 11px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: #5a6280; border-bottom: 1px solid #d0d4e0; padding-bottom: 6px; margin-bottom: 14px; }
+  .pdf-only-banner { background: #fff7ed; border: 1px solid #f97316; border-radius: 8px; padding: 10px 16px; font-size: 12px; color: #c2410c; margin-bottom: 20px; text-align: center; font-weight: 700; }
+  .fact-item { background: #fafafa; border: 1px solid #d0d4e0; border-radius: 8px; padding: 14px 16px; margin-bottom: 8px; }
+  .fact-num { font-size: 10px; font-weight: 700; color: #2563eb; letter-spacing: 1px; margin-bottom: 8px; display: block; }
+  .fact-what { font-weight: 600; font-size: 14px; margin-bottom: 6px; }
+  .fact-why { font-size: 13px; color: #5a6280; margin-bottom: 6px; }
+  .fact-so { font-size: 13px; color: #059669; }
+  .fact-label { display: inline-block; font-size: 10px; font-weight: 700; padding: 1px 6px; border-radius: 3px; margin-right: 4px; }
+  .label-what { background: #eff6ff; color: #1d4ed8; }
+  .label-why { background: #fff7ed; color: #ea580c; }
+  .label-so { background: #ecfdf5; color: #059669; }
+  table { width: 100%; border-collapse: collapse; background: #fafafa; border-radius: 8px; overflow: hidden; border: 1px solid #d0d4e0; }
+  thead tr { background: #f0f2f8; }
+  th { padding: 10px 14px; text-align: left; font-size: 11px; font-weight: 700; color: #5a6280; }
+  td { padding: 10px 14px; border-top: 1px solid #d0d4e0; font-size: 13px; }
+  .data-table th { background: #e8ecf5; }
+  .data-table td.key-col { background: #f0f6ff; }
+  .data-table .key-num { color: #059669; font-weight: 700; }
+  .data-table .key-opm { color: #b45309; }
+  caption { font-size: 11px; color: #5a6280; text-align: left; padding: 0 0 8px; caption-side: top; }
+  .opinion-box { background: #fafafa; border: 1px solid #d0d4e0; border-radius: 8px; padding: 16px 20px; font-size: 13px; line-height: 1.8; color: #5a6280; }
+  .decision-box { display: flex; gap: 14px; margin-top: 14px; }
+  .decision-btn { flex: 1; text-align: center; padding: 10px; border-radius: 6px; font-weight: 700; font-size: 13px; border: 1px solid; }
+  .decision-wait { background: #fffbeb; color: #b45309; border-color: #f59e0b; }
+  .disclaimer { font-size: 11px; color: #9ca3af; text-align: center; margin-top: 40px; padding-top: 16px; border-top: 1px solid #d0d4e0; }
+</style>
+</head>
+<body>
+<div class="pdf-only-banner">외부 검색 절대 금지 — 제공된 PDF 파일만 활용 | 당일 발간 리포트 기준</div>
+
+<header class="header">
+  <h1>GS리테일 (007070) | 편의점 기존점 신장률 3%대 회복, 무난한 실적 전망 | DB증권 | 발간일: 2026.04.13</h1>
+  <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-bottom:12px;">
+    <span class="tag-badge tag-stable">안정</span>
+    <span class="score-badge">20점</span>
+    <span style="font-size:12px;color:#5a6280;">비바이오</span>
+  </div>
+  <div class="price-row">
+    <div class="price-item"><span class="label">투자의견</span><span class="val">Buy(유지)</span></div>
+    <div class="price-item"><span class="label">목표주가(TP)</span><span class="val">27,000원</span></div>
+    <div class="price-item"><span class="label">현재주가(CP)</span><span class="val">22,150원</span></div>
+    <div class="price-item"><span class="label">Upside</span><span class="val upside-val">+21.9%</span></div>
+    <div class="price-item"><span class="label">시가총액</span><span class="val">18,519억원</span></div>
+  </div>
+</header>
+
+<section>
+  <div class="section-title">핵심 팩트 3줄</div>
+  <div class="fact-item">
+    <span class="fact-num">Fact 01</span>
+    <div class="fact-what"><span class="fact-label label-what">WHAT</span>1Q26E 연결 OP 534억원 — 시장 기대치(516억원) 소폭 상회 전망. 편의점 기존점 매출 3%대 신장률 회복</div>
+    <div class="fact-why"><span class="fact-label label-why">WHY</span>25년부터 적극 진행해온 비효율 점포 스크랩으로 기존점 매출 유의미 개선 + 보수적 출점 전략으로 고정비 부담 감소</div>
+    <div class="fact-so"><span class="fact-label label-so">SO WHAT</span>편의점 업종 실적 턴어라운드 시작. 성수기 2분기에는 전년 낮은 기저로 기존점 신장률이 추가 개선 기대</div>
+  </div>
+  <div class="fact-item">
+    <span class="fact-num">Fact 02</span>
+    <div class="fact-what"><span class="fact-label label-what">WHAT</span>26E 연간 매출 12.39조원(+3.6% YoY), OP 3,410억원(+18.7% YoY), OPM 2.8%(+0.4%p)</div>
+    <div class="fact-why"><span class="fact-label label-why">WHY</span>편의점 OP +13.9%, 수퍼마켓 OP +11.9%, 기타사업부 흑전 등 전 사업부 고른 증익. 편의점 업황 턴어라운드에 따른 타겟 멀티플 상향(10배→12배)</div>
+    <div class="fact-so"><span class="fact-label label-so">SO WHAT</span>달러강세로 5월 연휴 해외여행 출국객 감소 예상 → 편의점 내수 수혜 기대. OPM 2.8%는 유통업 특성상 정상 범위</div>
+  </div>
+  <div class="fact-item">
+    <span class="fact-num">Fact 03</span>
+    <div class="fact-what"><span class="fact-label label-what">WHAT</span>SoTP: 유통사업부 지배순이익 273억 x PER 12배 = 2,458억 + 투자자산가치 316억 = 적정기업가치 2,774억, 적정주가 27,341원</div>
+    <div class="fact-why"><span class="fact-label label-why">WHY</span>편의점 업종 턴어라운드에 따라 타겟 PER을 기존 10배에서 12배로 상향 조정</div>
+    <div class="fact-so"><span class="fact-label label-so">SO WHAT</span>성장 강도(매출 +3.6%, OP +18.7%)는 양호하나, OPM 2.8% 수준의 저마진 유통업이라 핵심 태그에는 미달. 안정 등급 적절</div>
+  </div>
+</section>
+
+<section>
+  <div class="section-title">실적 전망 (연간)</div>
+  <table class="data-table">
+    <caption>단위: 십억원</caption>
+    <thead><tr><th>구분</th><th>2024A</th><th>2025A</th><th style="background:#dbeafe;color:#1e40af;font-weight:700;">2026E</th><th>2027E</th><th>2028E</th></tr></thead>
+    <tbody>
+      <tr><td>매출액</td><td>11,579</td><td>11,957</td><td class="key-col key-num">12,390</td><td>12,783</td><td>13,178</td></tr>
+      <tr><td>YoY(%)</td><td>4.0</td><td>3.3</td><td class="key-col">3.6</td><td>3.2</td><td>3.1</td></tr>
+      <tr><td>영업이익</td><td>256</td><td>292</td><td class="key-col key-num">341</td><td>372</td><td>389</td></tr>
+      <tr><td>YoY(%)</td><td>-12.2</td><td>14.1</td><td class="key-col">16.8</td><td>8.9</td><td>4.6</td></tr>
+      <tr><td>OPM(%)</td><td>2.2</td><td>2.4</td><td class="key-col key-opm">2.8</td><td>2.9</td><td>3.0</td></tr>
+      <tr><td>EPS(원)</td><td>25</td><td>519</td><td class="key-col">1,134</td><td>1,361</td><td>1,533</td></tr>
+      <tr><td>PER(배)</td><td>666.9</td><td>38.7</td><td class="key-col">15.8</td><td>13.2</td><td>11.7</td></tr>
+      <tr><td>ROE(%)</td><td>0.1</td><td>1.3</td><td class="key-col">3.5</td><td>4.1</td><td>4.5</td></tr>
+    </tbody>
+  </table>
+  <p style="font-size:12px;color:#5a6280;margin-top:10px;">▶ 26E가 변곡점인 이유: 편의점 기존점 매출 +3%대 회복 + 비효율 점포 스크랩 완료에 따른 영업 레버리지 효과로 OPM 2.8%까지 개선.</p>
+</section>
+
+<section>
+  <div class="section-title">사견 & 투자 행동 결론</div>
+  <div class="opinion-box">
+    <p>편의점 업종의 구조적 턴어라운드가 시작되었다는 판단은 설득력 있다. 비효율 점포 스크랩 + 보수적 출점 전략 + 기존점 신장률 회복이라는 3박자가 맞아 떨어지고 있으며, 달러강세에 따른 해외여행 감소 → 내수 소비 전환은 추가 호재. 다만 유통업 특성상 OPM이 3% 미만으로 낮아 영업 레버리지의 절대적 효과가 제한적이고, ROE 3.5%도 매력적이지 않다. 편의점 성수기(2Q) 기존점 신장률 추이 확인 후 진입이 바람직.</p>
+    <div class="decision-box">
+      <div class="decision-btn decision-wait">⏳ 2Q26 편의점 기존점 신장률 확인 후<br/><span style="font-size:11px;font-weight:400;">성수기 4%+ 달성 여부 확인</span></div>
+    </div>
+  </div>
+</section>
+
+<div class="disclaimer">※ 본 글은 증권사 리포트를 개인 학습 목적으로 요약·정리한 것이며, 투자 권유가 아닙니다.<br/>※ 제공된 PDF 파일만 활용. 외부 검색·참조 없음.</div>
+</body>
+</html>

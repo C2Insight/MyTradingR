@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>삼성증권 (016360) 정리</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Pretendard','Apple SD Gothic Neo',-apple-system,sans-serif;
+    background: #ffffff; color: #1a1d2e;
+    line-height: 1.7; font-size: 14px;
+    max-width: 900px; margin: 0 auto; padding: 32px 20px 80px;
+  }
+  .header { border-left: 4px solid #2563eb; padding: 0 0 0 16px; margin-bottom: 24px; }
+  .header h1 { font-size: 20px; font-weight: 700; margin-bottom: 10px; color: #1a1d2e; }
+  .price-row { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin-top: 10px; }
+  .price-item { background: #f0f2f8; border: 1px solid #d0d4e0; border-radius: 6px; padding: 6px 14px; font-size: 13px; }
+  .price-item .label { color: #5a6280; font-size: 11px; display: block; }
+  .price-item .val { font-weight: 700; color: #1a1d2e; }
+  .upside-val { color: #059669; }
+  .tag-badge { display: inline-flex; align-items: center; gap: 6px; padding: 5px 14px; border-radius: 20px; font-size: 13px; font-weight: 700; }
+  .tag-watch { background: #fffbeb; color: #b45309; border: 1px solid #f59e0b; }
+  .score-badge { display: inline-block; padding: 5px 14px; border-radius: 20px; font-size: 13px; font-weight: 700; background: #f0f2f8; border: 1px solid #d0d4e0; color: #1a1d2e; }
+  .score-low  { color: #5a6280; }
+  section { margin-bottom: 28px; }
+  .section-title { font-size: 11px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: #5a6280; border-bottom: 1px solid #d0d4e0; padding-bottom: 6px; margin-bottom: 14px; }
+  .pdf-only-banner { background: #fff7ed; border: 1px solid #f97316; border-radius: 8px; padding: 10px 16px; font-size: 12px; color: #c2410c; margin-bottom: 20px; text-align: center; font-weight: 700; }
+  .thesis-box { background: #f8faff; border: 1px solid #2563eb; border-radius: 8px; padding: 16px 20px; font-size: 15px; font-weight: 600; line-height: 1.6; color: #1a1d2e; }
+  .thesis-structure { display: flex; gap: 8px; align-items: center; margin-top: 10px; flex-wrap: wrap; }
+  .thesis-part { background: #f0f2f8; border: 1px solid #d0d4e0; border-radius: 6px; padding: 4px 10px; font-size: 12px; color: #1a1d2e; }
+  .thesis-arrow { color: #2563eb; font-size: 16px; }
+  .checklist { background: #fafafa; border: 1px solid #d0d4e0; border-radius: 8px; overflow: hidden; }
+  .checklist-item { display: flex; gap: 14px; align-items: flex-start; padding: 12px 16px; border-bottom: 1px solid #d0d4e0; }
+  .checklist-item:last-child { border-bottom: none; }
+  .check-icon { width: 22px; height: 22px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; flex-shrink: 0; margin-top: 1px; }
+  .check-pass { background: #ecfdf5; color: #059669; border: 1px solid #34d399; }
+  .check-fail { background: #fef2f2; color: #dc2626; border: 1px solid #fca5a5; }
+  .check-na   { background: #f0f2f8; color: #5a6280; border: 1px solid #d0d4e0; }
+  .check-label { font-weight: 600; font-size: 13px; color: #1a1d2e; }
+  .check-detail { color: #5a6280; font-size: 12px; margin-top: 2px; }
+  .check-why { color: #1a1d2e; font-size: 13px; }
+  table { width: 100%; border-collapse: collapse; background: #fafafa; border-radius: 8px; overflow: hidden; border: 1px solid #d0d4e0; }
+  thead tr { background: #f0f2f8; }
+  th { padding: 10px 14px; text-align: left; font-size: 11px; font-weight: 700; color: #5a6280; letter-spacing: 0.8px; text-transform: uppercase; }
+  td { padding: 10px 14px; border-top: 1px solid #d0d4e0; font-size: 13px; color: #1a1d2e; }
+  tr.total-row td { background: #e8ecf5; font-weight: 700; }
+  .penalty { color: #dc2626; }
+  .highlight-green { color: #059669; font-weight: 700; }
+  .chain-box { background: #fafafa; border: 1px solid #d0d4e0; border-radius: 8px; padding: 16px 20px; }
+  .chain-step { display: flex; gap: 12px; align-items: flex-start; margin-bottom: 10px; }
+  .chain-step:last-child { margin-bottom: 0; }
+  .chain-arrow { color: #2563eb; font-size: 16px; flex-shrink: 0; margin-top: 1px; }
+  .chain-content { flex: 1; }
+  .chain-label { font-size: 10px; font-weight: 700; letter-spacing: 1px; color: #5a6280; text-transform: uppercase; margin-bottom: 2px; }
+  .chain-text { font-size: 13px; color: #1a1d2e; }
+  .chain-confirmed { color: #059669; font-size: 11px; margin-left: 6px; }
+  .chain-forecast { color: #b45309; font-size: 11px; margin-left: 6px; }
+  .fact-item { background: #fafafa; border: 1px solid #d0d4e0; border-radius: 8px; padding: 14px 16px; margin-bottom: 8px; }
+  .fact-item:last-child { margin-bottom: 0; }
+  .fact-num { font-size: 10px; font-weight: 700; color: #2563eb; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 8px; display: block; }
+  .fact-what { font-weight: 600; font-size: 14px; margin-bottom: 6px; color: #1a1d2e; }
+  .fact-why  { font-size: 13px; color: #5a6280; margin-bottom: 6px; }
+  .fact-so   { font-size: 13px; color: #059669; }
+  .fact-label { display: inline-block; font-size: 10px; font-weight: 700; padding: 1px 6px; border-radius: 3px; margin-right: 4px; }
+  .label-what { background: #eff6ff; color: #1d4ed8; }
+  .label-why  { background: #fff7ed; color: #ea580c; }
+  .label-so   { background: #ecfdf5; color: #059669; }
+  .data-table th { background: #e8ecf5; }
+  .data-table td.key-col { background: #f0f6ff; }
+  .data-table .key-num { color: #059669; font-weight: 700; }
+  .data-table .key-opm { color: #b45309; }
+  caption { font-size: 11px; color: #5a6280; text-align: left; padding: 0 0 8px; caption-side: top; }
+  .val-box { background: #fafafa; border: 1px solid #d0d4e0; border-radius: 8px; padding: 16px 20px; font-size: 13px; line-height: 2; color: #1a1d2e; }
+  .val-formula { background: #f0f2f8; border-radius: 6px; padding: 10px 14px; font-family: monospace; font-size: 13px; margin: 10px 0; color: #b45309; }
+  .risk-item { background: #fafafa; border-radius: 0 6px 6px 0; padding: 14px 16px; margin-bottom: 10px; }
+  .risk-item:last-child { margin-bottom: 0; }
+  .risk-sev-high { border-left: 3px solid #dc2626; }
+  .risk-sev-mid  { border-left: 3px solid #ea580c; }
+  .risk-assumption { font-weight: 600; font-size: 13px; margin-bottom: 4px; color: #1a1d2e; }
+  .risk-chain { font-size: 12px; color: #5a6280; margin: 4px 0; }
+  .risk-impact-num { font-size: 13px; color: #dc2626; font-weight: 600; margin-top: 4px; }
+  .checkpoint-item { display: flex; gap: 12px; padding: 10px 0; border-bottom: 1px solid #d0d4e0; font-size: 13px; }
+  .checkpoint-item:last-child { border-bottom: none; }
+  .cp-date { color: #2563eb; font-weight: 600; min-width: 90px; flex-shrink: 0; }
+  .cp-event { flex: 1; color: #1a1d2e; }
+  .cp-pass { color: #059669; font-size: 12px; margin-top: 2px; }
+  .cp-fail { color: #dc2626; font-size: 12px; margin-top: 2px; }
+  .opinion-box { background: #fafafa; border: 1px solid #d0d4e0; border-radius: 8px; padding: 16px 20px; font-size: 13px; line-height: 1.8; color: #5a6280; }
+  .decision-box { display: flex; gap: 14px; margin-top: 14px; }
+  .decision-btn { flex: 1; text-align: center; padding: 10px; border-radius: 6px; font-weight: 700; font-size: 13px; border: 1px solid; }
+  .decision-buy   { background: #ecfdf5; color: #059669; border-color: #34d399; }
+  .decision-wait  { background: #fffbeb; color: #b45309; border-color: #f59e0b; }
+  .decision-avoid { background: #fef2f2; color: #dc2626; border-color: #fca5a5; }
+  .upgrade-box { background: #eff6ff; border: 1px solid #93c5fd; border-radius: 8px; padding: 14px 16px; }
+  .upgrade-item { display: flex; gap: 10px; padding: 6px 0; border-bottom: 1px solid #dbeafe; font-size: 13px; color: #1a1d2e; }
+  .upgrade-item:last-child { border-bottom: none; }
+  .upgrade-when { color: #1d4ed8; font-weight: 600; min-width: 140px; flex-shrink: 0; }
+  .disclaimer { font-size: 11px; color: #9ca3af; text-align: center; margin-top: 40px; padding-top: 16px; border-top: 1px solid #d0d4e0; }
+</style>
+</head>
+<body>
+
+<div class="pdf-only-banner">
+  외부 검색 절대 금지 — 제공된 PDF 파일만 활용 | 당일 발간 리포트 기준 투자 종목 발굴 전용
+</div>
+
+<!-- A. 헤더 -->
+<header class="header">
+  <h1>삼성증권 (016360) | 1Q26 Preview: 변동성 완화 속 이익 성장 전망 | 다올투자증권 | 발간일: 2026.04.13</h1>
+  <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-bottom:12px;">
+    <span class="tag-badge tag-watch">주목</span>
+    <span class="score-badge score-low">40점</span>
+    <span style="font-size:12px;color:#5a6280;">비바이오</span>
+  </div>
+  <div class="price-row">
+    <div class="price-item"><span class="label">투자의견</span><span class="val">BUY(유지)</span></div>
+    <div class="price-item"><span class="label">목표주가(TP)</span><span class="val">140,000원</span></div>
+    <div class="price-item"><span class="label">현재주가(CP)</span><span class="val">106,800원</span></div>
+    <div class="price-item"><span class="label">Upside</span><span class="val upside-val">+31.1%</span></div>
+    <div class="price-item"><span class="label">시가총액</span><span class="val">95,372억원</span></div>
+    <div class="price-item"><span class="label">종목 유형</span><span class="val">비바이오</span></div>
+  </div>
+</header>
+
+<!-- B. 한줄 투자 이유 -->
+<section>
+  <div class="section-title">이 종목에 투자해야 하는 이유 — 스토리 한 줄</div>
+  <div class="thesis-box">
+    국내 거래대금 급증(확정) + NXT 시장 9.1% M/S 확보로 1Q26E OP +56% YoY(5,206억원), 이익 추정치 상향에도 PER 4.8배에 불과하여 Upside 31.1%
+  </div>
+  <div class="thesis-structure">
+    <div class="thesis-part" style="color:#059669;">1 확정 팩트 계기<br/>국내 거래대금 급증 + NXT M/S 9.1%</div>
+    <div class="thesis-arrow">→</div>
+    <div class="thesis-part" style="color:#b45309;">2 실적 변화<br/>1Q26E OP +56% YoY, 연간 OP +37%</div>
+    <div class="thesis-arrow">→</div>
+    <div class="thesis-part" style="color:#2563eb;">3 시장 미반영<br/>PER 4.8배, Upside 31.1%</div>
+  </div>
+</section>
+
+<!-- C. 핵심 조건 5가지 체크 -->
+<section>
+  <div class="section-title">핵심 태그 5가지 조건 체크</div>
+  <div class="checklist">
+    <div class="checklist-item">
+      <div class="check-icon check-fail">✗</div>
+      <div>
+        <div class="check-label">조건 1 | 영업이익 성장 임계값</div>
+        <div class="check-detail">26E OP +50%+ AND (OPM +3%p+ OR OPM 15%+ 유지)</div>
+        <div class="check-why">26E 연간 OP 1조 8,800억원(+37% YoY) — 50% 미달. 증권사 OPM 개념 적용 어려움(CIR 44%). 미통과</div>
+      </div>
+    </div>
+    <div class="checklist-item">
+      <div class="check-icon check-fail">✗</div>
+      <div>
+        <div class="check-label">조건 2 | 3년 지속성 (3개 이상 충족)</div>
+        <div class="check-detail">수주잔고 / CAPA 확대 / 독점 등</div>
+        <div class="check-why">27E~28E OP 성장률 +2%~+1%로 급감. 거래대금 레벨 유지 가정에 의존. 지속성 근거 부족. 미통과</div>
+      </div>
+    </div>
+    <div class="checklist-item">
+      <div class="check-icon check-pass">✓</div>
+      <div>
+        <div class="check-label">조건 3 | 확정 팩트 2개 이상</div>
+        <div class="check-detail">실적 확인 / 수주확정 / 공시</div>
+        <div class="check-why">1Q26 거래대금 급증(확정) + NXT 시장점유율 확보(확정) + RIA계좌 전환 효과(확정)</div>
+      </div>
+    </div>
+    <div class="checklist-item">
+      <div class="check-icon check-fail">✗</div>
+      <div>
+        <div class="check-label">조건 4 | 시장 미반영</div>
+        <div class="check-detail">Upside 40%+ OR 컨센 괴리 +20%+</div>
+        <div class="check-why">Upside 31.1%로 40% 미달. 컨센 대비 OP 괴리 +35%(변경 전→후)이나 시장 컨센 대비는 +7% 수준. 미통과</div>
+      </div>
+    </div>
+    <div class="checklist-item">
+      <div class="check-icon check-fail">✗</div>
+      <div>
+        <div class="check-label">조건 5 | 차별화된 시각</div>
+        <div class="check-detail">고유 근거 존재 필수</div>
+        <div class="check-why">증권 섹터 전반적 호실적 전망. 삼성증권만의 고유 논리 부족. 미통과</div>
+      </div>
+    </div>
+  </div>
+  <p style="font-size:11px;color:#dc2626;margin-top:8px;padding:0 4px;">
+    5개 조건 중 4개 미달 — 주목 태그 확정
+  </p>
+</section>
+
+<!-- D. 투자 점수 판정 -->
+<section>
+  <div class="section-title">투자 점수 판정 (v2.0)</div>
+  <table>
+    <thead><tr><th>항목</th><th>판정</th><th>근거</th></tr></thead>
+    <tbody>
+      <tr><td>종목 유형</td><td>비바이오</td><td>증권업 — 주가가 실적(순영업수익, 이익)으로 결정</td></tr>
+      <tr><td>적용 가설</td><td>가설 2</td><td>이미 고성장 중(1Q26 OP +56% YoY 확인), OPM 개선 예상(거래대금 증가에 따른 BK 수익 비중 확대)</td></tr>
+      <tr><td>촉매 등급</td><td>중급</td><td>국내 일평균 거래대금 급증 + NXT 시장 개설 효과 — 어닝 서프라이즈 10~50% 범위(컨센 +7%)</td></tr>
+      <tr><td>복합 여부</td><td>단독</td><td>거래대금 증가라는 단일 촉매에 의존</td></tr>
+      <tr><td>직접성</td><td>직접</td><td>거래대금 → Brokerage 수수료 → OP에 직결</td></tr>
+      <tr><td>매트릭스 기본 점수</td><td>60점</td><td>가설2 x 중급 x 단독 = 60점</td></tr>
+      <tr><td class="penalty">페널티 1</td><td class="penalty">-10점</td><td>컨센서스 이미 반영 — 증권 섹터 전반적 호실적 컨센서스 형성, 동사 컨센 부합 수준</td></tr>
+      <tr><td class="penalty">페널티 2</td><td class="penalty">-10점</td><td>리스크 집중 — 국내 주식 거래대금이라는 단일 변수에 이익 50%+ 의존</td></tr>
+      <tr class="total-row">
+        <td>최종 투자 점수</td>
+        <td><span class="highlight-green">40점</span></td>
+        <td>주목 태그(40점+) 정합 확인</td>
+      </tr>
+    </tbody>
+  </table>
+  <p style="font-size:11px;color:#5a6280;margin-top:8px;">페널티 5종만 적용: 간접성 / 컨센 이미 반영 / 잠재수주 미확정 30%+ / 단기 선반영 30%+ / 리스크 집중</p>
+</section>
+
+<!-- E. 성장 인과 체인 -->
+<section>
+  <div class="section-title">성장 인과 체인 — 왜 성장하는가</div>
+  <div class="chain-box">
+    <div class="chain-step">
+      <div class="chain-arrow">1</div>
+      <div class="chain-content">
+        <div class="chain-label">구조 변화 / 촉매 <span class="chain-confirmed">확정 팩트</span></div>
+        <div class="chain-text">국내 주식 일평균 거래대금 급증 + NXT 시장 개설로 동사 M/S KRX 6.8%, NXT 9.1% 확보. 해외주식 투자자 RIA계좌 전환 효과도 존재</div>
+      </div>
+    </div>
+    <div class="chain-step">
+      <div class="chain-arrow">↓</div>
+      <div class="chain-content">
+        <div class="chain-label">매출 영향 (규모 수치)</div>
+        <div class="chain-text">26E 순영업수익(매출) 3조 3,510억원(+33% YoY). BK 수익 비중 27%→39%로 급등. 순수수료이익 1조 9,120억원(+62%)</div>
+      </div>
+    </div>
+    <div class="chain-step">
+      <div class="chain-arrow">↓</div>
+      <div class="chain-content">
+        <div class="chain-label">비용 구조 (CIR 변화)</div>
+        <div class="chain-text">CIR(판관비율) 45%→44%로 유지. 수수료 수익 증가분 대비 판관비 증가(+29%)가 낮아 레버리지 효과 발생</div>
+      </div>
+    </div>
+    <div class="chain-step">
+      <div class="chain-arrow">↓</div>
+      <div class="chain-content">
+        <div class="chain-label">최종 실적 결과 <span class="chain-forecast">추정</span></div>
+        <div class="chain-text">26E OP 1조 8,800억원(+37% YoY). 1Q26E OP 5,206억원(+56% YoY). ROE 16.3%(+3.2%p)</div>
+      </div>
+    </div>
+    <div class="chain-step">
+      <div class="chain-arrow">↓</div>
+      <div class="chain-content">
+        <div class="chain-label">시장 미반영 포인트</div>
+        <div class="chain-text">PER 4.8배로 역사적 밴드 하단. 적정 PBR 1.3배 대비 현재 PBR 0.7배. 배당수익률 7.4%로 매력적이나, 27E 이후 성장 정체(OP +2%)가 시장 우려</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- F. 핵심 팩트 3줄 -->
+<section>
+  <div class="section-title">핵심 팩트 3줄</div>
+  <div class="fact-item">
+    <span class="fact-num">Fact 01</span>
+    <div class="fact-what"><span class="fact-label label-what">WHAT</span>1Q26E OP 5,206억원(YoY +55.6%, QoQ +56.9%), 컨센서스 부합</div>
+    <div class="fact-why"><span class="fact-label label-why">WHY</span>국내 거래대금 급증으로 Brokerage 수익 QoQ +88.4%. NXT M/S 9.1%로 개인 투자자 거래 집중 수혜. IPO 대형딜(케이뱅크 등) 주관도 기여</div>
+    <div class="fact-so"><span class="fact-label label-so">SO WHAT</span>분기 최대 실적 달성 전망. 높아진 거래대금 레벨이 연간 이익 추정치 상향의 근거</div>
+  </div>
+  <div class="fact-item">
+    <span class="fact-num">Fact 02</span>
+    <div class="fact-what"><span class="fact-label label-what">WHAT</span>26E 연간 OP 1조 8,800억원(+37% YoY), EPS 15,569원, 배당수익률 7.4%</div>
+    <div class="fact-why"><span class="fact-label label-why">WHY</span>순수수료이익 +62% 급증이 핵심. 순이자이익 +31%(신용거래 잔고 증가)도 기여. 배당성향 36%으로 주주환원 확대</div>
+    <div class="fact-so"><span class="fact-label label-so">SO WHAT</span>PER 4.8배 + 배당 7.4%로 밸류에이션 매력 존재. 다만 27E~28E OP 성장 +1~2%로 정체되어 멀티플 확장에 한계</div>
+  </div>
+  <div class="fact-item">
+    <span class="fact-num">Fact 03</span>
+    <div class="fact-what"><span class="fact-label label-what">WHAT</span>적정주가 110,000원→140,000원으로 상향(+27%). 적정 PBR 1.3배 적용</div>
+    <div class="fact-why"><span class="fact-label label-why">WHY</span>Fwd ROE 15.0%(3개년 평균), adj. COE 9.8%, Fwd BPS 111,080원 기반. 거래대금 레벨 상향 + Brokerage 약정 증가율 반영</div>
+    <div class="fact-so"><span class="fact-label label-so">SO WHAT</span>PBR 0.7배→1.3배로의 리레이팅 논리이나, ROE 16.3%→14.9%→13.8% 하향 추세가 지속성 우려</div>
+  </div>
+</section>
+
+<!-- F-2. 원본 리포트 핵심 요약 -->
+<section>
+  <div class="section-title">원본 리포트 핵심 요약</div>
+  <div style="background:#fafafa;border:1px solid #d0d4e0;border-radius:8px;padding:16px 20px;margin-bottom:12px;">
+    <div style="font-size:11px;font-weight:700;letter-spacing:1px;color:#5a6280;text-transform:uppercase;margin-bottom:10px;">리포트 핵심 주장</div>
+    <p style="font-size:13px;line-height:1.9;">
+      높아진 시장 거래대금 레벨을 반영해 이익 추정치를 상향하며 적정주가를 14만원으로 올림. Brokerage 약정액 증가율이 기존 예상보다 가파르고, 변동성 국면에서도 운용이익을 방어한 점을 긍정적으로 평가.
+    </p>
+    <div style="margin-top:10px;display:flex;gap:8px;flex-wrap:wrap;">
+      <div style="background:#f0f2f8;border:1px solid #d0d4e0;border-radius:6px;padding:6px 12px;font-size:12px;">
+        <span style="color:#5a6280;font-size:10px;display:block;">이전 대비 변화</span>
+        TP 110,000원→140,000원 상향(+27%). Earnings 상향.
+      </div>
+      <div style="background:#f0f2f8;border:1px solid #d0d4e0;border-radius:6px;padding:6px 12px;font-size:12px;">
+        <span style="color:#5a6280;font-size:10px;display:block;">컨센서스 대비</span>
+        1Q26E OP 5,206억원 vs 컨센 4,860억원(+7% 상회)
+      </div>
+    </div>
+  </div>
+  <div style="background:#fafafa;border:1px solid #d0d4e0;border-radius:8px;padding:16px 20px;margin-bottom:12px;">
+    <div style="font-size:11px;font-weight:700;letter-spacing:1px;color:#5a6280;text-transform:uppercase;margin-bottom:10px;">사업 구조 & 성장 동력</div>
+    <table style="margin:0;">
+      <thead><tr><th>사업부</th><th>수익 비중(26E)</th><th>핵심 성장 드라이버</th></tr></thead>
+      <tbody>
+        <tr><td>Brokerage(BK)</td><td>39%</td><td>국내 거래대금 급증 + NXT M/S 확보 → 순수수료이익 +62% YoY</td></tr>
+        <tr><td>이자수익</td><td>28%</td><td>신용거래 수요 증가 → 리테일 신용공여 평잔 증가 → 순이자이익 +31%</td></tr>
+        <tr><td>IB</td><td>12%</td><td>IPO 대형딜(케이뱅크 등) 주관 + 우량 사업장 선별 PF</td></tr>
+        <tr><td>WM</td><td>6%</td><td>펀드/금융상품 판매잔고 증가에 따른 WM 수익</td></tr>
+        <tr><td>운용/기타</td><td>15%</td><td>델타 축소 등 보수적 운용으로 변동성 관리</td></tr>
+      </tbody>
+    </table>
+    <p style="font-size:12px;color:#5a6280;margin-top:10px;">
+      핵심 성장 메커니즘: 국내물 중심 거래대금 급증 + NXT 신시장에서의 높은 M/S(9.1%)가 Brokerage 수익을 견인. 해외주식 투자자의 RIA계좌 전환도 추가 수익원.
+    </p>
+  </div>
+  <div style="background:#fafafa;border:1px solid #d0d4e0;border-radius:8px;padding:16px 20px;margin-bottom:12px;">
+    <div style="font-size:11px;font-weight:700;letter-spacing:1px;color:#5a6280;text-transform:uppercase;margin-bottom:10px;">시장 괴리</div>
+    <table style="margin:0;">
+      <thead><tr><th style="width:30%;">구분</th><th>내용</th></tr></thead>
+      <tbody>
+        <tr><td style="color:#5a6280;">시장 현재 인식</td><td>증권사는 경기 변동성에 취약한 저PER 업종. 거래대금 지속성 불확실</td></tr>
+        <tr><td style="color:#2563eb;">이 리포트 주장</td><td>높아진 거래대금 레벨이 구조적(NXT 신시장)이며, ROE 15%+ 유지 시 PBR 1.3배 적정</td></tr>
+        <tr><td style="color:#b45309;">괴리 해소 촉매</td><td>1Q26 실적 발표(4월) 후 이익 추정치 추가 상향 사이클 + 배당 확대 공시</td></tr>
+        <tr><td>괴리 강도</td><td><span style="color:#b45309;">중</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div style="background:#fafafa;border:1px solid #d0d4e0;border-radius:8px;padding:16px 20px;">
+    <div style="font-size:11px;font-weight:700;letter-spacing:1px;color:#5a6280;text-transform:uppercase;margin-bottom:10px;">재무 특징</div>
+    <div style="display:flex;flex-wrap:wrap;gap:8px;">
+      <div style="background:#f0f2f8;border:1px solid #d0d4e0;border-radius:6px;padding:8px 12px;font-size:12px;flex:1;min-width:160px;">
+        <span style="color:#5a6280;font-size:10px;display:block;">순자본비율</span>2,096%(26E) — 매우 양호
+      </div>
+      <div style="background:#f0f2f8;border:1px solid #d0d4e0;border-radius:6px;padding:8px 12px;font-size:12px;flex:1;min-width:160px;">
+        <span style="color:#5a6280;font-size:10px;display:block;">레버리지비율</span>844%(26E)
+      </div>
+      <div style="background:#f0f2f8;border:1px solid #d0d4e0;border-radius:6px;padding:8px 12px;font-size:12px;flex:1;min-width:160px;">
+        <span style="color:#5a6280;font-size:10px;display:block;">배당</span>DPS 5,600원(26E), 배당성향 36%, 수익률 7.4%
+      </div>
+      <div style="background:#f0f2f8;border:1px solid #d0d4e0;border-radius:6px;padding:8px 12px;font-size:12px;flex:1;min-width:160px;">
+        <span style="color:#5a6280;font-size:10px;display:block;">특이 재무 이슈</span>자본총계 9조원(26E), 자본성장률 +12%
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- G. 실적 전망 (연간) -->
+<section>
+  <div class="section-title">실적 전망 (연간)</div>
+  <table class="data-table">
+    <caption>단위: 십억원 | 순영업수익 기준(증권업 특성) | ★ = 투자 핵심 연도</caption>
+    <thead>
+      <tr><th>구분</th><th>2024A</th><th>2025A</th><th style="background:#dbeafe;color:#1e40af;">2026E ★</th><th>2027E</th><th>2028E</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>순영업수익</td><td>2,347</td><td>2,522</td><td class="key-col key-num">3,351</td><td>3,523</td><td>3,708</td></tr>
+      <tr><td>YoY(%)</td><td>42%</td><td>7%</td><td class="key-col">33%</td><td>5%</td><td>5%</td></tr>
+      <tr><td>영업이익</td><td>1,312</td><td>1,377</td><td class="key-col key-num">1,880</td><td>1,910</td><td>1,930</td></tr>
+      <tr><td>YoY(%)</td><td>77%</td><td>5%</td><td class="key-col key-num">37%</td><td>2%</td><td>1%</td></tr>
+      <tr><td>CIR(%)</td><td>44%</td><td>45%</td><td class="key-col key-opm">44%</td><td>46%</td><td>48%</td></tr>
+      <tr><td>EPS(원)</td><td>10,068</td><td>11,292</td><td class="key-col">15,569</td><td>15,817</td><td>15,984</td></tr>
+      <tr><td>PER(배)</td><td>4.3</td><td>6.7</td><td class="key-col">4.8</td><td>4.8</td><td>4.7</td></tr>
+      <tr><td>PBR(배)</td><td>0.5</td><td>0.8</td><td class="key-col">0.7</td><td>0.7</td><td>0.6</td></tr>
+      <tr><td>ROE(%)</td><td>12.9</td><td>13.1</td><td class="key-col">16.3</td><td>14.9</td><td>13.8</td></tr>
+    </tbody>
+  </table>
+  <p style="font-size:12px;color:#5a6280;margin-top:10px;">
+    왜 26E가 변곡점인가: 국내 거래대금 레벨 상향 + NXT 신시장 개설로 BK 수익 비중이 39%로 급등하며 순영업수익 +33% 성장. 다만 27E 이후 거래대금 정체 시 OP 성장률 +2%→+1%로 급감.
+  </p>
+</section>
+
+<!-- H. 분기별 실적 -->
+<section>
+  <div class="section-title">분기별 실적 전망</div>
+  <table class="data-table">
+    <thead>
+      <tr><th>구분</th><th>1Q25A</th><th>2Q25</th><th>3Q25</th><th>4Q25A</th><th style="background:#dbeafe;color:#1e40af;">1Q26E ★</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>순영업수익</td><td>589</td><td>-</td><td>-</td><td>660</td><td class="key-col key-num">888</td></tr>
+      <tr><td>영업이익</td><td>335</td><td>-</td><td>-</td><td>332</td><td class="key-col key-num">521</td></tr>
+    </tbody>
+  </table>
+  <p style="font-size:12px;color:#5a6280;margin-top:10px;">
+    1Q26 주목 포인트: Brokerage 수익 QoQ +88.4% 실현 여부. NXT 시장점유율이 9%+ 유지되는지 확인. 운용이익 변동성이 통제되었는지 점검.
+  </p>
+</section>
+
+<!-- I. 밸류에이션 -->
+<section>
+  <div class="section-title">밸류에이션</div>
+  <div class="val-box">
+    <div class="val-formula">
+      Fwd BPS 111,080원 x 적정 PBR 1.3배 = TP 140,000원
+    </div>
+    <p style="color:#5a6280;font-size:12px;margin-top:8px;">
+      왜 이 배수인가: Fwd ROE 15.0%(3개년 평균), Growth Rate 1.0%(금융보험업 GDP CAGR), adj. COE 9.8%(국채10년+KOSPI기반 CAPM, 업종 평균 대비 조정) → 적정 PBR = (ROE-g)/(COE-g) = 1.3배
+    </p>
+  </div>
+</section>
+
+<!-- J. 리스크 -->
+<section>
+  <div class="section-title">리스크 — 핵심 가정이 틀릴 경우 시나리오</div>
+  <div class="risk-item risk-sev-high">
+    <div class="risk-assumption">핵심 가정: 국내 주식 거래대금이 현 레벨을 유지한다</div>
+    <div class="risk-chain" style="margin-top:6px;">
+      → 가정 붕괴 시: 거래대금이 2025년 수준으로 회귀하면 BK 수익 비중 39%→27%로 하락<br/>
+      → 실적 영향: 순수수료이익 1.9조→1.2조로 축소, OP 1.88조→1.38조 수준(-27%)<br/>
+    </div>
+    <div class="risk-impact-num">→ 주가 영향: PBR 1.0배 적용 시 TP 111,000원(현재가 수준), Upside 소멸</div>
+  </div>
+  <div class="risk-item risk-sev-mid">
+    <div class="risk-assumption">두 번째 가정: 운용이익 변동성 관리 지속</div>
+    <div class="risk-chain" style="margin-top:6px;">
+      → 가정 붕괴 시: 금리 급변동 시 유가증권 평가손 확대 → 운용이익 적자 전환 가능<br/>
+      → 실적 영향: 분기 OP 500억원 이상 하방 리스크
+    </div>
+    <div class="risk-impact-num">→ 주가 영향: 단기 주가 10~15% 하락 가능</div>
+  </div>
+</section>
+
+<!-- K. 모멘텀 체크포인트 -->
+<section>
+  <div class="section-title">모멘텀 확인 체크포인트</div>
+  <div style="background:#fafafa;border:1px solid #d0d4e0;border-radius:8px;padding:4px 16px;">
+    <div class="checkpoint-item">
+      <span class="cp-date">2026.4월</span>
+      <div>
+        <div class="cp-event">1Q26 잠정 실적 발표</div>
+        <div class="cp-pass">확인 시: OP 5,000억원+ 달성 → 연간 이익 추정치 추가 상향 모멘텀</div>
+        <div class="cp-fail">실망 시: OP 4,500억원 미달 → 거래대금 레벨 하향 우려 부각</div>
+      </div>
+    </div>
+    <div class="checkpoint-item">
+      <span class="cp-date">2026.상반기</span>
+      <div>
+        <div class="cp-event">밸류업 계획 업데이트 / 주주환원 확대 공시</div>
+        <div class="cp-pass">확인 시: 배당성향 40%+ 상향 시 → 배당수익률 8%+로 매력도 증가</div>
+        <div class="cp-fail">미발표 시: 주주환원 기대 후퇴</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- L. 사견 & 결론 -->
+<section>
+  <div class="section-title">사견 & 투자 행동 결론</div>
+  <div class="opinion-box">
+    <p>
+      삼성증권은 1Q26 거래대금 급증 수혜로 분기 최대 실적이 전망되나, 이는 증권 섹터 전체에 해당하는 범용 호재다. 27E 이후 OP 성장률이 +1~2%로 정체되어 성장주로서의 매력은 제한적. PER 4.8배와 배당수익률 7.4%는 가치주/배당주 관점에서 매력적이나, 투자 테제(OP 급성장 + 3년 지속)에는 부합하지 않음. 가장 큰 우려: 거래대금 레벨이 유지되지 않을 경우 이익 추정치 급감 리스크.
+    </p>
+    <div class="decision-box">
+      <div class="decision-btn decision-wait">이벤트 후 진입<br/><span style="font-size:11px;font-weight:400;">1Q26 실적 확인 + 거래대금 추세 점검 후</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- M. 승격 조건 -->
+<section>
+  <div class="section-title">승격 조건 — 주목 종목 전용</div>
+  <div class="upgrade-box">
+    <div class="upgrade-item">
+      <span class="upgrade-when">1Q26 실적 발표 후</span>
+      <span>연간 OP 2조원+ 상향 + 27E에도 OP +15%+ 성장 가시성 확인 시 → 핵심 승격 검토</span>
+    </div>
+    <div class="upgrade-item">
+      <span class="upgrade-when">밸류업 계획 공시 시</span>
+      <span>배당성향 50%+ 또는 자사주 매입 대규모 공시 시 → Upside 40%+ 충족 여부 재평가</span>
+    </div>
+  </div>
+</section>
+
+<div class="disclaimer">
+  ※ 본 글은 증권사 리포트를 개인 학습 목적으로 요약 정리한 것이며, 투자 권유가 아닙니다.<br/>
+  ※ 제공된 PDF 파일만 활용. 외부 검색 참조 없음. 당일 발간 리포트 기준.
+</div>
+
+</body>
+</html>

@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>에스엠 (041510) 정리</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Pretendard','Apple SD Gothic Neo',-apple-system,sans-serif; background: #ffffff; color: #1a1d2e; line-height: 1.7; font-size: 14px; max-width: 900px; margin: 0 auto; padding: 32px 20px 80px; }
+  .header { border-left: 4px solid #2563eb; padding: 0 0 0 16px; margin-bottom: 24px; }
+  .header h1 { font-size: 20px; font-weight: 700; margin-bottom: 10px; color: #1a1d2e; }
+  .price-row { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin-top: 10px; }
+  .price-item { background: #f0f2f8; border: 1px solid #d0d4e0; border-radius: 6px; padding: 6px 14px; font-size: 13px; }
+  .price-item .label { color: #5a6280; font-size: 11px; display: block; }
+  .price-item .val { font-weight: 700; color: #1a1d2e; }
+  .upside-val { color: #059669; }
+  .tag-badge { display: inline-flex; align-items: center; gap: 6px; padding: 5px 14px; border-radius: 20px; font-size: 13px; font-weight: 700; }
+  .tag-watch { background: #fffbeb; color: #b45309; border: 1px solid #f59e0b; }
+  .score-badge { display: inline-block; padding: 5px 14px; border-radius: 20px; font-size: 13px; font-weight: 700; background: #f0f2f8; border: 1px solid #d0d4e0; color: #1a1d2e; }
+  .score-mid { color: #b45309; }
+  section { margin-bottom: 28px; }
+  .section-title { font-size: 11px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: #5a6280; border-bottom: 1px solid #d0d4e0; padding-bottom: 6px; margin-bottom: 14px; }
+  .pdf-only-banner { background: #fff7ed; border: 1px solid #f97316; border-radius: 8px; padding: 10px 16px; font-size: 12px; color: #c2410c; margin-bottom: 20px; text-align: center; font-weight: 700; }
+  .thesis-box { background: #f8faff; border: 1px solid #2563eb; border-radius: 8px; padding: 16px 20px; font-size: 15px; font-weight: 600; line-height: 1.6; color: #1a1d2e; }
+  .thesis-structure { display: flex; gap: 8px; align-items: center; margin-top: 10px; flex-wrap: wrap; }
+  .thesis-part { background: #f0f2f8; border: 1px solid #d0d4e0; border-radius: 6px; padding: 4px 10px; font-size: 12px; color: #1a1d2e; }
+  .thesis-arrow { color: #2563eb; font-size: 16px; }
+  .checklist { background: #fafafa; border: 1px solid #d0d4e0; border-radius: 8px; overflow: hidden; }
+  .checklist-item { display: flex; gap: 14px; align-items: flex-start; padding: 12px 16px; border-bottom: 1px solid #d0d4e0; }
+  .checklist-item:last-child { border-bottom: none; }
+  .check-icon { width: 22px; height: 22px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; flex-shrink: 0; margin-top: 1px; }
+  .check-pass { background: #ecfdf5; color: #059669; border: 1px solid #34d399; }
+  .check-fail { background: #fef2f2; color: #dc2626; border: 1px solid #fca5a5; }
+  .check-label { font-weight: 600; font-size: 13px; color: #1a1d2e; }
+  .check-detail { color: #5a6280; font-size: 12px; margin-top: 2px; }
+  .check-why { color: #1a1d2e; font-size: 13px; }
+  table { width: 100%; border-collapse: collapse; background: #fafafa; border-radius: 8px; overflow: hidden; border: 1px solid #d0d4e0; }
+  thead tr { background: #f0f2f8; }
+  th { padding: 10px 14px; text-align: left; font-size: 11px; font-weight: 700; color: #5a6280; letter-spacing: 0.8px; text-transform: uppercase; }
+  td { padding: 10px 14px; border-top: 1px solid #d0d4e0; font-size: 13px; color: #1a1d2e; }
+  tr.total-row td { background: #e8ecf5; font-weight: 700; }
+  .penalty { color: #dc2626; }
+  .highlight-green { color: #059669; font-weight: 700; }
+  .chain-box { background: #fafafa; border: 1px solid #d0d4e0; border-radius: 8px; padding: 16px 20px; }
+  .chain-step { display: flex; gap: 12px; align-items: flex-start; margin-bottom: 10px; }
+  .chain-step:last-child { margin-bottom: 0; }
+  .chain-arrow { color: #2563eb; font-size: 16px; flex-shrink: 0; margin-top: 1px; }
+  .chain-content { flex: 1; }
+  .chain-label { font-size: 10px; font-weight: 700; letter-spacing: 1px; color: #5a6280; text-transform: uppercase; margin-bottom: 2px; }
+  .chain-text { font-size: 13px; color: #1a1d2e; }
+  .chain-confirmed { color: #059669; font-size: 11px; margin-left: 6px; }
+  .chain-forecast { color: #b45309; font-size: 11px; margin-left: 6px; }
+  .fact-item { background: #fafafa; border: 1px solid #d0d4e0; border-radius: 8px; padding: 14px 16px; margin-bottom: 8px; }
+  .fact-item:last-child { margin-bottom: 0; }
+  .fact-num { font-size: 10px; font-weight: 700; color: #2563eb; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 8px; display: block; }
+  .fact-what { font-weight: 600; font-size: 14px; margin-bottom: 6px; color: #1a1d2e; }
+  .fact-why { font-size: 13px; color: #5a6280; margin-bottom: 6px; }
+  .fact-so { font-size: 13px; color: #059669; }
+  .fact-label { display: inline-block; font-size: 10px; font-weight: 700; padding: 1px 6px; border-radius: 3px; margin-right: 4px; }
+  .label-what { background: #eff6ff; color: #1d4ed8; }
+  .label-why { background: #fff7ed; color: #ea580c; }
+  .label-so { background: #ecfdf5; color: #059669; }
+  .data-table th { background: #e8ecf5; }
+  .data-table td.key-col { background: #f0f6ff; }
+  .data-table .key-num { color: #059669; font-weight: 700; }
+  .data-table .key-opm { color: #b45309; }
+  caption { font-size: 11px; color: #5a6280; text-align: left; padding: 0 0 8px; caption-side: top; }
+  .val-box { background: #fafafa; border: 1px solid #d0d4e0; border-radius: 8px; padding: 16px 20px; font-size: 13px; line-height: 2; color: #1a1d2e; }
+  .val-formula { background: #f0f2f8; border-radius: 6px; padding: 10px 14px; font-family: monospace; font-size: 13px; margin: 10px 0; color: #b45309; }
+  .risk-item { background: #fafafa; border-radius: 0 6px 6px 0; padding: 14px 16px; margin-bottom: 10px; }
+  .risk-item:last-child { margin-bottom: 0; }
+  .risk-sev-high { border-left: 3px solid #dc2626; }
+  .risk-sev-mid { border-left: 3px solid #ea580c; }
+  .risk-assumption { font-weight: 600; font-size: 13px; margin-bottom: 4px; color: #1a1d2e; }
+  .risk-chain { font-size: 12px; color: #5a6280; margin: 4px 0; }
+  .risk-impact-num { font-size: 13px; color: #dc2626; font-weight: 600; margin-top: 4px; }
+  .checkpoint-item { display: flex; gap: 12px; padding: 10px 0; border-bottom: 1px solid #d0d4e0; font-size: 13px; }
+  .checkpoint-item:last-child { border-bottom: none; }
+  .cp-date { color: #2563eb; font-weight: 600; min-width: 90px; flex-shrink: 0; }
+  .cp-event { flex: 1; color: #1a1d2e; }
+  .cp-pass { color: #059669; font-size: 12px; margin-top: 2px; }
+  .cp-fail { color: #dc2626; font-size: 12px; margin-top: 2px; }
+  .opinion-box { background: #fafafa; border: 1px solid #d0d4e0; border-radius: 8px; padding: 16px 20px; font-size: 13px; line-height: 1.8; color: #5a6280; }
+  .decision-box { display: flex; gap: 14px; margin-top: 14px; }
+  .decision-btn { flex: 1; text-align: center; padding: 10px; border-radius: 6px; font-weight: 700; font-size: 13px; border: 1px solid; }
+  .decision-buy { background: #ecfdf5; color: #059669; border-color: #34d399; }
+  .decision-wait { background: #fffbeb; color: #b45309; border-color: #f59e0b; }
+  .decision-avoid { background: #fef2f2; color: #dc2626; border-color: #fca5a5; }
+  .upgrade-box { background: #eff6ff; border: 1px solid #93c5fd; border-radius: 8px; padding: 14px 16px; }
+  .upgrade-item { display: flex; gap: 10px; padding: 6px 0; border-bottom: 1px solid #dbeafe; font-size: 13px; color: #1a1d2e; }
+  .upgrade-item:last-child { border-bottom: none; }
+  .upgrade-when { color: #1d4ed8; font-weight: 600; min-width: 140px; flex-shrink: 0; }
+  .disclaimer { font-size: 11px; color: #9ca3af; text-align: center; margin-top: 40px; padding-top: 16px; border-top: 1px solid #d0d4e0; }
+</style>
+</head>
+<body>
+
+<div class="pdf-only-banner">
+  외부 검색 절대 금지 -- 제공된 PDF 파일만 활용 | 당일 발간 리포트 기준 투자 종목 발굴 전용
+</div>
+
+<!-- A. 헤더 -->
+<header class="header">
+  <h1>에스엠 (041510) | Both Sides | 유진투자증권 이현지 | 발간일: 2026.04.13</h1>
+  <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-bottom:12px;">
+    <span class="tag-badge tag-watch">주목</span>
+    <span class="score-badge score-mid">40점</span>
+    <span style="font-size:12px;color:#5a6280;">비바이오</span>
+  </div>
+  <div class="price-row">
+    <div class="price-item"><span class="label">투자의견</span><span class="val">Buy(유지)</span></div>
+    <div class="price-item"><span class="label">목표주가(TP)</span><span class="val">130,000원</span></div>
+    <div class="price-item"><span class="label">현재주가(CP)</span><span class="val">85,600원</span></div>
+    <div class="price-item"><span class="label">Upside</span><span class="val upside-val">+51.9%</span></div>
+    <div class="price-item"><span class="label">시가총액</span><span class="val">19,600억원</span></div>
+    <div class="price-item"><span class="label">종목 유형</span><span class="val">비바이오</span></div>
+  </div>
+</header>
+
+<!-- B. 한줄 투자 이유 -->
+<section>
+  <div class="section-title">이 종목에 투자해야 하는 이유 -- 스토리 한 줄</div>
+  <div class="thesis-box">
+    고연차 아티스트(EXO/슈퍼주니어/NCT) 활동과 디어유 연결 효과로 26E OP 204억원(+11.2%), OPM 15.6% 유지하나, 대형 투어 가능 아티스트 부재 및 북미 성과 미진으로 TP를 18.8% 하향했음에도 Upside 51.9%
+  </div>
+  <div class="thesis-structure">
+    <div class="thesis-part" style="color:#059669;">1 NCT 10주년+다수 돔공연(확정)</div>
+    <div class="thesis-arrow">→</div>
+    <div class="thesis-part" style="color:#b45309;">2 26E OP +11.2%, OPM 15.6%</div>
+    <div class="thesis-arrow">→</div>
+    <div class="thesis-part" style="color:#2563eb;">3 Upside 51.9% (TP 하향에도)</div>
+  </div>
+</section>
+
+<!-- C. 핵심 조건 5가지 체크 -->
+<section>
+  <div class="section-title">핵심 태그 5가지 조건 체크</div>
+  <div class="checklist">
+    <div class="checklist-item">
+      <div class="check-icon check-fail">X</div>
+      <div>
+        <div class="check-label">조건 1 | 영업이익 성장 임계값</div>
+        <div class="check-detail">26E OP +50%+ AND (OPM +3%p+ OR OPM 15%+ 유지)</div>
+        <div class="check-why">26E OP 204억원(+11.2% YoY), OPM 15.6%(+0.0%p) -- OP 성장률 +11.2%로 +50% 기준 미달</div>
+      </div>
+    </div>
+    <div class="checklist-item">
+      <div class="check-icon check-fail">X</div>
+      <div>
+        <div class="check-label">조건 2 | 3년 지속성 (3개 이상 충족)</div>
+        <div class="check-detail">수주잔고 / CAPA 확대 / 독점 등</div>
+        <div class="check-why">1 디어유 리커링 매출(구독형 팬플랫폼) 2 NCT 10주년 등 고연차 아티스트 IP -- 2개로 3개 미달</div>
+      </div>
+    </div>
+    <div class="checklist-item">
+      <div class="check-icon check-fail">X</div>
+      <div>
+        <div class="check-label">조건 3 | 확정 팩트 2개 이상</div>
+        <div class="check-detail">수주확정/인허가/계약공시 등</div>
+        <div class="check-why">NCT 10주년 활동 예정, 돔 투어 확정 등은 있으나 대형 수주/계약 수준의 확정 팩트는 부재</div>
+      </div>
+    </div>
+    <div class="checklist-item">
+      <div class="check-icon check-pass">V</div>
+      <div>
+        <div class="check-label">조건 4 | 시장 미반영 (Upside 40%+)</div>
+        <div class="check-detail">Upside 40%+ OR 컨센 괴리 +20%+</div>
+        <div class="check-why">Upside 51.9% -- 통과</div>
+      </div>
+    </div>
+    <div class="checklist-item">
+      <div class="check-icon check-fail">X</div>
+      <div>
+        <div class="check-label">조건 5 | 차별화 시각</div>
+        <div class="check-detail">이 리포트만의 고유 근거</div>
+        <div class="check-why">TP를 18.8% 하향 조정하며 보수적 시각. 고연차 성과+MD 성장은 업계 공통 논리</div>
+      </div>
+    </div>
+  </div>
+  <p style="font-size:11px;color:#dc2626;margin-top:8px;padding:0 4px;">
+    조건 1,2,3,5 미충족 -- 핵심 불가, 주목 태그 부여
+  </p>
+</section>
+
+<!-- D. 투자 점수 판정 -->
+<section>
+  <div class="section-title">투자 점수 판정 (v2.0)</div>
+  <table>
+    <thead><tr><th>항목</th><th>판정</th><th>근거</th></tr></thead>
+    <tbody>
+      <tr><td>종목 유형</td><td>비바이오</td><td>K-POP 엔터테인먼트 기업, 실적 기반 주가</td></tr>
+      <tr><td>적용 가설</td><td>가설 4</td><td>완만한 성장(26E OP +11.2%), 성장 가속화 요인 제한적</td></tr>
+      <tr><td>촉매 등급</td><td>하급</td><td>NCT 10주년/돔 공연은 정기적 활동 수준, 신규 대형 계약 부재</td></tr>
+      <tr><td>복합 여부</td><td>복합</td><td>공연+MD+디어유(팬플랫폼) 다수 매출원 동시 작동</td></tr>
+      <tr><td>직접성</td><td>직접</td><td>아티스트 활동이 앨범/공연/MD 매출에 직결</td></tr>
+      <tr><td>매트릭스 기본 점수</td><td>50점</td><td>가설4 x 하급 x 복합 = 50점</td></tr>
+      <tr><td>페널티 1</td><td class="penalty">-10점</td><td>단기 주가 선반영: 최근 1M -17.0%이나 6M -32.2%로 기존 하락 과다, 페널티 불필요 -- 재검토 후 비적용. 대신 컨센 이미 반영(주요 증권사 TP 하향 추세 동일) -10점</td></tr>
+      <tr class="total-row"><td>최종 투자 점수</td><td><span class="highlight-green">40점</span></td><td>주목 40점+ 충족, 태그-점수 정합</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<!-- E. 성장 인과 체인 -->
+<section>
+  <div class="section-title">성장 인과 체인</div>
+  <div class="chain-box">
+    <div class="chain-step">
+      <div class="chain-arrow">1</div>
+      <div class="chain-content">
+        <div class="chain-label">구조 변화 / 촉매</div>
+        <div class="chain-text">NCT 10주년 기념 활동(NCT 127/Dream 하반기 컴백 예정), 에스파/라이즈 북미 투어 확대, 하반기 신인 보이그룹 데뷔 예정 <span class="chain-forecast">전망</span></div>
+      </div>
+    </div>
+    <div class="chain-step">
+      <div class="chain-arrow">↓</div>
+      <div class="chain-content">
+        <div class="chain-label">매출 영향</div>
+        <div class="chain-text">26E 매출 1,309십억원(+11.4% YoY). SME 872십억원, 디어유 99십억원, Dreammaker 86십억원</div>
+      </div>
+    </div>
+    <div class="chain-step">
+      <div class="chain-arrow">↓</div>
+      <div class="chain-content">
+        <div class="chain-label">OPM 변화 메커니즘</div>
+        <div class="chain-text">공연 확대에 따른 MD 매출 동반 성장(고마진), 디어유 연결 효과로 OPM 15.6% 유지. 다만 대형 투어 부재로 외형 레버리지 제한</div>
+      </div>
+    </div>
+    <div class="chain-step">
+      <div class="chain-arrow">↓</div>
+      <div class="chain-content">
+        <div class="chain-label">최종 실적 결과 <span class="chain-forecast">추정</span></div>
+        <div class="chain-text">26E OP 204십억원(+11.2%), OPM 15.6%(+0.0%p), EPS 6,078원</div>
+      </div>
+    </div>
+    <div class="chain-step">
+      <div class="chain-arrow">↓</div>
+      <div class="chain-content">
+        <div class="chain-label">시장 미반영 포인트</div>
+        <div class="chain-text">PER 14.1배로 하이브(27.2배)/JYP(16.6배) 대비 할인 거래 중. 디어유 성장(26E 99십억원→27E 111십억원)과 저연차 성장 속도가 증명되면 리레이팅 가능</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- F. 핵심 팩트 3줄 -->
+<section>
+  <div class="section-title">핵심 팩트 3줄</div>
+  <div class="fact-item">
+    <span class="fact-num">Fact 01</span>
+    <div class="fact-what"><span class="fact-label label-what">WHAT</span>1Q26E 매출 252십억원(+8.7% YoY), OP 35십억원(+8.8% YoY), OPM 14.1%</div>
+    <div class="fact-why"><span class="fact-label label-why">WHY</span>작년 1Q 일회성 음원 매출 기저 부담에도 EXO/NCT JNJM 앨범 방어 + NCT Dream/라이즈/슈퍼주니어/SMTOWN 다수 돔 공연 반영</div>
+    <div class="fact-so"><span class="fact-label label-so">SO WHAT</span>컨센서스(259십억원) 부합 수준으로 안정적 실적 기반 확인. 2분기부터 에스파/라이즈/NCT Wish 컴백으로 성장 가속</div>
+  </div>
+  <div class="fact-item">
+    <span class="fact-num">Fact 02</span>
+    <div class="fact-what"><span class="fact-label label-what">WHAT</span>목표주가 130,000원으로 18.8% 하향 (기존 160,000원). 26F 지배순이익 139십억원 x PER 23배 적용</div>
+    <div class="fact-why"><span class="fact-label label-why">WHY</span>대형 투어를 돌 아티스트 부재, 북미 성과 미진. 실적 추정치와 적용 멀티플 모두 하향</div>
+    <div class="fact-so"><span class="fact-label label-so">SO WHAT</span>하향에도 Upside 51.9%로 주가 과매도 구간. 저연차(NCT Wish/하츠투하츠) 성장 속도 + 에스파/라이즈 북미 투어 확대가 증명되면 반등 가능</div>
+  </div>
+  <div class="fact-item">
+    <span class="fact-num">Fact 03</span>
+    <div class="fact-what"><span class="fact-label label-what">WHAT</span>디어유 26E 매출 99십억원(+17.9% YoY), 연결 효과로 전사 성장 기여</div>
+    <div class="fact-why"><span class="fact-label label-why">WHY</span>팬 구독형 플랫폼(버블 등)의 리커링 매출이 꾸준히 확대되며 안정적 수익원 역할</div>
+    <div class="fact-so"><span class="fact-label label-so">SO WHAT</span>본업(SME) 외 플랫폼 매출이 안정적 이익 기반을 제공하며, 변동성 높은 앨범/공연 매출 의존도를 낮추는 구조적 변화</div>
+  </div>
+</section>
+
+<!-- F-2. 원본 리포트 핵심 요약 -->
+<section>
+  <div class="section-title">원본 리포트 핵심 요약</div>
+  <div style="background:#fafafa;border:1px solid #d0d4e0;border-radius:8px;padding:16px 20px;margin-bottom:12px;">
+    <div style="font-size:11px;font-weight:700;letter-spacing:1px;color:#5a6280;text-transform:uppercase;margin-bottom:10px;">리포트 핵심 주장</div>
+    <p style="font-size:13px;line-height:1.9;">
+      고연차 아티스트 성과와 MD 중심 성장세는 긍정적이나, 규모의 투어를 돌 대형 아티스트 부재와 북미 성과 미진이 아쉬운 점. 다만 에스파/라이즈 북미 투어 확대, NCT Wish/하츠투하츠 등 저연차 성장 속도가 빠르며, 하반기 신인 보이그룹 데뷔 예정.
+    </p>
+    <div style="margin-top:10px;display:flex;gap:8px;flex-wrap:wrap;">
+      <div style="background:#f0f2f8;border:1px solid #d0d4e0;border-radius:6px;padding:6px 12px;font-size:12px;">
+        <span style="color:#5a6280;font-size:10px;display:block;margin-bottom:2px;">이전 대비 변화</span>
+        TP 160,000원→130,000원(-18.8% 하향), 26E OP 207→204억원 하향, 27E OP 225→218억원 하향
+      </div>
+      <div style="background:#f0f2f8;border:1px solid #d0d4e0;border-radius:6px;padding:6px 12px;font-size:12px;">
+        <span style="color:#5a6280;font-size:10px;display:block;margin-bottom:2px;">컨센서스 대비</span>
+        1Q26E OP 35억원 vs 컨센 37억원 -- 소폭 하회
+      </div>
+    </div>
+  </div>
+  <div style="background:#fafafa;border:1px solid #d0d4e0;border-radius:8px;padding:16px 20px;margin-bottom:12px;">
+    <div style="font-size:11px;font-weight:700;letter-spacing:1px;color:#5a6280;text-transform:uppercase;margin-bottom:10px;">사업 구조 & 성장 동력</div>
+    <table style="margin:0;">
+      <thead><tr><th style="width:25%;">사업부</th><th style="width:20%;">매출 비중</th><th style="width:55%;">핵심 성장 드라이버</th></tr></thead>
+      <tbody>
+        <tr><td>SME(본사)</td><td>66.6%</td><td>앨범/공연/MD -- 고연차(EXO/NCT/슈주) + 저연차(에스파/라이즈/NCT Wish) 활동</td></tr>
+        <tr><td>SM Japan</td><td>8.6%</td><td>일본 시장 활동, 26E 113십억원(+16.5%)</td></tr>
+        <tr><td>디어유</td><td>7.6%</td><td>팬 구독 플랫폼(버블), 리커링 매출 확대. 26E 99십억원(+17.9%)</td></tr>
+        <tr><td>Dreammaker/SM C&C/키이스트</td><td>17.2%</td><td>공연기획/콘텐츠/드라마 제작</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div style="background:#fafafa;border:1px solid #d0d4e0;border-radius:8px;padding:16px 20px;margin-bottom:12px;">
+    <div style="font-size:11px;font-weight:700;letter-spacing:1px;color:#5a6280;text-transform:uppercase;margin-bottom:10px;">시장 괴리</div>
+    <table style="margin:0;">
+      <thead><tr><th style="width:30%;">구분</th><th>내용</th></tr></thead>
+      <tbody>
+        <tr><td style="color:#5a6280;">시장 현재 인식</td><td>대형 투어 부재, 북미 성과 미진으로 성장 한계 우려 -- 주가 52주 고점 대비 -45% 하락</td></tr>
+        <tr><td style="color:#2563eb;">이 리포트 주장</td><td>고연차 IP(NCT 10주년/EXO 14주년/슈주 20주년) + 저연차 성장 속도 빠름 + 디어유 연결 효과</td></tr>
+        <tr><td style="color:#b45309;">괴리 해소 촉매</td><td>2Q26 에스파/라이즈 컴백 성과, 하반기 NCT 127/Dream 컴백 + 신인 보이그룹 데뷔</td></tr>
+        <tr><td>괴리 강도</td><td><span style="color:#b45309;">중</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div style="background:#fafafa;border:1px solid #d0d4e0;border-radius:8px;padding:16px 20px;">
+    <div style="font-size:11px;font-weight:700;letter-spacing:1px;color:#5a6280;text-transform:uppercase;margin-bottom:10px;">재무 특징</div>
+    <div style="display:flex;flex-wrap:wrap;gap:8px;">
+      <div style="background:#f0f2f8;border:1px solid #d0d4e0;border-radius:6px;padding:8px 12px;font-size:12px;flex:1;min-width:160px;">
+        <span style="color:#5a6280;font-size:10px;display:block;margin-bottom:2px;">순현금</span>
+        26E 6,830억원 (순차입금 마이너스)
+      </div>
+      <div style="background:#f0f2f8;border:1px solid #d0d4e0;border-radius:6px;padding:8px 12px;font-size:12px;flex:1;min-width:160px;">
+        <span style="color:#5a6280;font-size:10px;display:block;margin-bottom:2px;">배당</span>
+        26E DPS 1,630원, 배당수익률 1.9%
+      </div>
+      <div style="background:#f0f2f8;border:1px solid #d0d4e0;border-radius:6px;padding:8px 12px;font-size:12px;flex:1;min-width:160px;">
+        <span style="color:#5a6280;font-size:10px;display:block;margin-bottom:2px;">ROE</span>
+        26E 13.0%
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- G. 실적 전망 (연간) -->
+<section>
+  <div class="section-title">실적 전망 (연간)</div>
+  <table class="data-table">
+    <caption>단위: 십억원 | 에스엠(041510.KQ) | 12월 결산</caption>
+    <thead>
+      <tr><th>구분</th><th>2024A</th><th>2025A</th><th style="background:#dbeafe;color:#1e40af;">2026E</th><th>2027E</th><th>2028F</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>매출액</td><td>990</td><td>1,175</td><td class="key-col key-num">1,309</td><td>1,389</td><td>1,403</td></tr>
+      <tr><td>YoY(%)</td><td>3.0</td><td>18.7</td><td class="key-col">11.4</td><td>6.2</td><td>1.0</td></tr>
+      <tr><td>영업이익</td><td>87</td><td>183</td><td class="key-col key-num">204</td><td>218</td><td>138</td></tr>
+      <tr><td>YoY(%)</td><td>-23.1</td><td>109.7</td><td class="key-col">11.2</td><td>7.3</td><td>-37.0</td></tr>
+      <tr><td>OPM(%)</td><td>8.8</td><td>15.6</td><td class="key-col key-opm">15.6</td><td>15.7</td><td>9.8</td></tr>
+      <tr><td>EPS(원)</td><td>784</td><td>15,166</td><td class="key-col">6,078</td><td>6,529</td><td>186</td></tr>
+      <tr><td>PER(배)</td><td>96.4</td><td>8.9</td><td class="key-col">14.1</td><td>13.1</td><td>460.0</td></tr>
+      <tr><td>PBR(배)</td><td>2.7</td><td>3.1</td><td class="key-col">1.7</td><td>1.6</td><td>1.6</td></tr>
+      <tr><td>ROE(%)</td><td>2.6</td><td>41.6</td><td class="key-col">13.0</td><td>12.6</td><td>0.3</td></tr>
+    </tbody>
+  </table>
+  <p style="font-size:12px;color:#5a6280;margin-top:10px;padding:0 4px;">
+    25A EPS 15,166원은 지분법이익(디어유 등) 일회성 반영 효과. 26E부터 정상화. 28F 급락은 지분법손익(-61십억) 지속 반영 때문.
+  </p>
+</section>
+
+<!-- H. 분기별 실적 -->
+<section>
+  <div class="section-title">분기별 실적 전망</div>
+  <table class="data-table">
+    <thead>
+      <tr><th>구분</th><th>1Q25</th><th>2Q25</th><th>3Q25</th><th>4Q25</th><th style="background:#dbeafe;color:#1e40af;">1Q26E</th><th>2Q26E</th><th>3Q26E</th><th>4Q26E</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>매출액</td><td>231</td><td>303</td><td>322</td><td>319</td><td class="key-col key-num">252</td><td>345</td><td>320</td><td>391</td></tr>
+      <tr><td>영업이익</td><td>33</td><td>48</td><td>48</td><td>55</td><td class="key-col key-num">35</td><td>57</td><td>47</td><td>64</td></tr>
+      <tr><td>OPM(%)</td><td>14.1</td><td>15.7</td><td>15.0</td><td>17.1</td><td class="key-col key-opm">14.1</td><td>16.6</td><td>14.8</td><td>16.2</td></tr>
+    </tbody>
+  </table>
+  <p style="font-size:12px;color:#5a6280;margin-top:10px;padding:0 4px;">
+    1Q26 주목 포인트: 마크 탈퇴 영향 제한적인지, 돔 공연 모객수 확인. 2Q26부터 에스파/라이즈 컴백으로 실적 상승 전환 예상.
+  </p>
+</section>
+
+<!-- I. 밸류에이션 -->
+<section>
+  <div class="section-title">밸류에이션</div>
+  <div class="val-box">
+    <div class="val-formula">
+      26F 지배주주순이익 139십억원 x Target PER 23배 = 기업가치 3,200십억원 / 주식수 23,831천주 = 주당 134,295원 → TP 130,000원
+    </div>
+    <p style="color:#5a6280;font-size:12px;margin-top:8px;">
+      왜 이 배수인가: K-POP 엔터 업종 특성상 아티스트 활동 사이클에 따라 실적 변동성이 높아 Peer(하이브 40배, JYP 24배) 대비 보수적 적용. 대형 투어 아티스트 부재 감안.
+    </p>
+  </div>
+</section>
+
+<!-- J. 리스크 -->
+<section>
+  <div class="section-title">리스크 -- 핵심 가정이 틀릴 경우 시나리오</div>
+  <div class="risk-item risk-sev-high">
+    <div class="risk-assumption">핵심 가정: 하반기 NCT 10주년/슈주 20주년 공연+MD가 외형 견인</div>
+    <div class="risk-chain" style="margin-top:6px;">
+      → 가정 붕괴 시: NCT 마크 탈퇴 영향이 예상보다 크거나 고연차 아티스트 공연 모객 부진 시 4Q26 매출 391십억원→350십억원 수준 하락<br/>
+      → 실적 영향: 26E OP 204십억원→180십억원으로 축소
+    </div>
+    <div class="risk-impact-num">→ 주가 영향: PER 23배 기준 TP 115,000원 수준(-11.5%)</div>
+  </div>
+  <div class="risk-item risk-sev-mid">
+    <div class="risk-assumption">두 번째 가정: 저연차(에스파/라이즈) 북미 투어 확대가 성과로 이어짐</div>
+    <div class="risk-chain" style="margin-top:6px;">
+      → 가정 붕괴 시: 북미 팬덤 확장 정체 시 27E 성장률 6.2%→3% 이하로 둔화, 장기 성장 스토리 훼손
+    </div>
+    <div class="risk-impact-num">→ 주가 영향: 멀티플 디스카운트로 PER 18~20배 적용 시 TP 100,000원대</div>
+  </div>
+</section>
+
+<!-- K. 모멘텀 체크포인트 -->
+<section>
+  <div class="section-title">모멘텀 확인 체크포인트</div>
+  <div style="background:#fafafa;border:1px solid #d0d4e0;border-radius:8px;padding:4px 16px;">
+    <div class="checkpoint-item">
+      <span class="cp-date">2026.4~5월</span>
+      <div>
+        <div class="cp-event">1Q26 잠정실적 발표 + 에스파/라이즈/NCT Wish 컴백 성과</div>
+        <div class="cp-pass">확인 시 → 2Q26 실적 가시성 강화, 주가 반등 기대</div>
+        <div class="cp-fail">미달 시 → 저연차 성장 스토리 약화, 추가 TP 하향 가능성</div>
+      </div>
+    </div>
+    <div class="checkpoint-item">
+      <span class="cp-date">2026.하반기</span>
+      <div>
+        <div class="cp-event">NCT 127/Dream 컴백 + 신인 보이그룹 데뷔 반응</div>
+        <div class="cp-pass">확인 시 → NCT 10주년 효과 + 신인 팬덤 형성으로 27E 성장 기대</div>
+        <div class="cp-fail">부진 시 → 아티스트 라인업 세대교체 실패 우려</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- L. 사견 & 결론 -->
+<section>
+  <div class="section-title">사견 & 투자 행동 결론</div>
+  <div class="opinion-box">
+    <p>
+      에스엠은 안정적인 OPM(15.6%)과 디어유 연결 효과로 실적 기반은 견고하나, 대형 투어 가능 아티스트 부재와 북미 성과 미진이 성장 한계를 만들고 있다. 리포트가 TP를 18.8% 하향한 점은 보수적이지만 현실적 판단. Upside 51.9%는 매력적이나 이는 주가가 이미 크게 하락한 결과이며, 성장 가속을 위해서는 저연차 아티스트의 팬덤 숫자화가 필요하다. 우려 포인트: 마크 탈퇴 영향이 NCT 팬덤 전반에 미치는 파급 효과가 불확실하며, 28F 실적 급락(OP -37.0%) 전망은 장기 투자 시 주의 필요.
+    </p>
+    <div class="decision-box">
+      <div class="decision-btn decision-wait" style="opacity:1;">⏳ 이벤트 후 진입<br/><span style="font-size:11px;font-weight:400;">2Q26 에스파/라이즈 컴백 성과 확인 후</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- M. 승격 조건 -->
+<section>
+  <div class="section-title">승격 조건 -- 주목 종목 전용</div>
+  <div class="upgrade-box">
+    <div class="upgrade-item">
+      <span class="upgrade-when">2Q26 실적 발표 시</span>
+      <span>에스파/라이즈 컴백으로 2Q26 OP 57십억원 달성 + 북미 투어 모객 확대 확인 시 → 핵심 승격 검토</span>
+    </div>
+    <div class="upgrade-item">
+      <span class="upgrade-when">하반기 NCT 컴백 시</span>
+      <span>NCT 10주년 투어 모객 50만명+ 달성 시 → 대형 투어 가능 아티스트 확인, 핵심 승격</span>
+    </div>
+  </div>
+</section>
+
+<div class="disclaimer">
+  본 글은 증권사 리포트를 개인 학습 목적으로 요약/정리한 것이며, 투자 권유가 아닙니다.<br/>
+  제공된 PDF 파일만 활용. 외부 검색/참조 없음. 당일 발간 리포트 기준.
+</div>
+
+</body>
+</html>

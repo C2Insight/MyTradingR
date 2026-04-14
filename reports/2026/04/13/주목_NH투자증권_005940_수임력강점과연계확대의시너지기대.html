@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NH투자증권 (005940) 정리</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Pretendard','Apple SD Gothic Neo',-apple-system,sans-serif; background: #ffffff; color: #1a1d2e; line-height: 1.7; font-size: 14px; max-width: 900px; margin: 0 auto; padding: 32px 20px 80px; }
+  .header { border-left: 4px solid #2563eb; padding: 0 0 0 16px; margin-bottom: 24px; }
+  .header h1 { font-size: 20px; font-weight: 700; margin-bottom: 10px; }
+  .price-row { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin-top: 10px; }
+  .price-item { background: #f0f2f8; border: 1px solid #d0d4e0; border-radius: 6px; padding: 6px 14px; font-size: 13px; }
+  .price-item .label { color: #5a6280; font-size: 11px; display: block; }
+  .price-item .val { font-weight: 700; color: #1a1d2e; }
+  .upside-val { color: #059669; }
+  .tag-badge { display: inline-flex; align-items: center; gap: 6px; padding: 5px 14px; border-radius: 20px; font-size: 13px; font-weight: 700; }
+  .tag-watch { background: #fffbeb; color: #b45309; border: 1px solid #f59e0b; }
+  .score-badge { display: inline-block; padding: 5px 14px; border-radius: 20px; font-size: 13px; font-weight: 700; background: #f0f2f8; border: 1px solid #d0d4e0; color: #5a6280; }
+  section { margin-bottom: 28px; }
+  .section-title { font-size: 11px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: #5a6280; border-bottom: 1px solid #d0d4e0; padding-bottom: 6px; margin-bottom: 14px; }
+  .pdf-only-banner { background: #fff7ed; border: 1px solid #f97316; border-radius: 8px; padding: 10px 16px; font-size: 12px; color: #c2410c; margin-bottom: 20px; text-align: center; font-weight: 700; }
+  .thesis-box { background: #f8faff; border: 1px solid #2563eb; border-radius: 8px; padding: 16px 20px; font-size: 15px; font-weight: 600; line-height: 1.6; }
+  .thesis-structure { display: flex; gap: 8px; align-items: center; margin-top: 10px; flex-wrap: wrap; }
+  .thesis-part { background: #f0f2f8; border: 1px solid #d0d4e0; border-radius: 6px; padding: 4px 10px; font-size: 12px; }
+  .thesis-arrow { color: #2563eb; font-size: 16px; }
+  .checklist { background: #fafafa; border: 1px solid #d0d4e0; border-radius: 8px; overflow: hidden; }
+  .checklist-item { display: flex; gap: 14px; align-items: flex-start; padding: 12px 16px; border-bottom: 1px solid #d0d4e0; }
+  .checklist-item:last-child { border-bottom: none; }
+  .check-icon { width: 22px; height: 22px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; flex-shrink: 0; }
+  .check-pass { background: #ecfdf5; color: #059669; border: 1px solid #34d399; }
+  .check-fail { background: #fef2f2; color: #dc2626; border: 1px solid #fca5a5; }
+  .check-label { font-weight: 600; font-size: 13px; }
+  .check-detail { color: #5a6280; font-size: 12px; margin-top: 2px; }
+  .check-why { font-size: 13px; }
+  table { width: 100%; border-collapse: collapse; background: #fafafa; border-radius: 8px; overflow: hidden; border: 1px solid #d0d4e0; }
+  thead tr { background: #f0f2f8; }
+  th { padding: 10px 14px; text-align: left; font-size: 11px; font-weight: 700; color: #5a6280; }
+  td { padding: 10px 14px; border-top: 1px solid #d0d4e0; font-size: 13px; }
+  tr.total-row td { background: #e8ecf5; font-weight: 700; }
+  .penalty { color: #dc2626; }
+  .highlight-green { color: #059669; font-weight: 700; }
+  .chain-box { background: #fafafa; border: 1px solid #d0d4e0; border-radius: 8px; padding: 16px 20px; }
+  .chain-step { display: flex; gap: 12px; align-items: flex-start; margin-bottom: 10px; }
+  .chain-step:last-child { margin-bottom: 0; }
+  .chain-arrow { color: #2563eb; font-size: 16px; flex-shrink: 0; }
+  .chain-label { font-size: 10px; font-weight: 700; letter-spacing: 1px; color: #5a6280; margin-bottom: 2px; }
+  .chain-text { font-size: 13px; }
+  .chain-forecast { color: #b45309; font-size: 11px; margin-left: 6px; }
+  .fact-item { background: #fafafa; border: 1px solid #d0d4e0; border-radius: 8px; padding: 14px 16px; margin-bottom: 8px; }
+  .fact-num { font-size: 10px; font-weight: 700; color: #2563eb; letter-spacing: 1px; margin-bottom: 8px; display: block; }
+  .fact-label { display: inline-block; font-size: 10px; font-weight: 700; padding: 1px 6px; border-radius: 3px; margin-right: 4px; }
+  .label-what { background: #eff6ff; color: #1d4ed8; }
+  .label-why { background: #fff7ed; color: #ea580c; }
+  .label-so { background: #ecfdf5; color: #059669; }
+  .fact-what { font-weight: 600; font-size: 14px; margin-bottom: 6px; }
+  .fact-why { font-size: 13px; color: #5a6280; margin-bottom: 6px; }
+  .fact-so { font-size: 13px; color: #059669; }
+  .data-table th { background: #e8ecf5; }
+  .data-table td.key-col { background: #f0f6ff; }
+  .data-table .key-num { color: #059669; font-weight: 700; }
+  .data-table .key-opm { color: #b45309; }
+  caption { font-size: 11px; color: #5a6280; text-align: left; padding: 0 0 8px; caption-side: top; }
+  .val-box { background: #fafafa; border: 1px solid #d0d4e0; border-radius: 8px; padding: 16px 20px; font-size: 13px; line-height: 2; }
+  .val-formula { background: #f0f2f8; border-radius: 6px; padding: 10px 14px; font-family: monospace; font-size: 13px; margin: 10px 0; color: #b45309; }
+  .risk-item { background: #fafafa; border-radius: 0 6px 6px 0; padding: 14px 16px; margin-bottom: 10px; }
+  .risk-sev-high { border-left: 3px solid #dc2626; }
+  .risk-sev-mid { border-left: 3px solid #ea580c; }
+  .risk-assumption { font-weight: 600; font-size: 13px; margin-bottom: 4px; }
+  .risk-chain { font-size: 12px; color: #5a6280; margin: 4px 0; }
+  .risk-impact-num { font-size: 13px; color: #dc2626; font-weight: 600; margin-top: 4px; }
+  .checkpoint-item { display: flex; gap: 12px; padding: 10px 0; border-bottom: 1px solid #d0d4e0; font-size: 13px; }
+  .checkpoint-item:last-child { border-bottom: none; }
+  .cp-date { color: #2563eb; font-weight: 600; min-width: 90px; flex-shrink: 0; }
+  .cp-pass { color: #059669; font-size: 12px; margin-top: 2px; }
+  .cp-fail { color: #dc2626; font-size: 12px; margin-top: 2px; }
+  .opinion-box { background: #fafafa; border: 1px solid #d0d4e0; border-radius: 8px; padding: 16px 20px; font-size: 13px; line-height: 1.8; color: #5a6280; }
+  .decision-box { display: flex; gap: 14px; margin-top: 14px; }
+  .decision-btn { flex: 1; text-align: center; padding: 10px; border-radius: 6px; font-weight: 700; font-size: 13px; border: 1px solid; }
+  .decision-wait { background: #fffbeb; color: #b45309; border-color: #f59e0b; }
+  .upgrade-box { background: #eff6ff; border: 1px solid #93c5fd; border-radius: 8px; padding: 14px 16px; }
+  .upgrade-item { display: flex; gap: 10px; padding: 6px 0; border-bottom: 1px solid #dbeafe; font-size: 13px; }
+  .upgrade-item:last-child { border-bottom: none; }
+  .upgrade-when { color: #1d4ed8; font-weight: 600; min-width: 140px; flex-shrink: 0; }
+  .disclaimer { font-size: 11px; color: #9ca3af; text-align: center; margin-top: 40px; padding-top: 16px; border-top: 1px solid #d0d4e0; }
+</style>
+</head>
+<body>
+
+<div class="pdf-only-banner">외부 검색 절대 금지 — 제공된 PDF 파일만 활용 | 당일 발간 리포트 기준</div>
+
+<!-- A. 헤더 -->
+<header class="header">
+  <h1>NH투자증권 (005940) | 1Q26 Preview: 수임력 강점과 연계 확대의 시너지 기대 | 다올투자증권 | 발간일: 2026.04.13</h1>
+  <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-bottom:12px;">
+    <span class="tag-badge tag-watch">🔥 주목</span>
+    <span class="score-badge">📊 40점</span>
+    <span style="font-size:12px;color:#5a6280;">비바이오</span>
+  </div>
+  <div class="price-row">
+    <div class="price-item"><span class="label">투자의견</span><span class="val">Buy(유지)</span></div>
+    <div class="price-item"><span class="label">목표주가(TP)</span><span class="val">43,000원</span></div>
+    <div class="price-item"><span class="label">현재주가(CP)</span><span class="val">34,050원</span></div>
+    <div class="price-item"><span class="label">Upside</span><span class="val upside-val">+26.3%</span></div>
+    <div class="price-item"><span class="label">시가총액</span><span class="val">121,335억원</span></div>
+  </div>
+</header>
+
+<!-- B. 한줄 투자 이유 -->
+<section>
+  <div class="section-title">이 종목에 투자해야 하는 이유 — 스토리 한 줄</div>
+  <div class="thesis-box">
+    1Q26 Brokerage QoQ +75.4% 기반 OP(영업이익) 573억원(YoY +98%, QoQ +37%), IMA 3번째 사업자 지정(●●● 확정)으로 IB 연계 확대 기대되나, 26E 연간 OP +31%(1,865십억)로 폭증에 미달하고 Upside 26.3%로 시장 미반영 제한적
+  </div>
+  <div class="thesis-structure">
+    <div class="thesis-part" style="color:#059669;">① IMA 3번째 사업자 지정 확정(●●●) + 거래대금 증가(●●○)</div>
+    <div class="thesis-arrow">→</div>
+    <div class="thesis-part" style="color:#b45309;">② 26E OP +31%, CIR 44%</div>
+    <div class="thesis-arrow">→</div>
+    <div class="thesis-part" style="color:#2563eb;">③ Upside 26.3%(40% 미달)</div>
+  </div>
+</section>
+
+<!-- C. 핵심 5가지 조건 -->
+<section>
+  <div class="section-title">핵심 태그 5가지 조건 체크</div>
+  <div class="checklist">
+    <div class="checklist-item">
+      <div class="check-icon check-fail">✗</div>
+      <div><div class="check-label">조건 1 | 영업이익 성장 임계값</div>
+      <div class="check-detail">26E OP +50%+ 필요</div>
+      <div class="check-why">26E OP 1,865십억(YoY +31%) → +50% 미달. <strong>미충족</strong></div></div>
+    </div>
+    <div class="checklist-item">
+      <div class="check-icon check-fail">✗</div>
+      <div><div class="check-label">조건 2 | 3년 지속성</div>
+      <div class="check-why">27E OP +8%, 28E +9% → CAGR 약 16%이나 구조적 성장 동력 부족(시황 종속). 지속성 근거 2개 미만. <strong>미충족</strong></div></div>
+    </div>
+    <div class="checklist-item">
+      <div class="check-icon check-pass">✓</div>
+      <div><div class="check-label">조건 3 | 확정 팩트 2개+</div>
+      <div class="check-why">●●● IMA 3번째 사업자 지정(3.19 확정) + ●●○ 거래대금 증가 → ●●● 1개만. <strong>미충족</strong>(2개 필요)</div></div>
+    </div>
+    <div class="checklist-item">
+      <div class="check-icon check-fail">✗</div>
+      <div><div class="check-label">조건 4 | 시장 미반영</div>
+      <div class="check-why">Upside 26.3% < 40%. <strong>미충족</strong></div></div>
+    </div>
+    <div class="checklist-item">
+      <div class="check-icon check-pass">✓</div>
+      <div><div class="check-label">조건 5 | 차별화 시각</div>
+      <div class="check-why">IMA 3번째 사업자 지정 → IB 경쟁력+WM 연계 시너지 고유 논리. 커버리지 중 두 번째로 이익구조 다각화 종목 차선책. <strong>충족</strong></div></div>
+    </div>
+  </div>
+  <p style="font-size:11px;color:#dc2626;margin-top:8px;">⚠️ 조건 1·2·3·4 미충족 → 핵심 불가, 주목 판정.</p>
+</section>
+
+<!-- D. 투자 점수 -->
+<section>
+  <div class="section-title">투자 점수 판정 (v2.0)</div>
+  <table>
+    <thead><tr><th>항목</th><th>판정</th><th>근거</th></tr></thead>
+    <tbody>
+      <tr><td>종목 유형</td><td>비바이오</td><td>금융(증권), 실적 기반 주가 결정</td></tr>
+      <tr><td>적용 가설</td><td>가설 3</td><td>아직 구조적 고성장 확인 전. IMA 지정은 수임력 확대 기대 수준</td></tr>
+      <tr><td>촉매 등급</td><td>중급</td><td>IMA 사업자 지정(국내 대기업급) + 거래대금 증가</td></tr>
+      <tr><td>복합 여부</td><td>단독</td><td>IMA 지정 효과가 아직 실적에 미반영, 거래대금 단일 촉매</td></tr>
+      <tr><td>직접성</td><td>직접</td><td>Brokerage → OP 직결</td></tr>
+      <tr><td>매트릭스 기본 점수</td><td>50점</td><td>가설3 × 중급 × 단독 = 50점</td></tr>
+      <tr><td class="penalty">페널티 ① 리스크 집중</td><td class="penalty">-10점</td><td>거래대금 시황 종속 50%+</td></tr>
+      <tr class="total-row"><td>최종 투자 점수</td><td><span class="highlight-green">40점</span></td><td>주목 40+ 충족</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<!-- E. 성장 인과 체인 -->
+<section>
+  <div class="section-title">성장 인과 체인</div>
+  <div class="chain-box">
+    <div class="chain-step"><div class="chain-arrow">①</div><div><div class="chain-label">촉매 <span class="chain-forecast">●●○</span></div><div class="chain-text">거래대금 급증 + IMA 3번째 사업자 지정(●●●) → IB 수임력 기반 딜 소싱+WM 연계 기대</div></div></div>
+    <div class="chain-step"><div class="chain-arrow">↓</div><div><div class="chain-label">매출 영향</div><div class="chain-text">26E 순영업수익 3,355십억(YoY +25%). BK 25%, IB 25%, 이자 37% 다각화 구조</div></div></div>
+    <div class="chain-step"><div class="chain-arrow">↓</div><div><div class="chain-label">CIR 변화</div><div class="chain-text">CIR 55%(2024) → 47%(2025) → 44%(2026E). 수익 증가 대비 판관비 통제</div></div></div>
+    <div class="chain-step"><div class="chain-arrow">↓</div><div><div class="chain-label">실적 <span class="chain-forecast">●●○</span></div><div class="chain-text">26E OP 1,865십억(+31%), ROE 13.3%, EPS 3,512원</div></div></div>
+    <div class="chain-step"><div class="chain-arrow">↓</div><div><div class="chain-label">미반영</div><div class="chain-text">PBR 0.8배(ROE 13.3% 대비), 적정 PBR 1.4배 적용 시 TP 43,000원. Upside 26.3%로 크지 않음</div></div></div>
+  </div>
+</section>
+
+<!-- F. 핵심 팩트 3줄 -->
+<section>
+  <div class="section-title">핵심 팩트 3줄</div>
+  <div class="fact-item">
+    <span class="fact-num">Fact 01 — 실적</span>
+    <div class="fact-what"><span class="fact-label label-what">WHAT</span>1Q26E OP 573십억(YoY +98%, QoQ +37%), 컨센 523십억 대비 +10% 상회</div>
+    <div class="fact-why"><span class="fact-label label-why">WHY</span>Brokerage QoQ +75.4%(국내물 95.1%, NXT 8.6%) + 신용융자·대주 잔고 증가 → 이자이익 증가</div>
+    <div class="fact-so"><span class="fact-label label-so">SO WHAT</span>컨센 소폭 상회 수준으로 서프라이즈 강도는 제한적. 시장 기대 이미 반영 가능성</div>
+  </div>
+  <div class="fact-item">
+    <span class="fact-num">Fact 02 — 구조</span>
+    <div class="fact-what"><span class="fact-label label-what">WHAT</span>IMA 3번째 사업자 지정(2026.3.19), IB 경쟁력 기반 딜 소싱+WM 연계 확대 기대</div>
+    <div class="fact-why"><span class="fact-label label-why">WHY</span>IPO 대형 딜(케이뱅크 등) 주관 및 인수와 DCM 수임력 강점. 대형 사업장 선별적 참여 기조</div>
+    <div class="fact-so"><span class="fact-label label-so">SO WHAT</span>IMA 효과 실적 반영은 시간 필요. 당장 26E보다 27E 이후 IB수익 기여도 확대 기대</div>
+  </div>
+  <div class="fact-item">
+    <span class="fact-num">Fact 03 — 밸류</span>
+    <div class="fact-what"><span class="fact-label label-what">WHAT</span>적정 PBR 1.4배(Fwd ROE 13.2, CoE 9.6) × BPS 30,215원 = TP 43,000원</div>
+    <div class="fact-why"><span class="fact-label label-why">WHY</span>이익구조 다각화(BK/IB/이자/운용 분산) 종목으로 변동성 국면 차선책 성격</div>
+    <div class="fact-so"><span class="fact-label label-so">SO WHAT</span>Upside 26.3%로 밸류 매력 제한적. 배당수익률 8.1%(26E DPS 1,700원 기준)이 방어적 매력</div>
+  </div>
+</section>
+
+<!-- G. 실적 전망 -->
+<section>
+  <div class="section-title">실적 전망 (연간)</div>
+  <table class="data-table">
+    <caption>단위: 십억원 | ★ = 투자 핵심 연도</caption>
+    <thead><tr><th>구분</th><th>2024A</th><th>2025A</th><th style="background:#dbeafe;color:#1e40af;">2026E ★</th><th>2027E</th><th>2028E</th></tr></thead>
+    <tbody>
+      <tr><td>순영업수익</td><td>2,012</td><td>2,676</td><td class="key-col key-num">3,355</td><td>3,591</td><td>3,861</td></tr>
+      <tr><td>영업이익</td><td>901</td><td>1,421</td><td class="key-col key-num">1,865</td><td>2,015</td><td>2,191</td></tr>
+      <tr><td>YoY(%)</td><td>24%</td><td>58%</td><td class="key-col key-num">31%</td><td>8%</td><td>9%</td></tr>
+      <tr><td>CIR(%)</td><td>55%</td><td>47%</td><td class="key-col key-opm">44%</td><td>44%</td><td>43%</td></tr>
+      <tr><td>EPS(원)</td><td>1,982</td><td>2,749</td><td class="key-col">3,512</td><td>3,789</td><td>4,135</td></tr>
+      <tr><td>PER(배)</td><td>7.0</td><td>7.7</td><td class="key-col">6.0</td><td>5.6</td><td>5.1</td></tr>
+      <tr><td>PBR(배)</td><td>0.6</td><td>0.8</td><td class="key-col">0.7</td><td>0.7</td><td>0.6</td></tr>
+      <tr><td>ROE(%)</td><td>8.7</td><td>11.8</td><td class="key-col">13.3</td><td>13.1</td><td>13.2</td></tr>
+    </tbody>
+  </table>
+  <p style="font-size:12px;color:#5a6280;margin-top:10px;">▶ 26E OP +31%로 성장세이나, 27~28E +8~9%로 둔화. "폭증" 수준에는 미달.</p>
+</section>
+
+<!-- I. 밸류에이션 -->
+<section>
+  <div class="section-title">밸류에이션</div>
+  <div class="val-box">
+    <div class="val-formula">Fwd ROE 13.2% → 적정 PBR 1.4배 × Fwd BPS 30,215원 = TP 43,000원 (Upside 26.3%)</div>
+    <p style="color:#5a6280;font-size:12px;margin-top:8px;">▶ 금융보험업 GDP CAGR 1.0, CoE 9.6% 적용.</p>
+  </div>
+</section>
+
+<!-- J. 리스크 -->
+<section>
+  <div class="section-title">리스크</div>
+  <div class="risk-item risk-sev-high">
+    <div class="risk-assumption">🔴 핵심 가정: 거래대금 유지 + IB 딜 파이프라인</div>
+    <div class="risk-chain">→ 거래대금 20%+ 감소 시: BK 수익 급감 → 26E OP 1,500십억 수준(-20%)</div>
+    <div class="risk-impact-num">→ TP 35,000원 수준(-18%)</div>
+  </div>
+  <div class="risk-item risk-sev-mid">
+    <div class="risk-assumption">🟠 PF 관련 수수료수익 감소 + 대출자산 건전성</div>
+    <div class="risk-chain">→ 강화된 규제·신용보강 규모 축소 → 전통IB PF 관련 수수료 축소</div>
+    <div class="risk-impact-num">→ IB 수익기여도 하락, CIR 상승 압력</div>
+  </div>
+</section>
+
+<!-- K. 체크포인트 -->
+<section>
+  <div class="section-title">모멘텀 체크포인트</div>
+  <div style="background:#fafafa;border:1px solid #d0d4e0;border-radius:8px;padding:4px 16px;">
+    <div class="checkpoint-item">
+      <span class="cp-date">2026.4월</span>
+      <div><div>1Q26 잠정 실적 발표</div>
+      <div class="cp-pass">✅ OP 573십억+ → 진입 검토</div>
+      <div class="cp-fail">⛔ 미달 시 → 관망</div></div>
+    </div>
+    <div class="checkpoint-item">
+      <span class="cp-date">2026.상반기</span>
+      <div><div>IMA 연계 WM·IB 실적 가시화</div>
+      <div class="cp-pass">✅ IMA 관련 수익 확인 시 → 핵심 승격 검토</div>
+      <div class="cp-fail">⛔ 미가시화 시 → 현 수준 유지</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- L. 사견 -->
+<section>
+  <div class="section-title">사견 & 투자 행동 결론</div>
+  <div class="opinion-box">
+    <p>IMA 3번째 사업자 지정은 차별화 팩트이나 실적 기여까지 시간 필요. Upside 26.3%로 충분하지 않고, OP 성장률도 +31%로 테제(폭증) 미달. 배당수익률 8.1%의 방어적 매력은 있으나, 적극적 투자보다는 실적 확인 후 접근이 바람직.</p>
+    <div class="decision-box">
+      <div class="decision-btn decision-wait">⏳ 1Q26 실적 + IMA 효과 확인 후 진입</div>
+    </div>
+  </div>
+</section>
+
+<!-- M. 승격 조건 -->
+<section>
+  <div class="section-title">승격 조건 — 주목 전용</div>
+  <div class="upgrade-box">
+    <div class="upgrade-item"><span class="upgrade-when">IMA 관련 수익 가시화</span><span>WM·IB 연계 매출 확인 시 → ⭐ 핵심 검토</span></div>
+    <div class="upgrade-item"><span class="upgrade-when">TP 상향 + Upside 40%+</span><span>거래대금 지속 + TP 50,000원+ 시 → ⭐ 핵심 검토</span></div>
+  </div>
+</section>
+
+<div class="disclaimer">※ 본 글은 증권사 리포트를 개인 학습 목적으로 요약·정리한 것이며, 투자 권유가 아닙니다.<br/>※ 제공된 PDF 파일만 활용. 외부 검색·참조 없음.</div>
+</body>
+</html>
