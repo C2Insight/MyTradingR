@@ -19,9 +19,12 @@
 │   └── YYYY/
 │       └── MM/
 │           └── YYYYMMDD_종목명.html
-├── reports/                      ← 추후: 종목 리포트
-│   └── TICKER/
-│       └── YYYYMMDD_종목명.html
+├── reports/                      ← ★ 종목 리포트 (날짜별 다수 파일)
+│   └── YYYY/
+│       └── MM/
+│           └── DD/
+│               ├── 종목명A.html
+│               └── 종목명B.html
 ├── scripts/
 │   └── generate_index.py         ← 인덱스 생성 스크립트
 └── .github/
@@ -126,11 +129,16 @@ journal/2026/04/20260415_덕산네오룩스_매수.html
 ### 종목 리포트 추가
 
 ```
-reports/005290/20260415_덕산네오룩스_심층분석.html
+reports/2026/04/13/삼성전자.html
+reports/2026/04/13/덕산네오룩스.html
+reports/2026/04/14/SK하이닉스.html
 ```
-포맷: `reports/종목코드/YYYYMMDD_종목명.html`
+포맷: `reports/YYYY/MM/DD/종목명.html`
 
-두 섹션은 `index.html`의 탭에 이미 준비되어 있으며,  
+하루에 여러 리포트를 업로드할 수 있습니다. (예: 50개/일)
+`종목 리포트` 탭의 일별 달력에서 날짜를 클릭하면 해당 날짜의 리포트 목록이 표시됩니다.
+
+두 섹션은 `index.html`의 탭에 이미 준비되어 있으며,
 파일을 위 경로로 업로드하면 자동으로 목록에 표시됩니다.
 
 ---
