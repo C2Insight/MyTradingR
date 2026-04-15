@@ -1,0 +1,217 @@
+<!DOCTYPE html><html lang="ko"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>GS건설 (006360) 정리</title><style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Pretendard','Apple SD Gothic Neo',-apple-system,sans-serif; background:#fff; color:#1a1d2e; line-height:1.7; font-size:14px; max-width:900px; margin:0 auto; padding:32px 20px 80px; }
+  .header { border-left:4px solid #2563eb; padding:0 0 0 16px; margin-bottom:24px; }
+  .header h1 { font-size:18px; font-weight:700; margin-bottom:10px; }
+  .price-row { display:flex; flex-wrap:wrap; gap:10px; margin-top:10px; }
+  .price-item { background:#f0f2f8; border:1px solid #d0d4e0; border-radius:6px; padding:6px 14px; font-size:13px; }
+  .price-item .label { color:#5a6280; font-size:11px; display:block; }
+  .price-item .val { font-weight:700; }
+  .upside-val { color:#059669; } .upside-negative { color:#dc2626; }
+  .tag-badge { display:inline-flex; align-items:center; gap:6px; padding:5px 14px; border-radius:20px; font-size:13px; font-weight:700; }
+  .tag-sss{background:#fff3ed;color:#c2410c;border:1px solid #f97316;}
+  .tag-ss{background:#f5f3ff;color:#6d28d9;border:1px solid #8b5cf6;}
+  .tag-core{background:#ecfdf5;color:#059669;border:1px solid #34d399;}
+  .tag-watch{background:#fffbeb;color:#b45309;border:1px solid #f59e0b;}
+  .tag-stable{background:#eff6ff;color:#1d4ed8;border:1px solid #60a5fa;}
+  .score-badge{display:inline-block;padding:5px 14px;border-radius:20px;font-size:13px;font-weight:700;background:#f0f2f8;border:1px solid #d0d4e0;}
+  .score-high{color:#059669;} .score-mid{color:#b45309;} .score-low{color:#5a6280;}
+  section { margin-bottom:28px; }
+  .section-title { font-size:11px; font-weight:700; letter-spacing:1.5px; text-transform:uppercase; color:#5a6280; border-bottom:1px solid #d0d4e0; padding-bottom:6px; margin-bottom:14px; }
+  .pdf-only-banner { background:#fff7ed; border:1px solid #f97316; border-radius:8px; padding:10px 16px; font-size:12px; color:#c2410c; margin-bottom:20px; text-align:center; font-weight:700; }
+  .thesis-box { background:#f8faff; border:1px solid #2563eb; border-radius:8px; padding:16px 20px; font-size:15px; font-weight:600; line-height:1.6; }
+  .thesis-structure { display:flex; gap:8px; align-items:center; margin-top:10px; flex-wrap:wrap; }
+  .thesis-part { background:#f0f2f8; border:1px solid #d0d4e0; border-radius:6px; padding:4px 10px; font-size:12px; }
+  .thesis-arrow { color:#2563eb; font-size:16px; }
+  .checklist { background:#fafafa; border:1px solid #d0d4e0; border-radius:8px; overflow:hidden; }
+  .checklist-item { display:flex; gap:14px; padding:12px 16px; border-bottom:1px solid #d0d4e0; }
+  .checklist-item:last-child { border-bottom:none; }
+  .check-icon { width:22px; height:22px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:12px; font-weight:700; flex-shrink:0; margin-top:1px; }
+  .check-pass { background:#ecfdf5; color:#059669; border:1px solid #34d399; }
+  .check-fail { background:#fef2f2; color:#dc2626; border:1px solid #fca5a5; }
+  .check-na { background:#f0f2f8; color:#5a6280; border:1px solid #d0d4e0; }
+  .check-label { font-weight:600; font-size:13px; }
+  .check-detail { color:#5a6280; font-size:12px; margin-top:2px; }
+  .check-why { font-size:13px; }
+  table { width:100%; border-collapse:collapse; background:#fafafa; border-radius:8px; overflow:hidden; border:1px solid #d0d4e0; }
+  thead tr { background:#f0f2f8; }
+  th { padding:10px 14px; text-align:left; font-size:11px; font-weight:700; color:#5a6280; letter-spacing:0.8px; text-transform:uppercase; }
+  td { padding:10px 14px; border-top:1px solid #d0d4e0; font-size:13px; }
+  tr.total-row td { background:#e8ecf5; font-weight:700; }
+  .penalty { color:#dc2626; } .highlight-green { color:#059669; font-weight:700; } .highlight-red { color:#dc2626; }
+  .chain-box { background:#fafafa; border:1px solid #d0d4e0; border-radius:8px; padding:16px 20px; }
+  .chain-step { display:flex; gap:12px; margin-bottom:10px; }
+  .chain-step:last-child { margin-bottom:0; }
+  .chain-arrow { color:#2563eb; font-size:16px; flex-shrink:0; margin-top:1px; }
+  .chain-label { font-size:10px; font-weight:700; letter-spacing:1px; color:#5a6280; text-transform:uppercase; margin-bottom:2px; }
+  .chain-text { font-size:13px; }
+  .chain-confirmed { color:#059669; font-size:11px; margin-left:6px; }
+  .chain-forecast { color:#b45309; font-size:11px; margin-left:6px; }
+  .fact-item { background:#fafafa; border:1px solid #d0d4e0; border-radius:8px; padding:14px 16px; margin-bottom:8px; }
+  .fact-num { font-size:10px; font-weight:700; color:#2563eb; letter-spacing:1px; margin-bottom:8px; display:block; }
+  .fact-what { font-weight:600; font-size:14px; margin-bottom:6px; }
+  .fact-why { font-size:13px; color:#5a6280; margin-bottom:6px; }
+  .fact-so { font-size:13px; color:#059669; }
+  .fact-label { display:inline-block; font-size:10px; font-weight:700; padding:1px 6px; border-radius:3px; margin-right:4px; }
+  .label-what { background:#eff6ff; color:#1d4ed8; }
+  .label-why { background:#fff7ed; color:#ea580c; }
+  .label-so { background:#ecfdf5; color:#059669; }
+  .data-table th { background:#e8ecf5; }
+  .data-table td.key-col { background:#f0f6ff; }
+  .data-table .key-num { color:#059669; font-weight:700; }
+  .data-table .key-opm { color:#b45309; }
+  caption { font-size:11px; color:#5a6280; text-align:left; padding:0 0 8px; caption-side:top; }
+  .val-box { background:#fafafa; border:1px solid #d0d4e0; border-radius:8px; padding:16px 20px; font-size:13px; line-height:2; }
+  .val-formula { background:#f0f2f8; border-radius:6px; padding:10px 14px; font-family:monospace; font-size:13px; margin:10px 0; color:#b45309; }
+  .risk-item { background:#fafafa; border-radius:0 6px 6px 0; padding:14px 16px; margin-bottom:10px; }
+  .risk-sev-high { border-left:3px solid #dc2626; }
+  .risk-sev-mid { border-left:3px solid #ea580c; }
+  .risk-assumption { font-weight:600; font-size:13px; margin-bottom:4px; }
+  .risk-chain { font-size:12px; color:#5a6280; margin:4px 0; }
+  .risk-impact-num { font-size:13px; color:#dc2626; font-weight:600; margin-top:4px; }
+  .checkpoint-item { display:flex; gap:12px; padding:10px 0; border-bottom:1px solid #d0d4e0; font-size:13px; }
+  .checkpoint-item:last-child { border-bottom:none; }
+  .cp-date { color:#2563eb; font-weight:600; min-width:90px; }
+  .cp-pass { color:#059669; font-size:12px; margin-top:2px; }
+  .cp-fail { color:#dc2626; font-size:12px; margin-top:2px; }
+  .opinion-box { background:#fafafa; border:1px solid #d0d4e0; border-radius:8px; padding:16px 20px; font-size:13px; line-height:1.8; color:#1a1d2e; }
+  .decision-box { display:flex; gap:14px; margin-top:14px; }
+  .decision-btn { flex:1; text-align:center; padding:10px; border-radius:6px; font-weight:700; font-size:13px; border:1px solid; }
+  .decision-buy{background:#ecfdf5;color:#059669;border-color:#34d399;}
+  .decision-wait{background:#fffbeb;color:#b45309;border-color:#f59e0b;}
+  .decision-avoid{background:#fef2f2;color:#dc2626;border-color:#fca5a5;}
+  .upgrade-box { background:#eff6ff; border:1px solid #93c5fd; border-radius:8px; padding:14px 16px; }
+  .upgrade-item { display:flex; gap:10px; padding:6px 0; border-bottom:1px solid #dbeafe; font-size:13px; }
+  .upgrade-item:last-child { border-bottom:none; }
+  .upgrade-when { color:#1d4ed8; font-weight:600; min-width:140px; }
+  .disclaimer { font-size:11px; color:#9ca3af; text-align:center; margin-top:40px; padding-top:16px; border-top:1px solid #d0d4e0; }
+</style></head><body>
+<div class="pdf-only-banner">🚫 외부 검색 금지 — 제공된 PDF 파일만 활용 | 당일(2026.04.15) 발간 리포트 기준</div>
+
+<header class="header">
+<div style="color:#5a6280;font-size:12px;margin-bottom:6px;">원전 eXperience, Inspiration!</div>
+<h1>GS건설 (006360) | 유진투자증권 류태환 | 발간일: 2026.04.15</h1>
+<div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-bottom:12px;">
+<span class="tag-badge tag-watch">🔥 주목</span><span class="score-badge score-low">📊 50점</span><span style="font-size:12px;color:#5a6280;">비바이오</span></div>
+<div class="price-row">
+<div class="price-item"><span class="label">투자의견</span><span class="val">Buy</span></div>
+<div class="price-item"><span class="label">목표주가(TP)</span><span class="val">53,000원</span></div>
+<div class="price-item"><span class="label">현재주가(CP)</span><span class="val">37,450원</span></div>
+<div class="price-item"><span class="label">Upside</span><span class="val upside-val">+41.5%</span></div>
+<div class="price-item"><span class="label">시가총액</span><span class="val">3.2조원</span></div>
+<div class="price-item"><span class="label">종목 유형</span><span class="val">비바이오</span></div>
+</div></header>
+
+<section><div class="section-title">💡 이 종목에 투자해야 하는 이유 — 스토리 한 줄</div>
+<div class="thesis-box">3Q25 매출채권·미청구공사비 각 0.2조 감소·브릿지론 보증 8조 감소(확정) → 26E 영업이익 4,490억(+2.6% YoY), OPM 3.8%(+0.3%p) → 목표주가 53,000원 Upside +41.5%</div>
+<div class="thesis-structure">
+<div class="thesis-part" style="color:#059669;">① 확정 팩트<br/>3Q25 매출채권·미청구공사비 각 0.2조 감소, 브릿지론 보증 8조 감소·본PF 전환(●●●)</div>
+<div class="thesis-arrow">→</div>
+<div class="thesis-part" style="color:#b45309;">② 실적 변화<br/>26E 영업이익 4,490억(+2.6% YoY), OPM 3.5→3.8%, 27E 5,250억(+16.8%)</div>
+<div class="thesis-arrow">→</div>
+<div class="thesis-part" style="color:#2563eb;">③ 시장 미반영<br/>목표주가 53,000원 — Upside +41.5%, 26E BPS 58,363원×Target P/B 0.9배</div>
+</div></section>
+
+<section><div class="section-title">✅ 핵심 태그 5가지 조건 체크</div>
+<div class="checklist"><div class="checklist-item"><div class="check-icon check-fail">✗</div><div><div class="check-label">조건 1 | 영업이익 성장 임계값</div><div class="check-detail">26E OP +50%+ AND (OPM +3%p+ OR OPM 15%+ 유지)</div><div class="check-why">26E 영업이익 +2.6% YoY, OPM +0.3%p — OP +50% 기준 미달</div></div></div><div class="checklist-item"><div class="check-icon check-pass">✓</div><div><div class="check-label">조건 2 | 3년 지속성 (3개 이상 충족)</div><div class="check-detail">수주잔고 / CAPA / 독점·특허 / Lock-in / CAGR 15%+ / 리커링</div><div class="check-why">해외 수주 파이프라인(원전·DC) + 이니마 물환경 + 주택 정상화 → 3개 충족</div></div></div><div class="checklist-item"><div class="check-icon check-pass">✓</div><div><div class="check-label">조건 3 | 확정 팩트(●●●) 2개 이상</div><div class="check-detail">수주확정·인허가·계약공시·실적 확인</div><div class="check-why">3Q25 재무개선, 신한울 준공 실적, APR1400 미국 진출 파이프라인 ●●●</div></div></div><div class="checklist-item"><div class="check-icon check-pass">✓</div><div><div class="check-label">조건 4 | 시장 미반영</div><div class="check-detail">Upside 40%+ OR 컨센 괴리 +20%+</div><div class="check-why">Upside +41.5% — 40% 기준 충족</div></div></div><div class="checklist-item"><div class="check-icon check-fail">✗</div><div><div class="check-label">조건 5 | 차별화된 시각</div><div class="check-detail">신규 커버리지·고유 근거·컨센 상회 추정치</div><div class="check-why">경쟁사(현대건설·대우건설) 대비 원전 수주 가시성 낮음</div></div></div></div>
+<p style="font-size:11px;color:#dc2626;margin-top:8px;">⚠️ 1개라도 ✗ → 핵심에서 주목으로 강등 필수 (손실 방지 원칙)</p></section>
+
+<section><div class="section-title">📊 투자 점수 판정 (v2.0)</div>
+<table><thead><tr><th>항목</th><th>판정</th><th>근거 (Why)</th></tr></thead><tbody>
+<tr><td>종목 유형</td><td>비바이오</td><td>건설 EPC</td></tr>
+<tr><td>적용 가설</td><td>가설 4</td><td>2025 OP 4,380억 회복, 완만한 성장 단계에서 원전이 가속 요인</td></tr>
+<tr><td>촉매 등급</td><td>중급</td><td>수주잔고 78조(6.6년치), 신한울 준공 실적 기반 — 상급은 아님</td></tr>
+<tr><td>복합 여부</td><td>복합</td><td>주택 + 신사업·플랜트 + 원전 파이프라인</td></tr>
+<tr><td>직접성</td><td>직접</td><td>건축/주택·플랜트·원전이 본업 직결</td></tr>
+<tr><td>매트릭스 기본 점수</td><td>50점</td><td>가설 4 × 중급 × 복합 = 50</td></tr>
+<tr><td>페널티 ①</td><td class="penalty">0</td><td>페널티 미적용</td></tr>
+<tr><td>페널티 ②</td><td class="penalty">0</td><td>미적용</td></tr>
+<tr class="total-row"><td>최종 투자 점수</td><td><span class="highlight-green">50점</span></td><td>50점 (주목)</td></tr>
+</tbody></table>
+<p style="font-size:11px;color:#5a6280;margin-top:8px;">페널티 5종만 적용: ①간접성 ②컨센 반영 ③잠재수주 미확정 ④단기 선반영 ⑤리스크 집중</p></section>
+
+<section><div class="section-title">⚡ 성장 인과 체인</div><div class="chain-box">
+<div class="chain-step"><div class="chain-arrow">①</div><div><div class="chain-label">구조 변화 / 촉매 <span class="chain-confirmed">● 확정 팩트</span></div><div class="chain-text">3Q25 재무건전성 개선(매출채권·미청구공사비·브릿지론 보증 감소)(●●●)</div></div></div>
+<div class="chain-step"><div class="chain-arrow">↓</div><div><div class="chain-label">매출 영향 (규모·비중 수치)</div><div class="chain-text">26E 매출 11.77조(-5.4%) 단기 감소, 27E 12.21조 회복</div></div></div>
+<div class="chain-step"><div class="chain-arrow">↓</div><div><div class="chain-label">OPM 변화 메커니즘</div><div class="chain-text">건축/주택 GPM 13.9→12.8→13.0%, 신사업 GPM 4.6→10.8%로 개선</div></div></div>
+<div class="chain-step"><div class="chain-arrow">↓</div><div><div class="chain-label">최종 실적 결과 <span class="chain-forecast">● 추정</span></div><div class="chain-text">26E 영업이익 4,490억(+2.6%), 27E 5,250억(+16.8%), OPM 3.5→3.8→4.3%</div></div></div>
+<div class="chain-step"><div class="chain-arrow">↓</div><div><div class="chain-label">시장 미반영 포인트 (So What)</div><div class="chain-text">APR1400·신한울 경험 기반 미국 원전 진출 파이프라인 — 주가 재평가</div></div></div>
+</div></section>
+
+<section><div class="section-title">📌 핵심 팩트 3줄 — WHAT + WHY + SO WHAT</div><div class="fact-item"><span class="fact-num">Fact 01</span>
+<div class="fact-what"><span class="fact-label label-what">WHAT</span>26E 매출 11.77조(-5.4% YoY), 영업이익 4,490억(+2.6%), OPM 3.8%</div>
+<div class="fact-why"><span class="fact-label label-why">WHY</span>건축/주택 매출 저점 통과, 신사업 GPM 개선(4.6→10.8%)이 이익 방어</div>
+<div class="fact-so"><span class="fact-label label-so">SO WHAT</span>27E OP 5,250억(+16.8%)까지 완만한 증익 연장</div></div><div class="fact-item"><span class="fact-num">Fact 02</span>
+<div class="fact-what"><span class="fact-label label-what">WHAT</span>현금 4.8조·단기금융상품 0.4조, 순현금 구조</div>
+<div class="fact-why"><span class="fact-label label-why">WHY</span>3Q25 재무개선으로 이자비용 부담 완화</div>
+<div class="fact-so"><span class="fact-label label-so">SO WHAT</span>원전/신사업 투자 여력 확보</div></div><div class="fact-item"><span class="fact-num">Fact 03</span>
+<div class="fact-what"><span class="fact-label label-what">WHAT</span>목표주가 53,000원 = 26E BPS 58,363원 × Target P/B 0.9배</div>
+<div class="fact-why"><span class="fact-label label-why">WHY</span>국내 peer 대비 할인, 원전 프로젝트 참여 시 격차 축소</div>
+<div class="fact-so"><span class="fact-label label-so">SO WHAT</span>리레이팅 시 Upside +41.5%</div></div></section>
+
+<section><div class="section-title">📄 원본 리포트 핵심 요약 (PDF 내용 직접 발췌)</div>
+<div style="background:#fafafa;border:1px solid #d0d4e0;border-radius:8px;padding:16px 20px;margin-bottom:12px;">
+<div style="font-size:11px;font-weight:700;color:#5a6280;margin-bottom:10px;">리포트 핵심 주장</div>
+<p style="font-size:13px;line-height:1.9;">3Q25 재무개선과 PF 부담 축소로 재무 건전성 회복. 신한울 1·2호기 준공 실적(10년 내 단위호기 준공 경험)을 바탕으로 APR1400의 미국 시장 진출 파이프라인 확대 시 원전 주가 재평가 기대. 다만 26E 단기 실적은 건축/주택 매출 둔화로 정체.</p>
+<div style="margin-top:10px;display:flex;gap:8px;flex-wrap:wrap;">
+<div style="background:#f0f2f8;border:1px solid #d0d4e0;border-radius:6px;padding:6px 12px;font-size:12px;"><span style="color:#5a6280;font-size:10px;display:block;">이전 대비 변화</span>투자의견 Buy 유지, 목표주가 53,000원으로 상향(기존 38,000원)</div>
+<div style="background:#f0f2f8;border:1px solid #d0d4e0;border-radius:6px;padding:6px 12px;font-size:12px;"><span style="color:#5a6280;font-size:10px;display:block;">컨센서스 대비</span>-</div>
+</div></div>
+<div style="background:#fafafa;border:1px solid #d0d4e0;border-radius:8px;padding:16px 20px;margin-bottom:12px;">
+<div style="font-size:11px;font-weight:700;color:#5a6280;margin-bottom:10px;">사업 구조 & 성장 동력</div>
+<table><thead><tr><th style="width:25%;">사업부</th><th style="width:20%;">매출 비중</th><th style="width:55%;">핵심 성장 드라이버</th></tr></thead><tbody><tr><td>건축/주택</td><td>56.6%</td><td>분양 감소 영향 지속, 26E 매출 6.66조(-14.5%), GPM 12.8%</td></tr><tr><td>신사업(수처리 등)</td><td>15.2%</td><td>26E 매출 1.79조(+0.5%), GPM 4.6→10.8%로 수익성 개선</td></tr><tr><td>플랜트</td><td>16.0%</td><td>26E 매출 1.89조(+43.1%) 수주 반영, GPM 8.8%</td></tr><tr><td>인프라</td><td>11.3%</td><td>26E 매출 1.33조(-8.9%), GPM 6.9%</td></tr></tbody></table>
+<p style="font-size:12px;color:#5a6280;margin-top:10px;">▶ 핵심 성장 사업부 메커니즘: 건축/주택이 분양 실적 감소로 축소하나 신사업(수처리) GPM 4.6→10.8% 급등이 수익성 방어, 원전은 신한울 준공 경험 레버리지로 미국 진출 파이프라인 확대 기대.</p></div>
+<div style="background:#fafafa;border:1px solid #d0d4e0;border-radius:8px;padding:16px 20px;margin-bottom:12px;">
+<div style="font-size:11px;font-weight:700;color:#5a6280;margin-bottom:10px;">시장 괴리 — 왜 지금 시장이 틀렸는가</div>
+<table><thead><tr><th style="width:30%;">구분</th><th>내용</th></tr></thead><tbody>
+<tr><td style="color:#5a6280;">시장 현재 인식</td><td>PF 리스크 잔존·주택 부진에 집중한 디스카운트</td></tr>
+<tr><td style="color:#2563eb;">이 리포트 주장</td><td>재무 개선·신사업 GPM 회복·원전 경험 레버리지로 비주가사 재평가</td></tr>
+<tr><td style="color:#b45309;">괴리 해소 촉매</td><td>2024년까지 원전 프로젝트 참여 공식화, APR1400 미국 진출 구체화</td></tr>
+<tr><td>괴리 강도</td><td>중</td></tr>
+</tbody></table></div>
+<div style="background:#fafafa;border:1px solid #d0d4e0;border-radius:8px;padding:16px 20px;">
+<div style="font-size:11px;font-weight:700;color:#5a6280;margin-bottom:10px;">재무 특징</div>
+<div style="display:flex;flex-wrap:wrap;gap:8px;">
+<div style="background:#f0f2f8;border:1px solid #d0d4e0;border-radius:6px;padding:8px 12px;font-size:12px;flex:1;min-width:160px;"><span style="color:#5a6280;font-size:10px;display:block;">순현금/순차입금</span>순차입금 25E 2조 9,860억, 26E 3조 320억</div>
+<div style="background:#f0f2f8;border:1px solid #d0d4e0;border-radius:6px;padding:8px 12px;font-size:12px;flex:1;min-width:160px;"><span style="color:#5a6280;font-size:10px;display:block;">부채비율</span>부채비율 25E 234.6%, 26E 223.4%</div>
+<div style="background:#f0f2f8;border:1px solid #d0d4e0;border-radius:6px;padding:8px 12px;font-size:12px;flex:1;min-width:160px;"><span style="color:#5a6280;font-size:10px;display:block;">배당·자사주</span>배당 DPS 26E 600원, 배당수익률 1.6%</div>
+<div style="background:#f0f2f8;border:1px solid #d0d4e0;border-radius:6px;padding:8px 12px;font-size:12px;flex:1;min-width:160px;"><span style="color:#5a6280;font-size:10px;display:block;">특이 이슈</span>현금 4.8조·단기 0.4조 / PF보증 8.3조로 감소</div>
+</div></div></section>
+
+<section><div class="section-title">📈 실적 전망 (연간)</div>
+<table class="data-table"><caption>단위: 십억원 | ★ = 투자 핵심 연도</caption>
+<thead><tr><th>구분</th><th>2024A</th><th>2025A</th><th style="background:#dbeafe;color:#1e40af;">2026E ★</th><th>2027E</th><th>2028E</th></tr></thead>
+<tbody><tr><td>매출액</td><td>12,864</td><td>12,450</td><td class="key-col key-num">11,772</td><td>12,208</td><td>12,986</td></tr><tr><td>YoY(%)</td><td>(4.3)</td><td>(3.2)</td><td class="key-col">(5.4)</td><td>3.7</td><td>6.4</td></tr><tr><td>영업이익</td><td>286</td><td>438</td><td class="key-col key-num">449</td><td>525</td><td>599</td></tr><tr><td>YoY(%)</td><td>흑전</td><td>53.1</td><td class="key-col">2.6</td><td>16.8</td><td>14.2</td></tr><tr><td>OPM(%)</td><td>2.2</td><td>3.5</td><td class="key-col key-opm">3.8</td><td>4.3</td><td>4.6</td></tr><tr><td>EPS(원)</td><td>2,869</td><td>1,093</td><td class="key-col">2,817</td><td>3,502</td><td>4,084</td></tr><tr><td>PER(배)</td><td>6.0</td><td>18.0</td><td class="key-col">13.3</td><td>10.7</td><td>9.2</td></tr><tr><td>PBR(배)</td><td>0.3</td><td>0.4</td><td class="key-col">0.6</td><td>0.6</td><td>0.6</td></tr><tr><td>ROE(%)</td><td>5.6</td><td>2.0</td><td class="key-col">4.7</td><td>5.9</td><td>6.5</td></tr></tbody></table>
+<p style="font-size:12px;color:#5a6280;margin-top:10px;">▶ 왜 26E가 변곡점인가: 2026E는 매출 저점 통과 직전 구간이며 OPM 3.5→3.8%로 완만 개선. 본격 레벨업은 2027E(+16.8%, OPM 4.3%) — 원전 파이프라인 현실화가 변수.</p></section>
+
+<section><div class="section-title">📅 분기별 실적 전망</div>
+<table class="data-table"><thead><tr><th>구분</th><th>1Q25</th><th>2Q25</th><th>3Q25</th><th>4Q25</th><th style="background:#dbeafe;color:#1e40af;">1Q26F ★</th><th>2Q26F</th><th>3Q26F</th><th>4Q26F</th></tr></thead>
+<tbody><tr><td>매출액</td><td>3,063</td><td>3,196</td><td>3,208</td><td>2,983</td><td class="key-col key-num">2,823</td><td>2,948</td><td>2,883</td><td>3,119</td></tr><tr><td>영업이익</td><td>70</td><td>162</td><td>148</td><td>57</td><td class="key-col key-num">118</td><td>121</td><td>113</td><td>97</td></tr><tr><td>OPM(%)</td><td>2.3</td><td>5.1</td><td>4.6</td><td>1.9</td><td class="key-col key-opm">4.2</td><td>4.1</td><td>3.9</td><td>3.1</td></tr></tbody></table>
+<p style="font-size:12px;color:#5a6280;margin-top:10px;">▶ 1Q26 매출 2.82조(-7.8%), OP 1,180억(+67.7%), OPM 4.2%. ✅ OPM 4%대 유지 시 신사업 개선 지속 / ⛔ OPM 3%대 이하 → 건축/주택 부담 지속</p></section>
+
+<section><div class="section-title">💰 밸류에이션</div>
+<div class="val-box">
+<div class="val-formula">26E BPS 58,363원 × Target P/B 0.9배 = 53,000원</div>
+<p style="color:#5a6280;font-size:12px;margin-top:8px;">▶ 왜 이 배수인가: 국내 peer 대비 할인, 원전 참여 가능성 반영 시 격차 축소</p>
+</div></section>
+
+<section><div class="section-title">⚠️ 리스크 시나리오</div><div class="risk-item risk-sev-high">
+<div class="risk-assumption">🔴 핵심 가정: 이란 전쟁 장기화 시 중동·국내 공동체 나프타 수급 불안</div>
+<div class="risk-chain">→ 가정 붕괴 시: 국내 사업장 공정 차질로 매출 인식 지연 → OP -10%<br/>→ 실적 영향: 실적 추정 하향 조정</div>
+<div class="risk-impact-num">→ 주가 영향: -10%</div></div><div class="risk-item risk-sev-mid">
+<div class="risk-assumption">🟠 두 번째 가정: 원전 파이프라인 가시화 지연(APR1400 미국 진출 등)</div>
+<div class="risk-chain">→ 가정 붕괴 시: Target P/B 0.9→0.7배 재조정<br/>→ 실적 영향: TP 53,000→41,000원 (-23%)</div>
+<div class="risk-impact-num">→ 주가 영향: -23%</div></div></section>
+
+<section><div class="section-title">🎯 모멘텀 체크포인트</div>
+<div style="background:#fafafa;border:1px solid #d0d4e0;border-radius:8px;padding:4px 16px;"><div class="checkpoint-item"><span class="cp-date">2026.Q1</span><div><div>1Q26 실적(매출 2.82조, OP 1,180억)</div><div class="cp-pass">✅ OPM 4%대 확인 시 보유</div><div class="cp-fail">⛔ OPM 3%대 이하 → 관망</div></div></div><div class="checkpoint-item"><span class="cp-date">2026 하반기</span><div><div>APR1400 미국 진출·신규 원전 수주 가시화</div><div class="cp-pass">✅ 확인 시 핵심 승격 검토</div><div class="cp-fail">⛔ 지연 시 P/B 유지</div></div></div></div></section>
+
+<section><div class="section-title">💬 사견 & 투자 행동 결론</div>
+<div class="opinion-box"><p>재무개선·원전 경험 레버리지는 긍정적이나 26E OP +2.6%로 핵심(+50%) 기준 미달. 실적 레벨업은 27E로 연기. 1Q26 실적·원전 파이프라인 구체화를 보고 진입.</p>
+<div class="decision-box"><div class="decision-btn decision-wait">⏳ 이벤트 후 진입<br/><span style="font-size:11px;font-weight:400;">1Q26 OPM 4%대 유지 확인 및 원전 프로젝트 공식 참여 발표</span></div></div></div></section>
+
+<section><div class="section-title">🚀 승격 조건 — 주목 전용</div><div class="upgrade-box"><div class="upgrade-item"><span class="upgrade-when">APR1400 미국 진출 공식 참여 발표</span><span>핵심 승격</span></div><div class="upgrade-item"><span class="upgrade-when">27E 영업이익 가이던스 상향 + OPM 4%대 안착</span><span>핵심 승격</span></div></div></section>
+
+<div class="disclaimer">※ 본 글은 증권사 리포트를 개인 학습 목적으로 요약·정리한 것이며, 투자 권유가 아닙니다.<br/>※ 제공된 PDF 파일만 활용. 외부 검색·참조 없음. 당일 발간 리포트 기준.</div>
+
+</body></html>

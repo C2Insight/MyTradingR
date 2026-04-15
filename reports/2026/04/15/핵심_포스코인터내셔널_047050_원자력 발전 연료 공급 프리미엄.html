@@ -1,0 +1,220 @@
+<!DOCTYPE html><html lang="ko"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>포스코인터내셔널 (047050) 정리</title><style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Pretendard','Apple SD Gothic Neo',-apple-system,sans-serif; background:#fff; color:#1a1d2e; line-height:1.7; font-size:14px; max-width:900px; margin:0 auto; padding:32px 20px 80px; }
+  .header { border-left:4px solid #2563eb; padding:0 0 0 16px; margin-bottom:24px; }
+  .header h1 { font-size:18px; font-weight:700; margin-bottom:10px; }
+  .price-row { display:flex; flex-wrap:wrap; gap:10px; margin-top:10px; }
+  .price-item { background:#f0f2f8; border:1px solid #d0d4e0; border-radius:6px; padding:6px 14px; font-size:13px; }
+  .price-item .label { color:#5a6280; font-size:11px; display:block; }
+  .price-item .val { font-weight:700; }
+  .upside-val { color:#059669; } .upside-negative { color:#dc2626; }
+  .tag-badge { display:inline-flex; align-items:center; gap:6px; padding:5px 14px; border-radius:20px; font-size:13px; font-weight:700; }
+  .tag-sss{background:#fff3ed;color:#c2410c;border:1px solid #f97316;}
+  .tag-ss{background:#f5f3ff;color:#6d28d9;border:1px solid #8b5cf6;}
+  .tag-core{background:#ecfdf5;color:#059669;border:1px solid #34d399;}
+  .tag-watch{background:#fffbeb;color:#b45309;border:1px solid #f59e0b;}
+  .tag-stable{background:#eff6ff;color:#1d4ed8;border:1px solid #60a5fa;}
+  .score-badge{display:inline-block;padding:5px 14px;border-radius:20px;font-size:13px;font-weight:700;background:#f0f2f8;border:1px solid #d0d4e0;}
+  .score-high{color:#059669;} .score-mid{color:#b45309;} .score-low{color:#5a6280;}
+  section { margin-bottom:28px; }
+  .section-title { font-size:11px; font-weight:700; letter-spacing:1.5px; text-transform:uppercase; color:#5a6280; border-bottom:1px solid #d0d4e0; padding-bottom:6px; margin-bottom:14px; }
+  .pdf-only-banner { background:#fff7ed; border:1px solid #f97316; border-radius:8px; padding:10px 16px; font-size:12px; color:#c2410c; margin-bottom:20px; text-align:center; font-weight:700; }
+  .thesis-box { background:#f8faff; border:1px solid #2563eb; border-radius:8px; padding:16px 20px; font-size:15px; font-weight:600; line-height:1.6; }
+  .thesis-structure { display:flex; gap:8px; align-items:center; margin-top:10px; flex-wrap:wrap; }
+  .thesis-part { background:#f0f2f8; border:1px solid #d0d4e0; border-radius:6px; padding:4px 10px; font-size:12px; }
+  .thesis-arrow { color:#2563eb; font-size:16px; }
+  .checklist { background:#fafafa; border:1px solid #d0d4e0; border-radius:8px; overflow:hidden; }
+  .checklist-item { display:flex; gap:14px; padding:12px 16px; border-bottom:1px solid #d0d4e0; }
+  .checklist-item:last-child { border-bottom:none; }
+  .check-icon { width:22px; height:22px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:12px; font-weight:700; flex-shrink:0; margin-top:1px; }
+  .check-pass { background:#ecfdf5; color:#059669; border:1px solid #34d399; }
+  .check-fail { background:#fef2f2; color:#dc2626; border:1px solid #fca5a5; }
+  .check-na { background:#f0f2f8; color:#5a6280; border:1px solid #d0d4e0; }
+  .check-label { font-weight:600; font-size:13px; }
+  .check-detail { color:#5a6280; font-size:12px; margin-top:2px; }
+  .check-why { font-size:13px; }
+  table { width:100%; border-collapse:collapse; background:#fafafa; border-radius:8px; overflow:hidden; border:1px solid #d0d4e0; }
+  thead tr { background:#f0f2f8; }
+  th { padding:10px 14px; text-align:left; font-size:11px; font-weight:700; color:#5a6280; letter-spacing:0.8px; text-transform:uppercase; }
+  td { padding:10px 14px; border-top:1px solid #d0d4e0; font-size:13px; }
+  tr.total-row td { background:#e8ecf5; font-weight:700; }
+  .penalty { color:#dc2626; } .highlight-green { color:#059669; font-weight:700; } .highlight-red { color:#dc2626; }
+  .chain-box { background:#fafafa; border:1px solid #d0d4e0; border-radius:8px; padding:16px 20px; }
+  .chain-step { display:flex; gap:12px; margin-bottom:10px; }
+  .chain-step:last-child { margin-bottom:0; }
+  .chain-arrow { color:#2563eb; font-size:16px; flex-shrink:0; margin-top:1px; }
+  .chain-label { font-size:10px; font-weight:700; letter-spacing:1px; color:#5a6280; text-transform:uppercase; margin-bottom:2px; }
+  .chain-text { font-size:13px; }
+  .chain-confirmed { color:#059669; font-size:11px; margin-left:6px; }
+  .chain-forecast { color:#b45309; font-size:11px; margin-left:6px; }
+  .fact-item { background:#fafafa; border:1px solid #d0d4e0; border-radius:8px; padding:14px 16px; margin-bottom:8px; }
+  .fact-num { font-size:10px; font-weight:700; color:#2563eb; letter-spacing:1px; margin-bottom:8px; display:block; }
+  .fact-what { font-weight:600; font-size:14px; margin-bottom:6px; }
+  .fact-why { font-size:13px; color:#5a6280; margin-bottom:6px; }
+  .fact-so { font-size:13px; color:#059669; }
+  .fact-label { display:inline-block; font-size:10px; font-weight:700; padding:1px 6px; border-radius:3px; margin-right:4px; }
+  .label-what { background:#eff6ff; color:#1d4ed8; }
+  .label-why { background:#fff7ed; color:#ea580c; }
+  .label-so { background:#ecfdf5; color:#059669; }
+  .data-table th { background:#e8ecf5; }
+  .data-table td.key-col { background:#f0f6ff; }
+  .data-table .key-num { color:#059669; font-weight:700; }
+  .data-table .key-opm { color:#b45309; }
+  caption { font-size:11px; color:#5a6280; text-align:left; padding:0 0 8px; caption-side:top; }
+  .val-box { background:#fafafa; border:1px solid #d0d4e0; border-radius:8px; padding:16px 20px; font-size:13px; line-height:2; }
+  .val-formula { background:#f0f2f8; border-radius:6px; padding:10px 14px; font-family:monospace; font-size:13px; margin:10px 0; color:#b45309; }
+  .risk-item { background:#fafafa; border-radius:0 6px 6px 0; padding:14px 16px; margin-bottom:10px; }
+  .risk-sev-high { border-left:3px solid #dc2626; }
+  .risk-sev-mid { border-left:3px solid #ea580c; }
+  .risk-assumption { font-weight:600; font-size:13px; margin-bottom:4px; }
+  .risk-chain { font-size:12px; color:#5a6280; margin:4px 0; }
+  .risk-impact-num { font-size:13px; color:#dc2626; font-weight:600; margin-top:4px; }
+  .checkpoint-item { display:flex; gap:12px; padding:10px 0; border-bottom:1px solid #d0d4e0; font-size:13px; }
+  .checkpoint-item:last-child { border-bottom:none; }
+  .cp-date { color:#2563eb; font-weight:600; min-width:90px; }
+  .cp-pass { color:#059669; font-size:12px; margin-top:2px; }
+  .cp-fail { color:#dc2626; font-size:12px; margin-top:2px; }
+  .opinion-box { background:#fafafa; border:1px solid #d0d4e0; border-radius:8px; padding:16px 20px; font-size:13px; line-height:1.8; color:#1a1d2e; }
+  .decision-box { display:flex; gap:14px; margin-top:14px; }
+  .decision-btn { flex:1; text-align:center; padding:10px; border-radius:6px; font-weight:700; font-size:13px; border:1px solid; }
+  .decision-buy{background:#ecfdf5;color:#059669;border-color:#34d399;}
+  .decision-wait{background:#fffbeb;color:#b45309;border-color:#f59e0b;}
+  .decision-avoid{background:#fef2f2;color:#dc2626;border-color:#fca5a5;}
+  .upgrade-box { background:#eff6ff; border:1px solid #93c5fd; border-radius:8px; padding:14px 16px; }
+  .upgrade-item { display:flex; gap:10px; padding:6px 0; border-bottom:1px solid #dbeafe; font-size:13px; }
+  .upgrade-item:last-child { border-bottom:none; }
+  .upgrade-when { color:#1d4ed8; font-weight:600; min-width:140px; }
+  .disclaimer { font-size:11px; color:#9ca3af; text-align:center; margin-top:40px; padding-top:16px; border-top:1px solid #d0d4e0; }
+</style></head><body>
+<div class="pdf-only-banner">🚫 외부 검색 금지 — 제공된 PDF 파일만 활용 | 당일(2026.04.15) 발간 리포트 기준</div>
+
+<header class="header">
+<div style="color:#5a6280;font-size:12px;margin-bottom:6px;">원자력 발전 연료 공급 프리미엄</div>
+<h1>포스코인터내셔널 (047050) | 유진투자증권 황성현 | 발간일: 2026.04.15</h1>
+<div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-bottom:12px;">
+<span class="tag-badge tag-core">⭐ 핵심</span><span class="score-badge score-mid">📊 70점</span><span style="font-size:12px;color:#5a6280;">비바이오</span></div>
+<div class="price-row">
+<div class="price-item"><span class="label">투자의견</span><span class="val">BUY(유지)</span></div>
+<div class="price-item"><span class="label">목표주가(TP)</span><span class="val">100,000원</span></div>
+<div class="price-item"><span class="label">현재주가(CP)</span><span class="val">72,400원</span></div>
+<div class="price-item"><span class="label">Upside</span><span class="val upside-val">+38.1%</span></div>
+<div class="price-item"><span class="label">시가총액</span><span class="val">12,737억원</span></div>
+<div class="price-item"><span class="label">종목 유형</span><span class="val">비바이오</span></div>
+</div></header>
+
+<section><div class="section-title">💡 이 종목에 투자해야 하는 이유 — 스토리 한 줄</div>
+<div class="thesis-box">한수원·센트러스·포스코인터 3자 MOU(●●●) → 농축우라늄 공급망 확보. 26E OP 1.36조(+17%), OPM 4.6% — 목표주가 100,000원 상향, Upside 38.1%</div>
+<div class="thesis-structure">
+<div class="thesis-part" style="color:#059669;">① 확정 팩트<br/>한수원·센트러스·포스코인터 3자 MOU(●●●) 원심분리 공동 투자 + 농축우라늄 트레이딩</div>
+<div class="thesis-arrow">→</div>
+<div class="thesis-part" style="color:#b45309;">② 실적 변화<br/>26E OP 1.36조(+17.0%), OPM 3.6→4.6%(+1.0%p)</div>
+<div class="thesis-arrow">→</div>
+<div class="thesis-part" style="color:#2563eb;">③ 시장 미반영<br/>TP 80,000→100,000원 상향, Upside 38.1%</div>
+</div></section>
+
+<section><div class="section-title">✅ 핵심 태그 5가지 조건 체크</div>
+<div class="checklist"><div class="checklist-item"><div class="check-icon check-fail">✗</div><div><div class="check-label">조건 1 | 영업이익 성장 임계값</div><div class="check-detail">26E OP +50%+ AND (OPM +3%p+ OR OPM 15%+ 유지)</div><div class="check-why">26E OP +17.0% — +50% 미달, OPM +1.0%p 3%p 미달</div></div></div><div class="checklist-item"><div class="check-icon check-pass">✓</div><div><div class="check-label">조건 2 | 3년 지속성 (3개 이상 충족)</div><div class="check-detail">수주잔고 / CAPA / 독점·특허 / Lock-in / CAGR 15%+ / 리커링</div><div class="check-why">미얀마 가스전 4단계 연 3,000억+ / 우라늄·희토류 / 알래스카 LNG / 핵연료 장기계약 — 3개+</div></div></div><div class="checklist-item"><div class="check-icon check-pass">✓</div><div><div class="check-label">조건 3 | 확정 팩트(●●●) 2개 이상</div><div class="check-detail">수주확정·인허가·계약공시·실적 확인</div><div class="check-why">25.08 한미 정상회담 MOU + 25.06 센트러스 양산 + 미얀마 판가 강세 ●●● — 2개+</div></div></div><div class="checklist-item"><div class="check-icon check-fail">✗</div><div><div class="check-label">조건 4 | 시장 미반영</div><div class="check-detail">Upside 40%+ OR 컨센 괴리 +20%+</div><div class="check-why">Upside 38.1% — 40% 소폭 미달</div></div></div><div class="checklist-item"><div class="check-icon check-pass">✓</div><div><div class="check-label">조건 5 | 차별화된 시각</div><div class="check-detail">신규 커버리지·고유 근거·컨센 상회 추정치</div><div class="check-why">LNG→원전 연료 벨류체인 확장 차별화</div></div></div></div>
+<p style="font-size:11px;color:#dc2626;margin-top:8px;">⚠️ 1개라도 ✗ → 핵심에서 주목으로 강등 필수 (손실 방지 원칙)</p></section>
+
+<section><div class="section-title">📊 투자 점수 판정 (v2.0)</div>
+<table><thead><tr><th>항목</th><th>판정</th><th>근거 (Why)</th></tr></thead><tbody>
+<tr><td>종목 유형</td><td>비바이오</td><td>종합상사·에너지</td></tr>
+<tr><td>적용 가설</td><td>가설 2</td><td>26E OP +17% 성장, 우라늄·희토류 신사업 + LNG 자산 인수</td></tr>
+<tr><td>촉매 등급</td><td>상급</td><td>한수원(한국 원전 1위) + 센트러스(미국 농축 1위) 3자 MOU, 정상회담 계기</td></tr>
+<tr><td>복합 여부</td><td>복합</td><td>원심분리 + 미얀마 4단계 + 호주 세넥스 + 알래스카 LNG + 미국 LNG 자산</td></tr>
+<tr><td>직접성</td><td>직접</td><td>에너지 영업이익 직접 증가</td></tr>
+<tr><td>매트릭스 기본 점수</td><td>80점</td><td>가설 2 + 상급·복합 = 80</td></tr>
+<tr><td>페널티 ①</td><td class="penalty">-10</td><td>원심분리·알래스카 LNG FID·미국 LNG 자산 MOU 단계 30%+ 미확정</td></tr>
+<tr><td>페널티 ②</td><td class="penalty">0</td><td>해당 없음</td></tr>
+<tr class="total-row"><td>최종 투자 점수</td><td><span class="highlight-green">70점</span></td><td>80 - 10 = 70점</td></tr>
+</tbody></table>
+<p style="font-size:11px;color:#5a6280;margin-top:8px;">페널티 5종만 적용: ①간접성 ②컨센 반영 ③잠재수주 미확정 ④단기 선반영 ⑤리스크 집중</p></section>
+
+<section><div class="section-title">⚡ 성장 인과 체인</div><div class="chain-box">
+<div class="chain-step"><div class="chain-arrow">①</div><div><div class="chain-label">구조 변화 / 촉매 <span class="chain-confirmed">● 확정 팩트</span></div><div class="chain-text">25.08 한미 정상회담 계기 한수원·센트러스·포스코인터 3자 MOU(●●●)</div></div></div>
+<div class="chain-step"><div class="chain-arrow">↓</div><div><div class="chain-label">매출 영향 (규모·비중 수치)</div><div class="chain-text">미국 내 신규 원심분리 공동 투자 + 농축 협력 — 핵연료 벨류체인 프리미엄</div></div></div>
+<div class="chain-step"><div class="chain-arrow">↓</div><div><div class="chain-label">OPM 변화 메커니즘</div><div class="chain-text">26E 매출 29.6조(-8.5%)·OP 1.36조(+17.0%), OPM 3.6→4.6% — 에너지 OP 642→660</div></div></div>
+<div class="chain-step"><div class="chain-arrow">↓</div><div><div class="chain-label">최종 실적 결과 <span class="chain-forecast">● 추정</span></div><div class="chain-text">미얀마 가스전 4단계 시 연 3,000억+, 호주 세넥스 물량·가격 상승</div></div></div>
+<div class="chain-step"><div class="chain-arrow">↓</div><div><div class="chain-label">시장 미반영 포인트 (So What)</div><div class="chain-text">우라늄·희토류·알래스카 LNG 신성장 옵션 시장 미반영 — 상승세</div></div></div>
+</div></section>
+
+<section><div class="section-title">📌 핵심 팩트 3줄 — WHAT + WHY + SO WHAT</div><div class="fact-item"><span class="fact-num">Fact 01</span>
+<div class="fact-what"><span class="fact-label label-what">WHAT</span>26E 매출 29.6조, OP 1.36조(+17.0%), OPM 4.6%(+1.0%p)</div>
+<div class="fact-why"><span class="fact-label label-why">WHY</span>전쟁 국제유가 상승 + 미얀마 판가 강세 + 호주 세넥스 + 팜</div>
+<div class="fact-so"><span class="fact-label label-so">SO WHAT</span>26E EV/EBITDA 8.8배, PER 17.9배 — 밸류 상향</div></div><div class="fact-item"><span class="fact-num">Fact 02</span>
+<div class="fact-what"><span class="fact-label label-what">WHAT</span>한수원·센트러스·포스코인터 3자 MOU(●●●)</div>
+<div class="fact-why"><span class="fact-label label-why">WHY</span>한미 정상회담 계기, 센트러스 25.06 양산 성공 농축</div>
+<div class="fact-so"><span class="fact-label label-so">SO WHAT</span>핵연료 트레이딩은 장기계약 기반 고수익 기대</div></div><div class="fact-item"><span class="fact-num">Fact 03</span>
+<div class="fact-what"><span class="fact-label label-what">WHAT</span>미얀마 4단계 완료 시 연간 3,000억+</div>
+<div class="fact-why"><span class="fact-label label-why">WHY</span>미얀마 판가 강세, 호주 세넥스 물량·가격, 팜 복합</div>
+<div class="fact-so"><span class="fact-label label-so">SO WHAT</span>28년까지 신성장 옵션 상당 — 알래스카 LNG FID, 미국 LNG 자산</div></div></section>
+
+<section><div class="section-title">📄 원본 리포트 핵심 요약 (PDF 내용 직접 발췌)</div>
+<div style="background:#fafafa;border:1px solid #d0d4e0;border-radius:8px;padding:16px 20px;margin-bottom:12px;">
+<div style="font-size:11px;font-weight:700;color:#5a6280;margin-bottom:10px;">리포트 핵심 주장</div>
+<p style="font-size:13px;line-height:1.9;">포스코인터내셔널 목표주가 100,000원 상향, BUY 유지. 일본 5대 종합상사 주가 상승으로 밸류 상향. LNG 밸류체인 확대, 우라늄·희토류·알래스카 LNG는 신성장 옵션으로 주가 상승세 지속.</p>
+<div style="margin-top:10px;display:flex;gap:8px;flex-wrap:wrap;">
+<div style="background:#f0f2f8;border:1px solid #d0d4e0;border-radius:6px;padding:6px 12px;font-size:12px;"><span style="color:#5a6280;font-size:10px;display:block;">이전 대비 변화</span>TP 80,000→100,000원 상향, BUY 유지</div>
+<div style="background:#f0f2f8;border:1px solid #d0d4e0;border-radius:6px;padding:6px 12px;font-size:12px;"><span style="color:#5a6280;font-size:10px;display:block;">컨센서스 대비</span>-</div>
+</div></div>
+<div style="background:#fafafa;border:1px solid #d0d4e0;border-radius:8px;padding:16px 20px;margin-bottom:12px;">
+<div style="font-size:11px;font-weight:700;color:#5a6280;margin-bottom:10px;">사업 구조 & 성장 동력</div>
+<table><thead><tr><th style="width:25%;">사업부</th><th style="width:20%;">매출 비중</th><th style="width:55%;">핵심 성장 드라이버</th></tr></thead><tbody><tr><td>에너지</td><td>26E 4,078십억(OPM 16.2%)</td><td>미얀마 가스전 판가 + 호주 세넥스 증설</td></tr><tr><td>상사/기타</td><td>26E 25,538십억(OPM 2.8%)</td><td>우라늄·희토류·핵연료 트레이딩</td></tr><tr><td>원자력 연료(신규)</td><td>MOU 단계</td><td>한수원·센트러스 3자 MOU</td></tr><tr><td>LNG 벨류체인</td><td>자산 인수 추진</td><td>미국 LNG, 알래스카 FID</td></tr></tbody></table>
+<p style="font-size:12px;color:#5a6280;margin-top:10px;">▶ 핵심 성장 사업부 메커니즘: 종합상사 벨류체인 — 에너지(미얀마·호주) 판가·물량 상승으로 OPM 16% 견조, 상사/기타 OPM 1.8→2.8% 개선. 3자 MOU로 미국 원심분리 공동 투자·HALEU 확보 → 우라늄 장기계약 고수익화. LNG·원전·희토류 복합 옵션.</p></div>
+<div style="background:#fafafa;border:1px solid #d0d4e0;border-radius:8px;padding:16px 20px;margin-bottom:12px;">
+<div style="font-size:11px;font-weight:700;color:#5a6280;margin-bottom:10px;">시장 괴리 — 왜 지금 시장이 틀렸는가</div>
+<table><thead><tr><th style="width:30%;">구분</th><th>내용</th></tr></thead><tbody>
+<tr><td style="color:#5a6280;">시장 현재 인식</td><td>종합상사 밸류, 에너지 유가 민감도 위주</td></tr>
+<tr><td style="color:#2563eb;">이 리포트 주장</td><td>LNG·원전·희토류 신성장 옵션 — 일본 5대 종합상사 수준 리레이팅</td></tr>
+<tr><td style="color:#b45309;">괴리 해소 촉매</td><td>26년 알래스카 LNG FID, 원심분리 본계약, 미얀마 4단계</td></tr>
+<tr><td>괴리 강도</td><td>강</td></tr>
+</tbody></table></div>
+<div style="background:#fafafa;border:1px solid #d0d4e0;border-radius:8px;padding:16px 20px;">
+<div style="font-size:11px;font-weight:700;color:#5a6280;margin-bottom:10px;">재무 특징</div>
+<div style="display:flex;flex-wrap:wrap;gap:8px;">
+<div style="background:#f0f2f8;border:1px solid #d0d4e0;border-radius:6px;padding:8px 12px;font-size:12px;flex:1;min-width:160px;"><span style="color:#5a6280;font-size:10px;display:block;">순현금/순차입금</span>시가총액 12,737억, 주식 175,923천</div>
+<div style="background:#f0f2f8;border:1px solid #d0d4e0;border-radius:6px;padding:8px 12px;font-size:12px;flex:1;min-width:160px;"><span style="color:#5a6280;font-size:10px;display:block;">부채비율</span>26E EPS 4,040원, PER 17.9, EV/EBITDA 8.8</div>
+<div style="background:#f0f2f8;border:1px solid #d0d4e0;border-radius:6px;padding:8px 12px;font-size:12px;flex:1;min-width:160px;"><span style="color:#5a6280;font-size:10px;display:block;">배당·자사주</span>26E ROE 10.4%, 순차입금/자본 77.1%</div>
+<div style="background:#f0f2f8;border:1px solid #d0d4e0;border-radius:6px;padding:8px 12px;font-size:12px;flex:1;min-width:160px;"><span style="color:#5a6280;font-size:10px;display:block;">특이 이슈</span>배당수익률 26E 2.6%, DPS 2,000원</div>
+</div></div></section>
+
+<section><div class="section-title">📈 실적 전망 (연간)</div>
+<table class="data-table"><caption>단위: 십억원 | ★ = 투자 핵심 연도</caption>
+<thead><tr><th>구분</th><th>2023A</th><th>2024A</th><th style="background:#dbeafe;color:#1e40af;">2025A ★</th><th>2026E</th><th>2027E</th></tr></thead>
+<tbody><tr><td>매출액</td><td>33,133</td><td>32,341</td><td class="key-col key-num">32,374</td><td>29,617</td><td>32,075</td></tr><tr><td>YoY(%)</td><td>(12.8)</td><td>(2.4)</td><td class="key-col">0.1</td><td>(8.5)</td><td>8.3</td></tr><tr><td>영업이익</td><td>1,163</td><td>1,117</td><td class="key-col key-num">1,165</td><td>1,364</td><td>1,524</td></tr><tr><td>OPM(%)</td><td>3.5</td><td>3.5</td><td class="key-col key-opm">3.6</td><td>4.6</td><td>4.8</td></tr><tr><td>지배순이익</td><td>674</td><td>515</td><td class="key-col">614</td><td>711</td><td>815</td></tr><tr><td>EPS(원)</td><td>3,831</td><td>2,925</td><td class="key-col">3,491</td><td>4,040</td><td>4,630</td></tr><tr><td>PER(배)</td><td>16.3</td><td>13.6</td><td class="key-col">20.7</td><td>17.9</td><td>15.6</td></tr><tr><td>PBR(배)</td><td>1.8</td><td>1.1</td><td class="key-col">1.8</td><td>1.8</td><td>1.7</td></tr><tr><td>ROE(%)</td><td>13.4</td><td>8.1</td><td class="key-col">9.3</td><td>10.4</td><td>11.2</td></tr></tbody></table>
+<p style="font-size:12px;color:#5a6280;margin-top:10px;">▶ 왜 26E가 변곡점인가: 26E 변곡점 — 미얀마 판가 + 3자 MOU 본계약 + OPM 3.6→4.6% 점프, 알래스카 LNG FID 가시화 시 상향</p></section>
+
+<section><div class="section-title">📅 분기별 실적 전망</div>
+<table class="data-table"><thead><tr><th>구분</th><th>1Q25</th><th>2Q25</th><th>3Q25</th><th>4Q25</th><th style="background:#dbeafe;color:#1e40af;">1Q26 ★</th><th>2Q26</th><th>3Q26</th><th>4Q26</th></tr></thead>
+<tbody><tr><td>매출액</td><td>8,154</td><td>8,144</td><td>8,248</td><td>7,828</td><td class="key-col key-num">7,423</td><td>7,345</td><td>7,460</td><td>7,389</td></tr><tr><td>영업이익</td><td>270</td><td>314</td><td>316</td><td>266</td><td class="key-col key-num">285</td><td>302</td><td>393</td><td>383</td></tr><tr><td>OPM(%)</td><td>3.3</td><td>3.9</td><td>3.8</td><td>3.4</td><td class="key-col key-opm">3.8</td><td>4.1</td><td>5.3</td><td>5.2</td></tr></tbody></table>
+<p style="font-size:12px;color:#5a6280;margin-top:10px;">▶ 3Q26 OP 393십억(OPM 5.3%) — 미얀마 4단계 반영 체크. ✅ 3Q26 OP 393 달성 → 핵심 유지</p></section>
+
+<section><div class="section-title">💰 밸류에이션</div>
+<div class="val-box">
+<div class="val-formula">에너지 + 상사 SOTP → 100,000원 (글로벌 종합상사·LNG 벨류 준용)</div>
+<p style="color:#5a6280;font-size:12px;margin-top:8px;">▶ 왜 이 배수인가: 일본 5대 종합상사 상승으로 밸류 상향, 신성장 옵션(원전연료·LNG) 프리미엄</p>
+</div></section>
+
+<section><div class="section-title">⚠️ 리스크 시나리오</div><div class="risk-item risk-sev-high">
+<div class="risk-assumption">🔴 핵심 가정: 3자 MOU 본계약 지연</div>
+<div class="risk-chain">→ 가정 붕괴 시: 원심분리 투자 무산, 신사업 프리미엄 소멸<br/>→ 실적 영향: TP 80,000원 -20%</div>
+<div class="risk-impact-num">→ 주가 영향: -20%</div></div><div class="risk-item risk-sev-mid">
+<div class="risk-assumption">🟠 두 번째 가정: 유가 하락 + 미얀마 판가 약세</div>
+<div class="risk-chain">→ 가정 붕괴 시: 에너지 OP 660→550, 전체 1.25조<br/>→ 실적 영향: TP -10~15%</div>
+<div class="risk-impact-num">→ 주가 영향: -15%</div></div><div class="risk-item risk-sev-mid">
+<div class="risk-assumption">🟠 두 번째 가정: 알래스카 LNG FID 무산</div>
+<div class="risk-chain">→ 가정 붕괴 시: 신성장 삭제<br/>→ 실적 영향: 리레이팅 축소</div>
+<div class="risk-impact-num">→ 주가 영향: -10%</div></div></section>
+
+<section><div class="section-title">🎯 모멘텀 체크포인트</div>
+<div style="background:#fafafa;border:1px solid #d0d4e0;border-radius:8px;padding:4px 16px;"><div class="checkpoint-item"><span class="cp-date">2026.05</span><div><div>1Q26 — OP 285십억, OPM 3.8%</div><div class="cp-pass">✅ 확인 시 보유</div><div class="cp-fail">⛔ 미달 → 관망</div></div></div><div class="checkpoint-item"><span class="cp-date">2026 연내</span><div><div>3자 MOU 원심분리 본계약</div><div class="cp-pass">✅ 본계약 확인 → SS 승격 검토</div><div class="cp-fail">⛔ 지연 → 프리미엄 축소</div></div></div><div class="checkpoint-item"><span class="cp-date">2026~27</span><div><div>알래스카 LNG FID + 미얀마 4단계</div><div class="cp-pass">✅ FID + 4단계 확인 → 추가 매수</div><div class="cp-fail">⛔ 무산 → 신성장 삭제</div></div></div></div></section>
+
+<section><div class="section-title">💬 사견 & 투자 행동 결론</div>
+<div class="opinion-box"><p>LNG 벨류체인 + 원전연료·우라늄·희토류 신성장 옵션 복합 작동. TP 100,000원 상향에도 Upside 38.1%로 차별화. 한미 정상회담 기반 3자 MOU는 ●●● 확정, 신사업 옵션 본격 반영 시 리레이팅.</p>
+<div class="decision-box"><div class="decision-btn decision-buy">✅ 지금 진입 가능<br/><span style="font-size:11px;font-weight:400;">핵심+ & 60점+ 충족</span></div></div></div></section>
+
+
+
+<div class="disclaimer">※ 본 글은 증권사 리포트를 개인 학습 목적으로 요약·정리한 것이며, 투자 권유가 아닙니다.<br/>※ 제공된 PDF 파일만 활용. 외부 검색·참조 없음. 당일 발간 리포트 기준.</div>
+
+</body></html>

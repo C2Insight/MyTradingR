@@ -1,0 +1,214 @@
+<!DOCTYPE html><html lang="ko"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>아이엠바이오로직스 (493280) 정리</title><style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Pretendard','Apple SD Gothic Neo',-apple-system,sans-serif; background:#fff; color:#1a1d2e; line-height:1.7; font-size:14px; max-width:900px; margin:0 auto; padding:32px 20px 80px; }
+  .header { border-left:4px solid #2563eb; padding:0 0 0 16px; margin-bottom:24px; }
+  .header h1 { font-size:18px; font-weight:700; margin-bottom:10px; }
+  .price-row { display:flex; flex-wrap:wrap; gap:10px; margin-top:10px; }
+  .price-item { background:#f0f2f8; border:1px solid #d0d4e0; border-radius:6px; padding:6px 14px; font-size:13px; }
+  .price-item .label { color:#5a6280; font-size:11px; display:block; }
+  .price-item .val { font-weight:700; }
+  .upside-val { color:#059669; } .upside-negative { color:#dc2626; }
+  .tag-badge { display:inline-flex; align-items:center; gap:6px; padding:5px 14px; border-radius:20px; font-size:13px; font-weight:700; }
+  .tag-sss{background:#fff3ed;color:#c2410c;border:1px solid #f97316;}
+  .tag-ss{background:#f5f3ff;color:#6d28d9;border:1px solid #8b5cf6;}
+  .tag-core{background:#ecfdf5;color:#059669;border:1px solid #34d399;}
+  .tag-watch{background:#fffbeb;color:#b45309;border:1px solid #f59e0b;}
+  .tag-stable{background:#eff6ff;color:#1d4ed8;border:1px solid #60a5fa;}
+  .score-badge{display:inline-block;padding:5px 14px;border-radius:20px;font-size:13px;font-weight:700;background:#f0f2f8;border:1px solid #d0d4e0;}
+  .score-high{color:#059669;} .score-mid{color:#b45309;} .score-low{color:#5a6280;}
+  section { margin-bottom:28px; }
+  .section-title { font-size:11px; font-weight:700; letter-spacing:1.5px; text-transform:uppercase; color:#5a6280; border-bottom:1px solid #d0d4e0; padding-bottom:6px; margin-bottom:14px; }
+  .pdf-only-banner { background:#fff7ed; border:1px solid #f97316; border-radius:8px; padding:10px 16px; font-size:12px; color:#c2410c; margin-bottom:20px; text-align:center; font-weight:700; }
+  .thesis-box { background:#f8faff; border:1px solid #2563eb; border-radius:8px; padding:16px 20px; font-size:15px; font-weight:600; line-height:1.6; }
+  .thesis-structure { display:flex; gap:8px; align-items:center; margin-top:10px; flex-wrap:wrap; }
+  .thesis-part { background:#f0f2f8; border:1px solid #d0d4e0; border-radius:6px; padding:4px 10px; font-size:12px; }
+  .thesis-arrow { color:#2563eb; font-size:16px; }
+  .checklist { background:#fafafa; border:1px solid #d0d4e0; border-radius:8px; overflow:hidden; }
+  .checklist-item { display:flex; gap:14px; padding:12px 16px; border-bottom:1px solid #d0d4e0; }
+  .checklist-item:last-child { border-bottom:none; }
+  .check-icon { width:22px; height:22px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:12px; font-weight:700; flex-shrink:0; margin-top:1px; }
+  .check-pass { background:#ecfdf5; color:#059669; border:1px solid #34d399; }
+  .check-fail { background:#fef2f2; color:#dc2626; border:1px solid #fca5a5; }
+  .check-na { background:#f0f2f8; color:#5a6280; border:1px solid #d0d4e0; }
+  .check-label { font-weight:600; font-size:13px; }
+  .check-detail { color:#5a6280; font-size:12px; margin-top:2px; }
+  .check-why { font-size:13px; }
+  table { width:100%; border-collapse:collapse; background:#fafafa; border-radius:8px; overflow:hidden; border:1px solid #d0d4e0; }
+  thead tr { background:#f0f2f8; }
+  th { padding:10px 14px; text-align:left; font-size:11px; font-weight:700; color:#5a6280; letter-spacing:0.8px; text-transform:uppercase; }
+  td { padding:10px 14px; border-top:1px solid #d0d4e0; font-size:13px; }
+  tr.total-row td { background:#e8ecf5; font-weight:700; }
+  .penalty { color:#dc2626; } .highlight-green { color:#059669; font-weight:700; } .highlight-red { color:#dc2626; }
+  .chain-box { background:#fafafa; border:1px solid #d0d4e0; border-radius:8px; padding:16px 20px; }
+  .chain-step { display:flex; gap:12px; margin-bottom:10px; }
+  .chain-step:last-child { margin-bottom:0; }
+  .chain-arrow { color:#2563eb; font-size:16px; flex-shrink:0; margin-top:1px; }
+  .chain-label { font-size:10px; font-weight:700; letter-spacing:1px; color:#5a6280; text-transform:uppercase; margin-bottom:2px; }
+  .chain-text { font-size:13px; }
+  .chain-confirmed { color:#059669; font-size:11px; margin-left:6px; }
+  .chain-forecast { color:#b45309; font-size:11px; margin-left:6px; }
+  .fact-item { background:#fafafa; border:1px solid #d0d4e0; border-radius:8px; padding:14px 16px; margin-bottom:8px; }
+  .fact-num { font-size:10px; font-weight:700; color:#2563eb; letter-spacing:1px; margin-bottom:8px; display:block; }
+  .fact-what { font-weight:600; font-size:14px; margin-bottom:6px; }
+  .fact-why { font-size:13px; color:#5a6280; margin-bottom:6px; }
+  .fact-so { font-size:13px; color:#059669; }
+  .fact-label { display:inline-block; font-size:10px; font-weight:700; padding:1px 6px; border-radius:3px; margin-right:4px; }
+  .label-what { background:#eff6ff; color:#1d4ed8; }
+  .label-why { background:#fff7ed; color:#ea580c; }
+  .label-so { background:#ecfdf5; color:#059669; }
+  .data-table th { background:#e8ecf5; }
+  .data-table td.key-col { background:#f0f6ff; }
+  .data-table .key-num { color:#059669; font-weight:700; }
+  .data-table .key-opm { color:#b45309; }
+  caption { font-size:11px; color:#5a6280; text-align:left; padding:0 0 8px; caption-side:top; }
+  .val-box { background:#fafafa; border:1px solid #d0d4e0; border-radius:8px; padding:16px 20px; font-size:13px; line-height:2; }
+  .val-formula { background:#f0f2f8; border-radius:6px; padding:10px 14px; font-family:monospace; font-size:13px; margin:10px 0; color:#b45309; }
+  .risk-item { background:#fafafa; border-radius:0 6px 6px 0; padding:14px 16px; margin-bottom:10px; }
+  .risk-sev-high { border-left:3px solid #dc2626; }
+  .risk-sev-mid { border-left:3px solid #ea580c; }
+  .risk-assumption { font-weight:600; font-size:13px; margin-bottom:4px; }
+  .risk-chain { font-size:12px; color:#5a6280; margin:4px 0; }
+  .risk-impact-num { font-size:13px; color:#dc2626; font-weight:600; margin-top:4px; }
+  .checkpoint-item { display:flex; gap:12px; padding:10px 0; border-bottom:1px solid #d0d4e0; font-size:13px; }
+  .checkpoint-item:last-child { border-bottom:none; }
+  .cp-date { color:#2563eb; font-weight:600; min-width:90px; }
+  .cp-pass { color:#059669; font-size:12px; margin-top:2px; }
+  .cp-fail { color:#dc2626; font-size:12px; margin-top:2px; }
+  .opinion-box { background:#fafafa; border:1px solid #d0d4e0; border-radius:8px; padding:16px 20px; font-size:13px; line-height:1.8; color:#1a1d2e; }
+  .decision-box { display:flex; gap:14px; margin-top:14px; }
+  .decision-btn { flex:1; text-align:center; padding:10px; border-radius:6px; font-weight:700; font-size:13px; border:1px solid; }
+  .decision-buy{background:#ecfdf5;color:#059669;border-color:#34d399;}
+  .decision-wait{background:#fffbeb;color:#b45309;border-color:#f59e0b;}
+  .decision-avoid{background:#fef2f2;color:#dc2626;border-color:#fca5a5;}
+  .upgrade-box { background:#eff6ff; border:1px solid #93c5fd; border-radius:8px; padding:14px 16px; }
+  .upgrade-item { display:flex; gap:10px; padding:6px 0; border-bottom:1px solid #dbeafe; font-size:13px; }
+  .upgrade-item:last-child { border-bottom:none; }
+  .upgrade-when { color:#1d4ed8; font-weight:600; min-width:140px; }
+  .disclaimer { font-size:11px; color:#9ca3af; text-align:center; margin-top:40px; padding-top:16px; border-top:1px solid #d0d4e0; }
+</style></head><body>
+<div class="pdf-only-banner">🚫 외부 검색 금지 — 제공된 PDF 파일만 활용 | 당일(2026.04.15) 발간 리포트 기준</div>
+
+<header class="header">
+<div style="color:#5a6280;font-size:12px;margin-bottom:6px;">2H27 IMB-101 탑라인 데이터 주목</div>
+<h1>아이엠바이오로직스 (493280) | 교보증권 - | 발간일: 2026.04.15</h1>
+<div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-bottom:12px;">
+<span class="tag-badge tag-watch">🔥 주목</span><span class="score-badge score-low">📊 40점</span><span style="font-size:12px;color:#5a6280;">바이오</span></div>
+<div class="price-row">
+<div class="price-item"><span class="label">투자의견</span><span class="val">Not Rated</span></div>
+<div class="price-item"><span class="label">목표주가(TP)</span><span class="val">-</span></div>
+<div class="price-item"><span class="label">현재주가(CP)</span><span class="val">60,900원</span></div>
+<div class="price-item"><span class="label">Upside</span><span class="val upside-val">-</span></div>
+<div class="price-item"><span class="label">시가총액</span><span class="val">8,999억원</span></div>
+<div class="price-item"><span class="label">종목 유형</span><span class="val">바이오</span></div>
+</div></header>
+
+<section><div class="section-title">💡 이 종목에 투자해야 하는 이유 — 스토리 한 줄</div>
+<div class="thesis-box">이중항체 기반 자가면역 파이프라인 IMB-101·IMB-102 보유(●●●). 27년 IMB-101 임상 2상 탑라인(●●○) → 2028년 빅파마 빅딜 기대. OX40L 단일항체 대비 차별화.</div>
+<div class="thesis-structure">
+<div class="thesis-part" style="color:#059669;">① 확정 팩트<br/>IMB-101 미국 2상 IND 승인·화농성 한선염 2.4조 시장(●●●)</div>
+<div class="thesis-arrow">→</div>
+<div class="thesis-part" style="color:#b45309;">② 실적 변화<br/>2H27 IMB-101 2상 탑라인 + IMB-102 NAV-340 공동 개발(●●○)</div>
+<div class="thesis-arrow">→</div>
+<div class="thesis-part" style="color:#2563eb;">③ 시장 미반영<br/>빅파마 L/O 시 기술이전·M&A 가시화 — NR, Upside 미산정</div>
+</div></section>
+
+<section><div class="section-title">✅ 핵심 태그 5가지 조건 체크</div>
+<div class="checklist"><div class="checklist-item"><div class="check-icon check-fail">✗</div><div><div class="check-label">조건 1 | 영업이익 성장 임계값</div><div class="check-detail">26E OP +50%+ AND (OPM +3%p+ OR OPM 15%+ 유지)</div><div class="check-why">매출 25년 12억, 임상 단계 — OP +50% 해당 없음</div></div></div><div class="checklist-item"><div class="check-icon check-pass">✓</div><div><div class="check-label">조건 2 | 3년 지속성 (3개 이상 충족)</div><div class="check-detail">수주잔고 / CAPA / 독점·특허 / Lock-in / CAGR 15%+ / 리커링</div><div class="check-why">아이엠-옵데콘 플랫폼 + IMB-101/102/106/201/402 순차 확장</div></div></div><div class="checklist-item"><div class="check-icon check-na">—</div><div><div class="check-label">조건 3 | 확정 팩트(●●●) 2개 이상</div><div class="check-detail">수주확정·인허가·계약공시·실적 확인</div><div class="check-why">●●●: 네비게이터 1.8조 기술이전(24년), 시리즈A 1,400억 — 빅파마 L/O 미확정</div></div></div><div class="checklist-item"><div class="check-icon check-fail">✗</div><div><div class="check-label">조건 4 | 시장 미반영</div><div class="check-detail">Upside 40%+ OR 컨센 괴리 +20%+</div><div class="check-why">NR로 TP·Upside 미산정 — 판정 불가</div></div></div><div class="checklist-item"><div class="check-icon check-pass">✓</div><div><div class="check-label">조건 5 | 차별화된 시각</div><div class="check-detail">신규 커버리지·고유 근거·컨센 상회 추정치</div><div class="check-why">OX40L+TNF-α 이중항체 차별화, HiSCR75 54% vs 경쟁약 23~36% 우위</div></div></div></div>
+<p style="font-size:11px;color:#dc2626;margin-top:8px;">⚠️ 1개라도 ✗ → 핵심에서 주목으로 강등 필수 (손실 방지 원칙)</p></section>
+
+<section><div class="section-title">📊 투자 점수 판정 (v2.0)</div>
+<table><thead><tr><th>항목</th><th>판정</th><th>근거 (Why)</th></tr></thead><tbody>
+<tr><td>종목 유형</td><td>바이오</td><td>자가면역 이중항체 신약</td></tr>
+<tr><td>적용 가설</td><td>가설 B</td><td>L/O 미확정 + 2H27 임상 2상 탑라인 대기</td></tr>
+<tr><td>촉매 등급</td><td>브레이크스루</td><td>IMB-101 미국 2상 IND, 탑라인 27년 — 빅파마 L/O 없음</td></tr>
+<tr><td>복합 여부</td><td>-</td><td>-</td></tr>
+<tr><td>직접성</td><td>-</td><td>-</td></tr>
+<tr><td>매트릭스 기본 점수</td><td>40점</td><td>바이오 4축 합산 50 (파이프라인15 + 이벤트15 + 계약5 + 3년지속15) → 가설B 최소 60점 미달로 40점</td></tr>
+<tr><td>페널티 ①</td><td class="penalty">0</td><td>간접성 해당 없음</td></tr>
+<tr><td>페널티 ②</td><td class="penalty">0</td><td>컨센 미반영(NR)</td></tr>
+<tr class="total-row"><td>최종 투자 점수</td><td><span class="highlight-green">40점</span></td><td>40점 — 탑라인 27년 먼 시점, 손실 방지 원칙</td></tr>
+</tbody></table>
+<p style="font-size:11px;color:#5a6280;margin-top:8px;">페널티 5종만 적용: ①간접성 ②컨센 반영 ③잠재수주 미확정 ④단기 선반영 ⑤리스크 집중</p></section>
+
+<section><div class="section-title">⚡ 성장 인과 체인</div><div class="chain-box">
+<div class="chain-step"><div class="chain-arrow">①</div><div><div class="chain-label">구조 변화 / 촉매 <span class="chain-confirmed">● 확정 팩트</span></div><div class="chain-text">이중항체 플랫폼 아이엠-옵데콘 기반 IMB-101(화농성 한선염)·IMB-102(아토피)(●●●)</div></div></div>
+<div class="chain-step"><div class="chain-arrow">↓</div><div><div class="chain-label">매출 영향 (규모·비중 수치)</div><div class="chain-text">24년 네비게이터 1.8조 기술이전, IMB-101 미국 2상 IND 승인</div></div></div>
+<div class="chain-step"><div class="chain-arrow">↓</div><div><div class="chain-label">OPM 변화 메커니즘</div><div class="chain-text">2H27 IMB-101 2상 탑라인 — OX40L+TNF-α 이중저해 차별화</div></div></div>
+<div class="chain-step"><div class="chain-arrow">↓</div><div><div class="chain-label">최종 실적 결과 <span class="chain-forecast">● 추정</span></div><div class="chain-text">2028년 IMB-101 빅파마 빅딜·2032년 글로벌 출시 목표</div></div></div>
+<div class="chain-step"><div class="chain-arrow">↓</div><div><div class="chain-label">시장 미반영 포인트 (So What)</div><div class="chain-text">시장은 임상 데이터 미확인 — 데이터 성공 시 기술이전·M&A 리레이팅</div></div></div>
+</div></section>
+
+<section><div class="section-title">📌 핵심 팩트 3줄 — WHAT + WHY + SO WHAT</div><div class="fact-item"><span class="fact-num">Fact 01</span>
+<div class="fact-what"><span class="fact-label label-what">WHAT</span>2H27 IMB-101 2상 탑라인 발표 예정(●●○)</div>
+<div class="fact-why"><span class="fact-label label-why">WHY</span>화농성 한선염 2.4조 시장, 기존 약제(휴미라/코센틱스/빔젤릭스) 낮은 반응률</div>
+<div class="fact-so"><span class="fact-label label-so">SO WHAT</span>데이터 성공 시 빅파마 L/O 촉발 — 주가 변곡점</div></div><div class="fact-item"><span class="fact-num">Fact 02</span>
+<div class="fact-what"><span class="fact-label label-what">WHAT</span>IMB-101 HiSCR75 54%(OX40L+TNF) vs 경쟁약 23~36%</div>
+<div class="fact-why"><span class="fact-label label-why">WHY</span>OX40L 단일항체 대비 T세포 고갈·Safety 완화</div>
+<div class="fact-so"><span class="fact-label label-so">SO WHAT</span>경쟁약 대비 효능·안전성 우위 — 블록버스터 잠재</div></div><div class="fact-item"><span class="fact-num">Fact 03</span>
+<div class="fact-what"><span class="fact-label label-what">WHAT</span>IMB-102는 사노피 암리텔리맙 대비 OX40L/OX40 직접 저해 차별화</div>
+<div class="fact-why"><span class="fact-label label-why">WHY</span>자기면역 기반 백신·IL-17A, TNF 공동 시너지</div>
+<div class="fact-so"><span class="fact-label label-so">SO WHAT</span>27년 1상 개시 — 3년 지속성 담보</div></div></section>
+
+<section><div class="section-title">📄 원본 리포트 핵심 요약 (PDF 내용 직접 발췌)</div>
+<div style="background:#fafafa;border:1px solid #d0d4e0;border-radius:8px;padding:16px 20px;margin-bottom:12px;">
+<div style="font-size:11px;font-weight:700;color:#5a6280;margin-bottom:10px;">리포트 핵심 주장</div>
+<p style="font-size:13px;line-height:1.9;">이중항체 기반 자가면역 파이프라인 보유. 주요 파이프라인 IMB-101(화농성 한선염)·IMB-102(아토피). 2H27 IMB-101 2상 탑라인 주목. 2028년 빅파마 빅딜·2032년 글로벌 대도약.</p>
+<div style="margin-top:10px;display:flex;gap:8px;flex-wrap:wrap;">
+<div style="background:#f0f2f8;border:1px solid #d0d4e0;border-radius:6px;padding:6px 12px;font-size:12px;"><span style="color:#5a6280;font-size:10px;display:block;">이전 대비 변화</span>Not Rated 신규 커버리지</div>
+<div style="background:#f0f2f8;border:1px solid #d0d4e0;border-radius:6px;padding:6px 12px;font-size:12px;"><span style="color:#5a6280;font-size:10px;display:block;">컨센서스 대비</span>-</div>
+</div></div>
+<div style="background:#fafafa;border:1px solid #d0d4e0;border-radius:8px;padding:16px 20px;margin-bottom:12px;">
+<div style="font-size:11px;font-weight:700;color:#5a6280;margin-bottom:10px;">사업 구조 & 성장 동력</div>
+<table><thead><tr><th style="width:25%;">사업부</th><th style="width:20%;">매출 비중</th><th style="width:55%;">핵심 성장 드라이버</th></tr></thead><tbody><tr><td>IMB-101(화농성 한선염)</td><td>임상 2상 IND</td><td>2H27 탑라인 → 빅파마 L/O</td></tr><tr><td>IMB-102(아토피, NAV-340)</td><td>비임상 27년 1상</td><td>사노피 암리텔리맙 대비 효능</td></tr><tr><td>IMB-106/201/402</td><td>해외 파트너/최적화</td><td>플랫폼 후속 과제</td></tr><tr><td>NAV-340(네비게이터 공동)</td><td>이중항체 확장</td><td>자가면역 타겟 확장</td></tr></tbody></table>
+<p style="font-size:12px;color:#5a6280;margin-top:10px;">▶ 핵심 성장 사업부 메커니즘: 아이엠-옵데콘 이중항체 플랫폼 — 항원결합부 에피톱 차별화 + Fc 사일런싱 + FcRn 반감기 연장 + scFv 엔지니어링. IMB-101 OX40L/TNF-α 동시 억제로 단일항체 대비 T세포 고갈·Safety 이슈 완화, 화농성 한선염 HiSCR75 54%.</p></div>
+<div style="background:#fafafa;border:1px solid #d0d4e0;border-radius:8px;padding:16px 20px;margin-bottom:12px;">
+<div style="font-size:11px;font-weight:700;color:#5a6280;margin-bottom:10px;">시장 괴리 — 왜 지금 시장이 틀렸는가</div>
+<table><thead><tr><th style="width:30%;">구분</th><th>내용</th></tr></thead><tbody>
+<tr><td style="color:#5a6280;">시장 현재 인식</td><td>NR, 국내 바이오테크 벤처 정도 인식</td></tr>
+<tr><td style="color:#2563eb;">이 리포트 주장</td><td>아이엠-옵데콘 플랫폼 확장성·1.8조 기술이전 레퍼런스 주목</td></tr>
+<tr><td style="color:#b45309;">괴리 해소 촉매</td><td>2H27 IMB-101 2상 탑라인 + 빅파마 L/O 공시</td></tr>
+<tr><td>괴리 강도</td><td>중</td></tr>
+</tbody></table></div>
+<div style="background:#fafafa;border:1px solid #d0d4e0;border-radius:8px;padding:16px 20px;">
+<div style="font-size:11px;font-weight:700;color:#5a6280;margin-bottom:10px;">재무 특징</div>
+<div style="display:flex;flex-wrap:wrap;gap:8px;">
+<div style="background:#f0f2f8;border:1px solid #d0d4e0;border-radius:6px;padding:8px 12px;font-size:12px;flex:1;min-width:160px;"><span style="color:#5a6280;font-size:10px;display:block;">순현금/순차입금</span>시가총액 8,999억, 자본금 64억, 주식 1,478만</div>
+<div style="background:#f0f2f8;border:1px solid #d0d4e0;border-radius:6px;padding:8px 12px;font-size:12px;flex:1;min-width:160px;"><span style="color:#5a6280;font-size:10px;display:block;">부채비율</span>25년 매출 12억 — 기술이전 마일스톤</div>
+<div style="background:#f0f2f8;border:1px solid #d0d4e0;border-radius:6px;padding:8px 12px;font-size:12px;flex:1;min-width:160px;"><span style="color:#5a6280;font-size:10px;display:block;">배당·자사주</span>24년 영업이익 14억(흑전), 25년 0.3억 — 임상비용</div>
+<div style="background:#f0f2f8;border:1px solid #d0d4e0;border-radius:6px;padding:8px 12px;font-size:12px;flex:1;min-width:160px;"><span style="color:#5a6280;font-size:10px;display:block;">특이 이슈</span>하경식 외 18.57% + 에이티넘 10.98%, 외국인 0.91%</div>
+</div></div></section>
+
+<section><div class="section-title">📈 실적 전망 (연간)</div>
+<table class="data-table"><caption>단위: 십억원 | ★ = 투자 핵심 연도</caption>
+<thead><tr><th>구분</th><th>2021A</th><th>2022A</th><th style="background:#dbeafe;color:#1e40af;">2023A ★</th><th>2024A</th><th>2025A</th></tr></thead>
+<tbody><tr><td>매출액</td><td>0</td><td>0</td><td class="key-col key-num">0</td><td>27.6</td><td>11.6</td></tr><tr><td>YoY(%)</td><td>NA</td><td>NA</td><td class="key-col">NA</td><td>NA</td><td>-57.9</td></tr><tr><td>영업이익</td><td>0</td><td>0</td><td class="key-col key-num">-8.6</td><td>14.0</td><td>0.3</td></tr><tr><td>OPM(%)</td><td>NA</td><td>NA</td><td class="key-col key-opm">NA</td><td>50.7</td><td>2.6</td></tr><tr><td>순이익</td><td>0</td><td>0</td><td class="key-col">-48.5</td><td>-11.9</td><td>0.9</td></tr><tr><td>EPS(원)</td><td>0</td><td>0</td><td class="key-col">-210,106</td><td>-3,348</td><td>128</td></tr><tr><td>PER(배)</td><td>0.0</td><td>0.0</td><td class="key-col">0.0</td><td>0.0</td><td>0.0</td></tr><tr><td>PBR(배)</td><td>0.0</td><td>0.0</td><td class="key-col">0.0</td><td>0.0</td><td>0.0</td></tr><tr><td>ROE(%)</td><td>0.0</td><td>0.0</td><td class="key-col">147.5</td><td>16.6</td><td>-47.3</td></tr></tbody></table>
+<p style="font-size:12px;color:#5a6280;margin-top:10px;">▶ 왜 26E가 변곡점인가: 2H27 IMB-101 임상 2상 탑라인이 Quantum Jump 변곡점 — 데이터 성공 시 2028년 빅파마 빅딜→2032년 글로벌 대도약</p></section>
+
+
+
+<section><div class="section-title">💰 밸류에이션</div>
+<div class="val-box">
+<div class="val-formula">-</div>
+<p style="color:#5a6280;font-size:12px;margin-top:8px;">▶ 왜 이 배수인가: NR — 임상 2상 탑라인 시점 전까지 정량 밸류 미제시</p>
+</div></section>
+
+<section><div class="section-title">⚠️ 리스크 시나리오</div><div class="risk-item risk-sev-high">
+<div class="risk-assumption">🔴 핵심 가정: 임상 2상 탑라인(2H27) 실패</div>
+<div class="risk-chain">→ 가정 붕괴 시: OX40L 단일항체 Safety 이슈 재현<br/>→ 실적 영향: L/O 무산</div>
+<div class="risk-impact-num">→ 주가 영향: 주가 -30%+</div></div><div class="risk-item risk-sev-mid">
+<div class="risk-assumption">🟠 두 번째 가정: 빅파마 L/O 지연/미성사</div>
+<div class="risk-chain">→ 가정 붕괴 시: 2028년 빅딜 실패<br/>→ 실적 영향: Quantum Jump 서사 붕괴</div>
+<div class="risk-impact-num">→ 주가 영향: 자본 조달 리스크</div></div></section>
+
+<section><div class="section-title">🎯 모멘텀 체크포인트</div>
+<div style="background:#fafafa;border:1px solid #d0d4e0;border-radius:8px;padding:4px 16px;"><div class="checkpoint-item"><span class="cp-date">2027년 하반기</span><div><div>IMB-101 2상 탑라인 — HiSCR75·Safety</div><div class="cp-pass">✅ 데이터 긍정 → 적극 매수</div><div class="cp-fail">⛔ 부정 → 손절</div></div></div><div class="checkpoint-item"><span class="cp-date">2027년</span><div><div>IMB-102 1상 개시</div><div class="cp-pass">✅ 개시 확인 → 관심 유지</div><div class="cp-fail">⛔ 지연 → 우려</div></div></div><div class="checkpoint-item"><span class="cp-date">2028년</span><div><div>IMB-101 빅파마 빅딜(M&A/Sub-L/O)</div><div class="cp-pass">✅ 확인 → SS 승격</div><div class="cp-fail">⛔ 지연 → 관망</div></div></div></div></section>
+
+<section><div class="section-title">💬 사견 & 투자 행동 결론</div>
+<div class="opinion-box"><p>NR 신규 커버. 플랫폼과 1.8조 기술이전은 긍정이나 핵심 촉매(탑라인)가 27년 하반기 먼 시점·TP 미제시로 주목 수준 관망.</p>
+<div class="decision-box"><div class="decision-btn decision-wait">⏳ 이벤트 후 진입<br/><span style="font-size:11px;font-weight:400;">2H27 IMB-101 임상 2상 탑라인 데이터 확인</span></div></div></div></section>
+
+<section><div class="section-title">🚀 승격 조건 — 주목 전용</div><div class="upgrade-box"><div class="upgrade-item"><span class="upgrade-when">IMB-101 2상 탑라인 긍정 + 빅파마 L/O 공시</span><span>핵심 승격</span></div><div class="upgrade-item"><span class="upgrade-when">탑라인 전 IND 진입 이벤트</span><span>주목 유지</span></div></div></section>
+
+<div class="disclaimer">※ 본 글은 증권사 리포트를 개인 학습 목적으로 요약·정리한 것이며, 투자 권유가 아닙니다.<br/>※ 제공된 PDF 파일만 활용. 외부 검색·참조 없음. 당일 발간 리포트 기준.</div>
+
+</body></html>

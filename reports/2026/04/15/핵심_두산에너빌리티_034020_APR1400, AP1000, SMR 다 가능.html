@@ -1,0 +1,220 @@
+<!DOCTYPE html><html lang="ko"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>두산에너빌리티 (034020) 정리</title><style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Pretendard','Apple SD Gothic Neo',-apple-system,sans-serif; background:#fff; color:#1a1d2e; line-height:1.7; font-size:14px; max-width:900px; margin:0 auto; padding:32px 20px 80px; }
+  .header { border-left:4px solid #2563eb; padding:0 0 0 16px; margin-bottom:24px; }
+  .header h1 { font-size:18px; font-weight:700; margin-bottom:10px; }
+  .price-row { display:flex; flex-wrap:wrap; gap:10px; margin-top:10px; }
+  .price-item { background:#f0f2f8; border:1px solid #d0d4e0; border-radius:6px; padding:6px 14px; font-size:13px; }
+  .price-item .label { color:#5a6280; font-size:11px; display:block; }
+  .price-item .val { font-weight:700; }
+  .upside-val { color:#059669; } .upside-negative { color:#dc2626; }
+  .tag-badge { display:inline-flex; align-items:center; gap:6px; padding:5px 14px; border-radius:20px; font-size:13px; font-weight:700; }
+  .tag-sss{background:#fff3ed;color:#c2410c;border:1px solid #f97316;}
+  .tag-ss{background:#f5f3ff;color:#6d28d9;border:1px solid #8b5cf6;}
+  .tag-core{background:#ecfdf5;color:#059669;border:1px solid #34d399;}
+  .tag-watch{background:#fffbeb;color:#b45309;border:1px solid #f59e0b;}
+  .tag-stable{background:#eff6ff;color:#1d4ed8;border:1px solid #60a5fa;}
+  .score-badge{display:inline-block;padding:5px 14px;border-radius:20px;font-size:13px;font-weight:700;background:#f0f2f8;border:1px solid #d0d4e0;}
+  .score-high{color:#059669;} .score-mid{color:#b45309;} .score-low{color:#5a6280;}
+  section { margin-bottom:28px; }
+  .section-title { font-size:11px; font-weight:700; letter-spacing:1.5px; text-transform:uppercase; color:#5a6280; border-bottom:1px solid #d0d4e0; padding-bottom:6px; margin-bottom:14px; }
+  .pdf-only-banner { background:#fff7ed; border:1px solid #f97316; border-radius:8px; padding:10px 16px; font-size:12px; color:#c2410c; margin-bottom:20px; text-align:center; font-weight:700; }
+  .thesis-box { background:#f8faff; border:1px solid #2563eb; border-radius:8px; padding:16px 20px; font-size:15px; font-weight:600; line-height:1.6; }
+  .thesis-structure { display:flex; gap:8px; align-items:center; margin-top:10px; flex-wrap:wrap; }
+  .thesis-part { background:#f0f2f8; border:1px solid #d0d4e0; border-radius:6px; padding:4px 10px; font-size:12px; }
+  .thesis-arrow { color:#2563eb; font-size:16px; }
+  .checklist { background:#fafafa; border:1px solid #d0d4e0; border-radius:8px; overflow:hidden; }
+  .checklist-item { display:flex; gap:14px; padding:12px 16px; border-bottom:1px solid #d0d4e0; }
+  .checklist-item:last-child { border-bottom:none; }
+  .check-icon { width:22px; height:22px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:12px; font-weight:700; flex-shrink:0; margin-top:1px; }
+  .check-pass { background:#ecfdf5; color:#059669; border:1px solid #34d399; }
+  .check-fail { background:#fef2f2; color:#dc2626; border:1px solid #fca5a5; }
+  .check-na { background:#f0f2f8; color:#5a6280; border:1px solid #d0d4e0; }
+  .check-label { font-weight:600; font-size:13px; }
+  .check-detail { color:#5a6280; font-size:12px; margin-top:2px; }
+  .check-why { font-size:13px; }
+  table { width:100%; border-collapse:collapse; background:#fafafa; border-radius:8px; overflow:hidden; border:1px solid #d0d4e0; }
+  thead tr { background:#f0f2f8; }
+  th { padding:10px 14px; text-align:left; font-size:11px; font-weight:700; color:#5a6280; letter-spacing:0.8px; text-transform:uppercase; }
+  td { padding:10px 14px; border-top:1px solid #d0d4e0; font-size:13px; }
+  tr.total-row td { background:#e8ecf5; font-weight:700; }
+  .penalty { color:#dc2626; } .highlight-green { color:#059669; font-weight:700; } .highlight-red { color:#dc2626; }
+  .chain-box { background:#fafafa; border:1px solid #d0d4e0; border-radius:8px; padding:16px 20px; }
+  .chain-step { display:flex; gap:12px; margin-bottom:10px; }
+  .chain-step:last-child { margin-bottom:0; }
+  .chain-arrow { color:#2563eb; font-size:16px; flex-shrink:0; margin-top:1px; }
+  .chain-label { font-size:10px; font-weight:700; letter-spacing:1px; color:#5a6280; text-transform:uppercase; margin-bottom:2px; }
+  .chain-text { font-size:13px; }
+  .chain-confirmed { color:#059669; font-size:11px; margin-left:6px; }
+  .chain-forecast { color:#b45309; font-size:11px; margin-left:6px; }
+  .fact-item { background:#fafafa; border:1px solid #d0d4e0; border-radius:8px; padding:14px 16px; margin-bottom:8px; }
+  .fact-num { font-size:10px; font-weight:700; color:#2563eb; letter-spacing:1px; margin-bottom:8px; display:block; }
+  .fact-what { font-weight:600; font-size:14px; margin-bottom:6px; }
+  .fact-why { font-size:13px; color:#5a6280; margin-bottom:6px; }
+  .fact-so { font-size:13px; color:#059669; }
+  .fact-label { display:inline-block; font-size:10px; font-weight:700; padding:1px 6px; border-radius:3px; margin-right:4px; }
+  .label-what { background:#eff6ff; color:#1d4ed8; }
+  .label-why { background:#fff7ed; color:#ea580c; }
+  .label-so { background:#ecfdf5; color:#059669; }
+  .data-table th { background:#e8ecf5; }
+  .data-table td.key-col { background:#f0f6ff; }
+  .data-table .key-num { color:#059669; font-weight:700; }
+  .data-table .key-opm { color:#b45309; }
+  caption { font-size:11px; color:#5a6280; text-align:left; padding:0 0 8px; caption-side:top; }
+  .val-box { background:#fafafa; border:1px solid #d0d4e0; border-radius:8px; padding:16px 20px; font-size:13px; line-height:2; }
+  .val-formula { background:#f0f2f8; border-radius:6px; padding:10px 14px; font-family:monospace; font-size:13px; margin:10px 0; color:#b45309; }
+  .risk-item { background:#fafafa; border-radius:0 6px 6px 0; padding:14px 16px; margin-bottom:10px; }
+  .risk-sev-high { border-left:3px solid #dc2626; }
+  .risk-sev-mid { border-left:3px solid #ea580c; }
+  .risk-assumption { font-weight:600; font-size:13px; margin-bottom:4px; }
+  .risk-chain { font-size:12px; color:#5a6280; margin:4px 0; }
+  .risk-impact-num { font-size:13px; color:#dc2626; font-weight:600; margin-top:4px; }
+  .checkpoint-item { display:flex; gap:12px; padding:10px 0; border-bottom:1px solid #d0d4e0; font-size:13px; }
+  .checkpoint-item:last-child { border-bottom:none; }
+  .cp-date { color:#2563eb; font-weight:600; min-width:90px; }
+  .cp-pass { color:#059669; font-size:12px; margin-top:2px; }
+  .cp-fail { color:#dc2626; font-size:12px; margin-top:2px; }
+  .opinion-box { background:#fafafa; border:1px solid #d0d4e0; border-radius:8px; padding:16px 20px; font-size:13px; line-height:1.8; color:#1a1d2e; }
+  .decision-box { display:flex; gap:14px; margin-top:14px; }
+  .decision-btn { flex:1; text-align:center; padding:10px; border-radius:6px; font-weight:700; font-size:13px; border:1px solid; }
+  .decision-buy{background:#ecfdf5;color:#059669;border-color:#34d399;}
+  .decision-wait{background:#fffbeb;color:#b45309;border-color:#f59e0b;}
+  .decision-avoid{background:#fef2f2;color:#dc2626;border-color:#fca5a5;}
+  .upgrade-box { background:#eff6ff; border:1px solid #93c5fd; border-radius:8px; padding:14px 16px; }
+  .upgrade-item { display:flex; gap:10px; padding:6px 0; border-bottom:1px solid #dbeafe; font-size:13px; }
+  .upgrade-item:last-child { border-bottom:none; }
+  .upgrade-when { color:#1d4ed8; font-weight:600; min-width:140px; }
+  .disclaimer { font-size:11px; color:#9ca3af; text-align:center; margin-top:40px; padding-top:16px; border-top:1px solid #d0d4e0; }
+</style></head><body>
+<div class="pdf-only-banner">🚫 외부 검색 금지 — 제공된 PDF 파일만 활용 | 당일(2026.04.15) 발간 리포트 기준</div>
+
+<header class="header">
+<div style="color:#5a6280;font-size:12px;margin-bottom:6px;">APR1400, AP1000, SMR 다 가능</div>
+<h1>두산에너빌리티 (034020) | 유진투자증권 황성현 | 발간일: 2026.04.15</h1>
+<div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-bottom:12px;">
+<span class="tag-badge tag-core">⭐ 핵심</span><span class="score-badge score-mid">📊 70점</span><span style="font-size:12px;color:#5a6280;">비바이오</span></div>
+<div class="price-row">
+<div class="price-item"><span class="label">투자의견</span><span class="val">BUY(신규)</span></div>
+<div class="price-item"><span class="label">목표주가(TP)</span><span class="val">150,000원</span></div>
+<div class="price-item"><span class="label">현재주가(CP)</span><span class="val">99,700원</span></div>
+<div class="price-item"><span class="label">Upside</span><span class="val upside-val">+50.5%</span></div>
+<div class="price-item"><span class="label">시가총액</span><span class="val">63,864억원</span></div>
+<div class="price-item"><span class="label">종목 유형</span><span class="val">비바이오</span></div>
+</div></header>
+
+<section><div class="section-title">💡 이 종목에 투자해야 하는 이유 — 스토리 한 줄</div>
+<div class="thesis-box">대형원전 발주 본격화(●●○) + 가스터빈 수주잔고 5년 적체(●●●) → 26E OP 1,064억→1,495억(+40%), OPM 6.0→7.7%(+1.7%p) → SOTP Upside 50%</div>
+<div class="thesis-structure">
+<div class="thesis-part" style="color:#059669;">① 확정 팩트<br/>대형원전 26년 발주 본격화 + 가스터빈 GEV·지멘스 수주잔고 5년+ 적체(●●○)</div>
+<div class="thesis-arrow">→</div>
+<div class="thesis-part" style="color:#b45309;">② 실적 변화<br/>26E 매출 17.6조(+4%), OP 1.06조(+40%), OPM 6%</div>
+<div class="thesis-arrow">→</div>
+<div class="thesis-part" style="color:#2563eb;">③ 시장 미반영<br/>SOTP(원자로 19배/가스터빈 14배/SMR 16배) 기준 TP 15만원, Upside 50%</div>
+</div></section>
+
+<section><div class="section-title">✅ 핵심 태그 5가지 조건 체크</div>
+<div class="checklist"><div class="checklist-item"><div class="check-icon check-pass">✓</div><div><div class="check-label">조건 1 | 영업이익 성장 임계값</div><div class="check-detail">26E OP +50%+ AND (OPM +3%p+ OR OPM 15%+ 유지)</div><div class="check-why">26E OP 1,495억(+40%), OPM 6.0→7.7%(+1.7%p), 27E 지속 +40%</div></div></div><div class="checklist-item"><div class="check-icon check-pass">✓</div><div><div class="check-label">조건 2 | 3년 지속성 (3개 이상 충족)</div><div class="check-detail">수주잔고 / CAPA / 독점·특허 / Lock-in / CAGR 15%+ / 리커링</div><div class="check-why">가스터빈 5년+ / SMR 28년 캐파 20기 / 대형원전 30년까지 10기 — 3개</div></div></div><div class="checklist-item"><div class="check-icon check-na">—</div><div><div class="check-label">조건 3 | 확정 팩트(●●●) 2개 이상</div><div class="check-detail">수주확정·인허가·계약공시·실적 확인</div><div class="check-why">●●●: 대형원전은 26년부터 본격화(●●○), 가스터빈 수주잔고 확인(●●●) — 확정 1개</div></div></div><div class="checklist-item"><div class="check-icon check-pass">✓</div><div><div class="check-label">조건 4 | 시장 미반영</div><div class="check-detail">Upside 40%+ OR 컨센 괴리 +20%+</div><div class="check-why">Upside 50.5%</div></div></div><div class="checklist-item"><div class="check-icon check-pass">✓</div><div><div class="check-label">조건 5 | 차별화된 시각</div><div class="check-detail">신규 커버리지·고유 근거·컨센 상회 추정치</div><div class="check-why">SOTP PBR 방식, 글로벌 PEER 대비 40% 할인 — SMR 파운드리 프리미엄</div></div></div></div>
+<p style="font-size:11px;color:#dc2626;margin-top:8px;">⚠️ 1개라도 ✗ → 핵심에서 주목으로 강등 필수 (손실 방지 원칙)</p></section>
+
+<section><div class="section-title">📊 투자 점수 판정 (v2.0)</div>
+<table><thead><tr><th>항목</th><th>판정</th><th>근거 (Why)</th></tr></thead><tbody>
+<tr><td>종목 유형</td><td>비바이오</td><td>원전·발전설비</td></tr>
+<tr><td>적용 가설</td><td>가설 3</td><td>대형원전 매출 본격화 전, 복합 촉매(원전+가스터빈+SMR) 기반</td></tr>
+<tr><td>촉매 등급</td><td>상급</td><td>트럼프 원전 10기 + GEV/지멘스 가스터빈 + SMR 설계사 선점</td></tr>
+<tr><td>복합 여부</td><td>복합</td><td>대형원전 + 가스터빈 리드타임 + SMR 파운드리 3개 동시</td></tr>
+<tr><td>직접성</td><td>직접</td><td>원자로·가스터빈 주력 사업부 1단계 연결</td></tr>
+<tr><td>매트릭스 기본 점수</td><td>80점</td><td>가설 3 × 상급 × 복합 = 80</td></tr>
+<tr><td>페널티 ①</td><td class="penalty">-10</td><td>대형원전 26년 발주·SMR 캐파 아직 미확정</td></tr>
+<tr><td>페널티 ②</td><td class="penalty">0</td><td>미적용</td></tr>
+<tr class="total-row"><td>최종 투자 점수</td><td><span class="highlight-green">70점</span></td><td>80 - 10 = 70점</td></tr>
+</tbody></table>
+<p style="font-size:11px;color:#5a6280;margin-top:8px;">페널티 5종만 적용: ①간접성 ②컨센 반영 ③잠재수주 미확정 ④단기 선반영 ⑤리스크 집중</p></section>
+
+<section><div class="section-title">⚡ 성장 인과 체인</div><div class="chain-box">
+<div class="chain-step"><div class="chain-arrow">①</div><div><div class="chain-label">구조 변화 / 촉매 <span class="chain-confirmed">● 확정 팩트</span></div><div class="chain-text">트럼프 30년까지 원전 10기 + GEV/지멘스 가스터빈 수주잔고 5년+ + SMR 파운드리 극소수(●●○)</div></div></div>
+<div class="chain-step"><div class="chain-arrow">↓</div><div><div class="chain-label">매출 영향 (규모·비중 수치)</div><div class="chain-text">26E 17.6조 → 28E 20.3조, 두산에너빌리티 부문 7,969→8,931억</div></div></div>
+<div class="chain-step"><div class="chain-arrow">↓</div><div><div class="chain-label">OPM 변화 메커니즘</div><div class="chain-text">체코 두코바니 5·6호 매출 + 가스터빈 8기 납품 본격화 → 영업레버리지</div></div></div>
+<div class="chain-step"><div class="chain-arrow">↓</div><div><div class="chain-label">최종 실적 결과 <span class="chain-forecast">● 추정</span></div><div class="chain-text">26E 1,064억(+40%) → 28E 1,899억(+27%), OPM 6.0→9.4%</div></div></div>
+<div class="chain-step"><div class="chain-arrow">↓</div><div><div class="chain-label">시장 미반영 포인트 (So What)</div><div class="chain-text">SMR 28년 캐파 20기 달성 시 성장 지속 — 글로벌 PEER 대비 40% 할인</div></div></div>
+</div></section>
+
+<section><div class="section-title">📌 핵심 팩트 3줄 — WHAT + WHY + SO WHAT</div><div class="fact-item"><span class="fact-num">Fact 01</span>
+<div class="fact-what"><span class="fact-label label-what">WHAT</span>26E 매출 17.6조(+4%), OP 1,064억(+40%), OPM 6.0%</div>
+<div class="fact-why"><span class="fact-label label-why">WHY</span>체코 두코바니 매출 + 가스터빈 8기 납품 본격화 + 영업레버리지</div>
+<div class="fact-so"><span class="fact-label label-so">SO WHAT</span>1Q 저점 분기별 회복 — 26E 변곡점</div></div><div class="fact-item"><span class="fact-num">Fact 02</span>
+<div class="fact-what"><span class="fact-label label-what">WHAT</span>SMR 파운드리 캐파 28년까지 20기</div>
+<div class="fact-why"><span class="fact-label label-why">WHY</span>전 세계 SMR 70개 설계 중 초대형 단조·원자로 압력용기 제조 업체 극소수</div>
+<div class="fact-so"><span class="fact-label label-so">SO WHAT</span>제조 독점력 → 장기 성장 지속</div></div><div class="fact-item"><span class="fact-num">Fact 03</span>
+<div class="fact-what"><span class="fact-label label-what">WHAT</span>가스터빈 수주잔고 5년+ 적체</div>
+<div class="fact-why"><span class="fact-label label-why">WHY</span>GEV·지멘스·미쓰비시 수주잔고 5년+, 누적 수주 증가</div>
+<div class="fact-so"><span class="fact-label label-so">SO WHAT</span>27년부터 서비스 매출 비중 확대 → OPM 구조 개선</div></div></section>
+
+<section><div class="section-title">📄 원본 리포트 핵심 요약 (PDF 내용 직접 발췌)</div>
+<div style="background:#fafafa;border:1px solid #d0d4e0;border-radius:8px;padding:16px 20px;margin-bottom:12px;">
+<div style="font-size:11px;font-weight:700;color:#5a6280;margin-bottom:10px;">리포트 핵심 주장</div>
+<p style="font-size:13px;line-height:1.9;">BUY 신규, 목표주가 15만원은 2027 예상 BPS에 글로벌 PEER(GEV) 평균 PBR 40% 할인 SOTP. 대형원전·가스터빈·SMR 3축 모두 26년 이후 본격 반영. 트럼프 10기 착공 + 가스터빈 리드타임 연장으로 중장기 성장 지속.</p>
+<div style="margin-top:10px;display:flex;gap:8px;flex-wrap:wrap;">
+<div style="background:#f0f2f8;border:1px solid #d0d4e0;border-radius:6px;padding:6px 12px;font-size:12px;"><span style="color:#5a6280;font-size:10px;display:block;">이전 대비 변화</span>신규 커버리지(BUY, TP 150,000원 신규)</div>
+<div style="background:#f0f2f8;border:1px solid #d0d4e0;border-radius:6px;padding:6px 12px;font-size:12px;"><span style="color:#5a6280;font-size:10px;display:block;">컨센서스 대비</span>-</div>
+</div></div>
+<div style="background:#fafafa;border:1px solid #d0d4e0;border-radius:8px;padding:16px 20px;margin-bottom:12px;">
+<div style="font-size:11px;font-weight:700;color:#5a6280;margin-bottom:10px;">사업 구조 & 성장 동력</div>
+<table><thead><tr><th style="width:25%;">사업부</th><th style="width:20%;">매출 비중</th><th style="width:55%;">핵심 성장 드라이버</th></tr></thead><tbody><tr><td>두산에너빌리티(원자력·화력)</td><td>46%</td><td>대형원전 발주 + 체코 두코바니 매출</td></tr><tr><td>두산밥캣</td><td>52%</td><td>북미 소형건설장비 수요 회복</td></tr><tr><td>두산퓨얼셀</td><td>3%</td><td>수소연료전지 CAPA 확대</td></tr></tbody></table>
+<p style="font-size:12px;color:#5a6280;margin-top:10px;">▶ 핵심 성장 사업부 메커니즘: 원자력·가스터빈·SMR 동시 + 체코 두코바니 26·27년 매출 → 영업레버리지로 OPM 6→9%대</p></div>
+<div style="background:#fafafa;border:1px solid #d0d4e0;border-radius:8px;padding:16px 20px;margin-bottom:12px;">
+<div style="font-size:11px;font-weight:700;color:#5a6280;margin-bottom:10px;">시장 괴리 — 왜 지금 시장이 틀렸는가</div>
+<table><thead><tr><th style="width:30%;">구분</th><th>내용</th></tr></thead><tbody>
+<tr><td style="color:#5a6280;">시장 현재 인식</td><td>건설장비 중심으로 평가</td></tr>
+<tr><td style="color:#2563eb;">이 리포트 주장</td><td>SMR 파운드리·가스터빈·대형원전 본격화</td></tr>
+<tr><td style="color:#b45309;">괴리 해소 촉매</td><td>26년 대형원전 발주 + 가스터빈 납품(26~27년)</td></tr>
+<tr><td>괴리 강도</td><td>중</td></tr>
+</tbody></table></div>
+<div style="background:#fafafa;border:1px solid #d0d4e0;border-radius:8px;padding:16px 20px;">
+<div style="font-size:11px;font-weight:700;color:#5a6280;margin-bottom:10px;">재무 특징</div>
+<div style="display:flex;flex-wrap:wrap;gap:8px;">
+<div style="background:#f0f2f8;border:1px solid #d0d4e0;border-radius:6px;padding:8px 12px;font-size:12px;flex:1;min-width:160px;"><span style="color:#5a6280;font-size:10px;display:block;">순현금/순차입금</span>순현금 아님(차입금 6,435십억 25E)</div>
+<div style="background:#f0f2f8;border:1px solid #d0d4e0;border-radius:6px;padding:8px 12px;font-size:12px;flex:1;min-width:160px;"><span style="color:#5a6280;font-size:10px;display:block;">부채비율</span>부채비율 261%(25E)→140%(28E)</div>
+<div style="background:#f0f2f8;border:1px solid #d0d4e0;border-radius:6px;padding:8px 12px;font-size:12px;flex:1;min-width:160px;"><span style="color:#5a6280;font-size:10px;display:block;">배당·자사주</span>배당수익률 26E 0%</div>
+<div style="background:#f0f2f8;border:1px solid #d0d4e0;border-radius:6px;padding:8px 12px;font-size:12px;flex:1;min-width:160px;"><span style="color:#5a6280;font-size:10px;display:block;">특이 이슈</span>SOTP 19/14/16배 사업부별 PBR</div>
+</div></div></section>
+
+<section><div class="section-title">📈 실적 전망 (연간)</div>
+<table class="data-table"><caption>단위: 십억원 | ★ = 투자 핵심 연도</caption>
+<thead><tr><th>구분</th><th>2024A</th><th>2025A</th><th style="background:#dbeafe;color:#1e40af;">2026E ★</th><th>2027E</th><th>2028E</th></tr></thead>
+<tbody><tr><td>매출액</td><td>16,233</td><td>17,058</td><td class="key-col key-num">17,647</td><td>19,314</td><td>20,299</td></tr><tr><td>YoY(%)</td><td>-</td><td>5.1</td><td class="key-col">3.5</td><td>9.4</td><td>5.1</td></tr><tr><td>영업이익</td><td>1,018</td><td>763</td><td class="key-col key-num">1,064</td><td>1,495</td><td>1,899</td></tr><tr><td>YoY(%)</td><td>100.3</td><td>-23.9</td><td class="key-col">89.3</td><td>40.6</td><td>27.0</td></tr><tr><td>OPM(%)</td><td>6.3</td><td>4.5</td><td class="key-col key-opm">6.0</td><td>7.7</td><td>9.4</td></tr><tr><td>EPS(원)</td><td>174</td><td>132</td><td class="key-col">251</td><td>434</td><td>595</td></tr><tr><td>PER(배)</td><td>100.9</td><td>569.1</td><td class="key-col">397.9</td><td>230.0</td><td>167.7</td></tr><tr><td>PBR(배)</td><td>1.5</td><td>6.2</td><td class="key-col">8.0</td><td>7.8</td><td>7.4</td></tr><tr><td>ROE(%)</td><td>1.5</td><td>1.1</td><td class="key-col">2.0</td><td>3.4</td><td>4.5</td></tr></tbody></table>
+<p style="font-size:12px;color:#5a6280;margin-top:10px;">▶ 왜 26E가 변곡점인가: 26E 변곡점 — 체코 두코바니 매출 + 가스터빈 납품 + 대형원전 발주 동시 시작, 1Q 저점 이후 분기 우상향</p></section>
+
+<section><div class="section-title">📅 분기별 실적 전망</div>
+<table class="data-table"><thead><tr><th>구분</th><th>1Q25</th><th>2Q25</th><th>3Q25</th><th>4Q25</th><th style="background:#dbeafe;color:#1e40af;">1Q26E ★</th><th>2Q26E</th><th>3Q26E</th><th>4Q26E</th></tr></thead>
+<tbody><tr><td>매출액</td><td>3,749</td><td>4,569</td><td>3,880</td><td>4,860</td><td class="key-col key-num">4,020</td><td>4,728</td><td>4,352</td><td>4,547</td></tr><tr><td>영업이익</td><td>142</td><td>271</td><td>137</td><td>212</td><td class="key-col key-num">159</td><td>245</td><td>283</td><td>376</td></tr><tr><td>OPM(%)</td><td>3.8</td><td>5.9</td><td>3.5</td><td>4.4</td><td class="key-col key-opm">4.0</td><td>5.2</td><td>6.5</td><td>8.3</td></tr></tbody></table>
+<p style="font-size:12px;color:#5a6280;margin-top:10px;">▶ 1Q26 저점 → 4Q26 OPM 8.3% 우상향. 체코 두코바니 매출·가스터빈 납품량 핵심 모니터링</p></section>
+
+<section><div class="section-title">💰 밸류에이션</div>
+<div class="val-box">
+<div class="val-formula">2027E BPS 12,889원 × Target PBR(SOTP 가중평균) = TP 150,000원</div>
+<p style="color:#5a6280;font-size:12px;margin-top:8px;">▶ 왜 이 배수인가: SOTP: 원자로 19배, 가스터빈 14배, SMR 16배, EPC 1배 가중. 글로벌 PEER 40% 할인</p>
+</div></section>
+
+<section><div class="section-title">⚠️ 리스크 시나리오</div><div class="risk-item risk-sev-high">
+<div class="risk-assumption">🔴 핵심 가정: 대형원전 26년 발주</div>
+<div class="risk-chain">→ 가정 붕괴 시: 발주 지연 시 매출 인식 1~2년 순연<br/>→ 실적 영향: OP 1,064→800억</div>
+<div class="risk-impact-num">→ 주가 영향: TP -20%</div></div><div class="risk-item risk-sev-mid">
+<div class="risk-assumption">🟠 두 번째 가정: 가스터빈 수주잔고 유지</div>
+<div class="risk-chain">→ 가정 붕괴 시: 글로벌 전력수요 둔화<br/>→ 실적 영향: OPM 개선 1~2%p 지연</div>
+<div class="risk-impact-num">→ 주가 영향: TP -15%</div></div><div class="risk-item risk-sev-mid">
+<div class="risk-assumption">🟠 두 번째 가정: SMR 28년 캐파 20기</div>
+<div class="risk-chain">→ 가정 붕괴 시: 설계 표준화 지연<br/>→ 실적 영향: 장기 성장 훼손</div>
+<div class="risk-impact-num">→ 주가 영향: TP -25%</div></div></section>
+
+<section><div class="section-title">🎯 모멘텀 체크포인트</div>
+<div style="background:#fafafa;border:1px solid #d0d4e0;border-radius:8px;padding:4px 16px;"><div class="checkpoint-item"><span class="cp-date">2026 상반기</span><div><div>체코 두코바니 5·6호 매출 인식</div><div class="cp-pass">✅ 확인 시 추가 매수</div><div class="cp-fail">⛔ 지연 → 발주 시그널 재확인</div></div></div><div class="checkpoint-item"><span class="cp-date">2026~27년</span><div><div>대형원전 신규 수주(미국·폴란드·불가리아·루마니아)</div><div class="cp-pass">✅ 확인 시 핵심 상향</div><div class="cp-fail">⛔ 지연 → 주목 강등</div></div></div></div></section>
+
+<section><div class="section-title">💬 사견 & 투자 행동 결론</div>
+<div class="opinion-box"><p>대형원전·가스터빈·SMR 3축 모두 26년 이후 반영 구조로 장기 그림 매력. 26E OP 수준 낮고(OPM 6%) PER 400배 밸류 부담. 1Q26 저점 확인 후 분기 OP 우상향 보고 진입.</p>
+<div class="decision-box"><div class="decision-btn decision-wait">⏳ 이벤트 후 진입<br/><span style="font-size:11px;font-weight:400;">1Q26 실적(저점 확인) + 체코 두코바니 매출 인식 시점</span></div></div></div></section>
+
+
+
+<div class="disclaimer">※ 본 글은 증권사 리포트를 개인 학습 목적으로 요약·정리한 것이며, 투자 권유가 아닙니다.<br/>※ 제공된 PDF 파일만 활용. 외부 검색·참조 없음. 당일 발간 리포트 기준.</div>
+
+</body></html>
