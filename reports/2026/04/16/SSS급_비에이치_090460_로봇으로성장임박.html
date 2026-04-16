@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>비에이치 (090460) 정리</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Pretendard','Apple SD Gothic Neo',-apple-system,sans-serif;
+    background: #ffffff; color: #1a1d2e;
+    line-height: 1.7; font-size: 14px;
+    max-width: 900px; margin: 0 auto; padding: 32px 20px 80px;
+  }
+  .header { border-left: 4px solid #2563eb; padding: 0 0 0 16px; margin-bottom: 24px; }
+  .header h1 { font-size: 20px; font-weight: 700; margin-bottom: 10px; color: #1a1d2e; }
+  .price-row { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin-top: 10px; }
+  .price-item { background: #f0f2f8; border: 1px solid #d0d4e0; border-radius: 6px; padding: 6px 14px; font-size: 13px; }
+  .price-item .label { color: #5a6280; font-size: 11px; display: block; }
+  .price-item .val { font-weight: 700; color: #1a1d2e; }
+  .upside-val { color: #059669; }
+  .upside-negative { color: #dc2626; }
+  .tag-badge { display: inline-flex; align-items: center; gap: 6px; padding: 5px 14px; border-radius: 20px; font-size: 13px; font-weight: 700; }
+  .tag-sss     { background: #fff3ed; color: #c2410c; border: 1px solid #f97316; }
+  .tag-ss      { background: #f5f3ff; color: #6d28d9; border: 1px solid #8b5cf6; }
+  .tag-core    { background: #ecfdf5; color: #059669; border: 1px solid #34d399; }
+  .tag-watch   { background: #fffbeb; color: #b45309; border: 1px solid #f59e0b; }
+  .tag-stable  { background: #eff6ff; color: #1d4ed8; border: 1px solid #60a5fa; }
+  .tag-hold    { background: #fefce8; color: #a16207; border: 1px solid #facc15; }
+  .tag-exclude { background: #f3f4f6; color: #6b7280; border: 1px solid #9ca3af; }
+  .score-badge { display: inline-block; padding: 5px 14px; border-radius: 20px; font-size: 13px; font-weight: 700; background: #f0f2f8; border: 1px solid #d0d4e0; color: #1a1d2e; }
+  .score-high { color: #059669; }
+  .score-mid  { color: #b45309; }
+  .score-low  { color: #5a6280; }
+  .pathway-badge { display: inline-flex; align-items: center; gap: 4px; padding: 3px 10px; border-radius: 12px; font-size: 11px; font-weight: 600; background: #f0f2f8; border: 1px solid #d0d4e0; color: #5a6280; }
+  section { margin-bottom: 28px; }
+  .section-title {
+    font-size: 11px; font-weight: 700; letter-spacing: 1.5px;
+    text-transform: uppercase; color: #5a6280;
+    border-bottom: 1px solid #d0d4e0;
+    padding-bottom: 6px; margin-bottom: 14px;
+  }
+  .pdf-only-banner {
+    background: #fff7ed; border: 1px solid #f97316;
+    border-radius: 8px; padding: 10px 16px;
+    font-size: 12px; color: #c2410c;
+    margin-bottom: 20px; text-align: center; font-weight: 700;
+  }
+  .thesis-box {
+    background: #f8faff; border: 1px solid #2563eb;
+    border-radius: 8px; padding: 16px 20px;
+    font-size: 15px; font-weight: 600; line-height: 1.6; color: #1a1d2e;
+  }
+  .thesis-structure { display: flex; gap: 8px; align-items: center; margin-top: 10px; flex-wrap: wrap; }
+  .thesis-part { background: #f0f2f8; border: 1px solid #d0d4e0; border-radius: 6px; padding: 4px 10px; font-size: 12px; color: #1a1d2e; }
+  .thesis-arrow { color: #2563eb; font-size: 16px; }
+  .checklist { background: #fafafa; border: 1px solid #d0d4e0; border-radius: 8px; overflow: hidden; }
+  .checklist-item { display: flex; gap: 14px; align-items: flex-start; padding: 12px 16px; border-bottom: 1px solid #d0d4e0; }
+  .checklist-item:last-child { border-bottom: none; }
+  .check-icon { width: 22px; height: 22px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; flex-shrink: 0; margin-top: 1px; }
+  .check-pass { background: #ecfdf5; color: #059669; border: 1px solid #34d399; }
+  .check-fail { background: #fef2f2; color: #dc2626; border: 1px solid #fca5a5; }
+  .check-na   { background: #f0f2f8; color: #5a6280; border: 1px solid #d0d4e0; }
+  .check-label { font-weight: 600; font-size: 13px; color: #1a1d2e; }
+  .check-detail { color: #5a6280; font-size: 12px; margin-top: 2px; }
+  .check-why { color: #1a1d2e; font-size: 13px; }
+  table { width: 100%; border-collapse: collapse; background: #fafafa; border-radius: 8px; overflow: hidden; border: 1px solid #d0d4e0; }
+  thead tr { background: #f0f2f8; }
+  th { padding: 10px 14px; text-align: left; font-size: 11px; font-weight: 700; color: #5a6280; letter-spacing: 0.8px; text-transform: uppercase; }
+  td { padding: 10px 14px; border-top: 1px solid #d0d4e0; font-size: 13px; color: #1a1d2e; }
+  tr.total-row td { background: #e8ecf5; font-weight: 700; }
+  .penalty { color: #dc2626; }
+  .highlight-green { color: #059669; font-weight: 700; }
+  .highlight-red { color: #dc2626; }
+  .chain-box { background: #fafafa; border: 1px solid #d0d4e0; border-radius: 8px; padding: 16px 20px; }
+  .chain-step { display: flex; gap: 12px; align-items: flex-start; margin-bottom: 10px; }
+  .chain-step:last-child { margin-bottom: 0; }
+  .chain-arrow { color: #2563eb; font-size: 16px; flex-shrink: 0; margin-top: 1px; }
+  .chain-content { flex: 1; }
+  .chain-label { font-size: 10px; font-weight: 700; letter-spacing: 1px; color: #5a6280; text-transform: uppercase; margin-bottom: 2px; }
+  .chain-text { font-size: 13px; color: #1a1d2e; }
+  .chain-confirmed { color: #059669; font-size: 11px; margin-left: 6px; }
+  .chain-forecast { color: #b45309; font-size: 11px; margin-left: 6px; }
+  .fact-item { background: #fafafa; border: 1px solid #d0d4e0; border-radius: 8px; padding: 14px 16px; margin-bottom: 8px; }
+  .fact-item:last-child { margin-bottom: 0; }
+  .fact-num { font-size: 10px; font-weight: 700; color: #2563eb; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 8px; display: block; }
+  .fact-what { font-weight: 600; font-size: 14px; margin-bottom: 6px; color: #1a1d2e; }
+  .fact-why  { font-size: 13px; color: #5a6280; margin-bottom: 6px; }
+  .fact-so   { font-size: 13px; color: #059669; }
+  .fact-label { display: inline-block; font-size: 10px; font-weight: 700; padding: 1px 6px; border-radius: 3px; margin-right: 4px; }
+  .label-what { background: #eff6ff; color: #1d4ed8; }
+  .label-why  { background: #fff7ed; color: #ea580c; }
+  .label-so   { background: #ecfdf5; color: #059669; }
+  .data-table th { background: #e8ecf5; }
+  .data-table td.key-col { background: #f0f6ff; }
+  .data-table .key-num { color: #059669; font-weight: 700; }
+  .data-table .key-opm { color: #b45309; }
+  caption { font-size: 11px; color: #5a6280; text-align: left; padding: 0 0 8px; caption-side: top; }
+  .val-box { background: #fafafa; border: 1px solid #d0d4e0; border-radius: 8px; padding: 16px 20px; font-size: 13px; line-height: 2; color: #1a1d2e; }
+  .val-formula { background: #f0f2f8; border-radius: 6px; padding: 10px 14px; font-family: monospace; font-size: 13px; margin: 10px 0; color: #b45309; }
+  .risk-item { background: #fafafa; border-radius: 0 6px 6px 0; padding: 14px 16px; margin-bottom: 10px; }
+  .risk-item:last-child { margin-bottom: 0; }
+  .risk-sev-high { border-left: 3px solid #dc2626; }
+  .risk-sev-mid  { border-left: 3px solid #ea580c; }
+  .risk-assumption { font-weight: 600; font-size: 13px; margin-bottom: 4px; color: #1a1d2e; }
+  .risk-assumption-label { font-size: 11px; color: #5a6280; }
+  .risk-chain { font-size: 12px; color: #5a6280; margin: 4px 0; }
+  .risk-impact-num { font-size: 13px; color: #dc2626; font-weight: 600; margin-top: 4px; }
+  .checkpoint-item { display: flex; gap: 12px; padding: 10px 0; border-bottom: 1px solid #d0d4e0; font-size: 13px; }
+  .checkpoint-item:last-child { border-bottom: none; }
+  .cp-date { color: #2563eb; font-weight: 600; min-width: 90px; flex-shrink: 0; }
+  .cp-event { flex: 1; color: #1a1d2e; }
+  .cp-pass { color: #059669; font-size: 12px; margin-top: 2px; }
+  .cp-fail { color: #dc2626; font-size: 12px; margin-top: 2px; }
+  .opinion-box { background: #fafafa; border: 1px solid #d0d4e0; border-radius: 8px; padding: 16px 20px; font-size: 13px; line-height: 1.8; color: #5a6280; }
+  .decision-box { display: flex; gap: 14px; margin-top: 14px; }
+  .decision-btn { flex: 1; text-align: center; padding: 10px; border-radius: 6px; font-weight: 700; font-size: 13px; border: 1px solid; }
+  .decision-buy   { background: #ecfdf5; color: #059669; border-color: #34d399; }
+  .decision-wait  { background: #fffbeb; color: #b45309; border-color: #f59e0b; }
+  .decision-avoid { background: #fef2f2; color: #dc2626; border-color: #fca5a5; }
+  .decision-dim { opacity: 0.3; }
+  .upgrade-box { background: #eff6ff; border: 1px solid #93c5fd; border-radius: 8px; padding: 14px 16px; }
+  .upgrade-item { display: flex; gap: 10px; padding: 6px 0; border-bottom: 1px solid #dbeafe; font-size: 13px; color: #1a1d2e; }
+  .upgrade-item:last-child { border-bottom: none; }
+  .upgrade-when { color: #1d4ed8; font-weight: 600; min-width: 140px; flex-shrink: 0; }
+  .conditional-note { background: #fef3c7; border: 1px solid #fcd34d; border-radius: 6px; padding: 6px 12px; font-size: 11px; color: #92400e; margin-bottom: 12px; }
+  .empty { color: #9ca3af; font-style: italic; font-size: 12px; }
+  .term-box { background: #fffbeb; border: 1px solid #fcd34d; border-radius: 6px; padding: 8px 12px; font-size: 12px; color: #92400e; margin-top: 6px; }
+  .disclaimer { font-size: 11px; color: #9ca3af; text-align: center; margin-top: 40px; padding-top: 16px; border-top: 1px solid #d0d4e0; }
+</style>
+</head>
+<body>
+
+<div class="pdf-only-banner">
+  🚫 외부 검색 절대 금지 — 제공된 PDF 파일만 활용 | 당일 발간 리포트 기준 투자 종목 발굴 전용
+</div>
+
+<header class="header">
+  <h1>비에이치 (090460) | 로봇으로 성장 임박 | DS투자증권 조대형 | 발간일: 2026.04.16</h1>
+
+  <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-bottom:12px;">
+    <span class="tag-badge tag-sss">💥 SSS급</span>
+    <span class="score-badge score-high">📊 95점</span>
+    <span style="font-size:12px;color:#5a6280;">비바이오</span>
+    <span class="pathway-badge">경로 ①OPM확장 + ②볼륨드리븐 복합</span>
+  </div>
+
+  <div class="price-row">
+    <div class="price-item"><span class="label">투자의견</span><span class="val">Buy(유지)</span></div>
+    <div class="price-item"><span class="label">목표주가(TP)</span><span class="val">37,000원</span></div>
+    <div class="price-item"><span class="label">현재주가(CP)</span><span class="val">23,950원</span></div>
+    <div class="price-item"><span class="label">Upside</span><span class="val upside-val">+54.5%</span></div>
+    <div class="price-item"><span class="label">시가총액</span><span class="val">8,070억원</span></div>
+    <div class="price-item"><span class="label">종목 유형</span><span class="val">비바이오</span></div>
+  </div>
+</header>
+
+
+<section>
+  <div class="section-title">💡 이 종목에 투자해야 하는 이유 — 스토리 한 줄</div>
+  <div class="thesis-box">
+    "애플 폴더블폰 FPCB 사실상 독점 공급(확정·5월 양산)과 CES 2026 1kW 무선충전 로봇충전기 국내 대기업 공급 확정이라는 2개의 ●●● 팩트에 힘입어 26E 영업이익이 540억→1,339억원(+148%), OPM 3.0%→6.8%(+3.8%p)로 점프하는데, 시장은 아직 기존 모바일 FPCB 업체로만 보고 있어 Upside +54.5%"
+  </div>
+  <div class="thesis-structure">
+    <div class="thesis-part" style="color:#059669;">① 확정 팩트 계기<br/>애플 폴더블 FPCB 5월 양산 / CES 2026 로봇충전기 공급 확정</div>
+    <div class="thesis-arrow">→</div>
+    <div class="thesis-part" style="color:#b45309;">② 실적 변화<br/>26E OP +148.0%(540→1,339억), OPM +3.8%p (3.0→6.8%)</div>
+    <div class="thesis-arrow">→</div>
+    <div class="thesis-part" style="color:#2563eb;">③ 시장 미반영<br/>Upside +54.5%, Target PER 10.7배(5개년 평균) 리레이팅</div>
+  </div>
+</section>
+
+
+<section>
+  <div class="section-title">✅ 💥 SSS급 추가 3가지 조건 (핵심 5조건 + 아래 3조건 = 총 8조건 모두 충족 필수)</div>
+  <div class="conditional-note">⚠️ SSS급 전용 — 일일 최대 0~1개. 80점 이상 필수.</div>
+  <div class="checklist">
+    <div class="checklist-item">
+      <div class="check-icon check-pass">✓</div>
+      <div>
+        <div class="check-label">SSS-1 | 테제 경로 ①~④ 확정 (●●● 필수)</div>
+        <div class="check-detail">①OPM확장/②볼륨드리븐 복합 + ●●● 팩트 3개 존재</div>
+        <div class="check-why">경로 ①+② 복합 — ●●● 애플 폴더블 FPCB 5월 양산 확정 + ●●● CES 2026 1kW 무선충전 로봇충전기 국내 대기업 공급 확정 + ●●● IT OLED HDI 하반기 1종 추가 양산 공급</div>
+      </div>
+    </div>
+    <div class="checklist-item">
+      <div class="check-icon check-pass">✓</div>
+      <div>
+        <div class="check-label">SSS-2 | 1분기 이내 가시화</div>
+        <div class="check-detail">현 분기 또는 직후 분기에서 실적으로 확인 가능</div>
+        <div class="check-why">1Q26F OP 64억(흑자전환 YoY, 컨센 63억 대비 +1.6%) → 2Q26F 폴더블 공급 개시 → 3Q26F OP 618억(+79.3% YoY) 급증으로 1개 분기 내 폴더블·로봇 효과 가시화</div>
+      </div>
+    </div>
+    <div class="checklist-item">
+      <div class="check-icon check-pass">✓</div>
+      <div>
+        <div class="check-label">SSS-3 | 3년 지속 체크리스트 2개+</div>
+        <div class="check-detail">§11 체크리스트에서 2개 이상 충족</div>
+        <div class="check-why">① 독점 공급 계약(애플 폴더블 FPCB 사실상 독점) ② CAPA 확장(무선충전 로봇 분야 하반기 양산) ③ 리커링·L/O급 고정 매출(폴더블 FPCB 3,500억 27년 확대) ④ 신사업 IT OLED HDI 27년 2종 추가 양산 — 총 4개 충족</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="section-title">✅ 핵심 태그 5가지 조건 체크 (5개 모두 통과해야 ⭐핵심 이상 가능)</div>
+  <div class="checklist">
+    <div class="checklist-item">
+      <div class="check-icon check-pass">✓</div>
+      <div>
+        <div class="check-label">조건 1 | 영업이익 성장 임계값</div>
+        <div class="check-detail">향후 1년 OP +50%+ AND (OPM +3%p+ OR OPM 15%+ 유지)</div>
+        <div class="check-why">26E OP +148.0%(540→1,339억), OPM 3.0%→6.8%(+3.8%p) → 두 조건 동시 충족 → 통과</div>
+      </div>
+    </div>
+    <div class="checklist-item">
+      <div class="check-icon check-pass">✓</div>
+      <div>
+        <div class="check-label">조건 2 | 3년 지속성 (3개 이상 충족)</div>
+        <div class="check-detail">수주잔고 / CAPA 확대 / 독점·특허 / Lock-in / CAGR 15%+ / L/O 로열티 / 리커링 매출 등</div>
+        <div class="check-why">① 애플 폴더블 FPCB 독점 공급 ② 휴머노이드 로봇 관절 모듈당 FPCB 20개+(탈중국 수혜) ③ EV/로봇 무선충전 확장 ④ IT OLED HDI 27년 2종 추가 양산 ⑤ 26~27E 매출 CAGR 13% → 5개</div>
+      </div>
+    </div>
+    <div class="checklist-item">
+      <div class="check-icon check-pass">✓</div>
+      <div>
+        <div class="check-label">조건 3 | 확정 팩트(●●●) 2개 이상</div>
+        <div class="check-detail">●●● = 수주확정·인허가·계약공시·실적 확인 / ●●○ 4개 = 충족</div>
+        <div class="check-why">●●● 애플 폴더블 FPCB 5월 양산 확정 + ●●● CES 2026 로봇충전기 국내 대기업 공급 확정 + ●●● 연간 실적 전망 상향(26E OP 970→1,339억, +38%) → 3개 통과</div>
+      </div>
+    </div>
+    <div class="checklist-item">
+      <div class="check-icon check-pass">✓</div>
+      <div>
+        <div class="check-label">조건 4 | 시장 미반영 (둘 중 하나)</div>
+        <div class="check-detail">Upside 40%+ OR 컨센서스 대비 추정치 +20%+ 괴리</div>
+        <div class="check-why">Upside +54.5% (TP 37,000원 vs CP 23,950원) + 연간 실적 전망 변경 OP +38.0%(970→1,339억) 상향 → 통과</div>
+      </div>
+    </div>
+    <div class="checklist-item">
+      <div class="check-icon check-pass">✓</div>
+      <div>
+        <div class="check-label">조건 5 | 이 리포트만의 차별화된 시각</div>
+        <div class="check-detail">모든 증권사 동일 논리면 주목. 신규 커버리지·고유 근거·컨센 상회 필수</div>
+        <div class="check-why">기존 애플 폴더블 시각을 넘어 "휴머노이드 관절 모듈당 FPCB 20개+" 구체 정량과 "4월 샘플→하반기 양산" 로봇 무선충전 시점 제시 — 타 리포트(불릿)와 차별화 → 통과</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<section>
+  <div class="section-title">📊 투자 점수 판정 (v2.0 비바이오) — 모든 근거 칸 필수 기재</div>
+  <table>
+    <thead><tr><th>항목</th><th>판정</th><th>근거 (Why — 반드시 기재)</th></tr></thead>
+    <tbody>
+      <tr><td>종목 유형</td><td>비바이오</td><td>FPCB·무선충전모듈 제조업, 실적 기반 주가 결정 구조</td></tr>
+      <tr><td>적용 가설</td><td>가설 2</td><td>이미 고성장 궤도(26E OP +148%) + OPM 개선 구체 근거(애플 폴더블 고단가·로봇 양산) 존재 → 가설 2</td></tr>
+      <tr><td>촉매 등급</td><td>상급</td><td>글로벌 1위 애플 폴더블 FPCB 사실상 독점 + CES 2026 공개 후 국내 대기업 공급 확정 → 상급</td></tr>
+      <tr><td>복합 여부</td><td>복합</td><td>촉매 A(애플 폴더블) + B(휴머노이드 로봇 FPCB) + C(무선충전 로봇) + D(IT OLED HDI 흑전) → 복합</td></tr>
+      <tr><td>직접성</td><td>직접</td><td>FPCB·무선충전모듈 = 주력 매출 1단계 직접 연결 → 직접</td></tr>
+      <tr><td>매트릭스 기본 점수</td><td>95점</td><td>가설2 × 상급 × 복합 → 90점, 다축 복합 보너스 +5 → 95점</td></tr>
+      <tr><td>페널티 ① (해당 시)</td><td class="penalty">-0점</td><td>해당 없음 — 직접성 확보</td></tr>
+      <tr><td>페널티 ② (해당 시)</td><td class="penalty">-0점</td><td>1M +29.7% 상승했으나 +30% 미만 → 선반영 페널티 미적용</td></tr>
+      <tr class="total-row"><td>최종 투자 점수</td><td><span class="highlight-green">95점</span></td><td>SSS 80+ / SS 70+ / 핵심 60+ / 주목 40+ / 안정 20+</td></tr>
+    </tbody>
+  </table>
+  <p style="font-size:11px;color:#5a6280;margin-top:8px;padding:0 4px;">
+    페널티 5종만: ①간접성 ②컨센 반영 ③미확정 30%+ ④선반영 30%+ ⑤리스크 집중. 그 외 금지.
+  </p>
+</section>
+
+
+<section>
+  <div class="section-title">⚡ 성장 인과 체인 — 왜 성장하는가 (각 단계에 수치 필수)</div>
+  <div class="chain-box">
+    <div class="chain-step">
+      <div class="chain-arrow">①</div>
+      <div class="chain-content">
+        <div class="chain-label">구조 변화 / 촉매 <span class="chain-confirmed">● 확정 팩트</span></div>
+        <div class="chain-text">애플 폴더블 FPCB 5월 양산 확정(●●●) + CES 2026 1kW 무선충전 로봇충전기 공개 후 국내 대기업 공급 확정(●●●) + 휴머노이드 관절 모듈당 FPCB 20개+ 탑재 기회 확대</div>
+      </div>
+    </div>
+    <div class="chain-step">
+      <div class="chain-arrow">↓</div>
+      <div class="chain-content">
+        <div class="chain-label">매출 영향 (규모·비중 수치)</div>
+        <div class="chain-text">FPCB 매출 1,446.8십억원(2025) → 1,611.9십억원(26E, +11.4%) → 1,884.4십억원(27E, +16.9%), 3Q26F FPCB만 540.2십억원(+13.1% YoY)로 폴더블 본격 기여</div>
+      </div>
+    </div>
+    <div class="chain-step">
+      <div class="chain-arrow">↓</div>
+      <div class="chain-content">
+        <div class="chain-label">OPM 변화 메커니즘 (왜 마진이 오르는가)</div>
+        <div class="chain-text">폴더블 FPCB 단가가 기존 모바일용 대비 높고, 모바일용 CR(원가절감) 요구도 제한적 → 3Q26F OPM 9.8%로 점프. IT OLED HDI 적자 축소가 추가 OPM 개선 기여</div>
+      </div>
+    </div>
+    <div class="chain-step">
+      <div class="chain-arrow">↓</div>
+      <div class="chain-content">
+        <div class="chain-label">최종 실적 결과 <span class="chain-forecast">● 추정</span></div>
+        <div class="chain-text">26E 매출 19,817억원(+10.5%), OP 1,339억원(+148.0%), OPM 6.8%(+3.8%p). 27E OP 1,645억원(+22.8%)로 연속 성장</div>
+      </div>
+    </div>
+    <div class="chain-step">
+      <div class="chain-arrow">↓</div>
+      <div class="chain-content">
+        <div class="chain-label">시장 미반영 포인트 (So What)</div>
+        <div class="chain-text">26E EPS 3,487원 × Target PER 10.7배(5개년 평균) = TP 37,000원으로 Upside +54.5%. 시장은 휴머노이드·로봇 무선충전 옵션 가치를 아직 반영하지 않음</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<section>
+  <div class="section-title">📌 핵심 팩트 3줄 — WHAT(숫자) + WHY(원인) + SO WHAT(의미) 3요소 필수</div>
+  <div class="fact-item">
+    <span class="fact-num">Fact 01</span>
+    <div class="fact-what"><span class="fact-label label-what">WHAT</span>26E 영업이익 540억 → 1,339억원(+148.0%), OPM 3.0% → 6.8%(+3.8%p)</div>
+    <div class="fact-why"><span class="fact-label label-why">WHY</span>애플 폴더블 FPCB 5월 양산 단가 상승 + IT OLED HDI 적자 축소 + 무선충전 로봇 하반기 양산 기여. 3Q26F OPM 9.8% 점프 견인</div>
+    <div class="fact-so"><span class="fact-label label-so">SO WHAT</span>연간 실적 변경 OP +38.0%(970→1,339억) 상향 — 컨센 대비 상방 여지. Upside +54.5% 리레이팅 구간 진입</div>
+  </div>
+  <div class="fact-item">
+    <span class="fact-num">Fact 02</span>
+    <div class="fact-what"><span class="fact-label label-what">WHAT</span>휴머노이드 로봇 관절 모듈당 FPCB 2개 × 팔 1개당 6축 = 최소 12개, 전체 로봇당 20개+ 탑재</div>
+    <div class="fact-why"><span class="fact-label label-why">WHY</span>글로벌 휴머노이드 관절 모듈 밸류체인이 중국 기업 중심으로 편성 → 탈중국 움직임 + 국내 FPCB 강자인 동사 수혜. 4월부터 샘플 공급 → 하반기 양산 개시</div>
+    <div class="fact-so"><span class="fact-label label-so">SO WHAT</span>기존 모바일 FPCB 시장 위에 완전히 새로운 로봇 전방 시장이 추가 — 중장기 매출 볼륨 드리븐형 옵션 가치</div>
+  </div>
+  <div class="fact-item">
+    <span class="fact-num">Fact 03</span>
+    <div class="fact-what"><span class="fact-label label-what">WHAT</span>26E EPS 3,487원 × Target PER 10.7배 = TP 37,000원 (백원 단위 절사)</div>
+    <div class="fact-why"><span class="fact-label label-why">WHY</span>Target PER은 최근 5개년 평균 PER 배수 적용. 현재 PER 6.9배 → Target 10.7배로 재평가 여지 존재</div>
+    <div class="fact-so"><span class="fact-label label-so">SO WHAT</span>EPS 165.8% 증가 + 리레이팅 2중 효과. 27E PER 5.6배로 확장 시 추가 Upside 존재</div>
+  </div>
+</section>
+
+
+<section>
+  <div class="section-title">📄 원본 리포트 핵심 요약 — PDF 내용 직접 발췌 (외부 정보 추가 금지)</div>
+  <div style="background:#fafafa;border:1px solid #d0d4e0;border-radius:8px;padding:16px 20px;margin-bottom:12px;">
+    <div style="font-size:11px;font-weight:700;letter-spacing:1px;color:#5a6280;text-transform:uppercase;margin-bottom:10px;">리포트 핵심 주장 (애널리스트 관점 요약)</div>
+    <p style="font-size:13px;line-height:1.9;">FPCB와 BH EVS 무선충전모듈 모두 휴머노이드 로봇으로의 전방 다변화 가시성이 높다. 아이폰17 롱테일 + 폴더블 + IT OLED HDI 흑전 3축 동시 작동으로 26E 영업이익 148% 증가가 확보되며, 로봇은 구조적 성장 옵션으로 추가된다. 투자의견 매수·목표주가 37,000원을 유지한다.</p>
+    <div style="margin-top:10px;display:flex;gap:8px;flex-wrap:wrap;">
+      <div style="background:#f0f2f8;border:1px solid #d0d4e0;border-radius:6px;padding:6px 12px;font-size:12px;">
+        <span style="color:#5a6280;font-size:10px;display:block;margin-bottom:2px;">이전 대비 변화 포인트</span>
+        26E OP 970→1,339억(+38.0%), 매출 19,171→19,817억(+3.4%) 상향 / TP 37,000원 유지
+      </div>
+      <div style="background:#f0f2f8;border:1px solid #d0d4e0;border-radius:6px;padding:6px 12px;font-size:12px;">
+        <span style="color:#5a6280;font-size:10px;display:block;margin-bottom:2px;">컨센서스 대비</span>
+        1Q26F OP 64억 vs 컨센 63억 +1.6% 상회, 연간 OP +38% 상향 여지
+      </div>
+    </div>
+  </div>
+  <div style="background:#fafafa;border:1px solid #d0d4e0;border-radius:8px;padding:16px 20px;margin-bottom:12px;">
+    <div style="font-size:11px;font-weight:700;letter-spacing:1px;color:#5a6280;text-transform:uppercase;margin-bottom:10px;">사업 구조 & 성장 동력</div>
+    <table style="margin:0;">
+      <thead><tr><th style="width:25%;">사업부</th><th style="width:20%;">매출 비중</th><th style="width:55%;">핵심 성장 드라이버 (Why 포함)</th></tr></thead>
+      <tbody>
+        <tr><td>FPCB</td><td>81.3% (26E)</td><td>아이폰17 롱테일 + 폴더블 FPCB 사실상 독점(5월 양산, 단가 高) + 휴머노이드 관절 모듈 FPCB 20개+ 탑재 → 26E +11.4%, 27E +16.9%</td></tr>
+        <tr><td>전장(BH EVS 무선충전모듈 포함)</td><td>18.7% (26E)</td><td>글로벌 완성차 무선충전모듈 + CES 2026 1kW 로봇충전기 공개 후 국내 대기업 공급 확정 → 하반기 로봇 양산, EV 확장</td></tr>
+        <tr><td>IT OLED HDI(FPCB 내)</td><td>신사업</td><td>하반기 1종 추가 양산 공급 → 적자 축소, 27년 2종 추가로 흑자 궤도 진입 예정</td></tr>
+      </tbody>
+    </table>
+    <p style="font-size:12px;color:#5a6280;margin-top:10px;">▶ 핵심 성장 메커니즘: 애플 폴더블(단가 高) + 로봇 FPCB·무선충전(볼륨 확장) + IT OLED HDI 적자 축소 3축이 3Q26F OPM 9.8%로 집중 기여</p>
+  </div>
+  <div style="background:#fafafa;border:1px solid #d0d4e0;border-radius:8px;padding:16px 20px;margin-bottom:12px;">
+    <div style="font-size:11px;font-weight:700;letter-spacing:1px;color:#5a6280;text-transform:uppercase;margin-bottom:10px;">시장 괴리 — 왜 지금 시장이 틀렸는가</div>
+    <table style="margin:0;">
+      <thead><tr><th style="width:30%;">구분</th><th>내용</th></tr></thead>
+      <tbody>
+        <tr><td style="color:#5a6280;">시장 현재 인식</td><td>모바일 FPCB 비수기 우려 + 폴더블 출시 지연 루머로 CP 23,950원(PER 6.9배) 저평가</td></tr>
+        <tr><td style="color:#2563eb;">이 리포트 주장</td><td>폴더블 5월 양산 기존 일정대로 진행 중 + 로봇 전방 시장 신규 추가로 26E OP +148%</td></tr>
+        <tr><td style="color:#b45309;">괴리 해소 촉매</td><td>2Q26F 폴더블용 제품 공급 개시 + 하반기 로봇충전기 양산 개시 + 3Q26F 실적 확인(OPM 9.8%)</td></tr>
+        <tr><td>괴리 강도</td><td><span style="color:#059669;">강</span> / <span style="color:#b45309;">중</span> / <span style="color:#5a6280;">약</span> — <strong>강</strong></td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div style="background:#fafafa;border:1px solid #d0d4e0;border-radius:8px;padding:16px 20px;">
+    <div style="font-size:11px;font-weight:700;letter-spacing:1px;color:#5a6280;text-transform:uppercase;margin-bottom:10px;">재무 특징 (PDF에 있는 경우만)</div>
+    <div style="display:flex;flex-wrap:wrap;gap:8px;">
+      <div style="background:#f0f2f8;border:1px solid #d0d4e0;border-radius:6px;padding:8px 12px;font-size:12px;flex:1;min-width:160px;"><span style="color:#5a6280;font-size:10px;display:block;margin-bottom:2px;">순현금/순차입금</span>순현금 -74십억원(26E, 순현금 전환)</div>
+      <div style="background:#f0f2f8;border:1px solid #d0d4e0;border-radius:6px;padding:8px 12px;font-size:12px;flex:1;min-width:160px;"><span style="color:#5a6280;font-size:10px;display:block;margin-bottom:2px;">부채비율</span>26E 64.8% (25년 70.3% → 개선)</div>
+      <div style="background:#f0f2f8;border:1px solid #d0d4e0;border-radius:6px;padding:8px 12px;font-size:12px;flex:1;min-width:160px;"><span style="color:#5a6280;font-size:10px;display:block;margin-bottom:2px;">배당·자사주</span>DPS 26E 350원(전년 130원 대비 +169%)</div>
+      <div style="background:#f0f2f8;border:1px solid #d0d4e0;border-radius:6px;padding:8px 12px;font-size:12px;flex:1;min-width:160px;"><span style="color:#5a6280;font-size:10px;display:block;margin-bottom:2px;">특이 재무 이슈</span>ROE 26E 13.5% (25년 5.6% 대비 급반등)</div>
+    </div>
+  </div>
+</section>
+
+
+<section>
+  <div class="section-title">📈 실적 전망 (연간) — PDF 원문 수치만 기재, 추정 금지</div>
+  <table class="data-table">
+    <caption>단위: 십억원 — PDF 원문 기준 | ★ = 투자 핵심 연도(26E)</caption>
+    <thead>
+      <tr>
+        <th>구분</th>
+        <th>2023A</th><th>2024A</th><th>2025A</th>
+        <th style="background:#dbeafe;color:#1e40af;font-weight:700;">2026E ★</th>
+        <th>2027E</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td>매출액</td><td>1,592</td><td>1,754</td><td>1,793</td><td class="key-col key-num">1,982</td><td>2,290</td></tr>
+      <tr><td>YoY(%)</td><td>-5.3</td><td>10.2</td><td>2.2</td><td class="key-col">10.5</td><td>15.6</td></tr>
+      <tr><td>영업이익</td><td>85</td><td>87</td><td>54</td><td class="key-col key-num">134</td><td>164</td></tr>
+      <tr><td>YoY(%)</td><td>-35.4</td><td>2.7</td><td>-38.0</td><td class="key-col key-num">148.0</td><td>22.8</td></tr>
+      <tr><td>OPM(%)</td><td>5.3</td><td>5.0</td><td>3.0</td><td class="key-col key-opm">6.8</td><td>7.2</td></tr>
+      <tr><td>EPS(원)</td><td>2,631</td><td>1,945</td><td>1,312</td><td class="key-col">3,487</td><td>4,309</td></tr>
+      <tr><td>PER(배)</td><td>8.0</td><td>8.9</td><td>16.8</td><td class="key-col">6.9</td><td>5.6</td></tr>
+      <tr><td>PBR(배)</td><td>1.1</td><td>0.8</td><td>1.0</td><td class="key-col">1.0</td><td>0.8</td></tr>
+      <tr><td>ROE(%)</td><td>15.1</td><td>9.9</td><td>5.6</td><td class="key-col">13.5</td><td>14.6</td></tr>
+    </tbody>
+  </table>
+  <p style="font-size:12px;color:#5a6280;margin-top:10px;padding:0 4px;">
+    ▶ 왜 26E가 변곡점인가: 애플 폴더블 5월 양산(단가 상승)+CES 2026 로봇충전기 하반기 양산+IT OLED HDI 적자 축소 3축 동시 작동 → OP +148%, OPM +3.8%p 점프
+  </p>
+</section>
+
+
+<section>
+  <div class="section-title">📅 분기별 실적 전망 — PDF에 있으면 반드시 기재, 생략 금지</div>
+  <table class="data-table">
+    <caption>단위: 십억원 / %</caption>
+    <thead>
+      <tr>
+        <th>구분</th>
+        <th>1Q25</th><th>2Q25</th><th>3Q25</th><th>4Q25</th>
+        <th style="background:#dbeafe;color:#1e40af;font-weight:700;">1Q26F ★</th>
+        <th>2Q26F</th><th>3Q26F</th><th>4Q26F</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td>매출액</td><td>332.4</td><td>389.7</td><td>562.5</td><td>508.0</td><td class="key-col key-num">380.1</td><td>396.7</td><td>633.6</td><td>571.3</td></tr>
+      <tr><td>영업이익</td><td>-25.4</td><td>16.0</td><td>34.5</td><td>28.8</td><td class="key-col key-num">6.4</td><td>16.1</td><td>61.8</td><td>49.5</td></tr>
+      <tr><td>OPM(%)</td><td>-7.6</td><td>4.1</td><td>6.1</td><td>5.7</td><td class="key-col key-opm">1.7</td><td>4.1</td><td>9.8</td><td>8.7</td></tr>
+    </tbody>
+  </table>
+  <p style="font-size:12px;color:#5a6280;margin-top:10px;padding:0 4px;">
+    ▶ 1Q26F 주목 포인트: OP 64억(흑자전환 YoY, 컨센 63억 +1.6% 상회) 확인 → 2Q26F 폴더블 공급 개시 → 3Q26F OPM 9.8% 점프로 테제 입증. 미달 시(OPM 5%↓) 폴더블 지연 우려 재점화
+  </p>
+</section>
+
+
+<section>
+  <div class="section-title">💰 밸류에이션 — 왜 이 배수인가 1문장 필수</div>
+  <div class="val-box">
+    <div class="val-formula">26F EPS 3,487원 × Target PER 10.7배(최근 5개년 평균) = TP 37,000원(백원 단위 절사)</div>
+    <p style="color:#5a6280;font-size:12px;margin-top:8px;">▶ 왜 이 배수인가: 최근 5개년 평균 PER 10.7배 적용 — 역사적 밴드 중단 수준으로 보수적. 폴더블·로봇 리레이팅 시 상단(12~15배) 확장 여지</p>
+    <p style="color:#5a6280;font-size:12px;margin-top:4px;">▶ SOTP 적용 시: FPCB(폴더블 단가 高) + 무선충전모듈(로봇 옵션) + IT OLED HDI(흑전 전환) — 본 리포트는 단일 PER 적용</p>
+  </div>
+</section>
+
+<section>
+  <div class="section-title">⚠️ 리스크 — 핵심 가정이 틀릴 경우 시나리오 (키워드 나열 금지)</div>
+  <div class="risk-item risk-sev-high">
+    <div class="risk-assumption">🔴 핵심 가정: 애플 폴더블폰 5월 양산 일정 기존 계획대로 진행</div>
+    <div class="risk-chain" style="margin-top:6px;">→ 붕괴 시: 최근 출시 일정 지연 루머가 현실화되면 2Q26F 폴더블 공급 개시 연기<br/>→ 실적 영향: 3Q26F OP 61.8→30억 수준으로 절반 이하 감소, 26E OP 134→100십억 수준까지 하향</div>
+    <div class="risk-impact-num">→ 주가 영향: Target PER 10.7배 유지 시 TP 28,000원 수준(-24%), Upside 소멸</div>
+  </div>
+  <div class="risk-item risk-sev-mid">
+    <div class="risk-assumption">🟠 두 번째 가정: CES 2026 공개 로봇충전기 국내 대기업 공급 예정대로 하반기 양산</div>
+    <div class="risk-chain" style="margin-top:6px;">→ 붕괴 시: 샘플 검증 실패 또는 양산 6개월+ 지연 시 27년 기여 축소. 전장 26E 매출 369.8→340십억 수준으로 하향</div>
+    <div class="risk-impact-num">→ 주가 영향: 27E 성장 가정 약화로 PER 리레이팅 지연(TP 2,000~3,000원 하향 압력)</div>
+  </div>
+</section>
+
+<section>
+  <div class="section-title">🎯 모멘텀 확인 체크포인트 — 확인/실망 시 행동 명시</div>
+  <div style="background:#fafafa;border:1px solid #d0d4e0;border-radius:8px;padding:4px 16px;">
+    <div class="checkpoint-item">
+      <span class="cp-date">2026.05</span>
+      <div>
+        <div class="cp-event">1Q26 실적 발표 + 애플 폴더블 FPCB 5월 양산 개시 확인</div>
+        <div class="cp-pass">✅ OP 64억+ 달성 & 폴더블 양산 개시 확인 시 → 비중 확대</div>
+        <div class="cp-fail">⛔ OP 40억 이하 또는 폴더블 양산 지연 확정 시 → 보유 유지·추가 매수 보류</div>
+      </div>
+    </div>
+    <div class="checkpoint-item">
+      <span class="cp-date">2026.08</span>
+      <div>
+        <div class="cp-event">2Q26F 폴더블 공급 개시 확인 + 하반기 로봇충전기 양산 공시</div>
+        <div class="cp-pass">✅ 양산 공시 확정 시 → SSS 태그 유지·홀딩</div>
+        <div class="cp-fail">⛔ 로봇 양산 지연·취소 시 → 포지션 일부 청산, 27E 가정 재조정</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="section-title">💬 사견 & 투자 행동 결론</div>
+  <div class="opinion-box">
+    <p>DS투자 조대형 애널리스트는 26E OP 970→1,339억으로 +38% 상향 — 타 증권사 컨센 상회 고유 근거(폴더블+로봇+무선충전 3축). 우려 포인트는 ① 폴더블 출시 지연 루머의 현실화 가능성과 ② 1Q26F OPM 1.7% 저점 구간에서의 단기 주가 변동성. 그러나 2Q~3Q26F 폴더블 양산 + 로봇 CES 공급 확정이라는 확실한 촉매가 3~6개월 내 가시화되므로 지금 진입 타이밍으로 판단한다.</p>
+    <div class="decision-box">
+      <div class="decision-btn decision-buy">✅ 지금 진입 가능<br/><span style="font-size:11px;font-weight:400;">SSS급 & 95점</span></div>
+      <div class="decision-btn decision-wait decision-dim">⏳ 이벤트 후 진입<br/><span style="font-size:11px;font-weight:400;">1Q26 실적 후</span></div>
+      <div class="decision-btn decision-avoid decision-dim">🚫 관망<br/><span style="font-size:11px;font-weight:400;">폴더블 지연 리스크</span></div>
+    </div>
+  </div>
+</section>
+
+<div class="disclaimer">
+  ※ 본 글은 증권사 리포트를 개인 학습 목적으로 요약·정리한 것이며, 투자 권유가 아닙니다.<br/>
+  ※ 제공된 PDF 파일만 활용. 외부 검색·참조 없음. 당일 발간 리포트 기준.
+</div>
+
+</body>
+</html>

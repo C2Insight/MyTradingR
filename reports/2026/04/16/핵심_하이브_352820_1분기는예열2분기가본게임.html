@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>하이브 (352820) 정리</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Pretendard','Apple SD Gothic Neo',-apple-system,sans-serif; background: #ffffff; color: #1a1d2e; line-height: 1.7; font-size: 14px; max-width: 900px; margin: 0 auto; padding: 32px 20px 80px; }
+  .header { border-left: 4px solid #2563eb; padding: 0 0 0 16px; margin-bottom: 24px; }
+  .header h1 { font-size: 20px; font-weight: 700; margin-bottom: 10px; color: #1a1d2e; }
+  .price-row { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin-top: 10px; }
+  .price-item { background: #f0f2f8; border: 1px solid #d0d4e0; border-radius: 6px; padding: 6px 14px; font-size: 13px; }
+  .price-item .label { color: #5a6280; font-size: 11px; display: block; }
+  .price-item .val { font-weight: 700; color: #1a1d2e; }
+  .upside-val { color: #059669; }
+  .tag-badge { display: inline-flex; align-items: center; gap: 6px; padding: 5px 14px; border-radius: 20px; font-size: 13px; font-weight: 700; }
+  .tag-core { background: #ecfdf5; color: #059669; border: 1px solid #34d399; }
+  .score-badge { display: inline-block; padding: 5px 14px; border-radius: 20px; font-size: 13px; font-weight: 700; background: #f0f2f8; border: 1px solid #d0d4e0; }
+  .score-mid { color: #b45309; }
+  .pathway-badge { display: inline-flex; align-items: center; gap: 4px; padding: 3px 10px; border-radius: 12px; font-size: 11px; font-weight: 600; background: #f0f2f8; border: 1px solid #d0d4e0; color: #5a6280; }
+  section { margin-bottom: 28px; }
+  .section-title { font-size: 11px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: #5a6280; border-bottom: 1px solid #d0d4e0; padding-bottom: 6px; margin-bottom: 14px; }
+  .pdf-only-banner { background: #fff7ed; border: 1px solid #f97316; border-radius: 8px; padding: 10px 16px; font-size: 12px; color: #c2410c; margin-bottom: 20px; text-align: center; font-weight: 700; }
+  .thesis-box { background: #f8faff; border: 1px solid #2563eb; border-radius: 8px; padding: 16px 20px; font-size: 15px; font-weight: 600; line-height: 1.6; color: #1a1d2e; }
+  .thesis-structure { display: flex; gap: 8px; align-items: center; margin-top: 10px; flex-wrap: wrap; }
+  .thesis-part { background: #f0f2f8; border: 1px solid #d0d4e0; border-radius: 6px; padding: 4px 10px; font-size: 12px; color: #1a1d2e; }
+  .thesis-arrow { color: #2563eb; font-size: 16px; }
+  .checklist { background: #fafafa; border: 1px solid #d0d4e0; border-radius: 8px; overflow: hidden; }
+  .checklist-item { display: flex; gap: 14px; align-items: flex-start; padding: 12px 16px; border-bottom: 1px solid #d0d4e0; }
+  .checklist-item:last-child { border-bottom: none; }
+  .check-icon { width: 22px; height: 22px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; flex-shrink: 0; margin-top: 1px; }
+  .check-pass { background: #ecfdf5; color: #059669; border: 1px solid #34d399; }
+  .check-label { font-weight: 600; font-size: 13px; color: #1a1d2e; }
+  .check-detail { color: #5a6280; font-size: 12px; margin-top: 2px; }
+  .check-why { color: #1a1d2e; font-size: 13px; }
+  table { width: 100%; border-collapse: collapse; background: #fafafa; border-radius: 8px; overflow: hidden; border: 1px solid #d0d4e0; }
+  thead tr { background: #f0f2f8; }
+  th { padding: 10px 14px; text-align: left; font-size: 11px; font-weight: 700; color: #5a6280; letter-spacing: 0.8px; text-transform: uppercase; }
+  td { padding: 10px 14px; border-top: 1px solid #d0d4e0; font-size: 13px; color: #1a1d2e; }
+  tr.total-row td { background: #e8ecf5; font-weight: 700; }
+  .penalty { color: #dc2626; }
+  .highlight-green { color: #059669; font-weight: 700; }
+  .chain-box { background: #fafafa; border: 1px solid #d0d4e0; border-radius: 8px; padding: 16px 20px; }
+  .chain-step { display: flex; gap: 12px; align-items: flex-start; margin-bottom: 10px; }
+  .chain-step:last-child { margin-bottom: 0; }
+  .chain-arrow { color: #2563eb; font-size: 16px; flex-shrink: 0; margin-top: 1px; }
+  .chain-content { flex: 1; }
+  .chain-label { font-size: 10px; font-weight: 700; letter-spacing: 1px; color: #5a6280; text-transform: uppercase; margin-bottom: 2px; }
+  .chain-text { font-size: 13px; color: #1a1d2e; }
+  .chain-confirmed { color: #059669; font-size: 11px; margin-left: 6px; }
+  .chain-forecast { color: #b45309; font-size: 11px; margin-left: 6px; }
+  .fact-item { background: #fafafa; border: 1px solid #d0d4e0; border-radius: 8px; padding: 14px 16px; margin-bottom: 8px; }
+  .fact-item:last-child { margin-bottom: 0; }
+  .fact-num { font-size: 10px; font-weight: 700; color: #2563eb; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 8px; display: block; }
+  .fact-what { font-weight: 600; font-size: 14px; margin-bottom: 6px; color: #1a1d2e; }
+  .fact-why { font-size: 13px; color: #5a6280; margin-bottom: 6px; }
+  .fact-so { font-size: 13px; color: #059669; }
+  .fact-label { display: inline-block; font-size: 10px; font-weight: 700; padding: 1px 6px; border-radius: 3px; margin-right: 4px; }
+  .label-what { background: #eff6ff; color: #1d4ed8; }
+  .label-why { background: #fff7ed; color: #ea580c; }
+  .label-so { background: #ecfdf5; color: #059669; }
+  .data-table th { background: #e8ecf5; }
+  .data-table td.key-col { background: #f0f6ff; }
+  .data-table .key-num { color: #059669; font-weight: 700; }
+  .data-table .key-opm { color: #b45309; }
+  caption { font-size: 11px; color: #5a6280; text-align: left; padding: 0 0 8px; caption-side: top; }
+  .val-box { background: #fafafa; border: 1px solid #d0d4e0; border-radius: 8px; padding: 16px 20px; font-size: 13px; line-height: 2; color: #1a1d2e; }
+  .val-formula { background: #f0f2f8; border-radius: 6px; padding: 10px 14px; font-family: monospace; font-size: 13px; margin: 10px 0; color: #b45309; }
+  .risk-item { background: #fafafa; border-radius: 0 6px 6px 0; padding: 14px 16px; margin-bottom: 10px; }
+  .risk-item:last-child { margin-bottom: 0; }
+  .risk-sev-high { border-left: 3px solid #dc2626; }
+  .risk-sev-mid { border-left: 3px solid #ea580c; }
+  .risk-assumption { font-weight: 600; font-size: 13px; margin-bottom: 4px; color: #1a1d2e; }
+  .risk-chain { font-size: 12px; color: #5a6280; margin: 4px 0; }
+  .risk-impact-num { font-size: 13px; color: #dc2626; font-weight: 600; margin-top: 4px; }
+  .checkpoint-item { display: flex; gap: 12px; padding: 10px 0; border-bottom: 1px solid #d0d4e0; font-size: 13px; }
+  .checkpoint-item:last-child { border-bottom: none; }
+  .cp-date { color: #2563eb; font-weight: 600; min-width: 90px; flex-shrink: 0; }
+  .cp-event { flex: 1; color: #1a1d2e; }
+  .cp-pass { color: #059669; font-size: 12px; margin-top: 2px; }
+  .cp-fail { color: #dc2626; font-size: 12px; margin-top: 2px; }
+  .opinion-box { background: #fafafa; border: 1px solid #d0d4e0; border-radius: 8px; padding: 16px 20px; font-size: 13px; line-height: 1.8; color: #5a6280; }
+  .decision-box { display: flex; gap: 14px; margin-top: 14px; }
+  .decision-btn { flex: 1; text-align: center; padding: 10px; border-radius: 6px; font-weight: 700; font-size: 13px; border: 1px solid; }
+  .decision-buy { background: #ecfdf5; color: #059669; border-color: #34d399; }
+  .decision-wait { background: #fffbeb; color: #b45309; border-color: #f59e0b; }
+  .decision-avoid { background: #fef2f2; color: #dc2626; border-color: #fca5a5; }
+  .decision-dim { opacity: 0.3; }
+  .disclaimer { font-size: 11px; color: #9ca3af; text-align: center; margin-top: 40px; padding-top: 16px; border-top: 1px solid #d0d4e0; }
+</style>
+</head>
+<body>
+
+<div class="pdf-only-banner">외부 검색 절대 금지 — 제공된 PDF 파일만 활용 | 당일 발간 리포트 기준 투자 종목 발굴 전용</div>
+
+<header class="header">
+  <h1>하이브 (352820) | 1분기는 예열, 2분기가 본게임 | 흥국증권 송지원 | 발간일: 2026.04.16</h1>
+  <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-bottom:12px;">
+    <span class="tag-badge tag-core">⭐ 핵심</span>
+    <span class="score-badge score-mid">📊 75점</span>
+    <span style="font-size:12px;color:#5a6280;">비바이오</span>
+    <span class="pathway-badge">경로 ③ BEP돌파(흑전) + ② 볼륨드리븐</span>
+  </div>
+  <div class="price-row">
+    <div class="price-item"><span class="label">투자의견</span><span class="val">BUY (유지)</span></div>
+    <div class="price-item"><span class="label">목표주가(TP)</span><span class="val">380,000원 (하향)</span></div>
+    <div class="price-item"><span class="label">현재주가(CP)</span><span class="val">255,500원</span></div>
+    <div class="price-item"><span class="label">Upside</span><span class="val upside-val">+48.7%</span></div>
+    <div class="price-item"><span class="label">시가총액</span><span class="val">10,582십억원</span></div>
+    <div class="price-item"><span class="label">종목 유형</span><span class="val">비바이오</span></div>
+  </div>
+</header>
+
+<section>
+  <div class="section-title">이 종목에 투자해야 하는 이유 — 스토리 한 줄</div>
+  <div class="thesis-box">
+    BTS 정규 5집 ARIRANG 선주문 400만장(확정) + 광화문 공연(확정) + 월드투어 85회차 공개(확정)로 26E 매출 4.26조(+60.8%), OP 486억→4,862억(+886% YoY), OPM 1.9→11.4%로 폭등하는데, 1Q 원가율 부담 부각으로 주가가 P/E 25배까지 조정 — 2Q 본격 투어 모멘텀 앞두고 Upside 48.7%
+  </div>
+  <div class="thesis-structure">
+    <div class="thesis-part" style="color:#059669;">① 확정 팩트<br/>BTS 5집 400만장 + 투어 85회차 + 광화문 공연</div>
+    <div class="thesis-arrow">→</div>
+    <div class="thesis-part" style="color:#b45309;">② 실적 변화<br/>26E OP +886%(49→486십억), OPM 1.9→11.4%</div>
+    <div class="thesis-arrow">→</div>
+    <div class="thesis-part" style="color:#2563eb;">③ 시장 미반영<br/>Upside +48.7%, P/E 25배 조정</div>
+  </div>
+</section>
+
+<section>
+  <div class="section-title">핵심 태그 5가지 조건 체크</div>
+  <div class="checklist">
+    <div class="checklist-item"><div class="check-icon check-pass">✓</div><div><div class="check-label">조건 1 | 영업이익 성장</div><div class="check-why">26E OP +886%(49→486십억), OPM 1.9→11.4%(+9.5%p) → 초과 충족</div></div></div>
+    <div class="checklist-item"><div class="check-icon check-pass">✓</div><div><div class="check-label">조건 2 | 3년 지속성 3개+</div><div class="check-why">① BTS 투어 26-27년 지속(85회차) ② 메가IP(BTS·세븐틴) 복귀 ③ 신보 러시(TXT·보이넥스트도어·르세라핌) ④ 27E OPM 12.4% 유지 → 4개</div></div></div>
+    <div class="checklist-item"><div class="check-icon check-pass">✓</div><div><div class="check-label">조건 3 | 확정 팩트(●●●) 2개+</div><div class="check-why">●●● BTS 5집 선주문 400만장(26.03 판매 418만) / ●●● 광화문 공연 4/9 개최 / ●●● 월드투어 85회차 공개(남미 3회 추가) → 3개</div></div></div>
+    <div class="checklist-item"><div class="check-icon check-pass">✓</div><div><div class="check-label">조건 4 | 시장 미반영</div><div class="check-why">Upside +48.7% (TP 380,000원 vs CP 255,500원) → 통과</div></div></div>
+    <div class="checklist-item"><div class="check-icon check-pass">✓</div><div><div class="check-label">조건 5 | 차별화 시각</div><div class="check-why">1Q 원가율·재계약 비용을 명시하면서도 2Q 본격 모멘텀 구간 진입 논리 제시. ATP 30만원·모객수 516만명·MD 객단가 14.8만원 정량 분석 → 차별화</div></div></div>
+  </div>
+</section>
+
+<section>
+  <div class="section-title">투자 점수 판정 (v2.0 비바이오)</div>
+  <table>
+    <thead><tr><th>항목</th><th>판정</th><th>근거</th></tr></thead>
+    <tbody>
+      <tr><td>종목 유형</td><td>비바이오</td><td>엔터테인먼트(음반·공연·MD)</td></tr>
+      <tr><td>적용 가설</td><td>가설 2</td><td>2025 OP 49십억 고성장 기저 + 26E BTS 복귀로 OPM 급등 예상</td></tr>
+      <tr><td>촉매 등급</td><td>상급</td><td>BTS 월드투어 85회차 = 글로벌 최상위 IP 활동 재개</td></tr>
+      <tr><td>복합 여부</td><td>복합</td><td>BTS 5집 음반 + 월드투어 + MD/라이센싱 + 넷플릭스 다큐 4개 촉매</td></tr>
+      <tr><td>직접성</td><td>직접</td><td>BTS = 하이브 주력 매출원, 공연 매출 26E 1.66조(전체 38.8%)</td></tr>
+      <tr><td>매트릭스 기본 점수</td><td>90점</td><td>가설2 × 상급 × 복합 = 90</td></tr>
+      <tr><td>페널티 ① 선반영</td><td class="penalty">-10점</td><td>3/21 광화문 공연 이후 1차 상승 + 최근 1M -32% 급락이나 6M 기준 -9.6%로 네트 선반영 존재</td></tr>
+      <tr><td>페널티 ② 리스크 집중</td><td class="penalty">-5점</td><td>BTS 단일 IP 매출 의존도 26E 기준 50%+ 추정</td></tr>
+      <tr class="total-row"><td>최종 투자 점수</td><td><span class="highlight-green">75점</span></td><td>핵심 60+ 충족</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section>
+  <div class="section-title">성장 인과 체인</div>
+  <div class="chain-box">
+    <div class="chain-step"><div class="chain-arrow">①</div><div class="chain-content"><div class="chain-label">구조 변화 <span class="chain-confirmed">● 확정</span></div><div class="chain-text">BTS 정규 5집 ARIRANG 선주문 400만장(●●●) + 4/9 광화문 공연 개최(●●●) + 월드투어 85회차 26-27년(●●●)</div></div></div>
+    <div class="chain-step"><div class="chain-arrow">↓</div><div class="chain-content"><div class="chain-label">매출 영향</div><div class="chain-text">26E 매출 4.26조(+60.8% YoY). 공연 1,655십억(+117%), MD/라이센싱 1,024십억(+79%), 음반 977십억(+26%). BTS 투어만으로 연내 약 2.0조원 매출 기여(ATP 30만원 × 516만명)</div></div></div>
+    <div class="chain-step"><div class="chain-arrow">↓</div><div class="chain-content"><div class="chain-label">OPM 변화 메커니즘</div><div class="chain-text">BTS 3차 재계약 요율 적용 + 아리랑 앨범 제작비로 1Q OPM 6.2%로 낮지만, 2Q부터 투어 매출 본격 반영 시 OPM 13.9%로 급등. 공연·MD 고마진 비중 확대</div></div></div>
+    <div class="chain-step"><div class="chain-arrow">↓</div><div class="chain-content"><div class="chain-label">최종 실적 <span class="chain-forecast">● 추정</span></div><div class="chain-text">26E OP 486십억(+886% YoY), OPM 11.4%. 27E OP 487십억(유지), OPM 12.4%</div></div></div>
+    <div class="chain-step"><div class="chain-arrow">↓</div><div class="chain-content"><div class="chain-label">시장 미반영</div><div class="chain-text">1Q 원가율 우려로 P/E 25배까지 조정되었으나, 2Q 실적 모멘텀 앞두고 역사적 BTS 투어 구간(22년 4Q21~1Q22 평균 P/E 40배) 대비 매력적</div></div></div>
+  </div>
+</section>
+
+<section>
+  <div class="section-title">핵심 팩트 3줄</div>
+  <div class="fact-item">
+    <span class="fact-num">Fact 01</span>
+    <div class="fact-what"><span class="fact-label label-what">WHAT</span>26E OP +886%(49→486십억), 매출 4.26조(+60.8%), OPM 1.9→11.4%(+9.5%p)</div>
+    <div class="fact-why"><span class="fact-label label-why">WHY</span>BTS ARIRANG 월드투어 85회차(26-27년) + 5집 선주문 400만장 + 멀티IP(세븐틴 앵콜, 엔하이픈 투어 등) 동시 활동</div>
+    <div class="fact-so"><span class="fact-label label-so">SO WHAT</span>역대 최대 매출·이익 갱신 확실. 1Q 비수기 원가 부담은 2Q~4Q 투어 마진으로 상쇄</div>
+  </div>
+  <div class="fact-item">
+    <span class="fact-num">Fact 02</span>
+    <div class="fact-what"><span class="fact-label label-what">WHAT</span>BTS 투어 연내 약 2.0조원 매출 기여 (ATP 30만원 × 모객 516만명 + MD 객단가 14.8만원)</div>
+    <div class="fact-why"><span class="fact-label label-why">WHY</span>글로벌 85회차 공연(남미 3회 추가 포함), 26년 기준 최소 436만명 모객 가능</div>
+    <div class="fact-so"><span class="fact-label label-so">SO WHAT</span>단일 IP 투어로 2조원은 K-엔터 사상 최대. 2Q부터 실적 가시화</div>
+  </div>
+  <div class="fact-item">
+    <span class="fact-num">Fact 03</span>
+    <div class="fact-what"><span class="fact-label label-what">WHAT</span>1Q26 OP 401억(+85.3% YoY, OPM 6.2%) — 1분기 사상 최대이나 컨센(476억) 하회 전망</div>
+    <div class="fact-why"><span class="fact-label label-why">WHY</span>BTS 3차 재계약 요율 적용 + 아리랑 앨범 제작비 + 투어 제작비 선반영으로 원가율 대폭 상승</div>
+    <div class="fact-so"><span class="fact-label label-so">SO WHAT</span>1Q 수익성 부진은 구조적이 아닌 일시적. 2Q OPM 13.9% 반등 예상 → 매수 기회</div>
+  </div>
+</section>
+
+<section>
+  <div class="section-title">원본 리포트 핵심 요약 — PDF 내용 직접 발췌</div>
+  <div style="background:#fafafa;border:1px solid #d0d4e0;border-radius:8px;padding:16px 20px;margin-bottom:12px;">
+    <div style="font-size:11px;font-weight:700;letter-spacing:1px;color:#5a6280;text-transform:uppercase;margin-bottom:10px;">리포트 핵심 주장</div>
+    <p style="font-size:13px;line-height:1.9;">1분기는 예열 구간(OP 401억, 컨센 하회)이나 2분기가 본게임. BTS 투어 본격 반영 + 멀티IP 신보 러시로 2Q~4Q 실적 급등 예상. 연간 4.3조 역대 최대 매출. TP 380,000원(하향)은 26E EPS 9,463원 × 목표 P/E 40배(22년 BTS 투어 재개 구간 P/E). 현재 P/E 25배로 우려 감안해도 2Q 모멘텀 앞두고 매력적.</p>
+    <div style="margin-top:10px;display:flex;gap:8px;flex-wrap:wrap;">
+      <div style="background:#f0f2f8;border:1px solid #d0d4e0;border-radius:6px;padding:6px 12px;font-size:12px;">
+        <span style="color:#5a6280;font-size:10px;display:block;margin-bottom:2px;">이전 대비 변화</span>TP 450,000→380,000원 (하향, 이익률 조정)</div>
+      <div style="background:#f0f2f8;border:1px solid #d0d4e0;border-radius:6px;padding:6px 12px;font-size:12px;">
+        <span style="color:#5a6280;font-size:10px;display:block;margin-bottom:2px;">컨센서스 대비</span>26E OP 486십억 vs 컨센 529십억(-8.1%)</div>
+    </div>
+  </div>
+  <div style="background:#fafafa;border:1px solid #d0d4e0;border-radius:8px;padding:16px 20px;margin-bottom:12px;">
+    <div style="font-size:11px;font-weight:700;letter-spacing:1px;color:#5a6280;text-transform:uppercase;margin-bottom:10px;">사업 구조 & 성장 동력</div>
+    <table style="margin:0;">
+      <thead><tr><th style="width:25%;">부문</th><th style="width:20%;">26E 매출</th><th style="width:55%;">핵심 성장 드라이버</th></tr></thead>
+      <tbody>
+        <tr><td>공연</td><td>1,655십억</td><td>BTS 월드투어 85회차 → 2Q~4Q 집중 반영, ATP 30만원 × 436만명+</td></tr>
+        <tr><td>MD/라이센싱</td><td>1,024십억</td><td>BTS 투어 MD 객단가 14.8만원 + 응원봉·신보굿즈</td></tr>
+        <tr><td>음반/원</td><td>977십억</td><td>BTS 5집 400만장 + TXT·르세라핌 등 신보 다수</td></tr>
+      </tbody>
+    </table>
+    <p style="font-size:12px;color:#5a6280;margin-top:10px;">▶ 핵심 메커니즘: BTS 복귀가 공연+MD+음반 3개 매출원 동시 급증 → 26E 매출 +60.8%</p>
+  </div>
+  <div style="background:#fafafa;border:1px solid #d0d4e0;border-radius:8px;padding:16px 20px;margin-bottom:12px;">
+    <div style="font-size:11px;font-weight:700;letter-spacing:1px;color:#5a6280;text-transform:uppercase;margin-bottom:10px;">시장 괴리</div>
+    <table style="margin:0;">
+      <thead><tr><th style="width:30%;">구분</th><th>내용</th></tr></thead>
+      <tbody>
+        <tr><td style="color:#5a6280;">시장 현재 인식</td><td>1Q 원가율 부담 + BTS 재계약 비용 → P/E 25배 조정</td></tr>
+        <tr><td style="color:#2563eb;">이 리포트 주장</td><td>1Q 예열일 뿐, 2Q부터 투어 매출 본격화 시 OPM 13.9%. 22년 BTS 투어 재개 P/E 40배 구간 재현</td></tr>
+        <tr><td style="color:#b45309;">괴리 해소 촉매</td><td>2Q26 실적 발표(7월) — 투어 매출·OPM 확인</td></tr>
+        <tr><td>괴리 강도</td><td><span style="color:#059669;">강</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div style="background:#fafafa;border:1px solid #d0d4e0;border-radius:8px;padding:16px 20px;">
+    <div style="font-size:11px;font-weight:700;letter-spacing:1px;color:#5a6280;text-transform:uppercase;margin-bottom:10px;">재무 특징</div>
+    <div style="display:flex;flex-wrap:wrap;gap:8px;">
+      <div style="background:#f0f2f8;border:1px solid #d0d4e0;border-radius:6px;padding:8px 12px;font-size:12px;flex:1;min-width:160px;"><span style="color:#5a6280;font-size:10px;display:block;margin-bottom:2px;">순현금</span>26E 966십억원</div>
+      <div style="background:#f0f2f8;border:1px solid #d0d4e0;border-radius:6px;padding:8px 12px;font-size:12px;flex:1;min-width:160px;"><span style="color:#5a6280;font-size:10px;display:block;margin-bottom:2px;">부채비율</span>56.2%(26E)</div>
+      <div style="background:#f0f2f8;border:1px solid #d0d4e0;border-radius:6px;padding:8px 12px;font-size:12px;flex:1;min-width:160px;"><span style="color:#5a6280;font-size:10px;display:block;margin-bottom:2px;">배당</span>DPS 500원, 수익률 0.2%</div>
+      <div style="background:#f0f2f8;border:1px solid #d0d4e0;border-radius:6px;padding:8px 12px;font-size:12px;flex:1;min-width:160px;"><span style="color:#5a6280;font-size:10px;display:block;margin-bottom:2px;">FCF</span>26E 717십억원</div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="section-title">실적 전망 (연간)</div>
+  <table class="data-table">
+    <caption>단위: 십억원 | ★ = 26E 변곡점</caption>
+    <thead><tr><th>구분</th><th>2024A</th><th>2025A</th><th style="background:#dbeafe;color:#1e40af;font-weight:700;">2026E ★</th><th>2027E</th><th>2028E</th></tr></thead>
+    <tbody>
+      <tr><td>매출액</td><td>2,256</td><td>2,650</td><td class="key-col key-num">4,262</td><td>3,921</td><td>3,973</td></tr>
+      <tr><td>YoY(%)</td><td>+3.6</td><td>+17.5</td><td class="key-col">+60.8</td><td>-8.0</td><td>+1.3</td></tr>
+      <tr><td>영업이익</td><td>184</td><td>49</td><td class="key-col key-num">486</td><td>487</td><td>637</td></tr>
+      <tr><td>YoY(%)</td><td>-37.7</td><td>-73.2</td><td class="key-col key-num">+886.1</td><td>+0.1</td><td>+30.9</td></tr>
+      <tr><td>OPM(%)</td><td>8.2</td><td>1.9</td><td class="key-col key-opm">11.4</td><td>12.4</td><td>16.0</td></tr>
+      <tr><td>EPS(원)</td><td>225</td><td>-5,586</td><td class="key-col">9,463</td><td>9,291</td><td>10,733</td></tr>
+      <tr><td>PER(배)</td><td>858.8</td><td>n/a</td><td class="key-col">25.9</td><td>26.4</td><td>22.9</td></tr>
+      <tr><td>PBR(배)</td><td>2.5</td><td>4.3</td><td class="key-col">2.9</td><td>2.6</td><td>2.4</td></tr>
+      <tr><td>ROE(%)</td><td>0.3</td><td>-7.3</td><td class="key-col">11.7</td><td>10.4</td><td>10.8</td></tr>
+    </tbody>
+  </table>
+  <p style="font-size:12px;color:#5a6280;margin-top:10px;">▶ 왜 26E가 변곡점인가: BTS 복귀로 매출 +60.8%, OP +886% — 2025 적자에서 26E ROE 11.7% 흑전. 27E는 투어 후반부로 매출 소폭 감소하나 OPM 12.4%로 수익성 유지</p>
+</section>
+
+<section>
+  <div class="section-title">분기별 실적 전망</div>
+  <table class="data-table">
+    <caption>단위: 십억원</caption>
+    <thead><tr><th>구분</th><th>1Q25</th><th>2Q25</th><th>3Q25</th><th>4Q25</th><th style="background:#dbeafe;color:#1e40af;font-weight:700;">1Q26E ★</th><th>2Q26E</th><th>3Q26E</th><th>4Q26E</th></tr></thead>
+    <tbody>
+      <tr><td>매출액</td><td>501</td><td>706</td><td>727</td><td>716</td><td class="key-col key-num">647</td><td>1,247</td><td>1,303</td><td>1,065</td></tr>
+      <tr><td>영업이익</td><td>22</td><td>66</td><td>-42</td><td>5</td><td class="key-col key-num">40</td><td>174</td><td>156</td><td>117</td></tr>
+      <tr><td>OPM(%)</td><td>4.3</td><td>9.3</td><td>-5.8</td><td>0.6</td><td class="key-col key-opm">6.2</td><td>13.9</td><td>12.0</td><td>11.0</td></tr>
+    </tbody>
+  </table>
+  <p style="font-size:12px;color:#5a6280;margin-top:10px;">▶ 1Q26 주목 포인트: OP 401억(+85.3% YoY)이나 컨센 476억 하회 전망. 원가율 부담은 2Q 투어 반영 시 해소 여부가 핵심</p>
+</section>
+
+<section>
+  <div class="section-title">밸류에이션</div>
+  <div class="val-box">
+    <div class="val-formula">26E EPS 9,463원 × Target P/E 40.0배 = TP 380,000원</div>
+    <p style="color:#5a6280;font-size:12px;margin-top:8px;">▶ 왜 이 배수인가: 22년 BTS 투어 재개 구간(4Q21~1Q22) 평균 P/E 40배 적용. 현재 P/E 25배는 시장 우려를 감안해도 2Q 모멘텀 앞두고 매력적</p>
+  </div>
+</section>
+
+<section>
+  <div class="section-title">리스크</div>
+  <div class="risk-item risk-sev-high">
+    <div class="risk-assumption">🔴 핵심 가정: BTS 월드투어 85회차 정상 진행 및 436만명+ 모객 달성</div>
+    <div class="risk-chain" style="margin-top:6px;">→ 붕괴 시: 멤버 건강·안보 이슈로 투어 일부 취소 → 공연 매출 1.66조에서 30~50% 감소<br/>→ 실적 영향: 26E OP 486→200~300십억 수준</div>
+    <div class="risk-impact-num">→ 주가 영향: TP 250,000원(-34%) 수준, 현재가 하회</div>
+  </div>
+  <div class="risk-item risk-sev-mid">
+    <div class="risk-assumption">🟠 두 번째 가정: BTS 재계약 요율 적용에 따른 마진 부담이 연중 지속</div>
+    <div class="risk-chain" style="margin-top:6px;">→ 붕괴 시: 지급수수료율 예상 초과 시 OPM 11.4→8% 수준</div>
+    <div class="risk-impact-num">→ 주가 영향: EPS 하락으로 TP 320,000원(-16%) 조정</div>
+  </div>
+</section>
+
+<section>
+  <div class="section-title">모멘텀 확인 체크포인트</div>
+  <div style="background:#fafafa;border:1px solid #d0d4e0;border-radius:8px;padding:4px 16px;">
+    <div class="checkpoint-item">
+      <span class="cp-date">2026.05~06</span>
+      <div>
+        <div class="cp-event">BTS ARIRANG 월드투어 북미·유럽 구간 모객 현황</div>
+        <div class="cp-pass">✅ 매진 확인 시 → 연내 2.0조 투어 매출 확정으로 비중 확대</div>
+        <div class="cp-fail">⛔ 매진 미달 시 → 모객 하향 반영, 관망</div>
+      </div>
+    </div>
+    <div class="checkpoint-item">
+      <span class="cp-date">2026.07</span>
+      <div>
+        <div class="cp-event">2Q26 실적 발표 — 투어 매출 본격 반영</div>
+        <div class="cp-pass">✅ OPM 12%+ 확인 시 → 테제 입증, 추가 매수</div>
+        <div class="cp-fail">⛔ OPM 8% 미달 시 → 재계약 마진 부담 구조화 우려</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="section-title">사견 & 투자 행동 결론</div>
+  <div class="opinion-box">
+    <p>컨센 대비 이 리포트는 26E OP 486십억으로 컨센(529십억)보다 8% 낮으나 이는 BTS 재계약 비용을 보수적으로 반영한 결과. 우려는 단일 IP(BTS) 의존도 50%+로 리스크 집중이 높고, 1Q 원가율 부담이 시장에 부정적 시그널을 줄 수 있다는 점. 하지만 P/E 25배(현재)는 22년 BTS 투어 구간 P/E 40배 대비 37.5% 할인 수준이며, 2Q 본격 투어 진입 후 실적 확인 시 리레이팅 여력이 크다.</p>
+    <div class="decision-box">
+      <div class="decision-btn decision-buy">지금 진입 가능<br/><span style="font-size:11px;font-weight:400;">핵심 & 75점, 2Q 모멘텀 직전</span></div>
+      <div class="decision-btn decision-wait decision-dim">이벤트 후 진입<br/><span style="font-size:11px;font-weight:400;">2Q 실적 확인 후</span></div>
+      <div class="decision-btn decision-avoid decision-dim">관망<br/><span style="font-size:11px;font-weight:400;">BTS 의존 리스크</span></div>
+    </div>
+  </div>
+</section>
+
+<div class="disclaimer">본 글은 증권사 리포트를 개인 학습 목적으로 요약·정리한 것이며, 투자 권유가 아닙니다.<br/>제공된 PDF 파일만 활용. 외부 검색·참조 없음. 당일 발간 리포트 기준.</div>
+
+</body>
+</html>

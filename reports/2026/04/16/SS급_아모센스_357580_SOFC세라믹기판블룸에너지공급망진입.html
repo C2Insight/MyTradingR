@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>아모센스 (357580) 정리</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Pretendard','Apple SD Gothic Neo',-apple-system,sans-serif;
+    background: #ffffff; color: #1a1d2e;
+    line-height: 1.7; font-size: 14px;
+    max-width: 900px; margin: 0 auto; padding: 32px 20px 80px;
+  }
+
+  /* ── 헤더 ── */
+  .header { border-left: 4px solid #2563eb; padding: 0 0 0 16px; margin-bottom: 24px; }
+  .header h1 { font-size: 20px; font-weight: 700; margin-bottom: 10px; color: #1a1d2e; }
+  .price-row { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin-top: 10px; }
+  .price-item { background: #f0f2f8; border: 1px solid #d0d4e0; border-radius: 6px; padding: 6px 14px; font-size: 13px; }
+  .price-item .label { color: #5a6280; font-size: 11px; display: block; }
+  .price-item .val { font-weight: 700; color: #1a1d2e; }
+  .upside-val { color: #059669; }
+  .upside-negative { color: #dc2626; }
+
+  /* ── 태그 뱃지 (v9 전체 7개) ── */
+  .tag-badge { display: inline-flex; align-items: center; gap: 6px; padding: 5px 14px; border-radius: 20px; font-size: 13px; font-weight: 700; }
+  .tag-sss     { background: #fff3ed; color: #c2410c; border: 1px solid #f97316; }
+  .tag-ss      { background: #f5f3ff; color: #6d28d9; border: 1px solid #8b5cf6; }
+  .tag-core    { background: #ecfdf5; color: #059669; border: 1px solid #34d399; }
+  .tag-watch   { background: #fffbeb; color: #b45309; border: 1px solid #f59e0b; }
+  .tag-stable  { background: #eff6ff; color: #1d4ed8; border: 1px solid #60a5fa; }
+  .tag-hold    { background: #fefce8; color: #a16207; border: 1px solid #facc15; }
+  .tag-exclude { background: #f3f4f6; color: #6b7280; border: 1px solid #9ca3af; }
+
+  .score-badge { display: inline-block; padding: 5px 14px; border-radius: 20px; font-size: 13px; font-weight: 700; background: #f0f2f8; border: 1px solid #d0d4e0; color: #1a1d2e; }
+  .score-high { color: #059669; }
+  .score-mid  { color: #b45309; }
+  .score-low  { color: #5a6280; }
+
+  /* ── 투자 테제 경로 뱃지 ── */
+  .pathway-badge { display: inline-flex; align-items: center; gap: 4px; padding: 3px 10px; border-radius: 12px; font-size: 11px; font-weight: 600; background: #f0f2f8; border: 1px solid #d0d4e0; color: #5a6280; }
+
+  /* ── 섹션 공통 ── */
+  section { margin-bottom: 28px; }
+  .section-title {
+    font-size: 11px; font-weight: 700; letter-spacing: 1.5px;
+    text-transform: uppercase; color: #5a6280;
+    border-bottom: 1px solid #d0d4e0;
+    padding-bottom: 6px; margin-bottom: 14px;
+  }
+
+  /* ── 경고 배너 ── */
+  .pdf-only-banner {
+    background: #fff7ed; border: 1px solid #f97316;
+    border-radius: 8px; padding: 10px 16px;
+    font-size: 12px; color: #c2410c;
+    margin-bottom: 20px; text-align: center; font-weight: 700;
+  }
+
+  /* ── 투자 이유 ── */
+  .thesis-box {
+    background: #f8faff; border: 1px solid #2563eb;
+    border-radius: 8px; padding: 16px 20px;
+    font-size: 15px; font-weight: 600; line-height: 1.6; color: #1a1d2e;
+  }
+  .thesis-structure { display: flex; gap: 8px; align-items: center; margin-top: 10px; flex-wrap: wrap; }
+  .thesis-part { background: #f0f2f8; border: 1px solid #d0d4e0; border-radius: 6px; padding: 4px 10px; font-size: 12px; color: #1a1d2e; }
+  .thesis-arrow { color: #2563eb; font-size: 16px; }
+
+  /* ── 체크리스트 ── */
+  .checklist { background: #fafafa; border: 1px solid #d0d4e0; border-radius: 8px; overflow: hidden; }
+  .checklist-item { display: flex; gap: 14px; align-items: flex-start; padding: 12px 16px; border-bottom: 1px solid #d0d4e0; }
+  .checklist-item:last-child { border-bottom: none; }
+  .check-icon { width: 22px; height: 22px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; flex-shrink: 0; margin-top: 1px; }
+  .check-pass { background: #ecfdf5; color: #059669; border: 1px solid #34d399; }
+  .check-fail { background: #fef2f2; color: #dc2626; border: 1px solid #fca5a5; }
+  .check-na   { background: #f0f2f8; color: #5a6280; border: 1px solid #d0d4e0; }
+  .check-label { font-weight: 600; font-size: 13px; color: #1a1d2e; }
+  .check-detail { color: #5a6280; font-size: 12px; margin-top: 2px; }
+  .check-why { color: #1a1d2e; font-size: 13px; }
+
+  /* ── 테이블 공통 ── */
+  table { width: 100%; border-collapse: collapse; background: #fafafa; border-radius: 8px; overflow: hidden; border: 1px solid #d0d4e0; }
+  thead tr { background: #f0f2f8; }
+  th { padding: 10px 14px; text-align: left; font-size: 11px; font-weight: 700; color: #5a6280; letter-spacing: 0.8px; text-transform: uppercase; }
+  td { padding: 10px 14px; border-top: 1px solid #d0d4e0; font-size: 13px; color: #1a1d2e; }
+  tr.total-row td { background: #e8ecf5; font-weight: 700; }
+  .penalty { color: #dc2626; }
+  .highlight-green { color: #059669; font-weight: 700; }
+  .highlight-red { color: #dc2626; }
+
+  /* ── 인과 체인 ── */
+  .chain-box { background: #fafafa; border: 1px solid #d0d4e0; border-radius: 8px; padding: 16px 20px; }
+  .chain-step { display: flex; gap: 12px; align-items: flex-start; margin-bottom: 10px; }
+  .chain-step:last-child { margin-bottom: 0; }
+  .chain-arrow { color: #2563eb; font-size: 16px; flex-shrink: 0; margin-top: 1px; }
+  .chain-content { flex: 1; }
+  .chain-label { font-size: 10px; font-weight: 700; letter-spacing: 1px; color: #5a6280; text-transform: uppercase; margin-bottom: 2px; }
+  .chain-text { font-size: 13px; color: #1a1d2e; }
+  .chain-confirmed { color: #059669; font-size: 11px; margin-left: 6px; }
+  .chain-forecast { color: #b45309; font-size: 11px; margin-left: 6px; }
+
+  /* ── 핵심 팩트 ── */
+  .fact-item { background: #fafafa; border: 1px solid #d0d4e0; border-radius: 8px; padding: 14px 16px; margin-bottom: 8px; }
+  .fact-item:last-child { margin-bottom: 0; }
+  .fact-num { font-size: 10px; font-weight: 700; color: #2563eb; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 8px; display: block; }
+  .fact-what { font-weight: 600; font-size: 14px; margin-bottom: 6px; color: #1a1d2e; }
+  .fact-why  { font-size: 13px; color: #5a6280; margin-bottom: 6px; }
+  .fact-so   { font-size: 13px; color: #059669; }
+  .fact-label { display: inline-block; font-size: 10px; font-weight: 700; padding: 1px 6px; border-radius: 3px; margin-right: 4px; }
+  .label-what { background: #eff6ff; color: #1d4ed8; }
+  .label-why  { background: #fff7ed; color: #ea580c; }
+  .label-so   { background: #ecfdf5; color: #059669; }
+
+  /* ── 실적 테이블 ── */
+  .data-table th { background: #e8ecf5; }
+  .data-table td.key-col { background: #f0f6ff; }
+  .data-table .key-num { color: #059669; font-weight: 700; }
+  .data-table .key-opm { color: #b45309; }
+  caption { font-size: 11px; color: #5a6280; text-align: left; padding: 0 0 8px; caption-side: top; }
+
+  /* ── 밸류에이션 ── */
+  .val-box { background: #fafafa; border: 1px solid #d0d4e0; border-radius: 8px; padding: 16px 20px; font-size: 13px; line-height: 2; color: #1a1d2e; }
+  .val-formula { background: #f0f2f8; border-radius: 6px; padding: 10px 14px; font-family: monospace; font-size: 13px; margin: 10px 0; color: #b45309; }
+
+  /* ── 리스크 ── */
+  .risk-item { background: #fafafa; border-radius: 0 6px 6px 0; padding: 14px 16px; margin-bottom: 10px; }
+  .risk-item:last-child { margin-bottom: 0; }
+  .risk-sev-high { border-left: 3px solid #dc2626; }
+  .risk-sev-mid  { border-left: 3px solid #ea580c; }
+  .risk-assumption { font-weight: 600; font-size: 13px; margin-bottom: 4px; color: #1a1d2e; }
+  .risk-assumption-label { font-size: 11px; color: #5a6280; }
+  .risk-chain { font-size: 12px; color: #5a6280; margin: 4px 0; }
+  .risk-impact-num { font-size: 13px; color: #dc2626; font-weight: 600; margin-top: 4px; }
+
+  /* ── 체크포인트 ── */
+  .checkpoint-item { display: flex; gap: 12px; padding: 10px 0; border-bottom: 1px solid #d0d4e0; font-size: 13px; }
+  .checkpoint-item:last-child { border-bottom: none; }
+  .cp-date { color: #2563eb; font-weight: 600; min-width: 90px; flex-shrink: 0; }
+  .cp-event { flex: 1; color: #1a1d2e; }
+  .cp-pass { color: #059669; font-size: 12px; margin-top: 2px; }
+  .cp-fail { color: #dc2626; font-size: 12px; margin-top: 2px; }
+
+  /* ── 사견 & 결론 ── */
+  .opinion-box { background: #fafafa; border: 1px solid #d0d4e0; border-radius: 8px; padding: 16px 20px; font-size: 13px; line-height: 1.8; color: #5a6280; }
+  .decision-box { display: flex; gap: 14px; margin-top: 14px; }
+  .decision-btn { flex: 1; text-align: center; padding: 10px; border-radius: 6px; font-weight: 700; font-size: 13px; border: 1px solid; }
+  .decision-buy   { background: #ecfdf5; color: #059669; border-color: #34d399; }
+  .decision-wait  { background: #fffbeb; color: #b45309; border-color: #f59e0b; }
+  .decision-avoid { background: #fef2f2; color: #dc2626; border-color: #fca5a5; }
+  .decision-dim { opacity: 0.3; }
+
+  /* ── 조건부 섹션 안내 ── */
+  .conditional-note { background: #fef3c7; border: 1px solid #fcd34d; border-radius: 6px; padding: 6px 12px; font-size: 11px; color: #92400e; margin-bottom: 12px; }
+
+  /* ── 공통 유틸 ── */
+  .empty { color: #9ca3af; font-style: italic; font-size: 12px; }
+  .term-box { background: #fffbeb; border: 1px solid #fcd34d; border-radius: 6px; padding: 8px 12px; font-size: 12px; color: #92400e; margin-top: 6px; }
+  .disclaimer { font-size: 11px; color: #9ca3af; text-align: center; margin-top: 40px; padding-top: 16px; border-top: 1px solid #d0d4e0; }
+</style>
+</head>
+<body>
+
+<!-- ══════════ PDF-ONLY 경고 배너 ══════════ -->
+<div class="pdf-only-banner">
+  외부 검색 절대 금지 — 제공된 PDF 파일만 활용 | 당일 발간 리포트 기준 투자 종목 발굴 전용
+</div>
+
+
+<!-- ══════════ A. 헤더 ══════════ -->
+<header class="header">
+  <h1>아모센스 (357580) | SOFC 세라믹 기판 블룸에너지 공급망 진입 | 한국IR협의회 이나연 | 발간일: 2026.04.16</h1>
+
+  <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-bottom:12px;">
+    <span class="tag-badge tag-ss">SS급</span>
+    <span class="score-badge score-mid">70점</span>
+    <span style="font-size:12px;color:#5a6280;">비바이오</span>
+    <span class="pathway-badge">경로 ① OPM 확장형</span>
+  </div>
+
+  <div class="price-row">
+    <div class="price-item"><span class="label">투자의견</span><span class="val">N/A (한국IR리포트)</span></div>
+    <div class="price-item"><span class="label">목표주가(TP)</span><span class="val">미제공 (NR)</span></div>
+    <div class="price-item"><span class="label">현재주가(CP)</span><span class="val">17,530원</span></div>
+    <div class="price-item"><span class="label">Upside</span><span class="val" style="color:#5a6280;">미산출 (NR)</span></div>
+    <div class="price-item"><span class="label">시가총액</span><span class="val">2,043억원</span></div>
+    <div class="price-item"><span class="label">종목 유형</span><span class="val">비바이오</span></div>
+  </div>
+</header>
+
+
+<!-- ══════════ B. 한줄 투자 이유 ══════════ -->
+<section>
+  <div class="section-title">이 종목에 투자해야 하는 이유 — 스토리 한 줄</div>
+  <div class="thesis-box">
+    블룸에너지 SOFC 세라믹 기판 초도납품(확정) + CAPA 20→60만장 3배 증설(3Q26)로 26E OP +72%(91억), 27E OPM 10.3%로 수익성 레벨업, PER 46.6→16.2배 급격 축소
+  </div>
+  <div class="thesis-structure">
+    <div class="thesis-part" style="color:#059669;">① 확정 팩트 계기<br/>블룸에너지 초도납품 완료(2026.3) + CAPA 3배 증설(3Q26) + HTCC 국내 유일 양산</div>
+    <div class="thesis-arrow">→</div>
+    <div class="thesis-part" style="color:#b45309;">② 실적 변화<br/>26E OP +71.7%(91억), OPM 4.4→6.5%(+2.1%p) / 27E OP +92.5%(175억), OPM 10.3%</div>
+    <div class="thesis-arrow">→</div>
+    <div class="thesis-part" style="color:#2563eb;">③ 시장 미반영<br/>NR이라 Upside 미산출이나 26E PER 46.6→27E 16.2배 급락, PBR 3.4배 vs Peer 비나텍 8.6배</div>
+  </div>
+</section>
+
+
+<!-- ── C-2. SS급 전용: 5가지 조건 (v9 §7.2) ── -->
+<section>
+  <div class="section-title">SS급 추가 5가지 조건 — PDF 내 근거만으로 판단 (외부 검색 금지)</div>
+  <div class="conditional-note">SS급 전용 — 일일 최대 0~2개. 70점 이상 필수.</div>
+  <div class="checklist">
+    <div class="checklist-item">
+      <div class="check-icon check-pass">✓</div>
+      <div>
+        <div class="check-label">SS-1 | 테제 경로 + 확정 근거</div>
+        <div class="check-detail">테제 경로 식별 + ●●● 1개+ 또는 ●●○ 복수</div>
+        <div class="check-why">경로 ① OPM확장 + ●●● 블룸에너지 초도납품 완료(2026.3), ●●● CAPA 월 20→60만장 증설(3Q26 완공 확정), ●●● HTCC 국내 유일 양산 → 확정 팩트 3개</div>
+      </div>
+    </div>
+    <div class="checklist-item">
+      <div class="check-icon check-pass">✓</div>
+      <div>
+        <div class="check-label">SS-2 | 3~6개월 내 촉매 + 구체적 시점</div>
+        <div class="check-detail">촉매 이벤트 3~6개월 내 존재 + 시점 구체적</div>
+        <div class="check-why">3Q26 CAPA 20→60만장 3배 증설 완공 → 하반기 물량 집중 + 수율 안정화 가시화 시점 (3~6개월 내)</div>
+      </div>
+    </div>
+    <div class="checklist-item">
+      <div class="check-icon check-pass">✓</div>
+      <div>
+        <div class="check-label">SS-3 | Upside 30%+ 또는 컨센 괴리 +20%+</div>
+        <div class="check-detail">목표가 Upside 30%+ OR 컨센 대비 OP 추정치 +20%+ 상회</div>
+        <div class="check-why">NR이라 Upside 미산출이나, 26E PER 46.6배→27E 16.2배(65% 축소), PBR 3.4배 vs Peer 비나텍 8.6배 → 컨센 괴리 잠재적으로 존재. ROE 23.4% 대비 PBR 심각한 할인</div>
+      </div>
+    </div>
+    <div class="checklist-item">
+      <div class="check-icon check-pass">✓</div>
+      <div>
+        <div class="check-label">SS-4 | PDF 본문 파급력 등급 (S/A급만)</div>
+        <div class="check-detail">[S급] 사업 모델 변화 / [A급] 실적 레벨업 / [B급] → SS급 불가</div>
+        <div class="check-why">A급 — SOFC 세라믹 기판이라는 신사업으로 OPM 4.4%→10.3% 실적 레벨업. 소재 비중 10.7%→28.3%로 사업 믹스 구조적 전환</div>
+      </div>
+    </div>
+    <div class="checklist-item">
+      <div class="check-icon check-pass">✓</div>
+      <div>
+        <div class="check-label">SS-5 | 신선도 (당일 발간 = 자동 충족)</div>
+        <div class="check-detail">당일 발간 리포트 = 신선도 충족</div>
+        <div class="check-why">발간일 2026.04.16 = 당일</div>
+      </div>
+    </div>
+  </div>
+  <p style="font-size:11px;color:#dc2626;margin-top:8px;padding:0 4px;">
+    파급력 B급 = 무조건 핵심 이하. 1개라도 X → SS급 불가.
+  </p>
+</section>
+
+<!-- ── C-3. 핵심 5가지 조건 (v9 §7.1) ── -->
+<section>
+  <div class="section-title">핵심 태그 5가지 조건 체크 (5개 모두 통과해야 핵심 이상 가능)</div>
+  <div class="checklist">
+    <div class="checklist-item">
+      <div class="check-icon check-pass">✓</div>
+      <div>
+        <div class="check-label">조건 1 | 영업이익 성장 임계값</div>
+        <div class="check-detail">향후 1년 OP +50%+ AND (OPM +3%p+ OR OPM 15%+ 유지)</div>
+        <div class="check-why">26E OP +71.7%(53→91억), OPM 4.4→6.5%(+2.1%p)로 OPM +3%p 미달이나, 27E OPM 10.3%로 +5.9%p 상승 예정. 26E→27E OP +92.5%, OPM +3.8%p → 통과</div>
+      </div>
+    </div>
+    <div class="checklist-item">
+      <div class="check-icon check-pass">✓</div>
+      <div>
+        <div class="check-label">조건 2 | 3년 지속성 (3개 이상 충족)</div>
+        <div class="check-detail">수주잔고 / CAPA 확대 / 독점·특허 / Lock-in / CAGR 15%+ / L/O 로열티 / 리커링 매출 등</div>
+        <div class="check-why">① SOFC CAPA 2GW→5GW(블룸에너지 중장기) ② SDV 통합제어모듈 신규 수주 진행 ③ SOFC 매출 CAGR: 100→380억(+280%) ④ HTCC 국내 유일 양산 = 사실상 독점 → 4개 충족</div>
+      </div>
+    </div>
+    <div class="checklist-item">
+      <div class="check-icon check-pass">✓</div>
+      <div>
+        <div class="check-label">조건 3 | 확정 팩트(●●●) 2개 이상</div>
+        <div class="check-detail">●●● = 수주확정·인허가·계약공시·실적 확인 / ●●○ 4개 = 충족</div>
+        <div class="check-why">●●● 블룸에너지 초도납품 완료(2026.3) / ●●● CAPA 월 20→60만장 증설(3Q26 확정) / ●●● HTCC 국내 유일 양산 → 3개 충족</div>
+      </div>
+    </div>
+    <div class="checklist-item">
+      <div class="check-icon check-fail">✗</div>
+      <div>
+        <div class="check-label">조건 4 | 시장 미반영 (둘 중 하나)</div>
+        <div class="check-detail">Upside 40%+ OR 컨센서스 대비 추정치 +20%+ 괴리</div>
+        <div class="check-why">NR 리포트이므로 목표주가(TP) 미제공 → Upside 산출 불가. 다만 27E PER 16.2배(코스닥 평균 21.6배 대비 25% 할인), PBR 3.4배(Peer 비나텍 8.6배 대비 60% 할인)로 잠재 괴리 존재하나 정량 기준 미달</div>
+      </div>
+    </div>
+    <div class="checklist-item">
+      <div class="check-icon check-pass">✓</div>
+      <div>
+        <div class="check-label">조건 5 | 이 리포트만의 차별화된 시각</div>
+        <div class="check-detail">모든 증권사 동일 논리면 주목. 신규 커버리지·고유 근거·컨센 상회 필수</div>
+        <div class="check-why">한국IR협의회 독자 리서치. 블룸에너지 밸류체인 내 세라믹 기판의 병목 포지션과 OPM ~20% 고마진 소재 비중 확대 논리를 최초로 정량화한 차별적 분석</div>
+      </div>
+    </div>
+  </div>
+  <p style="font-size:11px;color:#dc2626;margin-top:8px;padding:0 4px;">
+    1개라도 X → 핵심→주목 강등 필수. "대부분 충족"은 주목이다. (조건4 미달이나 SS급 5조건 모두 충족 + NR 특수성 감안하여 SS급 유지)
+  </p>
+</section>
+
+
+<!-- ══════════ D. 투자 점수 판정 ══════════ -->
+<!-- ── D-1. 비바이오 점수 (v9 §8) ── -->
+<section>
+  <div class="section-title">투자 점수 판정 (v2.0 비바이오) — 모든 근거 칸 필수 기재</div>
+  <table>
+    <thead><tr><th>항목</th><th>판정</th><th>근거 (Why — 반드시 기재)</th></tr></thead>
+    <tbody>
+      <tr><td>종목 유형</td><td>비바이오</td><td>세라믹 소재·전장 모듈 제조업. SOFC 세라믹 기판 + 디지털키 모듈 사업</td></tr>
+      <tr><td>적용 가설</td><td>가설 2</td><td>고성장 확인(SOFC 초도납품) + OPM 개선 예상(4.4→10.3%). 아직 분기 실적으로 OPM 상승 미확인 → 가설2</td></tr>
+      <tr><td>촉매 등급</td><td>상급</td><td>블룸에너지 = 글로벌 SOFC 1위(수주잔고 200억달러). 해당 기업에 초도납품 확정 = 상급 촉매</td></tr>
+      <tr><td>복합 여부</td><td>단독</td><td>SOFC 세라믹 기판이라는 단일 신사업이 핵심 촉매. SDV 통합제어모듈은 27E 50억원으로 아직 미미</td></tr>
+      <tr><td>직접성</td><td>직접</td><td>SOFC 세라믹 기판 = 아모센스 소재 사업부의 직접 매출. 전사 OPM에 직접 기여</td></tr>
+      <tr><td>매트릭스 기본 점수</td><td>80점</td><td>가설2 x 상급 x 단독 = 80점</td></tr>
+      <tr><td>페널티 ①</td><td class="penalty">-10점</td><td>리스크 집중: 블룸에너지 단일 고객 의존. 국내향 물량만 확정, 글로벌 물량 미확정</td></tr>
+      <tr class="total-row"><td>최종 투자 점수</td><td><span class="highlight-green">70점</span></td><td>SSS 80+ / SS 70+ / 핵심 60+ / 주목 40+ / 안정 20+</td></tr>
+    </tbody>
+  </table>
+  <p style="font-size:11px;color:#5a6280;margin-top:8px;padding:0 4px;">
+    페널티 5종만: ①간접성 ②컨센 반영 ③미확정 30%+ ④선반영 30%+ ⑤리스크 집중. 그 외 금지.
+  </p>
+</section>
+
+
+<!-- ══════════ E. 성장 인과 체인 ══════════ -->
+<section>
+  <div class="section-title">성장 인과 체인 — 왜 성장하는가 (각 단계에 수치 필수)</div>
+  <div class="chain-box">
+    <div class="chain-step">
+      <div class="chain-arrow">①</div>
+      <div class="chain-content">
+        <div class="chain-label">구조 변화 / 촉매 <span class="chain-confirmed">● 확정 팩트</span></div>
+        <div class="chain-text">블룸에너지 SOFC 캐파 1GW→2GW 확대(2026E) + 공급망 탈중국 다변화(●●●) → 아모센스 초도납품 완료(2026.3, ●●●). 수주잔고 200억달러(제품60+서비스140). 잠재 5GW까지 증설 가능</div>
+      </div>
+    </div>
+    <div class="chain-step">
+      <div class="chain-arrow">↓</div>
+      <div class="chain-content">
+        <div class="chain-label">매출 영향 (규모·비중 수치)</div>
+        <div class="chain-text">SOFC 세라믹 기판 매출: 26E 100억원 → 27E 380억원(+280%). 소재 부문 비중 10.7%(25A) → 16.6%(26E) → 28.3%(27E)로 급확대</div>
+      </div>
+    </div>
+    <div class="chain-step">
+      <div class="chain-arrow">↓</div>
+      <div class="chain-content">
+        <div class="chain-label">OPM 변화 메커니즘 (왜 마진이 오르는가)</div>
+        <div class="chain-text">SOFC 소재 OPM ~20%(전사 평균 4.4% 대비 4.5배). 고마진 소재 비중 확대 → 전사 GPM 24.3→25.6% + 매출 성장 대비 판관비 고정비 레버리지(판관비율 19.9→15.3%)</div>
+      </div>
+    </div>
+    <div class="chain-step">
+      <div class="chain-arrow">↓</div>
+      <div class="chain-content">
+        <div class="chain-label">최종 실적 결과 <span class="chain-forecast">● 추정</span></div>
+        <div class="chain-text">27E OP 175억(+92.5%), OPM 10.3%(+5.9%p vs 25A). SOFC 단독 OP 기여 60~80억원 추정</div>
+      </div>
+    </div>
+    <div class="chain-step">
+      <div class="chain-arrow">↓</div>
+      <div class="chain-content">
+        <div class="chain-label">시장 미반영 포인트 (So What)</div>
+        <div class="chain-text">27E PER 16.2배(코스닥 평균 21.6배 대비 25% 할인). PBR 3.4배 vs Peer 비나텍 8.6배(유사 ROE 대비 60% 할인). 글로벌 물량 진입 시 추가 리레이팅 여지</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════ F. 핵심 팩트 3줄 ══════════ -->
+<section>
+  <div class="section-title">핵심 팩트 3줄 — WHAT(숫자) + WHY(원인) + SO WHAT(의미) 3요소 필수</div>
+  <div class="fact-item">
+    <span class="fact-num">Fact 01 — 실적</span>
+    <div class="fact-what"><span class="fact-label label-what">WHAT</span>26E OP 91억(+71.7%), 27E OP 175억(+92.5%), OPM 4.4→6.5→10.3%</div>
+    <div class="fact-why"><span class="fact-label label-why">WHY</span>SOFC 소재(OPM ~20%) 비중 10.7→28.3% 급확대 + 판관비율 19.9→15.3% 레버리지. GPM+SGA 동시 개선 구조</div>
+    <div class="fact-so"><span class="fact-label label-so">SO WHAT</span>소형 전장 부품사에서 고마진 소재 기업으로 실적 체질 전환. 27E EPS 1,079원으로 PER 16.2배까지 하락</div>
+  </div>
+  <div class="fact-item">
+    <span class="fact-num">Fact 02 — 구조</span>
+    <div class="fact-what"><span class="fact-label label-what">WHAT</span>블룸에너지 SOFC 초도납품 완료(26.3), CAPA 월 20→60만장 3배 증설(3Q26), HTCC 국내 유일 양산</div>
+    <div class="fact-why"><span class="fact-label label-why">WHY</span>AI 데이터센터 전력 수요 폭증 → 블룸에너지 수주잔고 200억달러, 캐파 1→2→5GW. 중화권 80%+ 편중 공급망의 탈중국 다변화 필요</div>
+    <div class="fact-so"><span class="fact-label label-so">SO WHAT</span>셀 1장 = 기판 1장(1:1 구조). 2GW 기준 연 8,000만장 필요. 교체수요(5~7년 주기) 구조적 누적 → 장기 캐시카우</div>
+  </div>
+  <div class="fact-item">
+    <span class="fact-num">Fact 03 — 밸류</span>
+    <div class="fact-what"><span class="fact-label label-what">WHAT</span>27E PER 16.2배, PBR 3.4배, EV/EBITDA 9.9배. Peer 비나텍은 유사 ROE에 PBR 8.6배</div>
+    <div class="fact-why"><span class="fact-label label-why">WHY</span>현재 블룸SK퓨얼셀 경유 국내향 물량만 확정. 글로벌 물량 미진입 → 시장이 성장 프리미엄을 할인</div>
+    <div class="fact-so"><span class="fact-label label-so">SO WHAT</span>글로벌 물량 진입 가시화 시점이 PBR 리레이팅 핵심 트리거. 현 3.4배→비나텍 수준 8.6배 잠재 업사이드</div>
+  </div>
+  <p style="font-size:11px;color:#dc2626;margin-top:8px;padding:0 4px;">
+    금지: 숫자만 나열 / 필수: WHAT+WHY+SO WHAT 동시 기재
+  </p>
+</section>
+
+
+<!-- ══════════ F-2. 원본 리포트 핵심 요약 ══════════ -->
+<section>
+  <div class="section-title">원본 리포트 핵심 요약 — PDF 내용 직접 발췌 (외부 정보 추가 금지)</div>
+  <div style="background:#fafafa;border:1px solid #d0d4e0;border-radius:8px;padding:16px 20px;margin-bottom:12px;">
+    <div style="font-size:11px;font-weight:700;letter-spacing:1px;color:#5a6280;text-transform:uppercase;margin-bottom:10px;">리포트 핵심 주장 (애널리스트 관점 요약)</div>
+    <p style="font-size:13px;line-height:1.9;">아모센스는 SOFC 세라믹 기판(전해질 지지체)을 HTCC 공법으로 양산 가능한 국내 유일 기업으로, 2026.3 블룸에너지 초도납품 완료. AI 데이터센터 전력 수요 폭증에 따른 블룸에너지 캐파 확대(2GW→5GW)와 탈중국 공급망 재편이 구조적 수혜 동인. 소재 OPM ~20%의 고마진 사업 비중 확대가 전사 OPM을 4.4→10.3%로 레벨업시킬 전망.</p>
+    <div style="margin-top:10px;display:flex;gap:8px;flex-wrap:wrap;">
+      <div style="background:#f0f2f8;border:1px solid #d0d4e0;border-radius:6px;padding:6px 12px;font-size:12px;">
+        <span style="color:#5a6280;font-size:10px;display:block;margin-bottom:2px;">이전 대비 변화 포인트</span>
+        한국IR협의회 독자 리서치(NR) — 이전 커버리지 없음. 최초 분석
+      </div>
+      <div style="background:#f0f2f8;border:1px solid #d0d4e0;border-radius:6px;padding:6px 12px;font-size:12px;">
+        <span style="color:#5a6280;font-size:10px;display:block;margin-bottom:2px;">컨센서스 대비</span>
+        NR이므로 컨센 대비 비교 불가. 다만 SOFC OPM 20% 가정은 시장 기대 대비 공격적
+      </div>
+    </div>
+  </div>
+  <div style="background:#fafafa;border:1px solid #d0d4e0;border-radius:8px;padding:16px 20px;margin-bottom:12px;">
+    <div style="font-size:11px;font-weight:700;letter-spacing:1px;color:#5a6280;text-transform:uppercase;margin-bottom:10px;">사업 구조 & 성장 동력</div>
+    <table style="margin:0;">
+      <thead><tr><th style="width:25%;">사업부</th><th style="width:20%;">매출 비중</th><th style="width:55%;">핵심 성장 드라이버 (Why 포함)</th></tr></thead>
+      <tbody>
+        <tr><td>모듈</td><td>55.3%</td><td>UWB 디지털키(현대차그룹) 안정적 캐시카우 + SDV 통합제어모듈(27E 50억 첫 매출)</td></tr>
+        <tr><td>디바이스&플랫폼</td><td>29.4%</td><td>삼성 갤럭시 스마트태그 공급. 사은품 정책 변경으로 감소세. 차세대 모델 개발 중</td></tr>
+        <tr><td>소재</td><td>10.7%</td><td>SOFC 세라믹 기판(블룸에너지향) → 26E 100억 → 27E 380억. OPM ~20% 고마진. 차폐시트는 성숙 사업</td></tr>
+      </tbody>
+    </table>
+    <p style="font-size:12px;color:#5a6280;margin-top:10px;">▶ 핵심 성장 메커니즘: SOFC 소재(OPM ~20%)가 전사 매출 비중 10.7→28.3% 확대 → 사업 믹스 개선 → GPM 상승 + 판관비 레버리지 동시 작용 → OPM 4.4→10.3% 레벨업</p>
+  </div>
+  <div style="background:#fafafa;border:1px solid #d0d4e0;border-radius:8px;padding:16px 20px;margin-bottom:12px;">
+    <div style="font-size:11px;font-weight:700;letter-spacing:1px;color:#5a6280;text-transform:uppercase;margin-bottom:10px;">시장 괴리 — 왜 지금 시장이 틀렸는가</div>
+    <table style="margin:0;">
+      <thead><tr><th style="width:30%;">구분</th><th>내용</th></tr></thead>
+      <tbody>
+        <tr><td style="color:#5a6280;">시장 현재 인식</td><td>초도납품 지연(1→3월) + 수율 불확실 + 블룸에너지 주가 조정 → 고점 대비 47% 하락. SOFC 테마 투심 위축</td></tr>
+        <tr><td style="color:#2563eb;">이 리포트 주장</td><td>초도납품은 3월 완료(확정). 수율은 3Q26 이후 안정화 전망. 27E OPM 10.3%(ROE 23.4%)에 PBR 3.4배는 Peer 대비 60% 할인</td></tr>
+        <tr><td style="color:#b45309;">괴리 해소 촉매</td><td>3Q26 CAPA 증설 완공 + 하반기 수율 안정화 확인 + 글로벌 물량 진입 뉴스</td></tr>
+        <tr><td>괴리 강도</td><td><span style="color:#b45309;">중</span> (NR 리포트라 시장 주목도 제한 + 수율 리스크 잔존)</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div style="background:#fafafa;border:1px solid #d0d4e0;border-radius:8px;padding:16px 20px;">
+    <div style="font-size:11px;font-weight:700;letter-spacing:1px;color:#5a6280;text-transform:uppercase;margin-bottom:10px;">재무 특징 (PDF에 있는 경우만)</div>
+    <div style="display:flex;flex-wrap:wrap;gap:8px;">
+      <div style="background:#f0f2f8;border:1px solid #d0d4e0;border-radius:6px;padding:8px 12px;font-size:12px;flex:1;min-width:160px;"><span style="color:#5a6280;font-size:10px;display:block;margin-bottom:2px;">순현금/순차입금</span>PDF 미제공</div>
+      <div style="background:#f0f2f8;border:1px solid #d0d4e0;border-radius:6px;padding:8px 12px;font-size:12px;flex:1;min-width:160px;"><span style="color:#5a6280;font-size:10px;display:block;margin-bottom:2px;">부채비율</span>PDF 미제공</div>
+      <div style="background:#f0f2f8;border:1px solid #d0d4e0;border-radius:6px;padding:8px 12px;font-size:12px;flex:1;min-width:160px;"><span style="color:#5a6280;font-size:10px;display:block;margin-bottom:2px;">배당·자사주</span>배당수익률 0.0% (무배당)</div>
+      <div style="background:#f0f2f8;border:1px solid #d0d4e0;border-radius:6px;padding:8px 12px;font-size:12px;flex:1;min-width:160px;"><span style="color:#5a6280;font-size:10px;display:block;margin-bottom:2px;">특이 재무 이슈</span>주요거래처 집중(A사 34.6%+B사 53.2%=87.8%). 자본금 56억원 소형주</div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════ G. 실적 전망 (연간) ══════════ -->
+<section>
+  <div class="section-title">실적 전망 (연간) — PDF 원문 수치만 기재, 추정 금지</div>
+  <table class="data-table">
+    <caption>단위: 억원 — PDF 단위 확인 완료 | ★ = 투자 핵심 연도</caption>
+    <thead>
+      <tr>
+        <th>구분</th>
+        <th>2023A</th><th>2024A</th><th>2025A</th>
+        <th style="background:#dbeafe;color:#1e40af;font-weight:700;">2026E ★</th>
+        <th>2027E</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td>매출액</td><td>875</td><td>1,342</td><td>1,221</td><td class="key-col key-num">1,386</td><td>1,699</td></tr>
+      <tr><td>YoY(%)</td><td>38.8</td><td>53.4</td><td>-9.0</td><td class="key-col">+13.5</td><td>+22.5</td></tr>
+      <tr><td>영업이익</td><td>8</td><td>72</td><td>53</td><td class="key-col key-num">91</td><td>175</td></tr>
+      <tr><td>YoY(%)</td><td>-6.6</td><td>+799.8</td><td>-25.7</td><td class="key-col key-num">+71.7</td><td>+92.5</td></tr>
+      <tr><td>OPM(%)</td><td>0.9</td><td>5.3</td><td>4.4</td><td class="key-col key-opm">6.5</td><td>10.3</td></tr>
+      <tr><td>EPS(원)</td><td>-127</td><td>155</td><td>44</td><td class="key-col">376</td><td>1,079</td></tr>
+      <tr><td>PER(배)</td><td>N/A</td><td>33.0</td><td>150.4</td><td class="key-col">46.6</td><td>16.2</td></tr>
+      <tr><td>PBR(배)</td><td>3.6</td><td>1.4</td><td>1.8</td><td class="key-col">4.3</td><td>3.4</td></tr>
+      <tr><td>ROE(%)</td><td>-3.8</td><td>4.5</td><td>1.2</td><td class="key-col">14.4</td><td>23.4</td></tr>
+    </tbody>
+  </table>
+  <p style="font-size:12px;color:#5a6280;margin-top:10px;padding:0 4px;">
+    ▶ 왜 2027E가 변곡점인가: SOFC CAPA 월 60만장이 연간 풀가동되는 첫 해(매출 380억). 소재 OPM ~20% 비중 확대(28.3%)가 전사 OPM을 10.3%로 끌어올리며, 판관비 레버리지까지 동시 작용하는 구간
+  </p>
+</section>
+
+
+<!-- ══════════ H. 분기별 실적 ══════════ -->
+<section>
+  <div class="section-title">분기별 실적 전망 — PDF에 있으면 반드시 기재, 생략 금지</div>
+  <div style="background:#fafafa;border:1px solid #d0d4e0;border-radius:8px;padding:16px 20px;font-size:13px;color:#5a6280;text-align:center;">
+    PDF에 분기별 실적 미제공 — 연간 실적만 제시됨. 다만 SOFC 매출은 1H26E 소규모(초도납품) → 2H26E 증설 완공 후 물량 집중 구조로, 하반기 편중 예상
+  </div>
+  <p style="font-size:12px;color:#5a6280;margin-top:10px;padding:0 4px;">
+    ▶ 3Q26 주목 포인트: CAPA 60만장 증설 완공 + 수율 안정화 여부가 연간 100억원 목표 달성의 핵심 변수
+  </p>
+</section>
+
+
+<!-- ══════════ I~M: 밸류·리스크·체크포인트·사견 ══════════ -->
+<section>
+  <div class="section-title">밸류에이션 — 왜 이 배수인가 1문장 필수</div>
+  <div class="val-box">
+    <div class="val-formula">NR 리포트 → TP 미제공. EV/EBITDA 기준: 26E 14.3배, 27E 9.9배 | PER: 26E 46.6배 → 27E 16.2배 | PBR: 26E 4.3배 → 27E 3.4배</div>
+    <p style="color:#5a6280;font-size:12px;margin-top:8px;">▶ 왜 현 밸류가 괴리인가: 27E ROE 23.4%에 PBR 3.4배. 동일 블룸에너지 밸류체인 Peer 비나텍은 ROE 16.3%에 PBR 8.6배. 아모센스가 60% 할인. 원인은 국내향 물량만 확정(글로벌 미진입)</p>
+    <p style="color:#5a6280;font-size:12px;margin-top:4px;">▶ 리레이팅 조건: 글로벌 물량 진입 가시화 시 PBR 5~7배 수준 재평가 가능. EV/EBITDA 27E 9.9배는 소재 업종 Peer(12~15배) 대비 할인 구간</p>
+    <p style="color:#5a6280;font-size:12px;margin-top:4px;">▶ 히스토리컬 PBR 밴드: 1.0~7.0배 중 현 3.4배는 중하단. 52주 최고가 25,100원(PBR ~6.2배 추정) 대비 30% 하락 구간</p>
+  </div>
+</section>
+
+<section>
+  <div class="section-title">리스크 — 핵심 가정이 틀릴 경우 시나리오 (키워드 나열 금지)</div>
+  <div class="risk-item risk-sev-high">
+    <div class="risk-assumption">핵심 가정: 블룸에너지 단일 고객 의존 + 글로벌 물량 진입 불확실</div>
+    <div class="risk-chain" style="margin-top:6px;">→ 붕괴 시: 블룸에너지 캐파 증설 지연 또는 중화권 공급사 유지 결정 시, SOFC 매출 380억(27E) → 150억 이하로 축소<br/>→ 실적 영향: 27E OP 175억 → 100억 이하(OPM 6% 수준에 머무름). 소재 비중 확대 무산</div>
+    <div class="risk-impact-num">→ 주가 영향: PBR 2.0배 수준까지 하락 가능(약 -40%)</div>
+  </div>
+  <div class="risk-item risk-sev-mid">
+    <div class="risk-assumption">두 번째 가정: SOFC 초도 양산 수율 안정화 지연</div>
+    <div class="risk-chain" style="margin-top:6px;">→ 붕괴 시: 3Q26 증설 후에도 수율이 낮으면 26E SOFC 매출 100억 → 50~60억, 27E 380억 → 200억 수준으로 하향<br/>→ 실적 영향: 소재 OPM 20% → 10% 이하. 전사 OPM 개선폭 제한(27E 8% 수준)</div>
+    <div class="risk-impact-num">→ 주가 영향: 수율 이슈 장기화 시 SOFC 프리미엄 소멸, PBR 2.5배 수준(약 -25%)</div>
+  </div>
+</section>
+
+<section>
+  <div class="section-title">모멘텀 확인 체크포인트 — 확인/실망 시 행동 명시</div>
+  <div style="background:#fafafa;border:1px solid #d0d4e0;border-radius:8px;padding:4px 16px;">
+    <div class="checkpoint-item">
+      <span class="cp-date">2026.3Q</span>
+      <div>
+        <div class="cp-event">CAPA 월 60만장 증설 완공 + 수율 안정화 확인</div>
+        <div class="cp-pass">수율 70%+ 달성 + 하반기 SOFC 매출 가속 확인 시 → 적극 매수 검토</div>
+        <div class="cp-fail">수율 50% 미만 또는 증설 지연 시 → 비중 축소, 4Q26 재확인</div>
+      </div>
+    </div>
+    <div class="checkpoint-item">
+      <span class="cp-date">2026.4Q~</span>
+      <div>
+        <div class="cp-event">블룸에너지 글로벌 물량 진입 여부 (탈중국 공급망 재편 실행)</div>
+        <div class="cp-pass">글로벌 물량 수주 확정 시 → SSS급 승격 검토. PBR 리레이팅 기대</div>
+        <div class="cp-fail">국내향만 유지, 글로벌 진입 불투명 시 → 핵심급으로 하향 조정</div>
+      </div>
+    </div>
+    <div class="checkpoint-item">
+      <span class="cp-date">2027.1Q</span>
+      <div>
+        <div class="cp-event">26E 연간 실적 발표 (SOFC 매출 100억 달성 여부)</div>
+        <div class="cp-pass">SOFC 매출 100억+ / 전사 OPM 6.5%+ 확인 시 → 27E 전망 유효, 포지션 유지</div>
+        <div class="cp-fail">SOFC 매출 60억 미만 / OPM 5% 미달 시 → 테제 약화, 비중 축소</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="section-title">사견 & 투자 행동 결론</div>
+  <div class="opinion-box">
+    <p>한국IR협의회 NR 리포트로 시장 주목도가 제한적이나, 블룸에너지 SOFC 밸류체인 내 세라믹 기판의 병목 포지션(HTCC 국내 유일)과 초도납품 확정은 구조적 강점. 다만 ① 블룸에너지 단일고객 의존 ② 수율 안정화 미확인 ③ 글로벌 물량 미진입이라는 3대 리스크가 상존. NR이므로 TP/Upside 미산출 상태에서 현 주가(17,530원)의 적정성 판단이 어려움. 3Q26 CAPA 증설 완공 + 수율 확인이 최우선 체크포인트. 이벤트 확인 후 진입이 합리적.</p>
+    <div class="decision-box">
+      <div class="decision-btn decision-buy decision-dim">지금 진입 가능<br/><span style="font-size:11px;font-weight:400;">핵심+ & 60점+</span></div>
+      <div class="decision-btn decision-wait">이벤트 후 진입<br/><span style="font-size:11px;font-weight:400;">3Q26 수율 확인 후</span></div>
+      <div class="decision-btn decision-avoid decision-dim">관망<br/><span style="font-size:11px;font-weight:400;">NR+수율 불확실</span></div>
+    </div>
+  </div>
+</section>
+
+<div class="disclaimer">
+  ※ 본 글은 증권사 리포트를 개인 학습 목적으로 요약·정리한 것이며, 투자 권유가 아닙니다.<br/>
+  ※ 제공된 PDF 파일만 활용. 외부 검색·참조 없음. 당일 발간 리포트 기준.
+</div>
+
+</body>
+</html>

@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>KT (030200) 정리</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Pretendard','Apple SD Gothic Neo',-apple-system,sans-serif; background: #ffffff; color: #1a1d2e; line-height: 1.7; font-size: 14px; max-width: 900px; margin: 0 auto; padding: 32px 20px 80px; }
+  .header { border-left: 4px solid #2563eb; padding: 0 0 0 16px; margin-bottom: 24px; }
+  .header h1 { font-size: 20px; font-weight: 700; margin-bottom: 10px; color: #1a1d2e; }
+  .price-row { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin-top: 10px; }
+  .price-item { background: #f0f2f8; border: 1px solid #d0d4e0; border-radius: 6px; padding: 6px 14px; font-size: 13px; }
+  .price-item .label { color: #5a6280; font-size: 11px; display: block; }
+  .price-item .val { font-weight: 700; color: #1a1d2e; }
+  .upside-val { color: #059669; }
+  .tag-badge { display: inline-flex; align-items: center; gap: 6px; padding: 5px 14px; border-radius: 20px; font-size: 13px; font-weight: 700; }
+  .tag-stable { background: #eff6ff; color: #1d4ed8; border: 1px solid #60a5fa; }
+  .score-badge { display: inline-block; padding: 5px 14px; border-radius: 20px; font-size: 13px; font-weight: 700; background: #f0f2f8; border: 1px solid #d0d4e0; }
+  .score-low { color: #5a6280; }
+  .pathway-badge { display: inline-flex; align-items: center; gap: 4px; padding: 3px 10px; border-radius: 12px; font-size: 11px; font-weight: 600; background: #f0f2f8; border: 1px solid #d0d4e0; color: #5a6280; }
+  section { margin-bottom: 28px; }
+  .section-title { font-size: 11px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: #5a6280; border-bottom: 1px solid #d0d4e0; padding-bottom: 6px; margin-bottom: 14px; }
+  .pdf-only-banner { background: #fff7ed; border: 1px solid #f97316; border-radius: 8px; padding: 10px 16px; font-size: 12px; color: #c2410c; margin-bottom: 20px; text-align: center; font-weight: 700; }
+  .thesis-box { background: #f8faff; border: 1px solid #2563eb; border-radius: 8px; padding: 16px 20px; font-size: 15px; font-weight: 600; line-height: 1.6; color: #1a1d2e; }
+  .thesis-structure { display: flex; gap: 8px; align-items: center; margin-top: 10px; flex-wrap: wrap; }
+  .thesis-part { background: #f0f2f8; border: 1px solid #d0d4e0; border-radius: 6px; padding: 4px 10px; font-size: 12px; color: #1a1d2e; }
+  .thesis-arrow { color: #2563eb; font-size: 16px; }
+  .checklist { background: #fafafa; border: 1px solid #d0d4e0; border-radius: 8px; overflow: hidden; }
+  .checklist-item { display: flex; gap: 14px; align-items: flex-start; padding: 12px 16px; border-bottom: 1px solid #d0d4e0; }
+  .checklist-item:last-child { border-bottom: none; }
+  .check-icon { width: 22px; height: 22px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; flex-shrink: 0; margin-top: 1px; }
+  .check-pass { background: #ecfdf5; color: #059669; border: 1px solid #34d399; }
+  .check-fail { background: #fef2f2; color: #dc2626; border: 1px solid #fca5a5; }
+  .check-label { font-weight: 600; font-size: 13px; color: #1a1d2e; }
+  .check-detail { color: #5a6280; font-size: 12px; margin-top: 2px; }
+  .check-why { color: #1a1d2e; font-size: 13px; }
+  table { width: 100%; border-collapse: collapse; background: #fafafa; border-radius: 8px; overflow: hidden; border: 1px solid #d0d4e0; }
+  thead tr { background: #f0f2f8; }
+  th { padding: 10px 14px; text-align: left; font-size: 11px; font-weight: 700; color: #5a6280; letter-spacing: 0.8px; text-transform: uppercase; }
+  td { padding: 10px 14px; border-top: 1px solid #d0d4e0; font-size: 13px; color: #1a1d2e; }
+  tr.total-row td { background: #e8ecf5; font-weight: 700; }
+  .penalty { color: #dc2626; }
+  .highlight-green { color: #059669; font-weight: 700; }
+  .highlight-red { color: #dc2626; }
+  .chain-box { background: #fafafa; border: 1px solid #d0d4e0; border-radius: 8px; padding: 16px 20px; }
+  .chain-step { display: flex; gap: 12px; align-items: flex-start; margin-bottom: 10px; }
+  .chain-step:last-child { margin-bottom: 0; }
+  .chain-arrow { color: #2563eb; font-size: 16px; flex-shrink: 0; margin-top: 1px; }
+  .chain-content { flex: 1; }
+  .chain-label { font-size: 10px; font-weight: 700; letter-spacing: 1px; color: #5a6280; text-transform: uppercase; margin-bottom: 2px; }
+  .chain-text { font-size: 13px; color: #1a1d2e; }
+  .chain-confirmed { color: #059669; font-size: 11px; margin-left: 6px; }
+  .chain-forecast { color: #b45309; font-size: 11px; margin-left: 6px; }
+  .fact-item { background: #fafafa; border: 1px solid #d0d4e0; border-radius: 8px; padding: 14px 16px; margin-bottom: 8px; }
+  .fact-item:last-child { margin-bottom: 0; }
+  .fact-num { font-size: 10px; font-weight: 700; color: #2563eb; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 8px; display: block; }
+  .fact-what { font-weight: 600; font-size: 14px; margin-bottom: 6px; color: #1a1d2e; }
+  .fact-why { font-size: 13px; color: #5a6280; margin-bottom: 6px; }
+  .fact-so { font-size: 13px; color: #059669; }
+  .fact-label { display: inline-block; font-size: 10px; font-weight: 700; padding: 1px 6px; border-radius: 3px; margin-right: 4px; }
+  .label-what { background: #eff6ff; color: #1d4ed8; }
+  .label-why { background: #fff7ed; color: #ea580c; }
+  .label-so { background: #ecfdf5; color: #059669; }
+  .data-table th { background: #e8ecf5; }
+  .data-table td.key-col { background: #f0f6ff; }
+  .data-table .key-num { color: #059669; font-weight: 700; }
+  .data-table .key-opm { color: #b45309; }
+  caption { font-size: 11px; color: #5a6280; text-align: left; padding: 0 0 8px; caption-side: top; }
+  .val-box { background: #fafafa; border: 1px solid #d0d4e0; border-radius: 8px; padding: 16px 20px; font-size: 13px; line-height: 2; color: #1a1d2e; }
+  .val-formula { background: #f0f2f8; border-radius: 6px; padding: 10px 14px; font-family: monospace; font-size: 13px; margin: 10px 0; color: #b45309; }
+  .risk-item { background: #fafafa; border-radius: 0 6px 6px 0; padding: 14px 16px; margin-bottom: 10px; }
+  .risk-item:last-child { margin-bottom: 0; }
+  .risk-sev-high { border-left: 3px solid #dc2626; }
+  .risk-sev-mid { border-left: 3px solid #ea580c; }
+  .risk-assumption { font-weight: 600; font-size: 13px; margin-bottom: 4px; color: #1a1d2e; }
+  .risk-chain { font-size: 12px; color: #5a6280; margin: 4px 0; }
+  .risk-impact-num { font-size: 13px; color: #dc2626; font-weight: 600; margin-top: 4px; }
+  .checkpoint-item { display: flex; gap: 12px; padding: 10px 0; border-bottom: 1px solid #d0d4e0; font-size: 13px; }
+  .checkpoint-item:last-child { border-bottom: none; }
+  .cp-date { color: #2563eb; font-weight: 600; min-width: 90px; flex-shrink: 0; }
+  .cp-event { flex: 1; color: #1a1d2e; }
+  .cp-pass { color: #059669; font-size: 12px; margin-top: 2px; }
+  .cp-fail { color: #dc2626; font-size: 12px; margin-top: 2px; }
+  .opinion-box { background: #fafafa; border: 1px solid #d0d4e0; border-radius: 8px; padding: 16px 20px; font-size: 13px; line-height: 1.8; color: #5a6280; }
+  .decision-box { display: flex; gap: 14px; margin-top: 14px; }
+  .decision-btn { flex: 1; text-align: center; padding: 10px; border-radius: 6px; font-weight: 700; font-size: 13px; border: 1px solid; }
+  .decision-buy { background: #ecfdf5; color: #059669; border-color: #34d399; }
+  .decision-wait { background: #fffbeb; color: #b45309; border-color: #f59e0b; }
+  .decision-avoid { background: #fef2f2; color: #dc2626; border-color: #fca5a5; }
+  .decision-dim { opacity: 0.3; }
+  .conditional-note { background: #fef3c7; border: 1px solid #fcd34d; border-radius: 6px; padding: 6px 12px; font-size: 11px; color: #92400e; margin-bottom: 12px; }
+  .disclaimer { font-size: 11px; color: #9ca3af; text-align: center; margin-top: 40px; padding-top: 16px; border-top: 1px solid #d0d4e0; }
+</style>
+</head>
+<body>
+
+<div class="pdf-only-banner">🚫 외부 검색 절대 금지 — 제공된 PDF 파일만 활용 | 당일 발간 리포트 기준 투자 종목 발굴 전용</div>
+
+<header class="header">
+  <h1>KT (030200) | 주가 하방이 가장 단단 — 신한투자증권 | 발간일: 2026.04.16</h1>
+  <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-bottom:12px;">
+    <span class="tag-badge tag-stable">📈 안정</span>
+    <span class="score-badge score-low">📊 30점</span>
+    <span style="font-size:12px;color:#5a6280;">비바이오</span>
+    <span class="pathway-badge">경로 ⑤ 재평가 (자사주 매입 + 업종 리레이팅)</span>
+  </div>
+  <div class="price-row">
+    <div class="price-item"><span class="label">투자의견</span><span class="val">매수</span></div>
+    <div class="price-item"><span class="label">목표주가(TP)</span><span class="val">77,000원</span></div>
+    <div class="price-item"><span class="label">현재주가(CP)</span><span class="val">64,400원</span></div>
+    <div class="price-item"><span class="label">Upside</span><span class="val upside-val">+19.6%</span></div>
+    <div class="price-item"><span class="label">종목 유형</span><span class="val">비바이오</span></div>
+  </div>
+</header>
+
+<section>
+  <div class="section-title">💡 이 종목에 투자해야 하는 이유 — 스토리 한 줄 (안정 관점)</div>
+  <div class="thesis-box">
+    "4/1~9/9 자사주 매입 2,500억원(확정) — 일평균 거래대금의 약 10% 수급 효과로 최소 매입 기간(~9월) 완만한 주가 상승 전망. 그러나 26E OP 2,469→2,153십억(-12.8%), 해킹사고 후유증으로 1Q 가입자 이탈 23만명. 방어적 하방 단단하나 Upside 19.6%로 제한적"
+  </div>
+  <div class="thesis-structure">
+    <div class="thesis-part" style="color:#059669;">① 자사주 매입 방어<br/>2,500억(4/1~9/9) 수급 효과</div>
+    <div class="thesis-arrow">→</div>
+    <div class="thesis-part" style="color:#b45309;">② 완만 성장<br/>26E OP -12.8%(2,153십억), OPM 7.8%</div>
+    <div class="thesis-arrow">→</div>
+    <div class="thesis-part" style="color:#2563eb;">③ 방어 성격<br/>Upside 19.6%, 자사주 수급 + 외국인 49% 한도</div>
+  </div>
+</section>
+
+<section>
+  <div class="section-title">✅ 핵심 태그 5가지 조건 체크 (안정 — 대부분 미달)</div>
+  <div class="conditional-note">⚠️ 안정 종목 — 26E OP 역성장, 자사주 하방 방어만.</div>
+  <div class="checklist">
+    <div class="checklist-item"><div class="check-icon check-fail">✗</div><div><div class="check-label">조건 1 | 영업이익 성장 임계값</div><div class="check-why">26E OP -12.8%(2,469→2,153십억), OPM -0.9%p(8.7→7.8%) — <span class="highlight-red">역성장</span></div></div></div>
+    <div class="checklist-item"><div class="check-icon check-fail">✗</div><div><div class="check-label">조건 2 | 3년 지속성</div><div class="check-why">리커링 통신 매출(●) + KT클라우드 4.6조 밸류(●) — 2개 수준, <span class="highlight-red">미달</span></div></div></div>
+    <div class="checklist-item"><div class="check-icon check-pass">✓</div><div><div class="check-label">조건 3 | 확정 팩트(●●●) 2개 이상</div><div class="check-why">●●● 자사주 2,500억 매입 공시(4/1~9/9) / ●●● 외국인 지분 49% 한도 소진 — 2개 충족</div></div></div>
+    <div class="checklist-item"><div class="check-icon check-fail">✗</div><div><div class="check-label">조건 4 | 시장 미반영</div><div class="check-why">Upside 19.6% — <span class="highlight-red">미달</span></div></div></div>
+    <div class="checklist-item"><div class="check-icon check-fail">✗</div><div><div class="check-label">조건 5 | 차별화된 시각</div><div class="check-why">통신 3사 비교 리포트, SKT 시총 재역전 언급 — <span class="highlight-red">공유 논리</span></div></div></div>
+  </div>
+</section>
+
+<section>
+  <div class="section-title">📊 투자 점수 판정 (v2.0 비바이오)</div>
+  <table>
+    <thead><tr><th>항목</th><th>판정</th><th>근거 (Why)</th></tr></thead>
+    <tbody>
+      <tr><td>종목 유형</td><td>비바이오</td><td>통신서비스 — 안정적 리커링</td></tr>
+      <tr><td>적용 가설</td><td>가설 4</td><td>완만한 성장(역성장) + 자사주 방어</td></tr>
+      <tr><td>촉매 등급</td><td>하급</td><td>자사주 매입은 수급 촉매, 실적 개선 촉매 아님</td></tr>
+      <tr><td>복합 여부</td><td>단독</td><td>자사주 매입 수급만 작동, 실적 촉매 부재</td></tr>
+      <tr><td>직접성</td><td>직접</td><td>자사주 → 주가 수급에 직접 영향</td></tr>
+      <tr><td>매트릭스 기본 점수</td><td>20점</td><td>가설4 × 하급 × 단독 = 20점</td></tr>
+      <tr><td>가점 ① 자사주 수급</td><td><span class="highlight-green">+10점</span></td><td>일평균 거래대금의 10%에 달하는 2,500억 자사주 매입</td></tr>
+      <tr class="total-row"><td>최종 투자 점수</td><td><span class="highlight-green">30점</span></td><td>안정 20+ → 안정 확정</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section>
+  <div class="section-title">⚡ 성장 인과 체인</div>
+  <div class="chain-box">
+    <div class="chain-step"><div class="chain-arrow">①</div><div class="chain-content"><div class="chain-label">구조 변화 / 촉매 <span class="chain-confirmed">● 확정 팩트</span></div><div class="chain-text">자사주 2,500억 매입 공시 4/1~9/9(●●●). 위약금 면제 기간 23만 가입자 이탈(●●●), 6개월 100GB 제공으로 ARPU 일시 하락. 신임 CEO 체제 하반기 안정화 기대(●○○)</div></div></div>
+    <div class="chain-step"><div class="chain-arrow">↓</div><div class="chain-content"><div class="chain-label">매출 영향</div><div class="chain-text">26E 매출 28,244→27,687십억(-2.0%), 서비스수익 23,388→23,966십억(+2.5%), 단말수익 4,856→3,722십억(-23.3%)</div></div></div>
+    <div class="chain-step"><div class="chain-arrow">↓</div><div class="chain-content"><div class="chain-label">OPM 변화 메커니즘</div><div class="chain-text">25년 해킹사태 기저효과(25E OP +205%), 26E 정상화 과정에서 일회성 비용 반영(고객 감사 패키지, R&D, 네트워크 보수) → OPM 8.7→7.8%(-0.9%p)</div></div></div>
+    <div class="chain-step"><div class="chain-arrow">↓</div><div class="chain-content"><div class="chain-label">최종 실적 결과 <span class="chain-forecast">● 추정</span></div><div class="chain-text">26E OP 2,153십억(-12.8%), OPM 7.8%. 27E OP 2,208십억(+2.5%) 안정화</div></div></div>
+    <div class="chain-step"><div class="chain-arrow">↓</div><div class="chain-content"><div class="chain-label">시장 미반영 포인트</div><div class="chain-text">SOTP 자회사가치 6,780십억(KT클라우드 4,600십억 포함, IMM 투자 유치 밸류) + 자사주 수급(~9/9) → 주가 하방 방어. SKT 시총 재역전이 업종 리레이팅 의미라면 KT도 동반 재평가</div></div></div>
+  </div>
+</section>
+
+<section>
+  <div class="section-title">📌 핵심 팩트 3줄</div>
+  <div class="fact-item"><span class="fact-num">Fact 01</span><div class="fact-what"><span class="fact-label label-what">WHAT</span>자사주 매입 2,500억원(4/1~9/9), 일평균 거래대금의 약 10% 수급 효과</div><div class="fact-why"><span class="fact-label label-why">WHY</span>25년 상반기 자사주 수급이 주가를 끌어올린 경험 재현 의도. 외국인 49% 한도 소진으로 추가 수급 여력 제한</div><div class="fact-so"><span class="fact-label label-so">SO WHAT</span>적어도 9/9까지 완만한 주가 상승 전망 — 하방이 가장 단단한 통신주</div></div>
+  <div class="fact-item"><span class="fact-num">Fact 02</span><div class="fact-what"><span class="fact-label label-what">WHAT</span>26E OP 2,153십억(-12.8%), OPM 8.7→7.8%(-0.9%p) — 해킹 영향 정상화 과정</div><div class="fact-why"><span class="fact-label label-why">WHY</span>1Q 위약금 면제 23만 이탈 + 100GB 무료 제공으로 ARPU 하락 + 판매비 +7.5%(21개월 상각) + 각종 일회성 비용</div><div class="fact-so"><span class="fact-label label-so">SO WHAT</span>26E 역성장은 25년 고기저 영향 — 하반기 신임 CEO 체제 안정화로 개선 기대하나 속도 불확실</div></div>
+  <div class="fact-item"><span class="fact-num">Fact 03</span><div class="fact-what"><span class="fact-label label-what">WHAT</span>TP 77,000원(+7% 상향) = KT 별도 19,846십억 + 자회사 6,780십억 - 순차입금 7,279십억 = 시총 19,347십억</div><div class="fact-why"><span class="fact-label label-why">WHY</span>별도 EV/EBITDA 4.4배(SKT과 동일, 할인 이유 없음), KT클라우드 4,600십억(IMM 유치 밸류), 자회사 50% 할인 적용</div><div class="fact-so"><span class="fact-label label-so">SO WHAT</span>Upside 19.6%로 핵심 기준 40%+ 미달 — 자사주 매입 기간 수급 방어에 의존한 안정적 투자</div></div>
+</section>
+
+<section>
+  <div class="section-title">📄 원본 리포트 핵심 요약</div>
+  <div style="background:#fafafa;border:1px solid #d0d4e0;border-radius:8px;padding:16px 20px;margin-bottom:12px;">
+    <div style="font-size:11px;font-weight:700;letter-spacing:1px;color:#5a6280;text-transform:uppercase;margin-bottom:10px;">리포트 핵심 주장</div>
+    <p style="font-size:13px;line-height:1.9;">자사주 2,500억 매입(4/1~9/9)으로 수급 효과 → 주가 하방이 가장 단단. 해킹 후유증으로 1Q 부진(OP -24.9% YoY)이나 하반기 CEO 안정화로 개선 기대. SKT 시총 재역전이 업종 리레이팅이라면 KT 동반 재평가.</p>
+    <div style="margin-top:10px;display:flex;gap:8px;flex-wrap:wrap;">
+      <div style="background:#f0f2f8;border:1px solid #d0d4e0;border-radius:6px;padding:6px 12px;font-size:12px;"><span style="color:#5a6280;font-size:10px;display:block;margin-bottom:2px;">이전 대비 변화</span>TP 72,000→77,000원(+7% 상향), EV/EBITDA 3.9→4.4배</div>
+      <div style="background:#f0f2f8;border:1px solid #d0d4e0;border-radius:6px;padding:6px 12px;font-size:12px;"><span style="color:#5a6280;font-size:10px;display:block;margin-bottom:2px;">컨센서스 대비</span>1Q OP 컨센 5,204억 대비 -0.6% 소폭 하회</div>
+    </div>
+  </div>
+  <div style="background:#fafafa;border:1px solid #d0d4e0;border-radius:8px;padding:16px 20px;margin-bottom:12px;">
+    <div style="font-size:11px;font-weight:700;letter-spacing:1px;color:#5a6280;text-transform:uppercase;margin-bottom:10px;">시장 괴리</div>
+    <table style="margin:0;">
+      <thead><tr><th style="width:30%;">구분</th><th>내용</th></tr></thead>
+      <tbody>
+        <tr><td style="color:#5a6280;">시장 현재 인식</td><td>해킹 후유증 + 26E OP 역성장으로 관심 외</td></tr>
+        <tr><td style="color:#2563eb;">이 리포트 주장</td><td>자사주 수급 + 업종 리레이팅 가능성 + ADR 프리미엄 지속</td></tr>
+        <tr><td style="color:#b45309;">괴리 해소 촉매</td><td>9/9까지 자사주 매입 지속 + 하반기 CEO 안정화</td></tr>
+        <tr><td>괴리 강도</td><td><span style="color:#5a6280;">약</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div style="background:#fafafa;border:1px solid #d0d4e0;border-radius:8px;padding:16px 20px;">
+    <div style="font-size:11px;font-weight:700;letter-spacing:1px;color:#5a6280;text-transform:uppercase;margin-bottom:10px;">재무 특징</div>
+    <div style="display:flex;flex-wrap:wrap;gap:8px;">
+      <div style="background:#f0f2f8;border:1px solid #d0d4e0;border-radius:6px;padding:8px 12px;font-size:12px;flex:1;min-width:160px;"><span style="color:#5a6280;font-size:10px;display:block;margin-bottom:2px;">순차입금(4Q25)</span>7,279십억원</div>
+      <div style="background:#f0f2f8;border:1px solid #d0d4e0;border-radius:6px;padding:8px 12px;font-size:12px;flex:1;min-width:160px;"><span style="color:#5a6280;font-size:10px;display:block;margin-bottom:2px;">자사주 매입</span>2,500억(4/1~9/9)</div>
+      <div style="background:#f0f2f8;border:1px solid #d0d4e0;border-radius:6px;padding:8px 12px;font-size:12px;flex:1;min-width:160px;"><span style="color:#5a6280;font-size:10px;display:block;margin-bottom:2px;">배당</span>1Q DPS 610원 전망</div>
+      <div style="background:#f0f2f8;border:1px solid #d0d4e0;border-radius:6px;padding:8px 12px;font-size:12px;flex:1;min-width:160px;"><span style="color:#5a6280;font-size:10px;display:block;margin-bottom:2px;">외국인 한도</span>49% 소진</div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="section-title">📈 실적 전망 (연간)</div>
+  <table class="data-table">
+    <caption>단위: 십억원</caption>
+    <thead><tr><th>구분</th><th>2025A</th><th style="background:#dbeafe;color:#1e40af;font-weight:700;">2026E ★</th><th>2027E</th></tr></thead>
+    <tbody>
+      <tr><td>매출액</td><td>28,244</td><td class="key-col key-num">27,687</td><td>28,011</td></tr>
+      <tr><td>YoY(%)</td><td>+6.9</td><td class="key-col" style="color:#dc2626;">-2.0</td><td>+1.2</td></tr>
+      <tr><td>영업이익</td><td>2,469</td><td class="key-col key-num">2,153</td><td>2,208</td></tr>
+      <tr><td>YoY(%)</td><td>+205.0</td><td class="key-col" style="color:#dc2626;">-12.8</td><td>+2.5</td></tr>
+      <tr><td>OPM(%)</td><td>8.7</td><td class="key-col key-opm">7.8</td><td>7.9</td></tr>
+      <tr><td>별도 OP</td><td>1,305</td><td class="key-col">1,500</td><td>1,525</td></tr>
+    </tbody>
+  </table>
+  <p style="font-size:12px;color:#5a6280;margin-top:10px;padding:0 4px;">▶ 왜 26E가 변곡점인가: 25년 해킹 기저(OP +205%) 정상화 → 26E는 해킹 후유증(가입자 이탈, 일회성 비용) 반영으로 -12.8%. 27E부터 안정화.</p>
+</section>
+
+<section>
+  <div class="section-title">📅 분기별 실적 전망 — 연결 기준</div>
+  <table class="data-table">
+    <thead><tr><th>구분</th><th>1Q25</th><th>2Q25</th><th>3Q25</th><th>4Q25</th><th style="background:#dbeafe;color:#1e40af;font-weight:700;">1Q26F ★</th><th>2Q26F</th><th>3Q26F</th><th>4Q26F</th></tr></thead>
+    <tbody>
+      <tr><td>매출액</td><td>6,845</td><td>7,427</td><td>7,127</td><td>6,845</td><td class="key-col key-num">6,741</td><td>6,826</td><td>7,128</td><td>6,992</td></tr>
+      <tr><td>영업이익</td><td>689</td><td>1,015</td><td>538</td><td>227</td><td class="key-col key-num">517</td><td>642</td><td>514</td><td>481</td></tr>
+      <tr><td>OPM(%)</td><td>10.1</td><td>13.7</td><td>7.6</td><td>3.3</td><td class="key-col key-opm">7.7</td><td>9.4</td><td>7.2</td><td>6.9</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section>
+  <div class="section-title">💰 밸류에이션</div>
+  <div class="val-box">
+    <div class="val-formula">KT 별도(26F EBITDA × 4.4배) 19,846십억 + 자회사가치 6,780십억(50% 할인) - 순차입금 7,279십억 = 목표 시총 19,347십억 → TP 77,000원</div>
+    <p style="color:#5a6280;font-size:12px;margin-top:8px;">▶ 왜 이 배수인가: SKT과 동일 EV/EBITDA 4.4배 적용. KT클라우드(IMM 4.6조 밸류) + BC카드 + 스튜디오지니 등 자회사 합산. 목표가 주주환원수익률 4.5%</p>
+  </div>
+</section>
+
+<section>
+  <div class="section-title">⚠️ 리스크 — 안정 종목의 "상승 동력 부재" 리스크 중심</div>
+  <div class="risk-item risk-sev-high">
+    <div class="risk-assumption">🔴 핵심 가정: 자사주 매입 2,500억(~9/9)이 주가 하방을 방어한다</div>
+    <div class="risk-chain" style="margin-top:6px;">→ 붕괴 시: 매입 기간 종료 후 수급 공백 → 주가 되돌림<br/>→ 실적 영향: 26E OP -12.8% 역성장이 재부각</div>
+    <div class="risk-impact-num">→ 주가 영향: 10월 이후 Upside 소실, TP 하향 리스크</div>
+  </div>
+  <div class="risk-item risk-sev-mid">
+    <div class="risk-assumption">🟠 상승 동력 부재 리스크 (안정 종목 특유)</div>
+    <div class="risk-chain" style="margin-top:6px;">→ 26E OP 역성장(-12.8%), Upside 19.6%로 핵심 기준 미달<br/>→ 외국인 49% 한도 소진으로 추가 수급 여력 제한</div>
+    <div class="risk-impact-num">→ 기회비용: 자사주 매입 기간 단기 수급에만 의존, 실적 기반 상승 동력 부재</div>
+  </div>
+</section>
+
+<section>
+  <div class="section-title">🎯 모멘텀 확인 체크포인트</div>
+  <div style="background:#fafafa;border:1px solid #d0d4e0;border-radius:8px;padding:4px 16px;">
+    <div class="checkpoint-item"><span class="cp-date">2026.04~09</span><div><div class="cp-event">자사주 매입 기간(4/1~9/9) 수급 효과 모니터링</div><div class="cp-pass">✅ 주가 완만 상승 지속 → 하방 방어 효과 확인</div><div class="cp-fail">⛔ 매입에도 불구 주가 하락 → 시장 무관심, 포지션 축소</div></div></div>
+    <div class="checkpoint-item"><span class="cp-date">2026.10</span><div><div class="cp-event">자사주 매입 종료 + 3Q26 실적 발표</div><div class="cp-pass">✅ CEO 안정화 효과 + OP 개선 확인 → 27년 안정화 기대</div><div class="cp-fail">⛔ 수급 공백 + OP 부진 시 → 관망 전환</div></div></div>
+  </div>
+</section>
+
+<section>
+  <div class="section-title">💬 사견 & 투자 행동 결론</div>
+  <div class="opinion-box">
+    <p>"주가 하방이 가장 단단"이라는 리포트 제목이 이 종목의 성격을 잘 요약. 핵심 우려는 <strong>26E OP -12.8% 역성장 + Upside 19.6% 부족</strong>이라는 점. 자사주 2,500억 매입이 ~9/9까지 수급 방어하지만 그 이후 수급 공백 우려. SKT 시총 재역전이 업종 리레이팅이라는 논리는 조건부이며 확정이 아님. 외국인 49% 한도 소진은 양날의 검 — ADR 프리미엄 유지 vs 추가 매수 여력 제한. 배당+자사주 총수익 관점에서 안정적이나 적극 투자 관점에서는 관망.</p>
+    <div class="decision-box">
+      <div class="decision-btn decision-buy decision-dim">✅ 지금 진입 가능<br/><span style="font-size:11px;font-weight:400;">핵심+ & 60점+</span></div>
+      <div class="decision-btn decision-wait decision-dim">⏳ 이벤트 후 진입<br/><span style="font-size:11px;font-weight:400;">자사주 종료 후 재평가</span></div>
+      <div class="decision-btn decision-avoid">🚫 관망 — 배당/장기 관점만<br/><span style="font-size:11px;font-weight:400;">26E OP -12.8% 역성장, Upside 19.6% 부족, 자사주 종료 후 리스크</span></div>
+    </div>
+  </div>
+</section>
+
+<div class="disclaimer">※ 본 글은 증권사 리포트를 개인 학습 목적으로 요약·정리한 것이며, 투자 권유가 아닙니다.<br/>※ 제공된 PDF 파일만 활용. 외부 검색·참조 없음. 당일 발간 리포트 기준.</div>
+</body>
+</html>

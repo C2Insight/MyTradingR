@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>비에이치 (090460) 정리 — 불릿리서치</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Pretendard','Apple SD Gothic Neo',-apple-system,sans-serif; background: #ffffff; color: #1a1d2e; line-height: 1.7; font-size: 14px; max-width: 900px; margin: 0 auto; padding: 32px 20px 80px; }
+  .header { border-left: 4px solid #2563eb; padding: 0 0 0 16px; margin-bottom: 24px; }
+  .header h1 { font-size: 20px; font-weight: 700; margin-bottom: 10px; color: #1a1d2e; }
+  .price-row { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin-top: 10px; }
+  .price-item { background: #f0f2f8; border: 1px solid #d0d4e0; border-radius: 6px; padding: 6px 14px; font-size: 13px; }
+  .price-item .label { color: #5a6280; font-size: 11px; display: block; }
+  .price-item .val { font-weight: 700; color: #1a1d2e; }
+  .tag-badge { display: inline-flex; align-items: center; gap: 6px; padding: 5px 14px; border-radius: 20px; font-size: 13px; font-weight: 700; }
+  .tag-watch { background: #fffbeb; color: #b45309; border: 1px solid #f59e0b; }
+  .score-badge { display: inline-block; padding: 5px 14px; border-radius: 20px; font-size: 13px; font-weight: 700; background: #f0f2f8; border: 1px solid #d0d4e0; color: #1a1d2e; }
+  .score-low { color: #5a6280; }
+  .pathway-badge { display: inline-flex; align-items: center; gap: 4px; padding: 3px 10px; border-radius: 12px; font-size: 11px; font-weight: 600; background: #f0f2f8; border: 1px solid #d0d4e0; color: #5a6280; }
+  section { margin-bottom: 28px; }
+  .section-title { font-size: 11px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: #5a6280; border-bottom: 1px solid #d0d4e0; padding-bottom: 6px; margin-bottom: 14px; }
+  .pdf-only-banner { background: #fff7ed; border: 1px solid #f97316; border-radius: 8px; padding: 10px 16px; font-size: 12px; color: #c2410c; margin-bottom: 20px; text-align: center; font-weight: 700; }
+  .thesis-box { background: #f8faff; border: 1px solid #2563eb; border-radius: 8px; padding: 16px 20px; font-size: 15px; font-weight: 600; line-height: 1.6; color: #1a1d2e; }
+  .thesis-structure { display: flex; gap: 8px; align-items: center; margin-top: 10px; flex-wrap: wrap; }
+  .thesis-part { background: #f0f2f8; border: 1px solid #d0d4e0; border-radius: 6px; padding: 4px 10px; font-size: 12px; color: #1a1d2e; }
+  .thesis-arrow { color: #2563eb; font-size: 16px; }
+  .checklist { background: #fafafa; border: 1px solid #d0d4e0; border-radius: 8px; overflow: hidden; }
+  .checklist-item { display: flex; gap: 14px; align-items: flex-start; padding: 12px 16px; border-bottom: 1px solid #d0d4e0; }
+  .checklist-item:last-child { border-bottom: none; }
+  .check-icon { width: 22px; height: 22px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; flex-shrink: 0; margin-top: 1px; }
+  .check-pass { background: #ecfdf5; color: #059669; border: 1px solid #34d399; }
+  .check-fail { background: #fef2f2; color: #dc2626; border: 1px solid #fca5a5; }
+  .check-label { font-weight: 600; font-size: 13px; color: #1a1d2e; }
+  .check-detail { color: #5a6280; font-size: 12px; margin-top: 2px; }
+  .check-why { color: #1a1d2e; font-size: 13px; }
+  table { width: 100%; border-collapse: collapse; background: #fafafa; border-radius: 8px; overflow: hidden; border: 1px solid #d0d4e0; }
+  thead tr { background: #f0f2f8; }
+  th { padding: 10px 14px; text-align: left; font-size: 11px; font-weight: 700; color: #5a6280; letter-spacing: 0.8px; text-transform: uppercase; }
+  td { padding: 10px 14px; border-top: 1px solid #d0d4e0; font-size: 13px; color: #1a1d2e; }
+  tr.total-row td { background: #e8ecf5; font-weight: 700; }
+  .penalty { color: #dc2626; }
+  .highlight-green { color: #059669; font-weight: 700; }
+  .chain-box { background: #fafafa; border: 1px solid #d0d4e0; border-radius: 8px; padding: 16px 20px; }
+  .chain-step { display: flex; gap: 12px; align-items: flex-start; margin-bottom: 10px; }
+  .chain-step:last-child { margin-bottom: 0; }
+  .chain-arrow { color: #2563eb; font-size: 16px; flex-shrink: 0; margin-top: 1px; }
+  .chain-content { flex: 1; }
+  .chain-label { font-size: 10px; font-weight: 700; letter-spacing: 1px; color: #5a6280; text-transform: uppercase; margin-bottom: 2px; }
+  .chain-text { font-size: 13px; color: #1a1d2e; }
+  .chain-confirmed { color: #059669; font-size: 11px; margin-left: 6px; }
+  .chain-forecast { color: #b45309; font-size: 11px; margin-left: 6px; }
+  .fact-item { background: #fafafa; border: 1px solid #d0d4e0; border-radius: 8px; padding: 14px 16px; margin-bottom: 8px; }
+  .fact-item:last-child { margin-bottom: 0; }
+  .fact-num { font-size: 10px; font-weight: 700; color: #2563eb; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 8px; display: block; }
+  .fact-what { font-weight: 600; font-size: 14px; margin-bottom: 6px; color: #1a1d2e; }
+  .fact-why { font-size: 13px; color: #5a6280; margin-bottom: 6px; }
+  .fact-so { font-size: 13px; color: #059669; }
+  .fact-label { display: inline-block; font-size: 10px; font-weight: 700; padding: 1px 6px; border-radius: 3px; margin-right: 4px; }
+  .label-what { background: #eff6ff; color: #1d4ed8; }
+  .label-why { background: #fff7ed; color: #ea580c; }
+  .label-so { background: #ecfdf5; color: #059669; }
+  .data-table th { background: #e8ecf5; }
+  .data-table td.key-col { background: #f0f6ff; }
+  .data-table .key-num { color: #059669; font-weight: 700; }
+  .data-table .key-opm { color: #b45309; }
+  caption { font-size: 11px; color: #5a6280; text-align: left; padding: 0 0 8px; caption-side: top; }
+  .val-box { background: #fafafa; border: 1px solid #d0d4e0; border-radius: 8px; padding: 16px 20px; font-size: 13px; line-height: 2; color: #1a1d2e; }
+  .val-formula { background: #f0f2f8; border-radius: 6px; padding: 10px 14px; font-family: monospace; font-size: 13px; margin: 10px 0; color: #b45309; }
+  .risk-item { background: #fafafa; border-radius: 0 6px 6px 0; padding: 14px 16px; margin-bottom: 10px; }
+  .risk-item:last-child { margin-bottom: 0; }
+  .risk-sev-high { border-left: 3px solid #dc2626; }
+  .risk-sev-mid { border-left: 3px solid #ea580c; }
+  .risk-assumption { font-weight: 600; font-size: 13px; margin-bottom: 4px; color: #1a1d2e; }
+  .risk-chain { font-size: 12px; color: #5a6280; margin: 4px 0; }
+  .risk-impact-num { font-size: 13px; color: #dc2626; font-weight: 600; margin-top: 4px; }
+  .checkpoint-item { display: flex; gap: 12px; padding: 10px 0; border-bottom: 1px solid #d0d4e0; font-size: 13px; }
+  .checkpoint-item:last-child { border-bottom: none; }
+  .cp-date { color: #2563eb; font-weight: 600; min-width: 90px; flex-shrink: 0; }
+  .cp-event { flex: 1; color: #1a1d2e; }
+  .cp-pass { color: #059669; font-size: 12px; margin-top: 2px; }
+  .cp-fail { color: #dc2626; font-size: 12px; margin-top: 2px; }
+  .opinion-box { background: #fafafa; border: 1px solid #d0d4e0; border-radius: 8px; padding: 16px 20px; font-size: 13px; line-height: 1.8; color: #5a6280; }
+  .decision-box { display: flex; gap: 14px; margin-top: 14px; }
+  .decision-btn { flex: 1; text-align: center; padding: 10px; border-radius: 6px; font-weight: 700; font-size: 13px; border: 1px solid; }
+  .decision-buy { background: #ecfdf5; color: #059669; border-color: #34d399; }
+  .decision-wait { background: #fffbeb; color: #b45309; border-color: #f59e0b; }
+  .decision-avoid { background: #fef2f2; color: #dc2626; border-color: #fca5a5; }
+  .decision-dim { opacity: 0.3; }
+  .upgrade-box { background: #eff6ff; border: 1px solid #93c5fd; border-radius: 8px; padding: 14px 16px; }
+  .upgrade-item { display: flex; gap: 10px; padding: 6px 0; border-bottom: 1px solid #dbeafe; font-size: 13px; color: #1a1d2e; }
+  .upgrade-item:last-child { border-bottom: none; }
+  .upgrade-when { color: #1d4ed8; font-weight: 600; min-width: 140px; flex-shrink: 0; }
+  .disclaimer { font-size: 11px; color: #9ca3af; text-align: center; margin-top: 40px; padding-top: 16px; border-top: 1px solid #d0d4e0; }
+</style>
+</head>
+<body>
+
+<div class="pdf-only-banner">
+  🚫 외부 검색 절대 금지 — 제공된 PDF 파일만 활용 | 당일 발간 리포트 기준 투자 종목 발굴 전용
+</div>
+
+<header class="header">
+  <h1>비에이치 (090460) | 애플 폴더블폰에 충전기까지 · 불릿리서치 | 발간일: 2026.04.15</h1>
+  <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-bottom:12px;">
+    <span class="tag-badge tag-watch">🔥 주목</span>
+    <span class="score-badge score-low">📊 55점</span>
+    <span style="font-size:12px;color:#5a6280;">비바이오</span>
+    <span class="pathway-badge">경로 ④ 모델전환 (FPCB → 로봇충전+폴더블)</span>
+  </div>
+  <div class="price-row">
+    <div class="price-item"><span class="label">투자의견</span><span class="val">-</span></div>
+    <div class="price-item"><span class="label">목표주가(TP)</span><span class="val">-</span></div>
+    <div class="price-item"><span class="label">현재주가(CP)</span><span class="val">23,950원</span></div>
+    <div class="price-item"><span class="label">Upside</span><span class="val">-</span></div>
+    <div class="price-item"><span class="label">시가총액</span><span class="val">8,006억원</span></div>
+    <div class="price-item"><span class="label">종목 유형</span><span class="val">비바이오</span></div>
+  </div>
+</header>
+
+<section>
+  <div class="section-title">💡 이 종목에 투자해야 하는 이유 — 스토리 한 줄</div>
+  <div class="thesis-box">
+    "애플 폴더블 FPCB 사실상 독점 공급 + 5월 양산 시작(●●●) + CES 2026 1kW 로봇충전기 국내 대기업 공급확정(●●●)으로 FPCB→로봇·폴더블 전환 스토리, 그러나 불릿리서치 리포트 특성상 정량 실적 추정치 미제공으로 테제 정밀 검증 불가 — 동일 종목 DS투자 SSS급(95점) 리포트가 별도 존재"
+  </div>
+  <div class="thesis-structure">
+    <div class="thesis-part" style="color:#059669;">① 확정 팩트 계기<br/>CES 2026 로봇충전기 공개 + 대기업 공급 확정</div>
+    <div class="thesis-arrow">→</div>
+    <div class="thesis-part" style="color:#b45309;">② 실적 변화<br/>25년 OPM 3.0%, 정량 26E 추정 없음</div>
+    <div class="thesis-arrow">→</div>
+    <div class="thesis-part" style="color:#2563eb;">③ 시장 미반영<br/>TP 미제시, DS 리포트 Upside +54.5%</div>
+  </div>
+</section>
+
+<section>
+  <div class="section-title">✅ 핵심 태그 5가지 조건 체크</div>
+  <div class="checklist">
+    <div class="checklist-item">
+      <div class="check-icon check-fail">✗</div>
+      <div>
+        <div class="check-label">조건 1 | 영업이익 성장 임계값</div>
+        <div class="check-why">불릿리서치 리포트에 26E 실적 추정치 미제공 — 25년 OP 540억(-38.0% YoY)에서 턴어라운드 기대이나 정량 확인 불가 → 미통과</div>
+      </div>
+    </div>
+    <div class="checklist-item">
+      <div class="check-icon check-pass">✓</div>
+      <div>
+        <div class="check-label">조건 2 | 3년 지속성 (3개 이상 충족)</div>
+        <div class="check-why">① 애플 폴더블 FPCB 독점 → 27년 3,500억 전망 ② 로봇 FPCB 수요(휴머노이드 관절당 20개+) ③ 무선충전 글로벌 M/S 30% 1위 → 3개</div>
+      </div>
+    </div>
+    <div class="checklist-item">
+      <div class="check-icon check-pass">✓</div>
+      <div>
+        <div class="check-label">조건 3 | 확정 팩트(●●●) 2개 이상</div>
+        <div class="check-why">●●● CES 2026 1kW 로봇충전기 공개 / ●●● 국내 대기업 공급 확정 — 2개 충족</div>
+      </div>
+    </div>
+    <div class="checklist-item">
+      <div class="check-icon check-fail">✗</div>
+      <div>
+        <div class="check-label">조건 4 | 시장 미반영</div>
+        <div class="check-why">불릿리서치에 TP 미제시 → Upside 측정 불가 → 미통과</div>
+      </div>
+    </div>
+    <div class="checklist-item">
+      <div class="check-icon check-fail">✗</div>
+      <div>
+        <div class="check-label">조건 5 | 이 리포트만의 차별화된 시각</div>
+        <div class="check-why">불릿리서치는 트레이딩 가이드 성격(차트·수급·재료 분류), 정량 분석 부재. 동일 종목 DS투자 SSS급 리포트가 더 종합적</div>
+      </div>
+    </div>
+  </div>
+  <p style="font-size:11px;color:#dc2626;margin-top:8px;padding:0 4px;">
+    ⚠️ 조건 1·4·5 미달, 동일 종목 DS투자 SSS급 존재 → 🔥 주목 확정. 불릿리서치 단독으로는 핵심 부여 불가.
+  </p>
+</section>
+
+<section>
+  <div class="section-title">📊 투자 점수 판정 (v2.0 비바이오)</div>
+  <table>
+    <thead><tr><th>항목</th><th>판정</th><th>근거 (Why)</th></tr></thead>
+    <tbody>
+      <tr><td>종목 유형</td><td>비바이오</td><td>FPCB·전장 부품 제조업</td></tr>
+      <tr><td>적용 가설</td><td>가설 3</td><td>아직 고성장 미확인(25년 OP -38%), 복합 구조 촉매(폴더블+로봇+충전)</td></tr>
+      <tr><td>촉매 등급</td><td>중급</td><td>CES 2026 공개 + 국내 대기업 공급 확정 — 중급</td></tr>
+      <tr><td>복합 여부</td><td>복합</td><td>폴더블 FPCB + 로봇충전기 + 차량 무선충전</td></tr>
+      <tr><td>직접성</td><td>직접</td><td>FPCB 사업부·전장사업부 직결</td></tr>
+      <tr><td>매트릭스 기본 점수</td><td>60점</td><td>가설 3 × 중급 × 복합 = 60점</td></tr>
+      <tr><td>페널티 ① 미확정 30%+</td><td class="penalty">-10점</td><td>불릿리서치에 26E 정량 추정치 미제공, 매출·OP 구체 수치 없음 → 미확정 의존</td></tr>
+      <tr class="total-row"><td>최종 투자 점수</td><td><span class="highlight-green">55점</span></td><td>주목 구간(40~59). 동일 종목 DS투자 SSS급 95점 존재</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section>
+  <div class="section-title">⚡ 성장 인과 체인</div>
+  <div class="chain-box">
+    <div class="chain-step"><div class="chain-arrow">①</div><div class="chain-content"><div class="chain-label">촉매 <span class="chain-confirmed">● 확정</span></div><div class="chain-text">애플 폴더블 내부 디스플레이 FPCB 사실상 독점(삼성디스플레이 연계)(●●●) + 5월 양산 시작 / CES 2026 1kW 로봇충전기(●●●) + 국내 대기업 공급 확정</div></div></div>
+    <div class="chain-step"><div class="chain-arrow">↓</div><div class="chain-content"><div class="chain-label">매출 영향</div><div class="chain-text">25년 매출 FPCB 79.88% / 전장 20.12%. 폴더블 FPCB '27 매출 3,500억 전망(불릿 추정). 향후 1.7kW급 충전기 글로벌 확장</div></div></div>
+    <div class="chain-step"><div class="chain-arrow">↓</div><div class="chain-content"><div class="chain-label">OPM 변화</div><div class="chain-text">25년 OPM 3.0%(R&D 비용+원재료비↑). 26E 정량 추정 미제공 — DS투자 추정 기준 26E OPM 6.8%(+3.8%p)</div></div></div>
+    <div class="chain-step"><div class="chain-arrow">↓</div><div class="chain-content"><div class="chain-label">실적 <span class="chain-forecast">● 추정</span></div><div class="chain-text">DS투자 기준 26E OP 1,340억(+148.0%). 불릿리서치는 '실적 상승 기대'로만 언급, 정량 수치 미제공</div></div></div>
+    <div class="chain-step"><div class="chain-arrow">↓</div><div class="chain-content"><div class="chain-label">So What</div><div class="chain-text">불릿리서치 자체로는 테제 정밀 검증 불가 → DS투자 SSS급 리포트(TP 37,000원, Upside +54.5%)에서 정량적 확인 필요</div></div></div>
+  </div>
+</section>
+
+<section>
+  <div class="section-title">📌 핵심 팩트 3줄</div>
+  <div class="fact-item">
+    <span class="fact-num">Fact 01</span>
+    <div class="fact-what"><span class="fact-label label-what">WHAT</span>애플 폴더블 FPCB 독점 공급 + 5월 양산 시작. '27 폴더블 시장 점유율 30% 시 FPCB 매출 3,500억</div>
+    <div class="fact-why"><span class="fact-label label-why">WHY</span>아이폰X부터 OLED FPCB 공급 → 폴더블 내부 디스플레이까지 독점 확장. 기존 PCB 대비 두께 25% 감소 기술 보유</div>
+    <div class="fact-so"><span class="fact-label label-so">SO WHAT</span>애플 폴더블이 26년 출시되면 5월 양산부터 매출 기여 시작 → FPCB 사업부의 구조적 성장 레그</div>
+  </div>
+  <div class="fact-item">
+    <span class="fact-num">Fact 02</span>
+    <div class="fact-what"><span class="fact-label label-what">WHAT</span>CES 2026에서 1kW급 로봇충전기 첫 공개, 국내 대기업 공급 확정</div>
+    <div class="fact-why"><span class="fact-label label-why">WHY</span>자회사 비에이치이브이에스가 LG전자 차량용 무선충전 사업부 인수 후 무선충전 글로벌 M/S 30% 1위. 22kW 전기차 무선충전 기술 보유</div>
+    <div class="fact-so"><span class="fact-label label-so">SO WHAT</span>1.7kW급 개발 후 글로벌 휴머노이드 로봇 제조사 공급 계획 → 로봇 무선충전 新시장 선점 가능</div>
+  </div>
+  <div class="fact-item">
+    <span class="fact-num">Fact 03</span>
+    <div class="fact-what"><span class="fact-label label-what">WHAT</span>25년 매출 1조 7,927억(+2.2%), OP 540억(-38.0%), 4Q25 흑자전환(OP 288억)</div>
+    <div class="fact-why"><span class="fact-label label-why">WHY</span>차량용·로봇 충전기 R&D 비용 + 원재료비 증가 → 연간 OPM 3.0%까지 하락. 하반기 아이폰17 OLED FPCB 흥행으로 4Q 흑전</div>
+    <div class="fact-so"><span class="fact-label label-so">SO WHAT</span>4Q25 흑전은 26E 실적 턴어라운드 시그널이나, 불릿리서치에서 26E 정량 추정 미제공 → DS투자 리포트(26E OP +148%) 참조 필요</div>
+  </div>
+</section>
+
+<section>
+  <div class="section-title">📄 원본 리포트 핵심 요약</div>
+  <div style="background:#fafafa;border:1px solid #d0d4e0;border-radius:8px;padding:16px 20px;margin-bottom:12px;">
+    <div style="font-size:11px;font-weight:700;letter-spacing:1px;color:#5a6280;text-transform:uppercase;margin-bottom:10px;">리포트 핵심 주장</div>
+    <p style="font-size:13px;line-height:1.9;">불릿리서치는 비에이치를 '재료(애플폴더블·로봇충전)' + '실적상승기대' + '박스권돌파' 관점에서 정리. 정성적으로 애플 폴더블 FPCB 독점·로봇충전기 대기업 공급확정이라는 두 가지 신규 성장축을 제시하나, 26E 이후 매출·OP·OPM 정량 추정치는 제공하지 않음.</p>
+    <div style="margin-top:10px;display:flex;gap:8px;flex-wrap:wrap;">
+      <div style="background:#f0f2f8;border:1px solid #d0d4e0;border-radius:6px;padding:6px 12px;font-size:12px;">
+        <span style="color:#5a6280;font-size:10px;display:block;margin-bottom:2px;">변화 포인트</span>
+        <span>TP/투자의견 미제시(불릿리서치 성격상). 트레이딩 가이드 중심</span>
+      </div>
+    </div>
+  </div>
+  <div style="background:#fafafa;border:1px solid #d0d4e0;border-radius:8px;padding:16px 20px;margin-bottom:12px;">
+    <div style="font-size:11px;font-weight:700;letter-spacing:1px;color:#5a6280;text-transform:uppercase;margin-bottom:10px;">사업 구조</div>
+    <table style="margin:0;">
+      <thead><tr><th>사업부</th><th>매출비중(25년)</th><th>성장 드라이버</th></tr></thead>
+      <tbody>
+        <tr><td>FPCB 사업부</td><td>79.88%</td><td>애플 폴더블 FPCB 독점 + 아이폰17 OLED FPCB 지속</td></tr>
+        <tr><td>전장사업부</td><td>20.12%</td><td>차량 무선충전 M/S 30% 1위 + 1kW 로봇충전기 신규</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div style="background:#fafafa;border:1px solid #d0d4e0;border-radius:8px;padding:16px 20px;">
+    <div style="font-size:11px;font-weight:700;letter-spacing:1px;color:#5a6280;text-transform:uppercase;margin-bottom:10px;">재무 특징</div>
+    <div style="display:flex;flex-wrap:wrap;gap:8px;">
+      <div style="background:#f0f2f8;border:1px solid #d0d4e0;border-radius:6px;padding:8px 12px;font-size:12px;flex:1;min-width:160px;"><span style="color:#5a6280;font-size:10px;display:block;margin-bottom:2px;">부채비율</span><span>73.3% (25년)</span></div>
+      <div style="background:#f0f2f8;border:1px solid #d0d4e0;border-radius:6px;padding:8px 12px;font-size:12px;flex:1;min-width:160px;"><span style="color:#5a6280;font-size:10px;display:block;margin-bottom:2px;">PBR</span><span>0.7배 (25년 기준)</span></div>
+      <div style="background:#f0f2f8;border:1px solid #d0d4e0;border-radius:6px;padding:8px 12px;font-size:12px;flex:1;min-width:160px;"><span style="color:#5a6280;font-size:10px;display:block;margin-bottom:2px;">배당성향</span><span>27.2% (25년)</span></div>
+      <div style="background:#f0f2f8;border:1px solid #d0d4e0;border-radius:6px;padding:8px 12px;font-size:12px;flex:1;min-width:160px;"><span style="color:#5a6280;font-size:10px;display:block;margin-bottom:2px;">교환사채</span><span>CB 270억(2030.09 만기, 자사주 125만주 대상)</span></div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="section-title">📈 실적 전망 (연간) — 불릿리서치 원문 수치</div>
+  <table class="data-table">
+    <caption>단위: 억원 | 불릿리서치 PDF 기준 — 26E 추정치 미제공</caption>
+    <thead><tr><th>구분</th><th>2022A</th><th>2023A</th><th>2024A</th><th>2025A</th></tr></thead>
+    <tbody>
+      <tr><td>매출액</td><td>16,811</td><td>15,920</td><td>17,544</td><td>17,927</td></tr>
+      <tr><td>YoY(%)</td><td>62.1</td><td>-5.3</td><td>10.2</td><td>2.2</td></tr>
+      <tr><td>영업이익</td><td>1,313</td><td>848</td><td>871</td><td>540</td></tr>
+      <tr><td>YoY(%)</td><td>84.7</td><td>-35.4</td><td>2.7</td><td>-38.0</td></tr>
+      <tr><td>OPM(%)</td><td>7.8</td><td>5.3</td><td>5.0</td><td>3.0</td></tr>
+      <tr><td>PER(배)</td><td>5.4</td><td>8.0</td><td>8.9</td><td>17.5</td></tr>
+      <tr><td>PBR(배)</td><td>1.4</td><td>1.1</td><td>0.8</td><td>0.7</td></tr>
+      <tr><td>ROE(%)</td><td>25.7</td><td>14.2</td><td>9.4</td><td>4.2</td></tr>
+    </tbody>
+  </table>
+  <p style="font-size:12px;color:#5a6280;margin-top:10px;padding:0 4px;">▶ 참고: 동일 종목 DS투자 리포트(SSS급) 기준 26E 매출 19,820억, OP 1,340억(+148%), OPM 6.8%. 불릿리서치에는 26E 정량 추정 없음</p>
+</section>
+
+<section>
+  <div class="section-title">💰 밸류에이션</div>
+  <div class="val-box">
+    <div class="val-formula">불릿리서치: TP 미제시 (트레이딩 가이드 성격)</div>
+    <p style="color:#5a6280;font-size:12px;margin-top:8px;">▶ 참고: DS투자 기준 TP 37,000원 = 26E EPS × Target PER 적용 → Upside +54.5%</p>
+    <p style="color:#5a6280;font-size:12px;margin-top:4px;">▶ 현재 PBR 0.7배, PER 17.5배(25년 기준). Peer 인터플렉스 PER 8.6배, 시노펙스 PER 75.9배</p>
+  </div>
+</section>
+
+<section>
+  <div class="section-title">⚠️ 리스크</div>
+  <div class="risk-item risk-sev-high">
+    <div class="risk-assumption">🔴 핵심 가정: 애플 폴더블 2026년 9월 정상 출시 + FPCB 독점 유지</div>
+    <div class="risk-chain" style="margin-top:6px;">→ 붕괴 시: 출시 지연 or 경쟁사 진입 시 '27 3,500억 매출 전제 붕괴<br/>→ 실적 영향: FPCB 사업부 매출 기대치 30%+ 축소</div>
+    <div class="risk-impact-num">→ 주가 영향: 현재 23,950원 → 18,000원 수준(-25%)</div>
+  </div>
+  <div class="risk-item risk-sev-mid">
+    <div class="risk-assumption">🟠 경영권 리스크: 최대주주 이경환 회장 66세, 지분 21.61%. 교환사채 270억 미상환</div>
+    <div class="risk-chain" style="margin-top:6px;">→ 경영권 승계 또는 희석 이슈 발생 시 주가 변동성 확대</div>
+    <div class="risk-impact-num">→ 주가 영향: 단기 -10~15% 변동 가능</div>
+  </div>
+</section>
+
+<section>
+  <div class="section-title">🎯 모멘텀 확인 체크포인트</div>
+  <div style="background:#fafafa;border:1px solid #d0d4e0;border-radius:8px;padding:4px 16px;">
+    <div class="checkpoint-item">
+      <span class="cp-date">2026.05</span>
+      <div>
+        <div class="cp-event">애플 폴더블 FPCB 양산 시작 확인</div>
+        <div class="cp-pass">✅ 양산 정상 진행 시 → DS투자 SSS급 리포트 참조하여 진입 검토</div>
+        <div class="cp-fail">⛔ 양산 지연 시 → 26E 실적 하향 리스크</div>
+      </div>
+    </div>
+    <div class="checkpoint-item">
+      <span class="cp-date">2026.09</span>
+      <div>
+        <div class="cp-event">애플 폴더블폰 정식 출시 + 초기 판매 반응</div>
+        <div class="cp-pass">✅ 흥행 시 → 27년 3,500억 FPCB 매출 궤도 확인</div>
+        <div class="cp-fail">⛔ 부진 시 → 폴더블 시장 점유율 하향, 매출 축소</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="section-title">💬 사견 & 투자 행동 결론</div>
+  <div class="opinion-box">
+    <p>비에이치는 애플 폴더블+로봇충전이라는 강력한 두 가지 성장축을 보유하고 있으나, 이 불릿리서치 리포트는 정성적 재료·트레이딩 가이드 성격으로 26E 정량 추정치가 없어 테제 입증이 불가하다. 동일 종목에 대해 DS투자증권(안주원)이 SSS급(95점) 리포트를 제출하고 있으며, TP 37,000원(Upside +54.5%), 26E OP +148%, OPM 6.8%의 구체적 추정을 담고 있다. 따라서 비에이치에 대한 투자 판단은 DS투자 SSS급 리포트를 기준으로 하되, 이 불릿리서치 리포트는 재료 발굴 및 트레이딩 가이드로 참고하는 것이 적절하다.</p>
+    <div class="decision-box">
+      <div class="decision-btn decision-buy decision-dim">✅ 지금 진입 가능<br/><span style="font-size:11px;font-weight:400;">DS SSS 리포트 참조</span></div>
+      <div class="decision-btn decision-wait">⏳ 이벤트 후 진입<br/><span style="font-size:11px;font-weight:400;">5월 양산 시작 확인 후</span></div>
+      <div class="decision-btn decision-avoid decision-dim">🚫 관망<br/><span style="font-size:11px;font-weight:400;">55점, 정량 부족</span></div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="section-title">🚀 승격 조건 — 주목 종목 전용</div>
+  <div class="upgrade-box">
+    <div class="upgrade-item">
+      <span class="upgrade-when">DS투자 SSS급 참조</span>
+      <span>동일 종목 DS투자증권 SSS급(95점) 리포트가 존재하며, TP 37,000원·Upside +54.5%로 더 높은 확신도 보유. 해당 리포트 기준으로 진입 검토 권장</span>
+    </div>
+    <div class="upgrade-item">
+      <span class="upgrade-when">5월 양산 확인 시</span>
+      <span>애플 폴더블 FPCB 양산 정상 + 1Q26 실적 흑전 확인 → 이 불릿 리포트도 핵심 이상 검토 가능</span>
+    </div>
+  </div>
+</section>
+
+<div class="disclaimer">
+  ※ 본 글은 증권사 리포트를 개인 학습 목적으로 요약·정리한 것이며, 투자 권유가 아닙니다.<br/>
+  ※ 제공된 PDF 파일만 활용. 외부 검색·참조 없음. 당일 발간 리포트 기준.
+</div>
+
+</body>
+</html>
