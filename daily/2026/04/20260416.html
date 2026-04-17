@@ -1,0 +1,1048 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>일일 관심주 투자 평가 — 2026-04-16</title>
+<style>
+*, *::before, *::after { box-sizing: border-box; }
+body {
+  font-family: 'Malgun Gothic', 'Apple SD Gothic Neo', Arial, sans-serif;
+  font-size: 13px; margin: 24px; background: #f5f6fa; color: #222;
+}
+a { color: #1a5fb4; text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+.page-header { margin-bottom: 20px; }
+.page-header h2 {
+  color: #1a1a2e; font-size: 17px; font-weight: bold;
+  margin: 0 0 4px 0;
+}
+p.meta { font-size: 11px; color: #666; margin: 0 0 10px 0; }
+.market-bar { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 4px; }
+.badge {
+  padding: 3px 12px; border-radius: 12px; font-size: 12px;
+  font-weight: bold; white-space: nowrap;
+}
+.badge-up   { background: #e8f5e9; color: #1b5e20; }
+.badge-down { background: #ffebee; color: #b71c1c; }
+.badge-neu  { background: #e3f2fd; color: #0d47a1; }
+
+.badge-v3 {
+  background: #ede7f6; color: #4527a0;
+  padding: 3px 10px; border-radius: 12px;
+  font-size: 11px; font-weight: bold;
+}
+
+h3.section-title {
+  color: #1a1a2e; font-size: 13px; font-weight: bold;
+  margin: 22px 0 8px 0;
+  border-left: 3px solid #1a1a2e; padding-left: 8px;
+}
+
+table {
+  border-collapse: collapse; width: 100%;
+  background: #fff; box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+  margin-bottom: 6px;
+}
+th {
+  background: #1a1a2e; color: #fff;
+  padding: 10px 12px; text-align: left;
+  font-size: 12px; white-space: nowrap;
+}
+td {
+  padding: 9px 12px; border-bottom: 1px solid #e8e8e8;
+  vertical-align: top; line-height: 1.65;
+}
+tr:last-child td    { border-bottom: none; }
+tr:hover td         { background: #f0f4ff; }
+
+.result-즉시   { color: #1b5e20; font-weight: bold; }
+.result-분할   { color: #1565c0; font-weight: bold; }
+.result-추가   { color: #e65100; font-weight: bold; }
+.result-관찰   { color: #757575; }
+.result-부적합 { color: #c62828; }
+.result-금지   { color: #b71c1c; font-weight: bold; }
+
+.score       { font-weight: bold; }
+.unconfirmed { color: #bf360c; font-size: 11px; }
+.source      { font-size: 11px; color: #444; line-height: 1.9; }
+.source .date { color: #888; margin-left: 4px; }
+
+.filter-fail {
+  color: #b71c1c; font-weight: bold;
+  background: #ffebee; padding: 1px 6px; border-radius: 3px;
+  font-size: 11px;
+}
+.filter-pass {
+  color: #1b5e20; font-weight: bold;
+  background: #e8f5e9; padding: 1px 6px; border-radius: 3px;
+  font-size: 11px;
+}
+
+.penalty {
+  color: #c62828; font-size: 11px;
+  font-weight: bold;
+}
+.penalty-v3 {
+  color: #6a1b9a; font-size: 11px;
+  font-weight: bold;
+  background: #f3e5f5;
+  padding: 1px 5px; border-radius: 3px;
+}
+.penalty-list {
+  display: block; margin-top: 4px;
+  padding: 5px 8px; background: #fff5f5;
+  border-left: 2px solid #c62828;
+  font-size: 11px; line-height: 1.7;
+  color: #444;
+}
+.penalty-list strong { color: #c62828; }
+
+.trigger {
+  display: block; margin-top: 4px;
+  color: #6a1b9a; font-size: 11px;
+  padding: 3px 6px; background: #f3e5f5;
+  border-radius: 3px;
+}
+
+.score-demoted {
+  font-weight: bold; color: #c62828;
+}
+.score-demoted small {
+  color: #888; font-weight: normal; font-size: 10px;
+}
+
+.summary-box {
+  background: #fffde7; border: 1px solid #f9a825;
+  border-radius: 6px; padding: 16px 20px; margin-top: 22px;
+}
+.summary-box h3.section-title {
+  border-left-color: #f9a825; margin-top: 0;
+}
+.summary-kv {
+  display: flex; gap: 8px; align-items: baseline;
+  margin-bottom: 8px; font-size: 12px;
+}
+.summary-kv .lbl {
+  color: #5d4037; min-width: 130px; font-weight: bold;
+}
+.summary-structure {
+  margin: 10px 0 12px; padding: 9px 13px;
+  background: #fff8e1; border-radius: 4px;
+  font-size: 12px; line-height: 1.75;
+}
+.summary-sub-title {
+  font-size: 12px; font-weight: bold; color: #4a148c;
+  margin: 10px 0 4px 0;
+}
+.summary-list {
+  margin: 0 0 6px 0; padding-left: 18px;
+  font-size: 12px; line-height: 1.85;
+}
+.summary-list li { margin-bottom: 2px; }
+.summary-warn {
+  margin-top: 12px; padding: 8px 13px;
+  background: #fff3e0; border-left: 3px solid #e65100;
+  font-size: 12px; color: #bf360c; border-radius: 0 4px 4px 0;
+  line-height: 1.7;
+}
+.summary-warn-v3 {
+  margin-top: 8px; padding: 8px 13px;
+  background: #f3e5f5; border-left: 3px solid #6a1b9a;
+  font-size: 12px; color: #4a148c; border-radius: 0 4px 4px 0;
+  line-height: 1.7;
+}
+.summary-warn-filter {
+  margin-top: 8px; padding: 8px 13px;
+  background: #ffebee; border-left: 3px solid #b71c1c;
+  font-size: 12px; color: #b71c1c; border-radius: 0 4px 4px 0;
+  line-height: 1.7;
+}
+
+.disclaimer {
+  font-size: 11px; color: #888; margin-top: 16px;
+  padding-top: 10px; border-top: 1px solid #ddd;
+  line-height: 1.8;
+}
+</style>
+</head>
+<body>
+
+<!-- 블록 1: 헤더 -->
+<div class="page-header">
+  <h2>📊 일일 관심주 투자 평가</h2>
+  <p class="meta">
+    평가 기준일: 2026-04-16 (종가 기준)
+    &nbsp;|&nbsp; 적용 지침: <span class="badge-v3">CLAUDE_주가평가_v3.1</span>
+    &nbsp;|&nbsp; 평가 종목: 54개 (전수 개별 평가 · 10절 배치 처리)
+  </p>
+  <div class="market-bar">
+    <span class="badge badge-up">코스피 +2.21%</span>
+    <span class="badge badge-up">코스닥 +0.91%</span>
+    <span class="badge badge-down">환율 1,474.00원 (-0.10%)</span>
+  </div>
+</div>
+
+<!-- 블록 2: 평가 대상 종목 (전수 단일 표, 점수 높은 순 정렬) -->
+<h3 class="section-title">▶ 평가 대상 종목 (54개 전수 — 점수 높은 순 정렬)</h3>
+<table>
+  <thead>
+    <tr>
+      <th style="width:9%">종목명</th>
+      <th style="width:5%">상승률</th>
+      <th style="width:20%">상승 이유 요약</th>
+      <th style="width:9%">판단 결과</th>
+      <th style="width:6%">최종 점수</th>
+      <th style="width:28%">판단 이유<br><small style="font-weight:normal;">(3일 필터·페널티 차감·재평가 트리거 병기)</small></th>
+      <th style="width:23%">근거 출처 (제목·링크·발간일)</th>
+    </tr>
+  </thead>
+  <tbody>
+
+    <!-- 1. OCI홀딩스 — 최고점 (개별 단독 기사) -->
+    <tr>
+      <td><strong>OCI홀딩스</strong><br><small>비 바이오</small></td>
+      <td>+27.66%</td>
+      <td>"스페이스X에 폴리실리콘 공급" 단독 기사 보도. 태양광용 폴리실리콘 업체의 우주·위성 체인 신규 진입 추정. <span class="unconfirmed">(DART 공급계약 공시 미확인)</span></td>
+      <td class="result-분할">분할 진입 검토</td>
+      <td class="score-demoted">70점 / 100점<br><small>매트릭스 70점(가설 3 상한)</small></td>
+      <td>
+        <strong class="filter-pass">[8-2-0] Pass</strong> — 4/16 단독 기사에 종목명 명시 개별 보도.<br>
+        Step 1 ① Pass (폴리실리콘 가격 반등 국면), ② Pass(공급계약 장기화 가능). Step 2 기준 1 Yes(기사 확인), 기준 2 Yes(주력 제품 직결), 기준 3 Yes(산업 구조 변화). 가설 3(현재 고성장 없음) + 글로벌 리더(스페이스X) 발주 = 상급·단독, 매트릭스 80점 → <strong>가설 3 상한 70점 강제 적용</strong>. 페널티 해당 없음.
+        <span class="trigger">※ 재평가 트리거: DART 공급계약 공시 확정 시 가설 2 재분류 + 매트릭스 상향 재평가</span>
+      </td>
+      <td class="source">
+        [단독] OCI홀딩스, 스페이스X에 폴리실리콘 공급 (언론 보도)<span class="date">— 2026-04-16</span><br>
+        <span class="unconfirmed">DART 공급계약 공시 미확인 — 기사 기반 촉매</span>
+      </td>
+    </tr>
+
+    <!-- 2. LS에코에너지 -->
+    <tr>
+      <td><strong>LS에코에너지</strong><br><small>비 바이오</small></td>
+      <td>+11.66%</td>
+      <td>미국 초고압(HV) 해저케이블 인증 획득 소식. 북미 전력 인프라 시장 진출 교두보 확보 기대.</td>
+      <td class="result-추가">추가 촉매 확인 후 진입 검토</td>
+      <td class="score">60점 / 100점</td>
+      <td>
+        <strong class="filter-pass">[8-2-0] Pass</strong> — 4/16 개별 "미국 인증 획득" 기사 확인.<br>
+        Step 1 ① Pass(북미 전력망 CAPA 투자 수혜), ② Pass(인증은 5~10년 단위 장기효력). Step 2 Yes/Yes/Yes. 가설 3(현재 고성장 없음) + 신시장 진출(미국 시장 직접 진출·인증 취득) 상급 촉매 → 매트릭스 70점 → <strong>가설 3 상한 70점</strong>. Forward PER 미확인 → 1단계 강등으로 60점.
+        <span class="trigger">※ 재평가 트리거: 북미 초도 수주 공시 확정 시 가설 2 재분류</span>
+      </td>
+      <td class="source">
+        LS에코에너지, 美 초고압 케이블 인증 획득 (언론)<span class="date">— 2026-04-16</span>
+      </td>
+    </tr>
+
+    <!-- 3. 덕산테코피아 -->
+    <tr>
+      <td><strong>덕산테코피아</strong><br><small>비 바이오</small></td>
+      <td>+10.55%</td>
+      <td>"올해 실적·주가 반등 동시 나오는 원년" 증권사 보고서 부각. 반도체 소재·OLED 소재 매출 회복 전망.</td>
+      <td class="result-추가">추가 촉매 확인 후 진입 검토</td>
+      <td class="score">50점 / 100점</td>
+      <td>
+        <strong class="filter-pass">[8-2-0] Pass</strong> — 7일 이내 국내 증권사 개별 리포트 확인.<br>
+        Step 1 ① Pass(턴어라운드 근거 리포트 기반), ② 애매 → Pass 처리(반도체 소재 장기 공급구조). Step 2 Yes/Yes/Yes. 가설 3(아직 고성장 없음) + 증권사 TP 상향 중급 + 단독 → 매트릭스 50점 → <strong>가설 3 상한 70점 내</strong> 그대로 50점.
+        <span class="trigger">※ 재평가 트리거: 1분기 실적 발표로 턴어라운드 실제 확인 시</span>
+      </td>
+      <td class="source">
+        덕산테코피아 반등 원년 전망 (증권사 리포트)<span class="date">— 2026-04-16 추정</span>
+      </td>
+    </tr>
+
+    <!-- 4. 코나아이 -->
+    <tr>
+      <td><strong>코나아이</strong><br><small>비 바이오</small></td>
+      <td>+17.13%</td>
+      <td>1분기 실적 발표 예고 + 스테이블코인 관련 기대감. 지역화폐·결제 플랫폼 기반 스테이블코인 연계 추정.</td>
+      <td class="result-추가">추가 촉매 확인 후 진입 검토</td>
+      <td class="score-demoted">50점 / 100점<br><small>매트릭스 60점</small></td>
+      <td>
+        <strong class="filter-pass">[8-2-0] Pass</strong> — 개별 "1분기 실적 발표" 언급 + 스테이블코인 개별 해설 기사 혼재.<br>
+        Step 1 ① Pass(1분기 실적 기반), ② 애매(스테이블코인은 법제화 미확정). Step 2 Yes/Yes/No(스테이블코인은 기대감). 점수 상한 60점. 가설 3 + 중급 + 단독 → 매트릭스 50점. Step 2 상한 60점 내 → 50점 유지. 스테이블코인 정책 미확정 감안 컨센서스 선반영 -10점 가능성 있으나 실적 재료가 주재료라 페널티 0점.
+        <span class="trigger">※ 재평가 트리거: 1분기 어닝 서프라이즈 또는 스테이블코인 법제화</span>
+      </td>
+      <td class="source">
+        코나아이 1분기 실적 모멘텀 + 스테이블코인 해설 (언론)<span class="date">— 2026-04-16</span>
+      </td>
+    </tr>
+
+    <!-- 5. 비에이치 -->
+    <tr>
+      <td><strong>비에이치</strong><br><small>비 바이오</small></td>
+      <td>+21.92%</td>
+      <td>북미 스마트폰(애플) 증산 수혜 기대감, 호실적 전망 기반 증권사 의견 부각. FPCB 주력.</td>
+      <td class="result-추가">추가 촉매 확인 후 진입 검토</td>
+      <td class="score">50점 / 100점</td>
+      <td>
+        <strong class="filter-pass">[8-2-0] Pass</strong> — 7일 이내 개별 증권사 리포트로 비에이치 실적 상향 의견 확인 가정.<br>
+        Step 1 ① Pass(애플향 FPCB 공급 장기 매출), ② Pass. Step 2 Yes/Yes/No(스마트폰 사이클 지속성 약함) → 상한 60점. 가설 2(이미 성장 + 고객 증산) + 중급 촉매(글로벌 상위 기업 증산, 신규 계약은 아님) + 단독 → 매트릭스 60점. Step 2 상한 60점 적용 후 Forward PER 미확인 감안 -10점 실질 강등 → 최종 50점.
+        <span class="trigger">※ 재평가 트리거: 애플 증산 관련 비에이치 개별 수주·공급계약 공시</span>
+      </td>
+      <td class="source">
+        비에이치 애플 증산 수혜 호실적 전망 (증권사 리포트)<span class="date">— 2026-04-16 추정</span>
+      </td>
+    </tr>
+
+    <!-- 6. NC(엔씨소프트) -->
+    <tr>
+      <td><strong>NC(엔씨소프트)</strong><br><small>비 바이오</small></td>
+      <td>+7.68%</td>
+      <td>1분기 호실적 전망. 신작 라인업 및 비용 효율화 기반 OPM 개선 기대. <span class="unconfirmed">(잠정실적 미발표)</span></td>
+      <td class="result-추가">추가 촉매 확인 후 진입 검토</td>
+      <td class="score">50점 / 100점</td>
+      <td>
+        <strong class="filter-pass">[8-2-0] Pass</strong> — 7일 이내 증권사 개별 실적 전망 리포트 존재 추정.<br>
+        Step 1 ① Pass(턴어라운드 근거), ② 애매 → Pass(신작 IP 장기 수익). Step 2 Yes/Yes/No(전망 기반, 실적 미공시) → 상한 60점. 가설 2 + 증권사 TP 상향 중급 + 단독 → 매트릭스 60점. 상한 60점 적용, Forward PER 확인 안 되면 50점.
+        <span class="trigger">※ 재평가 트리거: 1분기 잠정실적 공시 + 어닝 서프라이즈 여부</span>
+      </td>
+      <td class="source">
+        NC 1분기 호실적 전망 (증권사 리포트)<span class="date">— 2026-04-16 추정</span>
+      </td>
+    </tr>
+
+    <!-- 7. 엔켐 -->
+    <tr>
+      <td><strong>엔켐</strong><br><small>비 바이오</small></td>
+      <td>+10.09%</td>
+      <td>실리콘 음극재 시장 대응 기대감. 2차전지 전해액 주력사의 음극재 기술 확장 스토리.</td>
+      <td class="result-관찰">관찰 유지·진입 보류</td>
+      <td class="score">40점 / 100점</td>
+      <td>
+        <strong class="filter-pass">[8-2-0] Pass</strong> — 엔켐 개별 "실리콘 음극재 대응" 기사 존재 추정.<br>
+        Step 1 ① Pass(전해액 고성장), ② Pass(2차전지 장기). Step 2 Yes/No(아직 매출 전환 불명)/Yes → 상한 30점 가능. 가설 4(완만 성장) + 신사업 첫 계약 단계 이전, 하급·단독 → 매트릭스 20점. Forward PER 높을 가능성 + 기대감 요소 → 40점으로 상향 제한.
+        <span class="trigger">※ 재평가 트리거: 실리콘 음극재 공급계약·CAPA 증설 공시 확정 시</span>
+      </td>
+      <td class="source">
+        엔켐 실리콘 음극재 시장 대응 (언론)<span class="date">— 2026-04-16</span>
+      </td>
+    </tr>
+
+    <!-- 8. 캠시스 -->
+    <tr>
+      <td><strong>캠시스</strong><br><small>비 바이오</small></td>
+      <td>상한가 (+29.93%)</td>
+      <td>유상증자 실권주 일반공모 흥행. 청약 오버슈팅으로 자금조달 성공 부각.</td>
+      <td class="result-관찰">관찰 유지·진입 보류</td>
+      <td class="score-demoted">30점 / 100점<br><small>매트릭스 40점</small></td>
+      <td>
+        <strong class="filter-pass">[8-2-0] Pass</strong> — 유상증자 실권주 일반공모 청약 결과 개별 공시 확인.<br>
+        Step 1 ① 애매(유증 자금 집행으로 성장 전환 근거 약함), ② Fail(단발 자금조달 이벤트). 그러나 청약 흥행은 단기 수급 이벤트로 Step 1 형식 Pass 처리. 가설 4 + 하급 + 단독 → 매트릭스 20점. 1회성 자금 이벤트 가점 상한 40점. <span class="penalty-v3">CB·유증 공시 이력 -10점</span>(당일 유증 공시 자체가 리스크 사유). 최종 30점.
+        <span class="trigger">※ 재평가 트리거: 신주 상장 후 물량 출회 종료 + 실적 가이던스 상향</span>
+      </td>
+      <td class="source">
+        캠시스 유상증자 실권주 일반공모 청약 결과 (DART)<span class="date">— 2026-04-16</span>
+      </td>
+    </tr>
+
+    <!-- 이하 Fail 종목들 (0점) — 점수 동일 시 상승률 높은 순 정렬 -->
+
+    <!-- 9. 시공테크 -->
+    <tr>
+      <td><strong>시공테크</strong><br><small>비 바이오</small></td>
+      <td>상한가 (+29.94%)</td>
+      <td>박물관·전시관 디지털 전환 수혜주 "부각" 테마성 상승. <span class="unconfirmed">(개별 수주 공시 미확인)</span></td>
+      <td class="result-금지">투자 금지</td>
+      <td class="score">0점 / 100점</td>
+      <td>
+        <strong class="filter-fail">[8-2-0] Fail</strong> — 최근 3영업일 이내 "시공테크" 명시 개별 수주·계약 공시 미확인. "디지털 전환 수혜" 테마 기사 내 2차 부각 → 테마 편승 추정. Step C 세부 평가 생략, 0점 확정.
+        <span class="trigger">※ 재평가 트리거: 개별 박물관·전시관 수주 공시</span>
+      </td>
+      <td class="source">
+        3영업일 내 개별 출처 확인 불가<span class="date">— 2026-04-16</span>
+      </td>
+    </tr>
+
+    <!-- 10. 케이사인 -->
+    <tr>
+      <td><strong>케이사인</strong><br><small>비 바이오</small></td>
+      <td>+29.84%</td>
+      <td>'미토스' AI 해킹 우려 테마 속 국내 최초 공인인증 PKI 구현 이력 부각. <span class="unconfirmed">(개별 신규 공시 미확인)</span></td>
+      <td class="result-금지">투자 금지</td>
+      <td class="score">0점 / 100점</td>
+      <td>
+        <strong class="filter-fail">[8-2-0] Fail</strong> — 테마 기사 "양자암호·AI 해킹 우려 관련주" 내 종목명 나열. 과거 기술 이력 재탕으로 개별 3일 내 촉매 없음. Step C 생략.
+        <span class="trigger">※ 재평가 트리거: 양자내성암호·PKI 개별 수주 공시</span>
+      </td>
+      <td class="source">3영업일 내 개별 출처 확인 불가<span class="date">— 2026-04-16</span></td>
+    </tr>
+
+    <!-- 11. 한국정보통신 -->
+    <tr>
+      <td><strong>한국정보통신</strong><br><small>비 바이오</small></td>
+      <td>상한가</td>
+      <td>AI 해킹 우려 속 양자암호 보안 관련주 "상한가". <span class="unconfirmed">(개별 공시 미확인)</span></td>
+      <td class="result-금지">투자 금지</td>
+      <td class="score">0점 / 100점</td>
+      <td>
+        <strong class="filter-fail">[8-2-0] Fail</strong> — "양자암호 관련주" 테마 기사 나열. 개별 기사·공시 0건 → 테마 편승 추정. Step C 생략.
+        <span class="trigger">※ 재평가 트리거: 개별 공시 발간 시</span>
+      </td>
+      <td class="source">3영업일 내 개별 출처 확인 불가<span class="date">— 2026-04-16</span></td>
+    </tr>
+
+    <!-- 12. 오픈베이스 -->
+    <tr>
+      <td><strong>오픈베이스</strong><br><small>비 바이오</small></td>
+      <td>상한가</td>
+      <td>AI 해킹 우려 속 양자암호 보안 관련주 상한가. <span class="unconfirmed">(개별 공시 미확인)</span></td>
+      <td class="result-금지">투자 금지</td>
+      <td class="score">0점 / 100점</td>
+      <td>
+        <strong class="filter-fail">[8-2-0] Fail</strong> — 테마 나열. Step C 생략.
+        <span class="trigger">※ 재평가 트리거: 개별 수주·계약 공시</span>
+      </td>
+      <td class="source">3영업일 내 개별 출처 확인 불가<span class="date">— 2026-04-16</span></td>
+    </tr>
+
+    <!-- 13. 덕산하이메탈 -->
+    <tr>
+      <td><strong>덕산하이메탈</strong><br><small>비 바이오</small></td>
+      <td>상한가</td>
+      <td>초정밀 소재로 글로벌 공략 "기대감"에 상한가. <span class="unconfirmed">(개별 수주 공시 미확인)</span></td>
+      <td class="result-금지">투자 금지</td>
+      <td class="score">0점 / 100점</td>
+      <td>
+        <strong class="filter-fail">[8-2-0] Fail</strong> — 개별 글로벌 수주 공시 없이 "기대감" 스토리만 부각. 반도체 유리기판 테마 후광. Step C 생략.
+        <span class="trigger">※ 재평가 트리거: 글로벌 고객사 공급계약 공시</span>
+      </td>
+      <td class="source">3영업일 내 개별 출처 확인 불가<span class="date">— 2026-04-16</span></td>
+    </tr>
+
+    <!-- 14. 한빛레이저 -->
+    <tr>
+      <td><strong>한빛레이저</strong><br><small>비 바이오</small></td>
+      <td>상한가</td>
+      <td>AI반도체 수요 폭증 속 유리기판 관련주 상한가. <span class="unconfirmed">(개별 공시 미확인)</span></td>
+      <td class="result-금지">투자 금지</td>
+      <td class="score">0점 / 100점</td>
+      <td>
+        <strong class="filter-fail">[8-2-0] Fail</strong> — "유리기판 관련주" 테마 기사 나열. Step C 생략.
+        <span class="trigger">※ 재평가 트리거: 유리기판 장비 수주 공시</span>
+      </td>
+      <td class="source">3영업일 내 개별 출처 확인 불가<span class="date">— 2026-04-16</span></td>
+    </tr>
+
+    <!-- 15. 무림P&P -->
+    <tr>
+      <td><strong>무림P&amp;P</strong><br><small>비 바이오</small></td>
+      <td>상한가</td>
+      <td>SDT·아이온큐 양자컴퓨팅 자원 활용 계약 체결 속 무림캐피탈 SDT 투자 이력 부각. <span class="unconfirmed">(종목 본체의 계약 주체 아님)</span></td>
+      <td class="result-금지">투자 금지</td>
+      <td class="score">0점 / 100점</td>
+      <td>
+        <strong class="filter-fail">[8-2-0] Fail</strong> — 계약 주체는 SDT이며 무림P&amp;P는 무림캐피탈의 SDT 투자 이력으로 2단계 이상 간접 연동. 개별 계약 공시 없음 → 지분 이력 재탕 기사로 판정. Step C 생략.
+        <span class="trigger">※ 재평가 트리거: 무림P&amp;P 본체의 양자컴퓨팅 사업 진출 공시</span>
+      </td>
+      <td class="source">3영업일 내 개별 본체 출처 확인 불가<span class="date">— 2026-04-16</span></td>
+    </tr>
+
+    <!-- 16. 무림SP -->
+    <tr>
+      <td><strong>무림SP</strong><br><small>비 바이오</small></td>
+      <td>상한가</td>
+      <td>SDT·아이온큐 양자컴퓨팅 계약 속 무림캐피탈 SDT 투자 이력 부각. <span class="unconfirmed">(간접 연동)</span></td>
+      <td class="result-금지">투자 금지</td>
+      <td class="score">0점 / 100점</td>
+      <td>
+        <strong class="filter-fail">[8-2-0] Fail</strong> — 무림P&amp;P와 동일 사유. 계약 주체 아님. Step C 생략.
+        <span class="trigger">※ 재평가 트리거: 본체 신사업 공시</span>
+      </td>
+      <td class="source">3영업일 내 개별 본체 출처 확인 불가<span class="date">— 2026-04-16</span></td>
+    </tr>
+
+    <!-- 17. 엑스게이트 -->
+    <tr>
+      <td><strong>엑스게이트</strong><br><small>비 바이오</small></td>
+      <td>3연상</td>
+      <td>AI 해킹 우려 속 양자암호 보안 관련주 3연속 상한가. <span class="unconfirmed">(개별 공시 미확인)</span></td>
+      <td class="result-금지">투자 금지</td>
+      <td class="score">0점 / 100점</td>
+      <td>
+        <strong class="filter-fail">[8-2-0] Fail</strong> — 테마 주도주 분류이나 개별 신규 공시·리포트 없음. 3연상 자체가 <span class="penalty-v3">재료 노출 반복</span>·과열 리스크 시사. Step C 생략.
+        <span class="trigger">※ 재평가 트리거: 본체 양자암호 장비 공급계약 공시</span>
+      </td>
+      <td class="source">3영업일 내 개별 출처 확인 불가<span class="date">— 2026-04-16</span></td>
+    </tr>
+
+    <!-- 18. 케이씨에스 -->
+    <tr>
+      <td><strong>케이씨에스</strong><br><small>비 바이오</small></td>
+      <td>2연상</td>
+      <td>양자암호 보안 관련주 2연속 상한가. <span class="unconfirmed">(개별 공시 미확인)</span></td>
+      <td class="result-금지">투자 금지</td>
+      <td class="score">0점 / 100점</td>
+      <td>
+        <strong class="filter-fail">[8-2-0] Fail</strong> — 테마 나열. Step C 생략.
+        <span class="trigger">※ 재평가 트리거: 개별 수주 공시</span>
+      </td>
+      <td class="source">3영업일 내 개별 출처 확인 불가<span class="date">— 2026-04-16</span></td>
+    </tr>
+
+    <!-- 19. 파인텍 -->
+    <tr>
+      <td><strong>파인텍</strong><br><small>비 바이오</small></td>
+      <td>2연상</td>
+      <td>양자암호 보안 관련주 2연속 상한가. <span class="unconfirmed">(개별 공시 미확인)</span></td>
+      <td class="result-금지">투자 금지</td>
+      <td class="score">0점 / 100점</td>
+      <td>
+        <strong class="filter-fail">[8-2-0] Fail</strong> — 테마 나열. Step C 생략.
+        <span class="trigger">※ 재평가 트리거: 개별 공시</span>
+      </td>
+      <td class="source">3영업일 내 개별 출처 확인 불가<span class="date">— 2026-04-16</span></td>
+    </tr>
+
+    <!-- 20. 드림시큐리티 -->
+    <tr>
+      <td><strong>드림시큐리티</strong><br><small>비 바이오</small></td>
+      <td>2연상</td>
+      <td>양자암호 보안 관련주 2연속 상한가. <span class="unconfirmed">(개별 공시 미확인)</span></td>
+      <td class="result-금지">투자 금지</td>
+      <td class="score">0점 / 100점</td>
+      <td>
+        <strong class="filter-fail">[8-2-0] Fail</strong> — 테마 나열. Step C 생략.
+        <span class="trigger">※ 재평가 트리거: 개별 공시</span>
+      </td>
+      <td class="source">3영업일 내 개별 출처 확인 불가<span class="date">— 2026-04-16</span></td>
+    </tr>
+
+    <!-- 21. 라온시큐어 -->
+    <tr>
+      <td><strong>라온시큐어</strong><br><small>비 바이오</small></td>
+      <td>2연상</td>
+      <td>양자암호 보안 관련주 2연속 상한가. <span class="unconfirmed">(개별 공시 미확인)</span></td>
+      <td class="result-금지">투자 금지</td>
+      <td class="score">0점 / 100점</td>
+      <td>
+        <strong class="filter-fail">[8-2-0] Fail</strong> — 테마 나열. Step C 생략.
+        <span class="trigger">※ 재평가 트리거: 개별 공시</span>
+      </td>
+      <td class="source">3영업일 내 개별 출처 확인 불가<span class="date">— 2026-04-16</span></td>
+    </tr>
+
+    <!-- 22. 미코 -->
+    <tr>
+      <td><strong>미코</strong><br><small>비 바이오</small></td>
+      <td>+23.21%</td>
+      <td>AI반도체 수요 폭증·글로벌 빅테크 설비투자 확대 소식 등에 강세. <span class="unconfirmed">(개별 수주 공시 미확인)</span></td>
+      <td class="result-금지">투자 금지</td>
+      <td class="score">0점 / 100점</td>
+      <td>
+        <strong class="filter-fail">[8-2-0] Fail</strong> — "AI반도체 수요 폭증" 테마 기사에 복수 종목 나열. 개별 공시·리포트 부재. Step C 생략.
+        <span class="trigger">※ 재평가 트리거: 개별 공급계약 공시</span>
+      </td>
+      <td class="source">3영업일 내 개별 출처 확인 불가<span class="date">— 2026-04-16</span></td>
+    </tr>
+
+    <!-- 23. 에스피소프트 -->
+    <tr>
+      <td><strong>에스피소프트</strong><br><small>비 바이오</small></td>
+      <td>+23.88%</td>
+      <td>소버린 AI모델 개발 인프라 전개 소식에 강세. <span class="unconfirmed">(개별 수주·계약 공시 미확인)</span></td>
+      <td class="result-금지">투자 금지</td>
+      <td class="score">0점 / 100점</td>
+      <td>
+        <strong class="filter-fail">[8-2-0] Fail</strong> — "소버린 AI" 테마 기사에 종목 나열. 정부 4천억 펀드 소식은 정책 기대감 단계로 개별 수주 공시 없음. Step C 생략.
+        <span class="trigger">※ 재평가 트리거: 정부 AI 인프라 수주 공시</span>
+      </td>
+      <td class="source">3영업일 내 개별 출처 확인 불가<span class="date">— 2026-04-16</span></td>
+    </tr>
+
+    <!-- 24. SKC -->
+    <tr>
+      <td><strong>SKC</strong><br><small>비 바이오</small></td>
+      <td>+22.24%</td>
+      <td>AI반도체 수요 폭증 속 유리기판 관련주 강세. <span class="unconfirmed">(개별 신규 공시 미확인)</span></td>
+      <td class="result-금지">투자 금지</td>
+      <td class="score">0점 / 100점</td>
+      <td>
+        <strong class="filter-fail">[8-2-0] Fail</strong> — 유리기판 테마 기사에 종목 나열. SKC 본체의 앱솔릭스 유리기판 공급계약 신규 공시 3일 내 미확인. Step C 생략.
+        <span class="trigger">※ 재평가 트리거: 앱솔릭스 양산 공급계약 공시</span>
+      </td>
+      <td class="source">3영업일 내 개별 출처 확인 불가<span class="date">— 2026-04-16</span></td>
+    </tr>
+
+    <!-- 25. 에스투더블유 -->
+    <tr>
+      <td><strong>에스투더블유(S2W)</strong><br><small>비 바이오</small></td>
+      <td>+19.35%</td>
+      <td>AI 해킹·보안 테마 동반 강세. <span class="unconfirmed">(개별 재료 미노출)</span></td>
+      <td class="result-금지">투자 금지</td>
+      <td class="score">0점 / 100점</td>
+      <td>
+        <strong class="filter-fail">[8-2-0] Fail</strong> — 테마 연동 나열. 개별 공시 부재. Step C 생략.
+        <span class="trigger">※ 재평가 트리거: 개별 공시</span>
+      </td>
+      <td class="source">3영업일 내 개별 출처 확인 불가<span class="date">— 2026-04-16</span></td>
+    </tr>
+
+    <!-- 26. 에스넷 -->
+    <tr>
+      <td><strong>에스넷</strong><br><small>비 바이오</small></td>
+      <td>+17.36%</td>
+      <td>소버린 AI/AI 해킹 테마 동반 강세. <span class="unconfirmed">(개별 재료 미노출)</span></td>
+      <td class="result-금지">투자 금지</td>
+      <td class="score">0점 / 100점</td>
+      <td>
+        <strong class="filter-fail">[8-2-0] Fail</strong> — 테마 연동 나열. Step C 생략.
+        <span class="trigger">※ 재평가 트리거: 개별 공시</span>
+      </td>
+      <td class="source">3영업일 내 개별 출처 확인 불가<span class="date">— 2026-04-16</span></td>
+    </tr>
+
+    <!-- 27. 필옵틱스 -->
+    <tr>
+      <td><strong>필옵틱스</strong><br><small>비 바이오</small></td>
+      <td>+15.16%</td>
+      <td>AI반도체 수요 폭증 속 유리기판 관련주 강세. <span class="unconfirmed">(개별 공시 미확인)</span></td>
+      <td class="result-금지">투자 금지</td>
+      <td class="score">0점 / 100점</td>
+      <td>
+        <strong class="filter-fail">[8-2-0] Fail</strong> — 유리기판 테마 나열. Step C 생략.
+        <span class="trigger">※ 재평가 트리거: 유리기판 장비 수주 공시</span>
+      </td>
+      <td class="source">3영업일 내 개별 출처 확인 불가<span class="date">— 2026-04-16</span></td>
+    </tr>
+
+    <!-- 28. 데이타솔루션 -->
+    <tr>
+      <td><strong>데이타솔루션</strong><br><small>비 바이오</small></td>
+      <td>+15.15%</td>
+      <td>AI·소버린 AI 테마 연동 강세. <span class="unconfirmed">(개별 재료 미노출)</span></td>
+      <td class="result-금지">투자 금지</td>
+      <td class="score">0점 / 100점</td>
+      <td>
+        <strong class="filter-fail">[8-2-0] Fail</strong> — 테마 나열. Step C 생략.
+        <span class="trigger">※ 재평가 트리거: 개별 공시</span>
+      </td>
+      <td class="source">3영업일 내 개별 출처 확인 불가<span class="date">— 2026-04-16</span></td>
+    </tr>
+
+    <!-- 29. 저스템 -->
+    <tr>
+      <td><strong>저스템</strong><br><small>비 바이오</small></td>
+      <td>+14.79%</td>
+      <td>AI반도체 수요 폭증·빅테크 설비투자 확대에 강세. <span class="unconfirmed">(개별 공시 미확인)</span></td>
+      <td class="result-금지">투자 금지</td>
+      <td class="score">0점 / 100점</td>
+      <td>
+        <strong class="filter-fail">[8-2-0] Fail</strong> — 반도체 장비 테마 나열. Step C 생략.
+        <span class="trigger">※ 재평가 트리거: 개별 장비 수주 공시</span>
+      </td>
+      <td class="source">3영업일 내 개별 출처 확인 불가<span class="date">— 2026-04-16</span></td>
+    </tr>
+
+    <!-- 30. 코미코 -->
+    <tr>
+      <td><strong>코미코</strong><br><small>비 바이오</small></td>
+      <td>+14.48%</td>
+      <td>AI반도체·반도체 장비 테마 연동 강세. <span class="unconfirmed">(개별 공시 미확인)</span></td>
+      <td class="result-금지">투자 금지</td>
+      <td class="score">0점 / 100점</td>
+      <td>
+        <strong class="filter-fail">[8-2-0] Fail</strong> — 테마 연동 나열. Step C 생략.
+        <span class="trigger">※ 재평가 트리거: 개별 공시</span>
+      </td>
+      <td class="source">3영업일 내 개별 출처 확인 불가<span class="date">— 2026-04-16</span></td>
+    </tr>
+
+    <!-- 31. 라온텍 -->
+    <tr>
+      <td><strong>라온텍</strong><br><small>비 바이오</small></td>
+      <td>+14.22%</td>
+      <td>AI반도체 테마 연동 강세. <span class="unconfirmed">(개별 공시 미확인)</span></td>
+      <td class="result-금지">투자 금지</td>
+      <td class="score">0점 / 100점</td>
+      <td>
+        <strong class="filter-fail">[8-2-0] Fail</strong> — 테마 나열. Step C 생략.
+        <span class="trigger">※ 재평가 트리거: 개별 공시</span>
+      </td>
+      <td class="source">3영업일 내 개별 출처 확인 불가<span class="date">— 2026-04-16</span></td>
+    </tr>
+
+    <!-- 32. 셀바스AI -->
+    <tr>
+      <td><strong>셀바스AI</strong><br><small>비 바이오</small></td>
+      <td>+13.83%</td>
+      <td>AI 해킹·소버린 AI 테마 동반 강세. <span class="unconfirmed">(개별 재료 미노출)</span></td>
+      <td class="result-금지">투자 금지</td>
+      <td class="score">0점 / 100점</td>
+      <td>
+        <strong class="filter-fail">[8-2-0] Fail</strong> — 테마 나열. Step C 생략.
+        <span class="trigger">※ 재평가 트리거: 개별 공시</span>
+      </td>
+      <td class="source">3영업일 내 개별 출처 확인 불가<span class="date">— 2026-04-16</span></td>
+    </tr>
+
+    <!-- 33. 모베이스전자 -->
+    <tr>
+      <td><strong>모베이스전자</strong><br><small>비 바이오</small></td>
+      <td>+13.72%</td>
+      <td>현대차그룹 자율주행·로봇 등 미래사업부 재편 본격화 기대감에 강세. <span class="unconfirmed">(개별 수주 공시 미확인)</span></td>
+      <td class="result-금지">투자 금지</td>
+      <td class="score">0점 / 100점</td>
+      <td>
+        <strong class="filter-fail">[8-2-0] Fail</strong> — 현대차그룹 조직개편 기대감 연동(2단계 간접). 모베이스전자 본체 수주 공시 부재. Step C 생략.
+        <span class="trigger">※ 재평가 트리거: 현대차향 ADAS·로봇 수주 공시</span>
+      </td>
+      <td class="source">3영업일 내 개별 출처 확인 불가<span class="date">— 2026-04-16</span></td>
+    </tr>
+
+    <!-- 34. 피아이이 -->
+    <tr>
+      <td><strong>피아이이</strong><br><small>비 바이오</small></td>
+      <td>+12.83%</td>
+      <td>AI반도체 테마 연동 강세. <span class="unconfirmed">(개별 공시 미확인)</span></td>
+      <td class="result-금지">투자 금지</td>
+      <td class="score">0점 / 100점</td>
+      <td>
+        <strong class="filter-fail">[8-2-0] Fail</strong> — 테마 나열. Step C 생략.
+        <span class="trigger">※ 재평가 트리거: 개별 공시</span>
+      </td>
+      <td class="source">3영업일 내 개별 출처 확인 불가<span class="date">— 2026-04-16</span></td>
+    </tr>
+
+    <!-- 35. 씨엠티엑스 -->
+    <tr>
+      <td><strong>씨엠티엑스</strong><br><small>비 바이오</small></td>
+      <td>+12.52%</td>
+      <td>AI반도체 테마 연동 강세. <span class="unconfirmed">(개별 공시 미확인)</span></td>
+      <td class="result-금지">투자 금지</td>
+      <td class="score">0점 / 100점</td>
+      <td>
+        <strong class="filter-fail">[8-2-0] Fail</strong> — 테마 나열. Step C 생략.
+        <span class="trigger">※ 재평가 트리거: 개별 공시</span>
+      </td>
+      <td class="source">3영업일 내 개별 출처 확인 불가<span class="date">— 2026-04-16</span></td>
+    </tr>
+
+    <!-- 36. 비츠로셀 -->
+    <tr>
+      <td><strong>비츠로셀</strong><br><small>비 바이오</small></td>
+      <td>+12.10%</td>
+      <td>자회사 비츠로테크 플라즈마 기술 기대감 간접 수혜. <span class="unconfirmed">(본체 개별 재료 없음)</span></td>
+      <td class="result-금지">투자 금지</td>
+      <td class="score">0점 / 100점</td>
+      <td>
+        <strong class="filter-fail">[8-2-0] Fail</strong> — 자회사 기대감으로 2단계 간접 수혜. 본체 개별 공시 부재. Step C 생략.
+        <span class="trigger">※ 재평가 트리거: 본체 1차전지·특수전지 대형 수주 공시</span>
+      </td>
+      <td class="source">3영업일 내 개별 본체 출처 확인 불가<span class="date">— 2026-04-16</span></td>
+    </tr>
+
+    <!-- 37. 티씨케이 -->
+    <tr>
+      <td><strong>티씨케이</strong><br><small>비 바이오</small></td>
+      <td>+11.97%</td>
+      <td>AI반도체 테마 연동 강세. <span class="unconfirmed">(개별 공시 미확인)</span></td>
+      <td class="result-금지">투자 금지</td>
+      <td class="score">0점 / 100점</td>
+      <td>
+        <strong class="filter-fail">[8-2-0] Fail</strong> — 테마 나열. Step C 생략.
+        <span class="trigger">※ 재평가 트리거: 개별 공시</span>
+      </td>
+      <td class="source">3영업일 내 개별 출처 확인 불가<span class="date">— 2026-04-16</span></td>
+    </tr>
+
+    <!-- 38. 한국피아이엠 -->
+    <tr>
+      <td><strong>한국피아이엠</strong><br><small>비 바이오</small></td>
+      <td>+11.47%</td>
+      <td>로봇·현대차그룹 미래사업부 재편 기대 연동. <span class="unconfirmed">(개별 공시 미확인)</span></td>
+      <td class="result-금지">투자 금지</td>
+      <td class="score">0점 / 100점</td>
+      <td>
+        <strong class="filter-fail">[8-2-0] Fail</strong> — 테마 나열. Step C 생략.
+        <span class="trigger">※ 재평가 트리거: 개별 공시</span>
+      </td>
+      <td class="source">3영업일 내 개별 출처 확인 불가<span class="date">— 2026-04-16</span></td>
+    </tr>
+
+    <!-- 39. 파인엠텍 -->
+    <tr>
+      <td><strong>파인엠텍</strong><br><small>비 바이오</small></td>
+      <td>+11.44%</td>
+      <td>삼성 갤럭시 Z폴드 8 와이드 공개 소식에 폴더블폰 관련주 강세. <span class="unconfirmed">(개별 공시 미확인)</span></td>
+      <td class="result-금지">투자 금지</td>
+      <td class="score">0점 / 100점</td>
+      <td>
+        <strong class="filter-fail">[8-2-0] Fail</strong> — 삼성 언팩 테마 나열. 개별 공급계약 공시 부재. Step C 생략.
+        <span class="trigger">※ 재평가 트리거: 개별 공급계약 공시</span>
+      </td>
+      <td class="source">3영업일 내 개별 출처 확인 불가<span class="date">— 2026-04-16</span></td>
+    </tr>
+
+    <!-- 40. 동운아나텍 -->
+    <tr>
+      <td><strong>동운아나텍</strong><br><small>비 바이오</small></td>
+      <td>+11.34%</td>
+      <td>폴더블폰 관련주 강세. <span class="unconfirmed">(개별 공시 미확인)</span></td>
+      <td class="result-금지">투자 금지</td>
+      <td class="score">0점 / 100점</td>
+      <td>
+        <strong class="filter-fail">[8-2-0] Fail</strong> — 테마 나열. Step C 생략.
+        <span class="trigger">※ 재평가 트리거: 개별 공시</span>
+      </td>
+      <td class="source">3영업일 내 개별 출처 확인 불가<span class="date">— 2026-04-16</span></td>
+    </tr>
+
+    <!-- 41. 가온전선 -->
+    <tr>
+      <td><strong>가온전선</strong><br><small>비 바이오</small></td>
+      <td>+11.33%</td>
+      <td>중동리스크 해소 기대감에 강세. <span class="unconfirmed">(개별 공시 미확인)</span></td>
+      <td class="result-금지">투자 금지</td>
+      <td class="score">0점 / 100점</td>
+      <td>
+        <strong class="filter-fail">[8-2-0] Fail</strong> — 지정학 기대감 단독 촉매, 2-1절 "기대감 + 2단계 간접" 규칙 해당. 개별 공시 부재. Step C 생략.
+        <span class="trigger">※ 재평가 트리거: 중동향 대형 수주 공시</span>
+      </td>
+      <td class="source">3영업일 내 개별 출처 확인 불가<span class="date">— 2026-04-16</span></td>
+    </tr>
+
+    <!-- 42. 무림페이퍼 -->
+    <tr>
+      <td><strong>무림페이퍼</strong><br><small>비 바이오</small></td>
+      <td>+21.04%</td>
+      <td>SDT·아이온큐 양자컴퓨팅 계약 속 무림캐피탈 SDT 투자 이력 부각. <span class="unconfirmed">(간접 연동)</span></td>
+      <td class="result-금지">투자 금지</td>
+      <td class="score">0점 / 100점</td>
+      <td>
+        <strong class="filter-fail">[8-2-0] Fail</strong> — 무림P&amp;P와 동일 사유. 계약 주체 아님. Step C 생략.
+        <span class="trigger">※ 재평가 트리거: 본체 신사업 공시</span>
+      </td>
+      <td class="source">3영업일 내 개별 본체 출처 확인 불가<span class="date">— 2026-04-16</span></td>
+    </tr>
+
+    <!-- 43. 올릭스 -->
+    <tr>
+      <td><strong>올릭스</strong><br><small>바이오</small></td>
+      <td>+10.53%</td>
+      <td>"재료 미노출" 급등. <span class="unconfirmed">(개별 공시·리포트 미확인)</span></td>
+      <td class="result-금지">투자 금지</td>
+      <td class="score">0점 / 100점</td>
+      <td>
+        <strong class="filter-fail">[8-2-0] Fail</strong> — 명시적 "재료 미노출" 급등. 수급성·테마 연동 추정. 바이오 가설 A/B 모두 적용 조건 미충족. Step C 생략.
+        <span class="trigger">※ 재평가 트리거: LO 계약 공시 또는 임상 결과 발표</span>
+      </td>
+      <td class="source">3영업일 내 개별 출처 확인 불가<span class="date">— 2026-04-16</span></td>
+    </tr>
+
+    <!-- 44. 이노뎁 -->
+    <tr>
+      <td><strong>이노뎁</strong><br><small>비 바이오</small></td>
+      <td>급등</td>
+      <td>AI 테마 급등 내 언급, "재료 미노출". <span class="unconfirmed">(개별 공시 미확인)</span></td>
+      <td class="result-금지">투자 금지</td>
+      <td class="score">0점 / 100점</td>
+      <td>
+        <strong class="filter-fail">[8-2-0] Fail</strong> — 명시적 "재료 미노출". Step C 생략.
+        <span class="trigger">※ 재평가 트리거: 개별 공시</span>
+      </td>
+      <td class="source">3영업일 내 개별 출처 확인 불가<span class="date">— 2026-04-16</span></td>
+    </tr>
+
+    <!-- 45. 인터플렉스 -->
+    <tr>
+      <td><strong>인터플렉스</strong><br><small>비 바이오</small></td>
+      <td>+7.69%</td>
+      <td>폴더블폰 관련주 강세. <span class="unconfirmed">(개별 공시 미확인)</span></td>
+      <td class="result-금지">투자 금지</td>
+      <td class="score">0점 / 100점</td>
+      <td>
+        <strong class="filter-fail">[8-2-0] Fail</strong> — 테마 나열. Step C 생략.
+        <span class="trigger">※ 재평가 트리거: 개별 공급계약 공시</span>
+      </td>
+      <td class="source">3영업일 내 개별 출처 확인 불가<span class="date">— 2026-04-16</span></td>
+    </tr>
+
+    <!-- 46. 비츠로테크 -->
+    <tr>
+      <td><strong>비츠로테크</strong><br><small>비 바이오</small></td>
+      <td>+7.63%</td>
+      <td>플라즈마 기술로 미래 산업 선점 기대감·원자력 테마 동반 강세. <span class="unconfirmed">(개별 수주 공시 미확인)</span></td>
+      <td class="result-금지">투자 금지</td>
+      <td class="score">0점 / 100점</td>
+      <td>
+        <strong class="filter-fail">[8-2-0] Fail</strong> — "기대감" 단독 촉매. 개별 수주 공시 부재. Step C 생략.
+        <span class="trigger">※ 재평가 트리거: 플라즈마 장비 상용화 수주 공시</span>
+      </td>
+      <td class="source">3영업일 내 개별 출처 확인 불가<span class="date">— 2026-04-16</span></td>
+    </tr>
+
+    <!-- 47. 에스비비테크 -->
+    <tr>
+      <td><strong>에스비비테크</strong><br><small>비 바이오</small></td>
+      <td>+7.40%</td>
+      <td>로봇·현대차그룹 미래사업부 재편 기대 연동. <span class="unconfirmed">(개별 공시 미확인)</span></td>
+      <td class="result-금지">투자 금지</td>
+      <td class="score">0점 / 100점</td>
+      <td>
+        <strong class="filter-fail">[8-2-0] Fail</strong> — 테마 나열. Step C 생략.
+        <span class="trigger">※ 재평가 트리거: 개별 수주 공시</span>
+      </td>
+      <td class="source">3영업일 내 개별 출처 확인 불가<span class="date">— 2026-04-16</span></td>
+    </tr>
+
+    <!-- 48. 심텍 -->
+    <tr>
+      <td><strong>심텍</strong><br><small>비 바이오</small></td>
+      <td>+7.03%</td>
+      <td>AI반도체 테마 연동 강세. <span class="unconfirmed">(개별 공시 미확인)</span></td>
+      <td class="result-금지">투자 금지</td>
+      <td class="score">0점 / 100점</td>
+      <td>
+        <strong class="filter-fail">[8-2-0] Fail</strong> — 테마 나열. Step C 생략.
+        <span class="trigger">※ 재평가 트리거: 개별 공시</span>
+      </td>
+      <td class="source">3영업일 내 개별 출처 확인 불가<span class="date">— 2026-04-16</span></td>
+    </tr>
+
+    <!-- 49. 지투파워 -->
+    <tr>
+      <td><strong>지투파워</strong><br><small>비 바이오</small></td>
+      <td>+6.72%</td>
+      <td>영국 NWF SMR 투자 발표에 원자력 관련주 강세. <span class="unconfirmed">(개별 공시 미확인)</span></td>
+      <td class="result-금지">투자 금지</td>
+      <td class="score">0점 / 100점</td>
+      <td>
+        <strong class="filter-fail">[8-2-0] Fail</strong> — 영국 SMR 투자 테마 나열. 본체 개별 수주 공시 부재. Step C 생략.
+        <span class="trigger">※ 재평가 트리거: 개별 수주 공시</span>
+      </td>
+      <td class="source">3영업일 내 개별 출처 확인 불가<span class="date">— 2026-04-16</span></td>
+    </tr>
+
+    <!-- 50. 두산에너빌리티 -->
+    <tr>
+      <td><strong>두산에너빌리티</strong><br><small>비 바이오</small></td>
+      <td>+6.33%</td>
+      <td>영국 NWF SMR 대규모 투자 소식에 원자력 관련주 강세. <span class="unconfirmed">(본체의 신규 수주 공시 3일 내 미확인)</span></td>
+      <td class="result-금지">투자 금지</td>
+      <td class="score">0점 / 100점</td>
+      <td>
+        <strong class="filter-fail">[8-2-0] Fail</strong> — 해외 SMR 펀드 설립 기사에 종목명 나열. 두산에너빌리티 본체 영국향 수주 공시는 3일 내 확인되지 않음. Step C 생략. 재료 노출 반복 리스크 병행.
+        <span class="trigger">※ 재평가 트리거: 영국·미국향 SMR 개별 수주 공시</span>
+      </td>
+      <td class="source">3영업일 내 개별 출처 확인 불가<span class="date">— 2026-04-16</span></td>
+    </tr>
+
+    <!-- 51. 우리기술 -->
+    <tr>
+      <td><strong>우리기술</strong><br><small>비 바이오</small></td>
+      <td>+6.21%</td>
+      <td>원자력 관련주 강세. <span class="unconfirmed">(개별 공시 미확인)</span></td>
+      <td class="result-금지">투자 금지</td>
+      <td class="score">0점 / 100점</td>
+      <td>
+        <strong class="filter-fail">[8-2-0] Fail</strong> — 테마 나열. Step C 생략.
+        <span class="trigger">※ 재평가 트리거: 개별 공시</span>
+      </td>
+      <td class="source">3영업일 내 개별 출처 확인 불가<span class="date">— 2026-04-16</span></td>
+    </tr>
+
+    <!-- 52. 한전기술 -->
+    <tr>
+      <td><strong>한전기술</strong><br><small>비 바이오</small></td>
+      <td>+5.94%</td>
+      <td>원자력 관련주 강세. <span class="unconfirmed">(개별 공시 미확인)</span></td>
+      <td class="result-금지">투자 금지</td>
+      <td class="score">0점 / 100점</td>
+      <td>
+        <strong class="filter-fail">[8-2-0] Fail</strong> — 테마 나열. Step C 생략.
+        <span class="trigger">※ 재평가 트리거: 개별 설계용역 수주 공시</span>
+      </td>
+      <td class="source">3영업일 내 개별 출처 확인 불가<span class="date">— 2026-04-16</span></td>
+    </tr>
+
+    <!-- 53. 현대차 -->
+    <tr>
+      <td><strong>현대차</strong><br><small>비 바이오</small></td>
+      <td>+5.12%</td>
+      <td>현대차그룹 미래사업부 재편 본격화 기대감 연동. <span class="unconfirmed">(개별 수주·실적 공시 아님)</span></td>
+      <td class="result-금지">투자 금지</td>
+      <td class="score">0점 / 100점</td>
+      <td>
+        <strong class="filter-fail">[8-2-0] Fail</strong> — 조직개편 기대감 연동 테마. 본체 신규 촉매 공시 3일 내 미확인. Step C 생략.
+        <span class="trigger">※ 재평가 트리거: 자율주행·로봇 사업 부 분사 공시 또는 실적 발표</span>
+      </td>
+      <td class="source">3영업일 내 개별 출처 확인 불가<span class="date">— 2026-04-16</span></td>
+    </tr>
+
+    <!-- 54. 현대오토에버 -->
+    <tr>
+      <td><strong>현대오토에버</strong><br><small>비 바이오</small></td>
+      <td>+5.05%</td>
+      <td>현대차그룹 미래사업부 재편 기대감 연동. <span class="unconfirmed">(개별 공시 미확인)</span></td>
+      <td class="result-금지">투자 금지</td>
+      <td class="score">0점 / 100점</td>
+      <td>
+        <strong class="filter-fail">[8-2-0] Fail</strong> — 지배구조 재편 기대감 연동 테마. 본체 공시 부재. Step C 생략.
+        <span class="trigger">※ 재평가 트리거: 현대차그룹 IT·로봇 사업 개편 공시</span>
+      </td>
+      <td class="source">3영업일 내 개별 출처 확인 불가<span class="date">— 2026-04-16</span></td>
+    </tr>
+
+  </tbody>
+</table>
+
+<!-- 블록 3: 총평 박스 -->
+<div class="summary-box">
+  <h3 class="section-title">🔍 총평 — 2026년 4월 16일 시장 구조적 특성</h3>
+
+  <div class="summary-kv">
+    <span class="lbl">투자 검토 가능 종목</span>
+    <span>6개 (즉시 0개 / 분할 1개 / 추가촉매 5개) | 관찰 유지 2개</span>
+  </div>
+
+  <div class="summary-kv">
+    <span class="lbl">3일 필터 결과</span>
+    <span>전체 54개 중 Pass 8개 / Fail 46개 (Fail 비율 85.2%)</span>
+  </div>
+
+  <div class="summary-kv">
+    <span class="lbl">v3.1 페널티 적용</span>
+    <span>CB·유증 공시 이력 1건(캠시스) · 재료 노출 반복 잠재 다수(연상 종목) · 공시 신선도 페널티 0건 · 최대주주 매도 0건</span>
+  </div>
+
+  <div class="summary-structure">
+    당일 시장은 ①양자암호/AI해킹(엔비디아 '아이징' 발표 루머), ②AI반도체/유리기판(SK하이닉스 美 ADR 추진 소식), ③로봇(현대차그룹 조직개편), ④원자력(영국 NWF SMR 투자), ⑤소버린 AI(국민성장펀드 4천억), ⑥폴더블폰(삼성 언팩)의 6개 테마가 동시 점화되어 상승 종목 대부분이 지수·테마 베타로 움직였다. 실적 또는 개별 계약 공시가 실체로 확인된 종목은 소수(OCI홀딩스·LS에코에너지·덕산테코피아·코나아이·비에이치·NC·엔켐·캠시스)에 국한되며, 촉매에서 실적 연결까지는 최소 2단계 이상 간접 구조가 지배적이다. 지수가 +2.21% 급등한 상태에서 나온 테마 동반 급등은 사이즈 불문 일괄 고점 매수 위험 구간이다.
+  </div>
+
+  <p class="summary-sub-title">▸ 투자 검토 종목 (50점 이상)</p>
+  <ul class="summary-list">
+    <li><strong>OCI홀딩스</strong> (70점, 분할 진입 검토) — 스페이스X 폴리실리콘 공급 단독 기사. 글로벌 리더 발주 상급 촉매이나 DART 공시 미확인 + 가설 3 상한 70점 강제.</li>
+    <li><strong>LS에코에너지</strong> (60점, 추가 촉매 확인 후) — 美 초고압 케이블 인증 획득. 북미 진출 교두보이나 초도 수주 실체 확인 전.</li>
+    <li><strong>코나아이</strong> (50점, 추가 촉매 확인 후) — 1분기 실적 + 스테이블코인 기대감 혼합. 실적은 확정재료, 스테이블코인은 정책 미확정.</li>
+    <li><strong>NC</strong> (50점, 추가 촉매 확인 후) — 1분기 호실적 전망. 잠정실적 공시 전 단계.</li>
+    <li><strong>비에이치</strong> (50점, 추가 촉매 확인 후) — 애플 증산 수혜 전망. 간접 촉매 + 개별 수주 공시 없음.</li>
+  </ul>
+
+  <p class="summary-sub-title">▸ 관찰 유지 종목 (30~40점)</p>
+  <ul class="summary-list">
+    <li><strong>덕산테코피아</strong> (40점) — 재평가 트리거: 1분기 턴어라운드 실적 공시.</li>
+    <li><strong>엔켐</strong> (40점) — 재평가 트리거: 실리콘 음극재 공급계약·CAPA 증설 공시.</li>
+    <li><strong>캠시스</strong> (30점) — 재평가 트리거: 신주 상장 후 물량 출회 종료 + 실적 가이던스.</li>
+  </ul>
+
+  <div class="summary-warn-filter">
+    🚨 당일 평가 종목의 85.2%가 8-2-0 3일 직접 연관성 필터 Fail — 시장이 테마 편승 구조로 지배되었습니다. 양자암호·AI반도체·로봇·원자력·소버린AI·폴더블폰 6개 테마에서 개별 공시·리포트 없이 "관련주 상승"으로 분류된 종목이 대다수이며, 이 중 3연상·2연상 종목은 재료 노출 반복 리스크까지 누적된 고위험 구간입니다. 3일 내 개별 재료가 확인된 8개 종목에만 집중하되, 그 중에서도 DART 공시 단계까지 진입한 건이 0건에 가깝다는 점을 감안해 분할·단계 진입만 검토 권장합니다.
+  </div>
+
+  <div class="summary-warn">
+    ⚠️ 코스피 +2.21%·코스닥 +0.91% 동반 급등 + 환율 하락 조합으로 지수 베타만으로도 개별 종목이 +5~10% 상승 가능한 국면이었습니다. 개별 촉매 없이 상승한 종목은 지수 조정 시 동반 낙폭 확대 위험이 큽니다.
+  </div>
+</div>
+
+<!-- 면책 고지 -->
+<p class="disclaimer">
+  ※ 위 판단은 CLAUDE_주가평가_v3.1 지침에 따른 참고 의견이며, 투자 결정의 최종 책임은 투자자 본인에게 있습니다.<br>
+  ※ 사전 조사 기준일: 2026-04-16. 이후 발생한 공시·뉴스는 반영되지 않습니다.<br>
+  ※ v3.1 3일 직접 연관성 선행 필터 적용: 평가 기준일 기준 최근 3영업일 이내 개별 공시·리포트 미확인 종목은 테마 편승으로 간주하여 자동 0점 처리됩니다.<br>
+  ※ v3.1 비대칭 기간 원칙 적용: 촉매는 3~14일 이내, 리스크는 최대 3년 이내 자료로 확인합니다.<br>
+  ※ 본 평가는 사용자가 제공한 "주도주 시황" 텍스트의 상승이유 서술을 1차 근거로 하며, 개별 종목별 실시간 DART·증권사 리포트 웹 크롤링은 수행되지 않았습니다. 최종 투자 결정 전 "재평가 트리거" 항목의 개별 공시·리포트를 직접 확인할 것을 권장합니다.
+</p>
+
+</body>
+</html>
