@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>대한유화 (006650) 정리</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Pretendard','Apple SD Gothic Neo',-apple-system,sans-serif; background: #ffffff; color: #1a1d2e; line-height: 1.7; font-size: 14px; max-width: 900px; margin: 0 auto; padding: 32px 20px 80px; }
+  .header { border-left: 4px solid #2563eb; padding: 0 0 0 16px; margin-bottom: 24px; }
+  .header h1 { font-size: 20px; font-weight: 700; margin-bottom: 10px; color: #1a1d2e; }
+  .price-row { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin-top: 10px; }
+  .price-item { background: #f0f2f8; border: 1px solid #d0d4e0; border-radius: 6px; padding: 6px 14px; font-size: 13px; }
+  .price-item .label { color: #5a6280; font-size: 11px; display: block; }
+  .price-item .val { font-weight: 700; color: #1a1d2e; }
+  .upside-val { color: #059669; }
+  .tag-badge { display: inline-flex; align-items: center; gap: 6px; padding: 5px 14px; border-radius: 20px; font-size: 13px; font-weight: 700; }
+  .tag-watch { background: #fffbeb; color: #b45309; border: 1px solid #f59e0b; }
+  .score-badge { display: inline-block; padding: 5px 14px; border-radius: 20px; font-size: 13px; font-weight: 700; background: #f0f2f8; border: 1px solid #d0d4e0; color: #1a1d2e; }
+  .score-mid { color: #b45309; }
+  .pathway-badge { display: inline-flex; align-items: center; gap: 4px; padding: 3px 10px; border-radius: 12px; font-size: 11px; font-weight: 600; background: #f0f2f8; border: 1px solid #d0d4e0; color: #5a6280; }
+  section { margin-bottom: 28px; }
+  .section-title { font-size: 11px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: #5a6280; border-bottom: 1px solid #d0d4e0; padding-bottom: 6px; margin-bottom: 14px; }
+  .pdf-only-banner { background: #fff7ed; border: 1px solid #f97316; border-radius: 8px; padding: 10px 16px; font-size: 12px; color: #c2410c; margin-bottom: 20px; text-align: center; font-weight: 700; }
+  .thesis-box { background: #f8faff; border: 1px solid #2563eb; border-radius: 8px; padding: 16px 20px; font-size: 15px; font-weight: 600; line-height: 1.6; color: #1a1d2e; }
+  .thesis-structure { display: flex; gap: 8px; align-items: center; margin-top: 10px; flex-wrap: wrap; }
+  .thesis-part { background: #f0f2f8; border: 1px solid #d0d4e0; border-radius: 6px; padding: 4px 10px; font-size: 12px; color: #1a1d2e; }
+  .thesis-arrow { color: #2563eb; font-size: 16px; }
+  .checklist { background: #fafafa; border: 1px solid #d0d4e0; border-radius: 8px; overflow: hidden; }
+  .checklist-item { display: flex; gap: 14px; align-items: flex-start; padding: 12px 16px; border-bottom: 1px solid #d0d4e0; }
+  .checklist-item:last-child { border-bottom: none; }
+  .check-icon { width: 22px; height: 22px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; flex-shrink: 0; margin-top: 1px; }
+  .check-pass { background: #ecfdf5; color: #059669; border: 1px solid #34d399; }
+  .check-fail { background: #fef2f2; color: #dc2626; border: 1px solid #fca5a5; }
+  .check-label { font-weight: 600; font-size: 13px; color: #1a1d2e; }
+  .check-detail { color: #5a6280; font-size: 12px; margin-top: 2px; }
+  .check-why { color: #1a1d2e; font-size: 13px; }
+  table { width: 100%; border-collapse: collapse; background: #fafafa; border-radius: 8px; overflow: hidden; border: 1px solid #d0d4e0; }
+  thead tr { background: #f0f2f8; }
+  th { padding: 10px 14px; text-align: left; font-size: 11px; font-weight: 700; color: #5a6280; letter-spacing: 0.8px; text-transform: uppercase; }
+  td { padding: 10px 14px; border-top: 1px solid #d0d4e0; font-size: 13px; color: #1a1d2e; }
+  tr.total-row td { background: #e8ecf5; font-weight: 700; }
+  .penalty { color: #dc2626; }
+  .highlight-green { color: #059669; font-weight: 700; }
+  .chain-box { background: #fafafa; border: 1px solid #d0d4e0; border-radius: 8px; padding: 16px 20px; }
+  .chain-step { display: flex; gap: 12px; align-items: flex-start; margin-bottom: 10px; }
+  .chain-step:last-child { margin-bottom: 0; }
+  .chain-arrow { color: #2563eb; font-size: 16px; flex-shrink: 0; margin-top: 1px; }
+  .chain-content { flex: 1; }
+  .chain-label { font-size: 10px; font-weight: 700; letter-spacing: 1px; color: #5a6280; text-transform: uppercase; margin-bottom: 2px; }
+  .chain-text { font-size: 13px; color: #1a1d2e; }
+  .chain-confirmed { color: #059669; font-size: 11px; margin-left: 6px; }
+  .chain-forecast { color: #b45309; font-size: 11px; margin-left: 6px; }
+  .fact-item { background: #fafafa; border: 1px solid #d0d4e0; border-radius: 8px; padding: 14px 16px; margin-bottom: 8px; }
+  .fact-item:last-child { margin-bottom: 0; }
+  .fact-num { font-size: 10px; font-weight: 700; color: #2563eb; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 8px; display: block; }
+  .fact-what { font-weight: 600; font-size: 14px; margin-bottom: 6px; color: #1a1d2e; }
+  .fact-why { font-size: 13px; color: #5a6280; margin-bottom: 6px; }
+  .fact-so { font-size: 13px; color: #059669; }
+  .fact-label { display: inline-block; font-size: 10px; font-weight: 700; padding: 1px 6px; border-radius: 3px; margin-right: 4px; }
+  .label-what { background: #eff6ff; color: #1d4ed8; }
+  .label-why { background: #fff7ed; color: #ea580c; }
+  .label-so { background: #ecfdf5; color: #059669; }
+  .data-table th { background: #e8ecf5; }
+  .data-table td.key-col { background: #f0f6ff; }
+  .data-table .key-num { color: #059669; font-weight: 700; }
+  .data-table .key-opm { color: #b45309; }
+  caption { font-size: 11px; color: #5a6280; text-align: left; padding: 0 0 8px; caption-side: top; }
+  .val-box { background: #fafafa; border: 1px solid #d0d4e0; border-radius: 8px; padding: 16px 20px; font-size: 13px; line-height: 2; color: #1a1d2e; }
+  .val-formula { background: #f0f2f8; border-radius: 6px; padding: 10px 14px; font-family: monospace; font-size: 13px; margin: 10px 0; color: #b45309; }
+  .risk-item { background: #fafafa; border-radius: 0 6px 6px 0; padding: 14px 16px; margin-bottom: 10px; }
+  .risk-item:last-child { margin-bottom: 0; }
+  .risk-sev-high { border-left: 3px solid #dc2626; }
+  .risk-sev-mid { border-left: 3px solid #ea580c; }
+  .risk-assumption { font-weight: 600; font-size: 13px; margin-bottom: 4px; color: #1a1d2e; }
+  .risk-chain { font-size: 12px; color: #5a6280; margin: 4px 0; }
+  .risk-impact-num { font-size: 13px; color: #dc2626; font-weight: 600; margin-top: 4px; }
+  .checkpoint-item { display: flex; gap: 12px; padding: 10px 0; border-bottom: 1px solid #d0d4e0; font-size: 13px; }
+  .checkpoint-item:last-child { border-bottom: none; }
+  .cp-date { color: #2563eb; font-weight: 600; min-width: 90px; flex-shrink: 0; }
+  .cp-event { flex: 1; color: #1a1d2e; }
+  .cp-pass { color: #059669; font-size: 12px; margin-top: 2px; }
+  .cp-fail { color: #dc2626; font-size: 12px; margin-top: 2px; }
+  .opinion-box { background: #fafafa; border: 1px solid #d0d4e0; border-radius: 8px; padding: 16px 20px; font-size: 13px; line-height: 1.8; color: #5a6280; }
+  .decision-box { display: flex; gap: 14px; margin-top: 14px; }
+  .decision-btn { flex: 1; text-align: center; padding: 10px; border-radius: 6px; font-weight: 700; font-size: 13px; border: 1px solid; }
+  .decision-buy { background: #ecfdf5; color: #059669; border-color: #34d399; }
+  .decision-wait { background: #fffbeb; color: #b45309; border-color: #f59e0b; }
+  .decision-avoid { background: #fef2f2; color: #dc2626; border-color: #fca5a5; }
+  .decision-dim { opacity: 0.3; }
+  .upgrade-box { background: #eff6ff; border: 1px solid #93c5fd; border-radius: 8px; padding: 14px 16px; }
+  .upgrade-item { display: flex; gap: 10px; padding: 6px 0; border-bottom: 1px solid #dbeafe; font-size: 13px; color: #1a1d2e; }
+  .upgrade-item:last-child { border-bottom: none; }
+  .upgrade-when { color: #1d4ed8; font-weight: 600; min-width: 140px; flex-shrink: 0; }
+  .disclaimer { font-size: 11px; color: #9ca3af; text-align: center; margin-top: 40px; padding-top: 16px; border-top: 1px solid #d0d4e0; }
+</style>
+</head>
+<body>
+
+<div class="pdf-only-banner">
+  외부 검색 절대 금지 — 제공된 PDF 파일만 활용 | 당일 발간 리포트 기준 투자 종목 발굴 전용
+</div>
+
+<!-- A. 헤더 -->
+<header class="header">
+  <h1>대한유화 (006650) | 컨센 대폭 상회 예상 | 하나증권 에너지/화학팀 | 발간일: 2026.04.17</h1>
+  <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-bottom:12px;">
+    <span class="tag-badge tag-watch">🔥 주목</span>
+    <span class="score-badge score-mid">📊 50점</span>
+    <span style="font-size:12px;color:#5a6280;">비바이오</span>
+    <span class="pathway-badge">경로 ③BEP돌파</span>
+  </div>
+  <div class="price-row">
+    <div class="price-item"><span class="label">투자의견</span><span class="val">Buy(유지)</span></div>
+    <div class="price-item"><span class="label">목표주가(TP)</span><span class="val">200,000원</span></div>
+    <div class="price-item"><span class="label">현재주가(CP)</span><span class="val">154,000원</span></div>
+    <div class="price-item"><span class="label">Upside</span><span class="val upside-val">+29.9%</span></div>
+    <div class="price-item"><span class="label">시가총액</span><span class="val">-</span></div>
+    <div class="price-item"><span class="label">종목 유형</span><span class="val">비바이오</span></div>
+  </div>
+</header>
+
+<!-- B. 한줄 투자 이유 -->
+<section>
+  <div class="section-title">이 종목에 투자해야 하는 이유 — 스토리 한 줄</div>
+  <div class="thesis-box">
+    에틸렌/BD(부타디엔) 가격 급등에 따른 래깅(시차) 효과(확정)로 1Q26 OP(영업이익) 컨센서스 112% 상회,
+    26E OP +372%(248.8십억원), OPM(영업이익률) -2.1%→6.6%(+8.7%p)로 적자→흑자 전환하는데,
+    시장은 아직 시클리컬(경기순환주) 반등을 충분히 반영하지 않아 Upside 29.9%
+  </div>
+  <div class="thesis-structure">
+    <div class="thesis-part" style="color:#059669;">① 에틸렌/BD 가격 급등 래깅 효과 확정(●●●)</div>
+    <div class="thesis-arrow">→</div>
+    <div class="thesis-part" style="color:#b45309;">② OP +372%, OPM -2.1%→6.6%(+8.7%p)</div>
+    <div class="thesis-arrow">→</div>
+    <div class="thesis-part" style="color:#2563eb;">③ 컨센 OP 112% 상회, Upside 29.9%</div>
+  </div>
+</section>
+
+<!-- C. 핵심 5조건 체크 -->
+<section>
+  <div class="section-title">핵심 태그 5가지 조건 체크 (5개 모두 통과해야 핵심 이상 가능)</div>
+  <div class="checklist">
+    <div class="checklist-item">
+      <div class="check-icon check-pass">✓</div>
+      <div>
+        <div class="check-label">조건 1 | 영업이익 성장 임계값</div>
+        <div class="check-detail">향후 1년 OP +50%+ AND (OPM +3%p+ OR OPM 15%+ 유지)</div>
+        <div class="check-why">26E OP 248.8십억원(+372% YoY), OPM -2.1%→6.6%(+8.7%p) → 통과</div>
+      </div>
+    </div>
+    <div class="checklist-item">
+      <div class="check-icon check-fail">✗</div>
+      <div>
+        <div class="check-label">조건 2 | 3년 지속성 (3개 이상 충족)</div>
+        <div class="check-detail">수주잔고 / CAPA 확대 / 독점·특허 / Lock-in / CAGR 15%+ 등</div>
+        <div class="check-why">시클리컬(경기순환) 반등 — 에틸렌/BD 가격은 수급에 따라 변동. ① NCC 가동률 조정(●●○) 1개만 충족 → 미달</div>
+      </div>
+    </div>
+    <div class="checklist-item">
+      <div class="check-icon check-fail">✗</div>
+      <div>
+        <div class="check-label">조건 3 | 확정 팩트(●●●) 2개 이상</div>
+        <div class="check-detail">●●● = 수주확정·인허가·실적 확인 / ●●○ 4개 = 충족</div>
+        <div class="check-why">●●● 에틸렌/BD 가격 급등 확인 1개, ●●○ 래깅효과 전망 1개 → ●●● 1개만 → 미달</div>
+      </div>
+    </div>
+    <div class="checklist-item">
+      <div class="check-icon check-pass">✓</div>
+      <div>
+        <div class="check-label">조건 4 | 시장 미반영 (둘 중 하나)</div>
+        <div class="check-detail">Upside 40%+ OR 컨센서스 대비 추정치 +20%+ 괴리</div>
+        <div class="check-why">1Q26 OP 컨센 43.5십억원 → 당사 추정 92.1십억원 = 컨센 괴리 +112% → 통과</div>
+      </div>
+    </div>
+    <div class="checklist-item">
+      <div class="check-icon check-pass">✓</div>
+      <div>
+        <div class="check-label">조건 5 | 이 리포트만의 차별화된 시각</div>
+        <div class="check-detail">모든 증권사 동일 논리면 주목. 고유 근거 필수</div>
+        <div class="check-why">중동 전쟁에 따른 정유/석유화학 설비 타격 4%+ → 에너지 안보 관점의 공급 축소 논리 차별화 → 통과</div>
+      </div>
+    </div>
+  </div>
+  <p style="font-size:11px;color:#dc2626;margin-top:8px;padding:0 4px;">
+    조건 2,3 미충족 → 핵심 불가 → 🔥주목 확정. 시클리컬 반등의 구조적 한계.
+  </p>
+</section>
+
+<!-- D. 투자 점수 (비바이오) -->
+<section>
+  <div class="section-title">투자 점수 판정 (v2.0 비바이오) — 모든 근거 칸 필수 기재</div>
+  <table>
+    <thead><tr><th>항목</th><th>판정</th><th>근거 (Why)</th></tr></thead>
+    <tbody>
+      <tr><td>종목 유형</td><td>비바이오</td><td>석유화학 — 에틸렌/PE/PP/BD 생산, NCC 보유</td></tr>
+      <tr><td>적용 가설</td><td>가설 3</td><td>24~25년 적자/저성장 → 26년 에틸렌/BD 가격 급등 촉매로 흑전. 아직 고성장 확인 전(1Q26 프리뷰 단계)</td></tr>
+      <tr><td>촉매 등급</td><td>중급</td><td>어닝 서프라이즈(컨센 초과율) 112% → 50%+ 상급 요건 충족이나, 시클리컬 래깅 특성상 지속성 불확실 → 중급 적용</td></tr>
+      <tr><td>복합 여부</td><td>복합</td><td>① 에틸렌/BD 가격 급등(래깅) + ② 중동 전쟁 공급차질 → 2개 촉매 동시 작동</td></tr>
+      <tr><td>직접성</td><td>직접</td><td>에틸렌/BD 가격 → NCC 석유화학 주력 매출 직결</td></tr>
+      <tr><td>매트릭스 기본 점수</td><td>60점</td><td>가설3 × 중급 × 복합 = 60점</td></tr>
+      <tr><td>페널티 ①</td><td class="penalty">-10점</td><td>잠재수주 미확정 30%+ — 하반기 에틸렌/BD 가격 방향성 불확실, 26E 연간 OP의 30%+ 가격 변동 의존</td></tr>
+      <tr class="total-row"><td>최종 투자 점수</td><td><span class="highlight-green">50점</span></td><td>주목 최소 40점 충족. 핵심 5조건 미달(조건2,3)로 태그는 주목 유지.</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<!-- E. 성장 인과 체인 -->
+<section>
+  <div class="section-title">성장 인과 체인 — 왜 성장하는가 (각 단계에 수치 필수)</div>
+  <div class="chain-box">
+    <div class="chain-step">
+      <div class="chain-arrow">①</div>
+      <div class="chain-content">
+        <div class="chain-label">구조 변화 / 촉매 <span class="chain-confirmed">●●● 확정 팩트</span></div>
+        <div class="chain-text">에틸렌/BD(부타디엔) 가격 급등 확인(●●●) + 중동 전쟁 정제설비 타격 4%+(●●○). NCC 가동률 3월부터 조정 시작</div>
+      </div>
+    </div>
+    <div class="chain-step">
+      <div class="chain-arrow">↓</div>
+      <div class="chain-content">
+        <div class="chain-label">매출 영향 (규모·비중 수치)</div>
+        <div class="chain-text">석유화학 매출: 25A 2,828.7십억원 → 26F 2,937.6십억원(+3.8%). 래깅 효과로 원가 투입 시점과 제품 판가 반영 시점 차이 → 스프레드(마진) 대폭 확대</div>
+      </div>
+    </div>
+    <div class="chain-step">
+      <div class="chain-arrow">↓</div>
+      <div class="chain-content">
+        <div class="chain-label">OPM 변화 메커니즘 (왜 마진이 오르는가)</div>
+        <div class="chain-text">석유화학 OPM: 25A -9.23% → 1Q26F 9.5%. 래깅(시차) 효과 = 원료(나프타) 투입가는 이전 저점 기준, 제품(PE/PP/BD) 판가는 현재 급등 가격 반영 → 스프레드 극대화. 1Q26 석유화학 부문 OP 71.0십억원(흑전)</div>
+      </div>
+    </div>
+    <div class="chain-step">
+      <div class="chain-arrow">↓</div>
+      <div class="chain-content">
+        <div class="chain-label">최종 실적 결과 <span class="chain-forecast">●●○ 추정</span></div>
+        <div class="chain-text">26E OP 248.8십억원(전년 52.7→+372%), OPM 6.6%(+8.7%p). 1Q26 OP 92.1십억원으로 연간 추정의 37% 달성</div>
+      </div>
+    </div>
+    <div class="chain-step">
+      <div class="chain-arrow">↓</div>
+      <div class="chain-content">
+        <div class="chain-label">시장 미반영 포인트 (So What)</div>
+        <div class="chain-text">시장 컨센 OP 43.5십억원 → 당사 92.1십억원(+112% 괴리). PER(주가수익비율) 26E 8.9배로 역사적 밴드 하단. 중동 전쟁 장기화 시 공급 축소 추가 가능</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- F. 핵심 팩트 3줄 -->
+<section>
+  <div class="section-title">핵심 팩트 3줄 — WHAT(숫자) + WHY(원인) + SO WHAT(의미) 3요소 필수</div>
+  <div class="fact-item">
+    <span class="fact-num">Fact 01 — 실적 서프라이즈</span>
+    <div class="fact-what"><span class="fact-label label-what">WHAT</span>1Q26 OP 92.1십억원, 컨센서스(시장 평균 전망) 43.5십억원 대비 +112% 상회. OPM 9.5%</div>
+    <div class="fact-why"><span class="fact-label label-why">WHY</span>에틸렌/BD 가격 급등에 따른 래깅(시차) 효과 본격 작동. PE/PP, 아로마틱 등 전 제품군 컨센 상회. NCC 가동률 3월부터 조정 시작으로 공급 축소 효과 병행</div>
+    <div class="fact-so"><span class="fact-label label-so">SO WHAT</span>시장이 아직 반영하지 못한 극단적 어닝 서프라이즈 — 컨센 상향 조정 시 주가 리레이팅(재평가) 촉매</div>
+  </div>
+  <div class="fact-item">
+    <span class="fact-num">Fact 02 — 연간 실적 턴어라운드</span>
+    <div class="fact-what"><span class="fact-label label-what">WHAT</span>26E OP 248.8십억원(+372% YoY), OPM -2.1%→6.6%(+8.7%p). EPS(주당순이익) 17,219원 vs 25A 4,878원(+253%)</div>
+    <div class="fact-why"><span class="fact-label label-why">WHY</span>석유화학 부문: 25A OP -65.1십억원 → 26F OP 176.2십억원(흑전). 한주(자회사) OP 64.4십억원 안정 유지. 산업용 가스 OP 7.6십억원 소폭 개선</div>
+    <div class="fact-so"><span class="fact-label label-so">SO WHAT</span>적자→흑자 전환 구간은 주가 탄력이 가장 큰 시점. 26E PER 8.9배는 역사적 밴드 하단으로 밸류에이션 매력 존재</div>
+  </div>
+  <div class="fact-item">
+    <span class="fact-num">Fact 03 — 중동 전쟁 공급 차질</span>
+    <div class="fact-what"><span class="fact-label label-what">WHAT</span>중동 정제설비 타격 규모 글로벌 4%+ 이상 추정. 에너지 안보 시대 → 산유국이 석유제품 공급 적극 요청</div>
+    <div class="fact-why"><span class="fact-label label-why">WHY</span>중동/러시아 전쟁 → 정유/석유화학 공급 타이트. 업황이 기존 전망 대비 긍정적으로 업사이드 존재. 정유사업 가치 부각</div>
+    <div class="fact-so"><span class="fact-label label-so">SO WHAT</span>공급 차질 장기화 시 래깅 효과 + 스프레드 유지 기간 연장 → 26E~27E 실적 상향 가능성. 다만 전쟁 종료 시 되돌림 리스크</div>
+  </div>
+</section>
+
+<!-- F-2. 원본 리포트 핵심 요약 -->
+<section>
+  <div class="section-title">원본 리포트 핵심 요약 — PDF 내용 직접 발췌 (외부 정보 추가 금지)</div>
+  <div style="background:#fafafa;border:1px solid #d0d4e0;border-radius:8px;padding:16px 20px;margin-bottom:12px;">
+    <div style="font-size:11px;font-weight:700;letter-spacing:1px;color:#5a6280;text-transform:uppercase;margin-bottom:10px;">리포트 핵심 주장 (애널리스트 관점 요약)</div>
+    <p style="font-size:13px;line-height:1.9;">1Q26 OP 92.1십억원으로 컨센(43.5십억원) 112% 상회 전망. 에틸렌/BD 급등 래깅 효과와 PE/PP/아로마틱 전 제품 컨센 상회. 2Q26에도 OP 93.3십억원(QoQ +1%, YoY 흑전)으로 견조. 중동 정제설비 타격으로 업황 우호적.</p>
+    <div style="margin-top:10px;display:flex;gap:8px;flex-wrap:wrap;">
+      <div style="background:#f0f2f8;border:1px solid #d0d4e0;border-radius:6px;padding:6px 12px;font-size:12px;">
+        <span style="color:#5a6280;font-size:10px;display:block;margin-bottom:2px;">이전 대비 변화 포인트</span>
+        26E OP 추정치 상향: 변경전 215.4 → 변경후 248.8십억원(+15.5%)
+      </div>
+      <div style="background:#f0f2f8;border:1px solid #d0d4e0;border-radius:6px;padding:6px 12px;font-size:12px;">
+        <span style="color:#5a6280;font-size:10px;display:block;margin-bottom:2px;">컨센서스 대비</span>
+        1Q26 OP +112% 상회
+      </div>
+    </div>
+  </div>
+  <div style="background:#fafafa;border:1px solid #d0d4e0;border-radius:8px;padding:16px 20px;margin-bottom:12px;">
+    <div style="font-size:11px;font-weight:700;letter-spacing:1px;color:#5a6280;text-transform:uppercase;margin-bottom:10px;">사업 구조 & 성장 동력</div>
+    <table style="margin:0;">
+      <thead><tr><th style="width:25%;">사업부</th><th style="width:20%;">매출 비중</th><th style="width:55%;">핵심 성장 드라이버 (Why 포함)</th></tr></thead>
+      <tbody>
+        <tr><td>석유화학</td><td>~78%</td><td>에틸렌/BD 래깅 효과로 스프레드 극대화 → OP -65.1→176.2십억원(흑전). NCC 가동률 조정으로 공급 축소</td></tr>
+        <tr><td>한주(자회사)</td><td>~22%</td><td>한주 OP 67.9→64.4십억원(안정 유지). 정유/윤활기유 사업 안정적 수익</td></tr>
+        <tr><td>산업용 가스</td><td>~2%</td><td>OP 7.5→7.6십억원(소폭 성장). 안정적 캐시카우</td></tr>
+      </tbody>
+    </table>
+    <p style="font-size:12px;color:#5a6280;margin-top:10px;">▶ 핵심 성장 메커니즘: 에틸렌/BD 가격 급등 시 래깅 효과로 원가(과거 저가 나프타)와 판가(현재 고가 제품) 시차 → 스프레드(마진) 극대화 → 석유화학 부문 흑전</p>
+  </div>
+  <div style="background:#fafafa;border:1px solid #d0d4e0;border-radius:8px;padding:16px 20px;margin-bottom:12px;">
+    <div style="font-size:11px;font-weight:700;letter-spacing:1px;color:#5a6280;text-transform:uppercase;margin-bottom:10px;">시장 괴리 — 왜 지금 시장이 틀렸는가</div>
+    <table style="margin:0;">
+      <thead><tr><th style="width:30%;">구분</th><th>내용</th></tr></thead>
+      <tbody>
+        <tr><td style="color:#5a6280;">시장 현재 인식</td><td>1Q26 OP 43.5십억원 수준의 완만한 회복 예상. 시클리컬 반등의 지속성 회의적</td></tr>
+        <tr><td style="color:#2563eb;">이 리포트 주장</td><td>래깅 효과가 시장 예상보다 훨씬 강하게 작동 중. OP 92.1십억원(+112%). 중동 전쟁으로 공급 타이트 추가</td></tr>
+        <tr><td style="color:#b45309;">괴리 해소 촉매</td><td>1Q26 실적 발표(2026.05) + 중동 전쟁 장기화 뉴스</td></tr>
+        <tr><td>괴리 강도</td><td><span style="color:#059669;font-weight:700;">강</span> (컨센 112% 괴리)</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div style="background:#fafafa;border:1px solid #d0d4e0;border-radius:8px;padding:16px 20px;">
+    <div style="font-size:11px;font-weight:700;letter-spacing:1px;color:#5a6280;text-transform:uppercase;margin-bottom:10px;">재무 특징 (PDF에 있는 경우만)</div>
+    <div style="display:flex;flex-wrap:wrap;gap:8px;">
+      <div style="background:#f0f2f8;border:1px solid #d0d4e0;border-radius:6px;padding:8px 12px;font-size:12px;flex:1;min-width:160px;"><span style="color:#5a6280;font-size:10px;display:block;margin-bottom:2px;">순현금/순차입금</span>26E 순차입금 -345.2십억원</div>
+      <div style="background:#f0f2f8;border:1px solid #d0d4e0;border-radius:6px;padding:8px 12px;font-size:12px;flex:1;min-width:160px;"><span style="color:#5a6280;font-size:10px;display:block;margin-bottom:2px;">부채비율</span>26E 27.94%</div>
+      <div style="background:#f0f2f8;border:1px solid #d0d4e0;border-radius:6px;padding:8px 12px;font-size:12px;flex:1;min-width:160px;"><span style="color:#5a6280;font-size:10px;display:block;margin-bottom:2px;">배당·자사주</span>DPS 1,300원, 배당수익률 2.25%(26E)</div>
+      <div style="background:#f0f2f8;border:1px solid #d0d4e0;border-radius:6px;padding:8px 12px;font-size:12px;flex:1;min-width:160px;"><span style="color:#5a6280;font-size:10px;display:block;margin-bottom:2px;">특이 재무 이슈</span>FCF 26E 186.7십억원(양호)</div>
+    </div>
+  </div>
+</section>
+
+<!-- G. 실적 전망 (연간) -->
+<section>
+  <div class="section-title">실적 전망 (연간) — PDF 원문 수치만 기재, 추정 금지</div>
+  <table class="data-table">
+    <caption>단위: 십억원 — PDF 단위 확인 완료 | ★ = 투자 핵심 연도</caption>
+    <thead>
+      <tr><th>구분</th><th>2024A</th><th>2025A</th><th style="background:#dbeafe;color:#1e40af;font-weight:700;">2026E ★</th><th>2027E</th><th>2028E</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>매출액</td><td>2,800.1</td><td>3,347.8</td><td class="key-col key-num">3,779.7</td><td>3,156.5</td><td>3,144.1</td></tr>
+      <tr><td>YoY(%)</td><td>-</td><td>+19.6%</td><td class="key-col">+12.9%</td><td>-16.5%</td><td>-0.4%</td></tr>
+      <tr><td>영업이익</td><td>-59.9</td><td>52.7</td><td class="key-col key-num">248.8</td><td>226.8</td><td>249.1</td></tr>
+      <tr><td>YoY(%)</td><td>적자</td><td>흑전</td><td class="key-col key-num">+372%</td><td>-8.8%</td><td>+9.8%</td></tr>
+      <tr><td>OPM(%)</td><td>-2.1%</td><td>1.6%</td><td class="key-col key-opm">6.6%</td><td>7.2%</td><td>7.9%</td></tr>
+      <tr><td>EPS(원)</td><td>-1,312</td><td>4,878</td><td class="key-col">17,219</td><td>16,541</td><td>18,896</td></tr>
+      <tr><td>PER(배)</td><td>-</td><td>29.68</td><td class="key-col">8.94</td><td>9.31</td><td>8.15</td></tr>
+      <tr><td>PBR(배)</td><td>0.28</td><td>0.51</td><td class="key-col">0.52</td><td>0.49</td><td>0.46</td></tr>
+      <tr><td>ROE(%)</td><td>-0.47%</td><td>1.74%</td><td class="key-col">5.93%</td><td>5.41%</td><td>5.86%</td></tr>
+    </tbody>
+  </table>
+  <p style="font-size:12px;color:#5a6280;margin-top:10px;padding:0 4px;">
+    ▶ 왜 26E가 변곡점인가: 에틸렌/BD 래깅 효과가 1Q26에 집중적으로 발현되며 석유화학 부문이 적자→흑전. 24~25년 2년간의 업황 부진에서 벗어나 OPM이 6.6%로 정상화되는 첫 해.
+  </p>
+</section>
+
+<!-- H. 분기별 실적 -->
+<section>
+  <div class="section-title">분기별 실적 전망 — PDF에 있으면 반드시 기재</div>
+  <table class="data-table">
+    <thead>
+      <tr><th>구분</th><th>1Q25</th><th>2Q25</th><th>3Q25</th><th>4Q25</th><th style="background:#dbeafe;color:#1e40af;font-weight:700;">1Q26F ★</th><th>2Q26F</th><th>3Q26F</th><th>4Q26F</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>매출액</td><td>741.6</td><td>846.8</td><td>909.9</td><td>849.5</td><td class="key-col key-num">967.4</td><td>1,057.6</td><td>861.9</td><td>892.8</td></tr>
+      <tr><td>영업이익</td><td>-9.9</td><td>-4.6</td><td>42.8</td><td>25.0</td><td class="key-col key-num">92.1</td><td>93.3</td><td>38.4</td><td>25.0</td></tr>
+      <tr><td>OPM(%)</td><td>-1.3%</td><td>-0.5%</td><td>4.7%</td><td>2.9%</td><td class="key-col key-opm">9.5%</td><td>8.8%</td><td>4.5%</td><td>2.8%</td></tr>
+    </tbody>
+  </table>
+  <p style="font-size:12px;color:#5a6280;margin-top:10px;padding:0 4px;">
+    ▶ 1Q26 주목 포인트: 래깅 효과의 강도를 확인하는 분기. OPM 9.5% 달성 여부가 핵심.<br/>
+    ✅ OPM 8%+ 확인 시 → 연간 OP 상향 가능성, 주가 리레이팅 기대<br/>
+    ⛔ OPM 5% 미만 시 → 래깅 효과 약화, 하반기 실적 하향 조정 우려
+  </p>
+</section>
+
+<!-- I. 밸류에이션 -->
+<section>
+  <div class="section-title">밸류에이션 — 왜 이 배수인가 1문장 필수</div>
+  <div class="val-box">
+    <div class="val-formula">BUY, TP 200,000원 유지. 국내외 비교기업군(에너지인프라·방산) PER 고려 및 NCC 고성장세·고수익 업종 감안</div>
+    <p style="color:#5a6280;font-size:12px;margin-top:8px;">▶ 왜 이 배수인가: 시클리컬 턴어라운드 구간에서 12MF PER 밴드(과거 5.0~25.0배) 중하단 적용. 26E PER 8.9배는 업황 회복기 평균 대비 저평가</p>
+    <p style="color:#5a6280;font-size:12px;margin-top:4px;">▶ 12M Fwd PBR: 0.2~1.0배 밴드에서 현재 0.5배 수준 → 중하단</p>
+  </div>
+</section>
+
+<!-- J. 리스크 -->
+<section>
+  <div class="section-title">리스크 — 핵심 가정이 틀릴 경우 시나리오 (키워드 나열 금지)</div>
+  <div class="risk-item risk-sev-high">
+    <div class="risk-assumption">🔴 핵심 가정: 에틸렌/BD 가격 급등 및 래깅 효과 지속</div>
+    <div class="risk-chain" style="margin-top:6px;">→ 붕괴 시: 에틸렌/BD 가격 급락 또는 원료(나프타) 가격 동시 급등으로 스프레드 축소<br/>→ 실적 영향: 26E OP 248.8십억원 → 150십억원(-40%) 하향 가능</div>
+    <div class="risk-impact-num">→ 주가 영향: TP 200,000원 → 140,000원(-30%), 현재가 대비 -9%</div>
+  </div>
+  <div class="risk-item risk-sev-mid">
+    <div class="risk-assumption">🟠 두 번째 가정: 중동 전쟁 조기 종료로 공급 정상화</div>
+    <div class="risk-chain" style="margin-top:6px;">→ 붕괴 시: 글로벌 정유/석유화학 설비 정상 가동 → 공급 과잉 복귀 → 에틸렌 스프레드 축소<br/>→ 실적: 하반기 OP 대폭 하향, 연간 OP 200십억원 수준</div>
+    <div class="risk-impact-num">→ 주가 영향: 시클리컬 디스카운트 재발, TP 170,000원(-15%)</div>
+  </div>
+</section>
+
+<!-- K. 체크포인트 -->
+<section>
+  <div class="section-title">모멘텀 확인 체크포인트 — 확인/실망 시 행동 명시</div>
+  <div style="background:#fafafa;border:1px solid #d0d4e0;border-radius:8px;padding:4px 16px;">
+    <div class="checkpoint-item">
+      <span class="cp-date">2026.05</span>
+      <div>
+        <div class="cp-event">1Q26 실적 발표</div>
+        <div class="cp-pass">✅ OP 80십억원+ / OPM 8%+ 확인 시 → 비중 확대, 연간 OP 상향 근거</div>
+        <div class="cp-fail">⛔ OP 50십억원 미만 시 → 래깅 효과 약화 판단, 비중 축소</div>
+      </div>
+    </div>
+    <div class="checkpoint-item">
+      <span class="cp-date">2026.08</span>
+      <div>
+        <div class="cp-event">2Q26 실적 + 하반기 에틸렌 스프레드 추이</div>
+        <div class="cp-pass">✅ 2Q26 OP 80십억원+ 유지 시 → 지속성 확인, ⭐핵심 승격 검토</div>
+        <div class="cp-fail">⛔ OPM 급락 시 → 시클리컬 피크아웃 판단, 포지션 정리</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- L. 사견 & 결론 -->
+<section>
+  <div class="section-title">사견 & 투자 행동 결론</div>
+  <div class="opinion-box">
+    <p>컨센 대비 극단적 괴리(+112%)는 매력적이나, 시클리컬 래깅 효과의 본질상 지속성 담보가 어렵다. 에틸렌/BD 가격은 수급 변동에 민감하며, 중동 전쟁 종료 시 급격한 되돌림 가능. 27E OP 226.8십억원(-8.8%)으로 이미 감소 전환 예상. 핵심으로 승격하려면 2Q26에서도 OP 80십억원+ 유지 확인이 필요. 현 시점에서는 1Q26 실적 발표 후 진입이 리스크-리워드 최적.</p>
+    <div class="decision-box">
+      <div class="decision-btn decision-buy decision-dim">✅ 지금 진입 가능<br/><span style="font-size:11px;font-weight:400;">핵심+ & 60점+</span></div>
+      <div class="decision-btn decision-wait">⏳ 이벤트 후 진입<br/><span style="font-size:11px;font-weight:400;">1Q26 실적 확인 후</span></div>
+      <div class="decision-btn decision-avoid decision-dim">🚫 관망<br/><span style="font-size:11px;font-weight:400;">-</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- M. 승격 조건 (주목 전용) -->
+<section>
+  <div class="section-title">승격 조건 — 주목 종목 전용</div>
+  <div class="upgrade-box">
+    <div class="upgrade-item">
+      <span class="upgrade-when">2026.2Q 실적 확인</span>
+      <span>OPM 8%+ 2분기 연속 유지 + 에틸렌 스프레드 견조 시 → ⭐ 핵심 승격</span>
+    </div>
+    <div class="upgrade-item">
+      <span class="upgrade-when">중동 공급차질 장기화</span>
+      <span>정제설비 복구 지연 + NCC 가동률 추가 조정 시 → 3년 지속성 근거 확보 → ⭐ 핵심 승격</span>
+    </div>
+  </div>
+</section>
+
+<div class="disclaimer">
+  ※ 본 글은 증권사 리포트를 개인 학습 목적으로 요약·정리한 것이며, 투자 권유가 아닙니다.<br/>
+  ※ 제공된 PDF 파일만 활용. 외부 검색·참조 없음. 당일 발간 리포트 기준.
+</div>
+
+</body>
+</html>

@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BNK금융지주 (138930) 정리</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Pretendard','Apple SD Gothic Neo',-apple-system,sans-serif; background: #ffffff; color: #1a1d2e; line-height: 1.7; font-size: 14px; max-width: 900px; margin: 0 auto; padding: 32px 20px 80px; }
+  .header { border-left: 4px solid #2563eb; padding: 0 0 0 16px; margin-bottom: 24px; }
+  .header h1 { font-size: 20px; font-weight: 700; margin-bottom: 10px; color: #1a1d2e; }
+  .price-row { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin-top: 10px; }
+  .price-item { background: #f0f2f8; border: 1px solid #d0d4e0; border-radius: 6px; padding: 6px 14px; font-size: 13px; }
+  .price-item .label { color: #5a6280; font-size: 11px; display: block; }
+  .price-item .val { font-weight: 700; color: #1a1d2e; }
+  .upside-val { color: #059669; }
+  .tag-badge { display: inline-flex; align-items: center; gap: 6px; padding: 5px 14px; border-radius: 20px; font-size: 13px; font-weight: 700; }
+  .tag-stable { background: #ecfdf5; color: #059669; border: 1px solid #34d399; }
+  .score-badge { display: inline-block; padding: 5px 14px; border-radius: 20px; font-size: 13px; font-weight: 700; background: #f0f2f8; border: 1px solid #d0d4e0; color: #1a1d2e; }
+  section { margin-bottom: 28px; }
+  .section-title { font-size: 11px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: #5a6280; border-bottom: 1px solid #d0d4e0; padding-bottom: 6px; margin-bottom: 14px; }
+  .pdf-only-banner { background: #fff7ed; border: 1px solid #f97316; border-radius: 8px; padding: 10px 16px; font-size: 12px; color: #c2410c; margin-bottom: 20px; text-align: center; font-weight: 700; }
+  .thesis-box { background: #f8faff; border: 1px solid #2563eb; border-radius: 8px; padding: 16px 20px; font-size: 15px; font-weight: 600; line-height: 1.6; color: #1a1d2e; }
+  .fact-item { background: #fafafa; border: 1px solid #d0d4e0; border-radius: 8px; padding: 14px 16px; margin-bottom: 8px; }
+  .fact-item:last-child { margin-bottom: 0; }
+  .fact-num { font-size: 10px; font-weight: 700; color: #2563eb; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 8px; display: block; }
+  .fact-what { font-weight: 600; font-size: 14px; margin-bottom: 6px; color: #1a1d2e; }
+  .fact-why { font-size: 13px; color: #5a6280; margin-bottom: 6px; }
+  .fact-so { font-size: 13px; color: #059669; }
+  .fact-label { display: inline-block; font-size: 10px; font-weight: 700; padding: 1px 6px; border-radius: 3px; margin-right: 4px; }
+  .label-what { background: #eff6ff; color: #1d4ed8; }
+  .label-why { background: #fff7ed; color: #ea580c; }
+  .label-so { background: #ecfdf5; color: #059669; }
+  table { width: 100%; border-collapse: collapse; background: #fafafa; border-radius: 8px; overflow: hidden; border: 1px solid #d0d4e0; }
+  thead tr { background: #f0f2f8; }
+  th { padding: 10px 14px; text-align: left; font-size: 11px; font-weight: 700; color: #5a6280; letter-spacing: 0.8px; text-transform: uppercase; }
+  td { padding: 10px 14px; border-top: 1px solid #d0d4e0; font-size: 13px; color: #1a1d2e; }
+  .data-table th { background: #e8ecf5; }
+  .data-table td.key-col { background: #f0f6ff; }
+  .data-table .key-num { color: #059669; font-weight: 700; }
+  .data-table .key-opm { color: #b45309; }
+  caption { font-size: 11px; color: #5a6280; text-align: left; padding: 0 0 8px; caption-side: top; }
+  .opinion-box { background: #fafafa; border: 1px solid #d0d4e0; border-radius: 8px; padding: 16px 20px; font-size: 13px; line-height: 1.8; color: #5a6280; }
+  .decision-box { display: flex; gap: 14px; margin-top: 14px; }
+  .decision-btn { flex: 1; text-align: center; padding: 10px; border-radius: 6px; font-weight: 700; font-size: 13px; border: 1px solid; }
+  .decision-buy { background: #ecfdf5; color: #059669; border-color: #34d399; }
+  .decision-wait { background: #fffbeb; color: #b45309; border-color: #f59e0b; }
+  .decision-avoid { background: #fef2f2; color: #dc2626; border-color: #fca5a5; }
+  .decision-dim { opacity: 0.3; }
+  .disclaimer { font-size: 11px; color: #9ca3af; text-align: center; margin-top: 40px; padding-top: 16px; border-top: 1px solid #d0d4e0; }
+</style>
+</head>
+<body>
+
+<div class="pdf-only-banner">
+  외부 검색 절대 금지 — 제공된 PDF 파일만 활용 | 당일 발간 리포트 기준 투자 종목 발굴 전용
+</div>
+
+<!-- A. 헤더 -->
+<header class="header">
+  <h1>BNK금융지주 (138930) | 평가손 부담에도 배당 매력 유효 | 상상인증권 김현수 | 발간일: 2026.04.17</h1>
+  <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-bottom:12px;">
+    <span class="tag-badge tag-stable">안정</span>
+    <span class="score-badge">20점</span>
+    <span style="font-size:12px;color:#5a6280;">비바이오(금융)</span>
+  </div>
+  <div class="price-row">
+    <div class="price-item"><span class="label">투자의견</span><span class="val">BUY(유지)</span></div>
+    <div class="price-item"><span class="label">목표주가(TP)</span><span class="val">25,000원</span></div>
+    <div class="price-item"><span class="label">현재주가(CP)</span><span class="val">19,150원</span></div>
+    <div class="price-item"><span class="label">Upside</span><span class="val upside-val">+30.5%</span></div>
+    <div class="price-item"><span class="label">시가총액</span><span class="val">59,428억원</span></div>
+  </div>
+</header>
+
+<!-- B. 한줄 투자 이유 -->
+<section>
+  <div class="section-title">이 종목에 투자해야 하는 이유 — 스토리 한 줄</div>
+  <div class="thesis-box">
+    배당수익률 4.4% + 자사주 매입 1,100억원 + 총주주환원율 45.9%로 평가손 부담에도 불구하고 배당 매력이 유효한 지방 금융지주
+  </div>
+</section>
+
+<!-- F. 핵심 팩트 3줄 -->
+<section>
+  <div class="section-title">핵심 팩트 3줄 — WHAT(숫자) + WHY(원인) + SO WHAT(의미)</div>
+  <div class="fact-item">
+    <span class="fact-num">Fact 01 — 주주환원 강화</span>
+    <div class="fact-what"><span class="fact-label label-what">WHAT</span>배당수익률 4.4% + 자사주 매입 1,100억원 + 총주주환원율 45.9%</div>
+    <div class="fact-why"><span class="fact-label label-why">WHY</span>기업가치 제고 프로그램 참여 + 주주환원 정책 강화 기조 지속</div>
+    <div class="fact-so"><span class="fact-label label-so">SO WHAT</span>배당 + 자사주 매입의 이중 환원으로 장기 투자 매력 높음</div>
+  </div>
+  <div class="fact-item">
+    <span class="fact-num">Fact 02 — 실적 안정성</span>
+    <div class="fact-what"><span class="fact-label label-what">WHAT</span>25A 총영업수익 3,370십억원, 순이익 815십억원. 26E 총영업수익 3,509십억원, 순이익 810십억원</div>
+    <div class="fact-why"><span class="fact-label label-why">WHY</span>대출 성장 안정화 + 순영업이익 25A 1,680→26E 1,740십억원으로 소폭 성장</div>
+    <div class="fact-so"><span class="fact-label label-so">SO WHAT</span>순이익 소폭 감소(-0.6%)에도 영업 본질은 견조 — 배당 재원 안정적 확보</div>
+  </div>
+  <div class="fact-item">
+    <span class="fact-num">Fact 03 — 평가손 부담</span>
+    <div class="fact-what"><span class="fact-label label-what">WHAT</span>유가증권 평가손 부담 존재하나 배당 정책에 영향 제한적</div>
+    <div class="fact-why"><span class="fact-label label-why">WHY</span>금리 변동에 따른 채권 평가손은 일시적 — 만기보유 시 실현손 아님</div>
+    <div class="fact-so"><span class="fact-label label-so">SO WHAT</span>시장의 평가손 우려는 과도 — 배당 매력 관점에서 저평가 구간</div>
+  </div>
+</section>
+
+<!-- G. 실적 전망 (연간) -->
+<section>
+  <div class="section-title">실적 전망 (연간) — PDF 원문 수치만 기재</div>
+  <table class="data-table">
+    <caption>단위: 십억원 | ★ = 투자 핵심 연도</caption>
+    <thead>
+      <tr><th>구분</th><th>2025A</th><th style="background:#dbeafe;color:#1e40af;font-weight:700;">2026E ★</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>총영업수익</td><td>3,370</td><td class="key-col key-num">3,509</td></tr>
+      <tr><td>순영업이익</td><td>1,680</td><td class="key-col key-num">1,740</td></tr>
+      <tr><td>순이익</td><td>815</td><td class="key-col">810</td></tr>
+      <tr><td>배당수익률</td><td>-</td><td class="key-col key-opm">4.4%</td></tr>
+      <tr><td>총주주환원율</td><td>-</td><td class="key-col key-num">45.9%</td></tr>
+    </tbody>
+  </table>
+  <p style="font-size:12px;color:#5a6280;margin-top:10px;padding:0 4px;">
+    ▶ 영업 실적 안정 유지 + 배당수익률 4.4% + 자사주 매입으로 총환원율 45.9% 달성
+  </p>
+</section>
+
+<!-- L. 사견 & 결론 -->
+<section>
+  <div class="section-title">사견 & 투자 행동 결론</div>
+  <div class="opinion-box">
+    <p>평가손 이슈로 주가가 눌려 있으나, 배당수익률 4.4%와 자사주 매입 1,100억원의 조합은 매력적이다. 총주주환원율 45.9%는 지방 금융지주 중 상위권이며, 대출 성장도 안정적이다. 배당 및 장기 투자 관점에서 현 가격대는 진입 가능한 구간으로 판단된다.</p>
+    <div class="decision-box">
+      <div class="decision-btn decision-buy">지금 진입 가능<br/><span style="font-size:11px;font-weight:400;">배당·장기 관점 진입 가능</span></div>
+      <div class="decision-btn decision-wait decision-dim">이벤트 후 진입</div>
+      <div class="decision-btn decision-avoid decision-dim">관망</div>
+    </div>
+  </div>
+</section>
+
+<div class="disclaimer">
+  ※ 본 글은 증권사 리포트를 개인 학습 목적으로 요약·정리한 것이며, 투자 권유가 아닙니다.<br/>
+  ※ 제공된 PDF 파일만 활용. 외부 검색·참조 없음. 당일 발간 리포트 기준.
+</div>
+
+</body>
+</html>

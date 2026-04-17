@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>S-Oil (010950) 정리</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Pretendard','Apple SD Gothic Neo',-apple-system,sans-serif; background: #ffffff; color: #1a1d2e; line-height: 1.7; font-size: 14px; max-width: 900px; margin: 0 auto; padding: 32px 20px 80px; }
+  .header { border-left: 4px solid #2563eb; padding: 0 0 0 16px; margin-bottom: 24px; }
+  .header h1 { font-size: 20px; font-weight: 700; margin-bottom: 10px; color: #1a1d2e; }
+  .price-row { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin-top: 10px; }
+  .price-item { background: #f0f2f8; border: 1px solid #d0d4e0; border-radius: 6px; padding: 6px 14px; font-size: 13px; }
+  .price-item .label { color: #5a6280; font-size: 11px; display: block; }
+  .price-item .val { font-weight: 700; color: #1a1d2e; }
+  .upside-val { color: #059669; }
+  .tag-badge { display: inline-flex; align-items: center; gap: 6px; padding: 5px 14px; border-radius: 20px; font-size: 13px; font-weight: 700; }
+  .tag-stable { background: #ecfdf5; color: #059669; border: 1px solid #34d399; }
+  .score-badge { display: inline-block; padding: 5px 14px; border-radius: 20px; font-size: 13px; font-weight: 700; background: #f0f2f8; border: 1px solid #d0d4e0; color: #1a1d2e; }
+  section { margin-bottom: 28px; }
+  .section-title { font-size: 11px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: #5a6280; border-bottom: 1px solid #d0d4e0; padding-bottom: 6px; margin-bottom: 14px; }
+  .pdf-only-banner { background: #fff7ed; border: 1px solid #f97316; border-radius: 8px; padding: 10px 16px; font-size: 12px; color: #c2410c; margin-bottom: 20px; text-align: center; font-weight: 700; }
+  .thesis-box { background: #f8faff; border: 1px solid #2563eb; border-radius: 8px; padding: 16px 20px; font-size: 15px; font-weight: 600; line-height: 1.6; color: #1a1d2e; }
+  .fact-item { background: #fafafa; border: 1px solid #d0d4e0; border-radius: 8px; padding: 14px 16px; margin-bottom: 8px; }
+  .fact-item:last-child { margin-bottom: 0; }
+  .fact-num { font-size: 10px; font-weight: 700; color: #2563eb; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 8px; display: block; }
+  .fact-what { font-weight: 600; font-size: 14px; margin-bottom: 6px; color: #1a1d2e; }
+  .fact-why { font-size: 13px; color: #5a6280; margin-bottom: 6px; }
+  .fact-so { font-size: 13px; color: #059669; }
+  .fact-label { display: inline-block; font-size: 10px; font-weight: 700; padding: 1px 6px; border-radius: 3px; margin-right: 4px; }
+  .label-what { background: #eff6ff; color: #1d4ed8; }
+  .label-why { background: #fff7ed; color: #ea580c; }
+  .label-so { background: #ecfdf5; color: #059669; }
+  table { width: 100%; border-collapse: collapse; background: #fafafa; border-radius: 8px; overflow: hidden; border: 1px solid #d0d4e0; }
+  thead tr { background: #f0f2f8; }
+  th { padding: 10px 14px; text-align: left; font-size: 11px; font-weight: 700; color: #5a6280; letter-spacing: 0.8px; text-transform: uppercase; }
+  td { padding: 10px 14px; border-top: 1px solid #d0d4e0; font-size: 13px; color: #1a1d2e; }
+  .data-table th { background: #e8ecf5; }
+  .data-table td.key-col { background: #f0f6ff; }
+  .data-table .key-num { color: #059669; font-weight: 700; }
+  .data-table .key-opm { color: #b45309; }
+  caption { font-size: 11px; color: #5a6280; text-align: left; padding: 0 0 8px; caption-side: top; }
+  .opinion-box { background: #fafafa; border: 1px solid #d0d4e0; border-radius: 8px; padding: 16px 20px; font-size: 13px; line-height: 1.8; color: #5a6280; }
+  .decision-box { display: flex; gap: 14px; margin-top: 14px; }
+  .decision-btn { flex: 1; text-align: center; padding: 10px; border-radius: 6px; font-weight: 700; font-size: 13px; border: 1px solid; }
+  .decision-buy { background: #ecfdf5; color: #059669; border-color: #34d399; }
+  .decision-wait { background: #fffbeb; color: #b45309; border-color: #f59e0b; }
+  .decision-avoid { background: #fef2f2; color: #dc2626; border-color: #fca5a5; }
+  .decision-dim { opacity: 0.3; }
+  .disclaimer { font-size: 11px; color: #9ca3af; text-align: center; margin-top: 40px; padding-top: 16px; border-top: 1px solid #d0d4e0; }
+</style>
+</head>
+<body>
+
+<div class="pdf-only-banner">
+  외부 검색 절대 금지 — 제공된 PDF 파일만 활용 | 당일 발간 리포트 기준 투자 종목 발굴 전용
+</div>
+
+<!-- A. 헤더 -->
+<header class="header">
+  <h1>S-Oil (010950) | 에너지 안보 정유사업 가치 부각 | 하나증권 | 발간일: 2026.04.17</h1>
+  <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-bottom:12px;">
+    <span class="tag-badge tag-stable">안정</span>
+    <span class="score-badge">20점</span>
+    <span style="font-size:12px;color:#5a6280;">비바이오(정유)</span>
+  </div>
+  <div class="price-row">
+    <div class="price-item"><span class="label">투자의견</span><span class="val">BUY</span></div>
+    <div class="price-item"><span class="label">목표주가(TP)</span><span class="val">130,000원</span></div>
+    <div class="price-item"><span class="label">현재주가(CP)</span><span class="val">117,500원</span></div>
+    <div class="price-item"><span class="label">Upside</span><span class="val upside-val">+10.6%</span></div>
+  </div>
+</header>
+
+<!-- B. 한줄 투자 이유 -->
+<section>
+  <div class="section-title">이 종목에 투자해야 하는 이유 — 스토리 한 줄</div>
+  <div class="thesis-box">
+    정제마진 대폭 개선 + 재고 관련 이익 반영 + 중동 전쟁에 따른 에너지 안보 부각으로 정유사업 가치가 재평가되며, 윤활기유 사업이 안정 수익을 뒷받침하는 구조
+  </div>
+</section>
+
+<!-- F. 핵심 팩트 3줄 -->
+<section>
+  <div class="section-title">핵심 팩트 3줄 — WHAT(숫자) + WHY(원인) + SO WHAT(의미)</div>
+  <div class="fact-item">
+    <span class="fact-num">Fact 01 — 극적 실적 턴어라운드</span>
+    <div class="fact-what"><span class="fact-label label-what">WHAT</span>26F OP 2,861.5십억원(흑전, +1,114% YoY), OPM 0.7%→5.5%. 25A OP 235.6십억원에서 대폭 개선</div>
+    <div class="fact-why"><span class="fact-label label-why">WHY</span>정제마진 대폭 개선 + 재고 관련 이익(유가 상승기 저가 재고의 고가 판매) + 중동 전쟁으로 글로벌 정유 공급 타이트</div>
+    <div class="fact-so"><span class="fact-label label-so">SO WHAT</span>25A 저실적 기저 + 정유 업황 호전으로 극적 흑전 — 다만 시클리컬 특성상 지속성 확인 필요</div>
+  </div>
+  <div class="fact-item">
+    <span class="fact-num">Fact 02 — 에너지 안보 테마</span>
+    <div class="fact-what"><span class="fact-label label-what">WHAT</span>중동 전쟁으로 에너지 안보 이슈 부각 → 정유사업 전략적 가치 재평가</div>
+    <div class="fact-why"><span class="fact-label label-why">WHY</span>중동 정제설비 타격 + 글로벌 원유 공급 불안 → 정유사의 정제 능력이 국가 안보 자산으로 재인식</div>
+    <div class="fact-so"><span class="fact-label label-so">SO WHAT</span>에너지 안보 프리미엄이 정유사 밸류에이션에 반영될 가능성 — 구조적 재평가 기회</div>
+  </div>
+  <div class="fact-item">
+    <span class="fact-num">Fact 03 — 윤활기유 안정 수익</span>
+    <div class="fact-what"><span class="fact-label label-what">WHAT</span>윤활기유 사업이 안정적 수익 기반 제공. 27F OP 2,430.1십억원, OPM 6.9% 유지</div>
+    <div class="fact-why"><span class="fact-label label-why">WHY</span>고부가 윤활기유 글로벌 경쟁력 보유 + 정유 외 비시클리컬 수익원</div>
+    <div class="fact-so"><span class="fact-label label-so">SO WHAT</span>정유 시클리컬 리스크를 윤활기유 안정 수익이 완충 — 포트폴리오 안정성</div>
+  </div>
+</section>
+
+<!-- G. 실적 전망 (연간) -->
+<section>
+  <div class="section-title">실적 전망 (연간) — PDF 원문 수치만 기재</div>
+  <table class="data-table">
+    <caption>단위: 십억원 | ★ = 투자 핵심 연도</caption>
+    <thead>
+      <tr><th>구분</th><th>2025A</th><th style="background:#dbeafe;color:#1e40af;font-weight:700;">2026F ★</th><th>2027F</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>매출액</td><td>34,246.9</td><td class="key-col key-num">51,940.0</td><td>35,133.1</td></tr>
+      <tr><td>영업이익</td><td>235.6</td><td class="key-col key-num">2,861.5</td><td>2,430.1</td></tr>
+      <tr><td>YoY(%)</td><td>-</td><td class="key-col key-num">+1,114%(흑전)</td><td>-15.1%</td></tr>
+      <tr><td>OPM(%)</td><td>0.7%</td><td class="key-col key-opm">5.5%</td><td>6.9%</td></tr>
+    </tbody>
+  </table>
+  <p style="font-size:12px;color:#5a6280;margin-top:10px;padding:0 4px;">
+    ▶ 정제마진 회복 + 재고이익 + 에너지안보 테마로 26F OP 극적 흑전. 27F OPM 6.9%로 수익성 안정화
+  </p>
+</section>
+
+<!-- L. 사견 & 결론 -->
+<section>
+  <div class="section-title">사견 & 투자 행동 결론</div>
+  <div class="opinion-box">
+    <p>26F OP +1,114%(흑전)는 극적이지만, 25A의 극도로 낮은 기저 효과가 크다. 정제마진의 지속성이 핵심 변수이며, 중동 전쟁 종료 시 정유 업황 급반전 가능성이 리스크다. Upside 10.6%로 크지 않고, 시클리컬 특성을 감안하면 정유 마진의 지속 여부를 확인한 후 진입이 적절하다.</p>
+    <div class="decision-box">
+      <div class="decision-btn decision-buy decision-dim">지금 진입 가능</div>
+      <div class="decision-btn decision-wait">⏳ 이벤트 후 진입<br/><span style="font-size:11px;font-weight:400;">정유 마진 지속 여부 확인 후</span></div>
+      <div class="decision-btn decision-avoid decision-dim">관망</div>
+    </div>
+  </div>
+</section>
+
+<div class="disclaimer">
+  ※ 본 글은 증권사 리포트를 개인 학습 목적으로 요약·정리한 것이며, 투자 권유가 아닙니다.<br/>
+  ※ 제공된 PDF 파일만 활용. 외부 검색·참조 없음. 당일 발간 리포트 기준.
+</div>
+
+</body>
+</html>

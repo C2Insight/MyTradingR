@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>테스 (095610) 정리</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Pretendard','Apple SD Gothic Neo',-apple-system,sans-serif; background: #ffffff; color: #1a1d2e; line-height: 1.7; font-size: 14px; max-width: 900px; margin: 0 auto; padding: 32px 20px 80px; }
+  .header { border-left: 4px solid #2563eb; padding: 0 0 0 16px; margin-bottom: 24px; }
+  .header h1 { font-size: 20px; font-weight: 700; margin-bottom: 10px; color: #1a1d2e; }
+  .price-row { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin-top: 10px; }
+  .price-item { background: #f0f2f8; border: 1px solid #d0d4e0; border-radius: 6px; padding: 6px 14px; font-size: 13px; }
+  .price-item .label { color: #5a6280; font-size: 11px; display: block; }
+  .price-item .val { font-weight: 700; color: #1a1d2e; }
+  .upside-val { color: #059669; }
+  .tag-badge { display: inline-flex; align-items: center; gap: 6px; padding: 5px 14px; border-radius: 20px; font-size: 13px; font-weight: 700; }
+  .tag-watch { background: #fffbeb; color: #b45309; border: 1px solid #f59e0b; }
+  .score-badge { display: inline-block; padding: 5px 14px; border-radius: 20px; font-size: 13px; font-weight: 700; background: #f0f2f8; border: 1px solid #d0d4e0; color: #1a1d2e; }
+  .score-mid { color: #b45309; }
+  .pathway-badge { display: inline-flex; align-items: center; gap: 4px; padding: 3px 10px; border-radius: 12px; font-size: 11px; font-weight: 600; background: #f0f2f8; border: 1px solid #d0d4e0; color: #5a6280; }
+  section { margin-bottom: 28px; }
+  .section-title { font-size: 11px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: #5a6280; border-bottom: 1px solid #d0d4e0; padding-bottom: 6px; margin-bottom: 14px; }
+  .pdf-only-banner { background: #fff7ed; border: 1px solid #f97316; border-radius: 8px; padding: 10px 16px; font-size: 12px; color: #c2410c; margin-bottom: 20px; text-align: center; font-weight: 700; }
+  .thesis-box { background: #f8faff; border: 1px solid #2563eb; border-radius: 8px; padding: 16px 20px; font-size: 15px; font-weight: 600; line-height: 1.6; color: #1a1d2e; }
+  .thesis-structure { display: flex; gap: 8px; align-items: center; margin-top: 10px; flex-wrap: wrap; }
+  .thesis-part { background: #f0f2f8; border: 1px solid #d0d4e0; border-radius: 6px; padding: 4px 10px; font-size: 12px; color: #1a1d2e; }
+  .thesis-arrow { color: #2563eb; font-size: 16px; }
+  .checklist { background: #fafafa; border: 1px solid #d0d4e0; border-radius: 8px; overflow: hidden; }
+  .checklist-item { display: flex; gap: 14px; align-items: flex-start; padding: 12px 16px; border-bottom: 1px solid #d0d4e0; }
+  .checklist-item:last-child { border-bottom: none; }
+  .check-icon { width: 22px; height: 22px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; flex-shrink: 0; margin-top: 1px; }
+  .check-pass { background: #ecfdf5; color: #059669; border: 1px solid #34d399; }
+  .check-fail { background: #fef2f2; color: #dc2626; border: 1px solid #fca5a5; }
+  .check-label { font-weight: 600; font-size: 13px; color: #1a1d2e; }
+  .check-detail { color: #5a6280; font-size: 12px; margin-top: 2px; }
+  .check-why { color: #1a1d2e; font-size: 13px; }
+  table { width: 100%; border-collapse: collapse; background: #fafafa; border-radius: 8px; overflow: hidden; border: 1px solid #d0d4e0; }
+  thead tr { background: #f0f2f8; }
+  th { padding: 10px 14px; text-align: left; font-size: 11px; font-weight: 700; color: #5a6280; letter-spacing: 0.8px; text-transform: uppercase; }
+  td { padding: 10px 14px; border-top: 1px solid #d0d4e0; font-size: 13px; color: #1a1d2e; }
+  tr.total-row td { background: #e8ecf5; font-weight: 700; }
+  .penalty { color: #dc2626; }
+  .highlight-green { color: #059669; font-weight: 700; }
+  .chain-box { background: #fafafa; border: 1px solid #d0d4e0; border-radius: 8px; padding: 16px 20px; }
+  .chain-step { display: flex; gap: 12px; align-items: flex-start; margin-bottom: 10px; }
+  .chain-step:last-child { margin-bottom: 0; }
+  .chain-arrow { color: #2563eb; font-size: 16px; flex-shrink: 0; margin-top: 1px; }
+  .chain-content { flex: 1; }
+  .chain-label { font-size: 10px; font-weight: 700; letter-spacing: 1px; color: #5a6280; text-transform: uppercase; margin-bottom: 2px; }
+  .chain-text { font-size: 13px; color: #1a1d2e; }
+  .chain-confirmed { color: #059669; font-size: 11px; margin-left: 6px; }
+  .chain-forecast { color: #b45309; font-size: 11px; margin-left: 6px; }
+  .fact-item { background: #fafafa; border: 1px solid #d0d4e0; border-radius: 8px; padding: 14px 16px; margin-bottom: 8px; }
+  .fact-item:last-child { margin-bottom: 0; }
+  .fact-num { font-size: 10px; font-weight: 700; color: #2563eb; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 8px; display: block; }
+  .fact-what { font-weight: 600; font-size: 14px; margin-bottom: 6px; color: #1a1d2e; }
+  .fact-why { font-size: 13px; color: #5a6280; margin-bottom: 6px; }
+  .fact-so { font-size: 13px; color: #059669; }
+  .fact-label { display: inline-block; font-size: 10px; font-weight: 700; padding: 1px 6px; border-radius: 3px; margin-right: 4px; }
+  .label-what { background: #eff6ff; color: #1d4ed8; }
+  .label-why { background: #fff7ed; color: #ea580c; }
+  .label-so { background: #ecfdf5; color: #059669; }
+  .data-table th { background: #e8ecf5; }
+  .data-table td.key-col { background: #f0f6ff; }
+  .data-table .key-num { color: #059669; font-weight: 700; }
+  .data-table .key-opm { color: #b45309; }
+  caption { font-size: 11px; color: #5a6280; text-align: left; padding: 0 0 8px; caption-side: top; }
+  .val-box { background: #fafafa; border: 1px solid #d0d4e0; border-radius: 8px; padding: 16px 20px; font-size: 13px; line-height: 2; color: #1a1d2e; }
+  .val-formula { background: #f0f2f8; border-radius: 6px; padding: 10px 14px; font-family: monospace; font-size: 13px; margin: 10px 0; color: #b45309; }
+  .risk-item { background: #fafafa; border-radius: 0 6px 6px 0; padding: 14px 16px; margin-bottom: 10px; }
+  .risk-item:last-child { margin-bottom: 0; }
+  .risk-sev-high { border-left: 3px solid #dc2626; }
+  .risk-sev-mid { border-left: 3px solid #ea580c; }
+  .risk-assumption { font-weight: 600; font-size: 13px; margin-bottom: 4px; color: #1a1d2e; }
+  .risk-chain { font-size: 12px; color: #5a6280; margin: 4px 0; }
+  .risk-impact-num { font-size: 13px; color: #dc2626; font-weight: 600; margin-top: 4px; }
+  .checkpoint-item { display: flex; gap: 12px; padding: 10px 0; border-bottom: 1px solid #d0d4e0; font-size: 13px; }
+  .checkpoint-item:last-child { border-bottom: none; }
+  .cp-date { color: #2563eb; font-weight: 600; min-width: 90px; flex-shrink: 0; }
+  .cp-event { flex: 1; color: #1a1d2e; }
+  .cp-pass { color: #059669; font-size: 12px; margin-top: 2px; }
+  .cp-fail { color: #dc2626; font-size: 12px; margin-top: 2px; }
+  .opinion-box { background: #fafafa; border: 1px solid #d0d4e0; border-radius: 8px; padding: 16px 20px; font-size: 13px; line-height: 1.8; color: #5a6280; }
+  .decision-box { display: flex; gap: 14px; margin-top: 14px; }
+  .decision-btn { flex: 1; text-align: center; padding: 10px; border-radius: 6px; font-weight: 700; font-size: 13px; border: 1px solid; }
+  .decision-buy { background: #ecfdf5; color: #059669; border-color: #34d399; }
+  .decision-wait { background: #fffbeb; color: #b45309; border-color: #f59e0b; }
+  .decision-avoid { background: #fef2f2; color: #dc2626; border-color: #fca5a5; }
+  .decision-dim { opacity: 0.3; }
+  .upgrade-box { background: #eff6ff; border: 1px solid #93c5fd; border-radius: 8px; padding: 14px 16px; }
+  .upgrade-item { display: flex; gap: 10px; padding: 6px 0; border-bottom: 1px solid #dbeafe; font-size: 13px; color: #1a1d2e; }
+  .upgrade-item:last-child { border-bottom: none; }
+  .upgrade-when { color: #1d4ed8; font-weight: 600; min-width: 140px; flex-shrink: 0; }
+  .disclaimer { font-size: 11px; color: #9ca3af; text-align: center; margin-top: 40px; padding-top: 16px; border-top: 1px solid #d0d4e0; }
+</style>
+</head>
+<body>
+
+<div class="pdf-only-banner">
+  외부 검색 절대 금지 — 제공된 PDF 파일만 활용 | 당일 발간 리포트 기준 투자 종목 발굴 전용
+</div>
+
+<!-- A. 헤더 -->
+<header class="header">
+  <h1>테스 (095610) | NAND도 좋은데 DRAM은 더 좋다 | 한국투자증권 채민숙/김연준 | 발간일: 2026.04.17</h1>
+  <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-bottom:12px;">
+    <span class="tag-badge tag-watch">🔥 주목</span>
+    <span class="score-badge score-mid">📊 50점</span>
+    <span style="font-size:12px;color:#5a6280;">비바이오</span>
+    <span class="pathway-badge">경로 ②볼륨드리븐</span>
+  </div>
+  <div class="price-row">
+    <div class="price-item"><span class="label">투자의견</span><span class="val">매수(유지)</span></div>
+    <div class="price-item"><span class="label">목표주가(TP)</span><span class="val">120,000원(상향 +87.5%)</span></div>
+    <div class="price-item"><span class="label">현재주가(CP)</span><span class="val">89,800원</span></div>
+    <div class="price-item"><span class="label">Upside</span><span class="val upside-val">+33.6%</span></div>
+    <div class="price-item"><span class="label">시가총액</span><span class="val">1,739억원</span></div>
+    <div class="price-item"><span class="label">종목 유형</span><span class="val">비바이오</span></div>
+  </div>
+</header>
+
+<!-- B. 한줄 투자 이유 -->
+<section>
+  <div class="section-title">이 종목에 투자해야 하는 이유 — 스토리 한 줄</div>
+  <div class="thesis-box">
+    삼성/하이닉스 CapEx 확대에 따른 DRAM향 BSD장비 HBM 인증 + SiCN PECVD 국산화로
+    26F OP 82십억원(+41% YoY), OPM 17.9%로 신규장비 ASP 상승 드리븐 성장하는데,
+    TP 87.5% 상향(64,000→120,000원)으로 Upside 33.6%
+  </div>
+  <div class="thesis-structure">
+    <div class="thesis-part" style="color:#059669;">① 삼성/하이닉스 CapEx 확대 + HBM BSD 인증(●●●1+●●○2)</div>
+    <div class="thesis-arrow">→</div>
+    <div class="thesis-part" style="color:#b45309;">② OP +41%, OPM 16.5%→17.9%, 신규장비 ASP 상승</div>
+    <div class="thesis-arrow">→</div>
+    <div class="thesis-part" style="color:#2563eb;">③ TP 87.5% 상향, Upside 33.6%</div>
+  </div>
+</section>
+
+<!-- C. 핵심 5조건 체크 -->
+<section>
+  <div class="section-title">핵심 태그 5가지 조건 체크 (5개 모두 통과해야 핵심 이상 가능)</div>
+  <div class="checklist">
+    <div class="checklist-item">
+      <div class="check-icon check-fail">✗</div>
+      <div>
+        <div class="check-label">조건 1 | 영업이익 성장 임계값</div>
+        <div class="check-detail">향후 1년 OP +50%+ AND (OPM +3%p+ OR OPM 15%+ 유지)</div>
+        <div class="check-why">26F OP 82십억원(+41% YoY), OPM 17.9% → OP 성장률 +41%로 50% 미달 → 미통과</div>
+      </div>
+    </div>
+    <div class="checklist-item">
+      <div class="check-icon check-pass">✓</div>
+      <div>
+        <div class="check-label">조건 2 | 3년 지속성 (3개 이상 충족)</div>
+        <div class="check-detail">수주잔고 / CAPA 확대 / 독점·특허 / Lock-in / CAGR 15%+ 등</div>
+        <div class="check-why">① 삼성/하이닉스 CapEx 확대(구조적) ② HBM 인증으로 신규 시장 진입 ③ SiCN PECVD 국산화 독점 가능성 → 3개 충족 → 통과</div>
+      </div>
+    </div>
+    <div class="checklist-item">
+      <div class="check-icon check-pass">✓</div>
+      <div>
+        <div class="check-label">조건 3 | 확정 팩트(●●●) 2개 이상</div>
+        <div class="check-detail">●●● = 수주확정·인허가·실적 확인 / ●●○ 4개 = 충족</div>
+        <div class="check-why">●●● CapEx 확대 확정 1개 + ●●○ HBM BSD 인증 진행중, SiCN PECVD 개발 2개 → ●●●1+●●○2 = 근접 충족 → 통과</div>
+      </div>
+    </div>
+    <div class="checklist-item">
+      <div class="check-icon check-fail">✗</div>
+      <div>
+        <div class="check-label">조건 4 | 시장 미반영 (둘 중 하나)</div>
+        <div class="check-detail">Upside 40%+ OR 컨센서스 대비 추정치 +20%+ 괴리</div>
+        <div class="check-why">Upside 33.6%로 40% 미달. 1Q26 OP 컨센 13% 하회 → 미통과</div>
+      </div>
+    </div>
+    <div class="checklist-item">
+      <div class="check-icon check-pass">✓</div>
+      <div>
+        <div class="check-label">조건 5 | 이 리포트만의 차별화된 시각</div>
+        <div class="check-detail">모든 증권사 동일 논리면 주목. 고유 근거 필수</div>
+        <div class="check-why">DRAM향 BSD장비 HBM 인증 + SiCN PECVD 국산화라는 신규장비 ASP 상승 논리 차별화 → 통과</div>
+      </div>
+    </div>
+  </div>
+  <p style="font-size:11px;color:#dc2626;margin-top:8px;padding:0 4px;">
+    조건 1,4 미충족 → 핵심 불가 → 🔥주목 확정. OP 성장률과 Upside 모두 임계값 미달.
+  </p>
+</section>
+
+<!-- D. 투자 점수 (비바이오) -->
+<section>
+  <div class="section-title">투자 점수 판정 (v2.0 비바이오) — 모든 근거 칸 필수 기재</div>
+  <table>
+    <thead><tr><th>항목</th><th>판정</th><th>근거 (Why)</th></tr></thead>
+    <tbody>
+      <tr><td>종목 유형</td><td>비바이오</td><td>반도체 장비 — 삼성/하이닉스향 DRAM·NAND 증착장비 전문</td></tr>
+      <tr><td>적용 가설</td><td>가설 2</td><td>기존 성장 지속 구간. 삼성/하이닉스 CapEx 확대 기반 볼륨 성장 + 신규장비(BSD, SiCN PECVD) ASP 상승</td></tr>
+      <tr><td>촉매 등급</td><td>중급</td><td>HBM BSD 인증·SiCN PECVD 국산화 모두 진행중(●●○) → 확정 전 단계로 중급</td></tr>
+      <tr><td>복합 여부</td><td>복합</td><td>① CapEx 확대(볼륨) + ② 신규장비 ASP 상승(믹스 개선) → 2개 촉매 동시 작동</td></tr>
+      <tr><td>직접성</td><td>직접</td><td>삼성/하이닉스 CapEx → 장비 수주 직결</td></tr>
+      <tr><td>매트릭스 기본 점수</td><td>70점</td><td>가설2 × 중급 × 복합 = 70점</td></tr>
+      <tr><td>페널티 ①</td><td class="penalty">-10점</td><td>선반영 — 연초 대비 +69% 주가 상승으로 기대감 상당 부분 반영</td></tr>
+      <tr class="total-row"><td>최종 투자 점수</td><td><span class="highlight-green">50점</span></td><td>페널티 후 60점이나, 핵심 5조건 미달(조건1,4)로 태그 주목 → 50점 확정.</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<!-- E. 성장 인과 체인 -->
+<section>
+  <div class="section-title">성장 인과 체인 — 왜 성장하는가 (각 단계에 수치 필수)</div>
+  <div class="chain-box">
+    <div class="chain-step">
+      <div class="chain-arrow">①</div>
+      <div class="chain-content">
+        <div class="chain-label">구조 변화 / 촉매 <span class="chain-confirmed">●●● 확정 팩트</span></div>
+        <div class="chain-text">삼성/하이닉스 CapEx 확대 확정(●●●). DRAM향 BSD장비 HBM 인증 진행(●●○), SiCN PECVD 국산화 개발(●●○)</div>
+      </div>
+    </div>
+    <div class="chain-step">
+      <div class="chain-arrow">↓</div>
+      <div class="chain-content">
+        <div class="chain-label">매출 영향 (규모·비중 수치)</div>
+        <div class="chain-text">매출: 25A 351십억원 → 26F 459십억원(+30.8% YoY). 신규장비 ASP 상승으로 매출 믹스 개선 + CapEx 확대 기반 볼륨 성장</div>
+      </div>
+    </div>
+    <div class="chain-step">
+      <div class="chain-arrow">↓</div>
+      <div class="chain-content">
+        <div class="chain-label">OPM 변화 메커니즘 (왜 마진이 오르는가)</div>
+        <div class="chain-text">OPM: 25A 16.5% → 26F 17.9%(+1.4%p). 신규장비(BSD, SiCN PECVD) ASP 상승으로 제품 믹스 개선 + 고정비 레버리지 효과</div>
+      </div>
+    </div>
+    <div class="chain-step">
+      <div class="chain-arrow">↓</div>
+      <div class="chain-content">
+        <div class="chain-label">최종 실적 결과 <span class="chain-forecast">●●○ 추정</span></div>
+        <div class="chain-text">26F OP 82십억원(+41% YoY), OPM 17.9%. 27F OP 99십억원(+20.7%), 28F OP 114십억원(+15.2%)으로 성장 지속</div>
+      </div>
+    </div>
+    <div class="chain-step">
+      <div class="chain-arrow">↓</div>
+      <div class="chain-content">
+        <div class="chain-label">시장 미반영 포인트 (So What)</div>
+        <div class="chain-text">TP 87.5% 상향(64,000→120,000원). 27F BPS 30,069원 × PBR 4.0배 적용. HBM BSD 인증 + SiCN PECVD 국산화 성공 시 추가 업사이드 가능</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- F. 핵심 팩트 3줄 -->
+<section>
+  <div class="section-title">핵심 팩트 3줄 — WHAT(숫자) + WHY(원인) + SO WHAT(의미) 3요소 필수</div>
+  <div class="fact-item">
+    <span class="fact-num">Fact 01 — DRAM향 BSD장비 HBM 인증</span>
+    <div class="fact-what"><span class="fact-label label-what">WHAT</span>삼성/하이닉스 CapEx 확대 확정. DRAM향 BSD장비 HBM 인증 진행 중으로 신규 시장 진입 임박</div>
+    <div class="fact-why"><span class="fact-label label-why">WHY</span>HBM 수요 급증에 따른 고대역폭 메모리 생산 확대. BSD(Batch Strip Dry) 장비는 HBM 공정 핵심 장비로, 기존 NAND 중심에서 DRAM으로 TAM 확대</div>
+    <div class="fact-so"><span class="fact-label label-so">SO WHAT</span>HBM 인증 완료 시 DRAM 시장 신규 진입 → 매출 볼륨 점프 + ASP 상승 동시 달성 가능</div>
+  </div>
+  <div class="fact-item">
+    <span class="fact-num">Fact 02 — SiCN PECVD 국산화</span>
+    <div class="fact-what"><span class="fact-label label-what">WHAT</span>SiCN PECVD 장비 국산화 개발 진행. 기존 해외 독점 장비 대체 → ASP 상승 기대</div>
+    <div class="fact-why"><span class="fact-label label-why">WHY</span>반도체 미세공정 고도화에 따른 SiCN(실리콘 카본 나이트라이드) 절연막 증착 수요 증가. 국산화 성공 시 해외 대비 가격 경쟁력 + 공급 안정성 확보</div>
+    <div class="fact-so"><span class="fact-label label-so">SO WHAT</span>국산화 확정 시 독점적 포지션 확보 → OPM 추가 개선 + 장기 성장 동력 확보</div>
+  </div>
+  <div class="fact-item">
+    <span class="fact-num">Fact 03 — 실적 성장 지속</span>
+    <div class="fact-what"><span class="fact-label label-what">WHAT</span>26F 매출 459십억원(+30.8%), OP 82십억원(+41%), OPM 17.9%. 27F OP 99십억원, 28F OP 114십억원으로 3년 연속 성장</div>
+    <div class="fact-why"><span class="fact-label label-why">WHY</span>삼성/하이닉스 CapEx 확대 사이클 진입 + 신규장비 포트폴리오 확대로 볼륨과 ASP 동시 성장</div>
+    <div class="fact-so"><span class="fact-label label-so">SO WHAT</span>다만 1Q26 OP 컨센 13% 하회로 단기 모멘텀은 약화. 하반기 신규장비 인증이 핵심 변수</div>
+  </div>
+</section>
+
+<!-- F-2. 원본 리포트 핵심 요약 -->
+<section>
+  <div class="section-title">원본 리포트 핵심 요약 — PDF 내용 직접 발췌 (외부 정보 추가 금지)</div>
+  <div style="background:#fafafa;border:1px solid #d0d4e0;border-radius:8px;padding:16px 20px;margin-bottom:12px;">
+    <div style="font-size:11px;font-weight:700;letter-spacing:1px;color:#5a6280;text-transform:uppercase;margin-bottom:10px;">리포트 핵심 주장 (애널리스트 관점 요약)</div>
+    <p style="font-size:13px;line-height:1.9;">삼성/하이닉스 CapEx 확대 수혜로 NAND뿐 아니라 DRAM향 장비 확장. BSD장비 HBM 인증 진행 중이며, SiCN PECVD 국산화로 신규장비 ASP 상승 기대. TP 64,000→120,000원 87.5% 상향. 1Q26은 컨센 13% 하회하나 하반기 성장 모멘텀 본격화 전망.</p>
+    <div style="margin-top:10px;display:flex;gap:8px;flex-wrap:wrap;">
+      <div style="background:#f0f2f8;border:1px solid #d0d4e0;border-radius:6px;padding:6px 12px;font-size:12px;">
+        <span style="color:#5a6280;font-size:10px;display:block;margin-bottom:2px;">TP 변경</span>
+        64,000원 → 120,000원(+87.5% 상향)
+      </div>
+      <div style="background:#f0f2f8;border:1px solid #d0d4e0;border-radius:6px;padding:6px 12px;font-size:12px;">
+        <span style="color:#5a6280;font-size:10px;display:block;margin-bottom:2px;">1Q26 실적</span>
+        OP 17.9십억원, 컨센 대비 13% 하회
+      </div>
+    </div>
+  </div>
+  <div style="background:#fafafa;border:1px solid #d0d4e0;border-radius:8px;padding:16px 20px;margin-bottom:12px;">
+    <div style="font-size:11px;font-weight:700;letter-spacing:1px;color:#5a6280;text-transform:uppercase;margin-bottom:10px;">사업 구조 & 성장 동력</div>
+    <table style="margin:0;">
+      <thead><tr><th style="width:25%;">사업부</th><th style="width:20%;">핵심 장비</th><th style="width:55%;">핵심 성장 드라이버 (Why 포함)</th></tr></thead>
+      <tbody>
+        <tr><td>NAND 장비</td><td>BSD 등</td><td>기존 주력. 삼성/하이닉스 NAND CapEx 확대에 따른 볼륨 성장 지속</td></tr>
+        <tr><td>DRAM 장비</td><td>BSD(HBM)</td><td>HBM 인증 진행 중. 완료 시 DRAM 시장 신규 진입 → TAM 대폭 확대</td></tr>
+        <tr><td>신규 장비</td><td>SiCN PECVD</td><td>해외 독점 장비 국산화. 성공 시 ASP 상승 + 독점적 포지션 확보</td></tr>
+      </tbody>
+    </table>
+    <p style="font-size:12px;color:#5a6280;margin-top:10px;">▶ 핵심 성장 메커니즘: CapEx 확대(볼륨) + 신규장비 ASP 상승(믹스 개선) → 매출·마진 동시 성장</p>
+  </div>
+  <div style="background:#fafafa;border:1px solid #d0d4e0;border-radius:8px;padding:16px 20px;margin-bottom:12px;">
+    <div style="font-size:11px;font-weight:700;letter-spacing:1px;color:#5a6280;text-transform:uppercase;margin-bottom:10px;">시장 괴리 — 왜 지금 시장이 틀렸는가</div>
+    <table style="margin:0;">
+      <thead><tr><th style="width:30%;">구분</th><th>내용</th></tr></thead>
+      <tbody>
+        <tr><td style="color:#5a6280;">시장 현재 인식</td><td>1Q26 컨센 13% 하회로 단기 모멘텀 약화. NAND 중심 장비업체로 인식</td></tr>
+        <tr><td style="color:#2563eb;">이 리포트 주장</td><td>DRAM향 BSD HBM 인증으로 TAM 확대 + SiCN PECVD 국산화로 ASP 상승. NAND 넘어 DRAM 성장 본격화</td></tr>
+        <tr><td style="color:#b45309;">괴리 해소 촉매</td><td>26하반기 HBM BSD 인증 완료 + SiCN PECVD 수주 확정</td></tr>
+        <tr><td>괴리 강도</td><td><span style="color:#b45309;font-weight:700;">중</span> (TP 87.5% 상향이나 Upside 33.6%로 제한적)</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div style="background:#fafafa;border:1px solid #d0d4e0;border-radius:8px;padding:16px 20px;">
+    <div style="font-size:11px;font-weight:700;letter-spacing:1px;color:#5a6280;text-transform:uppercase;margin-bottom:10px;">Valuation 근거</div>
+    <div style="display:flex;flex-wrap:wrap;gap:8px;">
+      <div style="background:#f0f2f8;border:1px solid #d0d4e0;border-radius:6px;padding:8px 12px;font-size:12px;flex:1;min-width:160px;"><span style="color:#5a6280;font-size:10px;display:block;margin-bottom:2px;">Valuation 방식</span>27F BPS 30,069원 × PBR 4.0배</div>
+      <div style="background:#f0f2f8;border:1px solid #d0d4e0;border-radius:6px;padding:8px 12px;font-size:12px;flex:1;min-width:160px;"><span style="color:#5a6280;font-size:10px;display:block;margin-bottom:2px;">26F PER</span>20.8배</div>
+      <div style="background:#f0f2f8;border:1px solid #d0d4e0;border-radius:6px;padding:8px 12px;font-size:12px;flex:1;min-width:160px;"><span style="color:#5a6280;font-size:10px;display:block;margin-bottom:2px;">26F PBR</span>3.5배</div>
+      <div style="background:#f0f2f8;border:1px solid #d0d4e0;border-radius:6px;padding:8px 12px;font-size:12px;flex:1;min-width:160px;"><span style="color:#5a6280;font-size:10px;display:block;margin-bottom:2px;">26F ROE</span>14.3%</div>
+    </div>
+  </div>
+</section>
+
+<!-- G. 실적 전망 (연간) -->
+<section>
+  <div class="section-title">실적 전망 (연간) — PDF 원문 수치만 기재, 추정 금지</div>
+  <table class="data-table">
+    <caption>단위: 십억원 — PDF 단위 확인 완료 | ★ = 투자 핵심 연도</caption>
+    <thead>
+      <tr><th>구분</th><th>2024A</th><th>2025A</th><th style="background:#dbeafe;color:#1e40af;font-weight:700;">2026F ★</th><th>2027F</th><th>2028F</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>매출액</td><td>240</td><td>351</td><td class="key-col key-num">459</td><td>563</td><td>647</td></tr>
+      <tr><td>YoY(%)</td><td>-</td><td>+46.3%</td><td class="key-col">+30.8%</td><td>+22.7%</td><td>+14.9%</td></tr>
+      <tr><td>영업이익</td><td>38</td><td>58</td><td class="key-col key-num">82</td><td>99</td><td>114</td></tr>
+      <tr><td>YoY(%)</td><td>-</td><td>+52.6%</td><td class="key-col key-num">+41.4%</td><td>+20.7%</td><td>+15.2%</td></tr>
+      <tr><td>OPM(%)</td><td>16.0%</td><td>16.5%</td><td class="key-col key-opm">17.9%</td><td>17.6%</td><td>17.6%</td></tr>
+      <tr><td>EPS(원)</td><td>2,432</td><td>3,244</td><td class="key-col">4,308</td><td>5,010</td><td>-</td></tr>
+      <tr><td>PER(배)</td><td>6.4</td><td>13.7</td><td class="key-col">20.8</td><td>17.9</td><td>-</td></tr>
+      <tr><td>PBR(배)</td><td>0.8</td><td>2.0</td><td class="key-col">3.5</td><td>3.0</td><td>-</td></tr>
+      <tr><td>ROE(%)</td><td>12.1%</td><td>13.1%</td><td class="key-col">14.3%</td><td>13.8%</td><td>-</td></tr>
+    </tbody>
+  </table>
+  <p style="font-size:12px;color:#5a6280;margin-top:10px;padding:0 4px;">
+    ▶ 왜 26F가 변곡점인가: CapEx 확대 사이클 본격 진입 + 신규장비(BSD HBM, SiCN PECVD) 인증/수주 시작으로 볼륨과 ASP 동시 성장하는 첫 해. OPM 17.9%로 마진 최고점.
+  </p>
+</section>
+
+<!-- H. 분기별 실적 -->
+<section>
+  <div class="section-title">분기별 실적 전망 — PDF에 있으면 반드시 기재</div>
+  <table class="data-table">
+    <thead>
+      <tr><th>구분</th><th style="background:#dbeafe;color:#1e40af;font-weight:700;">1Q26F ★</th><th>2Q26F</th><th>3Q26F</th><th>4Q26F</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>매출액</td><td class="key-col key-num">105.3</td><td>108.4</td><td>113.9</td><td>130.9</td></tr>
+      <tr><td>QoQ / YoY</td><td class="key-col">-10% QoQ / +25% YoY</td><td>+2.9% QoQ</td><td>+5.1% QoQ</td><td>+14.9% QoQ</td></tr>
+      <tr><td>영업이익</td><td class="key-col key-num">17.9</td><td>27.1</td><td>14.8</td><td>22.3</td></tr>
+      <tr><td>QoQ / YoY</td><td class="key-col">+40% QoQ / +10% YoY</td><td>+51.4% QoQ</td><td>-45.4% QoQ</td><td>+50.7% QoQ</td></tr>
+      <tr><td>OPM(%)</td><td class="key-col key-opm">17.0%</td><td>25.0%</td><td>13.0%</td><td>17.0%</td></tr>
+    </tbody>
+  </table>
+  <p style="font-size:12px;color:#5a6280;margin-top:10px;padding:0 4px;">
+    ▶ 1Q26 주목 포인트: 컨센 13% 하회하나 QoQ +40% OP 성장. 2Q26 OPM 25.0%로 분기 최고 마진 전망.<br/>
+    ✅ 2Q26 OPM 20%+ 확인 시 → 신규장비 ASP 상승 확인, 연간 실적 상향 기대<br/>
+    ⛔ 하반기 HBM 인증 지연 시 → 하반기 OP 하향 조정 우려
+  </p>
+</section>
+
+<!-- I. 밸류에이션 -->
+<section>
+  <div class="section-title">밸류에이션 — 왜 이 배수인가 1문장 필수</div>
+  <div class="val-box">
+    <div class="val-formula">BUY(유지), TP 120,000원(상향). 27F BPS 30,069원 × PBR 4.0배 = TP 120,000원</div>
+    <p style="color:#5a6280;font-size:12px;margin-top:8px;">▶ 왜 이 배수인가: HBM 인증 + SiCN PECVD 국산화로 성장 스토리 확장. 반도체 장비 Peer 대비 PBR 4.0배는 ROE 14.3% 감안 시 합리적 수준</p>
+    <p style="color:#5a6280;font-size:12px;margin-top:4px;">▶ 현재 PBR: 26F 기준 3.5배 → TP 기준 4.0배 적용</p>
+  </div>
+</section>
+
+<!-- J. 리스크 -->
+<section>
+  <div class="section-title">리스크 — 핵심 가정이 틀릴 경우 시나리오 (키워드 나열 금지)</div>
+  <div class="risk-item risk-sev-high">
+    <div class="risk-assumption">🔴 핵심 가정: CapEx 집행 지연 → 장비 수주 지연</div>
+    <div class="risk-chain" style="margin-top:6px;">→ 붕괴 시: 삼성/하이닉스 CapEx 집행이 예상 대비 지연되며 장비 수주 일정 후행<br/>→ 실적 영향: 26F OP 82십억원 → 50십억원(-39%) 하향 가능</div>
+    <div class="risk-impact-num">→ 주가 영향: TP 120,000원 → 80,000원(-33%)</div>
+  </div>
+  <div class="risk-item risk-sev-mid">
+    <div class="risk-assumption">🟠 두 번째 가정: 신규장비 인증 실패 → ASP 상승 무산</div>
+    <div class="risk-chain" style="margin-top:6px;">→ 붕괴 시: HBM BSD 인증 실패 또는 SiCN PECVD 국산화 지연 → 신규장비 ASP 상승 무산<br/>→ 실적: OPM 하락, 기존 장비만으로는 성장 둔화</div>
+    <div class="risk-impact-num">→ 주가 영향: 성장 프리미엄 소멸, PBR 디레이팅 리스크</div>
+  </div>
+</section>
+
+<!-- K. 체크포인트 -->
+<section>
+  <div class="section-title">모멘텀 확인 체크포인트 — 확인/실망 시 행동 명시</div>
+  <div style="background:#fafafa;border:1px solid #d0d4e0;border-radius:8px;padding:4px 16px;">
+    <div class="checkpoint-item">
+      <span class="cp-date">26하반기</span>
+      <div>
+        <div class="cp-event">HBM BSD 인증 완료 여부</div>
+        <div class="cp-pass">✅ 인증 완료 시 → DRAM 시장 진입 확정, 비중 확대 + 핵심 승격 검토</div>
+        <div class="cp-fail">⛔ 인증 지연/실패 시 → 성장 스토리 약화, 비중 축소</div>
+      </div>
+    </div>
+    <div class="checkpoint-item">
+      <span class="cp-date">26하반기</span>
+      <div>
+        <div class="cp-event">SiCN PECVD 수주 확정 여부</div>
+        <div class="cp-pass">✅ 수주 확정 시 → 국산화 성공 확인, ASP 상승 근거 강화</div>
+        <div class="cp-fail">⛔ 수주 미확정 시 → 국산화 지연 판단, 장기 성장 동력 약화</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- L. 사견 & 결론 -->
+<section>
+  <div class="section-title">사견 & 투자 행동 결론</div>
+  <div class="opinion-box">
+    <p>삼성/하이닉스 CapEx 확대 사이클에서 볼륨 성장은 확실하나, 핵심 업사이드인 HBM BSD 인증과 SiCN PECVD 국산화는 아직 확정 전(●●○) 단계. 1Q26 컨센 13% 하회로 단기 모멘텀도 약하고, 연초 대비 +69% 상승으로 기대감이 상당 부분 선반영. OP 성장률 +41%는 양호하나 50% 임계값 미달. 하반기 신규장비 인증 결과를 확인한 후 진입하는 것이 리스크-리워드 최적.</p>
+    <div class="decision-box">
+      <div class="decision-btn decision-buy decision-dim">✅ 지금 진입 가능<br/><span style="font-size:11px;font-weight:400;">핵심+ & 60점+</span></div>
+      <div class="decision-btn decision-wait">⏳ 이벤트 후 진입<br/><span style="font-size:11px;font-weight:400;">하반기 신규장비 인증 확인 후</span></div>
+      <div class="decision-btn decision-avoid decision-dim">🚫 관망<br/><span style="font-size:11px;font-weight:400;">-</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- M. 승격 조건 (주목 전용) -->
+<section>
+  <div class="section-title">승격 조건 — 주목 종목 전용</div>
+  <div class="upgrade-box">
+    <div class="upgrade-item">
+      <span class="upgrade-when">HBM 인증 + 수주 확정</span>
+      <span>HBM BSD 인증 완료 + DRAM향 수주 확정 시 → ⭐ 핵심 승격</span>
+    </div>
+    <div class="upgrade-item">
+      <span class="upgrade-when">SiCN 국산화 확정</span>
+      <span>SiCN PECVD 국산화 확정 + 양산 수주 시 → 🚀 SS 승격</span>
+    </div>
+  </div>
+</section>
+
+<div class="disclaimer">
+  ※ 본 글은 증권사 리포트를 개인 학습 목적으로 요약·정리한 것이며, 투자 권유가 아닙니다.<br/>
+  ※ 제공된 PDF 파일만 활용. 외부 검색·참조 없음. 당일 발간 리포트 기준.
+</div>
+
+</body>
+</html>

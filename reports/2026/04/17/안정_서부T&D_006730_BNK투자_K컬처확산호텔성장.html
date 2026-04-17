@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>서부T&D (006730) 정리</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Pretendard','Apple SD Gothic Neo',-apple-system,sans-serif; background: #ffffff; color: #1a1d2e; line-height: 1.7; font-size: 14px; max-width: 900px; margin: 0 auto; padding: 32px 20px 80px; }
+  .header { border-left: 4px solid #2563eb; padding: 0 0 0 16px; margin-bottom: 24px; }
+  .header h1 { font-size: 20px; font-weight: 700; margin-bottom: 10px; color: #1a1d2e; }
+  .price-row { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin-top: 10px; }
+  .price-item { background: #f0f2f8; border: 1px solid #d0d4e0; border-radius: 6px; padding: 6px 14px; font-size: 13px; }
+  .price-item .label { color: #5a6280; font-size: 11px; display: block; }
+  .price-item .val { font-weight: 700; color: #1a1d2e; }
+  .upside-val { color: #059669; }
+  .tag-badge { display: inline-flex; align-items: center; gap: 6px; padding: 5px 14px; border-radius: 20px; font-size: 13px; font-weight: 700; }
+  .tag-stable { background: #ecfdf5; color: #059669; border: 1px solid #34d399; }
+  .score-badge { display: inline-block; padding: 5px 14px; border-radius: 20px; font-size: 13px; font-weight: 700; background: #f0f2f8; border: 1px solid #d0d4e0; color: #1a1d2e; }
+  section { margin-bottom: 28px; }
+  .section-title { font-size: 11px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: #5a6280; border-bottom: 1px solid #d0d4e0; padding-bottom: 6px; margin-bottom: 14px; }
+  .pdf-only-banner { background: #fff7ed; border: 1px solid #f97316; border-radius: 8px; padding: 10px 16px; font-size: 12px; color: #c2410c; margin-bottom: 20px; text-align: center; font-weight: 700; }
+  .thesis-box { background: #f8faff; border: 1px solid #2563eb; border-radius: 8px; padding: 16px 20px; font-size: 15px; font-weight: 600; line-height: 1.6; color: #1a1d2e; }
+  .fact-item { background: #fafafa; border: 1px solid #d0d4e0; border-radius: 8px; padding: 14px 16px; margin-bottom: 8px; }
+  .fact-item:last-child { margin-bottom: 0; }
+  .fact-num { font-size: 10px; font-weight: 700; color: #2563eb; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 8px; display: block; }
+  .fact-what { font-weight: 600; font-size: 14px; margin-bottom: 6px; color: #1a1d2e; }
+  .fact-why { font-size: 13px; color: #5a6280; margin-bottom: 6px; }
+  .fact-so { font-size: 13px; color: #059669; }
+  .fact-label { display: inline-block; font-size: 10px; font-weight: 700; padding: 1px 6px; border-radius: 3px; margin-right: 4px; }
+  .label-what { background: #eff6ff; color: #1d4ed8; }
+  .label-why { background: #fff7ed; color: #ea580c; }
+  .label-so { background: #ecfdf5; color: #059669; }
+  table { width: 100%; border-collapse: collapse; background: #fafafa; border-radius: 8px; overflow: hidden; border: 1px solid #d0d4e0; }
+  thead tr { background: #f0f2f8; }
+  th { padding: 10px 14px; text-align: left; font-size: 11px; font-weight: 700; color: #5a6280; letter-spacing: 0.8px; text-transform: uppercase; }
+  td { padding: 10px 14px; border-top: 1px solid #d0d4e0; font-size: 13px; color: #1a1d2e; }
+  .data-table th { background: #e8ecf5; }
+  .data-table td.key-col { background: #f0f6ff; }
+  .data-table .key-num { color: #059669; font-weight: 700; }
+  .data-table .key-opm { color: #b45309; }
+  caption { font-size: 11px; color: #5a6280; text-align: left; padding: 0 0 8px; caption-side: top; }
+  .opinion-box { background: #fafafa; border: 1px solid #d0d4e0; border-radius: 8px; padding: 16px 20px; font-size: 13px; line-height: 1.8; color: #5a6280; }
+  .decision-box { display: flex; gap: 14px; margin-top: 14px; }
+  .decision-btn { flex: 1; text-align: center; padding: 10px; border-radius: 6px; font-weight: 700; font-size: 13px; border: 1px solid; }
+  .decision-buy { background: #ecfdf5; color: #059669; border-color: #34d399; }
+  .decision-wait { background: #fffbeb; color: #b45309; border-color: #f59e0b; }
+  .decision-avoid { background: #fef2f2; color: #dc2626; border-color: #fca5a5; }
+  .decision-dim { opacity: 0.3; }
+  .disclaimer { font-size: 11px; color: #9ca3af; text-align: center; margin-top: 40px; padding-top: 16px; border-top: 1px solid #d0d4e0; }
+</style>
+</head>
+<body>
+
+<div class="pdf-only-banner">
+  외부 검색 절대 금지 — 제공된 PDF 파일만 활용 | 당일 발간 리포트 기준 투자 종목 발굴 전용
+</div>
+
+<!-- A. 헤더 -->
+<header class="header">
+  <h1>서부T&D (006730) | K컬처 확산 호텔 성장 | BNK투자증권 이종원 | 발간일: 2026.04.17</h1>
+  <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-bottom:12px;">
+    <span class="tag-badge tag-stable">안정</span>
+    <span class="score-badge">20점</span>
+    <span style="font-size:12px;color:#5a6280;">비바이오</span>
+  </div>
+  <div class="price-row">
+    <div class="price-item"><span class="label">투자의견</span><span class="val">매수(유지)</span></div>
+    <div class="price-item"><span class="label">목표주가(TP)</span><span class="val">18,000원(상향)</span></div>
+    <div class="price-item"><span class="label">현재주가(CP)</span><span class="val">13,530원</span></div>
+    <div class="price-item"><span class="label">Upside</span><span class="val upside-val">+33.0%</span></div>
+    <div class="price-item"><span class="label">시가총액</span><span class="val">878십억원</span></div>
+  </div>
+</header>
+
+<!-- B. 한줄 투자 이유 -->
+<section>
+  <div class="section-title">이 종목에 투자해야 하는 이유 — 스토리 한 줄</div>
+  <div class="thesis-box">
+    K컬처 효과로 호텔 사업 호조(서울드래곤시티) + 용산 나진상가 개발 기대 + 리츠 금융구조 개선으로 OP가 26F +28.6%, 27F +20%로 가파른 성장 전망
+  </div>
+</section>
+
+<!-- F. 핵심 팩트 3줄 -->
+<section>
+  <div class="section-title">핵심 팩트 3줄 — WHAT(숫자) + WHY(원인) + SO WHAT(의미)</div>
+  <div class="fact-item">
+    <span class="fact-num">Fact 01 — 실적 고성장</span>
+    <div class="fact-what"><span class="fact-label label-what">WHAT</span>26F OP 90십억원(+28.6% YoY), 27F 108십억원(+20%), 28F 114십억원</div>
+    <div class="fact-why"><span class="fact-label label-why">WHY</span>K컬처 확산에 따른 외국인 관광객 증가 → 서울드래곤시티 호텔 가동률·ADR 상승</div>
+    <div class="fact-so"><span class="fact-label label-so">SO WHAT</span>3년 연속 두 자릿수 OP 성장 전망 — 호텔 업종 내 차별화된 성장 궤적</div>
+  </div>
+  <div class="fact-item">
+    <span class="fact-num">Fact 02 — 용산 개발 옵션</span>
+    <div class="fact-what"><span class="fact-label label-what">WHAT</span>용산 나진상가 재개발 프로젝트 보유</div>
+    <div class="fact-why"><span class="fact-label label-why">WHY</span>용산 일대 대규모 개발 본격화 시 부동산 자산 가치 재평가 가능</div>
+    <div class="fact-so"><span class="fact-label label-so">SO WHAT</span>숨은 자산 가치(Hidden Value) — 개발 구체화 시 주가 리레이팅 촉매</div>
+  </div>
+  <div class="fact-item">
+    <span class="fact-num">Fact 03 — 리츠 구조 개선</span>
+    <div class="fact-what"><span class="fact-label label-what">WHAT</span>리츠 금융구조 개선으로 TP 18,000원 상향</div>
+    <div class="fact-why"><span class="fact-label label-why">WHY</span>금리 하락 수혜 + 리츠 구조 리파이낸싱으로 금융비용 절감</div>
+    <div class="fact-so"><span class="fact-label label-so">SO WHAT</span>비용 절감 + 매출 성장의 이중 효과로 수익성 개선 가속</div>
+  </div>
+</section>
+
+<!-- G. 실적 전망 (연간) -->
+<section>
+  <div class="section-title">실적 전망 (연간) — PDF 원문 수치만 기재</div>
+  <table class="data-table">
+    <caption>단위: 십억원 | ★ = 투자 핵심 연도</caption>
+    <thead>
+      <tr><th>구분</th><th>2025A</th><th style="background:#dbeafe;color:#1e40af;font-weight:700;">2026F ★</th><th>2027F</th><th>2028F</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>매출액</td><td>248</td><td class="key-col key-num">261</td><td>284</td><td>298</td></tr>
+      <tr><td>영업이익</td><td>70</td><td class="key-col key-num">90</td><td>108</td><td>114</td></tr>
+      <tr><td>YoY(%)</td><td>-</td><td class="key-col key-num">+28.6%</td><td>+20.0%</td><td>+5.6%</td></tr>
+    </tbody>
+  </table>
+  <p style="font-size:12px;color:#5a6280;margin-top:10px;padding:0 4px;">
+    ▶ K컬처 수혜 호텔 성장 + 리츠 구조 개선으로 26~27F 두 자릿수 OP 성장 지속
+  </p>
+</section>
+
+<!-- L. 사견 & 결론 -->
+<section>
+  <div class="section-title">사견 & 투자 행동 결론</div>
+  <div class="opinion-box">
+    <p>K컬처 효과로 호텔 사업이 호조인 점은 매력적이나, 용산 나진상가 개발은 아직 구체화되지 않은 기대 요인이다. Upside 33%와 OP 성장률은 양호하지만, 용산 개발 일정 및 구체적 계획이 확인된 후 진입하는 것이 안전하다.</p>
+    <div class="decision-box">
+      <div class="decision-btn decision-buy decision-dim">지금 진입 가능</div>
+      <div class="decision-btn decision-wait">⏳ 이벤트 후 진입<br/><span style="font-size:11px;font-weight:400;">용산 개발 구체화 확인 후</span></div>
+      <div class="decision-btn decision-avoid decision-dim">관망</div>
+    </div>
+  </div>
+</section>
+
+<div class="disclaimer">
+  ※ 본 글은 증권사 리포트를 개인 학습 목적으로 요약·정리한 것이며, 투자 권유가 아닙니다.<br/>
+  ※ 제공된 PDF 파일만 활용. 외부 검색·참조 없음. 당일 발간 리포트 기준.
+</div>
+
+</body>
+</html>

@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>롯데정밀화학 (004000) 정리</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Pretendard','Apple SD Gothic Neo',-apple-system,sans-serif; background: #ffffff; color: #1a1d2e; line-height: 1.7; font-size: 14px; max-width: 900px; margin: 0 auto; padding: 32px 20px 80px; }
+  .header { border-left: 4px solid #2563eb; padding: 0 0 0 16px; margin-bottom: 24px; }
+  .header h1 { font-size: 20px; font-weight: 700; margin-bottom: 10px; color: #1a1d2e; }
+  .price-row { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin-top: 10px; }
+  .price-item { background: #f0f2f8; border: 1px solid #d0d4e0; border-radius: 6px; padding: 6px 14px; font-size: 13px; }
+  .price-item .label { color: #5a6280; font-size: 11px; display: block; }
+  .price-item .val { font-weight: 700; color: #1a1d2e; }
+  .upside-val { color: #059669; }
+  .tag-badge { display: inline-flex; align-items: center; gap: 6px; padding: 5px 14px; border-radius: 20px; font-size: 13px; font-weight: 700; }
+  .tag-stable { background: #ecfdf5; color: #059669; border: 1px solid #34d399; }
+  .score-badge { display: inline-block; padding: 5px 14px; border-radius: 20px; font-size: 13px; font-weight: 700; background: #f0f2f8; border: 1px solid #d0d4e0; color: #1a1d2e; }
+  section { margin-bottom: 28px; }
+  .section-title { font-size: 11px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: #5a6280; border-bottom: 1px solid #d0d4e0; padding-bottom: 6px; margin-bottom: 14px; }
+  .pdf-only-banner { background: #fff7ed; border: 1px solid #f97316; border-radius: 8px; padding: 10px 16px; font-size: 12px; color: #c2410c; margin-bottom: 20px; text-align: center; font-weight: 700; }
+  .thesis-box { background: #f8faff; border: 1px solid #2563eb; border-radius: 8px; padding: 16px 20px; font-size: 15px; font-weight: 600; line-height: 1.6; color: #1a1d2e; }
+  .fact-item { background: #fafafa; border: 1px solid #d0d4e0; border-radius: 8px; padding: 14px 16px; margin-bottom: 8px; }
+  .fact-item:last-child { margin-bottom: 0; }
+  .fact-num { font-size: 10px; font-weight: 700; color: #2563eb; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 8px; display: block; }
+  .fact-what { font-weight: 600; font-size: 14px; margin-bottom: 6px; color: #1a1d2e; }
+  .fact-why { font-size: 13px; color: #5a6280; margin-bottom: 6px; }
+  .fact-so { font-size: 13px; color: #059669; }
+  .fact-label { display: inline-block; font-size: 10px; font-weight: 700; padding: 1px 6px; border-radius: 3px; margin-right: 4px; }
+  .label-what { background: #eff6ff; color: #1d4ed8; }
+  .label-why { background: #fff7ed; color: #ea580c; }
+  .label-so { background: #ecfdf5; color: #059669; }
+  table { width: 100%; border-collapse: collapse; background: #fafafa; border-radius: 8px; overflow: hidden; border: 1px solid #d0d4e0; }
+  thead tr { background: #f0f2f8; }
+  th { padding: 10px 14px; text-align: left; font-size: 11px; font-weight: 700; color: #5a6280; letter-spacing: 0.8px; text-transform: uppercase; }
+  td { padding: 10px 14px; border-top: 1px solid #d0d4e0; font-size: 13px; color: #1a1d2e; }
+  .data-table th { background: #e8ecf5; }
+  .data-table td.key-col { background: #f0f6ff; }
+  .data-table .key-num { color: #059669; font-weight: 700; }
+  .data-table .key-opm { color: #b45309; }
+  caption { font-size: 11px; color: #5a6280; text-align: left; padding: 0 0 8px; caption-side: top; }
+  .opinion-box { background: #fafafa; border: 1px solid #d0d4e0; border-radius: 8px; padding: 16px 20px; font-size: 13px; line-height: 1.8; color: #5a6280; }
+  .decision-box { display: flex; gap: 14px; margin-top: 14px; }
+  .decision-btn { flex: 1; text-align: center; padding: 10px; border-radius: 6px; font-weight: 700; font-size: 13px; border: 1px solid; }
+  .decision-buy { background: #ecfdf5; color: #059669; border-color: #34d399; }
+  .decision-wait { background: #fffbeb; color: #b45309; border-color: #f59e0b; }
+  .decision-avoid { background: #fef2f2; color: #dc2626; border-color: #fca5a5; }
+  .decision-dim { opacity: 0.3; }
+  .disclaimer { font-size: 11px; color: #9ca3af; text-align: center; margin-top: 40px; padding-top: 16px; border-top: 1px solid #d0d4e0; }
+</style>
+</head>
+<body>
+
+<div class="pdf-only-banner">
+  외부 검색 절대 금지 — 제공된 PDF 파일만 활용 | 당일 발간 리포트 기준 투자 종목 발굴 전용
+</div>
+
+<!-- A. 헤더 -->
+<header class="header">
+  <h1>롯데정밀화학 (004000) | 컨센 9% 상회 예상 | 하나증권 | 발간일: 2026.04.17</h1>
+  <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-bottom:12px;">
+    <span class="tag-badge tag-stable">안정</span>
+    <span class="score-badge">20점</span>
+    <span style="font-size:12px;color:#5a6280;">비바이오(화학)</span>
+  </div>
+  <div class="price-row">
+    <div class="price-item"><span class="label">투자의견</span><span class="val">BUY</span></div>
+    <div class="price-item"><span class="label">목표주가(TP)</span><span class="val">60,000원</span></div>
+    <div class="price-item"><span class="label">현재주가(CP)</span><span class="val">53,400원</span></div>
+    <div class="price-item"><span class="label">Upside</span><span class="val upside-val">+12.4%</span></div>
+  </div>
+</header>
+
+<!-- B. 한줄 투자 이유 -->
+<section>
+  <div class="section-title">이 종목에 투자해야 하는 이유 — 스토리 한 줄</div>
+  <div class="thesis-box">
+    ECH/가성소다 판가 상승 + 그린소재 물량 증가 + 일회성 손실 제거로 26F OP +63.8% 대폭 개선, 2027년 EUDR(EU산림벌채규제) 시행으로 그린소재 성장 가속 기대
+  </div>
+</section>
+
+<!-- F. 핵심 팩트 3줄 -->
+<section>
+  <div class="section-title">핵심 팩트 3줄 — WHAT(숫자) + WHY(원인) + SO WHAT(의미)</div>
+  <div class="fact-item">
+    <span class="fact-num">Fact 01 — 대폭 실적 개선</span>
+    <div class="fact-what"><span class="fact-label label-what">WHAT</span>26F OP 121.9십억원(+63.8% YoY), OPM 4.2%→6.4%. 27F OP 133.1십억원(+9.2%), OPM 6.9%</div>
+    <div class="fact-why"><span class="fact-label label-why">WHY</span>ECH/가성소다 판가 상승 + 그린소재(셀룰로오스 등) 물량 증가 + 전분기 일회성 손실 제거</div>
+    <div class="fact-so"><span class="fact-label label-so">SO WHAT</span>화학 + 그린소재 동시 회복으로 수익성 정상화 — 안정적 실적 개선 궤도 진입</div>
+  </div>
+  <div class="fact-item">
+    <span class="fact-num">Fact 02 — 그린소재 성장</span>
+    <div class="fact-what"><span class="fact-label label-what">WHAT</span>그린소재(셀룰로오스 등) 물량 증가 + 2027년 EUDR 시행 주목</div>
+    <div class="fact-why"><span class="fact-label label-why">WHY</span>EU 산림벌채규제(EUDR) 시행으로 친환경 소재 수요 구조적 증가 예상. 셀룰로오스 기반 그린소재 대체 수요</div>
+    <div class="fact-so"><span class="fact-label label-so">SO WHAT</span>단순 화학이 아닌 ESG/그린 테마 수혜 — 중장기 성장 동력 확보</div>
+  </div>
+  <div class="fact-item">
+    <span class="fact-num">Fact 03 — 컨센 상회</span>
+    <div class="fact-what"><span class="fact-label label-what">WHAT</span>1Q26 실적 컨센서스 대비 +9% 상회 전망</div>
+    <div class="fact-why"><span class="fact-label label-why">WHY</span>ECH/가성소다 판가 상승폭이 시장 예상 대비 강했으며, 전분기 대비 일회성 비용 소멸</div>
+    <div class="fact-so"><span class="fact-label label-so">SO WHAT</span>컨센 상회로 실적 발표 시 주가 리레이팅 가능 — Upside 12.4%는 보수적</div>
+  </div>
+</section>
+
+<!-- G. 실적 전망 (연간) -->
+<section>
+  <div class="section-title">실적 전망 (연간) — PDF 원문 수치만 기재</div>
+  <table class="data-table">
+    <caption>단위: 십억원 | ★ = 투자 핵심 연도</caption>
+    <thead>
+      <tr><th>구분</th><th>2025A</th><th style="background:#dbeafe;color:#1e40af;font-weight:700;">2026F ★</th><th>2027F</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>매출액</td><td>1,752.8</td><td class="key-col key-num">1,900.0</td><td>1,919.0</td></tr>
+      <tr><td>영업이익</td><td>74.4</td><td class="key-col key-num">121.9</td><td>133.1</td></tr>
+      <tr><td>YoY(%)</td><td>-</td><td class="key-col key-num">+63.8%</td><td>+9.2%</td></tr>
+      <tr><td>OPM(%)</td><td>4.2%</td><td class="key-col key-opm">6.4%</td><td>6.9%</td></tr>
+    </tbody>
+  </table>
+  <p style="font-size:12px;color:#5a6280;margin-top:10px;padding:0 4px;">
+    ▶ ECH/가성소다 판가 회복 + 그린소재 성장 + 일회성 제거로 26F OP +63.8% 대폭 개선
+  </p>
+</section>
+
+<!-- L. 사견 & 결론 -->
+<section>
+  <div class="section-title">사견 & 투자 행동 결론</div>
+  <div class="opinion-box">
+    <p>OP +63.8% 성장과 컨센 9% 상회는 매력적이며, EUDR 시행에 따른 그린소재 수요 증가는 중장기 성장 동력이다. Upside 12.4%로 크지 않지만 실적 개선 추세가 뚜렷하고, 화학+그린소재의 복합 성장 구조는 안정적이다. 현 가격대에서 진입 가능하다.</p>
+    <div class="decision-box">
+      <div class="decision-btn decision-buy">지금 진입 가능<br/><span style="font-size:11px;font-weight:400;">안정 성장</span></div>
+      <div class="decision-btn decision-wait decision-dim">이벤트 후 진입</div>
+      <div class="decision-btn decision-avoid decision-dim">관망</div>
+    </div>
+  </div>
+</section>
+
+<div class="disclaimer">
+  ※ 본 글은 증권사 리포트를 개인 학습 목적으로 요약·정리한 것이며, 투자 권유가 아닙니다.<br/>
+  ※ 제공된 PDF 파일만 활용. 외부 검색·참조 없음. 당일 발간 리포트 기준.
+</div>
+
+</body>
+</html>

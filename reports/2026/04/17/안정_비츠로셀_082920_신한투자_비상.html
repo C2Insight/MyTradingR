@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>비츠로셀 (082920) 정리</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Pretendard','Apple SD Gothic Neo',-apple-system,sans-serif; background: #ffffff; color: #1a1d2e; line-height: 1.7; font-size: 14px; max-width: 900px; margin: 0 auto; padding: 32px 20px 80px; }
+  .header { border-left: 4px solid #2563eb; padding: 0 0 0 16px; margin-bottom: 24px; }
+  .header h1 { font-size: 20px; font-weight: 700; margin-bottom: 10px; color: #1a1d2e; }
+  .price-row { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin-top: 10px; }
+  .price-item { background: #f0f2f8; border: 1px solid #d0d4e0; border-radius: 6px; padding: 6px 14px; font-size: 13px; }
+  .price-item .label { color: #5a6280; font-size: 11px; display: block; }
+  .price-item .val { font-weight: 700; color: #1a1d2e; }
+  .upside-val { color: #059669; }
+  .tag-badge { display: inline-flex; align-items: center; gap: 6px; padding: 5px 14px; border-radius: 20px; font-size: 13px; font-weight: 700; }
+  .tag-stable { background: #ecfdf5; color: #059669; border: 1px solid #34d399; }
+  .score-badge { display: inline-block; padding: 5px 14px; border-radius: 20px; font-size: 13px; font-weight: 700; background: #f0f2f8; border: 1px solid #d0d4e0; color: #1a1d2e; }
+  section { margin-bottom: 28px; }
+  .section-title { font-size: 11px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: #5a6280; border-bottom: 1px solid #d0d4e0; padding-bottom: 6px; margin-bottom: 14px; }
+  .pdf-only-banner { background: #fff7ed; border: 1px solid #f97316; border-radius: 8px; padding: 10px 16px; font-size: 12px; color: #c2410c; margin-bottom: 20px; text-align: center; font-weight: 700; }
+  .thesis-box { background: #f8faff; border: 1px solid #2563eb; border-radius: 8px; padding: 16px 20px; font-size: 15px; font-weight: 600; line-height: 1.6; color: #1a1d2e; }
+  .fact-item { background: #fafafa; border: 1px solid #d0d4e0; border-radius: 8px; padding: 14px 16px; margin-bottom: 8px; }
+  .fact-item:last-child { margin-bottom: 0; }
+  .fact-num { font-size: 10px; font-weight: 700; color: #2563eb; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 8px; display: block; }
+  .fact-what { font-weight: 600; font-size: 14px; margin-bottom: 6px; color: #1a1d2e; }
+  .fact-why { font-size: 13px; color: #5a6280; margin-bottom: 6px; }
+  .fact-so { font-size: 13px; color: #059669; }
+  .fact-label { display: inline-block; font-size: 10px; font-weight: 700; padding: 1px 6px; border-radius: 3px; margin-right: 4px; }
+  .label-what { background: #eff6ff; color: #1d4ed8; }
+  .label-why { background: #fff7ed; color: #ea580c; }
+  .label-so { background: #ecfdf5; color: #059669; }
+  table { width: 100%; border-collapse: collapse; background: #fafafa; border-radius: 8px; overflow: hidden; border: 1px solid #d0d4e0; }
+  thead tr { background: #f0f2f8; }
+  th { padding: 10px 14px; text-align: left; font-size: 11px; font-weight: 700; color: #5a6280; letter-spacing: 0.8px; text-transform: uppercase; }
+  td { padding: 10px 14px; border-top: 1px solid #d0d4e0; font-size: 13px; color: #1a1d2e; }
+  .data-table th { background: #e8ecf5; }
+  .data-table td.key-col { background: #f0f6ff; }
+  .data-table .key-num { color: #059669; font-weight: 700; }
+  .data-table .key-opm { color: #b45309; }
+  caption { font-size: 11px; color: #5a6280; text-align: left; padding: 0 0 8px; caption-side: top; }
+  .opinion-box { background: #fafafa; border: 1px solid #d0d4e0; border-radius: 8px; padding: 16px 20px; font-size: 13px; line-height: 1.8; color: #5a6280; }
+  .decision-box { display: flex; gap: 14px; margin-top: 14px; }
+  .decision-btn { flex: 1; text-align: center; padding: 10px; border-radius: 6px; font-weight: 700; font-size: 13px; border: 1px solid; }
+  .decision-buy { background: #ecfdf5; color: #059669; border-color: #34d399; }
+  .decision-wait { background: #fffbeb; color: #b45309; border-color: #f59e0b; }
+  .decision-avoid { background: #fef2f2; color: #dc2626; border-color: #fca5a5; }
+  .decision-dim { opacity: 0.3; }
+  .disclaimer { font-size: 11px; color: #9ca3af; text-align: center; margin-top: 40px; padding-top: 16px; border-top: 1px solid #d0d4e0; }
+</style>
+</head>
+<body>
+
+<div class="pdf-only-banner">
+  외부 검색 절대 금지 — 제공된 PDF 파일만 활용 | 당일 발간 리포트 기준 투자 종목 발굴 전용
+</div>
+
+<!-- A. 헤더 -->
+<header class="header">
+  <h1>비츠로셀 (082920) | 비상 | 신한투자증권 이병화/이채윤 | 발간일: 2026.04.17</h1>
+  <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-bottom:12px;">
+    <span class="tag-badge tag-stable">안정</span>
+    <span class="score-badge">20점</span>
+    <span style="font-size:12px;color:#5a6280;">비바이오</span>
+  </div>
+  <div class="price-row">
+    <div class="price-item"><span class="label">투자의견</span><span class="val">매수(유지)</span></div>
+    <div class="price-item"><span class="label">목표주가(TP)</span><span class="val">65,000원(상향)</span></div>
+    <div class="price-item"><span class="label">현재주가(CP)</span><span class="val">56,500원</span></div>
+    <div class="price-item"><span class="label">Upside</span><span class="val upside-val">+15.0%</span></div>
+    <div class="price-item"><span class="label">시가총액</span><span class="val">25,617억원</span></div>
+  </div>
+</header>
+
+<!-- B. 한줄 투자 이유 -->
+<section>
+  <div class="section-title">이 종목에 투자해야 하는 이유 — 스토리 한 줄</div>
+  <div class="thesis-box">
+    고온전지 글로벌 리더로서 방산 프리미엄 + 앰플/열전지 성장 + 경쟁사 대비 높은 OPM(29%)을 바탕으로 안정적 성장과 배당을 동시에 누릴 수 있는 방산 수혜주
+  </div>
+</section>
+
+<!-- F. 핵심 팩트 3줄 -->
+<section>
+  <div class="section-title">핵심 팩트 3줄 — WHAT(숫자) + WHY(원인) + SO WHAT(의미)</div>
+  <div class="fact-item">
+    <span class="fact-num">Fact 01 — 실적 성장</span>
+    <div class="fact-what"><span class="fact-label label-what">WHAT</span>26F OP 82.6십억원(+19.2% YoY), OPM 29.0%. 27F OP 88.0십억원(+6.5%), OPM 29.2%</div>
+    <div class="fact-why"><span class="fact-label label-why">WHY</span>앰플(방산용 고온전지) 및 열전지 수주 확대 + 글로벌 방산 수요 증가에 따른 물량 성장</div>
+    <div class="fact-so"><span class="fact-label label-so">SO WHAT</span>OPM 29%대 유지하며 이익 성장 → 고마진 방산 사업의 안정성 입증</div>
+  </div>
+  <div class="fact-item">
+    <span class="fact-num">Fact 02 — 방산 프리미엄</span>
+    <div class="fact-what"><span class="fact-label label-what">WHAT</span>고온전지 글로벌 리더 포지션. 경쟁사 대비 OPM 29%로 압도적 수익성</div>
+    <div class="fact-why"><span class="fact-label label-why">WHY</span>리튬-염화티오닐 전지(고온전지) 기술 독점적 지위 + 방산 고객 Lock-in 효과 + 진입장벽 높음</div>
+    <div class="fact-so"><span class="fact-label label-so">SO WHAT</span>방산 업종 프리미엄 지속 — 안정적 수주 기반 예측 가능한 실적 흐름</div>
+  </div>
+  <div class="fact-item">
+    <span class="fact-num">Fact 03 — 신규 성장 동력</span>
+    <div class="fact-what"><span class="fact-label label-what">WHAT</span>앰플 및 열전지 사업 확대 + TP 65,000원으로 상향</div>
+    <div class="fact-why"><span class="fact-label label-why">WHY</span>글로벌 방산 지출 증가 추세 + 차세대 무기체계에 고온전지 적용 확대</div>
+    <div class="fact-so"><span class="fact-label label-so">SO WHAT</span>단순 배당주를 넘어 방산 성장주로의 재평가 가능</div>
+  </div>
+</section>
+
+<!-- G. 실적 전망 (연간) -->
+<section>
+  <div class="section-title">실적 전망 (연간) — PDF 원문 수치만 기재</div>
+  <table class="data-table">
+    <caption>단위: 십억원 | ★ = 투자 핵심 연도</caption>
+    <thead>
+      <tr><th>구분</th><th>2025A</th><th style="background:#dbeafe;color:#1e40af;font-weight:700;">2026F ★</th><th>2027F</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>매출액</td><td>243.1</td><td class="key-col key-num">284.6</td><td>301.2</td></tr>
+      <tr><td>영업이익</td><td>69.3</td><td class="key-col key-num">82.6</td><td>88.0</td></tr>
+      <tr><td>YoY(%)</td><td>-</td><td class="key-col key-num">+19.2%</td><td>+6.5%</td></tr>
+      <tr><td>OPM(%)</td><td>28.5%</td><td class="key-col key-opm">29.0%</td><td>29.2%</td></tr>
+    </tbody>
+  </table>
+  <p style="font-size:12px;color:#5a6280;margin-top:10px;padding:0 4px;">
+    ▶ 고온전지 수요 확대 + 방산 프리미엄으로 OPM 29%대 유지하며 안정 성장
+  </p>
+</section>
+
+<!-- L. 사견 & 결론 -->
+<section>
+  <div class="section-title">사견 & 투자 행동 결론</div>
+  <div class="opinion-box">
+    <p>방산 프리미엄과 높은 OPM(29%)은 안정적 투자 포인트이며, 앰플/열전지 성장으로 중장기 모멘텀도 갖추고 있다. 배당 안정성까지 겸비하여 안정 태그 종목 중에서도 즉시 진입 가능한 종목으로 판단된다. Upside 15%로 크지 않지만 방산 섹터의 구조적 성장을 감안하면 장기 보유 관점에서 매력적이다.</p>
+    <div class="decision-box">
+      <div class="decision-btn decision-buy">지금 진입 가능<br/><span style="font-size:11px;font-weight:400;">안정 배당+방산 성장</span></div>
+      <div class="decision-btn decision-wait decision-dim">이벤트 후 진입</div>
+      <div class="decision-btn decision-avoid decision-dim">관망</div>
+    </div>
+  </div>
+</section>
+
+<div class="disclaimer">
+  ※ 본 글은 증권사 리포트를 개인 학습 목적으로 요약·정리한 것이며, 투자 권유가 아닙니다.<br/>
+  ※ 제공된 PDF 파일만 활용. 외부 검색·참조 없음. 당일 발간 리포트 기준.
+</div>
+
+</body>
+</html>
