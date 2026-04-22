@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>심텍 (222800) 정리</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Pretendard','Apple SD Gothic Neo',-apple-system,sans-serif; background: #ffffff; color: #1a1d2e; line-height: 1.7; font-size: 14px; max-width: 900px; margin: 0 auto; padding: 32px 20px 80px; }
+  .header { border-left: 4px solid #2563eb; padding: 0 0 0 16px; margin-bottom: 24px; }
+  .header h1 { font-size: 20px; font-weight: 700; margin-bottom: 10px; color: #1a1d2e; }
+  .price-row { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin-top: 10px; }
+  .price-item { background: #f0f2f8; border: 1px solid #d0d4e0; border-radius: 6px; padding: 6px 14px; font-size: 13px; }
+  .price-item .label { color: #5a6280; font-size: 11px; display: block; }
+  .price-item .val { font-weight: 700; color: #1a1d2e; }
+  .upside-val { color: #059669; }
+  .tag-badge { display: inline-flex; align-items: center; gap: 6px; padding: 5px 14px; border-radius: 20px; font-size: 13px; font-weight: 700; }
+  .tag-watch { background: #fffbeb; color: #b45309; border: 1px solid #f59e0b; }
+  .score-badge { display: inline-block; padding: 5px 14px; border-radius: 20px; font-size: 13px; font-weight: 700; background: #f0f2f8; border: 1px solid #d0d4e0; }
+  .score-mid { color: #b45309; }
+  .pathway-badge { display: inline-flex; align-items: center; gap: 4px; padding: 3px 10px; border-radius: 12px; font-size: 11px; font-weight: 600; background: #f0f2f8; border: 1px solid #d0d4e0; color: #5a6280; }
+  section { margin-bottom: 28px; }
+  .section-title { font-size: 11px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: #5a6280; border-bottom: 1px solid #d0d4e0; padding-bottom: 6px; margin-bottom: 14px; }
+  .pdf-only-banner { background: #fff7ed; border: 1px solid #f97316; border-radius: 8px; padding: 10px 16px; font-size: 12px; color: #c2410c; margin-bottom: 20px; text-align: center; font-weight: 700; }
+  .thesis-box { background: #f8faff; border: 1px solid #2563eb; border-radius: 8px; padding: 16px 20px; font-size: 15px; font-weight: 600; line-height: 1.6; color: #1a1d2e; }
+  .thesis-structure { display: flex; gap: 8px; align-items: center; margin-top: 10px; flex-wrap: wrap; }
+  .thesis-part { background: #f0f2f8; border: 1px solid #d0d4e0; border-radius: 6px; padding: 4px 10px; font-size: 12px; color: #1a1d2e; }
+  .thesis-arrow { color: #2563eb; font-size: 16px; }
+  .checklist { background: #fafafa; border: 1px solid #d0d4e0; border-radius: 8px; overflow: hidden; }
+  .checklist-item { display: flex; gap: 14px; align-items: flex-start; padding: 12px 16px; border-bottom: 1px solid #d0d4e0; }
+  .checklist-item:last-child { border-bottom: none; }
+  .check-icon { width: 22px; height: 22px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; flex-shrink: 0; margin-top: 1px; }
+  .check-pass { background: #ecfdf5; color: #059669; border: 1px solid #34d399; }
+  .check-fail { background: #fef2f2; color: #dc2626; border: 1px solid #fca5a5; }
+  .check-label { font-weight: 600; font-size: 13px; color: #1a1d2e; }
+  .check-why { color: #1a1d2e; font-size: 13px; }
+  table { width: 100%; border-collapse: collapse; background: #fafafa; border-radius: 8px; overflow: hidden; border: 1px solid #d0d4e0; }
+  thead tr { background: #f0f2f8; }
+  th { padding: 10px 14px; text-align: left; font-size: 11px; font-weight: 700; color: #5a6280; letter-spacing: 0.8px; text-transform: uppercase; }
+  td { padding: 10px 14px; border-top: 1px solid #d0d4e0; font-size: 13px; color: #1a1d2e; }
+  tr.total-row td { background: #e8ecf5; font-weight: 700; }
+  .penalty { color: #dc2626; }
+  .highlight-green { color: #059669; font-weight: 700; }
+  .chain-box { background: #fafafa; border: 1px solid #d0d4e0; border-radius: 8px; padding: 16px 20px; }
+  .chain-step { display: flex; gap: 12px; align-items: flex-start; margin-bottom: 10px; }
+  .chain-step:last-child { margin-bottom: 0; }
+  .chain-arrow { color: #2563eb; font-size: 16px; flex-shrink: 0; margin-top: 1px; }
+  .chain-content { flex: 1; }
+  .chain-label { font-size: 10px; font-weight: 700; letter-spacing: 1px; color: #5a6280; text-transform: uppercase; margin-bottom: 2px; }
+  .chain-text { font-size: 13px; color: #1a1d2e; }
+  .chain-confirmed { color: #059669; font-size: 11px; margin-left: 6px; }
+  .chain-forecast { color: #b45309; font-size: 11px; margin-left: 6px; }
+  .fact-item { background: #fafafa; border: 1px solid #d0d4e0; border-radius: 8px; padding: 14px 16px; margin-bottom: 8px; }
+  .fact-item:last-child { margin-bottom: 0; }
+  .fact-num { font-size: 10px; font-weight: 700; color: #2563eb; letter-spacing: 1px; margin-bottom: 8px; display: block; }
+  .fact-what { font-weight: 600; font-size: 14px; margin-bottom: 6px; color: #1a1d2e; }
+  .fact-why { font-size: 13px; color: #5a6280; margin-bottom: 6px; }
+  .fact-so { font-size: 13px; color: #059669; }
+  .fact-label { display: inline-block; font-size: 10px; font-weight: 700; padding: 1px 6px; border-radius: 3px; margin-right: 4px; }
+  .label-what { background: #eff6ff; color: #1d4ed8; }
+  .label-why { background: #fff7ed; color: #ea580c; }
+  .label-so { background: #ecfdf5; color: #059669; }
+  .data-table th { background: #e8ecf5; }
+  .data-table td.key-col { background: #f0f6ff; }
+  .data-table .key-num { color: #059669; font-weight: 700; }
+  .data-table .key-opm { color: #b45309; }
+  caption { font-size: 11px; color: #5a6280; text-align: left; padding: 0 0 8px; caption-side: top; }
+  .val-box { background: #fafafa; border: 1px solid #d0d4e0; border-radius: 8px; padding: 16px 20px; font-size: 13px; line-height: 2; color: #1a1d2e; }
+  .val-formula { background: #f0f2f8; border-radius: 6px; padding: 10px 14px; font-family: monospace; font-size: 13px; margin: 10px 0; color: #b45309; }
+  .risk-item { background: #fafafa; border-radius: 0 6px 6px 0; padding: 14px 16px; margin-bottom: 10px; }
+  .risk-sev-high { border-left: 3px solid #dc2626; }
+  .risk-sev-mid { border-left: 3px solid #ea580c; }
+  .risk-assumption { font-weight: 600; font-size: 13px; margin-bottom: 4px; color: #1a1d2e; }
+  .risk-chain { font-size: 12px; color: #5a6280; margin: 4px 0; }
+  .risk-impact-num { font-size: 13px; color: #dc2626; font-weight: 600; margin-top: 4px; }
+  .checkpoint-item { display: flex; gap: 12px; padding: 10px 0; border-bottom: 1px solid #d0d4e0; font-size: 13px; }
+  .checkpoint-item:last-child { border-bottom: none; }
+  .cp-date { color: #2563eb; font-weight: 600; min-width: 90px; flex-shrink: 0; }
+  .cp-pass { color: #059669; font-size: 12px; margin-top: 2px; }
+  .cp-fail { color: #dc2626; font-size: 12px; margin-top: 2px; }
+  .opinion-box { background: #fafafa; border: 1px solid #d0d4e0; border-radius: 8px; padding: 16px 20px; font-size: 13px; line-height: 1.8; color: #5a6280; }
+  .decision-box { display: flex; gap: 14px; margin-top: 14px; }
+  .decision-btn { flex: 1; text-align: center; padding: 10px; border-radius: 6px; font-weight: 700; font-size: 13px; border: 1px solid; }
+  .decision-buy { background: #ecfdf5; color: #059669; border-color: #34d399; }
+  .decision-wait { background: #fffbeb; color: #b45309; border-color: #f59e0b; }
+  .decision-avoid { background: #fef2f2; color: #dc2626; border-color: #fca5a5; }
+  .decision-dim { opacity: 0.3; }
+  .upgrade-box { background: #eff6ff; border: 1px solid #93c5fd; border-radius: 8px; padding: 14px 16px; }
+  .upgrade-item { display: flex; gap: 10px; padding: 6px 0; border-bottom: 1px solid #dbeafe; font-size: 13px; color: #1a1d2e; }
+  .upgrade-item:last-child { border-bottom: none; }
+  .upgrade-when { color: #1d4ed8; font-weight: 600; min-width: 140px; flex-shrink: 0; }
+  .disclaimer { font-size: 11px; color: #9ca3af; text-align: center; margin-top: 40px; padding-top: 16px; border-top: 1px solid #d0d4e0; }
+</style>
+</head>
+<body>
+
+<div class="pdf-only-banner">외부 검색 절대 금지 — 제공된 PDF 파일만 활용 | 당일 발간 리포트 기준 투자 종목 발굴 전용</div>
+
+<header class="header">
+  <h1>심텍 (222800) | 레버리지 효과에 대한 근거 확보 교보증권 박희철 | 발간일: 2026.04.22</h1>
+  <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-bottom:12px;">
+    <span class="tag-badge tag-watch">주목</span>
+    <span class="score-badge score-mid">50점</span>
+    <span style="font-size:12px;color:#5a6280;">비바이오</span>
+    <span class="pathway-badge">경로 ③BEP돌파</span>
+  </div>
+  <div class="price-row">
+    <div class="price-item"><span class="label">투자의견</span><span class="val">Buy(유지)</span></div>
+    <div class="price-item"><span class="label">목표주가(TP)</span><span class="val">100,000원</span></div>
+    <div class="price-item"><span class="label">현재주가(CP)</span><span class="val">79,400원</span></div>
+    <div class="price-item"><span class="label">Upside</span><span class="val upside-val">+25.9%</span></div>
+    <div class="price-item"><span class="label">시가총액</span><span class="val">29,650억원</span></div>
+    <div class="price-item"><span class="label">종목 유형</span><span class="val">비바이오</span></div>
+  </div>
+</header>
+
+<section>
+  <div class="section-title">이 종목에 투자해야 하는 이유 — 스토리 한 줄</div>
+  <div class="thesis-box">
+    MCP(Multi-Chip Package) 기판 매출 급증(●●○) + GDDR7 기판 양산 가시화(●●○)로 26E OP 167십억원(+1,308.4%), OPM 0.9%→9.1%(+8.2%p)로 극적 흑자전환하나, 1Q26 OPM 2.9%로 아직 초기 + Upside 25.9%로 핵심 미달
+  </div>
+  <div class="thesis-structure">
+    <div class="thesis-part" style="color:#059669;">① MCP 기판 수주 급증(●●○)<br/>+ GDDR7 양산 가시화(●●○)</div>
+    <div class="thesis-arrow">→</div>
+    <div class="thesis-part" style="color:#b45309;">② 26E OP +1,308%, OPM +8.2%p (9.1%)</div>
+    <div class="thesis-arrow">→</div>
+    <div class="thesis-part" style="color:#2563eb;">③ Upside 25.9% (핵심 40% 미달)</div>
+  </div>
+</section>
+
+<section>
+  <div class="section-title">핵심 태그 5가지 조건 체크 (5개 모두 통과해야 핵심 이상 가능)</div>
+  <div class="checklist">
+    <div class="checklist-item">
+      <div class="check-icon check-pass">✓</div>
+      <div>
+        <div class="check-label">조건 1 | 영업이익 성장 임계값</div>
+        <div class="check-why">26E OP +1,308.4%(11.8→167십억원), OPM 0.9%→9.1%(+8.2%p) → OP +50% 대폭 충족, OPM +3%p 충족 → 통과</div>
+      </div>
+    </div>
+    <div class="checklist-item">
+      <div class="check-icon check-pass">✓</div>
+      <div>
+        <div class="check-label">조건 2 | 3년 지속성 (3개 이상 충족)</div>
+        <div class="check-why">① MCP 기판 수요 구조적 증가(AI 서버용) ② GDDR7 양산으로 Substrate 고부가 전환 ③ 26E~28E OP CAGR 60%+ → 3개 충족</div>
+      </div>
+    </div>
+    <div class="checklist-item">
+      <div class="check-icon check-fail">✗</div>
+      <div>
+        <div class="check-label">조건 3 | 확정 팩트(●●●) 2개 이상</div>
+        <div class="check-why">●●● 0개. ●●○ 3개(MCP 수주 증가, GDDR7 양산 전망, 1Q26 흑전 예상). 모두 추정 또는 예상 단계 → 미달</div>
+      </div>
+    </div>
+    <div class="checklist-item">
+      <div class="check-icon check-fail">✗</div>
+      <div>
+        <div class="check-label">조건 4 | 시장 미반영 (Upside 40%+ OR 컨센 괴리 20%+)</div>
+        <div class="check-why">Upside 25.9% &lt; 40%. 컨센 괴리 데이터 PDF 미제공 → 미달</div>
+      </div>
+    </div>
+    <div class="checklist-item">
+      <div class="check-icon check-pass">✓</div>
+      <div>
+        <div class="check-label">조건 5 | 차별화된 시각</div>
+        <div class="check-why">"레버리지 효과" 논리 — 고정비 구조에서 매출 +30.6% 시 OP +1,308% 극적 레버리지 분석 제시</div>
+      </div>
+    </div>
+  </div>
+  <p style="font-size:11px;color:#dc2626;margin-top:8px;padding:0 4px;">
+    조건3(확정팩트 미달), 조건4(Upside 미달) → 핵심→주목 강등
+  </p>
+</section>
+
+<section>
+  <div class="section-title">투자 점수 판정 (v2.0 비바이오) — 모든 근거 칸 필수 기재</div>
+  <table>
+    <thead><tr><th>항목</th><th>판정</th><th>근거 (Why)</th></tr></thead>
+    <tbody>
+      <tr><td>종목 유형</td><td>비바이오</td><td>반도체 기판(PCB/Substrate) 전문 기업</td></tr>
+      <tr><td>적용 가설</td><td>가설 3</td><td>25년 OP 11.8십억(저수익), 26E 흑자전환 수준(+1,308%) → BEP 돌파 구간</td></tr>
+      <tr><td>촉매 등급</td><td>중급</td><td>MCP 기판 수주 증가 + GDDR7 양산 → 제품믹스 변화(중급)</td></tr>
+      <tr><td>복합 여부</td><td>단독</td><td>MCP + GDDR7 모두 "기판 수요 회복"이라는 단일 테마</td></tr>
+      <tr><td>직접성</td><td>직접</td><td>기판 제조 = 주력 매출 직결</td></tr>
+      <tr><td>매트릭스 기본 점수</td><td>50점</td><td>가설3 × 중급 × 단독 = 50점</td></tr>
+      <tr class="total-row"><td>최종 투자 점수</td><td><span class="highlight-green">50점</span></td><td>주목 40+ 충족</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section>
+  <div class="section-title">성장 인과 체인 — 왜 성장하는가 (각 단계에 수치 필수)</div>
+  <div class="chain-box">
+    <div class="chain-step"><div class="chain-arrow">①</div><div class="chain-content"><div class="chain-label">구조 변화 / 촉매 <span class="chain-forecast">●●○ 추정</span></div><div class="chain-text">AI 서버·HBM 확대 → MCP(Multi-Chip Package) 기판 수요 급증(●●○). GDDR7 양산 가시화(●●○). Substrate 비중 77.3%(MCP 48.1% + GDDR 8.4%)</div></div></div>
+    <div class="chain-step"><div class="chain-arrow">↓</div><div class="chain-content"><div class="chain-label">매출 영향 (규모·비중 수치)</div><div class="chain-text">26E 매출 1,842십억원(+30.6% YoY). Substrate 77.3%(1,424억원), Module PCB 22.2%. MCP 기판이 매출의 48.1%로 핵심 드라이버</div></div></div>
+    <div class="chain-step"><div class="chain-arrow">↓</div><div class="chain-content"><div class="chain-label">OPM 변화 메커니즘 (왜 마진이 오르는가)</div><div class="chain-text">고정비(감가상각·인건비) 비중 높은 기판 사업에서 매출 +30.6% 증가 → 고정비 레버리지 극대화. MCP·GDDR7 고단가 제품 믹스 개선 → OPM 0.9%→9.1%</div></div></div>
+    <div class="chain-step"><div class="chain-arrow">↓</div><div class="chain-content"><div class="chain-label">최종 실적 결과 <span class="chain-forecast">●●○ 추정</span></div><div class="chain-text">26E OP 167십억원(+1,308.4%), OPM 9.1%. 27E OP 292십억원(+74.9%), OPM 12.5%. 1Q26E OP 12.3십억(흑전), OPM 2.9%</div></div></div>
+    <div class="chain-step"><div class="chain-arrow">↓</div><div class="chain-content"><div class="chain-label">시장 미반영 포인트 (So What)</div><div class="chain-text">고정비 레버리지 효과의 "근거"가 1Q26 흑전으로 확인되기 시작. Upside 25.9%로 시장 반영도는 중간. OPM 10%+ 달성 시 재평가 여지</div></div></div>
+  </div>
+</section>
+
+<section>
+  <div class="section-title">핵심 팩트 3줄 — WHAT(숫자) + WHY(원인) + SO WHAT(의미) 3요소 필수</div>
+  <div class="fact-item">
+    <span class="fact-num">Fact 01</span>
+    <div class="fact-what"><span class="fact-label label-what">WHAT</span>26E OP 167십억원(+1,308.4%), OPM 9.1%. 1Q26E 매출 419.5십억(+38.2%), OP 12.3십억(흑전), OPM 2.9%</div>
+    <div class="fact-why"><span class="fact-label label-why">WHY</span>MCP 기판 수요 급증(AI 서버 + HBM 확대) + GDDR7 양산 개시 → 고정비 구조에서 매출 +30.6%가 OP +1,308%로 극적 레버리지 효과</div>
+    <div class="fact-so"><span class="fact-label label-so">SO WHAT</span>1Q26 흑전은 "레버리지 효과의 근거 확보" 시점. 하반기 OPM 10%+ 진입 시 본격 재평가 구간</div>
+  </div>
+  <div class="fact-item">
+    <span class="fact-num">Fact 02</span>
+    <div class="fact-what"><span class="fact-label label-what">WHAT</span>Substrate 매출 비중 77.3%(MCP 48.1% + GDDR 8.4%). 26E Substrate 매출 +35%+ YoY</div>
+    <div class="fact-why"><span class="fact-label label-why">WHY</span>AI 가속기·HBM 채택 확대 → MCP 기판 수요 구조적 증가. GDDR7은 GDDR6 대비 단가 2배+ → 고부가 전환</div>
+    <div class="fact-so"><span class="fact-label label-so">SO WHAT</span>Module PCB(범용)→Substrate(고부가)로 매출 구조 전환 진행 중. 제품믹스 개선이 OPM 상승의 핵심 동력</div>
+  </div>
+  <div class="fact-item">
+    <span class="fact-num">Fact 03</span>
+    <div class="fact-what"><span class="fact-label label-what">WHAT</span>TP 100,000원(27F EPS 4,759원 × PER 21배). Upside 25.9%</div>
+    <div class="fact-why"><span class="fact-label label-why">WHY</span>27F 기준 PER 적용(27년이 OPM 12.5%로 본격 수익 구간). 국내 기판 Peer 대비 적정 수준</div>
+    <div class="fact-so"><span class="fact-label label-so">SO WHAT</span>Upside 25.9%로 주목 중위권. 부채비율 199.7%로 재무 리스크 상존</div>
+  </div>
+</section>
+
+<section>
+  <div class="section-title">원본 리포트 핵심 요약 — PDF 내용 직접 발췌 (외부 정보 추가 금지)</div>
+  <div style="background:#fafafa;border:1px solid #d0d4e0;border-radius:8px;padding:16px 20px;margin-bottom:12px;">
+    <div style="font-size:11px;font-weight:700;letter-spacing:1px;color:#5a6280;margin-bottom:10px;">리포트 핵심 주장</div>
+    <p style="font-size:13px;line-height:1.9;">심텍은 고정비 비중이 높은 기판 사업에서 MCP·GDDR7 수요 급증으로 극적인 레버리지 효과를 경험하는 구간. 1Q26 흑전으로 레버리지 효과의 근거가 확보되었으며, 26E OPM 9.1%→27E 12.5%로 수익성 개선 가속.</p>
+    <div style="margin-top:10px;display:flex;gap:8px;flex-wrap:wrap;">
+      <div style="background:#f0f2f8;border:1px solid #d0d4e0;border-radius:6px;padding:6px 12px;font-size:12px;">
+        <span style="color:#5a6280;font-size:10px;display:block;">이전 대비 변화</span>
+        TP 100,000원(상향). 26E 실적 추정 상향
+      </div>
+      <div style="background:#f0f2f8;border:1px solid #d0d4e0;border-radius:6px;padding:6px 12px;font-size:12px;">
+        <span style="color:#5a6280;font-size:10px;display:block;">컨센서스 대비</span>
+        PDF 미제공
+      </div>
+    </div>
+  </div>
+  <div style="background:#fafafa;border:1px solid #d0d4e0;border-radius:8px;padding:16px 20px;margin-bottom:12px;">
+    <div style="font-size:11px;font-weight:700;letter-spacing:1px;color:#5a6280;margin-bottom:10px;">사업 구조 & 성장 동력</div>
+    <table style="margin:0;">
+      <thead><tr><th style="width:25%;">사업부</th><th style="width:20%;">매출 비중(26E)</th><th style="width:55%;">핵심 성장 드라이버</th></tr></thead>
+      <tbody>
+        <tr><td>Substrate(MCP)</td><td>48.1%</td><td>AI 서버·HBM용 MCP 기판 수요 급증. 매출 핵심 드라이버</td></tr>
+        <tr><td>Substrate(GDDR)</td><td>8.4%</td><td>GDDR7 양산 개시. GDDR6 대비 단가 2배+ → 고부가 전환</td></tr>
+        <tr><td>Module PCB</td><td>22.2%</td><td>범용 메모리 모듈 PCB. 안정적 기반 매출</td></tr>
+      </tbody>
+    </table>
+    <p style="font-size:12px;color:#5a6280;margin-top:10px;">▶ 핵심 메커니즘: MCP 기판 수요↑ + GDDR7 양산 → 고정비 레버리지 극대화 → OPM 0.9%→9.1%→12.5%(27E)</p>
+  </div>
+  <div style="background:#fafafa;border:1px solid #d0d4e0;border-radius:8px;padding:16px 20px;margin-bottom:12px;">
+    <div style="font-size:11px;font-weight:700;letter-spacing:1px;color:#5a6280;margin-bottom:10px;">시장 괴리</div>
+    <table style="margin:0;">
+      <thead><tr><th style="width:30%;">구분</th><th>내용</th></tr></thead>
+      <tbody>
+        <tr><td style="color:#5a6280;">시장 현재 인식</td><td>기판 업황 회복은 인지하나, OPM 구조적 개선 여부에 회의적</td></tr>
+        <tr><td style="color:#2563eb;">리포트 주장</td><td>고정비 레버리지 + MCP·GDDR7 고부가 전환으로 OPM 구조적 개선 진입</td></tr>
+        <tr><td style="color:#b45309;">괴리 해소 촉매</td><td>1Q26 흑전 실적 확인 + 2H26 OPM 10%+ 달성</td></tr>
+        <tr><td>괴리 강도</td><td><span style="color:#b45309;">중</span> (레버리지 효과 근거 확보 시작)</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div style="background:#fafafa;border:1px solid #d0d4e0;border-radius:8px;padding:16px 20px;">
+    <div style="font-size:11px;font-weight:700;letter-spacing:1px;color:#5a6280;margin-bottom:10px;">재무 특징</div>
+    <div style="display:flex;flex-wrap:wrap;gap:8px;">
+      <div style="background:#f0f2f8;border:1px solid #d0d4e0;border-radius:6px;padding:8px 12px;font-size:12px;flex:1;min-width:160px;"><span style="color:#5a6280;font-size:10px;display:block;">부채비율</span>199.7%(26E) — 높음</div>
+      <div style="background:#f0f2f8;border:1px solid #d0d4e0;border-radius:6px;padding:8px 12px;font-size:12px;flex:1;min-width:160px;"><span style="color:#5a6280;font-size:10px;display:block;">ROE</span>13.9%(26E)</div>
+      <div style="background:#f0f2f8;border:1px solid #d0d4e0;border-radius:6px;padding:8px 12px;font-size:12px;flex:1;min-width:160px;"><span style="color:#5a6280;font-size:10px;display:block;">배당</span>-</div>
+      <div style="background:#f0f2f8;border:1px solid #d0d4e0;border-radius:6px;padding:8px 12px;font-size:12px;flex:1;min-width:160px;"><span style="color:#5a6280;font-size:10px;display:block;">특이 재무 이슈</span>부채비율 199.7%로 재무 부담</div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="section-title">실적 전망 (연간) — PDF 원문 수치만 기재, 추정 금지</div>
+  <table class="data-table">
+    <caption>단위: 십억원 — PDF 단위 확인 완료 | ★ = 투자 핵심 연도</caption>
+    <thead>
+      <tr>
+        <th>구분</th><th>2024A</th><th>2025A</th>
+        <th style="background:#dbeafe;color:#1e40af;font-weight:700;">2026E ★</th>
+        <th>2027E</th><th>2028E</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td>매출액</td><td>1,200</td><td>1,411</td><td class="key-col key-num">1,842</td><td>2,337</td><td>-</td></tr>
+      <tr><td>YoY(%)</td><td>-</td><td>+17.6%</td><td class="key-col">+30.6%</td><td>+26.9%</td><td>-</td></tr>
+      <tr><td>영업이익</td><td>-68</td><td>11.8</td><td class="key-col key-num">167</td><td>292</td><td>-</td></tr>
+      <tr><td>YoY(%)</td><td>적자</td><td>흑전</td><td class="key-col key-num">+1,308.4%</td><td>+74.9%</td><td>-</td></tr>
+      <tr><td>OPM(%)</td><td>-5.7%</td><td>0.9%</td><td class="key-col key-opm">9.1%</td><td>12.5%</td><td>-</td></tr>
+      <tr><td>EPS(원)</td><td>-</td><td>-</td><td class="key-col">2,300</td><td>4,759</td><td>-</td></tr>
+      <tr><td>PER(배)</td><td>-</td><td>-</td><td class="key-col">34.5</td><td>16.7</td><td>-</td></tr>
+      <tr><td>PBR(배)</td><td>-</td><td>-</td><td class="key-col">4.1</td><td>3.3</td><td>-</td></tr>
+      <tr><td>ROE(%)</td><td>-</td><td>-</td><td class="key-col">13.9%</td><td>20.4%</td><td>-</td></tr>
+    </tbody>
+  </table>
+  <p style="font-size:12px;color:#5a6280;margin-top:10px;padding:0 4px;">
+    ▶ 왜 26E가 변곡점인가: 24년 적자(-68십억)→25년 BEP(11.8십억)→26E 본격 흑자(167십억). 매출 +30.6%가 고정비 레버리지로 OP +1,308%를 만들어내는 극적 전환점.
+  </p>
+</section>
+
+<section>
+  <div class="section-title">분기별 실적 전망 — PDF에 있으면 반드시 기재, 생략 금지</div>
+  <table class="data-table">
+    <thead>
+      <tr>
+        <th>구분</th>
+        <th>1Q25</th><th>2Q25</th><th>3Q25</th><th>4Q25</th>
+        <th style="background:#dbeafe;color:#1e40af;font-weight:700;">1Q26E ★</th>
+        <th>2Q26E</th><th>3Q26E</th><th>4Q26E</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td>매출액</td><td>303.3</td><td>340.0</td><td>362.2</td><td>405.3</td><td class="key-col key-num">419.5</td><td>455.8</td><td>477.5</td><td>489.5</td></tr>
+      <tr><td>영업이익</td><td>-16.2</td><td>-6.1</td><td>10.2</td><td>23.9</td><td class="key-col key-num">12.3</td><td>38.1</td><td>52.4</td><td>64.5</td></tr>
+      <tr><td>OPM(%)</td><td>-5.3%</td><td>-1.8%</td><td>2.8%</td><td>5.9%</td><td class="key-col key-opm">2.9%</td><td>8.4%</td><td>11.0%</td><td>13.2%</td></tr>
+    </tbody>
+  </table>
+  <p style="font-size:12px;color:#5a6280;margin-top:10px;padding:0 4px;">
+    ▶ 1Q26 주목 포인트: OP 12.3십억(흑전, OPM 2.9%). 1Q26 흑전은 레버리지 효과의 "근거 확보" 시점. 분기별 OPM 개선 트렌드(2.9%→8.4%→11.0%→13.2%) 확인 필요.
+  </p>
+</section>
+
+<section>
+  <div class="section-title">밸류에이션 — 왜 이 배수인가 1문장 필수</div>
+  <div class="val-box">
+    <div class="val-formula">2027F EPS 4,759원 × Target PER 21배 = TP 100,000원</div>
+    <p style="color:#5a6280;font-size:12px;margin-top:8px;">▶ 왜 이 배수인가: 27년이 OPM 12.5%로 본격 수익 구간이므로 27F 기준. 국내 기판 Peer 대비 적정 PER 적용</p>
+    <p style="color:#5a6280;font-size:12px;margin-top:4px;">▶ SOTP 적용 시: 해당 없음</p>
+  </div>
+</section>
+
+<section>
+  <div class="section-title">리스크 — 핵심 가정이 틀릴 경우 시나리오 (키워드 나열 금지)</div>
+  <div class="risk-item risk-sev-high">
+    <div class="risk-assumption">핵심 가정: MCP 기판 수요가 26~27년 지속 증가</div>
+    <div class="risk-chain" style="margin-top:6px;">→ 붕괴 시: AI 서버 투자 둔화 또는 MCP→다른 패키징 방식 전환 시 기판 수요 급감<br/>→ 실적 영향: 26E OP 167→80~100십억원(40~50% 하락). OPM 9.1%→5%대 회귀</div>
+    <div class="risk-impact-num">→ 주가 영향: TP 100,000원 → 55,000~65,000원 (-35~45%)</div>
+  </div>
+  <div class="risk-item risk-sev-mid">
+    <div class="risk-assumption">두 번째 가정: 부채비율 199.7% 관리 가능</div>
+    <div class="risk-chain" style="margin-top:6px;">→ 붕괴 시: 금리 상승 시 이자비용 급증 → 순이익 압박. 유상증자 리스크</div>
+    <div class="risk-impact-num">→ 주가 영향: 유상증자 발표 시 주가 10~20% 하락 가능</div>
+  </div>
+</section>
+
+<section>
+  <div class="section-title">모멘텀 확인 체크포인트 — 확인/실망 시 행동 명시</div>
+  <div style="background:#fafafa;border:1px solid #d0d4e0;border-radius:8px;padding:4px 16px;">
+    <div class="checkpoint-item">
+      <span class="cp-date">2026.05</span>
+      <div>
+        <div class="cp-event">1Q26 실적 발표 — OP 12.3십억(흑전, OPM 2.9%) 달성 여부</div>
+        <div class="cp-pass">✅ 흑전 확인 + OPM 3%+ 달성 → 레버리지 근거 강화, 보유</div>
+        <div class="cp-fail">⛔ 흑전 미달 시 → 레버리지 테제 약화, 비중 축소</div>
+      </div>
+    </div>
+    <div class="checkpoint-item">
+      <span class="cp-date">2026.하반기</span>
+      <div>
+        <div class="cp-event">OPM 10%+ 달성 여부 (3Q26E OPM 11.0% 예상)</div>
+        <div class="cp-pass">✅ OPM 10%+ 달성 → 핵심 승격 검토</div>
+        <div class="cp-fail">⛔ OPM 10% 미달 → 주목 유지</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="section-title">사견 & 투자 행동 결론</div>
+  <div class="opinion-box">
+    <p>심텍은 고정비 레버리지가 극적으로 작용하는 BEP 돌파 구간에 진입. 26E OP +1,308%는 기저효과이나, OPM 0.9%→9.1% 개선은 실질적. 다만 ①부채비율 199.7%로 재무 리스크 상존, ②1Q26 OPM 2.9%로 아직 초기, ③Upside 25.9%로 핵심 미달. 1Q26 흑전 확인 후 OPM 개선 트렌드 모니터링이 적절.</p>
+    <div class="decision-box">
+      <div class="decision-btn decision-buy decision-dim">✅ 지금 진입 가능<br/><span style="font-size:11px;font-weight:400;">핵심+ & 60점+</span></div>
+      <div class="decision-btn decision-wait">⏳ 이벤트 후 진입<br/><span style="font-size:11px;font-weight:400;">1Q26 흑전 + OPM 트렌드 확인 후</span></div>
+      <div class="decision-btn decision-avoid decision-dim">🚫 관망<br/><span style="font-size:11px;font-weight:400;">-</span></div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="section-title">승격 조건 — 주목 종목 전용 (핵심 이상은 삭제)</div>
+  <div class="upgrade-box">
+    <div class="upgrade-item"><span class="upgrade-when">OPM 10%+ 달성</span><span>3Q26 OPM 10%+ 확인 시 → 핵심 승격 검토</span></div>
+    <div class="upgrade-item"><span class="upgrade-when">Upside 40%+ 도달</span><span>주가 조정(CP 71,400원 이하) → 핵심 검토</span></div>
+    <div class="upgrade-item"><span class="upgrade-when">GDDR7 대량 양산 확정</span><span>GDDR7 기판 대형 고객사 양산 공시 → 핵심 검토</span></div>
+  </div>
+</section>
+
+<div class="disclaimer">※ 본 글은 증권사 리포트를 개인 학습 목적으로 요약·정리한 것이며, 투자 권유가 아닙니다.<br/>※ 제공된 PDF 파일만 활용. 외부 검색·참조 없음. 당일 발간 리포트 기준.</div>
+
+</body>
+</html>

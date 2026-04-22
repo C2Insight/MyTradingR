@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>오리온 (271560) 정리 - 현대차증권</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Pretendard','Apple SD Gothic Neo',-apple-system,sans-serif; background: #ffffff; color: #1a1d2e; line-height: 1.7; font-size: 14px; max-width: 900px; margin: 0 auto; padding: 32px 20px 80px; }
+  .header { border-left: 4px solid #2563eb; padding: 0 0 0 16px; margin-bottom: 24px; } .header h1 { font-size: 20px; font-weight: 700; margin-bottom: 10px; } .price-row { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin-top: 10px; } .price-item { background: #f0f2f8; border: 1px solid #d0d4e0; border-radius: 6px; padding: 6px 14px; font-size: 13px; } .price-item .label { color: #5a6280; font-size: 11px; display: block; } .price-item .val { font-weight: 700; } .upside-val { color: #059669; } .tag-badge { display: inline-flex; align-items: center; gap: 6px; padding: 5px 14px; border-radius: 20px; font-size: 13px; font-weight: 700; } .tag-watch { background: #fffbeb; color: #b45309; border: 1px solid #f59e0b; } .score-badge { display: inline-block; padding: 5px 14px; border-radius: 20px; font-size: 13px; font-weight: 700; background: #f0f2f8; border: 1px solid #d0d4e0; } .score-mid { color: #b45309; } .pathway-badge { display: inline-flex; align-items: center; gap: 4px; padding: 3px 10px; border-radius: 12px; font-size: 11px; font-weight: 600; background: #f0f2f8; border: 1px solid #d0d4e0; color: #5a6280; } section { margin-bottom: 28px; } .section-title { font-size: 11px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: #5a6280; border-bottom: 1px solid #d0d4e0; padding-bottom: 6px; margin-bottom: 14px; } .pdf-only-banner { background: #fff7ed; border: 1px solid #f97316; border-radius: 8px; padding: 10px 16px; font-size: 12px; color: #c2410c; margin-bottom: 20px; text-align: center; font-weight: 700; } .thesis-box { background: #f8faff; border: 1px solid #2563eb; border-radius: 8px; padding: 16px 20px; font-size: 15px; font-weight: 600; line-height: 1.6; } .thesis-structure { display: flex; gap: 8px; align-items: center; margin-top: 10px; flex-wrap: wrap; } .thesis-part { background: #f0f2f8; border: 1px solid #d0d4e0; border-radius: 6px; padding: 4px 10px; font-size: 12px; } .thesis-arrow { color: #2563eb; font-size: 16px; } .checklist { background: #fafafa; border: 1px solid #d0d4e0; border-radius: 8px; overflow: hidden; } .checklist-item { display: flex; gap: 14px; align-items: flex-start; padding: 12px 16px; border-bottom: 1px solid #d0d4e0; } .checklist-item:last-child { border-bottom: none; } .check-icon { width: 22px; height: 22px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; flex-shrink: 0; margin-top: 1px; } .check-pass { background: #ecfdf5; color: #059669; border: 1px solid #34d399; } .check-fail { background: #fef2f2; color: #dc2626; border: 1px solid #fca5a5; } .check-label { font-weight: 600; font-size: 13px; } .check-why { font-size: 13px; } table { width: 100%; border-collapse: collapse; background: #fafafa; border-radius: 8px; overflow: hidden; border: 1px solid #d0d4e0; } thead tr { background: #f0f2f8; } th { padding: 10px 14px; text-align: left; font-size: 11px; font-weight: 700; color: #5a6280; } td { padding: 10px 14px; border-top: 1px solid #d0d4e0; font-size: 13px; } tr.total-row td { background: #e8ecf5; font-weight: 700; } .penalty { color: #dc2626; } .highlight-green { color: #059669; font-weight: 700; } .fact-item { background: #fafafa; border: 1px solid #d0d4e0; border-radius: 8px; padding: 14px 16px; margin-bottom: 8px; } .fact-num { font-size: 10px; font-weight: 700; color: #2563eb; margin-bottom: 8px; display: block; } .fact-what { font-weight: 600; font-size: 14px; margin-bottom: 6px; } .fact-why { font-size: 13px; color: #5a6280; margin-bottom: 6px; } .fact-so { font-size: 13px; color: #059669; } .fact-label { display: inline-block; font-size: 10px; font-weight: 700; padding: 1px 6px; border-radius: 3px; margin-right: 4px; } .label-what { background: #eff6ff; color: #1d4ed8; } .label-why { background: #fff7ed; color: #ea580c; } .label-so { background: #ecfdf5; color: #059669; } .data-table th { background: #e8ecf5; } .data-table td.key-col { background: #f0f6ff; } .data-table .key-num { color: #059669; font-weight: 700; } .data-table .key-opm { color: #b45309; } caption { font-size: 11px; color: #5a6280; text-align: left; padding: 0 0 8px; caption-side: top; } .val-box { background: #fafafa; border: 1px solid #d0d4e0; border-radius: 8px; padding: 16px 20px; font-size: 13px; line-height: 2; } .val-formula { background: #f0f2f8; border-radius: 6px; padding: 10px 14px; font-family: monospace; font-size: 13px; margin: 10px 0; color: #b45309; } .risk-item { background: #fafafa; border-radius: 0 6px 6px 0; padding: 14px 16px; margin-bottom: 10px; } .risk-sev-high { border-left: 3px solid #dc2626; } .risk-sev-mid { border-left: 3px solid #ea580c; } .risk-assumption { font-weight: 600; font-size: 13px; margin-bottom: 4px; } .risk-chain { font-size: 12px; color: #5a6280; margin: 4px 0; } .risk-impact-num { font-size: 13px; color: #dc2626; font-weight: 600; margin-top: 4px; } .checkpoint-item { display: flex; gap: 12px; padding: 10px 0; border-bottom: 1px solid #d0d4e0; font-size: 13px; } .checkpoint-item:last-child { border-bottom: none; } .cp-date { color: #2563eb; font-weight: 600; min-width: 90px; flex-shrink: 0; } .cp-pass { color: #059669; font-size: 12px; margin-top: 2px; } .cp-fail { color: #dc2626; font-size: 12px; margin-top: 2px; } .opinion-box { background: #fafafa; border: 1px solid #d0d4e0; border-radius: 8px; padding: 16px 20px; font-size: 13px; line-height: 1.8; color: #5a6280; } .decision-box { display: flex; gap: 14px; margin-top: 14px; } .decision-btn { flex: 1; text-align: center; padding: 10px; border-radius: 6px; font-weight: 700; font-size: 13px; border: 1px solid; } .decision-buy { background: #ecfdf5; color: #059669; border-color: #34d399; } .decision-wait { background: #fffbeb; color: #b45309; border-color: #f59e0b; } .decision-avoid { background: #fef2f2; color: #dc2626; border-color: #fca5a5; } .decision-dim { opacity: 0.3; } .upgrade-box { background: #eff6ff; border: 1px solid #93c5fd; border-radius: 8px; padding: 14px 16px; } .upgrade-item { display: flex; gap: 10px; padding: 6px 0; border-bottom: 1px solid #dbeafe; font-size: 13px; } .upgrade-item:last-child { border-bottom: none; } .upgrade-when { color: #1d4ed8; font-weight: 600; min-width: 140px; flex-shrink: 0; } .chain-box { display: flex; align-items: center; gap: 0; overflow-x: auto; padding: 10px 0; } .chain-step { display: flex; align-items: center; } .chain-arrow { color: #2563eb; font-size: 18px; margin: 0 2px; } .chain-content { background: #f0f2f8; border: 1px solid #d0d4e0; border-radius: 8px; padding: 8px 14px; min-width: 120px; text-align: center; } .chain-label { font-size: 10px; color: #5a6280; font-weight: 600; } .chain-text { font-size: 12px; font-weight: 700; color: #1a1d2e; }
+  .disclaimer { font-size: 11px; color: #9ca3af; text-align: center; margin-top: 40px; padding-top: 16px; border-top: 1px solid #d0d4e0; }
+</style>
+</head>
+<body>
+<div class="pdf-only-banner">🚫 외부 검색 절대 금지 — 제공된 PDF 파일만 활용</div>
+<header class="header">
+  <h1>오리온 (271560) | 3월 잠정 실적 Review 현대차증권 하희지 | 발간일: 2026.04.22</h1>
+  <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-bottom:12px;">
+    <span class="tag-badge tag-watch">🔥 주목</span>
+    <span class="score-badge score-mid">📊 40점</span>
+    <span style="font-size:12px;color:#5a6280;">비바이오</span>
+    <span class="pathway-badge">경로 ②볼륨드리븐</span>
+  </div>
+  <div class="price-row">
+    <div class="price-item"><span class="label">투자의견</span><span class="val">Buy</span></div>
+    <div class="price-item"><span class="label">목표주가(TP)</span><span class="val">170,000원</span></div>
+    <div class="price-item"><span class="label">현재주가(CP)</span><span class="val">135,400원</span></div>
+    <div class="price-item"><span class="label">Upside</span><span class="val upside-val">+25.6%</span></div>
+    <div class="price-item"><span class="label">시가총액</span><span class="val">5,353십억원</span></div>
+    <div class="price-item"><span class="label">종목 유형</span><span class="val">비바이오</span></div>
+  </div>
+</header>
+
+<section>
+  <div class="section-title">💡 스토리 한 줄</div>
+  <div class="thesis-box">1~3월 법인 합산 매출 9,349억원(+16% YoY), OP 1,691억원(+27.7% YoY), OPM 18.1%로 시장 컨센서스 상회하는 실적 시현(●●●). 다만 Upside 25.6%로 저평가 구간 아님 + OP 성장률 +17.6%(연간)로 핵심 임계값 미달</div>
+  <div class="thesis-structure">
+    <div class="thesis-part" style="color:#059669;">① 3월 잠정실적 컨센 상회(●●●)<br/>+ 전 지역 성장 전환(●●●)</div>
+    <div class="thesis-arrow">→</div>
+    <div class="thesis-part" style="color:#b45309;">② 26E OP +17.6%, OPM +1.3%p</div>
+    <div class="thesis-arrow">→</div>
+    <div class="thesis-part" style="color:#2563eb;">③ Upside 25.6% (핵심 미달)</div>
+  </div>
+</section>
+
+<section>
+  <div class="section-title">✅ 핵심 태그 5가지 조건 체크</div>
+  <div class="checklist">
+    <div class="checklist-item"><div class="check-icon check-fail">✗</div><div><div class="check-label">조건 1 | OP 성장 임계값</div><div class="check-why">26E OP +17.6%(558.3→641십억원). +50% 대폭 미달. OPM 16.8%→17.6%(+0.8%p)</div></div></div>
+    <div class="checklist-item"><div class="check-icon check-pass">✓</div><div><div class="check-label">조건 2 | 3년 지속성</div><div class="check-why">① 러시아 2공장 증설(27년 목표) ② 중국 간식점 채널 기여도 확대 ③ 카카오 원가 하락 → 3개 충족</div></div></div>
+    <div class="checklist-item"><div class="check-icon check-pass">✓</div><div><div class="check-label">조건 3 | 확정 팩트 2개+</div><div class="check-why">●●● 3월 잠정실적 매출 2,914억(+10.8%), OP 499억(+16.3%) 확인 / ●●● 러시아 가동률 120%+ / ●●● 베트남 OP +50% → 3개</div></div></div>
+    <div class="checklist-item"><div class="check-icon check-fail">✗</div><div><div class="check-label">조건 4 | 시장 미반영</div><div class="check-why">Upside 25.6% < 40%. 컨센 OP 대비 +1.6% → 미달</div></div></div>
+    <div class="checklist-item"><div class="check-icon check-pass">✓</div><div><div class="check-label">조건 5 | 차별화된 시각</div><div class="check-why">글로벌 제과 P/E 20% 할인 적용. 중국 실적 개선세 감안 할인율 축소 논리</div></div></div>
+  </div>
+  <p style="font-size:11px;color:#dc2626;margin-top:8px;">⚠️ 조건1(OP+17.6%), 조건4(Upside 25.6%) → 핵심→주목 강등</p>
+</section>
+
+<section>
+  <div class="section-title">📊 투자 점수 판정 (v2.0 비바이오)</div>
+  <table>
+    <thead><tr><th>항목</th><th>판정</th><th>근거</th></tr></thead>
+    <tbody>
+      <tr><td>적용 가설</td><td>가설 3</td><td>25A OP +2.7% 완만. 26E +17.6% 가속 예상이나 고성장 미확인</td></tr>
+      <tr><td>촉매 등급</td><td>중급</td><td>러시아 Capa 증설 + 어닝서프라이즈(컨센 +약8%)</td></tr>
+      <tr><td>복합 여부</td><td>단독</td><td>러시아 Capa 증설이 핵심. 중국 개선은 보조적</td></tr>
+      <tr><td>매트릭스 기본 점수</td><td>50점</td><td>가설3 × 중급 × 단독 = 50점</td></tr>
+      <tr><td>페널티 ① 컨센 반영</td><td class="penalty">-10점</td><td>다수 증권사 동일 논리. 컨센 OP 대비 +1.6%</td></tr>
+      <tr class="total-row"><td>최종 투자 점수</td><td><span class="highlight-green">40점</span></td><td>주목 40 충족. 교보증권 리포트와 동일 종목이나 TP·접근 달라 별도 처리</td></tr>
+    </tbody>
+  </table>
+  <div class="chain-box">
+    <div class="chain-step"><div class="chain-content"><div class="chain-label">촉매</div><div class="chain-text">전 지역 성장 전환<br/>+ 러시아 Capa 풀가동</div></div></div>
+    <div class="chain-step"><div class="chain-arrow">→</div><div class="chain-content"><div class="chain-label">매출</div><div class="chain-text">26E +9.1%<br/>(3,636십억)</div></div></div>
+    <div class="chain-step"><div class="chain-arrow">→</div><div class="chain-content"><div class="chain-label">OPM</div><div class="chain-text">16.7%→17.6%<br/>(+0.9%p)</div></div></div>
+    <div class="chain-step"><div class="chain-arrow">→</div><div class="chain-content"><div class="chain-label">OP</div><div class="chain-text">558→641<br/>(+14.9%)</div></div></div>
+    <div class="chain-step"><div class="chain-arrow">→</div><div class="chain-content"><div class="chain-label">주가 판단</div><div class="chain-text">Upside 25.6%<br/>→ 주목(40점)</div></div></div>
+  </div>
+</section>
+
+<section>
+  <div class="section-title">📌 핵심 팩트 3줄</div>
+  <div class="fact-item"><span class="fact-num">Fact 01</span><div class="fact-what"><span class="fact-label label-what">WHAT</span>3월 잠정 법인별 합산 매출 2,914억(+10.8% YoY), OP 499억(+16.3%), OPM 17.1%</div><div class="fact-why"><span class="fact-label label-why">WHY</span>국내 -0.3% flat, 중국 +14.1%, 베트남 +4.0%, 러시아 +26.7%. 전 지역 OP 성장</div><div class="fact-so"><span class="fact-label label-so">SO WHAT</span>3개월 합산 시장 컨센 상회. 실적 모멘텀 부각</div></div>
+  <div class="fact-item"><span class="fact-num">Fact 02</span><div class="fact-what"><span class="fact-label label-what">WHAT</span>러시아: 3월 매출 +26.7%, OP +62.5%. 가동률 120% 상회. 2공장 증설(27년 9월)</div><div class="fact-why"><span class="fact-label label-why">WHY</span>프로모션 적극 대응 + 찰빵·빵 신제품 플레이버 확대. 공급 부족 지속</div><div class="fact-so"><span class="fact-label label-so">SO WHAT</span>러시아가 성장 핵심 드라이버. 2공장 완공 시 매출 레벨업 기대</div></div>
+  <div class="fact-item"><span class="fact-num">Fact 03</span><div class="fact-what"><span class="fact-label label-what">WHAT</span>TP 160,000→170,000원. 12M Fwd EPS 12,279원 × P/E 14배(글로벌 평균 P/E에 20% 할인)</div><div class="fact-why"><span class="fact-label label-why">WHY</span>중국 실적 개선 + 베트남 소비 회복 + 러시아 건전한 성장 → 기존 할인율 30%→20% 축소</div><div class="fact-so"><span class="fact-label label-so">SO WHAT</span>Fwd P/E 11배로 여전히 할인. 다만 Upside 25.6%로 추가 상승 제한적</div></div>
+</section>
+
+<section>
+  <div class="section-title">📄 원본 리포트 핵심 요약</div>
+  <div class="opinion-box">
+    <p>현대차증권 하희지 애널리스트는 오리온의 2026년 3월 잠정실적(법인 합산 매출 2,914억원, OP 499억원)이 전 지역 성장 전환에 힘입어 컨센서스를 상회했다고 분석한다. 특히 러시아(매출 +26.7%, OP +62.5%)가 핵심 드라이버이며, 가동률 120% 초과로 2공장 증설(27년 9월 목표)이 필수 과제라고 진단한다. 중국은 간식점 채널 확대로 +14.1% 성장, 베트남도 소비 회복 국면에서 +4.0% 성장하며 전 지역 실적 개선이 확인되었다. 목표주가를 16만→17만원(P/E 14배)으로 상향하되, 글로벌 제과 대비 할인율을 30%→20%로 축소한 것이 핵심 변경 사항이다.</p>
+  </div>
+</section>
+
+<section>
+  <div class="section-title">📈 실적 전망 (연간)</div>
+  <table class="data-table">
+    <caption>단위: 십억원</caption>
+    <thead><tr><th>구분</th><th>2024A</th><th>2025A</th><th style="background:#dbeafe;color:#1e40af;">2026E ★</th><th>2027E</th><th>2028E</th></tr></thead>
+    <tbody>
+      <tr><td>매출액</td><td>3,104</td><td>3,332</td><td class="key-col key-num">3,636</td><td>3,772</td><td>3,915</td></tr>
+      <tr><td>YoY(%)</td><td>6.6%</td><td>7.3%</td><td class="key-col">+9.1%</td><td>+3.7%</td><td>+3.8%</td></tr>
+      <tr><td>영업이익</td><td>544</td><td>558</td><td class="key-col key-num">641</td><td>668</td><td>710</td></tr>
+      <tr><td>YoY(%)</td><td>10.6%</td><td>2.6%</td><td class="key-col key-num">+14.9%</td><td>+4.2%</td><td>+6.3%</td></tr>
+      <tr><td>OPM(%)</td><td>17.5%</td><td>16.7%</td><td class="key-col key-opm">17.6%</td><td>17.7%</td><td>18.1%</td></tr>
+      <tr><td>EPS(원)</td><td>13,487</td><td>9,880</td><td class="key-col">12,285</td><td>12,937</td><td>13,753</td></tr>
+      <tr><td>PER(배)</td><td>7.6</td><td>10.7</td><td class="key-col">11.0</td><td>10.5</td><td>9.8</td></tr>
+      <tr><td>ROE(%)</td><td>13.6%</td><td>8.8%</td><td class="key-col">10.2%</td><td>10.0%</td><td>9.9%</td></tr>
+    </tbody>
+  </table>
+  <p style="font-size:12px;color:#5a6280;margin-top:10px;">▶ 교보증권 대비 보수적 추정(26E OP 641 vs 662). 성장률도 +14.9% vs +18.5%로 낮음.</p>
+</section>
+
+<section>
+  <div class="section-title">📈 분기별 실적 전망</div>
+  <table class="data-table">
+    <caption>단위: 십억원</caption>
+    <thead><tr><th>구분</th><th>1Q25</th><th>2Q25</th><th>3Q25</th><th>4Q25</th><th style="background:#dbeafe;color:#1e40af;">1Q26E ★</th></tr></thead>
+    <tbody>
+      <tr><td>매출액</td><td>832</td><td>827</td><td>847</td><td>826</td><td class="key-col key-num">935</td></tr>
+      <tr><td>YoY(%)</td><td>+7.6%</td><td>+5.2%</td><td>+9.1%</td><td>+7.8%</td><td class="key-col">+12.4%</td></tr>
+      <tr><td>영업이익</td><td>148</td><td>142</td><td>148</td><td>120</td><td class="key-col key-num">169</td></tr>
+      <tr><td>YoY(%)</td><td>+5.0%</td><td>+1.4%</td><td>+4.2%</td><td>-1.6%</td><td class="key-col key-num">+14.2%</td></tr>
+      <tr><td>OPM(%)</td><td>17.8%</td><td>17.2%</td><td>17.5%</td><td>14.5%</td><td class="key-col key-opm">18.1%</td></tr>
+    </tbody>
+  </table>
+  <p style="font-size:12px;color:#5a6280;margin-top:10px;">▶ 1Q26E는 3월 잠정실적(매출 2,914억, OP 499억, OPM 17.1%) 기반 추정. 1~3월 합산 매출 9,349억, OP 1,691억.</p>
+</section>
+
+<section>
+  <div class="section-title">💰 밸류에이션</div>
+  <div class="val-box">
+    <div class="val-formula">12M Fwd EPS 12,279원 × Target P/E 14배(글로벌 제과 12M Fwd 평균 P/E에 20% 할인) = TP 170,000원</div>
+    <p style="color:#5a6280;font-size:12px;margin-top:8px;">▶ 교보증권(P/E 15배, TP 19만)보다 보수적. 할인율 동일 20%이나 적용 P/E 1배 차이</p>
+  </div>
+</section>
+
+<section>
+  <div class="section-title">⚠️ 리스크</div>
+  <div class="risk-item risk-sev-high"><div class="risk-assumption">🔴 핵심 가정: 중국 실적 개선 지속</div><div class="risk-chain">→ 중국 경기 둔화 시 간식점 채널 효과 소멸 → 중국 OP 재하락</div><div class="risk-impact-num">→ 주가: TP 15~20% 하향 가능</div></div>
+  <div class="risk-item risk-sev-mid"><div class="risk-assumption">🟠 러시아 지정학적 리스크</div><div class="risk-chain">→ 제재 강화 시 공장 운영 차질 + 자금 환류 어려움</div><div class="risk-impact-num">→ 주가: P/E 할인 30%+ 재적용</div></div>
+</section>
+
+<section>
+  <div class="section-title">💬 사견 & 투자 행동 결론</div>
+  <div class="opinion-box">
+    <p>현대차증권의 오리온 분석은 교보증권 대비 보수적(TP 17만 vs 19만). 3월 잠정실적 기반으로 전 지역 성장을 확인했으나, Upside 25.6%로 충분한 저평가 아님. 교보증권 리포트가 더 높은 TP를 제시하고 있어, 두 리포트 비교 시 교보증권이 더 적극적 시각.</p>
+    <div class="decision-box">
+      <div class="decision-btn decision-buy decision-dim">✅ 지금 진입 가능</div>
+      <div class="decision-btn decision-wait">⏳ 이벤트 후 진입<br/><span style="font-size:11px;font-weight:400;">2Q26 중국 실적 확인 후</span></div>
+      <div class="decision-btn decision-avoid decision-dim">🚫 관망</div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="section-title">🚀 승격 조건 — 주목 종목 전용</div>
+  <div class="upgrade-box">
+    <div class="upgrade-item"><span class="upgrade-when">Upside 40%+ 도달</span><span>주가 조정 시(CP 12.1만원 이하) → ⭐ 핵심 검토</span></div>
+    <div class="upgrade-item"><span class="upgrade-when">러시아 2공장 착공</span><span>27년 증설 본격화 확인 시 → ⭐ 핵심 승격</span></div>
+  </div>
+</section>
+
+<div class="disclaimer">※ 본 글은 증권사 리포트를 개인 학습 목적으로 요약·정리한 것이며, 투자 권유가 아닙니다.<br/>※ 제공된 PDF 파일만 활용. 외부 검색·참조 없음.</div>
+</body>
+</html>

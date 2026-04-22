@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ISC (095340) 정리</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Pretendard','Apple SD Gothic Neo',-apple-system,sans-serif;
+    background: #ffffff; color: #1a1d2e;
+    line-height: 1.7; font-size: 14px;
+    max-width: 900px; margin: 0 auto; padding: 32px 20px 80px;
+  }
+  .header { border-left: 4px solid #2563eb; padding: 0 0 0 16px; margin-bottom: 24px; }
+  .header h1 { font-size: 20px; font-weight: 700; margin-bottom: 10px; color: #1a1d2e; }
+  .price-row { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin-top: 10px; }
+  .price-item { background: #f0f2f8; border: 1px solid #d0d4e0; border-radius: 6px; padding: 6px 14px; font-size: 13px; }
+  .price-item .label { color: #5a6280; font-size: 11px; display: block; }
+  .price-item .val { font-weight: 700; color: #1a1d2e; }
+  .upside-val { color: #059669; }
+  .tag-badge { display: inline-flex; align-items: center; gap: 6px; padding: 5px 14px; border-radius: 20px; font-size: 13px; font-weight: 700; }
+  .tag-watch   { background: #fffbeb; color: #b45309; border: 1px solid #f59e0b; }
+  .score-badge { display: inline-block; padding: 5px 14px; border-radius: 20px; font-size: 13px; font-weight: 700; background: #f0f2f8; border: 1px solid #d0d4e0; color: #1a1d2e; }
+  .score-mid  { color: #b45309; }
+  .pathway-badge { display: inline-flex; align-items: center; gap: 4px; padding: 3px 10px; border-radius: 12px; font-size: 11px; font-weight: 600; background: #f0f2f8; border: 1px solid #d0d4e0; color: #5a6280; }
+  section { margin-bottom: 28px; }
+  .section-title { font-size: 11px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: #5a6280; border-bottom: 1px solid #d0d4e0; padding-bottom: 6px; margin-bottom: 14px; }
+  .pdf-only-banner { background: #fff7ed; border: 1px solid #f97316; border-radius: 8px; padding: 10px 16px; font-size: 12px; color: #c2410c; margin-bottom: 20px; text-align: center; font-weight: 700; }
+  .thesis-box { background: #f8faff; border: 1px solid #2563eb; border-radius: 8px; padding: 16px 20px; font-size: 15px; font-weight: 600; line-height: 1.6; color: #1a1d2e; }
+  .thesis-structure { display: flex; gap: 8px; align-items: center; margin-top: 10px; flex-wrap: wrap; }
+  .thesis-part { background: #f0f2f8; border: 1px solid #d0d4e0; border-radius: 6px; padding: 4px 10px; font-size: 12px; color: #1a1d2e; }
+  .thesis-arrow { color: #2563eb; font-size: 16px; }
+  .checklist { background: #fafafa; border: 1px solid #d0d4e0; border-radius: 8px; overflow: hidden; }
+  .checklist-item { display: flex; gap: 14px; align-items: flex-start; padding: 12px 16px; border-bottom: 1px solid #d0d4e0; }
+  .checklist-item:last-child { border-bottom: none; }
+  .check-icon { width: 22px; height: 22px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; flex-shrink: 0; margin-top: 1px; }
+  .check-pass { background: #ecfdf5; color: #059669; border: 1px solid #34d399; }
+  .check-fail { background: #fef2f2; color: #dc2626; border: 1px solid #fca5a5; }
+  .check-label { font-weight: 600; font-size: 13px; color: #1a1d2e; }
+  .check-why { color: #1a1d2e; font-size: 13px; }
+  table { width: 100%; border-collapse: collapse; background: #fafafa; border-radius: 8px; overflow: hidden; border: 1px solid #d0d4e0; }
+  thead tr { background: #f0f2f8; }
+  th { padding: 10px 14px; text-align: left; font-size: 11px; font-weight: 700; color: #5a6280; letter-spacing: 0.8px; text-transform: uppercase; }
+  td { padding: 10px 14px; border-top: 1px solid #d0d4e0; font-size: 13px; color: #1a1d2e; }
+  tr.total-row td { background: #e8ecf5; font-weight: 700; }
+  .penalty { color: #dc2626; }
+  .highlight-green { color: #059669; font-weight: 700; }
+  .chain-box { background: #fafafa; border: 1px solid #d0d4e0; border-radius: 8px; padding: 16px 20px; }
+  .chain-step { display: flex; gap: 12px; align-items: flex-start; margin-bottom: 10px; }
+  .chain-step:last-child { margin-bottom: 0; }
+  .chain-arrow { color: #2563eb; font-size: 16px; flex-shrink: 0; margin-top: 1px; }
+  .chain-content { flex: 1; }
+  .chain-label { font-size: 10px; font-weight: 700; letter-spacing: 1px; color: #5a6280; text-transform: uppercase; margin-bottom: 2px; }
+  .chain-text { font-size: 13px; color: #1a1d2e; }
+  .chain-confirmed { color: #059669; font-size: 11px; margin-left: 6px; }
+  .chain-forecast { color: #b45309; font-size: 11px; margin-left: 6px; }
+  .fact-item { background: #fafafa; border: 1px solid #d0d4e0; border-radius: 8px; padding: 14px 16px; margin-bottom: 8px; }
+  .fact-item:last-child { margin-bottom: 0; }
+  .fact-num { font-size: 10px; font-weight: 700; color: #2563eb; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 8px; display: block; }
+  .fact-what { font-weight: 600; font-size: 14px; margin-bottom: 6px; color: #1a1d2e; }
+  .fact-why  { font-size: 13px; color: #5a6280; margin-bottom: 6px; }
+  .fact-so   { font-size: 13px; color: #059669; }
+  .fact-label { display: inline-block; font-size: 10px; font-weight: 700; padding: 1px 6px; border-radius: 3px; margin-right: 4px; }
+  .label-what { background: #eff6ff; color: #1d4ed8; }
+  .label-why  { background: #fff7ed; color: #ea580c; }
+  .label-so   { background: #ecfdf5; color: #059669; }
+  .data-table th { background: #e8ecf5; }
+  .data-table td.key-col { background: #f0f6ff; }
+  .data-table .key-num { color: #059669; font-weight: 700; }
+  .data-table .key-opm { color: #b45309; }
+  caption { font-size: 11px; color: #5a6280; text-align: left; padding: 0 0 8px; caption-side: top; }
+  .val-box { background: #fafafa; border: 1px solid #d0d4e0; border-radius: 8px; padding: 16px 20px; font-size: 13px; line-height: 2; color: #1a1d2e; }
+  .val-formula { background: #f0f2f8; border-radius: 6px; padding: 10px 14px; font-family: monospace; font-size: 13px; margin: 10px 0; color: #b45309; }
+  .risk-item { background: #fafafa; border-radius: 0 6px 6px 0; padding: 14px 16px; margin-bottom: 10px; }
+  .risk-item:last-child { margin-bottom: 0; }
+  .risk-sev-high { border-left: 3px solid #dc2626; }
+  .risk-sev-mid  { border-left: 3px solid #ea580c; }
+  .risk-assumption { font-weight: 600; font-size: 13px; margin-bottom: 4px; color: #1a1d2e; }
+  .risk-chain { font-size: 12px; color: #5a6280; margin: 4px 0; }
+  .risk-impact-num { font-size: 13px; color: #dc2626; font-weight: 600; margin-top: 4px; }
+  .checkpoint-item { display: flex; gap: 12px; padding: 10px 0; border-bottom: 1px solid #d0d4e0; font-size: 13px; }
+  .checkpoint-item:last-child { border-bottom: none; }
+  .cp-date { color: #2563eb; font-weight: 600; min-width: 90px; flex-shrink: 0; }
+  .cp-event { flex: 1; color: #1a1d2e; }
+  .cp-pass { color: #059669; font-size: 12px; margin-top: 2px; }
+  .cp-fail { color: #dc2626; font-size: 12px; margin-top: 2px; }
+  .opinion-box { background: #fafafa; border: 1px solid #d0d4e0; border-radius: 8px; padding: 16px 20px; font-size: 13px; line-height: 1.8; color: #5a6280; }
+  .decision-box { display: flex; gap: 14px; margin-top: 14px; }
+  .decision-btn { flex: 1; text-align: center; padding: 10px; border-radius: 6px; font-weight: 700; font-size: 13px; border: 1px solid; }
+  .decision-buy   { background: #ecfdf5; color: #059669; border-color: #34d399; }
+  .decision-wait  { background: #fffbeb; color: #b45309; border-color: #f59e0b; }
+  .decision-avoid { background: #fef2f2; color: #dc2626; border-color: #fca5a5; }
+  .decision-dim { opacity: 0.3; }
+  .upgrade-box { background: #eff6ff; border: 1px solid #93c5fd; border-radius: 8px; padding: 14px 16px; }
+  .upgrade-item { display: flex; gap: 10px; padding: 6px 0; border-bottom: 1px solid #dbeafe; font-size: 13px; color: #1a1d2e; }
+  .upgrade-item:last-child { border-bottom: none; }
+  .upgrade-when { color: #1d4ed8; font-weight: 600; min-width: 140px; flex-shrink: 0; }
+  .disclaimer { font-size: 11px; color: #9ca3af; text-align: center; margin-top: 40px; padding-top: 16px; border-top: 1px solid #d0d4e0; }
+</style>
+</head>
+<body>
+
+<div class="pdf-only-banner">
+  🚫 외부 검색 절대 금지 — 제공된 PDF 파일만 활용 | 당일 발간 리포트 기준 투자 종목 발굴 전용
+</div>
+
+<!-- A. 헤더 -->
+<header class="header">
+  <h1>ISC (095340) | 역대 최대 호황 메리츠증권 김동관 | 발간일: 2026.04.22</h1>
+  <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-bottom:12px;">
+    <span class="tag-badge tag-watch">🔥 주목</span>
+    <span class="score-badge score-mid">📊 50점</span>
+    <span style="font-size:12px;color:#5a6280;">비바이오</span>
+    <span class="pathway-badge">경로 ②볼륨드리븐</span>
+  </div>
+  <div class="price-row">
+    <div class="price-item"><span class="label">투자의견</span><span class="val">Buy(유지)</span></div>
+    <div class="price-item"><span class="label">목표주가(TP)</span><span class="val">300,000원</span></div>
+    <div class="price-item"><span class="label">현재주가(CP)</span><span class="val">238,000원</span></div>
+    <div class="price-item"><span class="label">Upside</span><span class="val upside-val">+26.1%</span></div>
+    <div class="price-item"><span class="label">시가총액</span><span class="val">-</span></div>
+    <div class="price-item"><span class="label">종목 유형</span><span class="val">비바이오</span></div>
+  </div>
+</header>
+
+<!-- B. 한줄 투자 이유 -->
+<section>
+  <div class="section-title">💡 이 종목에 투자해야 하는 이유 — 스토리 한 줄</div>
+  <div class="thesis-box">
+    AI 가속기향 테스트 소켓 출하 호조(확정) + CAPA 증설 2건 진행(●●○)으로 26E OP(영업이익) +63%, OPM(영업이익률) 27.3%→32.8%(+5.5%p)로 뛰지만, Upside 26.1%로 아직 충분한 저평가 구간은 아님
+  </div>
+  <div class="thesis-structure">
+    <div class="thesis-part" style="color:#059669;">① AI 테스트 소켓 출하 호조 확인(●●●)<br/>+ CAPA 증설 2건 진행(●●○)</div>
+    <div class="thesis-arrow">→</div>
+    <div class="thesis-part" style="color:#b45309;">② 26E OP +63%, OPM +5.5%p (32.8%)</div>
+    <div class="thesis-arrow">→</div>
+    <div class="thesis-part" style="color:#2563eb;">③ Upside 26.1% (핵심 승격엔 부족)</div>
+  </div>
+</section>
+
+<!-- C. 핵심 5조건 -->
+<section>
+  <div class="section-title">✅ 핵심 태그 5가지 조건 체크 (5개 모두 통과해야 ⭐핵심 이상 가능)</div>
+  <div class="checklist">
+    <div class="checklist-item">
+      <div class="check-icon check-pass">✓</div>
+      <div>
+        <div class="check-label">조건 1 | 영업이익(OP) 성장 임계값</div>
+        <div class="check-why">26E OP +63%(60.1→98.0십억원), OPM 27.3%→32.8%(+5.5%p), OPM 15%+ 유지 → 통과</div>
+      </div>
+    </div>
+    <div class="checklist-item">
+      <div class="check-icon check-pass">✓</div>
+      <div>
+        <div class="check-label">조건 2 | 3년 지속성 (3개 이상 충족)</div>
+        <div class="check-why">① CAPA 단계적 확장(1·2공장 일정 명시) ② 26E~28E OP CAGR(연평균성장률) ~50% ③ AI 반도체 테스트 수요 구조적 확대 → 3개 충족</div>
+      </div>
+    </div>
+    <div class="checklist-item">
+      <div class="check-icon check-fail">✗</div>
+      <div>
+        <div class="check-label">조건 3 | 확정 팩트(●●●) 2개 이상</div>
+        <div class="check-why">●●● 1개(4Q25 테스트 소켓 출하 호조·실적 확인), ●●○ 2개(CAPA 증설 진행, 신규 ASIC 양산 2Q26E) → ●●● 2개 미달</div>
+      </div>
+    </div>
+    <div class="checklist-item">
+      <div class="check-icon check-fail">✗</div>
+      <div>
+        <div class="check-label">조건 4 | 시장 미반영 (Upside 40%+ OR 컨센 괴리 20%+)</div>
+        <div class="check-why">Upside 26.1% &lt; 40%, 컨센 OP 괴리 +5.5% &lt; 20% → 미달</div>
+      </div>
+    </div>
+    <div class="checklist-item">
+      <div class="check-icon check-pass">✓</div>
+      <div>
+        <div class="check-label">조건 5 | 이 리포트만의 차별화된 시각</div>
+        <div class="check-why">AI 반도체 Peer 멀티플 리레이팅 논리 + 신장비(BSD·SiCN 증착) 라인업 확장 시각 제시</div>
+      </div>
+    </div>
+  </div>
+  <p style="font-size:11px;color:#dc2626;margin-top:8px;padding:0 4px;">
+    ⚠️ 조건3(확정팩트 미달), 조건4(Upside 미달) → 핵심→주목 강등
+  </p>
+</section>
+
+<!-- D. 투자 점수 (비바이오) -->
+<section>
+  <div class="section-title">📊 투자 점수 판정 (v2.0 비바이오) — 모든 근거 칸 필수 기재</div>
+  <table>
+    <thead><tr><th>항목</th><th>판정</th><th>근거 (Why)</th></tr></thead>
+    <tbody>
+      <tr><td>종목 유형</td><td>비바이오</td><td>반도체 테스트 소켓 전문 기업, 실적 기반 주가</td></tr>
+      <tr><td>적용 가설</td><td>가설 2</td><td>4Q25 OP 흑자전환 확인(고성장 중), 26E OPM 32.8% 예상(개선 예상 단계)</td></tr>
+      <tr><td>촉매 등급</td><td>중급</td><td>CAPA 확대 +38%(2,900→4,000억/년, 30~50% 발표 = 중급)</td></tr>
+      <tr><td>복합 여부</td><td>단독</td><td>CAPA 확대가 핵심 촉매, 어닝서프라이즈(+8.8%)는 하급으로 보조적</td></tr>
+      <tr><td>직접성</td><td>직접</td><td>테스트 소켓 CAPA = 주력 사업 매출 직결</td></tr>
+      <tr><td>매트릭스 기본 점수</td><td>60점</td><td>가설2 × 중급 × 단독 = 60점</td></tr>
+      <tr><td>페널티 ① 컨센 반영</td><td class="penalty">-10점</td><td>26E OP 컨센 대비 +5.5%만 상회, 시장에 대부분 반영된 성장</td></tr>
+      <tr class="total-row"><td>최종 투자 점수</td><td><span class="highlight-green">50점</span></td><td>주목 40+ 충족. 핵심 5조건 미달(조건3·4)로 주목 확정</td></tr>
+    </tbody>
+  </table>
+  <p style="font-size:11px;color:#5a6280;margin-top:8px;padding:0 4px;">
+    페널티 5종만: ①간접성 ②컨센 반영 ③미확정 30%+ ④선반영 30%+ ⑤리스크 집중. 그 외 금지.
+  </p>
+</section>
+
+<!-- E. 성장 인과 체인 -->
+<section>
+  <div class="section-title">⚡ 성장 인과 체인 — 왜 성장하는가 (각 단계에 수치 필수)</div>
+  <div class="chain-box">
+    <div class="chain-step">
+      <div class="chain-arrow">①</div>
+      <div class="chain-content">
+        <div class="chain-label">구조 변화 / 촉매 <span class="chain-confirmed">●●● 확정</span></div>
+        <div class="chain-text">AI 가속기(GPU·TPU 등 AI 연산 칩) 고성능화 → 테스트 소켓(반도체 검사용 부품) 난이도·단가 상승. 데이터센터 매출 비중 78% 달성(●●●). CAPA 증설 2건 진행(●●○)</div>
+      </div>
+    </div>
+    <div class="chain-step">
+      <div class="chain-arrow">↓</div>
+      <div class="chain-content">
+        <div class="chain-label">매출 영향 (규모·비중 수치)</div>
+        <div class="chain-text">26E 매출 299.0십억원(+35.8% YoY), 데이터센터 비중 78.7%(235.3십억원). 27E 매출 394.5십억원(+31.9%)</div>
+      </div>
+    </div>
+    <div class="chain-step">
+      <div class="chain-arrow">↓</div>
+      <div class="chain-content">
+        <div class="chain-label">OPM 변화 메커니즘 (왜 마진이 오르는가)</div>
+        <div class="chain-text">고성능 AI 테스트 소켓은 단가가 높고, 양산 공급 시 규모의 경제 실현. 기존 가동률 상승(75% 추정) + 고마진 데이터센터 비중 확대 → OPM 27.3%→32.8%(+5.5%p)</div>
+      </div>
+    </div>
+    <div class="chain-step">
+      <div class="chain-arrow">↓</div>
+      <div class="chain-content">
+        <div class="chain-label">최종 실적 결과 <span class="chain-forecast">●●○ 추정</span></div>
+        <div class="chain-text">26E OP 98.0십억원(+63.1% YoY), OPM 32.8%. 27E OP 135.5십억원(+38.3%), OPM 34.3%</div>
+      </div>
+    </div>
+    <div class="chain-step">
+      <div class="chain-arrow">↓</div>
+      <div class="chain-content">
+        <div class="chain-label">시장 미반영 포인트 (So What)</div>
+        <div class="chain-text">AI 반도체 비중 높은 글로벌 Peer 대비 멀티플 할인 상태. CAPA 증설 완료(27년) 시 매출 4,000억원 규모 → 리레이팅 여지. 다만 Upside 26.1%로 시장이 상당 부분 반영 중</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- F. 핵심 팩트 3줄 -->
+<section>
+  <div class="section-title">📌 핵심 팩트 3줄 — WHAT(숫자) + WHY(원인) + SO WHAT(의미) 3요소 필수</div>
+  <div class="fact-item">
+    <span class="fact-num">Fact 01</span>
+    <div class="fact-what"><span class="fact-label label-what">WHAT</span>26E OP 980억원(+63%), OPM 32.8%(+5.5%p). 1Q26E OP 225억원(+222% YoY), OPM 33.3%</div>
+    <div class="fact-why"><span class="fact-label label-why">WHY</span>AI 가속기향 테스트 소켓 출하 호조 + 가동률 상승으로 규모의 경제 실현. 데이터센터 매출 비중 78%로 고마진 믹스 개선</div>
+    <div class="fact-so"><span class="fact-label label-so">SO WHAT</span>OPM 30%+ 수준이 26E~27E 지속되며, 반도체 장비주 중 최고 수익성 구간 진입. 실적 가시성 높아 하방 리스크 제한적</div>
+  </div>
+  <div class="fact-item">
+    <span class="fact-num">Fact 02</span>
+    <div class="fact-what"><span class="fact-label label-what">WHAT</span>CAPA 증설: 1공장(300억/년) 2Q26E 말 완공→3Q26E 가동, 2공장(800억/년) 3Q26E 말 완공→4Q26E 가동. 27년 capa 4,000억/년(현 2,900억 대비 +38%)</div>
+    <div class="fact-why"><span class="fact-label label-why">WHY</span>AI 반도체 고성능화에 따른 테스트 소켓 수요 폭증. 현재 수주가 capa를 초과하여 증설 불가피. 용인 Y1으로의 신규 PO(구매주문)도 예상</div>
+    <div class="fact-so"><span class="fact-label label-so">SO WHAT</span>27년 전체 가동 시 매출 4,000억원 달성 가능 → 현재 주가는 26E 기준 밸류에이션. 증설 완료 시점(27년)이 추가 리레이팅 트리거</div>
+  </div>
+  <div class="fact-item">
+    <span class="fact-num">Fact 03</span>
+    <div class="fact-what"><span class="fact-label label-what">WHAT</span>장비/소재 사업: 26E 매출 400억원(+70%), 27E 600억원(+50%). M15X향 장비 공급 하반기 집중</div>
+    <div class="fact-why"><span class="fact-label label-why">WHY</span>반도체 고성능화·첨단 패키징 도입으로 테스트 공정 난이도 상승. ASIC 고객사 양산 공급 개시(2Q26E) + 차세대 GPU 테스트 대규모 소켓 공급 가시화</div>
+    <div class="fact-so"><span class="fact-label label-so">SO WHAT</span>소켓 외 장비/소재로 매출 다변화 진행. 연결 수익성 개선에 기여하며, 밸류에이션 격차 축소 요인</div>
+  </div>
+</section>
+
+<!-- F-2. 원본 리포트 핵심 요약 -->
+<section>
+  <div class="section-title">📄 원본 리포트 핵심 요약 — PDF 내용 직접 발췌 (외부 정보 추가 금지)</div>
+  <div style="background:#fafafa;border:1px solid #d0d4e0;border-radius:8px;padding:16px 20px;margin-bottom:12px;">
+    <div style="font-size:11px;font-weight:700;letter-spacing:1px;color:#5a6280;text-transform:uppercase;margin-bottom:10px;">리포트 핵심 주장 (애널리스트 관점 요약)</div>
+    <p style="font-size:13px;line-height:1.9;">ISC는 AI 반도체 고성능화와 첨단 패키징 도입으로 테스트 공정 난이도·중요도가 상승하는 구조적 수혜주. 26E 역대 최대 실적(OP 980억, OPM 32.8%) 달성 전망이며, 넘치는 수요에 대응하기 위해 CAPA 증설을 진행 중. 적정주가 30만원 제시.</p>
+    <div style="margin-top:10px;display:flex;gap:8px;flex-wrap:wrap;">
+      <div style="background:#f0f2f8;border:1px solid #d0d4e0;border-radius:6px;padding:6px 12px;font-size:12px;">
+        <span style="color:#5a6280;font-size:10px;display:block;margin-bottom:2px;">이전 대비 변화 포인트</span>
+        TP 30만원 유지, 실적 추정 소폭 상향(기존 대비 매출 +1.4%, OP +5.3%)
+      </div>
+      <div style="background:#f0f2f8;border:1px solid #d0d4e0;border-radius:6px;padding:6px 12px;font-size:12px;">
+        <span style="color:#5a6280;font-size:10px;display:block;margin-bottom:2px;">컨센서스 대비</span>
+        26E OP 컨센 대비 +5.5% 상회
+      </div>
+    </div>
+  </div>
+  <div style="background:#fafafa;border:1px solid #d0d4e0;border-radius:8px;padding:16px 20px;margin-bottom:12px;">
+    <div style="font-size:11px;font-weight:700;letter-spacing:1px;color:#5a6280;text-transform:uppercase;margin-bottom:10px;">사업 구조 & 성장 동력</div>
+    <table style="margin:0;">
+      <thead><tr><th style="width:25%;">사업부</th><th style="width:20%;">매출 비중(26E)</th><th style="width:55%;">핵심 성장 드라이버 (Why 포함)</th></tr></thead>
+      <tbody>
+        <tr><td>데이터센터</td><td>78.7%</td><td>AI 가속기(GPU·TPU) 고성능화 → 테스트 소켓 난이도·단가 상승. 글로벌 Peer 멀티플 리레이팅 진행 중</td></tr>
+        <tr><td>스마트폰</td><td>13.7%</td><td>AP 테스트 수요 안정적. 비중 축소 추세이나 절대 매출 유지</td></tr>
+        <tr><td>PC/랩탑</td><td>4.2%</td><td>AI PC 전환 수요로 소폭 회복</td></tr>
+      </tbody>
+    </table>
+    <p style="font-size:12px;color:#5a6280;margin-top:10px;">▶ 핵심 성장 메커니즘: AI 반도체 테스트 소켓 수요 폭증 → CAPA 부족 → 증설(1·2공장) → 27년 capa 4,000억/년 → 매출·이익 동반 성장</p>
+  </div>
+  <div style="background:#fafafa;border:1px solid #d0d4e0;border-radius:8px;padding:16px 20px;margin-bottom:12px;">
+    <div style="font-size:11px;font-weight:700;letter-spacing:1px;color:#5a6280;text-transform:uppercase;margin-bottom:10px;">시장 괴리 — 왜 지금 시장이 틀렸는가</div>
+    <table style="margin:0;">
+      <thead><tr><th style="width:30%;">구분</th><th>내용</th></tr></thead>
+      <tbody>
+        <tr><td style="color:#5a6280;">시장 현재 인식</td><td>AI 테스트 소켓 성장은 인정하나, 밸류에이션 Peer를 국내 소부장으로 한정</td></tr>
+        <tr><td style="color:#2563eb;">이 리포트 주장</td><td>AI 반도체 비중이 높은 글로벌 Peer(해외 테스트 장비업체)로 멀티플 비교 대상 전환 필요</td></tr>
+        <tr><td style="color:#b45309;">괴리 해소 촉매</td><td>신규 ASIC 고객 양산 개시(2Q26E) + CAPA 증설 완료(3Q~4Q26E)</td></tr>
+        <tr><td>괴리 강도</td><td><span style="color:#b45309;">중</span> (Upside 26.1%로 괴리 제한적)</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div style="background:#fafafa;border:1px solid #d0d4e0;border-radius:8px;padding:16px 20px;">
+    <div style="font-size:11px;font-weight:700;letter-spacing:1px;color:#5a6280;text-transform:uppercase;margin-bottom:10px;">재무 특징 (PDF에 있는 경우만)</div>
+    <div style="display:flex;flex-wrap:wrap;gap:8px;">
+      <div style="background:#f0f2f8;border:1px solid #d0d4e0;border-radius:6px;padding:8px 12px;font-size:12px;flex:1;min-width:160px;"><span style="color:#5a6280;font-size:10px;display:block;margin-bottom:2px;">순현금/순차입금</span>순현금 3천억원+ (PDF 언급)</div>
+      <div style="background:#f0f2f8;border:1px solid #d0d4e0;border-radius:6px;padding:8px 12px;font-size:12px;flex:1;min-width:160px;"><span style="color:#5a6280;font-size:10px;display:block;margin-bottom:2px;">부채비율</span>-</div>
+      <div style="background:#f0f2f8;border:1px solid #d0d4e0;border-radius:6px;padding:8px 12px;font-size:12px;flex:1;min-width:160px;"><span style="color:#5a6280;font-size:10px;display:block;margin-bottom:2px;">배당·자사주</span>증설 이후 잔여 순현금 활용 방안 관심 필요</div>
+      <div style="background:#f0f2f8;border:1px solid #d0d4e0;border-radius:6px;padding:8px 12px;font-size:12px;flex:1;min-width:160px;"><span style="color:#5a6280;font-size:10px;display:block;margin-bottom:2px;">특이 재무 이슈</span>-</div>
+    </div>
+  </div>
+</section>
+
+<!-- G. 실적 전망 (연간) -->
+<section>
+  <div class="section-title">📈 실적 전망 (연간) — PDF 원문 수치만 기재, 추정 금지</div>
+  <table class="data-table">
+    <caption>단위: 십억원 — PDF 단위 확인 완료 | ★ = 투자 핵심 연도</caption>
+    <thead>
+      <tr>
+        <th>구분</th><th>2024A</th><th>2025A</th>
+        <th style="background:#dbeafe;color:#1e40af;font-weight:700;">2026E ★</th>
+        <th>2027E</th><th>2028E</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td>매출액</td><td>-</td><td>220.2</td><td class="key-col key-num">299.0</td><td>394.5</td><td>-</td></tr>
+      <tr><td>YoY(%)</td><td>-</td><td>26.0%</td><td class="key-col">+35.8%</td><td>+31.9%</td><td>-</td></tr>
+      <tr><td>영업이익</td><td>-</td><td>60.1</td><td class="key-col key-num">98.0</td><td>135.5</td><td>-</td></tr>
+      <tr><td>YoY(%)</td><td>-</td><td>-</td><td class="key-col key-num">+63.1%</td><td>+38.3%</td><td>-</td></tr>
+      <tr><td>OPM(%)</td><td>-</td><td>27.3%</td><td class="key-col key-opm">32.8%</td><td>34.3%</td><td>-</td></tr>
+      <tr><td>EPS(원)</td><td>-</td><td>-</td><td class="key-col">-</td><td>-</td><td>-</td></tr>
+      <tr><td>PER(배)</td><td>-</td><td>-</td><td class="key-col">-</td><td>-</td><td>-</td></tr>
+      <tr><td>PBR(배)</td><td>-</td><td>-</td><td class="key-col">-</td><td>-</td><td>-</td></tr>
+      <tr><td>ROE(%)</td><td>-</td><td>25.5%</td><td class="key-col">28.5%</td><td>29.0%</td><td>-</td></tr>
+    </tbody>
+  </table>
+  <p style="font-size:12px;color:#5a6280;margin-top:10px;padding:0 4px;">
+    ▶ 왜 26E가 변곡점인가: AI 가속기 테스트 소켓 수요가 본격 확대되면서 데이터센터 비중이 78%로 급등. CAPA 증설(1·2공장)이 하반기부터 순차 가동되어 매출 레벨업과 OPM 30%+ 구조화가 동시 실현되는 시점.
+  </p>
+</section>
+
+<!-- H. 분기별 실적 -->
+<section>
+  <div class="section-title">📅 분기별 실적 전망 — PDF에 있으면 반드시 기재, 생략 금지</div>
+  <table class="data-table">
+    <thead>
+      <tr>
+        <th>구분</th>
+        <th>1Q25</th><th>2Q25</th><th>3Q25</th><th>4Q25</th>
+        <th style="background:#dbeafe;color:#1e40af;font-weight:700;">1Q26E ★</th>
+        <th>2Q26E</th><th>3Q26E</th><th>4Q26E</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td>매출액</td><td>31.7</td><td>51.7</td><td>64.5</td><td>72.3</td><td class="key-col key-num">67.6</td><td>70.8</td><td>80.8</td><td>79.9</td></tr>
+      <tr><td>영업이익</td><td>7.0</td><td>13.7</td><td>17.4</td><td>21.9</td><td class="key-col key-num">22.5</td><td>22.7</td><td>25.8</td><td>27.1</td></tr>
+      <tr><td>OPM(%)</td><td>22.1%</td><td>26.5%</td><td>27.0%</td><td>30.3%</td><td class="key-col key-opm">33.3%</td><td>32.0%</td><td>31.9%</td><td>33.9%</td></tr>
+    </tbody>
+  </table>
+  <p style="font-size:12px;color:#5a6280;margin-top:10px;padding:0 4px;">
+    ▶ 1Q26 주목 포인트: 매출 QoQ -6.6%(계절 요인)이지만 OPM 33.3%로 분기 최고. OP 컨센서스 8.8% 상회 여부가 핵심 확인 사항.
+  </p>
+</section>
+
+<!-- I. 밸류에이션 -->
+<section>
+  <div class="section-title">💰 밸류에이션 — 왜 이 배수인가 1문장 필수</div>
+  <div class="val-box">
+    <div class="val-formula">AI 반도체 비중 높은 글로벌 Peer 멀티플(PER·PBR) 리레이팅 적용 → TP 300,000원</div>
+    <p style="color:#5a6280;font-size:12px;margin-top:8px;">▶ 왜 이 배수인가: 동사의 AI 반도체 테스트 소켓 비중(78%)이 글로벌 Peer 수준이므로, 국내 소부장이 아닌 해외 AI 반도체 테스트 업체 멀티플 적용이 적절</p>
+    <p style="color:#5a6280;font-size:12px;margin-top:4px;">▶ SOTP 적용 시: 해당 없음 (단일 사업부 기반)</p>
+  </div>
+</section>
+
+<!-- J. 리스크 -->
+<section>
+  <div class="section-title">⚠️ 리스크 — 핵심 가정이 틀릴 경우 시나리오 (키워드 나열 금지)</div>
+  <div class="risk-item risk-sev-high">
+    <div class="risk-assumption">🔴 핵심 가정: AI 가속기 테스트 소켓 수요가 26E~27E 지속 증가</div>
+    <div class="risk-chain" style="margin-top:6px;">→ 붕괴 시: AI 투자 둔화 또는 고객사 내재화(in-house 전환) 시 데이터센터 매출(비중 78%) 급감<br/>→ 실적 영향: 26E OP 98.0십억→60~70십억(30~40% 하락)</div>
+    <div class="risk-impact-num">→ 주가 영향: TP 300,000원 → 200,000~220,000원 (-25~33%)</div>
+  </div>
+  <div class="risk-item risk-sev-mid">
+    <div class="risk-assumption">🟠 두 번째 가정: CAPA 증설이 예정대로 완공·가동</div>
+    <div class="risk-chain" style="margin-top:6px;">→ 붕괴 시: 증설 지연 시 수요 대응 불가 → 27E 매출 4,000억원 목표 미달. 경쟁사 점유율 확대 가능성</div>
+    <div class="risk-impact-num">→ 주가 영향: 27E 기대치 하향으로 TP 10~15% 하향 가능</div>
+  </div>
+</section>
+
+<!-- K. 체크포인트 -->
+<section>
+  <div class="section-title">🎯 모멘텀 확인 체크포인트 — 확인/실망 시 행동 명시</div>
+  <div style="background:#fafafa;border:1px solid #d0d4e0;border-radius:8px;padding:4px 16px;">
+    <div class="checkpoint-item">
+      <span class="cp-date">2026.05</span>
+      <div>
+        <div class="cp-event">1Q26 실적 발표 — OP 225억원·OPM 33.3% 달성 여부</div>
+        <div class="cp-pass">✅ 컨센 상회 시 → 실적 모멘텀 확인, CAPA 증설 가동 시점까지 보유</div>
+        <div class="cp-fail">⛔ 컨센 하회 시 → 수요 둔화 신호, 비중 축소 검토</div>
+      </div>
+    </div>
+    <div class="checkpoint-item">
+      <span class="cp-date">2026.3Q</span>
+      <div>
+        <div class="cp-event">1공장 증설 가동 시작 + 신규 ASIC 고객 양산 본격화</div>
+        <div class="cp-pass">✅ 예정대로 가동 + 양산 매출 확인 → 핵심 승격 검토</div>
+        <div class="cp-fail">⛔ 가동 지연 또는 ASIC 양산 연기 → 주목 유지, 추가 확인 필요</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- L. 사견 & 결론 -->
+<section>
+  <div class="section-title">💬 사견 & 투자 행동 결론</div>
+  <div class="opinion-box">
+    <p>ISC는 AI 반도체 테스트 소켓의 구조적 수혜주로 26E 역대 최대 실적(OP +63%, OPM 32.8%)이 전망되는 고성장주. 다만 ①Upside 26.1%로 충분한 저평가 구간은 아니며, ②컨센서스 대비 OP 괴리가 +5.5%에 불과해 시장에 대부분 반영된 상태. ③CAPA 증설 완료(3Q~4Q26E)와 신규 고객 양산 개시가 추가 상승 트리거이나, 현 시점에서는 확정 팩트 부족. 1Q26 실적과 증설 가동 확인 후 진입이 적절.</p>
+    <div class="decision-box">
+      <div class="decision-btn decision-buy decision-dim">✅ 지금 진입 가능<br/><span style="font-size:11px;font-weight:400;">핵심+ & 60점+</span></div>
+      <div class="decision-btn decision-wait">⏳ 이벤트 후 진입<br/><span style="font-size:11px;font-weight:400;">1Q26 실적 + CAPA 가동 확인 후</span></div>
+      <div class="decision-btn decision-avoid decision-dim">🚫 관망<br/><span style="font-size:11px;font-weight:400;">-</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- M. 승격 조건 (주목 전용) -->
+<section>
+  <div class="section-title">🚀 승격 조건 — 주목 종목 전용 (핵심 이상은 삭제)</div>
+  <div class="upgrade-box">
+    <div class="upgrade-item">
+      <span class="upgrade-when">2026.3Q (CAPA 가동)</span>
+      <span>1공장 증설 정상 가동 + 가동률 70%+ 확인 시 → ⭐ 핵심 승격</span>
+    </div>
+    <div class="upgrade-item">
+      <span class="upgrade-when">Upside 40%+ 도달</span>
+      <span>주가 조정으로 Upside 40%+ 확보 시(TP 대비 CP 21.4만원 이하) → ⭐ 핵심 검토</span>
+    </div>
+    <div class="upgrade-item">
+      <span class="upgrade-when">신규 대형 고객 수주</span>
+      <span>글로벌 빅테크 신규 ASIC 양산 계약 확정 공시 → 🚀 SS급 검토</span>
+    </div>
+  </div>
+</section>
+
+<div class="disclaimer">
+  ※ 본 글은 증권사 리포트를 개인 학습 목적으로 요약·정리한 것이며, 투자 권유가 아닙니다.<br/>
+  ※ 제공된 PDF 파일만 활용. 외부 검색·참조 없음. 당일 발간 리포트 기준.
+</div>
+
+</body>
+</html>

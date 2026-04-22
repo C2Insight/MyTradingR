@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>JYP Ent. (035900) 정리</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Pretendard','Apple SD Gothic Neo',-apple-system,sans-serif; background: #ffffff; color: #1a1d2e; line-height: 1.7; font-size: 14px; max-width: 900px; margin: 0 auto; padding: 32px 20px 80px; }
+  .header { border-left: 4px solid #2563eb; padding: 0 0 0 16px; margin-bottom: 24px; }
+  .header h1 { font-size: 20px; font-weight: 700; margin-bottom: 10px; color: #1a1d2e; }
+  .price-row { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin-top: 10px; }
+  .price-item { background: #f0f2f8; border: 1px solid #d0d4e0; border-radius: 6px; padding: 6px 14px; font-size: 13px; }
+  .price-item .label { color: #5a6280; font-size: 11px; display: block; }
+  .price-item .val { font-weight: 700; color: #1a1d2e; }
+  .upside-val { color: #059669; }
+  .tag-badge { display: inline-flex; align-items: center; gap: 6px; padding: 5px 14px; border-radius: 20px; font-size: 13px; font-weight: 700; }
+  .tag-watch { background: #fffbeb; color: #b45309; border: 1px solid #f59e0b; }
+  .score-badge { display: inline-block; padding: 5px 14px; border-radius: 20px; font-size: 13px; font-weight: 700; background: #f0f2f8; border: 1px solid #d0d4e0; color: #1a1d2e; }
+  .score-mid { color: #b45309; }
+  .pathway-badge { display: inline-flex; align-items: center; gap: 4px; padding: 3px 10px; border-radius: 12px; font-size: 11px; font-weight: 600; background: #f0f2f8; border: 1px solid #d0d4e0; color: #5a6280; }
+  section { margin-bottom: 28px; }
+  .section-title { font-size: 11px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: #5a6280; border-bottom: 1px solid #d0d4e0; padding-bottom: 6px; margin-bottom: 14px; }
+  .pdf-only-banner { background: #fff7ed; border: 1px solid #f97316; border-radius: 8px; padding: 10px 16px; font-size: 12px; color: #c2410c; margin-bottom: 20px; text-align: center; font-weight: 700; }
+  .thesis-box { background: #f8faff; border: 1px solid #2563eb; border-radius: 8px; padding: 16px 20px; font-size: 15px; font-weight: 600; line-height: 1.6; color: #1a1d2e; }
+  .thesis-structure { display: flex; gap: 8px; align-items: center; margin-top: 10px; flex-wrap: wrap; }
+  .thesis-part { background: #f0f2f8; border: 1px solid #d0d4e0; border-radius: 6px; padding: 4px 10px; font-size: 12px; color: #1a1d2e; }
+  .thesis-arrow { color: #2563eb; font-size: 16px; }
+  .checklist { background: #fafafa; border: 1px solid #d0d4e0; border-radius: 8px; overflow: hidden; }
+  .checklist-item { display: flex; gap: 14px; align-items: flex-start; padding: 12px 16px; border-bottom: 1px solid #d0d4e0; }
+  .checklist-item:last-child { border-bottom: none; }
+  .check-icon { width: 22px; height: 22px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; flex-shrink: 0; margin-top: 1px; }
+  .check-pass { background: #ecfdf5; color: #059669; border: 1px solid #34d399; }
+  .check-fail { background: #fef2f2; color: #dc2626; border: 1px solid #fca5a5; }
+  .check-label { font-weight: 600; font-size: 13px; color: #1a1d2e; }
+  .check-why { color: #1a1d2e; font-size: 13px; }
+  table { width: 100%; border-collapse: collapse; background: #fafafa; border-radius: 8px; overflow: hidden; border: 1px solid #d0d4e0; }
+  thead tr { background: #f0f2f8; }
+  th { padding: 10px 14px; text-align: left; font-size: 11px; font-weight: 700; color: #5a6280; letter-spacing: 0.8px; text-transform: uppercase; }
+  td { padding: 10px 14px; border-top: 1px solid #d0d4e0; font-size: 13px; color: #1a1d2e; }
+  tr.total-row td { background: #e8ecf5; font-weight: 700; }
+  .penalty { color: #dc2626; }
+  .highlight-green { color: #059669; font-weight: 700; }
+  .chain-box { background: #fafafa; border: 1px solid #d0d4e0; border-radius: 8px; padding: 16px 20px; }
+  .chain-step { display: flex; gap: 12px; align-items: flex-start; margin-bottom: 10px; }
+  .chain-step:last-child { margin-bottom: 0; }
+  .chain-arrow { color: #2563eb; font-size: 16px; flex-shrink: 0; margin-top: 1px; }
+  .chain-content { flex: 1; }
+  .chain-label { font-size: 10px; font-weight: 700; letter-spacing: 1px; color: #5a6280; text-transform: uppercase; margin-bottom: 2px; }
+  .chain-text { font-size: 13px; color: #1a1d2e; }
+  .chain-confirmed { color: #059669; font-size: 11px; margin-left: 6px; }
+  .chain-forecast { color: #b45309; font-size: 11px; margin-left: 6px; }
+  .fact-item { background: #fafafa; border: 1px solid #d0d4e0; border-radius: 8px; padding: 14px 16px; margin-bottom: 8px; }
+  .fact-item:last-child { margin-bottom: 0; }
+  .fact-num { font-size: 10px; font-weight: 700; color: #2563eb; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 8px; display: block; }
+  .fact-what { font-weight: 600; font-size: 14px; margin-bottom: 6px; color: #1a1d2e; }
+  .fact-why { font-size: 13px; color: #5a6280; margin-bottom: 6px; }
+  .fact-so { font-size: 13px; color: #059669; }
+  .fact-label { display: inline-block; font-size: 10px; font-weight: 700; padding: 1px 6px; border-radius: 3px; margin-right: 4px; }
+  .label-what { background: #eff6ff; color: #1d4ed8; }
+  .label-why { background: #fff7ed; color: #ea580c; }
+  .label-so { background: #ecfdf5; color: #059669; }
+  .data-table th { background: #e8ecf5; }
+  .data-table td.key-col { background: #f0f6ff; }
+  .data-table .key-num { color: #059669; font-weight: 700; }
+  .data-table .key-opm { color: #b45309; }
+  caption { font-size: 11px; color: #5a6280; text-align: left; padding: 0 0 8px; caption-side: top; }
+  .val-box { background: #fafafa; border: 1px solid #d0d4e0; border-radius: 8px; padding: 16px 20px; font-size: 13px; line-height: 2; color: #1a1d2e; }
+  .val-formula { background: #f0f2f8; border-radius: 6px; padding: 10px 14px; font-family: monospace; font-size: 13px; margin: 10px 0; color: #b45309; }
+  .risk-item { background: #fafafa; border-radius: 0 6px 6px 0; padding: 14px 16px; margin-bottom: 10px; }
+  .risk-item:last-child { margin-bottom: 0; }
+  .risk-sev-high { border-left: 3px solid #dc2626; }
+  .risk-sev-mid { border-left: 3px solid #ea580c; }
+  .risk-assumption { font-weight: 600; font-size: 13px; margin-bottom: 4px; color: #1a1d2e; }
+  .risk-chain { font-size: 12px; color: #5a6280; margin: 4px 0; }
+  .risk-impact-num { font-size: 13px; color: #dc2626; font-weight: 600; margin-top: 4px; }
+  .checkpoint-item { display: flex; gap: 12px; padding: 10px 0; border-bottom: 1px solid #d0d4e0; font-size: 13px; }
+  .checkpoint-item:last-child { border-bottom: none; }
+  .cp-date { color: #2563eb; font-weight: 600; min-width: 90px; flex-shrink: 0; }
+  .cp-event { flex: 1; color: #1a1d2e; }
+  .cp-pass { color: #059669; font-size: 12px; margin-top: 2px; }
+  .cp-fail { color: #dc2626; font-size: 12px; margin-top: 2px; }
+  .opinion-box { background: #fafafa; border: 1px solid #d0d4e0; border-radius: 8px; padding: 16px 20px; font-size: 13px; line-height: 1.8; color: #5a6280; }
+  .decision-box { display: flex; gap: 14px; margin-top: 14px; }
+  .decision-btn { flex: 1; text-align: center; padding: 10px; border-radius: 6px; font-weight: 700; font-size: 13px; border: 1px solid; }
+  .decision-buy { background: #ecfdf5; color: #059669; border-color: #34d399; }
+  .decision-wait { background: #fffbeb; color: #b45309; border-color: #f59e0b; }
+  .decision-avoid { background: #fef2f2; color: #dc2626; border-color: #fca5a5; }
+  .decision-dim { opacity: 0.3; }
+  .upgrade-box { background: #eff6ff; border: 1px solid #93c5fd; border-radius: 8px; padding: 14px 16px; }
+  .upgrade-item { display: flex; gap: 10px; padding: 6px 0; border-bottom: 1px solid #dbeafe; font-size: 13px; color: #1a1d2e; }
+  .upgrade-item:last-child { border-bottom: none; }
+  .upgrade-when { color: #1d4ed8; font-weight: 600; min-width: 140px; flex-shrink: 0; }
+  .disclaimer { font-size: 11px; color: #9ca3af; text-align: center; margin-top: 40px; padding-top: 16px; border-top: 1px solid #d0d4e0; }
+</style>
+</head>
+<body>
+
+<div class="pdf-only-banner">
+  🚫 외부 검색 절대 금지 — 제공된 PDF 파일만 활용 | 당일 발간 리포트 기준 투자 종목 발굴 전용
+</div>
+
+<header class="header">
+  <h1>JYP Ent. (035900) | 고연차 아티스트의 캐리력 SK증권 박준형 | 발간일: 2026.04.22</h1>
+  <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-bottom:12px;">
+    <span class="tag-badge tag-watch">🔥 주목</span>
+    <span class="score-badge score-mid">📊 50점</span>
+    <span style="font-size:12px;color:#5a6280;">비바이오</span>
+    <span class="pathway-badge">경로 ②볼륨드리븐</span>
+  </div>
+  <div class="price-row">
+    <div class="price-item"><span class="label">투자의견</span><span class="val">매수(유지)</span></div>
+    <div class="price-item"><span class="label">목표주가(TP)</span><span class="val">92,000원</span></div>
+    <div class="price-item"><span class="label">현재주가(CP)</span><span class="val">61,700원</span></div>
+    <div class="price-item"><span class="label">Upside</span><span class="val upside-val">+49.1%</span></div>
+    <div class="price-item"><span class="label">시가총액</span><span class="val">21,920억원</span></div>
+    <div class="price-item"><span class="label">종목 유형</span><span class="val">비바이오</span></div>
+  </div>
+</header>
+
+<!-- B. 한줄 투자 이유 -->
+<section>
+  <div class="section-title">💡 이 종목에 투자해야 하는 이유 — 스토리 한 줄</div>
+  <div class="thesis-box">
+    트와이스 북미 투어 + 스트레이키즈 SKZOO 팝업(●●○) + 2Q 이후 NMIXX·ITZY 컴백 라인업(●●○)으로 26E OP(영업이익) +20.5%(1,871억원), OPM(영업이익률) 18.9%→21.0%로 개선되지만, 핵심 5조건 미달로 주목 유지
+  </div>
+  <div class="thesis-structure">
+    <div class="thesis-part" style="color:#059669;">① 트와이스 북미투어 + SKZ MD 확대(●●○)</div>
+    <div class="thesis-arrow">→</div>
+    <div class="thesis-part" style="color:#b45309;">② 26E OP +20.5%, OPM 21.0%</div>
+    <div class="thesis-arrow">→</div>
+    <div class="thesis-part" style="color:#2563eb;">③ Upside 49.1%</div>
+  </div>
+</section>
+
+<!-- C. 핵심 5조건 -->
+<section>
+  <div class="section-title">✅ 핵심 태그 5가지 조건 체크 (5개 모두 통과해야 ⭐핵심 이상 가능)</div>
+  <div class="checklist">
+    <div class="checklist-item">
+      <div class="check-icon check-fail">✗</div>
+      <div>
+        <div class="check-label">조건 1 | 영업이익(OP) 성장 임계값</div>
+        <div class="check-why">26E OP 1,871억원(+20.5% YoY), OPM 21.0%(+2.1%p). OP +50% 미달. 불통과</div>
+      </div>
+    </div>
+    <div class="checklist-item">
+      <div class="check-icon check-pass">✓</div>
+      <div>
+        <div class="check-label">조건 2 | 3년 지속성 (3개 이상 충족)</div>
+        <div class="check-why">① 트와이스·스트레이키즈 재계약 완료(고연차 IP 지속) ② 글로벌 투어 기반 리커링 매출 ③ 킥플립·NMIXX 등 저연차 IP 성장 → 3개 충족</div>
+      </div>
+    </div>
+    <div class="checklist-item">
+      <div class="check-icon check-fail">✗</div>
+      <div>
+        <div class="check-label">조건 3 | 확정 팩트(●●●) 2개 이상</div>
+        <div class="check-why">●●● 확정 팩트 없음. 트와이스 북미투어·SKZ 팝업은 ●●○(높은 가시성). 컴백 일정은 발표 수준</div>
+      </div>
+    </div>
+    <div class="checklist-item">
+      <div class="check-icon check-pass">✓</div>
+      <div>
+        <div class="check-label">조건 4 | 시장 미반영 (Upside 40%+ OR 컨센 괴리 20%+)</div>
+        <div class="check-why">Upside 49.1% → 통과</div>
+      </div>
+    </div>
+    <div class="checklist-item">
+      <div class="check-icon check-fail">✗</div>
+      <div>
+        <div class="check-label">조건 5 | 이 리포트만의 차별화된 시각</div>
+        <div class="check-why">고연차 아티스트 캐리력은 업계 공통 인식. SKZOO MD 전략은 새로운 시각이나 실적 임팩트 제한적. 차별화 부족</div>
+      </div>
+    </div>
+  </div>
+  <p style="font-size:11px;color:#dc2626;margin-top:8px;padding:0 4px;">
+    ⚠️ 조건1(OP +50% 미달), 조건3(확정팩트 미달), 조건5(차별화 부족) → 핵심→주목 강등
+  </p>
+</section>
+
+<!-- D. 투자 점수 -->
+<section>
+  <div class="section-title">📊 투자 점수 판정 (v2.0 비바이오) — 모든 근거 칸 필수 기재</div>
+  <table>
+    <thead><tr><th>항목</th><th>판정</th><th>근거 (Why)</th></tr></thead>
+    <tbody>
+      <tr><td>종목 유형</td><td>비바이오</td><td>K-POP 엔터테인먼트, 실적 기반 주가</td></tr>
+      <tr><td>적용 가설</td><td>가설 3</td><td>26E OP +20.5%, OPM 21.0%로 개선 확인 단계. 고성장(+50%) 미달이나 견조한 회복</td></tr>
+      <tr><td>촉매 등급</td><td>중급</td><td>트와이스 북미투어 29회 + 2Q 이후 NMIXX·ITZY 컴백. 투어 규모 증가이나 실적 전환 속도는 업계 표준</td></tr>
+      <tr><td>복합 여부</td><td>복합</td><td>투어(트와이스 북미+엔믹스 월드) + 컴백 라인업(NMIXX·ITZY·SKZ) + MD 전략(SKZOO 팝업) → 3개 촉매</td></tr>
+      <tr><td>직접성</td><td>직접</td><td>투어·음반·MD 매출 직결</td></tr>
+      <tr><td>매트릭스 기본 점수</td><td>60점</td><td>가설3 × 중급 × 복합 = 60점</td></tr>
+      <tr><td>페널티 ① 컨센 반영</td><td class="penalty">-10점</td><td>OP 컨센서스 소폭 상회(278억 vs 285억), 시장에 대부분 반영된 성장</td></tr>
+      <tr class="total-row"><td>최종 투자 점수</td><td><span class="highlight-green">50점</span></td><td>주목 40+ 충족. 핵심 5조건 미달(조건1·3·5)로 주목 확정</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<!-- E. 성장 인과 체인 -->
+<section>
+  <div class="section-title">⚡ 성장 인과 체인 — 왜 성장하는가 (각 단계에 수치 필수)</div>
+  <div class="chain-box">
+    <div class="chain-step">
+      <div class="chain-arrow">①</div>
+      <div class="chain-content">
+        <div class="chain-label">구조 변화 / 촉매 <span class="chain-forecast">●●○ 높은 가시성</span></div>
+        <div class="chain-text">트와이스 북미 투어 29회 + 엔믹스 월드투어 7회 + 데이식스 10주년 투어 12회. 2Q부터 NMIXX·ITZY·킥플립 컴백. SKZOO 글로벌 팝업 4월 시작. 원시드(중국 JV) 설립</div>
+      </div>
+    </div>
+    <div class="chain-step">
+      <div class="chain-arrow">↓</div>
+      <div class="chain-content">
+        <div class="chain-label">매출 영향 (규모·비중 수치)</div>
+        <div class="chain-text">26E 매출 8,912억원(+8.4% YoY). 콘서트 2,527억원(비중 28.4%), MD 2,003억원(22.5%), 음반 1,946억원(21.8%)</div>
+      </div>
+    </div>
+    <div class="chain-step">
+      <div class="chain-arrow">↓</div>
+      <div class="chain-content">
+        <div class="chain-label">OPM 변화 메커니즘</div>
+        <div class="chain-text">메가 IP(트와이스·SKZ) 이연 MD 반영 + 3Q26 하반기 SKZ 컴백 본격화로 고마진 음반·MD 매출 집중. GPM 36.9%→39.2% 개선. OPM 18.9%→21.0%(+2.1%p)</div>
+      </div>
+    </div>
+    <div class="chain-step">
+      <div class="chain-arrow">↓</div>
+      <div class="chain-content">
+        <div class="chain-label">최종 실적 결과 <span class="chain-forecast">●●○ 추정</span></div>
+        <div class="chain-text">26E OP 1,871억원(+20.5% YoY), OPM 21.0%. 27E OP 1,410억원(-24.5%), 스트레이키즈 군입대 영향</div>
+      </div>
+    </div>
+    <div class="chain-step">
+      <div class="chain-arrow">↓</div>
+      <div class="chain-content">
+        <div class="chain-label">시장 미반영 포인트 (So What)</div>
+        <div class="chain-text">PER 16.4배(26E)로 역사적 PER 밴드(13.8~35.0배) 하단. 다만 27E SKZ 군입대 리스크로 디스카운트 반영 중. 저연차 IP 성장 속도가 핵심 변수</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- F. 핵심 팩트 3줄 -->
+<section>
+  <div class="section-title">📌 핵심 팩트 3줄 — WHAT(숫자) + WHY(원인) + SO WHAT(의미) 3요소 필수</div>
+  <div class="fact-item">
+    <span class="fact-num">Fact 01</span>
+    <div class="fact-what"><span class="fact-label label-what">WHAT</span>1Q26E 매출 1,579억원(+12.2% YoY), OP 285억원(+45.3% YoY), OPM 18.1%로 시장 컨센서스(278억원) 소폭 상회</div>
+    <div class="fact-why"><span class="fact-label label-why">WHY</span>트와이스 북미 투어 29회 반영 + 4Q25 스트레이키즈 앵콜 콘서트·트와이스 온라인 MD 이연 매출 1Q26 반영. 음반 63.5만장(미사모·ITZY유나·데이식스원필 솔로)</div>
+    <div class="fact-so"><span class="fact-label label-so">SO WHAT</span>비수기임에도 컨센 상회하며 26E 실적 성장 가능성 확인. 2Q부터 본격 컴백 구간 진입</div>
+  </div>
+  <div class="fact-item">
+    <span class="fact-num">Fact 02</span>
+    <div class="fact-what"><span class="fact-label label-what">WHAT</span>26E 연간 매출 8,912억원(+8.4%), OP 1,871억원(+20.5%), OPM 21.0%. 3Q26E OP 660억원(+61.7% YoY)으로 분기 최대 실적 전망</div>
+    <div class="fact-why"><span class="fact-label label-why">WHY</span>3Q26 SKZ 하반기 컴백(미공개) + NMIXX·ITZY 활동 본격화로 음반·콘서트·MD 동시 성장. GPM 39.2%로 전년(36.9%) 대비 개선</div>
+    <div class="fact-so"><span class="fact-label label-so">SO WHAT</span>26E는 역대 최대 OP 달성 전망이나, 27E SKZ 군입대(리노 2027년 예상) 시작으로 OP -24.5% 역성장 리스크. 현재 PER 16.4배는 27E 역성장 선반영</div>
+  </div>
+  <div class="fact-item">
+    <span class="fact-num">Fact 03</span>
+    <div class="fact-what"><span class="fact-label label-what">WHAT</span>JYP·CJENM·TME 합작법인 원시드(ONECEAD) 설립. 중국 현지그룹 '모디세이' 매니지먼트 목적</div>
+    <div class="fact-why"><span class="fact-label label-why">WHY</span>중국 시장 내 현지화 전략. JYP(아티스트 매니지먼트) + CJENM(콘텐츠 기획) + TME(중국 현지 대응) 역할 분담</div>
+    <div class="fact-so"><span class="fact-label label-so">SO WHAT</span>중장기 성장 동력이나 단기 실적 기여는 제한적. 중국 사업 성과 가시화 시 추가 밸류에이션 요인</div>
+  </div>
+</section>
+
+<!-- F-2. 원본 리포트 핵심 요약 -->
+<section>
+  <div class="section-title">📄 원본 리포트 핵심 요약 — PDF 내용 직접 발췌 (외부 정보 추가 금지)</div>
+  <div style="background:#fafafa;border:1px solid #d0d4e0;border-radius:8px;padding:16px 20px;margin-bottom:12px;">
+    <div style="font-size:11px;font-weight:700;letter-spacing:1px;color:#5a6280;text-transform:uppercase;margin-bottom:10px;">리포트 핵심 주장 (애널리스트 관점 요약)</div>
+    <p style="font-size:13px;line-height:1.9;">1Q26은 아티스트 비수기이나 트와이스 북미투어 반영 + 이연 MD 매출 일시 반영으로 컨센 소폭 상회 전망. 2Q부터 NMIXX·ITZY·킥플립 컴백으로 본격 실적 모멘텀 구간. SKZOO 글로벌 팝업으로 IP 활용 MD 전략 확대. 다만 SKZ 군입대(2027년 말~2028년 초) 전까지 저연차 아티스트 성장 속도가 밸류에이션 핵심.</p>
+    <div style="margin-top:10px;display:flex;gap:8px;flex-wrap:wrap;">
+      <div style="background:#f0f2f8;border:1px solid #d0d4e0;border-radius:6px;padding:6px 12px;font-size:12px;">
+        <span style="color:#5a6280;font-size:10px;display:block;margin-bottom:2px;">이전 대비 변화 포인트</span>
+        TP 92,000원 유지, 투자의견 매수 유지. 추정치 변경 없음
+      </div>
+      <div style="background:#f0f2f8;border:1px solid #d0d4e0;border-radius:6px;padding:6px 12px;font-size:12px;">
+        <span style="color:#5a6280;font-size:10px;display:block;margin-bottom:2px;">컨센서스 대비</span>
+        1Q26 OP 285억원 vs 컨센 278억원 (소폭 상회)
+      </div>
+    </div>
+  </div>
+  <div style="background:#fafafa;border:1px solid #d0d4e0;border-radius:8px;padding:16px 20px;margin-bottom:12px;">
+    <div style="font-size:11px;font-weight:700;letter-spacing:1px;color:#5a6280;text-transform:uppercase;margin-bottom:10px;">사업 구조 & 성장 동력</div>
+    <table style="margin:0;">
+      <thead><tr><th style="width:25%;">사업부</th><th style="width:20%;">매출 비중(26E)</th><th style="width:55%;">핵심 성장 드라이버 (Why 포함)</th></tr></thead>
+      <tbody>
+        <tr><td>콘서트</td><td>28.4%</td><td>트와이스 북미 투어 29회 + 엔믹스 월드투어. 고연차 IP 투어 수익이 핵심 성장 동력</td></tr>
+        <tr><td>MD</td><td>22.5%</td><td>SKZOO 글로벌 팝업 4월 시작. 군입대·활동 공백기에도 안정적 CashCow 역할</td></tr>
+        <tr><td>음반</td><td>21.8%</td><td>SKZ 하반기 컴백 + NMIXX·ITZY 2Q 컴백. 음반 판매량 유지가 관건</td></tr>
+      </tbody>
+    </table>
+    <p style="font-size:12px;color:#5a6280;margin-top:10px;">▶ 핵심 성장 메커니즘: 트와이스·SKZ 고연차 IP가 투어·MD로 캐리 + 2Q 이후 저연차 IP(NMIXX·킥플립) 컴백으로 음반 매출 보충</p>
+  </div>
+  <div style="background:#fafafa;border:1px solid #d0d4e0;border-radius:8px;padding:16px 20px;margin-bottom:12px;">
+    <div style="font-size:11px;font-weight:700;letter-spacing:1px;color:#5a6280;text-transform:uppercase;margin-bottom:10px;">시장 괴리 — 왜 지금 시장이 틀렸는가</div>
+    <table style="margin:0;">
+      <thead><tr><th style="width:30%;">구분</th><th>내용</th></tr></thead>
+      <tbody>
+        <tr><td style="color:#5a6280;">시장 현재 인식</td><td>SKZ 군입대 리스크(2027년 말~) + 엔터 업종 디레이팅. PER 밴드 하단</td></tr>
+        <tr><td style="color:#2563eb;">이 리포트 주장</td><td>26E 역대 최대 OP 달성 + SKZOO 등 IP 활용 MD 전략으로 군입대 공백 완화 가능</td></tr>
+        <tr><td style="color:#b45309;">괴리 해소 촉매</td><td>2Q~3Q26 SKZ 컴백 + NMIXX·ITZY 컴백 실적 확인</td></tr>
+        <tr><td>괴리 강도</td><td><span style="color:#b45309;">중</span> (Upside 49.1%이나 27E 역성장 리스크 존재)</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div style="background:#fafafa;border:1px solid #d0d4e0;border-radius:8px;padding:16px 20px;">
+    <div style="font-size:11px;font-weight:700;letter-spacing:1px;color:#5a6280;text-transform:uppercase;margin-bottom:10px;">재무 특징 (PDF에 있는 경우만)</div>
+    <div style="display:flex;flex-wrap:wrap;gap:8px;">
+      <div style="background:#f0f2f8;border:1px solid #d0d4e0;border-radius:6px;padding:8px 12px;font-size:12px;flex:1;min-width:160px;"><span style="color:#5a6280;font-size:10px;display:block;margin-bottom:2px;">순현금/순차입금</span>순현금 4,200억원(26E)</div>
+      <div style="background:#f0f2f8;border:1px solid #d0d4e0;border-radius:6px;padding:8px 12px;font-size:12px;flex:1;min-width:160px;"><span style="color:#5a6280;font-size:10px;display:block;margin-bottom:2px;">부채비율</span>31.0%(26E)</div>
+      <div style="background:#f0f2f8;border:1px solid #d0d4e0;border-radius:6px;padding:8px 12px;font-size:12px;flex:1;min-width:160px;"><span style="color:#5a6280;font-size:10px;display:block;margin-bottom:2px;">배당·자사주</span>배당성향 0%(26E~28E)</div>
+      <div style="background:#f0f2f8;border:1px solid #d0d4e0;border-radius:6px;padding:8px 12px;font-size:12px;flex:1;min-width:160px;"><span style="color:#5a6280;font-size:10px;display:block;margin-bottom:2px;">특이 재무 이슈</span>자사주 6.75% 보유</div>
+    </div>
+  </div>
+</section>
+
+<!-- G. 실적 전망 (연간) -->
+<section>
+  <div class="section-title">📈 실적 전망 (연간) — PDF 원문 수치만 기재, 추정 금지</div>
+  <table class="data-table">
+    <caption>단위: 십억원 — PDF 단위 확인 완료 | ★ = 투자 핵심 연도</caption>
+    <thead>
+      <tr>
+        <th>구분</th><th>2024A</th><th>2025A</th>
+        <th style="background:#dbeafe;color:#1e40af;font-weight:700;">2026E ★</th>
+        <th>2027E</th><th>2028E</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td>매출액</td><td>602</td><td>822</td><td class="key-col key-num">891</td><td>888</td><td>915</td></tr>
+      <tr><td>YoY(%)</td><td>6.2%</td><td>36.6%</td><td class="key-col">+8.4%</td><td>-0.3%</td><td>+3.0%</td></tr>
+      <tr><td>영업이익</td><td>128</td><td>155</td><td class="key-col key-num">187</td><td>141</td><td>168</td></tr>
+      <tr><td>YoY(%)</td><td>-24.3%</td><td>21.0%</td><td class="key-col key-num">+20.5%</td><td>-24.5%</td><td>+18.9%</td></tr>
+      <tr><td>OPM(%)</td><td>21.3%</td><td>18.9%</td><td class="key-col key-opm">21.0%</td><td>15.9%</td><td>18.4%</td></tr>
+      <tr><td>EPS(원)</td><td>2,751</td><td>4,519</td><td class="key-col">3,790</td><td>2,763</td><td>3,433</td></tr>
+      <tr><td>PER(배)</td><td>25.4</td><td>16.1</td><td class="key-col">16.4</td><td>22.5</td><td>18.1</td></tr>
+      <tr><td>PBR(배)</td><td>5.1</td><td>4.1</td><td class="key-col">2.9</td><td>2.6</td><td>2.2</td></tr>
+      <tr><td>ROE(%)</td><td>22.4</td><td>29.2</td><td class="key-col">19.6</td><td>12.2</td><td>13.3</td></tr>
+    </tbody>
+  </table>
+  <p style="font-size:12px;color:#5a6280;margin-top:10px;padding:0 4px;">
+    ▶ 왜 26E가 변곡점인가: 26E는 SKZ 군입대 직전 마지막 풀 활동 연도로 역대 최대 OP(1,871억원) 달성 전망. 27E부터 SKZ 군입대(리노 2027년 예상) 시작으로 OP -24.5% 역성장. 저연차 IP 성장 속도가 27E 이후 성장 지속 여부를 결정.
+  </p>
+</section>
+
+<!-- H. 분기별 실적 -->
+<section>
+  <div class="section-title">📅 분기별 실적 전망 — PDF에 있으면 반드시 기재, 생략 금지</div>
+  <table class="data-table">
+    <caption>단위: 억원</caption>
+    <thead>
+      <tr>
+        <th>구분</th>
+        <th>1Q25</th><th>2Q25</th><th>3Q25</th><th>4Q25</th>
+        <th style="background:#dbeafe;color:#1e40af;font-weight:700;">1Q26E ★</th>
+        <th>2Q26E</th><th>3Q26E</th><th>4Q26E</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td>매출액</td><td>1,408</td><td>2,158</td><td>2,326</td><td>2,326</td><td class="key-col key-num">1,579</td><td>2,010</td><td>2,777</td><td>2,546</td></tr>
+      <tr><td>영업이익</td><td>196</td><td>529</td><td>408</td><td>419</td><td class="key-col key-num">285</td><td>405</td><td>660</td><td>522</td></tr>
+      <tr><td>OPM(%)</td><td>13.9%</td><td>24.5%</td><td>17.5%</td><td>18.0%</td><td class="key-col key-opm">18.1%</td><td>20.1%</td><td>23.8%</td><td>20.5%</td></tr>
+    </tbody>
+  </table>
+  <p style="font-size:12px;color:#5a6280;margin-top:10px;padding:0 4px;">
+    ▶ 1Q26 주목 포인트: 비수기임에도 OP 285억원(+45.3% YoY)으로 컨센 상회 여부. 트와이스 북미투어 + 이연 MD 효과 확인. 3Q26 OP 660억원(OPM 23.8%)이 연간 피크.
+  </p>
+</section>
+
+<!-- I. 밸류에이션 -->
+<section>
+  <div class="section-title">💰 밸류에이션 — 왜 이 배수인가 1문장 필수</div>
+  <div class="val-box">
+    <div class="val-formula">26E EPS 3,790원 × Target PER 약 24.3배 = TP 92,000원</div>
+    <p style="color:#5a6280;font-size:12px;margin-top:8px;">▶ 왜 이 배수인가: PER Band 차트상 역사적 PER 13.8~35.0배 중 중간 수준. SKZ 군입대 리스크 반영한 디스카운트 적용</p>
+    <p style="color:#5a6280;font-size:12px;margin-top:4px;">▶ SOTP 적용 시: 해당 없음</p>
+  </div>
+</section>
+
+<!-- J. 리스크 -->
+<section>
+  <div class="section-title">⚠️ 리스크 — 핵심 가정이 틀릴 경우 시나리오 (키워드 나열 금지)</div>
+  <div class="risk-item risk-sev-high">
+    <div class="risk-assumption">🔴 핵심 가정: 스트레이키즈 군입대 전까지 저연차 IP 성장이 실적 공백 보전</div>
+    <div class="risk-chain" style="margin-top:6px;">→ 붕괴 시: NMIXX·킥플립 등 저연차 IP 성장 속도 부진 시 27E~28E OP 추가 하락<br/>→ 실적 영향: 27E OP 1,410억→1,000억 이하(-30%+ 추가 하락)</div>
+    <div class="risk-impact-num">→ 주가 영향: TP 92,000원 → 65,000~70,000원(-24~29%)</div>
+  </div>
+  <div class="risk-item risk-sev-mid">
+    <div class="risk-assumption">🟠 두 번째 가정: 엔터 업종 전반 멀티플 회복</div>
+    <div class="risk-chain" style="margin-top:6px;">→ 붕괴 시: 업종 디레이팅 지속 시 PER 13~14배 고정 → Upside 제한</div>
+    <div class="risk-impact-num">→ 주가 영향: TP 하향 필요, 현 주가 수준 적정</div>
+  </div>
+</section>
+
+<!-- K. 체크포인트 -->
+<section>
+  <div class="section-title">🎯 모멘텀 확인 체크포인트 — 확인/실망 시 행동 명시</div>
+  <div style="background:#fafafa;border:1px solid #d0d4e0;border-radius:8px;padding:4px 16px;">
+    <div class="checkpoint-item">
+      <span class="cp-date">2026.05</span>
+      <div>
+        <div class="cp-event">1Q26 실적 발표 — OP 285억원 컨센 상회 여부</div>
+        <div class="cp-pass">✅ 컨센 상회 시 → 2Q~3Q 컴백 모멘텀 기대, 보유 유지</div>
+        <div class="cp-fail">⛔ 하회 시 → 비수기 약화 확인, 비중 축소 검토</div>
+      </div>
+    </div>
+    <div class="checkpoint-item">
+      <span class="cp-date">2026.하반기</span>
+      <div>
+        <div class="cp-event">SKZ 하반기 컴백 실적 + NMIXX·ITZY 컴백 음반 판매량</div>
+        <div class="cp-pass">✅ 3Q26 OP 660억원 달성 + 저연차 IP 음반 성장 → 핵심 승격 검토</div>
+        <div class="cp-fail">⛔ 저연차 IP 부진 시 → 주목 유지, 27E 리스크 경계</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- L. 사견 & 결론 -->
+<section>
+  <div class="section-title">💬 사견 & 투자 행동 결론</div>
+  <div class="opinion-box">
+    <p>JYP Ent.는 26E 역대 최대 OP(1,871억원, +20.5%)가 전망되며 Upside 49.1%로 매력적. 그러나 ①27E SKZ 군입대 시작으로 OP -24.5% 역성장 확정적, ②저연차 IP(NMIXX·킥플립) 성장 속도가 아직 불확실, ③OP 성장이 +20.5%로 핵심 조건(+50%) 미달. SKZOO MD 전략이 군입대 공백을 어디까지 보전할 수 있는지가 중장기 관건. 26E 실적 모멘텀은 양호하나 27E 리스크 감안 시 분할 접근 적절.</p>
+    <div class="decision-box">
+      <div class="decision-btn decision-buy decision-dim">✅ 지금 진입 가능<br/><span style="font-size:11px;font-weight:400;">-</span></div>
+      <div class="decision-btn decision-wait">⏳ 이벤트 후 진입<br/><span style="font-size:11px;font-weight:400;">1Q26 실적 + 3Q26 SKZ 컴백 성과 확인 후</span></div>
+      <div class="decision-btn decision-avoid decision-dim">🚫 관망<br/><span style="font-size:11px;font-weight:400;">-</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- M. 승격 조건 -->
+<section>
+  <div class="section-title">🚀 승격 조건 — 주목 종목 전용 (핵심 이상은 삭제)</div>
+  <div class="upgrade-box">
+    <div class="upgrade-item">
+      <span class="upgrade-when">2026.3Q (SKZ 컴백)</span>
+      <span>3Q26 OP 660억원 달성 + 저연차 IP 음반 판매량 성장 확인 → ⭐ 핵심 승격</span>
+    </div>
+    <div class="upgrade-item">
+      <span class="upgrade-when">Upside 60%+ 도달</span>
+      <span>주가 조정으로 Upside 60%+ 확보 시(CP 57,500원 이하) → ⭐ 핵심 검토</span>
+    </div>
+  </div>
+</section>
+
+<div class="disclaimer">
+  ※ 본 글은 증권사 리포트를 개인 학습 목적으로 요약·정리한 것이며, 투자 권유가 아닙니다.<br/>
+  ※ 제공된 PDF 파일만 활용. 외부 검색·참조 없음. 당일 발간 리포트 기준.
+</div>
+
+</body>
+</html>

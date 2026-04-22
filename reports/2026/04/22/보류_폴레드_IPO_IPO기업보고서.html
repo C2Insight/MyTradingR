@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>폴레드 (IPO) 정리</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Pretendard','Apple SD Gothic Neo',-apple-system,sans-serif; background: #ffffff; color: #1a1d2e; line-height: 1.7; font-size: 14px; max-width: 900px; margin: 0 auto; padding: 32px 20px 80px; }
+  .header { border-left: 4px solid #2563eb; padding: 0 0 0 16px; margin-bottom: 24px; }
+  .header h1 { font-size: 20px; font-weight: 700; margin-bottom: 10px; color: #1a1d2e; }
+  .price-row { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin-top: 10px; }
+  .price-item { background: #f0f2f8; border: 1px solid #d0d4e0; border-radius: 6px; padding: 6px 14px; font-size: 13px; }
+  .price-item .label { color: #5a6280; font-size: 11px; display: block; }
+  .price-item .val { font-weight: 700; color: #1a1d2e; }
+  .tag-badge { display: inline-flex; align-items: center; gap: 6px; padding: 5px 14px; border-radius: 20px; font-size: 13px; font-weight: 700; }
+  .tag-hold { background: #fefce8; color: #a16207; border: 1px solid #facc15; }
+  .score-badge { display: inline-block; padding: 5px 14px; border-radius: 20px; font-size: 13px; font-weight: 700; background: #f0f2f8; border: 1px solid #d0d4e0; color: #1a1d2e; }
+  .score-low { color: #5a6280; }
+  .pathway-badge { display: inline-flex; align-items: center; gap: 4px; padding: 3px 10px; border-radius: 12px; font-size: 11px; font-weight: 600; background: #f0f2f8; border: 1px solid #d0d4e0; color: #5a6280; }
+  section { margin-bottom: 28px; }
+  .section-title { font-size: 11px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: #5a6280; border-bottom: 1px solid #d0d4e0; padding-bottom: 6px; margin-bottom: 14px; }
+  .pdf-only-banner { background: #fff7ed; border: 1px solid #f97316; border-radius: 8px; padding: 10px 16px; font-size: 12px; color: #c2410c; margin-bottom: 20px; text-align: center; font-weight: 700; }
+  .thesis-box { background: #f8faff; border: 1px solid #2563eb; border-radius: 8px; padding: 16px 20px; font-size: 15px; font-weight: 600; line-height: 1.6; color: #1a1d2e; }
+  table { width: 100%; border-collapse: collapse; background: #fafafa; border-radius: 8px; overflow: hidden; border: 1px solid #d0d4e0; }
+  thead tr { background: #f0f2f8; }
+  th { padding: 10px 14px; text-align: left; font-size: 11px; font-weight: 700; color: #5a6280; letter-spacing: 0.8px; text-transform: uppercase; }
+  td { padding: 10px 14px; border-top: 1px solid #d0d4e0; font-size: 13px; color: #1a1d2e; }
+  tr.total-row td { background: #e8ecf5; font-weight: 700; }
+  .penalty { color: #dc2626; }
+  .highlight-green { color: #059669; font-weight: 700; }
+  .chain-box { background: #fafafa; border: 1px solid #d0d4e0; border-radius: 8px; padding: 16px 20px; }
+  .chain-step { display: flex; gap: 12px; align-items: flex-start; margin-bottom: 10px; }
+  .chain-step:last-child { margin-bottom: 0; }
+  .chain-arrow { color: #2563eb; font-size: 16px; flex-shrink: 0; margin-top: 1px; }
+  .chain-content { flex: 1; }
+  .chain-label { font-size: 10px; font-weight: 700; letter-spacing: 1px; color: #5a6280; text-transform: uppercase; margin-bottom: 2px; }
+  .chain-text { font-size: 13px; color: #1a1d2e; }
+  .chain-forecast { color: #b45309; font-size: 11px; margin-left: 6px; }
+  .fact-item { background: #fafafa; border: 1px solid #d0d4e0; border-radius: 8px; padding: 14px 16px; margin-bottom: 8px; }
+  .fact-item:last-child { margin-bottom: 0; }
+  .fact-num { font-size: 10px; font-weight: 700; color: #2563eb; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 8px; display: block; }
+  .fact-what { font-weight: 600; font-size: 14px; margin-bottom: 6px; color: #1a1d2e; }
+  .fact-why { font-size: 13px; color: #5a6280; margin-bottom: 6px; }
+  .fact-so { font-size: 13px; color: #059669; }
+  .fact-label { display: inline-block; font-size: 10px; font-weight: 700; padding: 1px 6px; border-radius: 3px; margin-right: 4px; }
+  .label-what { background: #eff6ff; color: #1d4ed8; }
+  .label-why { background: #fff7ed; color: #ea580c; }
+  .label-so { background: #ecfdf5; color: #059669; }
+  .data-table th { background: #e8ecf5; }
+  .data-table td.key-col { background: #f0f6ff; }
+  .data-table .key-num { color: #059669; font-weight: 700; }
+  .data-table .key-opm { color: #b45309; }
+  caption { font-size: 11px; color: #5a6280; text-align: left; padding: 0 0 8px; caption-side: top; }
+  .val-box { background: #fafafa; border: 1px solid #d0d4e0; border-radius: 8px; padding: 16px 20px; font-size: 13px; line-height: 2; color: #1a1d2e; }
+  .val-formula { background: #f0f2f8; border-radius: 6px; padding: 10px 14px; font-family: monospace; font-size: 13px; margin: 10px 0; color: #b45309; }
+  .risk-item { background: #fafafa; border-radius: 0 6px 6px 0; padding: 14px 16px; margin-bottom: 10px; }
+  .risk-item:last-child { margin-bottom: 0; }
+  .risk-sev-high { border-left: 3px solid #dc2626; }
+  .risk-sev-mid { border-left: 3px solid #ea580c; }
+  .risk-assumption { font-weight: 600; font-size: 13px; margin-bottom: 4px; color: #1a1d2e; }
+  .risk-chain { font-size: 12px; color: #5a6280; margin: 4px 0; }
+  .risk-impact-num { font-size: 13px; color: #dc2626; font-weight: 600; margin-top: 4px; }
+  .opinion-box { background: #fafafa; border: 1px solid #d0d4e0; border-radius: 8px; padding: 16px 20px; font-size: 13px; line-height: 1.8; color: #5a6280; }
+  .decision-box { display: flex; gap: 14px; margin-top: 14px; }
+  .decision-btn { flex: 1; text-align: center; padding: 10px; border-radius: 6px; font-weight: 700; font-size: 13px; border: 1px solid; }
+  .decision-buy { background: #ecfdf5; color: #059669; border-color: #34d399; }
+  .decision-wait { background: #fffbeb; color: #b45309; border-color: #f59e0b; }
+  .decision-avoid { background: #fef2f2; color: #dc2626; border-color: #fca5a5; }
+  .decision-dim { opacity: 0.3; }
+  .disclaimer { font-size: 11px; color: #9ca3af; text-align: center; margin-top: 40px; padding-top: 16px; border-top: 1px solid #d0d4e0; }
+</style>
+</head>
+<body>
+
+<div class="pdf-only-banner">
+  🚫 외부 검색 절대 금지 — 제공된 PDF 파일만 활용 | 당일 발간 리포트 기준 투자 종목 발굴 전용
+</div>
+
+<header class="header">
+  <h1>폴레드 (IPO) | IPO 기업 보고서 다인자산운용 김성환 | 발간일: 2026.04.22</h1>
+  <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-bottom:12px;">
+    <span class="tag-badge tag-hold">🟡 보류</span>
+    <span class="score-badge score-low">📊 20점</span>
+    <span style="font-size:12px;color:#5a6280;">비바이오</span>
+    <span class="pathway-badge">경로 ②볼륨드리븐</span>
+  </div>
+  <div class="price-row">
+    <div class="price-item"><span class="label">투자의견</span><span class="val">Not Rated (IPO)</span></div>
+    <div class="price-item"><span class="label">공모가(희망)</span><span class="val">4,100~5,000원</span></div>
+    <div class="price-item"><span class="label">시가총액</span><span class="val">1,057~1,289억원(예상)</span></div>
+    <div class="price-item"><span class="label">Upside</span><span class="val upside-val">N/A (IPO)</span></div>
+    <div class="price-item"><span class="label">종목 유형</span><span class="val">비바이오</span></div>
+  </div>
+</header>
+
+<!-- B. 한줄 투자 이유 -->
+<section>
+  <div class="section-title">💡 이 종목에 투자해야 하는 이유 — 스토리 한 줄</div>
+  <div class="thesis-box">
+    유아용품 전문기업으로 젖병소독기 시장 96% 점유(유팡+픽셀). 25년 매출 799억원(+51%), OP 104억원(OPM 13.0%). 26E 매출 목표 1,200억원(+50%). 다만 IPO + Not Rated + 실적 추정 불확실로 보류
+  </div>
+  <div class="thesis-structure">
+    <div class="thesis-part" style="color:#059669;">① 젖병소독기 96% 점유 + M&A 포트폴리오 확장(●●○)</div>
+    <div class="thesis-arrow">→</div>
+    <div class="thesis-part" style="color:#b45309;">② 26E 매출 1,200억원(+50%), OP 180억원(가이던스)</div>
+    <div class="thesis-arrow">→</div>
+    <div class="thesis-part" style="color:#2563eb;">③ IPO + Not Rated → 보류</div>
+  </div>
+</section>
+
+<!-- C. 핵심 5조건 -->
+<section>
+  <div class="section-title">✅ 핵심 태그 5가지 조건 체크 (5개 모두 통과해야 핵심 이상 가능)</div>
+  <div class="checklist">
+    <div class="checklist-item">
+      <div class="check-icon check-fail">✗</div>
+      <div>
+        <div class="check-label">조건 1 | 영업이익(OP) 성장 임계값</div>
+        <div class="check-why">25년 OP 104억원(OPM 13.0%). 26E 가이던스 OP 180억원(+73%). 다만 IPO 기업으로 추정 검증 불가</div>
+      </div>
+    </div>
+    <div class="checklist-item">
+      <div class="check-icon check-fail">✗</div>
+      <div>
+        <div class="check-label">조건 2 | 3년 지속성</div>
+        <div class="check-why">IPO 기업으로 장기 실적 트랙레코드 부족. M&A 통합 안정화 검증 필요</div>
+      </div>
+    </div>
+    <div class="checklist-item">
+      <div class="check-icon check-fail">✗</div>
+      <div>
+        <div class="check-label">조건 3 | 확정 팩트(●●●) 2개 이상</div>
+        <div class="check-why">모두 가이던스(●○○~●●○) 수준. 확정 팩트 부족</div>
+      </div>
+    </div>
+    <div class="checklist-item">
+      <div class="check-icon check-fail">✗</div>
+      <div>
+        <div class="check-label">조건 4 | 시장 미반영 (Upside 40%+)</div>
+        <div class="check-why">IPO — Upside 산출 불가(미상장)</div>
+      </div>
+    </div>
+    <div class="checklist-item">
+      <div class="check-icon check-fail">✗</div>
+      <div>
+        <div class="check-label">조건 5 | 이 리포트만의 차별화된 시각</div>
+        <div class="check-why">IPO 보고서로 기본 정보 제공 수준. 차별화된 투자 시각 부족</div>
+      </div>
+    </div>
+  </div>
+  <p style="font-size:11px;color:#dc2626;margin-top:8px;padding:0 4px;">
+    ⚠️ 5개 조건 전부 미달 → 보류 확정 (IPO + Not Rated)
+  </p>
+</section>
+
+<!-- D. 투자 점수 -->
+<section>
+  <div class="section-title">📊 투자 점수 판정 (v2.0 비바이오) — 모든 근거 칸 필수 기재</div>
+  <table>
+    <thead><tr><th>항목</th><th>판정</th><th>근거 (Why)</th></tr></thead>
+    <tbody>
+      <tr><td>종목 유형</td><td>비바이오</td><td>유아용품(에어러브·유팡·베이비브레짜·카시트 등)</td></tr>
+      <tr><td>적용 가설</td><td>가설 4</td><td>IPO 기업. 아직 미상장으로 실적 검증 불가. 가이던스 기반 성장 전망</td></tr>
+      <tr><td>촉매 등급</td><td>하급</td><td>IPO 이벤트 자체. 상장 후 실적 검증 필요. 인허가·수주 등 구체적 촉매 부재</td></tr>
+      <tr><td>복합 여부</td><td>단독</td><td>유아용품 매출 성장이라는 단일 성장 축</td></tr>
+      <tr><td>직접성</td><td>직접</td><td>자체 제품 제조·판매</td></tr>
+      <tr><td>매트릭스 기본 점수</td><td>20점</td><td>가설4 × 하급 × 단독 = 20점</td></tr>
+      <tr class="total-row"><td>최종 투자 점수</td><td><span class="highlight-green">20점</span></td><td>보류 20+ 충족. IPO + Not Rated로 보류 확정</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<!-- E. 성장 인과 체인 -->
+<section>
+  <div class="section-title">⚡ 성장 인과 체인 — 왜 성장하는가 (각 단계에 수치 필수)</div>
+  <div class="chain-box">
+    <div class="chain-step">
+      <div class="chain-arrow">①</div>
+      <div class="chain-content">
+        <div class="chain-label">구조 변화 / 촉매 <span class="chain-forecast">●●○ 가이던스</span></div>
+        <div class="chain-text">유팡(젖병소독기, 지분100%, 108억원 인수) + 아이브이지(베이비브레짜 총판, 지분100%, 100억원 인수) 인수로 제품 포트폴리오 확대. 젖병소독기 시장 96% 점유(유팡60%+픽셀36%)</div>
+      </div>
+    </div>
+    <div class="chain-step">
+      <div class="chain-arrow">↓</div>
+      <div class="chain-content">
+        <div class="chain-label">매출 영향 (규모·비중 수치)</div>
+        <div class="chain-text">25년 매출 799억원. 유아가전 426억원(53%), 에어러브 205억원(26%), 카시트 41억원(5%), 위생용품 80억원(10%). 해외 156억원(일본 84%)</div>
+      </div>
+    </div>
+    <div class="chain-step">
+      <div class="chain-arrow">↓</div>
+      <div class="chain-content">
+        <div class="chain-label">OPM 변화 메커니즘</div>
+        <div class="chain-text">매출총이익률 46.3%(25년). 직접 기획·제조·판매·CS 구조로 높은 마진. OPM 13.0%(25년) → 15.0%(26E 목표). 규모의 경제 + M&A 시너지</div>
+      </div>
+    </div>
+    <div class="chain-step">
+      <div class="chain-arrow">↓</div>
+      <div class="chain-content">
+        <div class="chain-label">최종 실적 결과 <span class="chain-forecast">●○○ 가이던스</span></div>
+        <div class="chain-text">26E 매출 목표 1,200억원(+50%), OP 180억원(OPM 15.0%). 가이던스 기반으로 실적 검증 필요</div>
+      </div>
+    </div>
+    <div class="chain-step">
+      <div class="chain-arrow">↓</div>
+      <div class="chain-content">
+        <div class="chain-label">시장 미반영 포인트 (So What)</div>
+        <div class="chain-text">공모가 상단 기준 시총 1,289억원. 26E OP 180억원 기준 PER 약 10배 미만. 출산율 반등(19개월 연속 증가) + 1인당 소비액 증가로 시장 구조적 성장</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- F. 핵심 팩트 3줄 -->
+<section>
+  <div class="section-title">📌 핵심 팩트 3줄 — WHAT(숫자) + WHY(원인) + SO WHAT(의미) 3요소 필수</div>
+  <div class="fact-item">
+    <span class="fact-num">Fact 01</span>
+    <div class="fact-what"><span class="fact-label label-what">WHAT</span>25년 매출 799억원(+51% YoY), OP 104억원(OPM 13.0%). 매출총이익률 46.3%로 전년(42.2%) 대비 +4.1%p 개선</div>
+    <div class="fact-why"><span class="fact-label label-why">WHY</span>24년 유팡·아이브이지 인수로 유아가전 매출 10배 성장(23년 42억→25년 426억). 수익성 구조 변화 진행 중</div>
+    <div class="fact-so"><span class="fact-label label-so">SO WHAT</span>M&A 통한 외형 성장 확인이나, 인수 후 통합 안정화 여부 검증 필요. OPM 13%→15% 개선 가능성은 규모의 경제에 의존</div>
+  </div>
+  <div class="fact-item">
+    <span class="fact-num">Fact 02</span>
+    <div class="fact-what"><span class="fact-label label-what">WHAT</span>젖병소독기 시장 96% 점유(유팡 60% + 픽셀 36%). 유팡 매출 166억원(+46% YoY), 아이브이지 매출 131억원</div>
+    <div class="fact-why"><span class="fact-label label-why">WHY</span>유팡은 회전 등갓 구조 차별화. 픽셀은 가로형 디자인 차별화. 경쟁사(해님, 스펙트라)는 표준형 구조로 차별화 부족</div>
+    <div class="fact-so"><span class="fact-label label-so">SO WHAT</span>독과점 시장 지배력 확보. 다만 젖병소독기 시장 자체 규모가 제한적(전체 매출의 30% 수준)이므로 성장 천장 존재</div>
+  </div>
+  <div class="fact-item">
+    <span class="fact-num">Fact 03</span>
+    <div class="fact-what"><span class="fact-label label-what">WHAT</span>공모가 4,100~5,000원, 공모자금 107~130억원. 물류센터 280억원 규모 매입 예정(공모자금 85억원 + 차입금 165억원 + 자체자금)</div>
+    <div class="fact-why"><span class="fact-label label-why">WHY</span>현재 3PL 위탁+자체물류 병행으로 비효율. 물류센터 확보로 원가 절감 + 배송 효율화 목적</div>
+    <div class="fact-so"><span class="fact-label label-so">SO WHAT</span>IPO 자금이 시설투자(물류센터)에 집중. 단기 실적 기여보다 중기 비용 절감 효과. 투자금 회수 시점 불확실</div>
+  </div>
+</section>
+
+<!-- F-2. 원본 리포트 핵심 요약 -->
+<section>
+  <div class="section-title">📄 원본 리포트 핵심 요약 — PDF 내용 직접 발췌 (외부 정보 추가 금지)</div>
+  <div style="background:#fafafa;border:1px solid #d0d4e0;border-radius:8px;padding:16px 20px;margin-bottom:12px;">
+    <div style="font-size:11px;font-weight:700;letter-spacing:1px;color:#5a6280;text-transform:uppercase;margin-bottom:10px;">리포트 핵심 주장 (애널리스트 관점 요약)</div>
+    <p style="font-size:13px;line-height:1.9;">유아용품 전문기업으로 에어러브(통풍시트)·유팡(젖병소독기)·아이브이지(베이비브레짜) 등 멀티 카테고리 브랜드 플랫폼 운영. 출산율 반등(19개월 연속 증가) + 1인당 영유아 소비액 증가로 시장 구조적 성장. 해외 매출 확대(일본 84%) + M&A 통한 외형 성장. 공모가 상단 PER 10배 미만.</p>
+    <div style="margin-top:10px;display:flex;gap:8px;flex-wrap:wrap;">
+      <div style="background:#f0f2f8;border:1px solid #d0d4e0;border-radius:6px;padding:6px 12px;font-size:12px;">
+        <span style="color:#5a6280;font-size:10px;display:block;margin-bottom:2px;">이전 대비 변화 포인트</span>
+        IPO 보고서 (신규). 수요예측 4/22~4/28, 청약 5/4~5/6
+      </div>
+    </div>
+  </div>
+  <div style="background:#fafafa;border:1px solid #d0d4e0;border-radius:8px;padding:16px 20px;margin-bottom:12px;">
+    <div style="font-size:11px;font-weight:700;letter-spacing:1px;color:#5a6280;text-transform:uppercase;margin-bottom:10px;">사업 구조 & 성장 동력</div>
+    <table style="margin:0;">
+      <thead><tr><th style="width:25%;">사업부</th><th style="width:20%;">매출 비중(25)</th><th style="width:55%;">핵심 성장 드라이버</th></tr></thead>
+      <tbody>
+        <tr><td>유아가전(유팡·픽셀)</td><td>53%</td><td>젖병소독기 96% 점유. 24년 M&A 후 10배 성장. 유팡 매출 +46% YoY</td></tr>
+        <tr><td>에어러브(통풍시트)</td><td>26%</td><td>25년 매출 205억원. 2026년 airluv.5 출시. 계절성(1·2분기 비중 높음)</td></tr>
+        <tr><td>위생용품(프랭클린)</td><td>10%</td><td>25년 매출 80억원(+400% YoY). 재구매율 높은 생필품</td></tr>
+      </tbody>
+    </table>
+    <p style="font-size:12px;color:#5a6280;margin-top:10px;">▶ 핵심 성장 메커니즘: 유팡·아이브이지 M&A → 멀티 카테고리 확장 → 해외(일본) 매출 확대 + 물류센터 확보로 비용 절감</p>
+  </div>
+</section>
+
+<!-- G. 실적 전망 (연간) -->
+<section>
+  <div class="section-title">📈 실적 전망 (연간) — PDF 원문 수치만 기재, 추정 금지</div>
+  <table class="data-table">
+    <caption>단위: 억원 — PDF 단위 확인 완료 | 가이던스 기반</caption>
+    <thead>
+      <tr>
+        <th>구분</th><th>2022</th><th>2023</th><th>2024</th><th>2025</th>
+        <th style="background:#dbeafe;color:#1e40af;font-weight:700;">2026E(가이던스)</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td>매출액</td><td>213</td><td>224</td><td>528</td><td>799</td><td class="key-col key-num">1,200</td></tr>
+      <tr><td>YoY(%)</td><td>21%</td><td>5%</td><td>136%</td><td>51%</td><td class="key-col">+50%</td></tr>
+      <tr><td>매출총이익</td><td>62</td><td>86</td><td>223</td><td>370</td><td class="key-col">-</td></tr>
+      <tr><td>매출총이익률(%)</td><td>29.3%</td><td>38.5%</td><td>42.2%</td><td>46.3%</td><td class="key-col key-opm">-</td></tr>
+      <tr><td>영업이익</td><td>-27</td><td>12</td><td>62</td><td>104</td><td class="key-col key-num">180</td></tr>
+      <tr><td>OPM(%)</td><td>-12.6%</td><td>5.4%</td><td>11.7%</td><td>13.0%</td><td class="key-col key-opm">15.0%</td></tr>
+      <tr><td>당기순이익</td><td>-28</td><td>1</td><td>5</td><td>84</td><td class="key-col">-</td></tr>
+    </tbody>
+  </table>
+  <p style="font-size:12px;color:#5a6280;margin-top:10px;padding:0 4px;">
+    ▶ 26E 실적은 가이던스 기준. 증권사 추정치 아님. 매출 +50% 달성 여부가 핵심 모니터링 포인트.
+  </p>
+</section>
+
+<!-- H. 분기별 실적 -->
+<section>
+  <div class="section-title">📅 분기별 실적 전망 — PDF에 있으면 반드시 기재, 생략 금지</div>
+  <table class="data-table">
+    <thead>
+      <tr>
+        <th>구분</th>
+        <th>1Q25</th><th>2Q25</th><th>3Q25</th><th>4Q25</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td>매출액</td><td>-</td><td>-</td><td>-</td><td>-</td></tr>
+      <tr><td>영업이익</td><td>-</td><td>-</td><td>-</td><td>-</td></tr>
+      <tr><td>OPM(%)</td><td>-</td><td>-</td><td>-</td><td>-</td></tr>
+    </tbody>
+  </table>
+  <p style="font-size:12px;color:#5a6280;margin-top:10px;padding:0 4px;">
+    ▶ IPO 기업 — 분기별 추정치 미제공. 에어러브(통풍시트)는 1·2분기 매출 집중(계절성).
+  </p>
+</section>
+
+<!-- I. 밸류에이션 -->
+<section>
+  <div class="section-title">💰 밸류에이션 — 왜 이 배수인가 1문장 필수</div>
+  <div class="val-box">
+    <div class="val-formula">공모가 상단 5,000원 × 25,784,765주 = 시총 1,289억원. 26E OP 180억원 기준 PER 약 10배 미만</div>
+    <p style="color:#5a6280;font-size:12px;margin-top:8px;">▶ 왜 이 배수인가: IPO 공모가 기준. 유아용품 Peer 대비 저평가 여부 검증 필요. 가이던스 달성 여부에 따라 밸류에이션 재평가</p>
+  </div>
+</section>
+
+<!-- J. 리스크 -->
+<section>
+  <div class="section-title">⚠️ 리스크 — 핵심 가정이 틀릴 경우 시나리오 (키워드 나열 금지)</div>
+  <div class="risk-item risk-sev-high">
+    <div class="risk-assumption">🔴 핵심 가정: 26E 매출 1,200억원(+50%) 가이던스 달성</div>
+    <div class="risk-chain" style="margin-top:6px;">→ 붕괴 시: M&A 통합 지연 + 해외 확대 부진 시 매출 +20~30%대로 하락<br/>→ 실적 영향: 26E 매출 900~1,000억원, OP 100~120억원</div>
+    <div class="risk-impact-num">→ 주가 영향: 상장 후 공모가 하회 가능</div>
+  </div>
+  <div class="risk-item risk-sev-mid">
+    <div class="risk-assumption">🟠 두 번째 가정: 베이비브레짜 총판권 2028년 갱신</div>
+    <div class="risk-chain" style="margin-top:6px;">→ 붕괴 시: 총판권 미갱신 시 아이브이지 매출 131억원 상실</div>
+    <div class="risk-impact-num">→ 주가 영향: 매출 -16% 감소 리스크</div>
+  </div>
+</section>
+
+<!-- L. 사견 & 결론 -->
+<section>
+  <div class="section-title">💬 사견 & 투자 행동 결론</div>
+  <div class="opinion-box">
+    <p>폴레드는 유아용품 멀티 카테고리 플랫폼으로 성장 스토리 흥미롭다. 젖병소독기 96% 점유, 출산율 반등 등 구조적 성장 요인 보유. 다만 ①IPO 기업으로 실적 검증 부재, ②가이던스(매출 +50%) 달성 불확실, ③베이비브레짜 총판권 갱신 리스크(2028년), ④공모자금이 물류센터 투자에 집중(단기 실적 기여 제한). 상장 후 1~2분기 실적 확인 후 재평가 필요.</p>
+    <div class="decision-box">
+      <div class="decision-btn decision-buy decision-dim">✅ 지금 진입 가능<br/><span style="font-size:11px;font-weight:400;">-</span></div>
+      <div class="decision-btn decision-wait decision-dim">⏳ 이벤트 후 진입<br/><span style="font-size:11px;font-weight:400;">-</span></div>
+      <div class="decision-btn decision-avoid">🚫 관망<br/><span style="font-size:11px;font-weight:400;">IPO + 실적 검증 부재</span></div>
+    </div>
+  </div>
+</section>
+
+<div class="disclaimer">
+  ※ 본 글은 증권사 리포트를 개인 학습 목적으로 요약·정리한 것이며, 투자 권유가 아닙니다.<br/>
+  ※ 제공된 PDF 파일만 활용. 외부 검색·참조 없음. 당일 발간 리포트 기준.
+</div>
+
+</body>
+</html>

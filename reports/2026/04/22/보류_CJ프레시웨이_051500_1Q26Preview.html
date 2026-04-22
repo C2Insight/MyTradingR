@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CJ프레시웨이 (051500) 정리</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Pretendard','Apple SD Gothic Neo',-apple-system,sans-serif; background: #ffffff; color: #1a1d2e; line-height: 1.7; font-size: 14px; max-width: 900px; margin: 0 auto; padding: 32px 20px 80px; }
+  .header { border-left: 4px solid #94a3b8; padding: 0 0 0 16px; margin-bottom: 24px; } .header h1 { font-size: 20px; font-weight: 700; margin-bottom: 10px; } .price-row { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin-top: 10px; } .price-item { background: #f0f2f8; border: 1px solid #d0d4e0; border-radius: 6px; padding: 6px 14px; font-size: 13px; } .price-item .label { color: #5a6280; font-size: 11px; display: block; } .price-item .val { font-weight: 700; } .tag-badge { display: inline-flex; align-items: center; gap: 6px; padding: 5px 14px; border-radius: 20px; font-size: 13px; font-weight: 700; } .tag-hold { background: #f1f5f9; color: #64748b; border: 1px solid #94a3b8; } .score-badge { display: inline-block; padding: 5px 14px; border-radius: 20px; font-size: 13px; font-weight: 700; background: #f0f2f8; border: 1px solid #d0d4e0; } .score-low { color: #5a6280; } .pathway-badge { display: inline-flex; align-items: center; gap: 4px; padding: 3px 10px; border-radius: 12px; font-size: 11px; font-weight: 600; background: #f0f2f8; border: 1px solid #d0d4e0; color: #5a6280; } section { margin-bottom: 28px; } .section-title { font-size: 11px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: #5a6280; border-bottom: 1px solid #d0d4e0; padding-bottom: 6px; margin-bottom: 14px; } .pdf-only-banner { background: #fff7ed; border: 1px solid #f97316; border-radius: 8px; padding: 10px 16px; font-size: 12px; color: #c2410c; margin-bottom: 20px; text-align: center; font-weight: 700; } .thesis-box { background: #f8faff; border: 1px solid #94a3b8; border-radius: 8px; padding: 16px 20px; font-size: 15px; font-weight: 600; line-height: 1.6; } .thesis-structure { display: flex; gap: 8px; align-items: center; margin-top: 10px; flex-wrap: wrap; } .thesis-part { background: #f0f2f8; border: 1px solid #d0d4e0; border-radius: 6px; padding: 4px 10px; font-size: 12px; color: #1a1d2e; } .thesis-arrow { color: #2563eb; font-size: 16px; } .checklist { background: #fafafa; border: 1px solid #d0d4e0; border-radius: 8px; overflow: hidden; } .checklist-item { display: flex; gap: 14px; align-items: flex-start; padding: 12px 16px; border-bottom: 1px solid #d0d4e0; } .checklist-item:last-child { border-bottom: none; } .check-icon { width: 22px; height: 22px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; flex-shrink: 0; margin-top: 1px; } .check-pass { background: #ecfdf5; color: #059669; border: 1px solid #34d399; } .check-fail { background: #fef2f2; color: #dc2626; border: 1px solid #fca5a5; } .check-label { font-weight: 600; font-size: 13px; color: #1a1d2e; } .check-why { color: #1a1d2e; font-size: 13px; } .chain-box { background: #fafafa; border: 1px solid #d0d4e0; border-radius: 8px; padding: 16px 20px; } .chain-step { display: flex; gap: 12px; align-items: flex-start; margin-bottom: 10px; } .chain-step:last-child { margin-bottom: 0; } .chain-arrow { color: #2563eb; font-size: 16px; flex-shrink: 0; margin-top: 1px; } .chain-content { flex: 1; } .chain-label { font-size: 10px; font-weight: 700; letter-spacing: 1px; color: #5a6280; text-transform: uppercase; margin-bottom: 2px; } .chain-text { font-size: 13px; color: #1a1d2e; } .risk-item { background: #fafafa; border-radius: 0 6px 6px 0; padding: 14px 16px; margin-bottom: 10px; } .risk-item:last-child { margin-bottom: 0; } .risk-sev-high { border-left: 3px solid #dc2626; } .risk-sev-mid { border-left: 3px solid #ea580c; } .risk-assumption { font-weight: 600; font-size: 13px; margin-bottom: 4px; color: #1a1d2e; } .risk-chain { font-size: 12px; color: #5a6280; margin: 4px 0; } .fact-item { background: #fafafa; border: 1px solid #d0d4e0; border-radius: 8px; padding: 14px 16px; margin-bottom: 8px; } .fact-num { font-size: 10px; font-weight: 700; color: #64748b; margin-bottom: 8px; display: block; } .fact-what { font-weight: 600; font-size: 14px; margin-bottom: 6px; } .fact-why { font-size: 13px; color: #5a6280; margin-bottom: 6px; } .fact-so { font-size: 13px; color: #059669; } .fact-label { display: inline-block; font-size: 10px; font-weight: 700; padding: 1px 6px; border-radius: 3px; margin-right: 4px; } .label-what { background: #eff6ff; color: #1d4ed8; } .label-why { background: #fff7ed; color: #ea580c; } .label-so { background: #ecfdf5; color: #059669; } table { width: 100%; border-collapse: collapse; background: #fafafa; border-radius: 8px; overflow: hidden; border: 1px solid #d0d4e0; } thead tr { background: #f0f2f8; } th { padding: 10px 14px; text-align: left; font-size: 11px; font-weight: 700; color: #5a6280; } td { padding: 10px 14px; border-top: 1px solid #d0d4e0; font-size: 13px; } tr.total-row td { background: #e8ecf5; font-weight: 700; } .highlight-green { color: #059669; font-weight: 700; } .highlight-red { color: #dc2626; font-weight: 700; } .data-table th { background: #e8ecf5; } .data-table td.key-col { background: #f0f6ff; } .data-table .key-num { color: #059669; font-weight: 700; } .data-table .key-opm { color: #b45309; } caption { font-size: 11px; color: #5a6280; text-align: left; padding: 0 0 8px; caption-side: top; } .opinion-box { background: #fafafa; border: 1px solid #d0d4e0; border-radius: 8px; padding: 16px 20px; font-size: 13px; line-height: 1.8; color: #5a6280; } .decision-box { display: flex; gap: 14px; margin-top: 14px; } .decision-btn { flex: 1; text-align: center; padding: 10px; border-radius: 6px; font-weight: 700; font-size: 13px; border: 1px solid; } .decision-buy { background: #ecfdf5; color: #059669; border-color: #34d399; } .decision-wait { background: #fffbeb; color: #b45309; border-color: #f59e0b; } .decision-avoid { background: #fef2f2; color: #dc2626; border-color: #fca5a5; } .decision-dim { opacity: 0.3; } .disclaimer { font-size: 11px; color: #9ca3af; text-align: center; margin-top: 40px; padding-top: 16px; border-top: 1px solid #d0d4e0; }
+</style>
+</head>
+<body>
+<div class="pdf-only-banner">외부 검색 절대 금지 -- 제공된 PDF 파일만 활용</div>
+<header class="header">
+  <h1>CJ프레시웨이 (051500) | 1Q26 Preview 키움증권 | 발간일: 2026.04.22</h1>
+  <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-bottom:12px;">
+    <span class="tag-badge tag-hold">보류</span>
+    <span class="score-badge score-low">20점</span>
+    <span style="font-size:12px;color:#5a6280;">비바이오</span>
+    <span class="pathway-badge">경로 해당없음</span>
+  </div>
+  <div class="price-row">
+    <div class="price-item"><span class="label">투자의견</span><span class="val">Buy</span></div>
+    <div class="price-item"><span class="label">목표주가(TP)</span><span class="val">39,000원</span></div>
+    <div class="price-item"><span class="label">현재주가(CP)</span><span class="val">-</span></div>
+    <div class="price-item"><span class="label">Upside</span><span class="val">-</span></div>
+    <div class="price-item"><span class="label">시가총액</span><span class="val">-</span></div>
+    <div class="price-item"><span class="label">종목 유형</span><span class="val">비바이오</span></div>
+  </div>
+</header>
+
+<section>
+  <div class="section-title">스토리 한 줄</div>
+  <div class="thesis-box">1Q26E OP 260억원(+10% YoY)으로 시장기대치 부합. 외식 경기 회복에 따른 식자재 유통 매출 소폭 증가. 다만 연간 26E OP 102.2십억원(+0.5%), OPM 2.7%로 사실상 정체. 온라인 투자 확대 등 비용 부담으로 이익 성장 제한적. 구조적 저마진 사업 특성상 투자 매력 미흡</div>
+  <div class="thesis-structure">
+    <div class="thesis-part">① 외식 경기 회복 + 식자재 유통 매출 소폭 증가</div>
+    <div class="thesis-arrow">→</div>
+    <div class="thesis-part">② 26E OP +0.5% 정체, OPM 2.7% 구조적 저마진</div>
+    <div class="thesis-arrow">→</div>
+    <div class="thesis-part">③ 온라인 투자비 부담으로 이익 성장 제한 → 투자 매력 미흡</div>
+  </div>
+</section>
+
+<section>
+  <div class="section-title">✅ 핵심 태그 5가지 조건 체크</div>
+  <div class="checklist">
+    <div class="checklist-item"><div class="check-icon check-fail">✗</div><div><div class="check-label">조건 1 | 영업이익 성장 YoY ≥ 20%</div><div class="check-why">26E OP +0.5%(101.7→102.2십억원). 사실상 정체 → 미달</div></div></div>
+    <div class="checklist-item"><div class="check-icon check-pass">✓</div><div><div class="check-label">조건 2 | 투자의견 Buy</div><div class="check-why">키움증권 Buy 유지</div></div></div>
+    <div class="checklist-item"><div class="check-icon check-fail">✗</div><div><div class="check-label">조건 3 | 확정 팩트 ●●● 2개↑</div><div class="check-why">확정 팩트 없음. 외식 경기 회복은 업종 일반적 요인 → 미달</div></div></div>
+    <div class="checklist-item"><div class="check-icon check-fail">✗</div><div><div class="check-label">조건 4 | Upside ≥ 40%</div><div class="check-why">현재주가 미제공. Upside 산출 불가 → 미달</div></div></div>
+    <div class="checklist-item"><div class="check-icon check-fail">✗</div><div><div class="check-label">조건 5 | 3년 지속 시나리오</div><div class="check-why">OP +0.5% 정체 + OPM 2.7% 구조적 저마진. 3년 성장 시나리오 부재 → 미달</div></div></div>
+  </div>
+</section>
+
+<section>
+  <div class="section-title">핵심 팩트 3줄</div>
+  <div class="fact-item"><span class="fact-num">Fact 01</span><div class="fact-what"><span class="fact-label label-what">WHAT</span>26E OP 102.2십억원(+0.5%), OPM 2.7%. 매출 3,842.2십억(+2.5%). 사실상 이익 정체</div><div class="fact-why"><span class="fact-label label-why">WHY</span>외식 경기 회복으로 식자재 유통량 소폭 증가이나, 온라인 투자비 + 물류비 증가로 마진 압박</div><div class="fact-so"><span class="fact-label label-so">SO WHAT</span>매출 소폭 증가해도 비용 증가가 상쇄. OP +0.5%는 사실상 성장 없음</div></div>
+  <div class="fact-item"><span class="fact-num">Fact 02</span><div class="fact-what"><span class="fact-label label-what">WHAT</span>OPM 2.7%로 구조적 저마진. 식자재 유통업 특성상 마진 개선 여지 제한</div><div class="fact-why"><span class="fact-label label-why">WHY</span>B2B 식자재 유통은 경쟁 심화 + 거래처 교섭력 약화로 마진 확대 어려움</div><div class="fact-so"><span class="fact-label label-so">SO WHAT</span>영업레버리지 기대 난망. 매출 성장이 이익으로 연결되지 않는 구조</div></div>
+  <div class="fact-item"><span class="fact-num">Fact 03</span><div class="fact-what"><span class="fact-label label-what">WHAT</span>온라인 식자재 플랫폼 투자 확대 중. 중장기 성장 기반 구축 시도</div><div class="fact-why"><span class="fact-label label-why">WHY</span>오프라인 중심 B2B 유통에서 온라인 B2B 플랫폼으로 전환 추진</div><div class="fact-so"><span class="fact-label label-so">SO WHAT</span>투자 단계로 단기 수익성 압박 요인. 성과 가시화까지 시간 필요</div></div>
+</section>
+
+<section>
+  <div class="section-title">📄 원본 리포트 핵심 요약</div>
+  <div style="background:#fafafa;border:1px solid #d0d4e0;border-radius:8px;padding:16px 20px;">
+    <p style="font-size:13px;line-height:1.9;">CJ프레시웨이는 외식 경기 회복에 따른 식자재 유통 매출이 소폭 증가하나, 26E OP +0.5%로 사실상 정체이며 OPM 2.7%의 구조적 저마진이 지속된다. 온라인 B2B 플랫폼 투자 확대가 중장기 전략이나 단기 수익성에는 부담 요인으로 작용, 투자 매력이 미흡하다.</p>
+  </div>
+</section>
+
+<section>
+  <div class="section-title">📊 투자 점수 판정 (v2.0 비바이오)</div>
+  <table>
+    <thead><tr><th>항목</th><th>판정</th><th>근거</th></tr></thead>
+    <tbody>
+      <tr><td>적용 가설</td><td>가설 4</td><td>26E OP +0.5% 사실상 정체</td></tr>
+      <tr><td>촉매 등급</td><td>하급</td><td>외식 경기 회복은 업종 일반적 요인. 차별화 촉매 없음</td></tr>
+      <tr><td>복합/단독</td><td>단독</td><td>외식 경기 회복이 유일한 촉매</td></tr>
+      <tr><td>매트릭스 점수</td><td>20점</td><td>가설4 x 하급 x 단독 = 20점</td></tr>
+      <tr><td>페널티</td><td>없음</td><td>-</td></tr>
+      <tr class="total-row"><td>최종 점수</td><td><span class="highlight-red">20점</span></td><td>보류 20-39 구간 하한. OP 정체 + OPM 2.7% 구조적 저마진</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section>
+  <div class="section-title">⚡ 성장 인과 체인</div>
+  <div class="chain-box">
+    <div class="chain-step"><div class="chain-arrow">①</div><div class="chain-content"><div class="chain-label">촉매</div><div class="chain-text">외식 경기 회복 → 식자재 유통 수요 소폭 증가</div></div></div>
+    <div class="chain-step"><div class="chain-arrow">↓</div><div class="chain-content"><div class="chain-label">매출</div><div class="chain-text">26E 매출 3,842.2십억원(+2.5% YoY). 저성장 지속</div></div></div>
+    <div class="chain-step"><div class="chain-arrow">↓</div><div class="chain-content"><div class="chain-label">OPM</div><div class="chain-text">OPM 2.7% 3년 연속 동일. 온라인 투자비+물류비 증가로 마진 개선 불가</div></div></div>
+    <div class="chain-step"><div class="chain-arrow">↓</div><div class="chain-content"><div class="chain-label">실적</div><div class="chain-text">26E OP 102.2십억원(+0.5%). 사실상 이익 정체</div></div></div>
+    <div class="chain-step"><div class="chain-arrow">↓</div><div class="chain-content"><div class="chain-label">시장반영</div><div class="chain-text">구조적 저마진 사업으로 밸류에이션 리레이팅 기대 난망. PER 11.8배로 업종 평균 수준</div></div></div>
+  </div>
+</section>
+
+<section>
+  <div class="section-title">실적 전망 (연간)</div>
+  <table class="data-table">
+    <caption>단위: 십억원</caption>
+    <thead><tr><th>구분</th><th>2024A</th><th>2025A</th><th style="background:#dbeafe;color:#1e40af;">2026E</th><th>2027E</th></tr></thead>
+    <tbody>
+      <tr><td>매출액</td><td>3,680.1</td><td>3,749.4</td><td class="key-col">3,842.2</td><td>3,934.0</td></tr>
+      <tr><td>YoY(%)</td><td>-</td><td>1.9%</td><td class="key-col">+2.5%</td><td>+2.4%</td></tr>
+      <tr><td>영업이익</td><td>98.1</td><td>101.7</td><td class="key-col">102.2</td><td>109.0</td></tr>
+      <tr><td>YoY(%)</td><td>-</td><td>3.7%</td><td class="key-col" style="color:#dc2626;">+0.5%</td><td>+6.6%</td></tr>
+      <tr><td>OPM(%)</td><td>2.7%</td><td>2.7%</td><td class="key-col key-opm">2.7%</td><td>2.8%</td></tr>
+      <tr><td>PER(배)</td><td>13.5</td><td>14.0</td><td class="key-col">11.8</td><td>10.8</td></tr>
+    </tbody>
+  </table>
+  <p style="font-size:12px;color:#5a6280;margin-top:10px;">* OP +0.5% 사실상 정체. OPM 2.7% 3년 연속 동일. 구조적 저마진 사업.</p>
+</section>
+
+<section>
+  <div class="section-title">📈 분기별 실적</div>
+  <table class="data-table">
+    <caption>단위: 십억원 (PDF 내 분기 데이터 없을 시 N/A)</caption>
+    <thead><tr><th>구분</th><th>1Q25</th><th>2Q25</th><th>3Q25</th><th>4Q25</th><th>1Q26E</th></tr></thead>
+    <tbody>
+      <tr><td>매출액</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td></tr>
+      <tr><td>영업이익</td><td>-</td><td>-</td><td>-</td><td>-</td><td>26.0</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section>
+  <div class="section-title">⚠️ 리스크 시나리오</div>
+  <div class="risk-item risk-sev-mid"><div class="risk-assumption">외식 경기 둔화 시 식자재 유통 물량 감소</div><div class="risk-chain">→ B2B 거래처 주문량 축소 → 매출 역성장 전환 → OP 추가 하락 가능</div></div>
+  <div class="risk-item risk-sev-mid"><div class="risk-assumption">온라인 플랫폼 투자비 증가 지속</div><div class="risk-chain">→ 매출 성장 없이 비용만 증가 → OPM 2.7% 이하로 하락 → 수익성 악화</div></div>
+</section>
+
+<section>
+  <div class="section-title">사견 & 투자 행동 결론</div>
+  <div class="opinion-box">
+    <p>CJ프레시웨이는 OP +0.5% 사실상 정체 + OPM 2.7% 구조적 저마진으로 투자 테제 부합도 극히 낮음. 온라인 플랫폼 투자 확대는 중장기 전략이나 단기 실적 기여 없음. 식자재 유통업 특성상 마진 확대 어렵고, 매출 성장도 +2.5% 저성장. 투자 매력 부재.</p>
+    <div class="decision-box">
+      <div class="decision-btn decision-buy decision-dim">지금 진입 가능</div>
+      <div class="decision-btn decision-wait decision-dim">이벤트 후 진입</div>
+      <div class="decision-btn decision-avoid">관망<br/><span style="font-size:11px;font-weight:400;">OP정체+저마진</span></div>
+    </div>
+  </div>
+</section>
+
+<div class="disclaimer">* 본 글은 증권사 리포트를 개인 학습 목적으로 요약/정리한 것이며, 투자 권유가 아닙니다.<br/>* 제공된 PDF 파일만 활용. 외부 검색/참조 없음.</div>
+</body>
+</html>

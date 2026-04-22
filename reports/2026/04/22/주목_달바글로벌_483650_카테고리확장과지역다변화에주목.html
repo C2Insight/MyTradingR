@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>달바글로벌 (483650) 정리</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Pretendard','Apple SD Gothic Neo',-apple-system,sans-serif;
+    background: #ffffff; color: #1a1d2e;
+    line-height: 1.7; font-size: 14px;
+    max-width: 900px; margin: 0 auto; padding: 32px 20px 80px;
+  }
+  .header { border-left: 4px solid #2563eb; padding: 0 0 0 16px; margin-bottom: 24px; }
+  .header h1 { font-size: 20px; font-weight: 700; margin-bottom: 10px; color: #1a1d2e; }
+  .price-row { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin-top: 10px; }
+  .price-item { background: #f0f2f8; border: 1px solid #d0d4e0; border-radius: 6px; padding: 6px 14px; font-size: 13px; }
+  .price-item .label { color: #5a6280; font-size: 11px; display: block; }
+  .price-item .val { font-weight: 700; color: #1a1d2e; }
+  .upside-val { color: #059669; }
+  .tag-badge { display: inline-flex; align-items: center; gap: 6px; padding: 5px 14px; border-radius: 20px; font-size: 13px; font-weight: 700; }
+  .tag-watch { background: #fffbeb; color: #b45309; border: 1px solid #f59e0b; }
+  .score-badge { display: inline-block; padding: 5px 14px; border-radius: 20px; font-size: 13px; font-weight: 700; background: #f0f2f8; border: 1px solid #d0d4e0; color: #1a1d2e; }
+  .score-mid { color: #b45309; }
+  .pathway-badge { display: inline-flex; align-items: center; gap: 4px; padding: 3px 10px; border-radius: 12px; font-size: 11px; font-weight: 600; background: #f0f2f8; border: 1px solid #d0d4e0; color: #5a6280; }
+  section { margin-bottom: 28px; }
+  .section-title { font-size: 11px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: #5a6280; border-bottom: 1px solid #d0d4e0; padding-bottom: 6px; margin-bottom: 14px; }
+  .pdf-only-banner { background: #fff7ed; border: 1px solid #f97316; border-radius: 8px; padding: 10px 16px; font-size: 12px; color: #c2410c; margin-bottom: 20px; text-align: center; font-weight: 700; }
+  .thesis-box { background: #f8faff; border: 1px solid #2563eb; border-radius: 8px; padding: 16px 20px; font-size: 15px; font-weight: 600; line-height: 1.6; color: #1a1d2e; }
+  .thesis-structure { display: flex; gap: 8px; align-items: center; margin-top: 10px; flex-wrap: wrap; }
+  .thesis-part { background: #f0f2f8; border: 1px solid #d0d4e0; border-radius: 6px; padding: 4px 10px; font-size: 12px; color: #1a1d2e; }
+  .thesis-arrow { color: #2563eb; font-size: 16px; }
+  .checklist { background: #fafafa; border: 1px solid #d0d4e0; border-radius: 8px; overflow: hidden; }
+  .checklist-item { display: flex; gap: 14px; align-items: flex-start; padding: 12px 16px; border-bottom: 1px solid #d0d4e0; }
+  .checklist-item:last-child { border-bottom: none; }
+  .check-icon { width: 22px; height: 22px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; flex-shrink: 0; margin-top: 1px; }
+  .check-pass { background: #ecfdf5; color: #059669; border: 1px solid #34d399; }
+  .check-fail { background: #fef2f2; color: #dc2626; border: 1px solid #fca5a5; }
+  .check-label { font-weight: 600; font-size: 13px; color: #1a1d2e; }
+  .check-why { color: #1a1d2e; font-size: 13px; }
+  table { width: 100%; border-collapse: collapse; background: #fafafa; border-radius: 8px; overflow: hidden; border: 1px solid #d0d4e0; }
+  thead tr { background: #f0f2f8; }
+  th { padding: 10px 14px; text-align: left; font-size: 11px; font-weight: 700; color: #5a6280; letter-spacing: 0.8px; text-transform: uppercase; }
+  td { padding: 10px 14px; border-top: 1px solid #d0d4e0; font-size: 13px; color: #1a1d2e; }
+  tr.total-row td { background: #e8ecf5; font-weight: 700; }
+  .penalty { color: #dc2626; }
+  .highlight-green { color: #059669; font-weight: 700; }
+  .chain-box { background: #fafafa; border: 1px solid #d0d4e0; border-radius: 8px; padding: 16px 20px; }
+  .chain-step { display: flex; gap: 12px; align-items: flex-start; margin-bottom: 10px; }
+  .chain-step:last-child { margin-bottom: 0; }
+  .chain-arrow { color: #2563eb; font-size: 16px; flex-shrink: 0; margin-top: 1px; }
+  .chain-content { flex: 1; }
+  .chain-label { font-size: 10px; font-weight: 700; letter-spacing: 1px; color: #5a6280; text-transform: uppercase; margin-bottom: 2px; }
+  .chain-text { font-size: 13px; color: #1a1d2e; }
+  .chain-confirmed { color: #059669; font-size: 11px; margin-left: 6px; }
+  .chain-forecast { color: #b45309; font-size: 11px; margin-left: 6px; }
+  .fact-item { background: #fafafa; border: 1px solid #d0d4e0; border-radius: 8px; padding: 14px 16px; margin-bottom: 8px; }
+  .fact-item:last-child { margin-bottom: 0; }
+  .fact-num { font-size: 10px; font-weight: 700; color: #2563eb; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 8px; display: block; }
+  .fact-what { font-weight: 600; font-size: 14px; margin-bottom: 6px; color: #1a1d2e; }
+  .fact-why { font-size: 13px; color: #5a6280; margin-bottom: 6px; }
+  .fact-so { font-size: 13px; color: #059669; }
+  .fact-label { display: inline-block; font-size: 10px; font-weight: 700; padding: 1px 6px; border-radius: 3px; margin-right: 4px; }
+  .label-what { background: #eff6ff; color: #1d4ed8; }
+  .label-why { background: #fff7ed; color: #ea580c; }
+  .label-so { background: #ecfdf5; color: #059669; }
+  .data-table th { background: #e8ecf5; }
+  .data-table td.key-col { background: #f0f6ff; }
+  .data-table .key-num { color: #059669; font-weight: 700; }
+  .data-table .key-opm { color: #b45309; }
+  caption { font-size: 11px; color: #5a6280; text-align: left; padding: 0 0 8px; caption-side: top; }
+  .val-box { background: #fafafa; border: 1px solid #d0d4e0; border-radius: 8px; padding: 16px 20px; font-size: 13px; line-height: 2; color: #1a1d2e; }
+  .val-formula { background: #f0f2f8; border-radius: 6px; padding: 10px 14px; font-family: monospace; font-size: 13px; margin: 10px 0; color: #b45309; }
+  .risk-item { background: #fafafa; border-radius: 0 6px 6px 0; padding: 14px 16px; margin-bottom: 10px; }
+  .risk-item:last-child { margin-bottom: 0; }
+  .risk-sev-high { border-left: 3px solid #dc2626; }
+  .risk-sev-mid { border-left: 3px solid #ea580c; }
+  .risk-assumption { font-weight: 600; font-size: 13px; margin-bottom: 4px; color: #1a1d2e; }
+  .risk-chain { font-size: 12px; color: #5a6280; margin: 4px 0; }
+  .risk-impact-num { font-size: 13px; color: #dc2626; font-weight: 600; margin-top: 4px; }
+  .checkpoint-item { display: flex; gap: 12px; padding: 10px 0; border-bottom: 1px solid #d0d4e0; font-size: 13px; }
+  .checkpoint-item:last-child { border-bottom: none; }
+  .cp-date { color: #2563eb; font-weight: 600; min-width: 90px; flex-shrink: 0; }
+  .cp-event { flex: 1; color: #1a1d2e; }
+  .cp-pass { color: #059669; font-size: 12px; margin-top: 2px; }
+  .cp-fail { color: #dc2626; font-size: 12px; margin-top: 2px; }
+  .opinion-box { background: #fafafa; border: 1px solid #d0d4e0; border-radius: 8px; padding: 16px 20px; font-size: 13px; line-height: 1.8; color: #5a6280; }
+  .decision-box { display: flex; gap: 14px; margin-top: 14px; }
+  .decision-btn { flex: 1; text-align: center; padding: 10px; border-radius: 6px; font-weight: 700; font-size: 13px; border: 1px solid; }
+  .decision-buy { background: #ecfdf5; color: #059669; border-color: #34d399; }
+  .decision-wait { background: #fffbeb; color: #b45309; border-color: #f59e0b; }
+  .decision-avoid { background: #fef2f2; color: #dc2626; border-color: #fca5a5; }
+  .decision-dim { opacity: 0.3; }
+  .upgrade-box { background: #eff6ff; border: 1px solid #93c5fd; border-radius: 8px; padding: 14px 16px; }
+  .upgrade-item { display: flex; gap: 10px; padding: 6px 0; border-bottom: 1px solid #dbeafe; font-size: 13px; color: #1a1d2e; }
+  .upgrade-item:last-child { border-bottom: none; }
+  .upgrade-when { color: #1d4ed8; font-weight: 600; min-width: 140px; flex-shrink: 0; }
+  .disclaimer { font-size: 11px; color: #9ca3af; text-align: center; margin-top: 40px; padding-top: 16px; border-top: 1px solid #d0d4e0; }
+</style>
+</head>
+<body>
+
+<div class="pdf-only-banner">
+  🚫 외부 검색 절대 금지 — 제공된 PDF 파일만 활용 | 당일 발간 리포트 기준 투자 종목 발굴 전용
+</div>
+
+<header class="header">
+  <h1>달바글로벌 (483650) | 카테고리 확장과 지역 다변화에 주목 신영증권 이교석 | 발간일: 2026.04.22</h1>
+  <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-bottom:12px;">
+    <span class="tag-badge tag-watch">🔥 주목</span>
+    <span class="score-badge score-mid">📊 50점</span>
+    <span style="font-size:12px;color:#5a6280;">비바이오</span>
+    <span class="pathway-badge">경로 ②볼륨드리븐</span>
+  </div>
+  <div class="price-row">
+    <div class="price-item"><span class="label">투자의견</span><span class="val">Buy(유지)</span></div>
+    <div class="price-item"><span class="label">목표주가(TP)</span><span class="val">240,000원</span></div>
+    <div class="price-item"><span class="label">현재주가(CP)</span><span class="val">198,700원</span></div>
+    <div class="price-item"><span class="label">Upside</span><span class="val upside-val">+20.8%</span></div>
+    <div class="price-item"><span class="label">시가총액</span><span class="val">24,626억원</span></div>
+    <div class="price-item"><span class="label">종목 유형</span><span class="val">비바이오</span></div>
+  </div>
+</header>
+
+<!-- B. 한줄 투자 이유 -->
+<section>
+  <div class="section-title">💡 이 종목에 투자해야 하는 이유 — 스토리 한 줄</div>
+  <div class="thesis-box">
+    미국 Ulta Beauty 입점 확대(●●●) + 글로벌 지역 다변화(북미·유럽·일본 고성장)로 26E OP(영업이익) +53%(1,550억원), OPM(영업이익률) 19.5%→20.7%(+1.2%p)로 안정적 성장이지만, Upside 20.8%로 저평가 구간은 아님
+  </div>
+  <div class="thesis-structure">
+    <div class="thesis-part" style="color:#059669;">① 미국 Ulta Beauty 1,400개점 입점 확대(●●●)<br/>+ 유럽 Amazon Top100 진입(●●●)</div>
+    <div class="thesis-arrow">→</div>
+    <div class="thesis-part" style="color:#b45309;">② 26E OP +53%, OPM +1.2%p (20.7%)</div>
+    <div class="thesis-arrow">→</div>
+    <div class="thesis-part" style="color:#2563eb;">③ Upside 20.8% (핵심 승격엔 부족)</div>
+  </div>
+</section>
+
+<!-- C. 핵심 5조건 -->
+<section>
+  <div class="section-title">✅ 핵심 태그 5가지 조건 체크 (5개 모두 통과해야 ⭐핵심 이상 가능)</div>
+  <div class="checklist">
+    <div class="checklist-item">
+      <div class="check-icon check-pass">✓</div>
+      <div>
+        <div class="check-label">조건 1 | 영업이익(OP) 성장 임계값</div>
+        <div class="check-why">26E OP +53%(1,011→1,550억원), OPM 19.5%→20.7%(+1.2%p), OPM 15%+ 유지 → 통과</div>
+      </div>
+    </div>
+    <div class="checklist-item">
+      <div class="check-icon check-pass">✓</div>
+      <div>
+        <div class="check-label">조건 2 | 3년 지속성 (3개 이상 충족)</div>
+        <div class="check-why">① 26E~28E OP CAGR(연평균성장률) ~30%+ ② 글로벌 지역 다변화(북미·유럽·일본·아세안) ③ 카테고리 확장(미스트→선크림→멀티밤→F&B) → 3개 충족</div>
+      </div>
+    </div>
+    <div class="checklist-item">
+      <div class="check-icon check-pass">✓</div>
+      <div>
+        <div class="check-label">조건 3 | 확정 팩트(●●●) 2개 이상</div>
+        <div class="check-why">●●● 미국 Ulta Beauty 1,400개점 입점 확대 완료 / ●●● 유럽 Amazon Beauty Top100 다수 제품 진입 / ●●● 코스트코 재발주 30억원(1.4배 증가) → 3개 충족</div>
+      </div>
+    </div>
+    <div class="checklist-item">
+      <div class="check-icon check-fail">✗</div>
+      <div>
+        <div class="check-label">조건 4 | 시장 미반영 (Upside 40%+ OR 컨센 괴리 20%+)</div>
+        <div class="check-why">Upside 20.8% < 40%. 26E OP 컨센 1,513억 대비 리포트 추정 1,550억(+2.4%) → 미달</div>
+      </div>
+    </div>
+    <div class="checklist-item">
+      <div class="check-icon check-pass">✓</div>
+      <div>
+        <div class="check-label">조건 5 | 이 리포트만의 차별화된 시각</div>
+        <div class="check-why">카테고리 다변화(기타 비중 17%→32%)와 B2B 비중 확대를 통한 서구권 수익성 개선 시각 제시. TP 200,000→240,000원 20% 상향</div>
+      </div>
+    </div>
+  </div>
+  <p style="font-size:11px;color:#dc2626;margin-top:8px;padding:0 4px;">
+    ⚠️ 조건4(Upside 미달) → 핵심→주목 강등
+  </p>
+</section>
+
+<!-- D. 투자 점수 (비바이오) -->
+<section>
+  <div class="section-title">📊 투자 점수 판정 (v2.0 비바이오) — 모든 근거 칸 필수 기재</div>
+  <table>
+    <thead><tr><th>항목</th><th>판정</th><th>근거 (Why)</th></tr></thead>
+    <tbody>
+      <tr><td>종목 유형</td><td>비바이오</td><td>화장품 제조·판매 기업, 실적 기반 주가</td></tr>
+      <tr><td>적용 가설</td><td>가설 2</td><td>25A 매출 +68%, OP +69% 고성장 확인(가설1 요건). 단 OPM 19.5%→20.7%로 상승폭은 예상 단계(확인 미완) → 가설2</td></tr>
+      <tr><td>촉매 등급</td><td>중급</td><td>Ulta Beauty 1,400개점 확대(기존 계약 확장, 연매출 대비 10~30% 수준) + 코스트코 재발주 30억원 → 중급</td></tr>
+      <tr><td>복합 여부</td><td>복합</td><td>오프라인 채널 확대(Ulta·코스트코) + 온라인 Amazon 성장 + 지역 다변화(북미·유럽·일본·아세안) 동시 → 복합</td></tr>
+      <tr><td>직접성</td><td>직접</td><td>채널 확대 = 주력 화장품 매출 직결</td></tr>
+      <tr><td>매트릭스 기본 점수</td><td>70점</td><td>가설2 × 중급 × 복합 = 70점</td></tr>
+      <tr><td>페널티 ① 컨센 반영</td><td class="penalty">-10점</td><td>26E OP 컨센 대비 +2.4%만 상회. TP 상향했으나 시장 기대와 큰 차이 없음</td></tr>
+      <tr><td>페널티 ② 선반영</td><td class="penalty">-10점</td><td>최근 3개월 주가 +40.3% 상승, 1개월 +25.0% → 단기 선반영 부담</td></tr>
+      <tr class="total-row"><td>최종 투자 점수</td><td><span class="highlight-green">50점</span></td><td>주목 40+ 충족. 핵심 5조건 미달(조건4)로 주목 확정</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<!-- E. 성장 인과 체인 -->
+<section>
+  <div class="section-title">⚡ 성장 인과 체인 — 왜 성장하는가 (각 단계에 수치 필수)</div>
+  <div class="chain-box">
+    <div class="chain-step">
+      <div class="chain-arrow">①</div>
+      <div class="chain-content">
+        <div class="chain-label">구조 변화 / 촉매 <span class="chain-confirmed">●●● 확정</span></div>
+        <div class="chain-text">미국 Ulta Beauty 입점 1,400개점 확대 완료(●●●) + 유럽 Amazon Beauty Top100 다수 진입(●●●) + 코스트코 재발주 30억원(1.4배)(●●●). 히트 제품이 미스트→선크림→멀티밤으로 확장</div>
+      </div>
+    </div>
+    <div class="chain-step">
+      <div class="chain-arrow">↓</div>
+      <div class="chain-content">
+        <div class="chain-label">매출 영향 (규모·비중 수치)</div>
+        <div class="chain-text">26E 매출 7,505억원(+44% YoY). 해외 비중 71%(5,319억원). 북미 200% 성장(1,263억원→1,898억원), 유럽 120% 성장(573억원→952억원)</div>
+      </div>
+    </div>
+    <div class="chain-step">
+      <div class="chain-arrow">↓</div>
+      <div class="chain-content">
+        <div class="chain-label">OPM 변화 메커니즘 (왜 마진이 오르는가)</div>
+        <div class="chain-text">카테고리 다변화로 계절성 영향 축소 + B2B 비중 확대로 서구권 수익성 개선. 판관비율 55.3%로 매출 성장 대비 안정적. OPM 19.5%→20.7%(+1.2%p)</div>
+      </div>
+    </div>
+    <div class="chain-step">
+      <div class="chain-arrow">↓</div>
+      <div class="chain-content">
+        <div class="chain-label">최종 실적 결과 <span class="chain-forecast">●●○ 추정</span></div>
+        <div class="chain-text">26E OP 1,550억원(+53% YoY), OPM 20.7%. 27E OP 2,096억원(+35%), OPM 21.9%</div>
+      </div>
+    </div>
+    <div class="chain-step">
+      <div class="chain-arrow">↓</div>
+      <div class="chain-content">
+        <div class="chain-label">시장 미반영 포인트 (So What)</div>
+        <div class="chain-text">글로벌 Peer 그룹 12개월 선행 PBR 평균 23배 적용 시 적정 주가 24만원. 다만 Upside 20.8%로 시장이 상당 부분 반영 중. 카테고리 확장(기타 32%)에 따른 추가 밸류 업사이드 여지</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- F. 핵심 팩트 3줄 -->
+<section>
+  <div class="section-title">📌 핵심 팩트 3줄 — WHAT(숫자) + WHY(원인) + SO WHAT(의미) 3요소 필수</div>
+  <div class="fact-item">
+    <span class="fact-num">Fact 01</span>
+    <div class="fact-what"><span class="fact-label label-what">WHAT</span>26E OP 1,550억원(+53% YoY), OPM 20.7%(+1.2%p). 1Q26E 매출 1,664억원(+46% YoY), OP 388억원(+29%)</div>
+    <div class="fact-why"><span class="fact-label label-why">WHY</span>북미·유럽 매출 200% 성장 + 오프라인 채널(Ulta Beauty 1,400개점) 확대로 매출 볼륨 급증. 카테고리 다변화로 계절성 완화</div>
+    <div class="fact-so"><span class="fact-label label-so">SO WHAT</span>글로벌 화장품 기업으로의 구조적 전환이 진행 중. OP CAGR 30%+ 수준 유지되며, 두 자릿수 성장 지속 가능성 높음</div>
+  </div>
+  <div class="fact-item">
+    <span class="fact-num">Fact 02</span>
+    <div class="fact-what"><span class="fact-label label-what">WHAT</span>북미 매출 26E 1,263억원(+95% YoY), 유럽 573억원(+120%). 해외 비중 63%→71%. Ulta Beauty 향후 15개까지 SKU 확장 예정</div>
+    <div class="fact-why"><span class="fact-label label-why">WHY</span>Ulta Beauty 입점 확대 + Amazon Beauty Top100 랭킹 진입(스페인·독일) + 코스트코 재발주 금액 1.4배 증가. 히트 SKU 멀티밤·더블세럼 추가</div>
+    <div class="fact-so"><span class="fact-label label-so">SO WHAT</span>북미·유럽 성장률이 100%+로 K-뷰티 글로벌 확산 최대 수혜. 기존 미스트 의존에서 탈피하여 카테고리 리스크 분산 진행 중</div>
+  </div>
+  <div class="fact-item">
+    <span class="fact-num">Fact 03</span>
+    <div class="fact-what"><span class="fact-label label-what">WHAT</span>카테고리 비중: 미스트 46%(25A)→선크림 22%→기타 32%. 24A 미스트 54%에서 급감. TP 240,000원(기존 200,000원 대비 +20% 상향)</div>
+    <div class="fact-why"><span class="fact-label label-why">WHY</span>멀티밤·더블세럼·선크림 등 신규 히트 SKU가 글로벌 Amazon에서 순위 상승. 단일 카테고리 의존 탈피 → 성장 안정성 강화</div>
+    <div class="fact-so"><span class="fact-label label-so">SO WHAT</span>카테고리 다변화 성공으로 밸류에이션 프리미엄(글로벌 Peer PBR 23배) 적용 근거 강화. 다만 현 주가에 상당 부분 반영</div>
+  </div>
+</section>
+
+<!-- F-2. 원본 리포트 핵심 요약 -->
+<section>
+  <div class="section-title">📄 원본 리포트 핵심 요약 — PDF 내용 직접 발췌 (외부 정보 추가 금지)</div>
+  <div style="background:#fafafa;border:1px solid #d0d4e0;border-radius:8px;padding:16px 20px;margin-bottom:12px;">
+    <div style="font-size:11px;font-weight:700;letter-spacing:1px;color:#5a6280;text-transform:uppercase;margin-bottom:10px;">리포트 핵심 주장 (애널리스트 관점 요약)</div>
+    <p style="font-size:13px;line-height:1.9;">달바글로벌은 미국 오프라인(Ulta Beauty) 확장과 유럽 Amazon 판매 호조 기반 서구권 실적 고성장 중. 카테고리 다변화(미스트→선크림→멀티밤)와 B2B 비중 확대를 통해 26E OPM 20.7% 달성 전망. TP 240,000원으로 20% 상향.</p>
+    <div style="margin-top:10px;display:flex;gap:8px;flex-wrap:wrap;">
+      <div style="background:#f0f2f8;border:1px solid #d0d4e0;border-radius:6px;padding:6px 12px;font-size:12px;">
+        <span style="color:#5a6280;font-size:10px;display:block;margin-bottom:2px;">이전 대비 변화 포인트</span>
+        TP 200,000원→240,000원(+20% 상향). 26E 매출 +2%, OP -2% 소폭 조정
+      </div>
+      <div style="background:#f0f2f8;border:1px solid #d0d4e0;border-radius:6px;padding:6px 12px;font-size:12px;">
+        <span style="color:#5a6280;font-size:10px;display:block;margin-bottom:2px;">컨센서스 대비</span>
+        26E OP 컨센 1,513억 대비 +2.4% 상회
+      </div>
+    </div>
+  </div>
+  <div style="background:#fafafa;border:1px solid #d0d4e0;border-radius:8px;padding:16px 20px;margin-bottom:12px;">
+    <div style="font-size:11px;font-weight:700;letter-spacing:1px;color:#5a6280;text-transform:uppercase;margin-bottom:10px;">사업 구조 & 성장 동력</div>
+    <table style="margin:0;">
+      <thead><tr><th style="width:25%;">사업부</th><th style="width:20%;">매출 비중(26E)</th><th style="width:55%;">핵심 성장 드라이버 (Why 포함)</th></tr></thead>
+      <tbody>
+        <tr><td>해외</td><td>71%</td><td>북미 Ulta Beauty·코스트코 오프라인 + Amazon 온라인 동시 확대. 유럽 Amazon Top100 진입으로 매출 120%+ 성장</td></tr>
+        <tr><td>국내</td><td>29%</td><td>올리브영·홈쇼핑·네이버·스마트스토어 등 다채널. 인디 브랜드 경쟁 심화로 성장 둔화(+15%)</td></tr>
+      </tbody>
+    </table>
+    <p style="font-size:12px;color:#5a6280;margin-top:10px;">▶ 핵심 성장 메커니즘: 글로벌 K-뷰티 수요 확산 → 북미·유럽 오프라인 채널 입점 → 히트 SKU 다변화(미스트→멀티밤·선크림) → 매출 볼륨 성장 + OPM 20%+ 유지</p>
+  </div>
+  <div style="background:#fafafa;border:1px solid #d0d4e0;border-radius:8px;padding:16px 20px;margin-bottom:12px;">
+    <div style="font-size:11px;font-weight:700;letter-spacing:1px;color:#5a6280;text-transform:uppercase;margin-bottom:10px;">시장 괴리 — 왜 지금 시장이 틀렸는가</div>
+    <table style="margin:0;">
+      <thead><tr><th style="width:30%;">구분</th><th>내용</th></tr></thead>
+      <tbody>
+        <tr><td style="color:#5a6280;">시장 현재 인식</td><td>K-뷰티 성장 인정하나, 미스트 단일 카테고리 의존 리스크 우려</td></tr>
+        <tr><td style="color:#2563eb;">이 리포트 주장</td><td>카테고리 다변화 성공(기타 비중 17%→32%), B2B 비중 확대로 단일 카테고리 리스크 해소 진행 중</td></tr>
+        <tr><td style="color:#b45309;">괴리 해소 촉매</td><td>1Q26 실적 발표(해외 매출 성장률 확인) + Ulta Beauty SKU 15개 확장</td></tr>
+        <tr><td>괴리 강도</td><td><span style="color:#5a6280;">약</span> (Upside 20.8%로 괴리 제한적)</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div style="background:#fafafa;border:1px solid #d0d4e0;border-radius:8px;padding:16px 20px;">
+    <div style="font-size:11px;font-weight:700;letter-spacing:1px;color:#5a6280;text-transform:uppercase;margin-bottom:10px;">재무 특징 (PDF에 있는 경우만)</div>
+    <div style="display:flex;flex-wrap:wrap;gap:8px;">
+      <div style="background:#f0f2f8;border:1px solid #d0d4e0;border-radius:6px;padding:8px 12px;font-size:12px;flex:1;min-width:160px;"><span style="color:#5a6280;font-size:10px;display:block;margin-bottom:2px;">순현금/순차입금</span>순차입금비율 -56.4%(25A) → -71.3%(26E) — 순현금 상태</div>
+      <div style="background:#f0f2f8;border:1px solid #d0d4e0;border-radius:6px;padding:8px 12px;font-size:12px;flex:1;min-width:160px;"><span style="color:#5a6280;font-size:10px;display:block;margin-bottom:2px;">부채비율</span>28.6%(25A)</div>
+      <div style="background:#f0f2f8;border:1px solid #d0d4e0;border-radius:6px;padding:8px 12px;font-size:12px;flex:1;min-width:160px;"><span style="color:#5a6280;font-size:10px;display:block;margin-bottom:2px;">배당·자사주</span>DPS 2,414원→3,316원(26F→27F)</div>
+      <div style="background:#f0f2f8;border:1px solid #d0d4e0;border-radius:6px;padding:8px 12px;font-size:12px;flex:1;min-width:160px;"><span style="color:#5a6280;font-size:10px;display:block;margin-bottom:2px;">ROE</span>49.2%(25A)→47.0%(26E)</div>
+    </div>
+  </div>
+</section>
+
+<!-- G. 실적 전망 (연간) -->
+<section>
+  <div class="section-title">📈 실적 전망 (연간) — PDF 원문 수치만 기재, 추정 금지</div>
+  <table class="data-table">
+    <caption>단위: 억원 — PDF 단위 확인 완료 | ★ = 투자 핵심 연도</caption>
+    <thead>
+      <tr>
+        <th>구분</th><th>2024A</th><th>2025A</th>
+        <th style="background:#dbeafe;color:#1e40af;font-weight:700;">2026E ★</th>
+        <th>2027E</th><th>2028F</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td>매출액</td><td>3,091</td><td>5,197</td><td class="key-col key-num">7,505</td><td>9,586</td><td>-</td></tr>
+      <tr><td>YoY(%)</td><td>53.9%</td><td>68.1%</td><td class="key-col">+44.4%</td><td>+27.7%</td><td>-</td></tr>
+      <tr><td>영업이익</td><td>598</td><td>1,015</td><td class="key-col key-num">1,550</td><td>2,096</td><td>2,735</td></tr>
+      <tr><td>YoY(%)</td><td>-</td><td>69.7%</td><td class="key-col key-num">+52.6%</td><td>+35.3%</td><td>+30.5%</td></tr>
+      <tr><td>OPM(%)</td><td>19.3%</td><td>19.5%</td><td class="key-col key-opm">20.7%</td><td>21.9%</td><td>23.5%</td></tr>
+      <tr><td>EPS(원)</td><td>1,427</td><td>6,599</td><td class="key-col">9,658</td><td>13,283</td><td>17,223</td></tr>
+      <tr><td>PER(배)</td><td>-</td><td>22.4</td><td class="key-col">20.6</td><td>15.0</td><td>-</td></tr>
+      <tr><td>PBR(배)</td><td>-</td><td>9.2</td><td class="key-col">7.7</td><td>5.4</td><td>-</td></tr>
+      <tr><td>ROE(%)</td><td>52.6%</td><td>49.2%</td><td class="key-col">47.0%</td><td>-</td><td>-</td></tr>
+    </tbody>
+  </table>
+  <p style="font-size:12px;color:#5a6280;margin-top:10px;padding:0 4px;">
+    ▶ 왜 26E가 변곡점인가: 미국 오프라인 채널(Ulta Beauty 1,400개점) 확대 완료와 유럽 Amazon 히트 제품 확산으로 해외 매출 비중이 71%로 급등. 카테고리 다변화(기타 32%)가 본격화되며 OPM 20%+ 구조 안착이 시작되는 시점.
+  </p>
+</section>
+
+<!-- H. 분기별 실적 -->
+<section>
+  <div class="section-title">📅 분기별 실적 전망 — PDF에 있으면 반드시 기재, 생략 금지</div>
+  <table class="data-table">
+    <thead>
+      <tr>
+        <th>구분</th>
+        <th>1Q25</th><th>2Q25</th><th>3Q25</th><th>4Q25</th>
+        <th style="background:#dbeafe;color:#1e40af;font-weight:700;">1Q26F ★</th>
+        <th>2Q26F</th><th>3Q26F</th><th>4Q26F</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td>매출액</td><td>1,138</td><td>1,284</td><td>1,142</td><td>1,635</td><td class="key-col key-num">1,664</td><td>1,787</td><td>1,761</td><td>2,293</td></tr>
+      <tr><td>영업이익</td><td>301</td><td>292</td><td>167</td><td>252</td><td class="key-col key-num">388</td><td>440</td><td>361</td><td>361</td></tr>
+      <tr><td>OPM(%)</td><td>26.4%</td><td>22.8%</td><td>14.6%</td><td>15.4%</td><td class="key-col key-opm">23.3%</td><td>24.6%</td><td>20.5%</td><td>15.7%</td></tr>
+    </tbody>
+  </table>
+  <p style="font-size:12px;color:#5a6280;margin-top:10px;padding:0 4px;">
+    ▶ 1Q26 주목 포인트: 매출 +46% YoY 성장 지속 여부와 북미·유럽 매출 비중(200% 성장) 확인이 핵심. OPM 23.3%로 전년 동기(26.4%) 대비 소폭 하락이지만 OP 절대치는 +29% 증가.
+  </p>
+</section>
+
+<!-- I. 밸류에이션 -->
+<section>
+  <div class="section-title">💰 밸류에이션 — 왜 이 배수인가 1문장 필수</div>
+  <div class="val-box">
+    <div class="val-formula">12개월 선행 EPS 10,520원 × Target PER 23배(글로벌 피어 그룹 12개월 선행 PBR 평균) = TP 240,000원</div>
+    <p style="color:#5a6280;font-size:12px;margin-top:8px;">▶ 왜 이 배수인가: 글로벌 K-뷰티 피어 그룹의 12개월 선행 PBR 평균 23배를 적용. ROE 47%+ 수준의 높은 자본 효율성이 프리미엄 근거</p>
+    <p style="color:#5a6280;font-size:12px;margin-top:4px;">▶ SOTP 적용 시: 해당 없음 (단일 사업 기반)</p>
+  </div>
+</section>
+
+<!-- J. 리스크 -->
+<section>
+  <div class="section-title">⚠️ 리스크 — 핵심 가정이 틀릴 경우 시나리오 (키워드 나열 금지)</div>
+  <div class="risk-item risk-sev-high">
+    <div class="risk-assumption">🔴 핵심 가정: 북미·유럽 매출 100%+ 고성장 지속</div>
+    <div class="risk-chain" style="margin-top:6px;">→ 붕괴 시: K-뷰티 트렌드 둔화 또는 히트 SKU 수명 단축 시 해외 매출(비중 71%) 성장 급감<br/>→ 실적 영향: 26E OP 1,550억→1,100~1,200억(25~30% 하락)</div>
+    <div class="risk-impact-num">→ 주가 영향: TP 240,000원 → 170,000~180,000원 (-25~29%)</div>
+  </div>
+  <div class="risk-item risk-sev-mid">
+    <div class="risk-assumption">🟠 두 번째 가정: 카테고리 다변화 성공(미스트 의존 탈피)</div>
+    <div class="risk-chain" style="margin-top:6px;">→ 붕괴 시: 신규 SKU(멀티밤·선크림) 판매 부진 → 미스트 단일 의존 지속 → 계절성 리스크 재부각 + OPM 하락</div>
+    <div class="risk-impact-num">→ 주가 영향: 밸류에이션 디스카운트 확대, TP 15~20% 하향 가능</div>
+  </div>
+</section>
+
+<!-- K. 체크포인트 -->
+<section>
+  <div class="section-title">🎯 모멘텀 확인 체크포인트 — 확인/실망 시 행동 명시</div>
+  <div style="background:#fafafa;border:1px solid #d0d4e0;border-radius:8px;padding:4px 16px;">
+    <div class="checkpoint-item">
+      <span class="cp-date">2026.05</span>
+      <div>
+        <div class="cp-event">1Q26 실적 발표 — 매출 1,664억원(+46%), OP 388억원(+29%) 달성 여부</div>
+        <div class="cp-pass">✅ 해외 매출 100%+ 성장 확인 시 → 글로벌 채널 확대 지속, 보유 유지</div>
+        <div class="cp-fail">⛔ 해외 성장 50% 미만 시 → K-뷰티 모멘텀 둔화 신호, 비중 축소 검토</div>
+      </div>
+    </div>
+    <div class="checkpoint-item">
+      <span class="cp-date">2026.하반기</span>
+      <div>
+        <div class="cp-event">Ulta Beauty SKU 15개 확장 + 주요 신제품 매출 기여 확인</div>
+        <div class="cp-pass">✅ SKU 확장 순조롭고 카테고리 비중 기타 35%+ → 핵심 승격 검토</div>
+        <div class="cp-fail">⛔ 신제품 부진 + 미스트 비중 역전 → 주목 유지, 추가 확인 필요</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- L. 사견 & 결론 -->
+<section>
+  <div class="section-title">💬 사견 & 투자 행동 결론</div>
+  <div class="opinion-box">
+    <p>달바글로벌은 K-뷰티 글로벌 확산의 대표 수혜주로 26E OP +53%, OPM 20.7%의 고성장·고수익 구조를 보유. 다만 ①Upside 20.8%로 충분한 저평가가 아니며 ②최근 3개월 주가 +40% 급등으로 단기 선반영 부담 존재. ③컨센 대비 OP 괴리가 +2.4%로 시장과 차별화 제한적. 카테고리 다변화 성공은 긍정적이나, 현 주가에서 추가 업사이드 확보를 위해 실적 확인이 필요한 시점.</p>
+    <div class="decision-box">
+      <div class="decision-btn decision-buy decision-dim">✅ 지금 진입 가능<br/><span style="font-size:11px;font-weight:400;">핵심+ & 60점+</span></div>
+      <div class="decision-btn decision-wait">⏳ 이벤트 후 진입<br/><span style="font-size:11px;font-weight:400;">1Q26 실적 확인 후</span></div>
+      <div class="decision-btn decision-avoid decision-dim">🚫 관망<br/><span style="font-size:11px;font-weight:400;">-</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- M. 승격 조건 (주목 전용) -->
+<section>
+  <div class="section-title">🚀 승격 조건 — 주목 종목 전용 (핵심 이상은 삭제)</div>
+  <div class="upgrade-box">
+    <div class="upgrade-item">
+      <span class="upgrade-when">Upside 40%+ 도달</span>
+      <span>주가 조정으로 Upside 40%+ 확보 시(TP 대비 CP 17.1만원 이하) → ⭐ 핵심 검토</span>
+    </div>
+    <div class="upgrade-item">
+      <span class="upgrade-when">1Q26 실적 발표</span>
+      <span>해외 매출 100%+ 성장 + 카테고리 기타 비중 35%+ 확인 시 → ⭐ 핵심 승격</span>
+    </div>
+    <div class="upgrade-item">
+      <span class="upgrade-when">TP 추가 상향</span>
+      <span>복수 증권사 TP 상향 + 컨센 OP 20%+ 상회 시 → ⭐ 핵심 검토</span>
+    </div>
+  </div>
+</section>
+
+<div class="disclaimer">
+  ※ 본 글은 증권사 리포트를 개인 학습 목적으로 요약·정리한 것이며, 투자 권유가 아닙니다.<br/>
+  ※ 제공된 PDF 파일만 활용. 외부 검색·참조 없음. 당일 발간 리포트 기준.
+</div>
+
+</body>
+</html>

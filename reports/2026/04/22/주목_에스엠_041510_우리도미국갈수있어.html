@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>에스엠 (041510) 정리</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Pretendard','Apple SD Gothic Neo',-apple-system,sans-serif; background: #ffffff; color: #1a1d2e; line-height: 1.7; font-size: 14px; max-width: 900px; margin: 0 auto; padding: 32px 20px 80px; }
+  .header { border-left: 4px solid #2563eb; padding: 0 0 0 16px; margin-bottom: 24px; }
+  .header h1 { font-size: 20px; font-weight: 700; margin-bottom: 10px; color: #1a1d2e; }
+  .price-row { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin-top: 10px; }
+  .price-item { background: #f0f2f8; border: 1px solid #d0d4e0; border-radius: 6px; padding: 6px 14px; font-size: 13px; }
+  .price-item .label { color: #5a6280; font-size: 11px; display: block; }
+  .price-item .val { font-weight: 700; color: #1a1d2e; }
+  .upside-val { color: #059669; }
+  .tag-badge { display: inline-flex; align-items: center; gap: 6px; padding: 5px 14px; border-radius: 20px; font-size: 13px; font-weight: 700; }
+  .tag-watch { background: #fffbeb; color: #b45309; border: 1px solid #f59e0b; }
+  .score-badge { display: inline-block; padding: 5px 14px; border-radius: 20px; font-size: 13px; font-weight: 700; background: #f0f2f8; border: 1px solid #d0d4e0; color: #1a1d2e; }
+  .score-mid { color: #b45309; }
+  .pathway-badge { display: inline-flex; align-items: center; gap: 4px; padding: 3px 10px; border-radius: 12px; font-size: 11px; font-weight: 600; background: #f0f2f8; border: 1px solid #d0d4e0; color: #5a6280; }
+  section { margin-bottom: 28px; }
+  .section-title { font-size: 11px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: #5a6280; border-bottom: 1px solid #d0d4e0; padding-bottom: 6px; margin-bottom: 14px; }
+  .pdf-only-banner { background: #fff7ed; border: 1px solid #f97316; border-radius: 8px; padding: 10px 16px; font-size: 12px; color: #c2410c; margin-bottom: 20px; text-align: center; font-weight: 700; }
+  .thesis-box { background: #f8faff; border: 1px solid #2563eb; border-radius: 8px; padding: 16px 20px; font-size: 15px; font-weight: 600; line-height: 1.6; color: #1a1d2e; }
+  .thesis-structure { display: flex; gap: 8px; align-items: center; margin-top: 10px; flex-wrap: wrap; }
+  .thesis-part { background: #f0f2f8; border: 1px solid #d0d4e0; border-radius: 6px; padding: 4px 10px; font-size: 12px; color: #1a1d2e; }
+  .thesis-arrow { color: #2563eb; font-size: 16px; }
+  .checklist { background: #fafafa; border: 1px solid #d0d4e0; border-radius: 8px; overflow: hidden; }
+  .checklist-item { display: flex; gap: 14px; align-items: flex-start; padding: 12px 16px; border-bottom: 1px solid #d0d4e0; }
+  .checklist-item:last-child { border-bottom: none; }
+  .check-icon { width: 22px; height: 22px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; flex-shrink: 0; margin-top: 1px; }
+  .check-pass { background: #ecfdf5; color: #059669; border: 1px solid #34d399; }
+  .check-fail { background: #fef2f2; color: #dc2626; border: 1px solid #fca5a5; }
+  .check-label { font-weight: 600; font-size: 13px; color: #1a1d2e; }
+  .check-why { color: #1a1d2e; font-size: 13px; }
+  table { width: 100%; border-collapse: collapse; background: #fafafa; border-radius: 8px; overflow: hidden; border: 1px solid #d0d4e0; }
+  thead tr { background: #f0f2f8; }
+  th { padding: 10px 14px; text-align: left; font-size: 11px; font-weight: 700; color: #5a6280; letter-spacing: 0.8px; text-transform: uppercase; }
+  td { padding: 10px 14px; border-top: 1px solid #d0d4e0; font-size: 13px; color: #1a1d2e; }
+  tr.total-row td { background: #e8ecf5; font-weight: 700; }
+  .penalty { color: #dc2626; }
+  .highlight-green { color: #059669; font-weight: 700; }
+  .chain-box { background: #fafafa; border: 1px solid #d0d4e0; border-radius: 8px; padding: 16px 20px; }
+  .chain-step { display: flex; gap: 12px; align-items: flex-start; margin-bottom: 10px; }
+  .chain-step:last-child { margin-bottom: 0; }
+  .chain-arrow { color: #2563eb; font-size: 16px; flex-shrink: 0; margin-top: 1px; }
+  .chain-content { flex: 1; }
+  .chain-label { font-size: 10px; font-weight: 700; letter-spacing: 1px; color: #5a6280; text-transform: uppercase; margin-bottom: 2px; }
+  .chain-text { font-size: 13px; color: #1a1d2e; }
+  .chain-confirmed { color: #059669; font-size: 11px; margin-left: 6px; }
+  .chain-forecast { color: #b45309; font-size: 11px; margin-left: 6px; }
+  .fact-item { background: #fafafa; border: 1px solid #d0d4e0; border-radius: 8px; padding: 14px 16px; margin-bottom: 8px; }
+  .fact-item:last-child { margin-bottom: 0; }
+  .fact-num { font-size: 10px; font-weight: 700; color: #2563eb; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 8px; display: block; }
+  .fact-what { font-weight: 600; font-size: 14px; margin-bottom: 6px; color: #1a1d2e; }
+  .fact-why { font-size: 13px; color: #5a6280; margin-bottom: 6px; }
+  .fact-so { font-size: 13px; color: #059669; }
+  .fact-label { display: inline-block; font-size: 10px; font-weight: 700; padding: 1px 6px; border-radius: 3px; margin-right: 4px; }
+  .label-what { background: #eff6ff; color: #1d4ed8; }
+  .label-why { background: #fff7ed; color: #ea580c; }
+  .label-so { background: #ecfdf5; color: #059669; }
+  .data-table th { background: #e8ecf5; }
+  .data-table td.key-col { background: #f0f6ff; }
+  .data-table .key-num { color: #059669; font-weight: 700; }
+  .data-table .key-opm { color: #b45309; }
+  caption { font-size: 11px; color: #5a6280; text-align: left; padding: 0 0 8px; caption-side: top; }
+  .val-box { background: #fafafa; border: 1px solid #d0d4e0; border-radius: 8px; padding: 16px 20px; font-size: 13px; line-height: 2; color: #1a1d2e; }
+  .val-formula { background: #f0f2f8; border-radius: 6px; padding: 10px 14px; font-family: monospace; font-size: 13px; margin: 10px 0; color: #b45309; }
+  .risk-item { background: #fafafa; border-radius: 0 6px 6px 0; padding: 14px 16px; margin-bottom: 10px; }
+  .risk-item:last-child { margin-bottom: 0; }
+  .risk-sev-high { border-left: 3px solid #dc2626; }
+  .risk-sev-mid { border-left: 3px solid #ea580c; }
+  .risk-assumption { font-weight: 600; font-size: 13px; margin-bottom: 4px; color: #1a1d2e; }
+  .risk-chain { font-size: 12px; color: #5a6280; margin: 4px 0; }
+  .risk-impact-num { font-size: 13px; color: #dc2626; font-weight: 600; margin-top: 4px; }
+  .checkpoint-item { display: flex; gap: 12px; padding: 10px 0; border-bottom: 1px solid #d0d4e0; font-size: 13px; }
+  .checkpoint-item:last-child { border-bottom: none; }
+  .cp-date { color: #2563eb; font-weight: 600; min-width: 90px; flex-shrink: 0; }
+  .cp-event { flex: 1; color: #1a1d2e; }
+  .cp-pass { color: #059669; font-size: 12px; margin-top: 2px; }
+  .cp-fail { color: #dc2626; font-size: 12px; margin-top: 2px; }
+  .opinion-box { background: #fafafa; border: 1px solid #d0d4e0; border-radius: 8px; padding: 16px 20px; font-size: 13px; line-height: 1.8; color: #5a6280; }
+  .decision-box { display: flex; gap: 14px; margin-top: 14px; }
+  .decision-btn { flex: 1; text-align: center; padding: 10px; border-radius: 6px; font-weight: 700; font-size: 13px; border: 1px solid; }
+  .decision-buy { background: #ecfdf5; color: #059669; border-color: #34d399; }
+  .decision-wait { background: #fffbeb; color: #b45309; border-color: #f59e0b; }
+  .decision-avoid { background: #fef2f2; color: #dc2626; border-color: #fca5a5; }
+  .decision-dim { opacity: 0.3; }
+  .upgrade-box { background: #eff6ff; border: 1px solid #93c5fd; border-radius: 8px; padding: 14px 16px; }
+  .upgrade-item { display: flex; gap: 10px; padding: 6px 0; border-bottom: 1px solid #dbeafe; font-size: 13px; color: #1a1d2e; }
+  .upgrade-item:last-child { border-bottom: none; }
+  .upgrade-when { color: #1d4ed8; font-weight: 600; min-width: 140px; flex-shrink: 0; }
+  .disclaimer { font-size: 11px; color: #9ca3af; text-align: center; margin-top: 40px; padding-top: 16px; border-top: 1px solid #d0d4e0; }
+</style>
+</head>
+<body>
+
+<div class="pdf-only-banner">
+  🚫 외부 검색 절대 금지 — 제공된 PDF 파일만 활용 | 당일 발간 리포트 기준 투자 종목 발굴 전용
+</div>
+
+<header class="header">
+  <h1>에스엠 (041510) | 우리도 미국 갈 수 있어 SK증권 박준영 | 발간일: 2026.04.22</h1>
+  <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-bottom:12px;">
+    <span class="tag-badge tag-watch">🔥 주목</span>
+    <span class="score-badge score-mid">📊 40점</span>
+    <span style="font-size:12px;color:#5a6280;">비바이오</span>
+    <span class="pathway-badge">경로 ②볼륨드리븐</span>
+  </div>
+  <div class="price-row">
+    <div class="price-item"><span class="label">투자의견</span><span class="val">매수(유지)</span></div>
+    <div class="price-item"><span class="label">목표주가(TP)</span><span class="val">134,000원</span></div>
+    <div class="price-item"><span class="label">현재주가(CP)</span><span class="val">93,000원</span></div>
+    <div class="price-item"><span class="label">Upside</span><span class="val upside-val">+44.1%</span></div>
+    <div class="price-item"><span class="label">시가총액</span><span class="val">21,290억원</span></div>
+    <div class="price-item"><span class="label">종목 유형</span><span class="val">비바이오</span></div>
+  </div>
+</header>
+
+<!-- B. 한줄 투자 이유 -->
+<section>
+  <div class="section-title">💡 이 종목에 투자해야 하는 이유 — 스토리 한 줄</div>
+  <div class="thesis-box">
+    aespa 북미 투어 확대(●●○) + EXO 월드투어·NCT WISH 정규 등 컴백 라인업 확충(●●○)으로 26E OP(영업이익) +5%(1,920억원), OPM(영업이익률) 15.6%→15.1%로 완만 성장이지만, Upside 44.1%로 시장 미반영 구간 존재
+  </div>
+  <div class="thesis-structure">
+    <div class="thesis-part" style="color:#059669;">① aespa 북미 확장 + 컴백 라인업(●●○)</div>
+    <div class="thesis-arrow">→</div>
+    <div class="thesis-part" style="color:#b45309;">② 26E OP +5%, OPM 15.1%</div>
+    <div class="thesis-arrow">→</div>
+    <div class="thesis-part" style="color:#2563eb;">③ Upside 44.1%</div>
+  </div>
+</section>
+
+<!-- C. 핵심 5조건 -->
+<section>
+  <div class="section-title">✅ 핵심 태그 5가지 조건 체크 (5개 모두 통과해야 ⭐핵심 이상 가능)</div>
+  <div class="checklist">
+    <div class="checklist-item">
+      <div class="check-icon check-fail">✗</div>
+      <div>
+        <div class="check-label">조건 1 | 영업이익(OP) 성장 임계값</div>
+        <div class="check-why">26E OP 1,920억원(+5% YoY), OPM 15.1%(-0.5%p) → OP +50% 미달, OPM 하락. 불통과</div>
+      </div>
+    </div>
+    <div class="checklist-item">
+      <div class="check-icon check-pass">✓</div>
+      <div>
+        <div class="check-label">조건 2 | 3년 지속성 (3개 이상 충족)</div>
+        <div class="check-why">① 다수 IP(aespa, NCT, EXO 등) 순차 활동 → 리커링 매출 ② 중국 Tencent Music 제휴로 플랫폼 확장 ③ 26E~28E OP CAGR 약 19% → 3개 충족</div>
+      </div>
+    </div>
+    <div class="checklist-item">
+      <div class="check-icon check-fail">✗</div>
+      <div>
+        <div class="check-label">조건 3 | 확정 팩트(●●●) 2개 이상</div>
+        <div class="check-why">●●● 확정 팩트 없음. 컴백 일정은 ●●○(높은 가시성) 수준. 투어 확대·북미 성과는 아직 전망 단계</div>
+      </div>
+    </div>
+    <div class="checklist-item">
+      <div class="check-icon check-pass">✓</div>
+      <div>
+        <div class="check-label">조건 4 | 시장 미반영 (Upside 40%+ OR 컨센 괴리 20%+)</div>
+        <div class="check-why">Upside 44.1% → 통과</div>
+      </div>
+    </div>
+    <div class="checklist-item">
+      <div class="check-icon check-fail">✗</div>
+      <div>
+        <div class="check-label">조건 5 | 이 리포트만의 차별화된 시각</div>
+        <div class="check-why">aespa 북미 확장은 업계 공통 인식. 리포트 고유 시각 부족</div>
+      </div>
+    </div>
+  </div>
+  <p style="font-size:11px;color:#dc2626;margin-top:8px;padding:0 4px;">
+    ⚠️ 조건1(OP 성장 미달), 조건3(확정팩트 미달), 조건5(차별화 부족) → 핵심→주목 강등
+  </p>
+</section>
+
+<!-- D. 투자 점수 -->
+<section>
+  <div class="section-title">📊 투자 점수 판정 (v2.0 비바이오) — 모든 근거 칸 필수 기재</div>
+  <table>
+    <thead><tr><th>항목</th><th>판정</th><th>근거 (Why)</th></tr></thead>
+    <tbody>
+      <tr><td>종목 유형</td><td>비바이오</td><td>K-POP 엔터테인먼트, 실적 기반 주가</td></tr>
+      <tr><td>적용 가설</td><td>가설 4</td><td>26E OP +5%로 완만한 성장. 고성장 단계가 아님</td></tr>
+      <tr><td>촉매 등급</td><td>중급</td><td>aespa 북미 투어 확대 + 컴백 라인업 확충. 글로벌 상위권 수준의 활동이나 실적 영향 아직 제한적</td></tr>
+      <tr><td>복합 여부</td><td>복합</td><td>투어 확대 + 컴백 라인업(음반/MD) + 중국 Tencent 제휴 → 3개 촉매</td></tr>
+      <tr><td>직접성</td><td>직접</td><td>투어·음반·MD 매출 직결</td></tr>
+      <tr><td>매트릭스 기본 점수</td><td>50점</td><td>가설4 × 중급 × 복합 = 50점</td></tr>
+      <tr><td>페널티 ① 잠재수주 미확정</td><td class="penalty">-10점</td><td>중국 규제 완화·서구권 확장 등 실적 추정의 30%+ 미확정 의존</td></tr>
+      <tr class="total-row"><td>최종 투자 점수</td><td><span class="highlight-green">40점</span></td><td>주목 40+ 충족. 핵심 5조건 미달(조건1·3·5)로 주목 확정</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<!-- E. 성장 인과 체인 -->
+<section>
+  <div class="section-title">⚡ 성장 인과 체인 — 왜 성장하는가 (각 단계에 수치 필수)</div>
+  <div class="chain-box">
+    <div class="chain-step">
+      <div class="chain-arrow">①</div>
+      <div class="chain-content">
+        <div class="chain-label">구조 변화 / 촉매 <span class="chain-forecast">●●○ 높은 가시성</span></div>
+        <div class="chain-text">aespa 북미 투어 본격화 + EXO 월드투어 개시 + 2Q26 NCT WISH/aespa 정규 컴백. SMTR25 팬미팅·팝업스토어 예정. 중국 Tencent Music 제휴 확대</div>
+      </div>
+    </div>
+    <div class="chain-step">
+      <div class="chain-arrow">↓</div>
+      <div class="chain-content">
+        <div class="chain-label">매출 영향 (규모·비중 수치)</div>
+        <div class="chain-text">26E 매출 12,724억원(+8.3% YoY). 콘서트 매출 1,832억원, MD/라이선싱 1,984억원, 음반 2,311억원. 콘서트·MD 비중 약 30% 유지</div>
+      </div>
+    </div>
+    <div class="chain-step">
+      <div class="chain-arrow">↓</div>
+      <div class="chain-content">
+        <div class="chain-label">OPM 변화 메커니즘</div>
+        <div class="chain-text">투어 대비 아시아 비중 축소 + 북미 확장으로 소규모 공연 비중 확대 → 공연 효율 다소 하락. 판관비 증가(2,814억). OPM 15.6%→15.1%(-0.5%p)로 소폭 하락</div>
+      </div>
+    </div>
+    <div class="chain-step">
+      <div class="chain-arrow">↓</div>
+      <div class="chain-content">
+        <div class="chain-label">최종 실적 결과 <span class="chain-forecast">●●○ 추정</span></div>
+        <div class="chain-text">26E OP 1,922억원(+5.0% YoY), OPM 15.1%. 27E OP 2,550억원(+32.7%), OPM 17.8%</div>
+      </div>
+    </div>
+    <div class="chain-step">
+      <div class="chain-arrow">↓</div>
+      <div class="chain-content">
+        <div class="chain-label">시장 미반영 포인트 (So What)</div>
+        <div class="chain-text">시장은 한한령 우려와 성장 둔화를 반영해 PER 16.2배(26E)로 저평가. 서구권 확장 성과 가시화 + 한한령 완화 시 중국 매출 회복으로 Upside 44.1% 존재</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- F. 핵심 팩트 3줄 -->
+<section>
+  <div class="section-title">📌 핵심 팩트 3줄 — WHAT(숫자) + WHY(원인) + SO WHAT(의미) 3요소 필수</div>
+  <div class="fact-item">
+    <span class="fact-num">Fact 01</span>
+    <div class="fact-what"><span class="fact-label label-what">WHAT</span>1Q26E 매출 2,592억원(+12.0% YoY), OP 390억원(+19.7% YoY), OPM 15.0%로 시장 컨센서스 소폭 상회</div>
+    <div class="fact-why"><span class="fact-label label-why">WHY</span>EXO 정규 8집 100만장 + NCT 신규유닛·아이린 솔로 등 총 184.7만장 음반 판매. 슈퍼주니어 돔투어 12회 반영</div>
+    <div class="fact-so"><span class="fact-label label-so">SO WHAT</span>1Q는 비수기임에도 컨센 상회하며 상반기 실적 모멘텀(실적이 주가를 끌어올리는 힘) 기대감 형성</div>
+  </div>
+  <div class="fact-item">
+    <span class="fact-num">Fact 02</span>
+    <div class="fact-what"><span class="fact-label label-what">WHAT</span>26E 연간 매출 12,724억원(+8.3%), OP 1,922억원(+5.0%), OPM 15.1%. 27E OP 2,550억원(+32.7%)</div>
+    <div class="fact-why"><span class="fact-label label-why">WHY</span>aespa 하반기 월드투어 + EXO 월드투어로 콘서트 매출 성장. 다만 북미 공연 비중 확대로 비용 부담 상존</div>
+    <div class="fact-so"><span class="fact-label label-so">SO WHAT</span>26E는 완만 성장이나 27E +33% 성장 전환 시 리레이팅(시장이 더 높게 평가) 가능. 현재 PER 16.2배는 27E 기준으로 보면 저평가</div>
+  </div>
+  <div class="fact-item">
+    <span class="fact-num">Fact 03</span>
+    <div class="fact-what"><span class="fact-label label-what">WHAT</span>중국 매출 회복 모멘텀: 카카오(외 8) 41.67%, Tencent Music 9.66% 주주 구성. 중국 QQ Music 제휴 등 확대 여지</div>
+    <div class="fact-why"><span class="fact-label label-why">WHY</span>한한령 완화 기대 + Tencent Music과의 협업(자회사 디어유 'Bubble' 서비스 확장). 한중 관계 개선 시 실적 개선 여지 큼</div>
+    <div class="fact-so"><span class="fact-label label-so">SO WHAT</span>중국 규제 완화 + 서구권 확장이 동시에 가시화되면 매출 성장 가속. 다만 시점 불확실성이 가장 큰 리스크</div>
+  </div>
+</section>
+
+<!-- F-2. 원본 리포트 핵심 요약 -->
+<section>
+  <div class="section-title">📄 원본 리포트 핵심 요약 — PDF 내용 직접 발췌 (외부 정보 추가 금지)</div>
+  <div style="background:#fafafa;border:1px solid #d0d4e0;border-radius:8px;padding:16px 20px;margin-bottom:12px;">
+    <div style="font-size:11px;font-weight:700;letter-spacing:1px;color:#5a6280;text-transform:uppercase;margin-bottom:10px;">리포트 핵심 주장 (애널리스트 관점 요약)</div>
+    <p style="font-size:13px;line-height:1.9;">1Q26 실적이 시장 컨센서스를 소폭 상회하며, aespa의 글로벌(특히 북미) 시장 확장이 핵심 변수. 서구권 성과 가시화와 한한령 해제 기대가 중장기 모멘텀이나, 단기 실적 성장은 제한적. 투자의견 매수, TP 134,000원 유지.</p>
+    <div style="margin-top:10px;display:flex;gap:8px;flex-wrap:wrap;">
+      <div style="background:#f0f2f8;border:1px solid #d0d4e0;border-radius:6px;padding:6px 12px;font-size:12px;">
+        <span style="color:#5a6280;font-size:10px;display:block;margin-bottom:2px;">이전 대비 변화 포인트</span>
+        TP 134,000원 유지, 투자의견 매수 유지. 추정치 변경 없음
+      </div>
+      <div style="background:#f0f2f8;border:1px solid #d0d4e0;border-radius:6px;padding:6px 12px;font-size:12px;">
+        <span style="color:#5a6280;font-size:10px;display:block;margin-bottom:2px;">컨센서스 대비</span>
+        1Q26 OP 컨센 소폭 상회 전망
+      </div>
+    </div>
+  </div>
+  <div style="background:#fafafa;border:1px solid #d0d4e0;border-radius:8px;padding:16px 20px;margin-bottom:12px;">
+    <div style="font-size:11px;font-weight:700;letter-spacing:1px;color:#5a6280;text-transform:uppercase;margin-bottom:10px;">사업 구조 & 성장 동력</div>
+    <table style="margin:0;">
+      <thead><tr><th style="width:25%;">사업부</th><th style="width:20%;">매출 비중(26E)</th><th style="width:55%;">핵심 성장 드라이버 (Why 포함)</th></tr></thead>
+      <tbody>
+        <tr><td>음반/음원</td><td>27%</td><td>EXO·aespa·NCT WISH 정규 컴백 → 판매량 유지. 하반기 신인 IP 수익화 기대</td></tr>
+        <tr><td>콘서트</td><td>14%</td><td>aespa 월드투어 + EXO 월드투어. 북미 비중 확대로 공연 매출 성장</td></tr>
+        <tr><td>MD/라이선싱</td><td>16%</td><td>NCT WISH 기획MD 확대 + 팝업스토어. 온라인 예약판매 다음 분기 인식</td></tr>
+        <tr><td>연결 자회사</td><td>26%</td><td>중국 Tencent Music 제휴, Bubble 등 플랫폼 서비스 확장</td></tr>
+      </tbody>
+    </table>
+    <p style="font-size:12px;color:#5a6280;margin-top:10px;">▶ 핵심 성장 메커니즘: 멀티 IP 순차 컴백(음반) + 글로벌 투어 확대(콘서트·MD) → 안정적 매출 성장. 다만 OPM 개선은 제한적</p>
+  </div>
+  <div style="background:#fafafa;border:1px solid #d0d4e0;border-radius:8px;padding:16px 20px;margin-bottom:12px;">
+    <div style="font-size:11px;font-weight:700;letter-spacing:1px;color:#5a6280;text-transform:uppercase;margin-bottom:10px;">시장 괴리 — 왜 지금 시장이 틀렸는가</div>
+    <table style="margin:0;">
+      <thead><tr><th style="width:30%;">구분</th><th>내용</th></tr></thead>
+      <tbody>
+        <tr><td style="color:#5a6280;">시장 현재 인식</td><td>한한령 리스크 + 엔터 업종 전반 디레이팅(시장 평가 하락). 성장 둔화 우려</td></tr>
+        <tr><td style="color:#2563eb;">이 리포트 주장</td><td>aespa 서구권 확장 + 한한령 완화 시 중국 매출 회복으로 27E 성장 가속(OP +33%)</td></tr>
+        <tr><td style="color:#b45309;">괴리 해소 촉매</td><td>하반기 aespa 북미 투어 성과 확인 + 한한령 완화 시그널</td></tr>
+        <tr><td>괴리 강도</td><td><span style="color:#b45309;">중</span> (Upside 44.1%이나 실적 성장 완만)</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div style="background:#fafafa;border:1px solid #d0d4e0;border-radius:8px;padding:16px 20px;">
+    <div style="font-size:11px;font-weight:700;letter-spacing:1px;color:#5a6280;text-transform:uppercase;margin-bottom:10px;">재무 특징 (PDF에 있는 경우만)</div>
+    <div style="display:flex;flex-wrap:wrap;gap:8px;">
+      <div style="background:#f0f2f8;border:1px solid #d0d4e0;border-radius:6px;padding:8px 12px;font-size:12px;flex:1;min-width:160px;"><span style="color:#5a6280;font-size:10px;display:block;margin-bottom:2px;">순현금/순차입금</span>-</div>
+      <div style="background:#f0f2f8;border:1px solid #d0d4e0;border-radius:6px;padding:8px 12px;font-size:12px;flex:1;min-width:160px;"><span style="color:#5a6280;font-size:10px;display:block;margin-bottom:2px;">부채비율</span>47.8%(25A)</div>
+      <div style="background:#f0f2f8;border:1px solid #d0d4e0;border-radius:6px;padding:8px 12px;font-size:12px;flex:1;min-width:160px;"><span style="color:#5a6280;font-size:10px;display:block;margin-bottom:2px;">배당·자사주</span>배당성향 28.2%(25A) → 19.6%(26E)</div>
+      <div style="background:#f0f2f8;border:1px solid #d0d4e0;border-radius:6px;padding:8px 12px;font-size:12px;flex:1;min-width:160px;"><span style="color:#5a6280;font-size:10px;display:block;margin-bottom:2px;">특이 재무 이슈</span>-</div>
+    </div>
+  </div>
+</section>
+
+<!-- G. 실적 전망 (연간) -->
+<section>
+  <div class="section-title">📈 실적 전망 (연간) — PDF 원문 수치만 기재, 추정 금지</div>
+  <table class="data-table">
+    <caption>단위: 십억원 — PDF 단위 확인 완료 | ★ = 투자 핵심 연도</caption>
+    <thead>
+      <tr>
+        <th>구분</th><th>2024A</th><th>2025A</th>
+        <th style="background:#dbeafe;color:#1e40af;font-weight:700;">2026E ★</th>
+        <th>2027E</th><th>2028E</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td>매출액</td><td>990</td><td>1,175</td><td class="key-col key-num">1,272</td><td>1,433</td><td>1,476</td></tr>
+      <tr><td>YoY(%)</td><td>3.0%</td><td>18.7%</td><td class="key-col">+8.3%</td><td>+12.6%</td><td>+3.0%</td></tr>
+      <tr><td>영업이익</td><td>87</td><td>183</td><td class="key-col key-num">192</td><td>255</td><td>272</td></tr>
+      <tr><td>YoY(%)</td><td>-23.1%</td><td>109.7%</td><td class="key-col key-num">+5.0%</td><td>+32.5%</td><td>+6.8%</td></tr>
+      <tr><td>OPM(%)</td><td>8.8%</td><td>15.6%</td><td class="key-col key-opm">15.1%</td><td>17.8%</td><td>18.4%</td></tr>
+      <tr><td>EPS(원)</td><td>784</td><td>5,744</td><td class="key-col">8,282</td><td>8,090</td><td>-</td></tr>
+      <tr><td>PER(배)</td><td>96.4</td><td>8.9</td><td class="key-col">16.2</td><td>11.2</td><td>11.5</td></tr>
+      <tr><td>PBR(배)</td><td>2.5</td><td>3.1</td><td class="key-col">1.9</td><td>1.7</td><td>1.5</td></tr>
+      <tr><td>ROE(%)</td><td>2.6</td><td>41.6</td><td class="key-col">12.5</td><td>16.2</td><td>14.0</td></tr>
+    </tbody>
+  </table>
+  <p style="font-size:12px;color:#5a6280;margin-top:10px;padding:0 4px;">
+    ▶ 왜 26E가 변곡점인가: 25A의 대폭 성장(OP +110%) 이후 26E는 조정기(+5%). 그러나 27E aespa 월드투어·EXO 활동 본격화로 OP +33% 성장 재가속 예상. 26E는 컴백 라인업 확충과 서구권 기반 구축의 '준비 기간'.
+  </p>
+</section>
+
+<!-- H. 분기별 실적 -->
+<section>
+  <div class="section-title">📅 분기별 실적 전망 — PDF에 있으면 반드시 기재, 생략 금지</div>
+  <table class="data-table">
+    <caption>단위: 억원</caption>
+    <thead>
+      <tr>
+        <th>구분</th>
+        <th>1Q25</th><th>2Q25</th><th>3Q25</th><th>4Q25</th>
+        <th style="background:#dbeafe;color:#1e40af;font-weight:700;">1Q26E ★</th>
+        <th>2Q26E</th><th>3Q26E</th><th>4Q26E</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td>매출액</td><td>2,314</td><td>3,029</td><td>3,216</td><td>3,190</td><td class="key-col key-num">2,592</td><td>3,572</td><td>2,743</td><td>3,818</td></tr>
+      <tr><td>영업이익</td><td>326</td><td>476</td><td>482</td><td>546</td><td class="key-col key-num">390</td><td>572</td><td>308</td><td>652</td></tr>
+      <tr><td>OPM(%)</td><td>14.1%</td><td>15.7%</td><td>15.0%</td><td>17.1%</td><td class="key-col key-opm">15.0%</td><td>16.0%</td><td>11.2%</td><td>17.1%</td></tr>
+    </tbody>
+  </table>
+  <p style="font-size:12px;color:#5a6280;margin-top:10px;padding:0 4px;">
+    ▶ 1Q26 주목 포인트: OP 390억원(+19.7% YoY)으로 컨센 소폭 상회 여부. 음반 판매량 184.7만장 달성 확인이 핵심. 3Q26 OPM 11.2%로 급락하는데 aespa 월드투어 비용 선반영 가능성 점검 필요.
+  </p>
+</section>
+
+<!-- I. 밸류에이션 -->
+<section>
+  <div class="section-title">💰 밸류에이션 — 왜 이 배수인가 1문장 필수</div>
+  <div class="val-box">
+    <div class="val-formula">26E EPS 8,282원 × Target PER 16.2배 = TP 134,000원</div>
+    <p style="color:#5a6280;font-size:12px;margin-top:8px;">▶ 왜 이 배수인가: PER Band 차트상 역사적 평균 PER 약 17.8~23.6배 대비 하단. 한한령 리스크 반영한 디스카운트 적용</p>
+    <p style="color:#5a6280;font-size:12px;margin-top:4px;">▶ SOTP 적용 시: 해당 없음</p>
+  </div>
+</section>
+
+<!-- J. 리스크 -->
+<section>
+  <div class="section-title">⚠️ 리스크 — 핵심 가정이 틀릴 경우 시나리오 (키워드 나열 금지)</div>
+  <div class="risk-item risk-sev-high">
+    <div class="risk-assumption">🔴 핵심 가정: 한한령 완화 + 중국 매출 회복</div>
+    <div class="risk-chain" style="margin-top:6px;">→ 붕괴 시: 한한령 지속 또는 강화 시 Tencent Music 제휴 실적 반영 지연, 중국 매출 회복 무산<br/>→ 실적 영향: 27E OP 2,550억→2,000억 수준(-20%)</div>
+    <div class="risk-impact-num">→ 주가 영향: TP 134,000원 → 105,000원(-22%)</div>
+  </div>
+  <div class="risk-item risk-sev-mid">
+    <div class="risk-assumption">🟠 두 번째 가정: aespa 서구권 확장이 매출로 연결</div>
+    <div class="risk-chain" style="margin-top:6px;">→ 붕괴 시: 북미 투어 규모 축소 또는 수익성 악화. 비용 대비 매출 기여 미미할 경우 OPM 하락 가속</div>
+    <div class="risk-impact-num">→ 주가 영향: 27E 성장 기대 하향으로 TP 10~15% 하향 가능</div>
+  </div>
+</section>
+
+<!-- K. 체크포인트 -->
+<section>
+  <div class="section-title">🎯 모멘텀 확인 체크포인트 — 확인/실망 시 행동 명시</div>
+  <div style="background:#fafafa;border:1px solid #d0d4e0;border-radius:8px;padding:4px 16px;">
+    <div class="checkpoint-item">
+      <span class="cp-date">2026.05</span>
+      <div>
+        <div class="cp-event">1Q26 실적 발표 — OP 390억원 컨센 상회 여부</div>
+        <div class="cp-pass">✅ 컨센 상회 시 → 하반기 투어 모멘텀 기대, 보유 유지</div>
+        <div class="cp-fail">⛔ 하회 시 → 성장 둔화 확인, 비중 축소 검토</div>
+      </div>
+    </div>
+    <div class="checkpoint-item">
+      <span class="cp-date">2026.하반기</span>
+      <div>
+        <div class="cp-event">aespa 북미 투어 실적 반영 + 한한령 완화 시그널</div>
+        <div class="cp-pass">✅ 북미 투어 매출 가시화 + 중국 규제 완화 → 핵심 승격 검토</div>
+        <div class="cp-fail">⛔ 투어 규모 축소 또는 한한령 지속 → 주목 유지</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- L. 사견 & 결론 -->
+<section>
+  <div class="section-title">💬 사견 & 투자 행동 결론</div>
+  <div class="opinion-box">
+    <p>에스엠은 aespa·EXO·NCT 등 다수 IP를 보유한 K-POP 대표 기업이나, 26E 실적 성장이 +5%로 매우 완만. Upside 44.1%는 매력적이나 이는 주가 하락에 따른 것이지 실적 성장에 기반한 것이 아님. 핵심 변수인 한한령 완화와 aespa 서구권 확장 모두 시점 불확실. 27E OP +33% 성장이 가시화되는 하반기 이후 진입이 적절.</p>
+    <div class="decision-box">
+      <div class="decision-btn decision-buy decision-dim">✅ 지금 진입 가능<br/><span style="font-size:11px;font-weight:400;">-</span></div>
+      <div class="decision-btn decision-wait">⏳ 이벤트 후 진입<br/><span style="font-size:11px;font-weight:400;">1Q26 실적 + aespa 투어 성과 확인 후</span></div>
+      <div class="decision-btn decision-avoid decision-dim">🚫 관망<br/><span style="font-size:11px;font-weight:400;">-</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- M. 승격 조건 -->
+<section>
+  <div class="section-title">🚀 승격 조건 — 주목 종목 전용 (핵심 이상은 삭제)</div>
+  <div class="upgrade-box">
+    <div class="upgrade-item">
+      <span class="upgrade-when">2026.하반기 (투어 성과)</span>
+      <span>aespa 북미 투어 매출 가시화 + 27E OP +30%+ 컨센 형성 → ⭐ 핵심 승격</span>
+    </div>
+    <div class="upgrade-item">
+      <span class="upgrade-when">한한령 완화 시</span>
+      <span>중국 규제 완화 공식 발표 → 중국 매출 회복 확인 시 🚀 SS급 검토</span>
+    </div>
+  </div>
+</section>
+
+<div class="disclaimer">
+  ※ 본 글은 증권사 리포트를 개인 학습 목적으로 요약·정리한 것이며, 투자 권유가 아닙니다.<br/>
+  ※ 제공된 PDF 파일만 활용. 외부 검색·참조 없음. 당일 발간 리포트 기준.
+</div>
+
+</body>
+</html>

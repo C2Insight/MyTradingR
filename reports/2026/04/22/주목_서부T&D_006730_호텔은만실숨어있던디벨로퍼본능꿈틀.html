@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>서부T&D (006730) 정리</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Pretendard','Apple SD Gothic Neo',-apple-system,sans-serif; background: #ffffff; color: #1a1d2e; line-height: 1.7; font-size: 14px; max-width: 900px; margin: 0 auto; padding: 32px 20px 80px; }
+  .header { border-left: 4px solid #2563eb; padding: 0 0 0 16px; margin-bottom: 24px; } .header h1 { font-size: 20px; font-weight: 700; margin-bottom: 10px; } .price-row { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin-top: 10px; } .price-item { background: #f0f2f8; border: 1px solid #d0d4e0; border-radius: 6px; padding: 6px 14px; font-size: 13px; } .price-item .label { color: #5a6280; font-size: 11px; display: block; } .price-item .val { font-weight: 700; color: #1a1d2e; } .upside-val { color: #059669; }
+  .tag-badge { display: inline-flex; align-items: center; gap: 6px; padding: 5px 14px; border-radius: 20px; font-size: 13px; font-weight: 700; } .tag-watch { background: #fffbeb; color: #b45309; border: 1px solid #f59e0b; } .tag-core { background: #ecfdf5; color: #059669; border: 1px solid #34d399; }
+  .score-badge { display: inline-block; padding: 5px 14px; border-radius: 20px; font-size: 13px; font-weight: 700; background: #f0f2f8; border: 1px solid #d0d4e0; } .score-mid { color: #b45309; } .score-high { color: #059669; }
+  .pathway-badge { display: inline-flex; align-items: center; gap: 4px; padding: 3px 10px; border-radius: 12px; font-size: 11px; font-weight: 600; background: #f0f2f8; border: 1px solid #d0d4e0; color: #5a6280; }
+  section { margin-bottom: 28px; } .section-title { font-size: 11px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: #5a6280; border-bottom: 1px solid #d0d4e0; padding-bottom: 6px; margin-bottom: 14px; }
+  .pdf-only-banner { background: #fff7ed; border: 1px solid #f97316; border-radius: 8px; padding: 10px 16px; font-size: 12px; color: #c2410c; margin-bottom: 20px; text-align: center; font-weight: 700; }
+  .thesis-box { background: #f8faff; border: 1px solid #2563eb; border-radius: 8px; padding: 16px 20px; font-size: 15px; font-weight: 600; line-height: 1.6; color: #1a1d2e; }
+  .thesis-structure { display: flex; gap: 8px; align-items: center; margin-top: 10px; flex-wrap: wrap; } .thesis-part { background: #f0f2f8; border: 1px solid #d0d4e0; border-radius: 6px; padding: 4px 10px; font-size: 12px; color: #1a1d2e; } .thesis-arrow { color: #2563eb; font-size: 16px; }
+  .checklist { background: #fafafa; border: 1px solid #d0d4e0; border-radius: 8px; overflow: hidden; } .checklist-item { display: flex; gap: 14px; align-items: flex-start; padding: 12px 16px; border-bottom: 1px solid #d0d4e0; } .checklist-item:last-child { border-bottom: none; } .check-icon { width: 22px; height: 22px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; flex-shrink: 0; margin-top: 1px; } .check-pass { background: #ecfdf5; color: #059669; border: 1px solid #34d399; } .check-fail { background: #fef2f2; color: #dc2626; border: 1px solid #fca5a5; } .check-label { font-weight: 600; font-size: 13px; } .check-why { color: #1a1d2e; font-size: 13px; }
+  table { width: 100%; border-collapse: collapse; background: #fafafa; border-radius: 8px; overflow: hidden; border: 1px solid #d0d4e0; } thead tr { background: #f0f2f8; } th { padding: 10px 14px; text-align: left; font-size: 11px; font-weight: 700; color: #5a6280; letter-spacing: 0.8px; } td { padding: 10px 14px; border-top: 1px solid #d0d4e0; font-size: 13px; } tr.total-row td { background: #e8ecf5; font-weight: 700; } .penalty { color: #dc2626; } .highlight-green { color: #059669; font-weight: 700; }
+  .chain-box { background: #fafafa; border: 1px solid #d0d4e0; border-radius: 8px; padding: 16px 20px; } .chain-step { display: flex; gap: 12px; align-items: flex-start; margin-bottom: 10px; } .chain-step:last-child { margin-bottom: 0; } .chain-arrow { color: #2563eb; font-size: 16px; flex-shrink: 0; margin-top: 1px; } .chain-content { flex: 1; } .chain-label { font-size: 10px; font-weight: 700; letter-spacing: 1px; color: #5a6280; text-transform: uppercase; margin-bottom: 2px; } .chain-text { font-size: 13px; color: #1a1d2e; } .chain-confirmed { color: #059669; font-size: 11px; margin-left: 6px; } .chain-forecast { color: #b45309; font-size: 11px; margin-left: 6px; }
+  .fact-item { background: #fafafa; border: 1px solid #d0d4e0; border-radius: 8px; padding: 14px 16px; margin-bottom: 8px; } .fact-item:last-child { margin-bottom: 0; } .fact-num { font-size: 10px; font-weight: 700; color: #2563eb; letter-spacing: 1px; margin-bottom: 8px; display: block; } .fact-what { font-weight: 600; font-size: 14px; margin-bottom: 6px; } .fact-why { font-size: 13px; color: #5a6280; margin-bottom: 6px; } .fact-so { font-size: 13px; color: #059669; } .fact-label { display: inline-block; font-size: 10px; font-weight: 700; padding: 1px 6px; border-radius: 3px; margin-right: 4px; } .label-what { background: #eff6ff; color: #1d4ed8; } .label-why { background: #fff7ed; color: #ea580c; } .label-so { background: #ecfdf5; color: #059669; }
+  .data-table th { background: #e8ecf5; } .data-table td.key-col { background: #f0f6ff; } .data-table .key-num { color: #059669; font-weight: 700; } .data-table .key-opm { color: #b45309; } caption { font-size: 11px; color: #5a6280; text-align: left; padding: 0 0 8px; caption-side: top; }
+  .val-box { background: #fafafa; border: 1px solid #d0d4e0; border-radius: 8px; padding: 16px 20px; font-size: 13px; line-height: 2; } .val-formula { background: #f0f2f8; border-radius: 6px; padding: 10px 14px; font-family: monospace; font-size: 13px; margin: 10px 0; color: #b45309; }
+  .risk-item { background: #fafafa; border-radius: 0 6px 6px 0; padding: 14px 16px; margin-bottom: 10px; } .risk-item:last-child { margin-bottom: 0; } .risk-sev-high { border-left: 3px solid #dc2626; } .risk-sev-mid { border-left: 3px solid #ea580c; } .risk-assumption { font-weight: 600; font-size: 13px; margin-bottom: 4px; } .risk-chain { font-size: 12px; color: #5a6280; margin: 4px 0; } .risk-impact-num { font-size: 13px; color: #dc2626; font-weight: 600; margin-top: 4px; }
+  .checkpoint-item { display: flex; gap: 12px; padding: 10px 0; border-bottom: 1px solid #d0d4e0; font-size: 13px; } .checkpoint-item:last-child { border-bottom: none; } .cp-date { color: #2563eb; font-weight: 600; min-width: 90px; flex-shrink: 0; } .cp-pass { color: #059669; font-size: 12px; margin-top: 2px; } .cp-fail { color: #dc2626; font-size: 12px; margin-top: 2px; }
+  .opinion-box { background: #fafafa; border: 1px solid #d0d4e0; border-radius: 8px; padding: 16px 20px; font-size: 13px; line-height: 1.8; color: #5a6280; } .decision-box { display: flex; gap: 14px; margin-top: 14px; } .decision-btn { flex: 1; text-align: center; padding: 10px; border-radius: 6px; font-weight: 700; font-size: 13px; border: 1px solid; } .decision-buy { background: #ecfdf5; color: #059669; border-color: #34d399; } .decision-wait { background: #fffbeb; color: #b45309; border-color: #f59e0b; } .decision-avoid { background: #fef2f2; color: #dc2626; border-color: #fca5a5; } .decision-dim { opacity: 0.3; }
+  .upgrade-box { background: #eff6ff; border: 1px solid #93c5fd; border-radius: 8px; padding: 14px 16px; } .upgrade-item { display: flex; gap: 10px; padding: 6px 0; border-bottom: 1px solid #dbeafe; font-size: 13px; } .upgrade-item:last-child { border-bottom: none; } .upgrade-when { color: #1d4ed8; font-weight: 600; min-width: 140px; flex-shrink: 0; }
+  .disclaimer { font-size: 11px; color: #9ca3af; text-align: center; margin-top: 40px; padding-top: 16px; border-top: 1px solid #d0d4e0; }
+</style>
+</head>
+<body>
+
+<div class="pdf-only-banner">🚫 외부 검색 절대 금지 — 제공된 PDF 파일만 활용 | 당일 발간 리포트 기준 투자 종목 발굴 전용</div>
+
+<header class="header">
+  <h1>서부T&D (006730) | 호텔은 만실, 숨어있던 디벨로퍼 본능 꿈틀 SK증권 나승두 | 발간일: 2026.04.22</h1>
+  <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-bottom:12px;">
+    <span class="tag-badge tag-watch">🔥 주목</span>
+    <span class="score-badge score-mid">📊 50점</span>
+    <span style="font-size:12px;color:#5a6280;">비바이오</span>
+    <span class="pathway-badge">경로 ①OPM확장</span>
+  </div>
+  <div class="price-row">
+    <div class="price-item"><span class="label">투자의견</span><span class="val">Buy(유지)</span></div>
+    <div class="price-item"><span class="label">목표주가(TP)</span><span class="val">20,000원(상향)</span></div>
+    <div class="price-item"><span class="label">현재주가(CP)</span><span class="val">13,830원</span></div>
+    <div class="price-item"><span class="label">Upside</span><span class="val upside-val">+44.6%</span></div>
+    <div class="price-item"><span class="label">시가총액</span><span class="val">9,018억원</span></div>
+    <div class="price-item"><span class="label">종목 유형</span><span class="val">비바이오</span></div>
+  </div>
+</header>
+
+<section>
+  <div class="section-title">💡 이 종목에 투자해야 하는 이유 — 스토리 한 줄</div>
+  <div class="thesis-box">
+    호텔 만실 운영(●●●) + TP 54% 상향(13,000→20,000원)으로 26E OP +16%(816억원), OPM 28.6% 유지되며 Upside 44.6%. 용산·신정동 디벨로퍼 사업은 아직 추정치 미반영(●●○)으로 추가 업사이드 존재
+  </div>
+  <div class="thesis-structure">
+    <div class="thesis-part" style="color:#059669;">① 호텔 만실 + TP 54% 상향(●●●)</div>
+    <div class="thesis-arrow">→</div>
+    <div class="thesis-part" style="color:#b45309;">② 26E OP +16%, OPM 28.6%</div>
+    <div class="thesis-arrow">→</div>
+    <div class="thesis-part" style="color:#2563eb;">③ Upside 44.6% + 디벨로퍼 미반영</div>
+  </div>
+</section>
+
+<section>
+  <div class="section-title">✅ 핵심 태그 5가지 조건 체크</div>
+  <div class="checklist">
+    <div class="checklist-item">
+      <div class="check-icon check-fail">✗</div>
+      <div>
+        <div class="check-label">조건 1 | 영업이익(OP) 성장 임계값</div>
+        <div class="check-why">26E OP +16.0%(703→816억원). +50% 대폭 미달. OPM 28.3%→28.6%(+0.3%p)로 +3%p 미달. OPM 15%+ 유지는 충족하나 OP 성장률 근본 미달 → 불통과</div>
+      </div>
+    </div>
+    <div class="checklist-item">
+      <div class="check-icon check-pass">✓</div>
+      <div>
+        <div class="check-label">조건 2 | 3년 지속성 (3개 이상 충족)</div>
+        <div class="check-why">① 호텔 OCC 지속 상승(만실 근접) ② ADR 상승 여력 ③ 용산 나진상가 디벨로퍼(10월 착공) ④ 신정동 서부트럭터미널 부지 개발 → 4개 충족</div>
+      </div>
+    </div>
+    <div class="checklist-item">
+      <div class="check-icon check-fail">✗</div>
+      <div>
+        <div class="check-label">조건 3 | 확정 팩트(●●●) 2개 이상</div>
+        <div class="check-why">●●● 호텔 만실(OCC 근접, 실적 확인). ●●○ 용산 나진상가 착공(10월 예정), 신정동 개발(미확정) → ●●● 1개, 미달</div>
+      </div>
+    </div>
+    <div class="checklist-item">
+      <div class="check-icon check-pass">✓</div>
+      <div>
+        <div class="check-label">조건 4 | 시장 미반영 (Upside 40%+)</div>
+        <div class="check-why">Upside 44.6% → 통과. TP 54% 상향에도 여전히 44.6% 괴리</div>
+      </div>
+    </div>
+    <div class="checklist-item">
+      <div class="check-icon check-pass">✓</div>
+      <div>
+        <div class="check-label">조건 5 | 이 리포트만의 차별화된 시각</div>
+        <div class="check-why">호텔업에서 부동산 디벨로퍼 가치를 발굴. 분양이익 아직 추정 미반영이라는 고유 시각 제시</div>
+      </div>
+    </div>
+  </div>
+  <p style="font-size:11px;color:#dc2626;margin-top:8px;padding:0 4px;">
+    ⚠️ 조건1(OP +16%, +50% 대폭 미달), 조건3(●●● 1개) → 핵심→주목 강등
+  </p>
+</section>
+
+<section>
+  <div class="section-title">📊 투자 점수 판정 (v2.0 비바이오)</div>
+  <table>
+    <thead><tr><th>항목</th><th>판정</th><th>근거 (Why)</th></tr></thead>
+    <tbody>
+      <tr><td>종목 유형</td><td>비바이오</td><td>호텔+부동산 디벨로퍼, 실적 기반</td></tr>
+      <tr><td>적용 가설</td><td>가설 3</td><td>OPM 높게 유지(28%+)되나 OP 성장률 +16%로 완만. 가설2(고성장) 부적합, 가설3(점진 개선) 적용</td></tr>
+      <tr><td>촉매 등급</td><td>중급</td><td>TP 54% 대폭 상향(13,000→20,000원). 디벨로퍼 사업 추정 미반영(미래 업사이드 30~50% 규모)</td></tr>
+      <tr><td>복합 여부</td><td>복합</td><td>① 호텔 만실(ADR 상승) ② 용산 나진상가 디벨로퍼 ③ 신정동 트럭터미널 부지 개발</td></tr>
+      <tr><td>직접성</td><td>직접</td><td>호텔 = 주력 매출 75.3% 직결. 디벨로퍼도 자체 보유 부지</td></tr>
+      <tr><td>매트릭스 기본 점수</td><td>60점</td><td>가설3 × 중급 × 복합 = 60점</td></tr>
+      <tr><td>페널티 ① 미확정 30%+</td><td class="penalty">-10점</td><td>디벨로퍼 분양이익(추정 미반영)이 핵심 업사이드인데, 착공조차 10월 예정. 미확정 비중 높음</td></tr>
+      <tr class="total-row"><td>최종 투자 점수</td><td><span class="highlight-green">50점</span></td><td>주목 40+ 충족. 핵심 5조건 미달(조건1·3)로 주목 확정</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section>
+  <div class="section-title">⚡ 성장 인과 체인</div>
+  <div class="chain-box">
+    <div class="chain-step"><div class="chain-arrow">①</div><div class="chain-content"><div class="chain-label">구조 변화 / 촉매 <span class="chain-confirmed">●●● 확정</span></div><div class="chain-text">인바운드 관광객 급증 → 호텔 만실(OCC 근접, ●●●). 관광호텔업 매출 비중 75.3%(26E). ADR(객실단가) 상승 여력 확인</div></div></div>
+    <div class="chain-step"><div class="chain-arrow">↓</div><div class="chain-content"><div class="chain-label">매출 영향</div><div class="chain-text">26E 매출 2,850억원(+14.8% YoY). 관광호텔업 75.3%, 쇼핑몰운영 18.2%. 27E 매출 3,220억원(+13.0%)</div></div></div>
+    <div class="chain-step"><div class="chain-arrow">↓</div><div class="chain-content"><div class="chain-label">OPM 변화 메커니즘</div><div class="chain-text">만실 상태에서 ADR 인상 → 추가 매출이 거의 고정비 없이 이익으로 전환. 27E에 OPM 35.8%까지 상승 전망(현 28.6% 대비 +7.2%p)</div></div></div>
+    <div class="chain-step"><div class="chain-arrow">↓</div><div class="chain-content"><div class="chain-label">최종 실적 결과 <span class="chain-forecast">●●○ 추정</span></div><div class="chain-text">26E OP 816억원(+16.0% YoY), OPM 28.6%. 27E OP 1,154억원(+41.4%), OPM 35.8%</div></div></div>
+    <div class="chain-step"><div class="chain-arrow">↓</div><div class="chain-content"><div class="chain-label">시장 미반영 포인트</div><div class="chain-text">용산 나진상가 부지(10월 착공) + 신정동 서부트럭터미널 부지 개발의 분양이익이 추정치에 미반영. PBR 0.8배로 자산가치 대비 할인. 디벨로퍼 가치 반영 시 추가 업사이드</div></div></div>
+  </div>
+</section>
+
+<section>
+  <div class="section-title">📌 핵심 팩트 3줄</div>
+  <div class="fact-item">
+    <span class="fact-num">Fact 01</span>
+    <div class="fact-what"><span class="fact-label label-what">WHAT</span>25A 매출 2,483억원, OP 703억원(OPM 28.3%). 26E OP 816억원(+16%), 27E OP 1,154억원(+41.4%, OPM 35.8%)</div>
+    <div class="fact-why"><span class="fact-label label-why">WHY</span>호텔 만실(OCC 근접)에서 ADR 지속 인상. 관광호텔 비중 75.3%로 호텔 실적이 전사 좌우. 27E에 ADR 레벨업 본격화</div>
+    <div class="fact-so"><span class="fact-label label-so">SO WHAT</span>26E는 완만한 성장이나 27E부터 OPM 35%+ 진입. 27E가 실질 변곡점으로 2년 보유 관점 접근 필요</div>
+  </div>
+  <div class="fact-item">
+    <span class="fact-num">Fact 02</span>
+    <div class="fact-what"><span class="fact-label label-what">WHAT</span>TP 13,000→20,000원 54% 상향. BPS(26E) 기준 PBR 1.2배 적용. Upside 44.6%</div>
+    <div class="fact-why"><span class="fact-label label-why">WHY</span>호텔 자산가치 재평가 + 디벨로퍼 사업 가치를 부분 반영. 기존 TP는 호텔업만 반영</div>
+    <div class="fact-so"><span class="fact-label label-so">SO WHAT</span>PBR 0.8배(현재) → 1.2배(TP) 리레이팅. 디벨로퍼 분양이익까지 반영 시 추가 상향 여지</div>
+  </div>
+  <div class="fact-item">
+    <span class="fact-num">Fact 03</span>
+    <div class="fact-what"><span class="fact-label label-what">WHAT</span>용산 나진상가 부지(10월 착공 예정) + 신정동 서부트럭터미널 부지 개발. 분양이익 추정 미반영</div>
+    <div class="fact-why"><span class="fact-label label-why">WHY</span>서부T&D는 호텔업체로만 인식되나, 핵심 입지(용산·신정동)에 대규모 부지 보유. 부동산 디벨로퍼 사업 본격화</div>
+    <div class="fact-so"><span class="fact-label label-so">SO WHAT</span>분양이익 실현 시 OP 추가 상향 트리거. 현 추정치에 미반영된 '숨겨진 가치'가 핵심 투자 포인트</div>
+  </div>
+</section>
+
+<section>
+  <div class="section-title">📄 원본 리포트 핵심 요약</div>
+  <div style="background:#fafafa;border:1px solid #d0d4e0;border-radius:8px;padding:16px 20px;margin-bottom:12px;">
+    <div style="font-size:11px;font-weight:700;letter-spacing:1px;color:#5a6280;margin-bottom:10px;">리포트 핵심 주장</div>
+    <p style="font-size:13px;line-height:1.9;">서부T&D는 호텔 만실 상태에서 ADR 상승으로 안정적 실적 성장 중이며, 시장이 간과하는 '디벨로퍼 DNA'가 핵심. 용산 나진상가·신정동 트럭터미널 대규모 부지 개발이 분양이익으로 이어질 경우 기업가치 레벨업 가능. TP 20,000원(기존 13,000원 대비 +54% 상향).</p>
+    <div style="margin-top:10px;display:flex;gap:8px;flex-wrap:wrap;">
+      <div style="background:#f0f2f8;border:1px solid #d0d4e0;border-radius:6px;padding:6px 12px;font-size:12px;"><span style="color:#5a6280;font-size:10px;display:block;">이전 대비 변화</span>TP 13,000→20,000원(+54% 상향)</div>
+      <div style="background:#f0f2f8;border:1px solid #d0d4e0;border-radius:6px;padding:6px 12px;font-size:12px;"><span style="color:#5a6280;font-size:10px;display:block;">컨센서스 대비</span>PDF 미명시</div>
+    </div>
+  </div>
+  <div style="background:#fafafa;border:1px solid #d0d4e0;border-radius:8px;padding:16px 20px;margin-bottom:12px;">
+    <div style="font-size:11px;font-weight:700;letter-spacing:1px;color:#5a6280;margin-bottom:10px;">사업 구조 & 성장 동력</div>
+    <table style="margin:0;"><thead><tr><th style="width:25%;">사업부</th><th style="width:20%;">매출 비중(26E)</th><th>핵심 성장 드라이버</th></tr></thead>
+    <tbody>
+      <tr><td>관광호텔업</td><td>75.3%</td><td>만실(OCC 근접) + ADR 인상 → 영업 레버리지. 인바운드 관광객 증가 수혜</td></tr>
+      <tr><td>쇼핑몰운영</td><td>18.2%</td><td>안정적 임대수익. 호텔 만실 연동 유동인구 증가</td></tr>
+      <tr><td>디벨로퍼</td><td>추정 미반영</td><td>용산 나진상가(10월 착공) + 신정동 트럭터미널. 분양이익 실현 시 일회성 대규모 OP 기여</td></tr>
+    </tbody></table>
+    <p style="font-size:12px;color:#5a6280;margin-top:10px;">▶ 핵심 메커니즘: 호텔 만실 → ADR 인상 → OPM 확대 + 디벨로퍼 착공 → 분양이익(미반영)</p>
+  </div>
+  <div style="background:#fafafa;border:1px solid #d0d4e0;border-radius:8px;padding:16px 20px;margin-bottom:12px;">
+    <div style="font-size:11px;font-weight:700;letter-spacing:1px;color:#5a6280;margin-bottom:10px;">시장 괴리</div>
+    <table style="margin:0;"><thead><tr><th style="width:30%;">구분</th><th>내용</th></tr></thead>
+    <tbody>
+      <tr><td style="color:#5a6280;">시장 현재 인식</td><td>호텔 운영사로만 평가. 부동산 자산 가치 미반영</td></tr>
+      <tr><td style="color:#2563eb;">이 리포트 주장</td><td>호텔업 + 디벨로퍼(용산·신정동 부지) 복합 가치 기업으로 재평가 필요</td></tr>
+      <tr><td style="color:#b45309;">괴리 해소 촉매</td><td>용산 나진상가 착공(10월) + 분양 일정 구체화</td></tr>
+      <tr><td>괴리 강도</td><td><span style="color:#b45309;">중</span> (디벨로퍼 미반영이나 착공 전 불확실성)</td></tr>
+    </tbody></table>
+  </div>
+  <div style="background:#fafafa;border:1px solid #d0d4e0;border-radius:8px;padding:16px 20px;">
+    <div style="font-size:11px;font-weight:700;letter-spacing:1px;color:#5a6280;margin-bottom:10px;">재무 특징</div>
+    <div style="display:flex;flex-wrap:wrap;gap:8px;">
+      <div style="background:#f0f2f8;border:1px solid #d0d4e0;border-radius:6px;padding:8px 12px;font-size:12px;flex:1;min-width:160px;"><span style="color:#5a6280;font-size:10px;display:block;">부채비율</span>134.7%(25A)→151.3%(26E) — 디벨로퍼 투자로 상승 추세</div>
+      <div style="background:#f0f2f8;border:1px solid #d0d4e0;border-radius:6px;padding:8px 12px;font-size:12px;flex:1;min-width:160px;"><span style="color:#5a6280;font-size:10px;display:block;">PER/PBR</span>26E PER 26.0배, PBR 0.8배</div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="section-title">📈 실적 전망 (연간)</div>
+  <table class="data-table">
+    <caption>단위: 억원 (SK증권 기준) | ★ = 투자 핵심 연도</caption>
+    <thead><tr><th>구분</th><th>2024A</th><th>2025A</th><th style="background:#dbeafe;color:#1e40af;font-weight:700;">2026E ★</th><th>2027E</th><th>2028E</th></tr></thead>
+    <tbody>
+      <tr><td>매출액</td><td>-</td><td>2,483</td><td class="key-col key-num">2,850</td><td>3,220</td><td>-</td></tr>
+      <tr><td>YoY(%)</td><td>-</td><td>-</td><td class="key-col">+14.8%</td><td>+13.0%</td><td>-</td></tr>
+      <tr><td>영업이익</td><td>-</td><td>703</td><td class="key-col key-num">816</td><td>1,154</td><td>-</td></tr>
+      <tr><td>YoY(%)</td><td>-</td><td>-</td><td class="key-col key-num">+16.0%</td><td>+41.4%</td><td>-</td></tr>
+      <tr><td>OPM(%)</td><td>-</td><td>28.3%</td><td class="key-col key-opm">28.6%</td><td>35.8%</td><td>-</td></tr>
+      <tr><td>EPS(원)</td><td>-</td><td>-</td><td class="key-col">-</td><td>-</td><td>-</td></tr>
+      <tr><td>PER(배)</td><td>-</td><td>-</td><td class="key-col">26.0</td><td>-</td><td>-</td></tr>
+      <tr><td>PBR(배)</td><td>-</td><td>-</td><td class="key-col">0.8</td><td>-</td><td>-</td></tr>
+      <tr><td>ROE(%)</td><td>-</td><td>-</td><td class="key-col">3.2%</td><td>-</td><td>-</td></tr>
+    </tbody>
+  </table>
+  <p style="font-size:12px;color:#5a6280;margin-top:10px;">▶ 왜 27E가 실질 변곡점인가: 26E는 OP +16% 완만하나, 27E에 ADR 레벨업 본격화 + OPM 35.8% 진입으로 OP +41.4% 급등. 디벨로퍼 분양이익까지 가세하면 추가 상향 가능.</p>
+</section>
+
+<section>
+  <div class="section-title">📈 분기별 실적</div>
+  <table class="data-table">
+    <caption>단위: 십억원</caption>
+    <thead><tr><th>구분</th><th>1Q25</th><th>2Q25</th><th>3Q25</th><th>4Q25</th><th style="background:#dbeafe;color:#1e40af;">1Q26E</th></tr></thead>
+    <tbody>
+      <tr><td>매출액</td><td>-</td><td>-</td><td>-</td><td>-</td><td class="key-col">-</td></tr>
+      <tr><td>영업이익</td><td>-</td><td>-</td><td>-</td><td>-</td><td class="key-col">-</td></tr>
+      <tr><td>OPM(%)</td><td>-</td><td>-</td><td>-</td><td>-</td><td class="key-col">-</td></tr>
+    </tbody>
+  </table>
+  <p style="font-size:12px;color:#5a6280;margin-top:8px;">* PDF에 분기별 세부 데이터가 제공되지 않아 N/A 처리</p>
+</section>
+
+<section>
+  <div class="section-title">💰 밸류에이션</div>
+  <div class="val-box">
+    <div class="val-formula">BPS(2026E) × PBR 1.2배 = TP 20,000원</div>
+    <p style="color:#5a6280;font-size:12px;margin-top:8px;">▶ 왜 이 배수인가: 호텔 자산가치 + 디벨로퍼 부지가치를 반영한 PBR 접근. 호텔업 평균 PBR 1.0~1.5배 범위 내 1.2배 적용</p>
+  </div>
+</section>
+
+<section>
+  <div class="section-title">⚠️ 리스크</div>
+  <div class="risk-item risk-sev-high">
+    <div class="risk-assumption">🔴 핵심 가정: 디벨로퍼 사업(용산 나진상가·신정동) 정상 착공 및 분양</div>
+    <div class="risk-chain">→ 붕괴 시: 인허가 지연·부동산 시장 악화 → 분양이익 미실현, 부채비율(151%) 부담 가중<br/>→ 실적 영향: 디벨로퍼 미반영이므로 기존 추정치 영향 없으나, 업사이드 소멸</div>
+    <div class="risk-impact-num">→ 주가 영향: TP 20,000원 → 15,000원(-25%), 디벨로퍼 프리미엄 제거</div>
+  </div>
+  <div class="risk-item risk-sev-mid">
+    <div class="risk-assumption">🟠 두 번째 가정: 호텔 ADR 지속 인상 가능</div>
+    <div class="risk-chain">→ 붕괴 시: 경기 둔화·인바운드 감소로 ADR 정체 → 27E OPM 35.8% 달성 실패</div>
+    <div class="risk-impact-num">→ 주가 영향: 27E 기대치 하향 → TP 10~15% 하향 가능</div>
+  </div>
+</section>
+
+<section>
+  <div class="section-title">🎯 모멘텀 확인 체크포인트</div>
+  <div style="background:#fafafa;border:1px solid #d0d4e0;border-radius:8px;padding:4px 16px;">
+    <div class="checkpoint-item">
+      <span class="cp-date">2026.05</span>
+      <div><div class="cp-event">1Q26 실적 — 호텔 OCC·ADR 추이 확인</div>
+        <div class="cp-pass">✅ OPM 28%+ 유지 + ADR YoY 상승 시 → 보유 유지</div>
+        <div class="cp-fail">⛔ OCC 하락·ADR 정체 시 → 비중 축소 검토</div></div>
+    </div>
+    <div class="checkpoint-item">
+      <span class="cp-date">2026.10</span>
+      <div><div class="cp-event">용산 나진상가 부지 착공 여부</div>
+        <div class="cp-pass">✅ 정상 착공 + 분양 일정 구체화 → 핵심 승격 검토</div>
+        <div class="cp-fail">⛔ 착공 지연 시 → 디벨로퍼 프리미엄 제거, 주목 유지</div></div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="section-title">💬 사견 & 투자 행동 결론</div>
+  <div class="opinion-box">
+    <p>서부T&D는 호텔 만실로 안정적 OPM 28%+ 유지되는 우량 호텔주. TP 54% 대폭 상향으로 Upside 44.6% 확보. 다만 ①26E OP +16%로 성장 속도가 느리고 ②디벨로퍼 분양이익은 미반영 상태(착공 전)로 불확실성 상존. ③PER 26.0배로 호텔업 치고 높은 편. 27E OPM 35.8% 진입이 핵심 트리거이므로 1Q26 실적 확인 후 진입이 안전.</p>
+    <div class="decision-box">
+      <div class="decision-btn decision-buy decision-dim">✅ 지금 진입 가능<br/><span style="font-size:11px;font-weight:400;">-</span></div>
+      <div class="decision-btn decision-wait">⏳ 이벤트 후 진입<br/><span style="font-size:11px;font-weight:400;">1Q26 실적 + 착공 확인 후</span></div>
+      <div class="decision-btn decision-avoid decision-dim">🚫 관망<br/><span style="font-size:11px;font-weight:400;">-</span></div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="section-title">🚀 승격 조건 — 주목 종목 전용</div>
+  <div class="upgrade-box">
+    <div class="upgrade-item">
+      <span class="upgrade-when">2026.10 (착공 확인)</span>
+      <span>용산 나진상가 정상 착공 + 분양 일정 확정 → ⭐ 핵심 승격</span>
+    </div>
+    <div class="upgrade-item">
+      <span class="upgrade-when">27E OPM 35%+ 확인</span>
+      <span>분기 실적에서 OPM 32%+ 달성 시 → ⭐ 핵심 검토</span>
+    </div>
+  </div>
+</section>
+
+<div class="disclaimer">※ 본 글은 증권사 리포트를 개인 학습 목적으로 요약·정리한 것이며, 투자 권유가 아닙니다.<br/>※ 제공된 PDF 파일만 활용. 외부 검색·참조 없음.</div>
+</body>
+</html>

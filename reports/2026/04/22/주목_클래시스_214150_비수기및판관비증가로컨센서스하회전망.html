@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>클래시스 (214150) 정리</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Pretendard','Apple SD Gothic Neo',-apple-system,sans-serif; background: #ffffff; color: #1a1d2e; line-height: 1.7; font-size: 14px; max-width: 900px; margin: 0 auto; padding: 32px 20px 80px; }
+  .header { border-left: 4px solid #2563eb; padding: 0 0 0 16px; margin-bottom: 24px; }
+  .header h1 { font-size: 20px; font-weight: 700; margin-bottom: 10px; color: #1a1d2e; }
+  .price-row { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin-top: 10px; }
+  .price-item { background: #f0f2f8; border: 1px solid #d0d4e0; border-radius: 6px; padding: 6px 14px; font-size: 13px; }
+  .price-item .label { color: #5a6280; font-size: 11px; display: block; }
+  .price-item .val { font-weight: 700; color: #1a1d2e; }
+  .upside-val { color: #059669; }
+  .tag-badge { display: inline-flex; align-items: center; gap: 6px; padding: 5px 14px; border-radius: 20px; font-size: 13px; font-weight: 700; }
+  .tag-watch { background: #fffbeb; color: #b45309; border: 1px solid #f59e0b; }
+  .score-badge { display: inline-block; padding: 5px 14px; border-radius: 20px; font-size: 13px; font-weight: 700; background: #f0f2f8; border: 1px solid #d0d4e0; color: #1a1d2e; }
+  .score-mid { color: #b45309; }
+  .pathway-badge { display: inline-flex; align-items: center; gap: 4px; padding: 3px 10px; border-radius: 12px; font-size: 11px; font-weight: 600; background: #f0f2f8; border: 1px solid #d0d4e0; color: #5a6280; }
+  section { margin-bottom: 28px; }
+  .section-title { font-size: 11px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: #5a6280; border-bottom: 1px solid #d0d4e0; padding-bottom: 6px; margin-bottom: 14px; }
+  .pdf-only-banner { background: #fff7ed; border: 1px solid #f97316; border-radius: 8px; padding: 10px 16px; font-size: 12px; color: #c2410c; margin-bottom: 20px; text-align: center; font-weight: 700; }
+  .thesis-box { background: #f8faff; border: 1px solid #2563eb; border-radius: 8px; padding: 16px 20px; font-size: 15px; font-weight: 600; line-height: 1.6; color: #1a1d2e; }
+  .thesis-structure { display: flex; gap: 8px; align-items: center; margin-top: 10px; flex-wrap: wrap; }
+  .thesis-part { background: #f0f2f8; border: 1px solid #d0d4e0; border-radius: 6px; padding: 4px 10px; font-size: 12px; color: #1a1d2e; }
+  .thesis-arrow { color: #2563eb; font-size: 16px; }
+  .checklist { background: #fafafa; border: 1px solid #d0d4e0; border-radius: 8px; overflow: hidden; }
+  .checklist-item { display: flex; gap: 14px; align-items: flex-start; padding: 12px 16px; border-bottom: 1px solid #d0d4e0; }
+  .checklist-item:last-child { border-bottom: none; }
+  .check-icon { width: 22px; height: 22px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; flex-shrink: 0; margin-top: 1px; }
+  .check-pass { background: #ecfdf5; color: #059669; border: 1px solid #34d399; }
+  .check-fail { background: #fef2f2; color: #dc2626; border: 1px solid #fca5a5; }
+  .check-label { font-weight: 600; font-size: 13px; color: #1a1d2e; }
+  .check-why { color: #1a1d2e; font-size: 13px; }
+  table { width: 100%; border-collapse: collapse; background: #fafafa; border-radius: 8px; overflow: hidden; border: 1px solid #d0d4e0; }
+  thead tr { background: #f0f2f8; }
+  th { padding: 10px 14px; text-align: left; font-size: 11px; font-weight: 700; color: #5a6280; letter-spacing: 0.8px; text-transform: uppercase; }
+  td { padding: 10px 14px; border-top: 1px solid #d0d4e0; font-size: 13px; color: #1a1d2e; }
+  tr.total-row td { background: #e8ecf5; font-weight: 700; }
+  .penalty { color: #dc2626; }
+  .highlight-green { color: #059669; font-weight: 700; }
+  .chain-box { background: #fafafa; border: 1px solid #d0d4e0; border-radius: 8px; padding: 16px 20px; }
+  .chain-step { display: flex; gap: 12px; align-items: flex-start; margin-bottom: 10px; }
+  .chain-step:last-child { margin-bottom: 0; }
+  .chain-arrow { color: #2563eb; font-size: 16px; flex-shrink: 0; margin-top: 1px; }
+  .chain-content { flex: 1; }
+  .chain-label { font-size: 10px; font-weight: 700; letter-spacing: 1px; color: #5a6280; text-transform: uppercase; margin-bottom: 2px; }
+  .chain-text { font-size: 13px; color: #1a1d2e; }
+  .chain-confirmed { color: #059669; font-size: 11px; margin-left: 6px; }
+  .chain-forecast { color: #b45309; font-size: 11px; margin-left: 6px; }
+  .fact-item { background: #fafafa; border: 1px solid #d0d4e0; border-radius: 8px; padding: 14px 16px; margin-bottom: 8px; }
+  .fact-item:last-child { margin-bottom: 0; }
+  .fact-num { font-size: 10px; font-weight: 700; color: #2563eb; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 8px; display: block; }
+  .fact-what { font-weight: 600; font-size: 14px; margin-bottom: 6px; color: #1a1d2e; }
+  .fact-why { font-size: 13px; color: #5a6280; margin-bottom: 6px; }
+  .fact-so { font-size: 13px; color: #059669; }
+  .fact-label { display: inline-block; font-size: 10px; font-weight: 700; padding: 1px 6px; border-radius: 3px; margin-right: 4px; }
+  .label-what { background: #eff6ff; color: #1d4ed8; }
+  .label-why { background: #fff7ed; color: #ea580c; }
+  .label-so { background: #ecfdf5; color: #059669; }
+  .data-table th { background: #e8ecf5; }
+  .data-table td.key-col { background: #f0f6ff; }
+  .data-table .key-num { color: #059669; font-weight: 700; }
+  .data-table .key-opm { color: #b45309; }
+  caption { font-size: 11px; color: #5a6280; text-align: left; padding: 0 0 8px; caption-side: top; }
+  .val-box { background: #fafafa; border: 1px solid #d0d4e0; border-radius: 8px; padding: 16px 20px; font-size: 13px; line-height: 2; color: #1a1d2e; }
+  .val-formula { background: #f0f2f8; border-radius: 6px; padding: 10px 14px; font-family: monospace; font-size: 13px; margin: 10px 0; color: #b45309; }
+  .risk-item { background: #fafafa; border-radius: 0 6px 6px 0; padding: 14px 16px; margin-bottom: 10px; }
+  .risk-item:last-child { margin-bottom: 0; }
+  .risk-sev-high { border-left: 3px solid #dc2626; }
+  .risk-sev-mid { border-left: 3px solid #ea580c; }
+  .risk-assumption { font-weight: 600; font-size: 13px; margin-bottom: 4px; color: #1a1d2e; }
+  .risk-chain { font-size: 12px; color: #5a6280; margin: 4px 0; }
+  .risk-impact-num { font-size: 13px; color: #dc2626; font-weight: 600; margin-top: 4px; }
+  .checkpoint-item { display: flex; gap: 12px; padding: 10px 0; border-bottom: 1px solid #d0d4e0; font-size: 13px; }
+  .checkpoint-item:last-child { border-bottom: none; }
+  .cp-date { color: #2563eb; font-weight: 600; min-width: 90px; flex-shrink: 0; }
+  .cp-event { flex: 1; color: #1a1d2e; }
+  .cp-pass { color: #059669; font-size: 12px; margin-top: 2px; }
+  .cp-fail { color: #dc2626; font-size: 12px; margin-top: 2px; }
+  .opinion-box { background: #fafafa; border: 1px solid #d0d4e0; border-radius: 8px; padding: 16px 20px; font-size: 13px; line-height: 1.8; color: #5a6280; }
+  .decision-box { display: flex; gap: 14px; margin-top: 14px; }
+  .decision-btn { flex: 1; text-align: center; padding: 10px; border-radius: 6px; font-weight: 700; font-size: 13px; border: 1px solid; }
+  .decision-buy { background: #ecfdf5; color: #059669; border-color: #34d399; }
+  .decision-wait { background: #fffbeb; color: #b45309; border-color: #f59e0b; }
+  .decision-avoid { background: #fef2f2; color: #dc2626; border-color: #fca5a5; }
+  .decision-dim { opacity: 0.3; }
+  .upgrade-box { background: #eff6ff; border: 1px solid #93c5fd; border-radius: 8px; padding: 14px 16px; }
+  .upgrade-item { display: flex; gap: 10px; padding: 6px 0; border-bottom: 1px solid #dbeafe; font-size: 13px; color: #1a1d2e; }
+  .upgrade-item:last-child { border-bottom: none; }
+  .upgrade-when { color: #1d4ed8; font-weight: 600; min-width: 140px; flex-shrink: 0; }
+  .disclaimer { font-size: 11px; color: #9ca3af; text-align: center; margin-top: 40px; padding-top: 16px; border-top: 1px solid #d0d4e0; }
+</style>
+</head>
+<body>
+
+<div class="pdf-only-banner">
+  🚫 외부 검색 절대 금지 — 제공된 PDF 파일만 활용 | 당일 발간 리포트 기준 투자 종목 발굴 전용
+</div>
+
+<header class="header">
+  <h1>클래시스 (214150) | 비수기 및 판관비 증가로 컨센서스 하회 전망 DB증권 김지은 | 발간일: 2026.04.22</h1>
+  <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-bottom:12px;">
+    <span class="tag-badge tag-watch">🔥 주목</span>
+    <span class="score-badge score-mid">📊 50점</span>
+    <span style="font-size:12px;color:#5a6280;">비바이오</span>
+    <span class="pathway-badge">경로 ①OPM확장</span>
+  </div>
+  <div class="price-row">
+    <div class="price-item"><span class="label">투자의견</span><span class="val">BUY(유지)</span></div>
+    <div class="price-item"><span class="label">목표주가(TP)</span><span class="val">77,000원</span></div>
+    <div class="price-item"><span class="label">현재주가(CP)</span><span class="val">57,100원</span></div>
+    <div class="price-item"><span class="label">Upside</span><span class="val upside-val">+34.9%</span></div>
+    <div class="price-item"><span class="label">시가총액</span><span class="val">37,250억원</span></div>
+    <div class="price-item"><span class="label">종목 유형</span><span class="val">비바이오</span></div>
+  </div>
+</header>
+
+<!-- B. 한줄 투자 이유 -->
+<section>
+  <div class="section-title">💡 이 종목에 투자해야 하는 이유 — 스토리 한 줄</div>
+  <div class="thesis-box">
+    HIFU 글로벌 #1 기업으로 26E OP 2,351억원(+37.8%), OPM 49.8%. 중국 볼뉴머 NMPA 허가(2H26, ●●○) + 미국 울트라포머 허가(2H27, ●○○) 등 중장기 성장 모멘텀 보유. 다만 1Q26 컨센 하회 + Upside 34.9%로 핵심 미달
+  </div>
+  <div class="thesis-structure">
+    <div class="thesis-part" style="color:#059669;">① 글로벌 HIFU #1 + 인허가 파이프라인(●●○)</div>
+    <div class="thesis-arrow">→</div>
+    <div class="thesis-part" style="color:#b45309;">② 26E OP +37.8%, OPM 49.8%</div>
+    <div class="thesis-arrow">→</div>
+    <div class="thesis-part" style="color:#2563eb;">③ Upside 34.9% (40% 미달)</div>
+  </div>
+</section>
+
+<!-- C. 핵심 5조건 -->
+<section>
+  <div class="section-title">✅ 핵심 태그 5가지 조건 체크 (5개 모두 통과해야 ⭐핵심 이상 가능)</div>
+  <div class="checklist">
+    <div class="checklist-item">
+      <div class="check-icon check-fail">✗</div>
+      <div>
+        <div class="check-label">조건 1 | 영업이익(OP) 성장 임계값</div>
+        <div class="check-why">26E OP 2,351억원(+37.8% YoY), OPM 49.8%. OP +50% 미달. 불통과</div>
+      </div>
+    </div>
+    <div class="checklist-item">
+      <div class="check-icon check-pass">✓</div>
+      <div>
+        <div class="check-label">조건 2 | 3년 지속성 (3개 이상 충족)</div>
+        <div class="check-why">① HIFU 글로벌 설치 45,000대(#1) ② 브라질 Medsystems 인수(유통 확대) ③ 중국 NMPA + 미국 FDA 인허가 파이프라인 → 3개 충족</div>
+      </div>
+    </div>
+    <div class="checklist-item">
+      <div class="check-icon check-fail">✗</div>
+      <div>
+        <div class="check-label">조건 3 | 확정 팩트(●●●) 2개 이상</div>
+        <div class="check-why">●●● 브라질 Medsystems 인수 완료(3월). 중국 NMPA 허가(2H26)·미국 FDA(2H27)는 ●●○~●○○ 수준. ●●● 1개로 2개 미달</div>
+      </div>
+    </div>
+    <div class="checklist-item">
+      <div class="check-icon check-fail">✗</div>
+      <div>
+        <div class="check-label">조건 4 | 시장 미반영 (Upside 40%+ OR 컨센 괴리 20%+)</div>
+        <div class="check-why">Upside 34.9%. 1Q26 OP 430억원 vs 컨센 453억원(-5.2% 하회). 두 조건 모두 미달</div>
+      </div>
+    </div>
+    <div class="checklist-item">
+      <div class="check-icon check-fail">✗</div>
+      <div>
+        <div class="check-label">조건 5 | 이 리포트만의 차별화된 시각</div>
+        <div class="check-why">1Q26 컨센 하회 전망 + 비수기·판관비 증가는 업계 공통 인식. 역사적 저평가 구간 언급이나 새로운 시각 부재</div>
+      </div>
+    </div>
+  </div>
+  <p style="font-size:11px;color:#dc2626;margin-top:8px;padding:0 4px;">
+    ⚠️ 조건1(OP +37.8% < 50%), 조건3(확정팩트 1개), 조건4(Upside 34.9%), 조건5(차별화 부족) → 주목
+  </p>
+</section>
+
+<!-- D. 투자 점수 -->
+<section>
+  <div class="section-title">📊 투자 점수 판정 (v2.0 비바이오) — 모든 근거 칸 필수 기재</div>
+  <table>
+    <thead><tr><th>항목</th><th>판정</th><th>근거 (Why)</th></tr></thead>
+    <tbody>
+      <tr><td>종목 유형</td><td>비바이오</td><td>미용의료기기(HIFU), 실적 기반 주가</td></tr>
+      <tr><td>적용 가설</td><td>가설 3</td><td>26E OP +37.8%, OPM 49.8%로 견조한 성장이나 가설1(+50%) 미달</td></tr>
+      <tr><td>촉매 등급</td><td>중급</td><td>브라질 Medsystems 인수(●●●) + 중국 NMPA 허가 대기(2H26, ●●○). 인허가 시점 불확실</td></tr>
+      <tr><td>복합 여부</td><td>단독</td><td>미용의료기기 글로벌 확대라는 단일 축. 브라질 인수·중국 허가 모두 같은 방향</td></tr>
+      <tr><td>직접성</td><td>직접</td><td>장비·소모품 매출 직결</td></tr>
+      <tr><td>매트릭스 기본 점수</td><td>60점</td><td>가설3 × 중급 × 단독 = 60점</td></tr>
+      <tr><td>페널티 ① 컨센 반영</td><td class="penalty">-10점</td><td>1Q26 OP 430억원 vs 컨센 453억원(-5.2% 하회). 시장 기대치 이미 높으나 하회 전망</td></tr>
+      <tr class="total-row"><td>최종 투자 점수</td><td><span class="highlight-green">50점</span></td><td>주목 40+ 충족. 핵심 5조건 4개 미달로 주목 확정</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<!-- E. 성장 인과 체인 -->
+<section>
+  <div class="section-title">⚡ 성장 인과 체인 — 왜 성장하는가 (각 단계에 수치 필수)</div>
+  <div class="chain-box">
+    <div class="chain-step">
+      <div class="chain-arrow">①</div>
+      <div class="chain-content">
+        <div class="chain-label">구조 변화 / 촉매 <span class="chain-confirmed">●●● 확정 팩트</span></div>
+        <div class="chain-text">브라질 Medsystems 인수 완료(3월, ●●●). 중국 볼뉴머 NMPA 허가 대기(2H26, ●●○). 미국 울트라포머 FDA 허가(2H27, ●○○). HIFU 글로벌 45,000대 설치(#1)</div>
+      </div>
+    </div>
+    <div class="chain-step">
+      <div class="chain-arrow">↓</div>
+      <div class="chain-content">
+        <div class="chain-label">매출 영향 (규모·비중 수치)</div>
+        <div class="chain-text">26E 매출 4,719억원(+40.1% YoY). 장비 2,601억원(55%), 소모품 2,040억원(43%). 수출 장비 2,067억원, 소모품 1,376억원</div>
+      </div>
+    </div>
+    <div class="chain-step">
+      <div class="chain-arrow">↓</div>
+      <div class="chain-content">
+        <div class="chain-label">OPM 변화 메커니즘</div>
+        <div class="chain-text">소모품 비중 43%로 리커링 매출 안정. 매출총이익률 77.0% 유지. 판관비 증가(+38% YoY, Medsystems 인수·일회성 비용)로 OPM 50.3%→49.8%(-0.5%p) 소폭 하락</div>
+      </div>
+    </div>
+    <div class="chain-step">
+      <div class="chain-arrow">↓</div>
+      <div class="chain-content">
+        <div class="chain-label">최종 실적 결과 <span class="chain-forecast">●●○ 추정</span></div>
+        <div class="chain-text">26E OP 2,351억원(+37.8% YoY), OPM 49.8%. 27E OP 2,984억원(+26.9%), OPM 50.9%. 성장 지속 전망</div>
+      </div>
+    </div>
+    <div class="chain-step">
+      <div class="chain-arrow">↓</div>
+      <div class="chain-content">
+        <div class="chain-label">시장 미반영 포인트 (So What)</div>
+        <div class="chain-text">12M Fwd P/E 20.2배로 역사적 저평가 구간. 2월 베인캐피탈 2차 블록딜 + 미용의료 업종 디레이팅이 원인. 중국 NMPA + 미국 FDA 인허가가 중장기 리레이팅 촉매</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- F. 핵심 팩트 3줄 -->
+<section>
+  <div class="section-title">📌 핵심 팩트 3줄 — WHAT(숫자) + WHY(원인) + SO WHAT(의미) 3요소 필수</div>
+  <div class="fact-item">
+    <span class="fact-num">Fact 01</span>
+    <div class="fact-what"><span class="fact-label label-what">WHAT</span>1Q26E OP 430억원(+10.8% YoY, -16.1% QoQ), OPM 48.7%로 컨센서스(453억원) -5.2% 하회 전망</div>
+    <div class="fact-why"><span class="fact-label label-why">WHY</span>비수기 영향(장비 -5.6% QoQ) + 일회성 판관비 증가(브라질 Medsystems 인수 + 중국 NMPA 관련 지급수수료). 대손충당금 재분류로 OPM 전분기(54.8%) 대비 -6.1%p 하락</div>
+    <div class="fact-so"><span class="fact-label label-so">SO WHAT</span>단기 실적 부진이나 비수기 + 일회성 비용 성격. 2Q부터 장비·소모품 동반 성장으로 실적 회복 전망</div>
+  </div>
+  <div class="fact-item">
+    <span class="fact-num">Fact 02</span>
+    <div class="fact-what"><span class="fact-label label-what">WHAT</span>26E 연간 OP 2,351억원(+37.8%), OPM 49.8%. HIFU 글로벌 누적 21,000대, MRF 3,300대, MNRF 6,500대 설치</div>
+    <div class="fact-why"><span class="fact-label label-why">WHY</span>글로벌 미용의료기기 설치 기반 확대 + 소모품 리커링 매출(비중 43%). 유럽 9,000대(+1,530), 아시아 12,000대(+1,800) 설치 확대</div>
+    <div class="fact-so"><span class="fact-label label-so">SO WHAT</span>설치 기반 확대로 소모품 매출 안정 성장. OPM 50% 수준 유지로 수익성 최상위권. 장비 교체 사이클 + 신규 시장 진입이 성장 동력</div>
+  </div>
+  <div class="fact-item">
+    <span class="fact-num">Fact 03</span>
+    <div class="fact-what"><span class="fact-label label-what">WHAT</span>브라질 Medsystems 인수 완료(3월). 26E 연결 매출 339억원 예상. 중국 볼뉴머 NMPA 허가(2H26), 미국 울트라포머 허가(2H27) 대기</div>
+    <div class="fact-why"><span class="fact-label label-why">WHY</span>브라질 유통사 인수로 남미 직접 진출. 중국·미국 인허가로 세계 3대 시장 동시 공략 전략. 클래시스 자체 목표는 Medsystems 연결 매출 500~700억원</div>
+    <div class="fact-so"><span class="fact-label label-so">SO WHAT</span>중장기 성장 모멘텀 강력하나 단기 실적 기여 제한적. NMPA·FDA 인허가 가시화 시 멀티플 리레이팅 가능</div>
+  </div>
+</section>
+
+<!-- F-2. 원본 리포트 핵심 요약 -->
+<section>
+  <div class="section-title">📄 원본 리포트 핵심 요약 — PDF 내용 직접 발췌 (외부 정보 추가 금지)</div>
+  <div style="background:#fafafa;border:1px solid #d0d4e0;border-radius:8px;padding:16px 20px;margin-bottom:12px;">
+    <div style="font-size:11px;font-weight:700;letter-spacing:1px;color:#5a6280;text-transform:uppercase;margin-bottom:10px;">리포트 핵심 주장 (애널리스트 관점 요약)</div>
+    <p style="font-size:13px;line-height:1.9;">1Q26 비수기 + 일회성 판관비 증가로 컨센 하회 전망이나, 역사적 저평가 구간(12M Fwd P/E 20.2배). 2H26 중국 볼뉴머 NMPA 허가, 2H27 미국 울트라포머 FDA 허가 등 중장기 성장 모멘텀 유효. BUY 유지, TP 77,000원 유지.</p>
+    <div style="margin-top:10px;display:flex;gap:8px;flex-wrap:wrap;">
+      <div style="background:#f0f2f8;border:1px solid #d0d4e0;border-radius:6px;padding:6px 12px;font-size:12px;">
+        <span style="color:#5a6280;font-size:10px;display:block;margin-bottom:2px;">이전 대비 변화 포인트</span>
+        TP 77,000원 유지, BUY 유지. TP 변경 이력: 48,000→50,000→60,000→70,000→75,000→77,000원(25.02)
+      </div>
+      <div style="background:#f0f2f8;border:1px solid #d0d4e0;border-radius:6px;padding:6px 12px;font-size:12px;">
+        <span style="color:#5a6280;font-size:10px;display:block;margin-bottom:2px;">컨센서스 대비</span>
+        1Q26 OP 430억원 vs 컨센 453억원 (-5.2% 하회)
+      </div>
+    </div>
+  </div>
+  <div style="background:#fafafa;border:1px solid #d0d4e0;border-radius:8px;padding:16px 20px;margin-bottom:12px;">
+    <div style="font-size:11px;font-weight:700;letter-spacing:1px;color:#5a6280;text-transform:uppercase;margin-bottom:10px;">사업 구조 & 성장 동력</div>
+    <table style="margin:0;">
+      <thead><tr><th style="width:25%;">사업부</th><th style="width:20%;">매출 비중(26E)</th><th style="width:55%;">핵심 성장 드라이버</th></tr></thead>
+      <tbody>
+        <tr><td>장비(HIFU/MRF/MNRF)</td><td>55%</td><td>글로벌 45,000대 설치 기반. 신규 시장(브라질·중국·미국) 인허가로 확대</td></tr>
+        <tr><td>소모품</td><td>43%</td><td>설치 기반 기반 리커링 매출. 매출 +32% YoY 성장. 고마진 안정 수익원</td></tr>
+        <tr><td>홈케어</td><td>2%</td><td>소비자 직접 판매. 초기 단계</td></tr>
+      </tbody>
+    </table>
+    <p style="font-size:12px;color:#5a6280;margin-top:10px;">▶ 핵심 성장 메커니즘: 글로벌 HIFU #1 → 장비 설치 확대 → 소모품 리커링 매출 안정 성장 + 신규 시장 인허가로 TAM 확대</p>
+  </div>
+  <div style="background:#fafafa;border:1px solid #d0d4e0;border-radius:8px;padding:16px 20px;margin-bottom:12px;">
+    <div style="font-size:11px;font-weight:700;letter-spacing:1px;color:#5a6280;text-transform:uppercase;margin-bottom:10px;">시장 괴리 — 왜 지금 시장이 틀렸는가</div>
+    <table style="margin:0;">
+      <thead><tr><th style="width:30%;">구분</th><th>내용</th></tr></thead>
+      <tbody>
+        <tr><td style="color:#5a6280;">시장 현재 인식</td><td>베인캐피탈 2차 블록딜(2월) + 미용의료 업종 디레이팅. 12M -45.3%</td></tr>
+        <tr><td style="color:#2563eb;">이 리포트 주장</td><td>역사적 저평가(12M Fwd P/E 20.2배). 중장기 인허가 모멘텀 유효</td></tr>
+        <tr><td style="color:#b45309;">괴리 해소 촉매</td><td>2H26 중국 NMPA 허가 + 2H27 미국 FDA 허가</td></tr>
+        <tr><td>괴리 강도</td><td><span style="color:#b45309;">중</span> (Upside 34.9%이나 인허가 시점 불확실)</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div style="background:#fafafa;border:1px solid #d0d4e0;border-radius:8px;padding:16px 20px;">
+    <div style="font-size:11px;font-weight:700;letter-spacing:1px;color:#5a6280;text-transform:uppercase;margin-bottom:10px;">재무 특징 (PDF에 있는 경우만)</div>
+    <div style="display:flex;flex-wrap:wrap;gap:8px;">
+      <div style="background:#f0f2f8;border:1px solid #d0d4e0;border-radius:6px;padding:8px 12px;font-size:12px;flex:1;min-width:160px;"><span style="color:#5a6280;font-size:10px;display:block;margin-bottom:2px;">순현금/순차입금</span>-</div>
+      <div style="background:#f0f2f8;border:1px solid #d0d4e0;border-radius:6px;padding:8px 12px;font-size:12px;flex:1;min-width:160px;"><span style="color:#5a6280;font-size:10px;display:block;margin-bottom:2px;">부채비율</span>24.0%(26E)</div>
+      <div style="background:#f0f2f8;border:1px solid #d0d4e0;border-radius:6px;padding:8px 12px;font-size:12px;flex:1;min-width:160px;"><span style="color:#5a6280;font-size:10px;display:block;margin-bottom:2px;">배당·자사주</span>DPS 1,000원(26E)</div>
+      <div style="background:#f0f2f8;border:1px solid #d0d4e0;border-radius:6px;padding:8px 12px;font-size:12px;flex:1;min-width:160px;"><span style="color:#5a6280;font-size:10px;display:block;margin-bottom:2px;">특이 재무 이슈</span>외국인 지분율 70.9%, 베인캐피탈 블록딜 영향</div>
+    </div>
+  </div>
+</section>
+
+<!-- G. 실적 전망 (연간) -->
+<section>
+  <div class="section-title">📈 실적 전망 (연간) — PDF 원문 수치만 기재, 추정 금지</div>
+  <table class="data-table">
+    <caption>단위: 억원 — PDF 단위 확인 완료 | ★ = 투자 핵심 연도</caption>
+    <thead>
+      <tr>
+        <th>구분</th><th>2024</th><th>2025</th>
+        <th style="background:#dbeafe;color:#1e40af;font-weight:700;">2026E ★</th>
+        <th>2027E</th><th>2028E</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td>매출액</td><td>243</td><td>337</td><td class="key-col key-num">472</td><td>586</td><td>797</td></tr>
+      <tr><td>YoY(%)</td><td>34.9%</td><td>38.6%</td><td class="key-col">+40.1%</td><td>+24.3%</td><td>+35.9%</td></tr>
+      <tr><td>영업이익</td><td>122</td><td>171</td><td class="key-col key-num">235</td><td>298</td><td>411</td></tr>
+      <tr><td>YoY(%)</td><td>36.6%</td><td>39.3%</td><td class="key-col key-num">+37.8%</td><td>+26.9%</td><td>+37.8%</td></tr>
+      <tr><td>OPM(%)</td><td>50.4%</td><td>50.7%</td><td class="key-col key-opm">49.8%</td><td>50.9%</td><td>51.6%</td></tr>
+      <tr><td>EPS(원)</td><td>1,517</td><td>2,014</td><td class="key-col">2,807</td><td>3,443</td><td>4,867</td></tr>
+      <tr><td>PER(배)</td><td>41.5/18.4</td><td>36.9/22.6</td><td class="key-col">20.3</td><td>16.6</td><td>11.7</td></tr>
+      <tr><td>PBR(배)</td><td>9.1/4.0</td><td>8.8/5.4</td><td class="key-col">5.6</td><td>4.5</td><td>3.4</td></tr>
+      <tr><td>ROE(%)</td><td>26.5</td><td>26.2</td><td class="key-col">29.9</td><td>29.9</td><td>33.2</td></tr>
+    </tbody>
+  </table>
+  <p style="font-size:12px;color:#5a6280;margin-top:10px;padding:0 4px;">
+    ▶ 단위 참고: 위 표는 십억원 기준(PDF 연결 실적 표 기준). 26E OP 235십억원 = 2,351억원. OPM 50% 수준 유지가 핵심.
+  </p>
+</section>
+
+<!-- H. 분기별 실적 -->
+<section>
+  <div class="section-title">📅 분기별 실적 전망 — PDF에 있으면 반드시 기재, 생략 금지</div>
+  <table class="data-table">
+    <caption>단위: 억원</caption>
+    <thead>
+      <tr>
+        <th>구분</th>
+        <th>1Q25</th><th>2Q25</th><th>3Q25</th><th>4Q25</th>
+        <th style="background:#dbeafe;color:#1e40af;font-weight:700;">1Q26E ★</th>
+        <th>2Q26E</th><th>3Q26E</th><th>4Q26E</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td>매출액</td><td>771</td><td>833</td><td>830</td><td>934</td><td class="key-col key-num">882</td><td>1,181</td><td>1,209</td><td>1,446</td></tr>
+      <tr><td>영업이익</td><td>388</td><td>430</td><td>376</td><td>512</td><td class="key-col key-num">430</td><td>587</td><td>586</td><td>748</td></tr>
+      <tr><td>OPM(%)</td><td>50.3%</td><td>51.6%</td><td>45.3%</td><td>54.8%</td><td class="key-col key-opm">48.7%</td><td>49.7%</td><td>48.5%</td><td>51.7%</td></tr>
+    </tbody>
+  </table>
+  <p style="font-size:12px;color:#5a6280;margin-top:10px;padding:0 4px;">
+    ▶ 1Q26 주목 포인트: OPM 48.7%로 전분기(54.8%) 대비 -6.1%p 하락. 비수기 + Medsystems 일회성 비용 영향. 컨센 하회(-5.2%) 여부 확인. 4Q26 OP 748억원이 연간 피크.
+  </p>
+</section>
+
+<!-- I. 밸류에이션 -->
+<section>
+  <div class="section-title">💰 밸류에이션 — 왜 이 배수인가 1문장 필수</div>
+  <div class="val-box">
+    <div class="val-formula">26E EPS 2,807원 × PER 약 27.4배 = TP 77,000원 (12M Fwd P/E 20.2배 기준 역사적 저평가)</div>
+    <p style="color:#5a6280;font-size:12px;margin-top:8px;">▶ 왜 이 배수인가: 글로벌 미용의료기기 #1 프리미엄 + OPM 50% 수익성. 역사적 PER 밴드 하단(22.6~41.5배 중 저점 부근)</p>
+    <p style="color:#5a6280;font-size:12px;margin-top:4px;">▶ SOTP 적용 시: 해당 없음</p>
+  </div>
+</section>
+
+<!-- J. 리스크 -->
+<section>
+  <div class="section-title">⚠️ 리스크 — 핵심 가정이 틀릴 경우 시나리오 (키워드 나열 금지)</div>
+  <div class="risk-item risk-sev-high">
+    <div class="risk-assumption">🔴 핵심 가정: 중국 NMPA 볼뉴머 허가(2H26) 일정 준수</div>
+    <div class="risk-chain" style="margin-top:6px;">→ 붕괴 시: NMPA 허가 지연 1~2년 시 중국 시장 진입 지연. 26E~27E 추정치 미반영이나 중장기 기대감 훼손<br/>→ 실적 영향: 직접적 실적 영향 제한(아직 매출 미반영)이나 멀티플 디레이팅</div>
+    <div class="risk-impact-num">→ 주가 영향: PER 멀티플 15배 적용 시 TP 42,000원(-45%)</div>
+  </div>
+  <div class="risk-item risk-sev-mid">
+    <div class="risk-assumption">🟠 두 번째 가정: 베인캐피탈 추가 블록딜 가능성</div>
+    <div class="risk-chain" style="margin-top:6px;">→ 붕괴 시: 추가 지분 매각 시 수급 악화 + 주가 하방 압력</div>
+    <div class="risk-impact-num">→ 주가 영향: 단기 -10~15% 추가 하락 가능</div>
+  </div>
+</section>
+
+<!-- K. 체크포인트 -->
+<section>
+  <div class="section-title">🎯 모멘텀 확인 체크포인트 — 확인/실망 시 행동 명시</div>
+  <div style="background:#fafafa;border:1px solid #d0d4e0;border-radius:8px;padding:4px 16px;">
+    <div class="checkpoint-item">
+      <span class="cp-date">2026.05</span>
+      <div>
+        <div class="cp-event">1Q26 실적 발표 — OP 430억원 vs 컨센 453억원</div>
+        <div class="cp-pass">✅ OPM 49%+ 유지 확인 시 → 일회성 비용 확인, 보유 유지</div>
+        <div class="cp-fail">⛔ OPM 45% 이하 또는 소모품 성장 둔화 → 비중 축소</div>
+      </div>
+    </div>
+    <div class="checkpoint-item">
+      <span class="cp-date">2026.하반기</span>
+      <div>
+        <div class="cp-event">중국 볼뉴머 NMPA 허가 결과</div>
+        <div class="cp-pass">✅ NMPA 허가 확정 시 → 핵심 승격 검토</div>
+        <div class="cp-fail">⛔ 허가 지연 시 → 주목 유지, 멀티플 하향 리스크</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- L. 사견 & 결론 -->
+<section>
+  <div class="section-title">💬 사견 & 투자 행동 결론</div>
+  <div class="opinion-box">
+    <p>클래시스는 글로벌 HIFU #1으로 OPM 50% 수준의 최상위 수익성 보유. 26E OP +37.8%(2,351억원) 성장 견조하나 ①1Q26 컨센 하회 전망(-5.2%), ②Upside 34.9%로 핵심 조건 미달, ③베인캐피탈 블록딜 수급 부담. 중국 NMPA + 미국 FDA 인허가가 중장기 핵심 촉매. 현 PER 20.2배는 역사적 저평가이나 인허가 시점 불확실성 감안 시 이벤트 대기 전략이 적절.</p>
+    <div class="decision-box">
+      <div class="decision-btn decision-buy decision-dim">✅ 지금 진입 가능<br/><span style="font-size:11px;font-weight:400;">-</span></div>
+      <div class="decision-btn decision-wait">⏳ 이벤트 후 진입<br/><span style="font-size:11px;font-weight:400;">NMPA 허가 확정 or 1Q26 실적 확인 후</span></div>
+      <div class="decision-btn decision-avoid decision-dim">🚫 관망<br/><span style="font-size:11px;font-weight:400;">-</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- M. 승격 조건 -->
+<section>
+  <div class="section-title">🚀 승격 조건 — 주목 종목 전용 (핵심 이상은 삭제)</div>
+  <div class="upgrade-box">
+    <div class="upgrade-item">
+      <span class="upgrade-when">2H26 NMPA 허가</span>
+      <span>중국 볼뉴머 NMPA 허가 확정 시 → ⭐ 핵심 승격</span>
+    </div>
+    <div class="upgrade-item">
+      <span class="upgrade-when">Upside 50%+ 도달</span>
+      <span>주가 조정으로 CP 51,000원 이하 → ⭐ 핵심 검토</span>
+    </div>
+  </div>
+</section>
+
+<div class="disclaimer">
+  ※ 본 글은 증권사 리포트를 개인 학습 목적으로 요약·정리한 것이며, 투자 권유가 아닙니다.<br/>
+  ※ 제공된 PDF 파일만 활용. 외부 검색·참조 없음. 당일 발간 리포트 기준.
+</div>
+
+</body>
+</html>

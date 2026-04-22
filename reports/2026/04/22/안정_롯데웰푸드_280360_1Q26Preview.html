@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>롯데웰푸드 (280360) 정리</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Pretendard','Apple SD Gothic Neo',-apple-system,sans-serif; background: #ffffff; color: #1a1d2e; line-height: 1.7; font-size: 14px; max-width: 900px; margin: 0 auto; padding: 32px 20px 80px; }
+  .header { border-left: 4px solid #2563eb; padding: 0 0 0 16px; margin-bottom: 24px; } .header h1 { font-size: 20px; font-weight: 700; margin-bottom: 10px; } .price-row { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin-top: 10px; } .price-item { background: #f0f2f8; border: 1px solid #d0d4e0; border-radius: 6px; padding: 6px 14px; font-size: 13px; } .price-item .label { color: #5a6280; font-size: 11px; display: block; } .price-item .val { font-weight: 700; } .upside-val { color: #059669; } .tag-badge { display: inline-flex; align-items: center; gap: 6px; padding: 5px 14px; border-radius: 20px; font-size: 13px; font-weight: 700; } .tag-stable { background: #eff6ff; color: #1d4ed8; border: 1px solid #60a5fa; } .score-badge { display: inline-block; padding: 5px 14px; border-radius: 20px; font-size: 13px; font-weight: 700; background: #f0f2f8; border: 1px solid #d0d4e0; } .score-low { color: #5a6280; } .pathway-badge { display: inline-flex; align-items: center; gap: 4px; padding: 3px 10px; border-radius: 12px; font-size: 11px; font-weight: 600; background: #f0f2f8; border: 1px solid #d0d4e0; color: #5a6280; } section { margin-bottom: 28px; } .section-title { font-size: 11px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: #5a6280; border-bottom: 1px solid #d0d4e0; padding-bottom: 6px; margin-bottom: 14px; } .pdf-only-banner { background: #fff7ed; border: 1px solid #f97316; border-radius: 8px; padding: 10px 16px; font-size: 12px; color: #c2410c; margin-bottom: 20px; text-align: center; font-weight: 700; } .thesis-box { background: #f8faff; border: 1px solid #2563eb; border-radius: 8px; padding: 16px 20px; font-size: 15px; font-weight: 600; line-height: 1.6; } .thesis-structure { display: flex; gap: 8px; align-items: center; margin-top: 10px; flex-wrap: wrap; } .thesis-part { background: #f0f2f8; border: 1px solid #d0d4e0; border-radius: 6px; padding: 4px 10px; font-size: 12px; color: #1a1d2e; } .thesis-arrow { color: #2563eb; font-size: 16px; } .checklist { background: #fafafa; border: 1px solid #d0d4e0; border-radius: 8px; overflow: hidden; } .checklist-item { display: flex; gap: 14px; align-items: flex-start; padding: 12px 16px; border-bottom: 1px solid #d0d4e0; } .checklist-item:last-child { border-bottom: none; } .check-icon { width: 22px; height: 22px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; flex-shrink: 0; margin-top: 1px; } .check-pass { background: #ecfdf5; color: #059669; border: 1px solid #34d399; } .check-fail { background: #fef2f2; color: #dc2626; border: 1px solid #fca5a5; } .check-label { font-weight: 600; font-size: 13px; color: #1a1d2e; } .check-why { color: #1a1d2e; font-size: 13px; } .chain-box { background: #fafafa; border: 1px solid #d0d4e0; border-radius: 8px; padding: 16px 20px; } .chain-step { display: flex; gap: 12px; align-items: flex-start; margin-bottom: 10px; } .chain-step:last-child { margin-bottom: 0; } .chain-arrow { color: #2563eb; font-size: 16px; flex-shrink: 0; margin-top: 1px; } .chain-content { flex: 1; } .chain-label { font-size: 10px; font-weight: 700; letter-spacing: 1px; color: #5a6280; text-transform: uppercase; margin-bottom: 2px; } .chain-text { font-size: 13px; color: #1a1d2e; } .risk-item { background: #fafafa; border-radius: 0 6px 6px 0; padding: 14px 16px; margin-bottom: 10px; } .risk-item:last-child { margin-bottom: 0; } .risk-sev-high { border-left: 3px solid #dc2626; } .risk-sev-mid { border-left: 3px solid #ea580c; } .risk-assumption { font-weight: 600; font-size: 13px; margin-bottom: 4px; color: #1a1d2e; } .risk-chain { font-size: 12px; color: #5a6280; margin: 4px 0; } .penalty { color: #dc2626; } .fact-item { background: #fafafa; border: 1px solid #d0d4e0; border-radius: 8px; padding: 14px 16px; margin-bottom: 8px; } .fact-num { font-size: 10px; font-weight: 700; color: #2563eb; letter-spacing: 1px; margin-bottom: 8px; display: block; } .fact-what { font-weight: 600; font-size: 14px; margin-bottom: 6px; } .fact-why { font-size: 13px; color: #5a6280; margin-bottom: 6px; } .fact-so { font-size: 13px; color: #059669; } .fact-label { display: inline-block; font-size: 10px; font-weight: 700; padding: 1px 6px; border-radius: 3px; margin-right: 4px; } .label-what { background: #eff6ff; color: #1d4ed8; } .label-why { background: #fff7ed; color: #ea580c; } .label-so { background: #ecfdf5; color: #059669; } table { width: 100%; border-collapse: collapse; background: #fafafa; border-radius: 8px; overflow: hidden; border: 1px solid #d0d4e0; } thead tr { background: #f0f2f8; } th { padding: 10px 14px; text-align: left; font-size: 11px; font-weight: 700; color: #5a6280; } td { padding: 10px 14px; border-top: 1px solid #d0d4e0; font-size: 13px; } tr.total-row td { background: #e8ecf5; font-weight: 700; } .highlight-green { color: #059669; font-weight: 700; } .data-table th { background: #e8ecf5; } .data-table td.key-col { background: #f0f6ff; } .data-table .key-num { color: #059669; font-weight: 700; } .data-table .key-opm { color: #b45309; } caption { font-size: 11px; color: #5a6280; text-align: left; padding: 0 0 8px; caption-side: top; } .val-box { background: #fafafa; border: 1px solid #d0d4e0; border-radius: 8px; padding: 16px 20px; font-size: 13px; line-height: 2; } .val-formula { background: #f0f2f8; border-radius: 6px; padding: 10px 14px; font-family: monospace; font-size: 13px; margin: 10px 0; color: #b45309; } .opinion-box { background: #fafafa; border: 1px solid #d0d4e0; border-radius: 8px; padding: 16px 20px; font-size: 13px; line-height: 1.8; color: #5a6280; } .decision-box { display: flex; gap: 14px; margin-top: 14px; } .decision-btn { flex: 1; text-align: center; padding: 10px; border-radius: 6px; font-weight: 700; font-size: 13px; border: 1px solid; } .decision-buy { background: #ecfdf5; color: #059669; border-color: #34d399; } .decision-wait { background: #fffbeb; color: #b45309; border-color: #f59e0b; } .decision-avoid { background: #fef2f2; color: #dc2626; border-color: #fca5a5; } .decision-dim { opacity: 0.3; } .disclaimer { font-size: 11px; color: #9ca3af; text-align: center; margin-top: 40px; padding-top: 16px; border-top: 1px solid #d0d4e0; }
+</style>
+</head>
+<body>
+<div class="pdf-only-banner">🚫 외부 검색 절대 금지 — 제공된 PDF 파일만 활용</div>
+<header class="header">
+  <h1>롯데웰푸드 (280360) | 1Q26 Preview 키움증권 | 발간일: 2026.04.22</h1>
+  <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-bottom:12px;">
+    <span class="tag-badge tag-stable">📈 안정</span>
+    <span class="score-badge score-low">📊 30점</span>
+    <span style="font-size:12px;color:#5a6280;">비바이오</span>
+    <span class="pathway-badge">경로 ⑤재평가</span>
+  </div>
+  <div class="price-row">
+    <div class="price-item"><span class="label">투자의견</span><span class="val">Buy</span></div>
+    <div class="price-item"><span class="label">목표주가(TP)</span><span class="val">153,000원</span></div>
+    <div class="price-item"><span class="label">현재주가(CP)</span><span class="val">-</span></div>
+    <div class="price-item"><span class="label">Upside</span><span class="val">-</span></div>
+    <div class="price-item"><span class="label">시가총액</span><span class="val">-</span></div>
+    <div class="price-item"><span class="label">종목 유형</span><span class="val">비바이오</span></div>
+  </div>
+</header>
+
+<section>
+  <div class="section-title">💡 스토리 한 줄</div>
+  <div class="thesis-box">국내 건과/빙과 판매 회복 + 인도법인 고성장(+10%+) + 원재료 단가 하락(코코아·설탕·밀가루)으로 26E OP(영업이익) +55.7%(109.5→170.6십억원), OPM(영업이익률) 2.6%→3.9%(+1.3%p). 다만 OPM 절대 수준(3.9%)이 낮아 투자 테제 부합도 약함</div>
+  <div class="thesis-structure">
+    <div class="thesis-part">① 국내 건과/빙과 회복 + 인도법인 +10%+ 성장 + 원재료 단가 하락</div>
+    <div class="thesis-arrow">→</div>
+    <div class="thesis-part">② 26E OP +55.7%, OPM 2.6%→3.9%(+1.3%p)</div>
+    <div class="thesis-arrow">→</div>
+    <div class="thesis-part">③ OPM 3.9%로 절대 수준 낮아 투자 테제 부합 약함</div>
+  </div>
+</section>
+
+<section>
+  <div class="section-title">✅ 핵심 태그 5가지 조건 체크</div>
+  <div class="checklist">
+    <div class="checklist-item"><div class="check-icon check-pass">✓</div><div><div class="check-label">조건 1 | 영업이익 성장 YoY ≥ 20%</div><div class="check-why">26E OP +55.7%(109.5→170.6십억원). 임계값 충족이나 25A 역기저(-30.3%) 반등 성격</div></div></div>
+    <div class="checklist-item"><div class="check-icon check-pass">✓</div><div><div class="check-label">조건 2 | 투자의견 Buy</div><div class="check-why">키움증권 Buy 유지</div></div></div>
+    <div class="checklist-item"><div class="check-icon check-fail">✗</div><div><div class="check-label">조건 3 | 확정 팩트 ●●● 2개↑</div><div class="check-why">인도법인 성장 + 원재료 하락은 업종 일반적 요인. 확정 대형 팩트 부재 → 미달</div></div></div>
+    <div class="checklist-item"><div class="check-icon check-fail">✗</div><div><div class="check-label">조건 4 | Upside ≥ 40%</div><div class="check-why">현재주가 미제공. Upside 산출 불가 → 미달</div></div></div>
+    <div class="checklist-item"><div class="check-icon check-fail">✗</div><div><div class="check-label">조건 5 | 3년 지속 시나리오</div><div class="check-why">OPM 3.9%로 절대 수준 낮음. 원재료 하락 일시적 요인 가능 → 미달</div></div></div>
+  </div>
+</section>
+
+<section>
+  <div class="section-title">📌 핵심 팩트 3줄</div>
+  <div class="fact-item"><span class="fact-num">Fact 01</span><div class="fact-what"><span class="fact-label label-what">WHAT</span>1Q26E OP 233억원(+42% YoY), OPM 2.3%. 연간 26E OP 170.6십억원(+55.7%)</div><div class="fact-why"><span class="fact-label label-why">WHY</span>국내 건과/빙과 판매 회복 + 인도법인 빙과 판매 +10%+ 성장 + 인건비·경영관리비 절감</div><div class="fact-so"><span class="fact-label label-so">SO WHAT</span>적자전환 우려 해소. 다만 OPM 3.9%로 절대 수준이 낮아 영업레버리지 약함</div></div>
+  <div class="fact-item"><span class="fact-num">Fact 02</span><div class="fact-what"><span class="fact-label label-what">WHAT</span>인도법인: 빼빼로 수출 중심 + 빙과 판매 +10%+ 성장. 푸네 신공장 가동률 상승 중</div><div class="fact-why"><span class="fact-label label-why">WHY</span>인도 시장 소비 회복 + 푸네 신공장 규모의 경제 + 현지 채널 확대</div><div class="fact-so"><span class="fact-label label-so">SO WHAT</span>해외 사업(비중 25%) 성장 드라이버이나, 전사 OPM 개선 기여는 제한적</div></div>
+  <div class="fact-item"><span class="fact-num">Fact 03</span><div class="fact-what"><span class="fact-label label-what">WHAT</span>원재료 단가 하락: 코코아·설탕·밀가루 투입단가 인하. 4월부터 주력 제품 가격 인하 효과 반영</div><div class="fact-why"><span class="fact-label label-why">WHY</span>글로벌 원자재 가격 안정화 → 투입단가 하락 → 원가율 개선</div><div class="fact-so"><span class="fact-label label-so">SO WHAT</span>마진 스프레드 개선 기대이나, 포장재 단가 상승·물류비 부담으로 상쇄 가능성</div></div>
+</section>
+
+<section>
+  <div class="section-title">📄 원본 리포트 핵심 요약</div>
+  <div style="background:#fafafa;border:1px solid #d0d4e0;border-radius:8px;padding:16px 20px;">
+    <p style="font-size:13px;line-height:1.9;">롯데웰푸드는 25A OP -30.3% 역성장 후 26E OP +55.7% 반등이 예상된다. 국내 건과/빙과 판매 회복, 인도법인 고성장(+10%+), 원재료 단가 하락(코코아/설탕/밀가루)이 복합적으로 작용하나, OPM이 3.9%로 절대 수준이 낮아 영업레버리지 효과가 약하다. 인도 푸네 신공장 가동률 상승이 중장기 성장 기반이나 전사 수익성 개선 기여는 제한적이다.</p>
+  </div>
+</section>
+
+<section>
+  <div class="section-title">📊 투자 점수 판정 (v2.0 비바이오)</div>
+  <table>
+    <thead><tr><th>항목</th><th>판정</th><th>근거</th></tr></thead>
+    <tbody>
+      <tr><td>적용 가설</td><td>가설 4</td><td>25A OP -30.3% 역성장. 26E 회복이나 완만한 성장(OPM 3.9%)</td></tr>
+      <tr><td>촉매 등급</td><td>하급</td><td>원재료 단가 하락 + 인도 성장은 업종 일반적 요인</td></tr>
+      <tr><td>복합 여부</td><td>단독</td><td>원재료 단가 하락이 핵심 촉매</td></tr>
+      <tr><td>직접성</td><td>직접</td><td>원재료 → 원가율 직결</td></tr>
+      <tr><td>매트릭스 기본 점수</td><td>30점</td><td>가설4 × 하급 × 단독 = 20점 → 직접성으로 유지 30점</td></tr>
+      <tr class="total-row"><td>최종 투자 점수</td><td><span class="highlight-green">30점</span></td><td>안정 20+ 충족. OPM 3.9%로 투자 테제(영업레버리지) 부합 약함</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section>
+  <div class="section-title">⚡ 성장 인과 체인</div>
+  <div class="chain-box">
+    <div class="chain-step"><div class="chain-arrow">①</div><div class="chain-content"><div class="chain-label">촉매</div><div class="chain-text">글로벌 원자재(코코아·설탕·밀가루) 가격 안정화 + 인도법인 빙과 +10%+ 성장</div></div></div>
+    <div class="chain-step"><div class="chain-arrow">↓</div><div class="chain-content"><div class="chain-label">매출</div><div class="chain-text">26E 매출 4,381.5십억원(+3.9% YoY). 국내 건과/빙과 회복 + 해외 인도 성장</div></div></div>
+    <div class="chain-step"><div class="chain-arrow">↓</div><div class="chain-content"><div class="chain-label">OPM</div><div class="chain-text">OPM 2.6%→3.9%(+1.3%p). 원재료 단가 하락으로 원가율 개선이나 절대 수준 낮음</div></div></div>
+    <div class="chain-step"><div class="chain-arrow">↓</div><div class="chain-content"><div class="chain-label">실적</div><div class="chain-text">26E OP 170.6십억원(+55.7%). 25A 역기저(-30.3%) 반등 성격</div></div></div>
+    <div class="chain-step"><div class="chain-arrow">↓</div><div class="chain-content"><div class="chain-label">시장반영</div><div class="chain-text">PER 10.0배. OPM 구조적 개선 확인 시 리레이팅 가능이나 3.9%로는 부족</div></div></div>
+  </div>
+</section>
+
+<section>
+  <div class="section-title">📈 실적 전망 (연간)</div>
+  <table class="data-table">
+    <caption>단위: 십억원</caption>
+    <thead><tr><th>구분</th><th>2024A</th><th>2025A</th><th style="background:#dbeafe;color:#1e40af;">2026E ★</th><th>2027E</th></tr></thead>
+    <tbody>
+      <tr><td>매출액</td><td>4,044.3</td><td>4,216.0</td><td class="key-col key-num">4,381.5</td><td>4,500.2</td></tr>
+      <tr><td>YoY(%)</td><td>-</td><td>4.2%</td><td class="key-col">+3.9%</td><td>+2.7%</td></tr>
+      <tr><td>영업이익</td><td>157.1</td><td>109.5</td><td class="key-col key-num">170.6</td><td>207.1</td></tr>
+      <tr><td>YoY(%)</td><td>-</td><td>-30.3%</td><td class="key-col key-num">+55.7%</td><td>+21.4%</td></tr>
+      <tr><td>OPM(%)</td><td>3.9%</td><td>2.6%</td><td class="key-col key-opm">3.9%</td><td>4.6%</td></tr>
+      <tr><td>PER(배)</td><td>12.4</td><td>14.8</td><td class="key-col">10.0</td><td>7.9</td></tr>
+      <tr><td>ROE(%)</td><td>4.0%</td><td>3.3%</td><td class="key-col">4.9%</td><td>6.0%</td></tr>
+    </tbody>
+  </table>
+  <p style="font-size:12px;color:#5a6280;margin-top:10px;">▶ 26E는 25A 역기저 + 원재료 단가 하락으로 OP 반등하나, OPM 3.9%로 구조적 고수익 전환은 아님.</p>
+</section>
+
+<section>
+  <div class="section-title">📈 분기별 실적</div>
+  <table class="data-table">
+    <caption>단위: 십억원 (PDF 내 분기 데이터 없을 시 N/A)</caption>
+    <thead><tr><th>구분</th><th>1Q25</th><th>2Q25</th><th>3Q25</th><th>4Q25</th><th>1Q26E</th></tr></thead>
+    <tbody>
+      <tr><td>매출액</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td></tr>
+      <tr><td>영업이익</td><td>-</td><td>-</td><td>-</td><td>-</td><td>23.3</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section>
+  <div class="section-title">⚠️ 리스크 시나리오</div>
+  <div class="risk-item risk-sev-mid"><div class="risk-assumption">원재료 가격 재상승(코코아·설탕) 시 마진 압박</div><div class="risk-chain">→ 글로벌 원자재 가격 반등 → 투입단가 상승 → 원가율 악화 → OPM 3.9% 이하 하락</div></div>
+  <div class="risk-item risk-sev-mid"><div class="risk-assumption">인도법인 성장 둔화 + 환율 변동 리스크</div><div class="risk-chain">→ 인도 소비 둔화 또는 루피 약세 → 해외 사업 수익성 하락 → 전사 OP 개선 제한</div></div>
+</section>
+
+<section>
+  <div class="section-title">💬 사견 & 투자 행동 결론</div>
+  <div class="opinion-box">
+    <p>롯데웰푸드는 25A 역성장 후 26E 반등(OP +55.7%)이 예상되나, OPM 3.9%로 절대 수익성이 낮고 매출 성장률도 +3.9%에 불과. 투자 테제(OPM 확장형)에 부합하지 않으며, 안정적 배당·가치주 관점에서만 의미. 적극 투자보다는 관망이 적절.</p>
+    <div class="decision-box">
+      <div class="decision-btn decision-buy decision-dim">✅ 지금 진입 가능</div>
+      <div class="decision-btn decision-wait decision-dim">⏳ 이벤트 후 진입</div>
+      <div class="decision-btn decision-avoid">🚫 관망<br/><span style="font-size:11px;font-weight:400;">OPM 낮음, 성장 제한</span></div>
+    </div>
+  </div>
+</section>
+
+<div class="disclaimer">※ 본 글은 증권사 리포트를 개인 학습 목적으로 요약·정리한 것이며, 투자 권유가 아닙니다.<br/>※ 제공된 PDF 파일만 활용. 외부 검색·참조 없음.</div>
+</body>
+</html>

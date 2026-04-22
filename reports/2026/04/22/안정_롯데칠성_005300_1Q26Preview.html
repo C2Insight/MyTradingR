@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>롯데칠성 (005300) 정리</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Pretendard','Apple SD Gothic Neo',-apple-system,sans-serif; background: #ffffff; color: #1a1d2e; line-height: 1.7; font-size: 14px; max-width: 900px; margin: 0 auto; padding: 32px 20px 80px; }
+  .header { border-left: 4px solid #2563eb; padding: 0 0 0 16px; margin-bottom: 24px; } .header h1 { font-size: 20px; font-weight: 700; margin-bottom: 10px; } .price-row { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin-top: 10px; } .price-item { background: #f0f2f8; border: 1px solid #d0d4e0; border-radius: 6px; padding: 6px 14px; font-size: 13px; } .price-item .label { color: #5a6280; font-size: 11px; display: block; } .price-item .val { font-weight: 700; } .upside-val { color: #059669; } .tag-badge { display: inline-flex; align-items: center; gap: 6px; padding: 5px 14px; border-radius: 20px; font-size: 13px; font-weight: 700; } .tag-stable { background: #eff6ff; color: #1d4ed8; border: 1px solid #60a5fa; } .score-badge { display: inline-block; padding: 5px 14px; border-radius: 20px; font-size: 13px; font-weight: 700; background: #f0f2f8; border: 1px solid #d0d4e0; } .score-low { color: #5a6280; } .pathway-badge { display: inline-flex; align-items: center; gap: 4px; padding: 3px 10px; border-radius: 12px; font-size: 11px; font-weight: 600; background: #f0f2f8; border: 1px solid #d0d4e0; color: #5a6280; } section { margin-bottom: 28px; } .section-title { font-size: 11px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: #5a6280; border-bottom: 1px solid #d0d4e0; padding-bottom: 6px; margin-bottom: 14px; } .pdf-only-banner { background: #fff7ed; border: 1px solid #f97316; border-radius: 8px; padding: 10px 16px; font-size: 12px; color: #c2410c; margin-bottom: 20px; text-align: center; font-weight: 700; } .thesis-box { background: #f8faff; border: 1px solid #2563eb; border-radius: 8px; padding: 16px 20px; font-size: 15px; font-weight: 600; line-height: 1.6; } .thesis-structure { display: flex; gap: 8px; align-items: center; margin-top: 10px; flex-wrap: wrap; } .thesis-part { background: #f0f2f8; border: 1px solid #d0d4e0; border-radius: 6px; padding: 4px 10px; font-size: 12px; color: #1a1d2e; } .thesis-arrow { color: #2563eb; font-size: 16px; } .checklist { background: #fafafa; border: 1px solid #d0d4e0; border-radius: 8px; overflow: hidden; } .checklist-item { display: flex; gap: 14px; align-items: flex-start; padding: 12px 16px; border-bottom: 1px solid #d0d4e0; } .checklist-item:last-child { border-bottom: none; } .check-icon { width: 22px; height: 22px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; flex-shrink: 0; margin-top: 1px; } .check-pass { background: #ecfdf5; color: #059669; border: 1px solid #34d399; } .check-fail { background: #fef2f2; color: #dc2626; border: 1px solid #fca5a5; } .check-label { font-weight: 600; font-size: 13px; color: #1a1d2e; } .check-why { color: #1a1d2e; font-size: 13px; } .chain-box { background: #fafafa; border: 1px solid #d0d4e0; border-radius: 8px; padding: 16px 20px; } .chain-step { display: flex; gap: 12px; align-items: flex-start; margin-bottom: 10px; } .chain-step:last-child { margin-bottom: 0; } .chain-arrow { color: #2563eb; font-size: 16px; flex-shrink: 0; margin-top: 1px; } .chain-content { flex: 1; } .chain-label { font-size: 10px; font-weight: 700; letter-spacing: 1px; color: #5a6280; text-transform: uppercase; margin-bottom: 2px; } .chain-text { font-size: 13px; color: #1a1d2e; } .risk-item { background: #fafafa; border-radius: 0 6px 6px 0; padding: 14px 16px; margin-bottom: 10px; } .risk-item:last-child { margin-bottom: 0; } .risk-sev-high { border-left: 3px solid #dc2626; } .risk-sev-mid { border-left: 3px solid #ea580c; } .risk-assumption { font-weight: 600; font-size: 13px; margin-bottom: 4px; color: #1a1d2e; } .risk-chain { font-size: 12px; color: #5a6280; margin: 4px 0; } .fact-item { background: #fafafa; border: 1px solid #d0d4e0; border-radius: 8px; padding: 14px 16px; margin-bottom: 8px; } .fact-num { font-size: 10px; font-weight: 700; color: #2563eb; margin-bottom: 8px; display: block; } .fact-what { font-weight: 600; font-size: 14px; margin-bottom: 6px; } .fact-why { font-size: 13px; color: #5a6280; margin-bottom: 6px; } .fact-so { font-size: 13px; color: #059669; } .fact-label { display: inline-block; font-size: 10px; font-weight: 700; padding: 1px 6px; border-radius: 3px; margin-right: 4px; } .label-what { background: #eff6ff; color: #1d4ed8; } .label-why { background: #fff7ed; color: #ea580c; } .label-so { background: #ecfdf5; color: #059669; } table { width: 100%; border-collapse: collapse; background: #fafafa; border-radius: 8px; overflow: hidden; border: 1px solid #d0d4e0; } thead tr { background: #f0f2f8; } th { padding: 10px 14px; text-align: left; font-size: 11px; font-weight: 700; color: #5a6280; } td { padding: 10px 14px; border-top: 1px solid #d0d4e0; font-size: 13px; } tr.total-row td { background: #e8ecf5; font-weight: 700; } .highlight-green { color: #059669; font-weight: 700; } .data-table th { background: #e8ecf5; } .data-table td.key-col { background: #f0f6ff; } .data-table .key-num { color: #059669; font-weight: 700; } .data-table .key-opm { color: #b45309; } caption { font-size: 11px; color: #5a6280; text-align: left; padding: 0 0 8px; caption-side: top; } .opinion-box { background: #fafafa; border: 1px solid #d0d4e0; border-radius: 8px; padding: 16px 20px; font-size: 13px; line-height: 1.8; color: #5a6280; } .decision-box { display: flex; gap: 14px; margin-top: 14px; } .decision-btn { flex: 1; text-align: center; padding: 10px; border-radius: 6px; font-weight: 700; font-size: 13px; border: 1px solid; } .decision-buy { background: #ecfdf5; color: #059669; border-color: #34d399; } .decision-wait { background: #fffbeb; color: #b45309; border-color: #f59e0b; } .decision-avoid { background: #fef2f2; color: #dc2626; border-color: #fca5a5; } .decision-dim { opacity: 0.3; } .disclaimer { font-size: 11px; color: #9ca3af; text-align: center; margin-top: 40px; padding-top: 16px; border-top: 1px solid #d0d4e0; }
+</style>
+</head>
+<body>
+<div class="pdf-only-banner">🚫 외부 검색 절대 금지 — 제공된 PDF 파일만 활용</div>
+<header class="header">
+  <h1>롯데칠성 (005300) | 1Q26 Preview 키움증권 | 발간일: 2026.04.22</h1>
+  <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-bottom:12px;">
+    <span class="tag-badge tag-stable">📈 안정</span>
+    <span class="score-badge score-low">📊 30점</span>
+    <span style="font-size:12px;color:#5a6280;">비바이오</span>
+    <span class="pathway-badge">경로 ⑤재평가</span>
+  </div>
+  <div class="price-row">
+    <div class="price-item"><span class="label">투자의견</span><span class="val">Buy</span></div>
+    <div class="price-item"><span class="label">목표주가(TP)</span><span class="val">170,000원</span></div>
+    <div class="price-item"><span class="label">현재주가(CP)</span><span class="val">-</span></div>
+    <div class="price-item"><span class="label">Upside</span><span class="val">-</span></div>
+    <div class="price-item"><span class="label">시가총액</span><span class="val">-</span></div>
+    <div class="price-item"><span class="label">종목 유형</span><span class="val">비바이오</span></div>
+  </div>
+</header>
+
+<section>
+  <div class="section-title">💡 스토리 한 줄</div>
+  <div class="thesis-box">1Q26E OP 389억원(+55% YoY)으로 시장기대치 소폭 상회 전망. 국내 판매량 회복 + 비용 효율화 + 필리핀 법인 증익 기여. 다만 연간 26E OP +22.3%로 완만, OPM 5.0%로 절대 수준 낮음. 주류 수익성 개선·신제품 '해피즈' 성과가 관건</div>
+  <div class="thesis-structure">
+    <div class="thesis-part">① 국내 판매량 회복 + 비용 효율화 + 필리핀 법인 증익</div>
+    <div class="thesis-arrow">→</div>
+    <div class="thesis-part">② 26E OP +22.3%, OPM 5.0%. 25A 역기저 반등 수준</div>
+    <div class="thesis-arrow">→</div>
+    <div class="thesis-part">③ 매출 +2% 저성장. 서초동 부지 잠재가치 외 구조적 성장 부재</div>
+  </div>
+</section>
+
+<section>
+  <div class="section-title">✅ 핵심 태그 5가지 조건 체크</div>
+  <div class="checklist">
+    <div class="checklist-item"><div class="check-icon check-pass">✓</div><div><div class="check-label">조건 1 | 영업이익 성장 YoY ≥ 20%</div><div class="check-why">26E OP +22.3%(167.2→204.4십억원). 임계값 충족이나 25A 역기저(-9.6%) 반등 성격</div></div></div>
+    <div class="checklist-item"><div class="check-icon check-pass">✓</div><div><div class="check-label">조건 2 | 투자의견 Buy</div><div class="check-why">키움증권 Buy 유지</div></div></div>
+    <div class="checklist-item"><div class="check-icon check-fail">✗</div><div><div class="check-label">조건 3 | 확정 팩트 ●●● 2개↑</div><div class="check-why">비용 절감 + 판매량 회복은 업종 일반적 요인. 확정 팩트 부재 → 미달</div></div></div>
+    <div class="checklist-item"><div class="check-icon check-fail">✗</div><div><div class="check-label">조건 4 | Upside ≥ 40%</div><div class="check-why">현재주가 미제공. Upside 산출 불가 → 미달</div></div></div>
+    <div class="checklist-item"><div class="check-icon check-fail">✗</div><div><div class="check-label">조건 5 | 3년 지속 시나리오</div><div class="check-why">매출 +2% 저성장 + OPM 5.0%. 구조적 성장 시나리오 부재 → 미달</div></div></div>
+  </div>
+</section>
+
+<section>
+  <div class="section-title">📌 핵심 팩트 3줄</div>
+  <div class="fact-item"><span class="fact-num">Fact 01</span><div class="fact-what"><span class="fact-label label-what">WHAT</span>1Q26E OP 389억원(+55% YoY), OPM 4.1%. 연간 26E OP 204.4십억원(+22.3%), OPM 5.0%</div><div class="fact-why"><span class="fact-label label-why">WHY</span>국내 판매량 회복 + 설탕/과당 투입단가 안정화 + 인건비·경영관리비 절감</div><div class="fact-so"><span class="fact-label label-so">SO WHAT</span>25A 역기저 반등이나 OPM 5.0%로 영업레버리지 약함. 구조적 수익성 개선보다는 비용 절감 효과</div></div>
+  <div class="fact-item"><span class="fact-num">Fact 02</span><div class="fact-what"><span class="fact-label label-what">WHAT</span>해외 필리핀 법인(연결 매출 73.6%): 비용 효율화 + 미얀마 법인 저기저 YoY 증익</div><div class="fact-why"><span class="fact-label label-why">WHY</span>필리핀 법인 경영 효율화 추진 + 환율 수급 차질 저기저 해소</div><div class="fact-so"><span class="fact-label label-so">SO WHAT</span>해외 법인 안정화가 전사 이익 개선에 기여하나, 성장 드라이버라기보다는 정상화 수준</div></div>
+  <div class="fact-item"><span class="fact-num">Fact 03</span><div class="fact-what"><span class="fact-label label-what">WHAT</span>서초동 부지 개발사업 잠재 가치. 프로젝트 리츠 세제 혜택으로 개발 가시화 가능성</div><div class="fact-why"><span class="fact-label label-why">WHY</span>보유 서초동 부지에 대한 세제 혜택으로 개발 가능성 언론 보도</div><div class="fact-so"><span class="fact-label label-so">SO WHAT</span>중장기 부동산 가치 재평가 가능이나, 본업과 무관한 일회성 요인. 현 시점 투자 판단에 반영하기 어려움</div></div>
+</section>
+
+<section>
+  <div class="section-title">📄 원본 리포트 핵심 요약</div>
+  <div style="background:#fafafa;border:1px solid #d0d4e0;border-radius:8px;padding:16px 20px;">
+    <p style="font-size:13px;line-height:1.9;">롯데칠성은 25A 역성장(-9.6%) 후 26E OP +22.3% 반등이 예상되나, 국내 판매량 회복과 비용 절감에 의존하는 구조로 매출 성장률은 +2%에 불과하다. 필리핀 법인 안정화와 서초동 부지 잠재가치가 추가 요인이나, OPM 5.0%로 절대 수익성이 낮아 적극 투자보다는 배당주 관점 접근이 적절하다.</p>
+  </div>
+</section>
+
+<section>
+  <div class="section-title">📊 투자 점수 판정 (v2.0 비바이오)</div>
+  <table>
+    <thead><tr><th>항목</th><th>판정</th><th>근거</th></tr></thead>
+    <tbody>
+      <tr><td>적용 가설</td><td>가설 4</td><td>25A OP -9.6% 역성장 후 26E 반등(+22.3%). 완만한 성장</td></tr>
+      <tr><td>촉매 등급</td><td>하급</td><td>비용 절감 + 판매량 회복은 업종 일반적 요인</td></tr>
+      <tr><td>복합/단독</td><td>단독</td><td>비용 절감이 핵심 촉매</td></tr>
+      <tr><td>매트릭스 점수</td><td>20점</td><td>가설4 × 하급 × 단독 = 20점</td></tr>
+      <tr><td>페널티</td><td>없음</td><td>-</td></tr>
+      <tr class="total-row"><td>최종 점수</td><td><span class="highlight-green">30점</span></td><td>안정 20+ 충족. 신제품·서초동 부지 등 잠재 요인 감안 +10점 조정</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section>
+  <div class="section-title">⚡ 성장 인과 체인</div>
+  <div class="chain-box">
+    <div class="chain-step"><div class="chain-arrow">①</div><div class="chain-content"><div class="chain-label">촉매</div><div class="chain-text">국내 판매량 회복 + 설탕/과당 투입단가 안정화 + 비용 효율화</div></div></div>
+    <div class="chain-step"><div class="chain-arrow">↓</div><div class="chain-content"><div class="chain-label">매출</div><div class="chain-text">26E 매출 4,049.0십억원(+2.0% YoY). 25A 역성장(-1.3%) 후 소폭 회복</div></div></div>
+    <div class="chain-step"><div class="chain-arrow">↓</div><div class="chain-content"><div class="chain-label">OPM</div><div class="chain-text">OPM 4.2%→5.0%(+0.8%p). 비용 절감 효과이나 구조적 수익성 개선은 아님</div></div></div>
+    <div class="chain-step"><div class="chain-arrow">↓</div><div class="chain-content"><div class="chain-label">실적</div><div class="chain-text">26E OP 204.4십억원(+22.3%). 25A 역기저 반등 성격</div></div></div>
+    <div class="chain-step"><div class="chain-arrow">↓</div><div class="chain-content"><div class="chain-label">시장반영</div><div class="chain-text">PER 14.0배. 서초동 부지 개발 가시화 시 NAV 재평가 가능이나 본업 기반은 아님</div></div></div>
+  </div>
+</section>
+
+<section>
+  <div class="section-title">📈 실적 전망 (연간)</div>
+  <table class="data-table">
+    <caption>단위: 십억원</caption>
+    <thead><tr><th>구분</th><th>2024A</th><th>2025A</th><th style="background:#dbeafe;color:#1e40af;">2026E ★</th><th>2027E</th></tr></thead>
+    <tbody>
+      <tr><td>매출액</td><td>4,024.5</td><td>3,971.1</td><td class="key-col key-num">4,049.0</td><td>4,128.0</td></tr>
+      <tr><td>YoY(%)</td><td>-</td><td>-1.3%</td><td class="key-col">+2.0%</td><td>+2.0%</td></tr>
+      <tr><td>영업이익</td><td>184.9</td><td>167.2</td><td class="key-col key-num">204.4</td><td>219.6</td></tr>
+      <tr><td>YoY(%)</td><td>-</td><td>-9.6%</td><td class="key-col key-num">+22.3%</td><td>+7.4%</td></tr>
+      <tr><td>OPM(%)</td><td>4.6%</td><td>4.2%</td><td class="key-col key-opm">5.0%</td><td>5.3%</td></tr>
+      <tr><td>PER(배)</td><td>19.1</td><td>29.6</td><td class="key-col">14.0</td><td>12.1</td></tr>
+    </tbody>
+  </table>
+  <p style="font-size:12px;color:#5a6280;margin-top:10px;">▶ 25A 역기저 + 비용 절감으로 26E OP 반등. 매출 성장률 +2%로 제한적.</p>
+</section>
+
+<section>
+  <div class="section-title">📈 분기별 실적</div>
+  <table class="data-table">
+    <caption>단위: 십억원 (PDF 내 분기 데이터 없을 시 N/A)</caption>
+    <thead><tr><th>구분</th><th>1Q25</th><th>2Q25</th><th>3Q25</th><th>4Q25</th><th>1Q26E</th></tr></thead>
+    <tbody>
+      <tr><td>매출액</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td></tr>
+      <tr><td>영업이익</td><td>-</td><td>-</td><td>-</td><td>-</td><td>38.9</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section>
+  <div class="section-title">⚠️ 리스크 시나리오</div>
+  <div class="risk-item risk-sev-mid"><div class="risk-assumption">국내 음료 소비 둔화 + 주류 시장 경쟁 심화</div><div class="risk-chain">→ 판매량 회복 효과 소멸 → 매출 재역성장 전환 → OP 반등 폭 축소</div></div>
+  <div class="risk-item risk-sev-mid"><div class="risk-assumption">필리핀 법인 환율 변동 + 원재료 단가 재상승</div><div class="risk-chain">→ 해외 법인 수익성 악화 + 원가율 상승 → 전사 OPM 하락 압력</div></div>
+</section>
+
+<section>
+  <div class="section-title">💬 사견 & 투자 행동 결론</div>
+  <div class="opinion-box">
+    <p>롯데칠성은 25A 역성장 후 26E 반등 예상이나, 매출 +2% 저성장 + OPM 5.0% 낮은 수익성으로 투자 테제 부합도 약함. 주류 수익성 개선과 신제품 '해피즈'의 성공 여부가 중장기 과제. 안정적 배당주 관점에서만 의미.</p>
+    <div class="decision-box">
+      <div class="decision-btn decision-buy decision-dim">✅ 지금 진입 가능</div>
+      <div class="decision-btn decision-wait decision-dim">⏳ 이벤트 후 진입</div>
+      <div class="decision-btn decision-avoid">🚫 관망<br/><span style="font-size:11px;font-weight:400;">저성장+저마진</span></div>
+    </div>
+  </div>
+</section>
+
+<div class="disclaimer">※ 본 글은 증권사 리포트를 개인 학습 목적으로 요약·정리한 것이며, 투자 권유가 아닙니다.<br/>※ 제공된 PDF 파일만 활용. 외부 검색·참조 없음.</div>
+</body>
+</html>

@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>롯데에너지머티리얼즈 (020150) 정리</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Pretendard','Apple SD Gothic Neo',-apple-system,sans-serif; background: #ffffff; color: #1a1d2e; line-height: 1.7; font-size: 14px; max-width: 900px; margin: 0 auto; padding: 32px 20px 80px; }
+  .header { border-left: 4px solid #2563eb; padding: 0 0 0 16px; margin-bottom: 24px; }
+  .header h1 { font-size: 20px; font-weight: 700; margin-bottom: 10px; color: #1a1d2e; }
+  .price-row { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin-top: 10px; }
+  .price-item { background: #f0f2f8; border: 1px solid #d0d4e0; border-radius: 6px; padding: 6px 14px; font-size: 13px; }
+  .price-item .label { color: #5a6280; font-size: 11px; display: block; }
+  .price-item .val { font-weight: 700; color: #1a1d2e; }
+  .upside-val { color: #059669; }
+  .tag-badge { display: inline-flex; align-items: center; gap: 6px; padding: 5px 14px; border-radius: 20px; font-size: 13px; font-weight: 700; }
+  .tag-hold { background: #fefce8; color: #a16207; border: 1px solid #facc15; }
+  .score-badge { display: inline-block; padding: 5px 14px; border-radius: 20px; font-size: 13px; font-weight: 700; background: #f0f2f8; border: 1px solid #d0d4e0; color: #1a1d2e; }
+  .score-low { color: #5a6280; }
+  .pathway-badge { display: inline-flex; align-items: center; gap: 4px; padding: 3px 10px; border-radius: 12px; font-size: 11px; font-weight: 600; background: #f0f2f8; border: 1px solid #d0d4e0; color: #5a6280; }
+  section { margin-bottom: 28px; }
+  .section-title { font-size: 11px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: #5a6280; border-bottom: 1px solid #d0d4e0; padding-bottom: 6px; margin-bottom: 14px; }
+  .pdf-only-banner { background: #fff7ed; border: 1px solid #f97316; border-radius: 8px; padding: 10px 16px; font-size: 12px; color: #c2410c; margin-bottom: 20px; text-align: center; font-weight: 700; }
+  .thesis-box { background: #f8faff; border: 1px solid #2563eb; border-radius: 8px; padding: 16px 20px; font-size: 15px; font-weight: 600; line-height: 1.6; color: #1a1d2e; }
+  .thesis-structure { display: flex; gap: 8px; align-items: center; margin-top: 10px; flex-wrap: wrap; }
+  .thesis-part { background: #f0f2f8; border: 1px solid #d0d4e0; border-radius: 6px; padding: 4px 10px; font-size: 12px; }
+  .thesis-arrow { color: #2563eb; font-size: 16px; }
+  .checklist { background: #fafafa; border: 1px solid #d0d4e0; border-radius: 8px; overflow: hidden; }
+  .checklist-item { display: flex; gap: 14px; align-items: flex-start; padding: 12px 16px; border-bottom: 1px solid #d0d4e0; }
+  .checklist-item:last-child { border-bottom: none; }
+  .check-icon { width: 22px; height: 22px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; flex-shrink: 0; margin-top: 1px; }
+  .check-pass { background: #ecfdf5; color: #059669; border: 1px solid #34d399; }
+  .check-fail { background: #fef2f2; color: #dc2626; border: 1px solid #fca5a5; }
+  .check-label { font-weight: 600; font-size: 13px; color: #1a1d2e; }
+  .check-why { color: #1a1d2e; font-size: 13px; }
+  table { width: 100%; border-collapse: collapse; background: #fafafa; border-radius: 8px; overflow: hidden; border: 1px solid #d0d4e0; }
+  thead tr { background: #f0f2f8; }
+  th { padding: 10px 14px; text-align: left; font-size: 11px; font-weight: 700; color: #5a6280; letter-spacing: 0.8px; text-transform: uppercase; }
+  td { padding: 10px 14px; border-top: 1px solid #d0d4e0; font-size: 13px; color: #1a1d2e; }
+  tr.total-row td { background: #e8ecf5; font-weight: 700; }
+  .penalty { color: #dc2626; }
+  .highlight-green { color: #059669; font-weight: 700; }
+  .highlight-red { color: #dc2626; }
+  .chain-box { background: #fafafa; border: 1px solid #d0d4e0; border-radius: 8px; padding: 16px 20px; }
+  .chain-step { display: flex; gap: 12px; align-items: flex-start; margin-bottom: 10px; }
+  .chain-step:last-child { margin-bottom: 0; }
+  .chain-arrow { color: #2563eb; font-size: 16px; flex-shrink: 0; margin-top: 1px; }
+  .chain-content { flex: 1; }
+  .chain-label { font-size: 10px; font-weight: 700; letter-spacing: 1px; color: #5a6280; text-transform: uppercase; margin-bottom: 2px; }
+  .chain-text { font-size: 13px; color: #1a1d2e; }
+  .chain-forecast { color: #b45309; font-size: 11px; margin-left: 6px; }
+  .fact-item { background: #fafafa; border: 1px solid #d0d4e0; border-radius: 8px; padding: 14px 16px; margin-bottom: 8px; }
+  .fact-item:last-child { margin-bottom: 0; }
+  .fact-num { font-size: 10px; font-weight: 700; color: #2563eb; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 8px; display: block; }
+  .fact-what { font-weight: 600; font-size: 14px; margin-bottom: 6px; color: #1a1d2e; }
+  .fact-why { font-size: 13px; color: #5a6280; margin-bottom: 6px; }
+  .fact-so { font-size: 13px; color: #059669; }
+  .fact-label { display: inline-block; font-size: 10px; font-weight: 700; padding: 1px 6px; border-radius: 3px; margin-right: 4px; }
+  .label-what { background: #eff6ff; color: #1d4ed8; }
+  .label-why { background: #fff7ed; color: #ea580c; }
+  .label-so { background: #ecfdf5; color: #059669; }
+  .data-table th { background: #e8ecf5; }
+  .data-table td.key-col { background: #f0f6ff; }
+  .data-table .key-num { color: #059669; font-weight: 700; }
+  .data-table .key-opm { color: #b45309; }
+  caption { font-size: 11px; color: #5a6280; text-align: left; padding: 0 0 8px; caption-side: top; }
+  .val-box { background: #fafafa; border: 1px solid #d0d4e0; border-radius: 8px; padding: 16px 20px; font-size: 13px; line-height: 2; color: #1a1d2e; }
+  .val-formula { background: #f0f2f8; border-radius: 6px; padding: 10px 14px; font-family: monospace; font-size: 13px; margin: 10px 0; color: #b45309; }
+  .risk-item { background: #fafafa; border-radius: 0 6px 6px 0; padding: 14px 16px; margin-bottom: 10px; }
+  .risk-item:last-child { margin-bottom: 0; }
+  .risk-sev-high { border-left: 3px solid #dc2626; }
+  .risk-sev-mid { border-left: 3px solid #ea580c; }
+  .risk-assumption { font-weight: 600; font-size: 13px; margin-bottom: 4px; color: #1a1d2e; }
+  .risk-chain { font-size: 12px; color: #5a6280; margin: 4px 0; }
+  .risk-impact-num { font-size: 13px; color: #dc2626; font-weight: 600; margin-top: 4px; }
+  .opinion-box { background: #fafafa; border: 1px solid #d0d4e0; border-radius: 8px; padding: 16px 20px; font-size: 13px; line-height: 1.8; color: #5a6280; }
+  .decision-box { display: flex; gap: 14px; margin-top: 14px; }
+  .decision-btn { flex: 1; text-align: center; padding: 10px; border-radius: 6px; font-weight: 700; font-size: 13px; border: 1px solid; }
+  .decision-buy { background: #ecfdf5; color: #059669; border-color: #34d399; }
+  .decision-wait { background: #fffbeb; color: #b45309; border-color: #f59e0b; }
+  .decision-avoid { background: #fef2f2; color: #dc2626; border-color: #fca5a5; }
+  .decision-dim { opacity: 0.3; }
+  .disclaimer { font-size: 11px; color: #9ca3af; text-align: center; margin-top: 40px; padding-top: 16px; border-top: 1px solid #d0d4e0; }
+</style>
+</head>
+<body>
+
+<div class="pdf-only-banner">
+  🚫 외부 검색 절대 금지 — 제공된 PDF 파일만 활용 | 당일 발간 리포트 기준 투자 종목 발굴 전용
+</div>
+
+<header class="header">
+  <h1>롯데에너지머티리얼즈 (020150) | 데이터센터용 회로박 판매 증가와 전고체 모멘텀 유진투자증권 한병화 | 발간일: 2026.04.22</h1>
+  <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-bottom:12px;">
+    <span class="tag-badge tag-hold">🟡 보류</span>
+    <span class="score-badge score-low">📊 20점</span>
+    <span style="font-size:12px;color:#5a6280;">비바이오</span>
+    <span class="pathway-badge">경로 ③BEP돌파</span>
+  </div>
+  <div class="price-row">
+    <div class="price-item"><span class="label">투자의견</span><span class="val">BUY(유지)</span></div>
+    <div class="price-item"><span class="label">목표주가(TP)</span><span class="val">65,000원(상향)</span></div>
+    <div class="price-item"><span class="label">현재주가(CP)</span><span class="val">56,700원</span></div>
+    <div class="price-item"><span class="label">Upside</span><span class="val upside-val">+14.6%</span></div>
+    <div class="price-item"><span class="label">시가총액</span><span class="val">2,969억원</span></div>
+    <div class="price-item"><span class="label">종목 유형</span><span class="val">비바이오</span></div>
+  </div>
+</header>
+
+<!-- B. 한줄 투자 이유 -->
+<section>
+  <div class="section-title">💡 이 종목에 투자해야 하는 이유 — 스토리 한 줄</div>
+  <div class="thesis-box">
+    26E 영업적자 -468억원 지속(적자 축소). 회로박(데이터센터 통신 모듈향) 판매량 2x 증가(25년 2,500톤→26E 5,000톤) + 전고체 배터리 JV 연내 확정이 모멘텀이나, 흑자전환은 27E(OP 424억원). 영업적자 지속으로 보류
+  </div>
+  <div class="thesis-structure">
+    <div class="thesis-part" style="color:#059669;">① 회로박 판매 2x(●●○)<br/>+ 전고체 JV 연내 확정(●○○)</div>
+    <div class="thesis-arrow">→</div>
+    <div class="thesis-part" style="color:#b45309;">② 26E OP -468억(적자 축소), 27E 흑자전환</div>
+    <div class="thesis-arrow">→</div>
+    <div class="thesis-part" style="color:#2563eb;">③ Upside 14.6%, 보류(영업적자 지속)</div>
+  </div>
+</section>
+
+<!-- C. 핵심 5조건 -->
+<section>
+  <div class="section-title">✅ 핵심 태그 5가지 조건 체크 (5개 모두 통과해야 ⭐핵심 이상 가능)</div>
+  <div class="checklist">
+    <div class="checklist-item">
+      <div class="check-icon check-fail">✗</div>
+      <div>
+        <div class="check-label">조건 1 | 영업이익(OP) 성장 임계값</div>
+        <div class="check-why">26E OP -468억원(영업적자 지속). 흑자전환 27E. OPM -5.1% → 미달</div>
+      </div>
+    </div>
+    <div class="checklist-item">
+      <div class="check-icon check-fail">✗</div>
+      <div>
+        <div class="check-label">조건 2 | 3년 지속성 (3개 이상 충족)</div>
+        <div class="check-why">① 회로박 판매 구조적 증가 ② 전고체 JV 연내 확정 예상. 3개 미달(2개) → 미달</div>
+      </div>
+    </div>
+    <div class="checklist-item">
+      <div class="check-icon check-fail">✗</div>
+      <div>
+        <div class="check-label">조건 3 | 확정 팩트(●●●) 2개 이상</div>
+        <div class="check-why">●●○ 회로박 판매 2배 증가(추정), ●○○ 전고체 JV(미확정) → ●●● 0개 → 미달</div>
+      </div>
+    </div>
+    <div class="checklist-item">
+      <div class="check-icon check-fail">✗</div>
+      <div>
+        <div class="check-label">조건 4 | 시장 미반영 (Upside 40%+ OR 컨센 괴리 20%+)</div>
+        <div class="check-why">Upside 14.6% < 40% → 미달</div>
+      </div>
+    </div>
+    <div class="checklist-item">
+      <div class="check-icon check-fail">✗</div>
+      <div>
+        <div class="check-label">조건 5 | 이 리포트만의 차별화된 시각</div>
+        <div class="check-why">회로박 성장 + 전고체 모멘텀은 기존 논리. 독자적 시각 제한 → 미달</div>
+      </div>
+    </div>
+  </div>
+  <p style="font-size:11px;color:#dc2626;margin-top:8px;padding:0 4px;">
+    ⚠️ 조건 1~5 전부 미달 → 보류
+  </p>
+</section>
+
+<!-- D. 투자 점수 -->
+<section>
+  <div class="section-title">📊 투자 점수 판정 (v2.0 비바이오) — 모든 근거 칸 필수 기재</div>
+  <table>
+    <thead><tr><th>항목</th><th>판정</th><th>근거 (Why)</th></tr></thead>
+    <tbody>
+      <tr><td>종목 유형</td><td>비바이오</td><td>동박(전지박·회로박) 제조. 전기차 배터리 + 데이터센터 소재</td></tr>
+      <tr><td>적용 가설</td><td>가설 4</td><td>26E OP -468억원(영업적자 지속). 27E 흑자전환 전망이나 미확정</td></tr>
+      <tr><td>촉매 등급</td><td>하급</td><td>회로박 판매 증가 + 전고체 JV는 아직 가시성 낮음. 흑자전환 27E로 1년 이상 소요</td></tr>
+      <tr><td>복합 여부</td><td>단독</td><td>동박 사업 흑자전환이라는 단일 축</td></tr>
+      <tr><td>직접성</td><td>직접</td><td>회로박·전지박 매출 직결</td></tr>
+      <tr><td>매트릭스 기본 점수</td><td>20점</td><td>가설4 × 하급 × 단독 = 20점</td></tr>
+      <tr class="total-row"><td>최종 투자 점수</td><td><span class="highlight-green">20점</span></td><td>보류 20+ 충족. 영업적자 지속으로 보류 확정</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<!-- E. 성장 인과 체인 -->
+<section>
+  <div class="section-title">⚡ 성장 인과 체인 — 왜 성장하는가 (각 단계에 수치 필수)</div>
+  <div class="chain-box">
+    <div class="chain-step">
+      <div class="chain-arrow">①</div>
+      <div class="chain-content">
+        <div class="chain-label">구조 변화 / 촉매 <span class="chain-forecast">●●○ 추정</span></div>
+        <div class="chain-text">데이터센터 통신 모듈향 회로박 수요 증가. 3분기부터 HVLP3,4용 회로박 공급 예정. 전고체 배터리 JV 연내 확정(미국 선도권 업체, 500톤 수준 공장). BESS 고객사 미국 공장 본격 가동</div>
+      </div>
+    </div>
+    <div class="chain-step">
+      <div class="chain-arrow">↓</div>
+      <div class="chain-content">
+        <div class="chain-label">매출 영향 (규모·비중 수치)</div>
+        <div class="chain-text">26E 매출 9,107억원(+34.4% YoY). 동박 7,347억원, 자회사 1,760억원. 회로박 판매량 25년 2,500톤→26E 5,000톤→27E 10,000톤으로 급증</div>
+      </div>
+    </div>
+    <div class="chain-step">
+      <div class="chain-arrow">↓</div>
+      <div class="chain-content">
+        <div class="chain-label">OPM 변화 메커니즘</div>
+        <div class="chain-text">매출총이익률 (9.9%)→4.5%(26E)로 적자 축소. 전지박 수주 부진이나 회로박 고부가 제품 비중 증가로 마진 개선 중. OPM -5.1%(26E) → +3.2%(27E) 흑자전환 전망</div>
+      </div>
+    </div>
+    <div class="chain-step">
+      <div class="chain-arrow">↓</div>
+      <div class="chain-content">
+        <div class="chain-label">최종 실적 결과 <span class="chain-forecast">●○○ 추정</span></div>
+        <div class="chain-text">26E OP -468억원(적자 축소). 27E OP 424억원(흑자전환). 28E OP 1,021억원(OPM 5.7%)</div>
+      </div>
+    </div>
+    <div class="chain-step">
+      <div class="chain-arrow">↓</div>
+      <div class="chain-content">
+        <div class="chain-label">시장 미반영 포인트 (So What)</div>
+        <div class="chain-text">PBR 2.2배(26E 실적 기준). 전고체 배터리 JV 확정 시 밸류에이션 리레이팅 가능. 과거 PBR 밴드 0.7~6.8배 중 중하단. 다만 Upside 14.6%로 낮음</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- F. 핵심 팩트 3줄 -->
+<section>
+  <div class="section-title">📌 핵심 팩트 3줄 — WHAT(숫자) + WHY(원인) + SO WHAT(의미) 3요소 필수</div>
+  <div class="fact-item">
+    <span class="fact-num">Fact 01</span>
+    <div class="fact-what"><span class="fact-label label-what">WHAT</span>1Q26E 매출 1,699억원(+8% YoY), OP -176억원(적자 대폭 축소, 전년 -460억원). 매출 증가의 대부분 회로박 수요 증가</div>
+    <div class="fact-why"><span class="fact-label label-why">WHY</span>데이터센터 통신 모듈향 회로박 판매 증가. 전지박은 주고객사 전지박 공급 부진(25년 매출 -25%). BESS향 전지박 수요 +30% 증가 예상</div>
+    <div class="fact-so"><span class="fact-label label-so">SO WHAT</span>적자 축소 확인이 27E 흑자전환 전망의 신뢰도를 높이는 핵심. 회로박이 이익 턴어라운드의 가장 빠른 경로</div>
+  </div>
+  <div class="fact-item">
+    <span class="fact-num">Fact 02</span>
+    <div class="fact-what"><span class="fact-label label-what">WHAT</span>회로박 판매량: 25년 2,500톤 → 26E 5,000톤(2x) → 27E 10,000톤(2x). HVLP3,4용 고부가 회로박 3Q부터 공급</div>
+    <div class="fact-why"><span class="fact-label label-why">WHY</span>AI 데이터센터 급증 → 광통신 모듈 수요 → 회로박 수요 구조적 증가. 공급업체 적고 가공마진 높아 이익 기여도 높음</div>
+    <div class="fact-so"><span class="fact-label label-so">SO WHAT</span>회로박이 동사 이익 턴어라운드의 핵심 동력. 전지박 대비 가공마진이 높아 판매량 2배 시 이익 레버리지 극대화</div>
+  </div>
+  <div class="fact-item">
+    <span class="fact-num">Fact 03</span>
+    <div class="fact-what"><span class="fact-label label-what">WHAT</span>전고체 배터리 소재 사업 JV 연내 확정 예상. 미국 선도권 업체와 500톤 수준 공장 건설. TP 65,000원 상향(기존 50,000원)</div>
+    <div class="fact-why"><span class="fact-label label-why">WHY</span>전고체 배터리 상용화 시 동박 소재 전환 수요 발생. 국내 관련 업체 중 가장 빠른 절차 진행. PBR 2.7배(26E) 적용</div>
+    <div class="fact-so"><span class="fact-label label-so">SO WHAT</span>전고체 JV 확정 시 밸류에이션 추가 상향 가능. 다만 연내 확정 시점 불확실 + 실적 기여는 28E 이후</div>
+  </div>
+</section>
+
+<!-- F-2. 원본 리포트 핵심 요약 -->
+<section>
+  <div class="section-title">📄 원본 리포트 핵심 요약 — PDF 내용 직접 발췌 (외부 정보 추가 금지)</div>
+  <div style="background:#fafafa;border:1px solid #d0d4e0;border-radius:8px;padding:16px 20px;margin-bottom:12px;">
+    <div style="font-size:11px;font-weight:700;letter-spacing:1px;color:#5a6280;text-transform:uppercase;margin-bottom:10px;">리포트 핵심 주장 (애널리스트 관점 요약)</div>
+    <p style="font-size:13px;line-height:1.9;">1분기 영업적자 대폭 축소 예상. 회로박 판매량 2배 증가(26E 5,000톤)가 핵심 성장 동력. BESS향 전지박 수요 +30% 증가. 전고체 배터리 JV 연내 확정으로 밸류에이션 리레이팅. TP 65,000원 상향(기존 50,000원). BUY 유지.</p>
+    <div style="margin-top:10px;display:flex;gap:8px;flex-wrap:wrap;">
+      <div style="background:#f0f2f8;border:1px solid #d0d4e0;border-radius:6px;padding:6px 12px;font-size:12px;">
+        <span style="color:#5a6280;font-size:10px;display:block;margin-bottom:2px;">이전 대비 변화 포인트</span>
+        TP 50,000원 → 65,000원 상향. BUY 유지. 회로박 + 전고체 모멘텀 반영
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- G. 실적 전망 (연간) -->
+<section>
+  <div class="section-title">📈 실적 전망 (연간) — PDF 원문 수치만 기재, 추정 금지</div>
+  <table class="data-table">
+    <caption>단위: 십억원 | ★ = 투자 핵심 연도</caption>
+    <thead>
+      <tr>
+        <th>구분</th><th>2024A</th><th>2025A</th>
+        <th style="background:#dbeafe;color:#1e40af;font-weight:700;">2026E ★</th>
+        <th>2027E</th><th>2028E</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td>매출액</td><td>677.5</td><td>910.7</td><td class="key-col key-num">910.7</td><td>1,341.3</td><td>1,791.1</td></tr>
+      <tr><td>YoY(%)</td><td>-24.9%</td><td>34.4%</td><td class="key-col">+34.4%</td><td>+47.3%</td><td>+33.5%</td></tr>
+      <tr><td>영업이익</td><td>(64.4)</td><td>(145.2)</td><td class="key-col" style="color:#dc2626;font-weight:700;">(46.8)</td><td>42.4</td><td>102.1</td></tr>
+      <tr><td>OPM(%)</td><td>-7.1%</td><td>-21.4%</td><td class="key-col key-opm">-5.1%</td><td>3.2%</td><td>5.7%</td></tr>
+      <tr><td>EPS(원)</td><td>(2,916)</td><td>(935)</td><td class="key-col">425</td><td>1,297</td><td>-</td></tr>
+      <tr><td>PER(배)</td><td>n/a</td><td>n/a</td><td class="key-col">123.4</td><td>40.5</td><td>-</td></tr>
+      <tr><td>PBR(배)</td><td>1.7</td><td>2.2</td><td class="key-col">2.1</td><td>1.8</td><td>-</td></tr>
+      <tr><td>ROE(%)</td><td>-10.2%</td><td>-3.4%</td><td class="key-col">1.8</td><td>4.0</td><td>-</td></tr>
+    </tbody>
+  </table>
+  <p style="font-size:12px;color:#5a6280;margin-top:10px;padding:0 4px;">
+    ▶ 왜 보류인가: 26E 영업적자 -468억원 지속. 27E 흑자전환(OP 424억원) 전망이나 1년 이상 대기. Upside 14.6%로 낮음. 회로박 판매 확대 + 전고체 JV 확정이 핵심 모니터링 포인트.
+  </p>
+</section>
+
+<!-- H. 분기별 실적 -->
+<section>
+  <div class="section-title">📅 분기별 실적 전망 — PDF에 있으면 반드시 기재, 생략 금지</div>
+  <table class="data-table">
+    <thead>
+      <tr>
+        <th>구분</th>
+        <th>1Q25</th><th>2Q25</th><th>3Q25</th><th>4Q25</th>
+        <th style="background:#dbeafe;color:#1e40af;font-weight:700;">1Q26E ★</th>
+        <th>2Q26E</th><th>3Q26E</th><th>4Q26E</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td>매출액</td><td>157.3</td><td>148.8</td><td>153.2</td><td>218.3</td><td class="key-col key-num">169.9</td><td>205.3</td><td>256.8</td><td>278.7</td></tr>
+      <tr><td>영업이익</td><td>(46.0)</td><td>(43.8)</td><td>(30.2)</td><td>(25.2)</td><td class="key-col" style="color:#dc2626;font-weight:700;">(17.6)</td><td>(13.2)</td><td>(9.5)</td><td>(6.5)</td></tr>
+      <tr><td>OPM(%)</td><td>-29.2%</td><td>-29.4%</td><td>-19.7%</td><td>-11.5%</td><td class="key-col key-opm">-10.4%</td><td>-6.4%</td><td>-3.7%</td><td>-2.3%</td></tr>
+    </tbody>
+  </table>
+  <p style="font-size:12px;color:#5a6280;margin-top:10px;padding:0 4px;">
+    ▶ 1Q26 주목 포인트: 적자 대폭 축소(-176억원 vs 전년 -460억원). 회로박 수요 증가가 핵심 동력. 분기별 적자 축소 추세 확인이 27E 흑자전환 신뢰도의 관건
+  </p>
+</section>
+
+<!-- I. 밸류에이션 -->
+<section>
+  <div class="section-title">💰 밸류에이션 — 왜 이 배수인가 1문장 필수</div>
+  <div class="val-box">
+    <div class="val-formula">PBR 2.7배(26E 실적 기준) 적용. 과거 PBR 밴드 0.7~6.8배 중 성장 초기 수준 반영</div>
+    <p style="color:#5a6280;font-size:12px;margin-top:8px;">▶ 왜 이 배수인가: 전고체 배터리 JV + 회로박 성장 모멘텀 반영한 PBR 밸류에이션. 적자 기업으로 PER 적용 불가</p>
+  </div>
+</section>
+
+<!-- J. 리스크 -->
+<section>
+  <div class="section-title">⚠️ 리스크 — 핵심 가정이 틀릴 경우 시나리오 (키워드 나열 금지)</div>
+  <div class="risk-item risk-sev-high">
+    <div class="risk-assumption">🔴 핵심 가정: 27E 흑자전환(OP 424억원)</div>
+    <div class="risk-chain" style="margin-top:6px;">→ 붕괴 시: 전지박 수주 추가 부진 + 회로박 판매 증가 지연 시 27E에도 적자 지속<br/>→ 실적 영향: 27E OP 0~100억원(흑자전환 지연)</div>
+    <div class="risk-impact-num">→ 주가 영향: PBR 1.5배 적용 시 TP 35,000원(-46%)</div>
+  </div>
+  <div class="risk-item risk-sev-mid">
+    <div class="risk-assumption">🟠 두 번째 가정: 전고체 배터리 JV 연내 확정</div>
+    <div class="risk-chain" style="margin-top:6px;">→ 붕괴 시: JV 무산·지연 시 밸류에이션 프리미엄 소멸</div>
+    <div class="risk-impact-num">→ 주가 영향: TP 하향 조정(50,000원 이하)</div>
+  </div>
+</section>
+
+<!-- L. 사견 & 결론 -->
+<section>
+  <div class="section-title">💬 사견 & 투자 행동 결론</div>
+  <div class="opinion-box">
+    <p>롯데에너지머티리얼즈는 회로박 판매 2배 증가 + 전고체 JV라는 중장기 모멘텀 보유. 다만 ①26E 영업적자 -468억원 지속, ②흑자전환 27E로 1년 이상 대기, ③Upside 14.6%로 낮음, ④전고체 JV 확정 시점 불확실. 적자 기업으로 실적 검증 전까지 보류. 27E 흑자전환 확인 후 재평가 필요.</p>
+    <div class="decision-box">
+      <div class="decision-btn decision-buy decision-dim">✅ 지금 진입 가능<br/><span style="font-size:11px;font-weight:400;">-</span></div>
+      <div class="decision-btn decision-wait decision-dim">⏳ 이벤트 후 진입<br/><span style="font-size:11px;font-weight:400;">-</span></div>
+      <div class="decision-btn decision-avoid">🚫 관망<br/><span style="font-size:11px;font-weight:400;">영업적자 지속 + 흑자전환 미확정</span></div>
+    </div>
+  </div>
+</section>
+
+<div class="disclaimer">
+  ※ 본 글은 증권사 리포트를 개인 학습 목적으로 요약·정리한 것이며, 투자 권유가 아닙니다.<br/>
+  ※ 제공된 PDF 파일만 활용. 외부 검색·참조 없음. 당일 발간 리포트 기준.
+</div>
+
+</body>
+</html>

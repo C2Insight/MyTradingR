@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GS피앤엘 (499790) 정리</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Pretendard','Apple SD Gothic Neo',-apple-system,sans-serif; background: #ffffff; color: #1a1d2e; line-height: 1.7; font-size: 14px; max-width: 900px; margin: 0 auto; padding: 32px 20px 80px; }
+  .header { border-left: 4px solid #2563eb; padding: 0 0 0 16px; margin-bottom: 24px; } .header h1 { font-size: 20px; font-weight: 700; margin-bottom: 10px; } .price-row { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin-top: 10px; } .price-item { background: #f0f2f8; border: 1px solid #d0d4e0; border-radius: 6px; padding: 6px 14px; font-size: 13px; } .price-item .label { color: #5a6280; font-size: 11px; display: block; } .price-item .val { font-weight: 700; color: #1a1d2e; }
+  .tag-badge { display: inline-flex; align-items: center; gap: 6px; padding: 5px 14px; border-radius: 20px; font-size: 13px; font-weight: 700; } .tag-hold { background: #fefce8; color: #a16207; border: 1px solid #facc15; }
+  .score-badge { display: inline-block; padding: 5px 14px; border-radius: 20px; font-size: 13px; font-weight: 700; background: #f0f2f8; border: 1px solid #d0d4e0; } .score-low { color: #5a6280; }
+  .pathway-badge { display: inline-flex; align-items: center; gap: 4px; padding: 3px 10px; border-radius: 12px; font-size: 11px; font-weight: 600; background: #f0f2f8; border: 1px solid #d0d4e0; color: #5a6280; }
+  section { margin-bottom: 28px; } .section-title { font-size: 11px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: #5a6280; border-bottom: 1px solid #d0d4e0; padding-bottom: 6px; margin-bottom: 14px; }
+  .pdf-only-banner { background: #fff7ed; border: 1px solid #f97316; border-radius: 8px; padding: 10px 16px; font-size: 12px; color: #c2410c; margin-bottom: 20px; text-align: center; font-weight: 700; }
+  .thesis-box { background: #f8faff; border: 1px solid #2563eb; border-radius: 8px; padding: 16px 20px; font-size: 15px; font-weight: 600; line-height: 1.6; color: #1a1d2e; }
+  table { width: 100%; border-collapse: collapse; background: #fafafa; border-radius: 8px; overflow: hidden; border: 1px solid #d0d4e0; } thead tr { background: #f0f2f8; } th { padding: 10px 14px; text-align: left; font-size: 11px; font-weight: 700; color: #5a6280; letter-spacing: 0.8px; } td { padding: 10px 14px; border-top: 1px solid #d0d4e0; font-size: 13px; } tr.total-row td { background: #e8ecf5; font-weight: 700; } .highlight-green { color: #059669; font-weight: 700; }
+  .fact-item { background: #fafafa; border: 1px solid #d0d4e0; border-radius: 8px; padding: 14px 16px; margin-bottom: 8px; } .fact-item:last-child { margin-bottom: 0; } .fact-num { font-size: 10px; font-weight: 700; color: #2563eb; letter-spacing: 1px; margin-bottom: 8px; display: block; } .fact-what { font-weight: 600; font-size: 14px; margin-bottom: 6px; } .fact-why { font-size: 13px; color: #5a6280; margin-bottom: 6px; } .fact-so { font-size: 13px; color: #059669; } .fact-label { display: inline-block; font-size: 10px; font-weight: 700; padding: 1px 6px; border-radius: 3px; margin-right: 4px; } .label-what { background: #eff6ff; color: #1d4ed8; } .label-why { background: #fff7ed; color: #ea580c; } .label-so { background: #ecfdf5; color: #059669; }
+  .data-table th { background: #e8ecf5; } .data-table td.key-col { background: #f0f6ff; } .data-table .key-num { color: #059669; font-weight: 700; } .data-table .key-opm { color: #b45309; } caption { font-size: 11px; color: #5a6280; text-align: left; padding: 0 0 8px; caption-side: top; }
+  .risk-item { background: #fafafa; border-radius: 0 6px 6px 0; padding: 14px 16px; margin-bottom: 10px; } .risk-item:last-child { margin-bottom: 0; } .risk-sev-high { border-left: 3px solid #dc2626; } .risk-sev-mid { border-left: 3px solid #ea580c; } .risk-assumption { font-weight: 600; font-size: 13px; margin-bottom: 4px; } .risk-chain { font-size: 12px; color: #5a6280; margin: 4px 0; } .risk-impact-num { font-size: 13px; color: #dc2626; font-weight: 600; margin-top: 4px; }
+  .opinion-box { background: #fafafa; border: 1px solid #d0d4e0; border-radius: 8px; padding: 16px 20px; font-size: 13px; line-height: 1.8; color: #5a6280; } .decision-box { display: flex; gap: 14px; margin-top: 14px; } .decision-btn { flex: 1; text-align: center; padding: 10px; border-radius: 6px; font-weight: 700; font-size: 13px; border: 1px solid; } .decision-buy { background: #ecfdf5; color: #059669; border-color: #34d399; } .decision-wait { background: #fffbeb; color: #b45309; border-color: #f59e0b; } .decision-avoid { background: #fef2f2; color: #dc2626; border-color: #fca5a5; } .decision-dim { opacity: 0.3; }
+  .disclaimer { font-size: 11px; color: #9ca3af; text-align: center; margin-top: 40px; padding-top: 16px; border-top: 1px solid #d0d4e0; }
+</style>
+</head>
+<body>
+
+<div class="pdf-only-banner">🚫 외부 검색 절대 금지 — 제공된 PDF 파일만 활용 | 당일 발간 리포트 기준 투자 종목 발굴 전용</div>
+
+<header class="header">
+  <h1>GS피앤엘 (499790) | 최고의 입지, 최고의 효과 SK증권 나승두 | 발간일: 2026.04.22</h1>
+  <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-bottom:12px;">
+    <span class="tag-badge tag-hold">🟡 보류</span>
+    <span class="score-badge score-low">📊 N/R</span>
+    <span style="font-size:12px;color:#5a6280;">비바이오</span>
+    <span class="pathway-badge">Not Rated → 보류</span>
+  </div>
+  <div class="price-row">
+    <div class="price-item"><span class="label">투자의견</span><span class="val">Not Rated</span></div>
+    <div class="price-item"><span class="label">목표주가(TP)</span><span class="val">-</span></div>
+    <div class="price-item"><span class="label">현재주가(CP)</span><span class="val">48,000원</span></div>
+    <div class="price-item"><span class="label">Upside</span><span class="val upside-val">N/A (Not Rated)</span></div>
+    <div class="price-item"><span class="label">시가총액</span><span class="val">9,796억원</span></div>
+    <div class="price-item"><span class="label">종목 유형</span><span class="val">비바이오</span></div>
+  </div>
+</header>
+
+<section>
+  <div class="section-title">💡 리포트 핵심 포인트</div>
+  <div class="thesis-box">
+    Not Rated — 2024.12 GS리테일 인적분할 재상장. 그랜드 인터컨티넨탈(550실) + 웨스틴 서울 파르나스(564실, 2025.09 리모델링 완료) + 제주(307실) + 나인트리 시리즈. 25A OP 780억원(흑전), 26E OP 1,150억원. OPM 16.2%로 호텔업 고수익성이나 TP 부재
+  </div>
+  <div class="thesis-structure">
+    <div class="thesis-part" style="color:#059669;">① 서울 핵심 입지 호텔(삼성역) + 파르나스 리모델링(●●○)</div>
+    <div class="thesis-arrow">→</div>
+    <div class="thesis-part" style="color:#b45309;">② 26E OP 1,150억원(+47.4%), OPM 18.5%</div>
+    <div class="thesis-arrow">→</div>
+    <div class="thesis-part" style="color:#2563eb;">③ Not Rated → TP 부재, 보류</div>
+  </div>
+</section>
+
+<section>
+  <div class="section-title">✅ 핵심 태그 5가지 조건 체크 (5개 모두 통과해야 핵심 이상 가능)</div>
+  <div class="checklist">
+    <div class="checklist-item">
+      <div class="check-icon check-pass">✓</div>
+      <div>
+        <div class="check-label">조건 1 | 영업이익(OP) 성장 임계값</div>
+        <div class="check-why">26E OP +47.4%(780→1,150억원). +50% 미달이나 근접. OPM 16.2%→18.5%(+2.3%p), 15%+ 통과</div>
+      </div>
+    </div>
+    <div class="checklist-item">
+      <div class="check-icon check-pass">✓</div>
+      <div>
+        <div class="check-label">조건 2 | 3년 지속성</div>
+        <div class="check-why">① 서울 핵심 입지(삼성역) 호텔 ② 인바운드 MICE 수요 구조적 증가 ③ 파르나스 리모델링 효과 → 3개 충족</div>
+      </div>
+    </div>
+    <div class="checklist-item">
+      <div class="check-icon check-fail">✗</div>
+      <div>
+        <div class="check-label">조건 3 | 확정 팩트(●●●) 2개 이상</div>
+        <div class="check-why">●●○ 파르나스 리모델링(2025.09 완료 예정). 확정 팩트(●●●) 부족</div>
+      </div>
+    </div>
+    <div class="checklist-item">
+      <div class="check-icon check-fail">✗</div>
+      <div>
+        <div class="check-label">조건 4 | 시장 미반영 (Upside 40%+)</div>
+        <div class="check-why">Not Rated — Upside 산출 불가</div>
+      </div>
+    </div>
+    <div class="checklist-item">
+      <div class="check-icon check-pass">✓</div>
+      <div>
+        <div class="check-label">조건 5 | 이 리포트만의 차별화된 시각</div>
+        <div class="check-why">GS리테일 분할 후 순수 호텔 플레이 + OPM 16.2% 고수익 구조 시각</div>
+      </div>
+    </div>
+  </div>
+  <p style="font-size:11px;color:#dc2626;margin-top:8px;padding:0 4px;">
+    ⚠️ 조건3·4 미달(Not Rated, Upside 부재) → 보류. 커버리지 개시(Buy+TP) 시 주목~핵심 후보
+  </p>
+</section>
+
+<section>
+  <div class="section-title">📊 투자 점수 판정 (v2.0 비바이오) — 보류 사유</div>
+  <table>
+    <thead><tr><th>항목</th><th>내용</th></tr></thead>
+    <tbody>
+      <tr><td>투자의견</td><td>Not Rated — 목표주가·Upside 제시 없음</td></tr>
+      <tr><td>보류 근거</td><td>v9 규정: Not Rated 종목은 보류/제외 태그 부여. 점수 산출 불가</td></tr>
+      <tr><td>참고 사항</td><td>2024.12 GS리테일 인적분할 후 재상장한 신규 상장주. 서울 핵심 입지(삼성역) 호텔 보유. 웨스틴 파르나스 리모델링(2025.09) 완료 시 실적 레벨업 기대. OPM 16.2%로 호텔업 평균 대비 고수익</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section>
+  <div class="section-title">📌 핵심 팩트 3줄</div>
+  <div class="fact-item">
+    <span class="fact-num">Fact 01</span>
+    <div class="fact-what"><span class="fact-label label-what">WHAT</span>25A 매출 4,817억원, OP 780억원(흑전), OPM 16.2%. 26E OP 1,150억원(+47.4%)</div>
+    <div class="fact-why"><span class="fact-label label-why">WHY</span>그랜드 인터컨티넨탈(550실) + 웨스틴 파르나스(564실) 서울 핵심 입지 호텔. 인바운드 관광 + MICE 수요 집중</div>
+    <div class="fact-so"><span class="fact-label label-so">SO WHAT</span>OPM 16.2%로 호텔업 고수익 구조. 분할 상장 1년차로 실적 트랙레코드 축적 중. 커버리지 개시 시 주목 이상 가능</div>
+  </div>
+  <div class="fact-item">
+    <span class="fact-num">Fact 02</span>
+    <div class="fact-what"><span class="fact-label label-what">WHAT</span>웨스틴 서울 파르나스 564실 리모델링 2025.09 완료(●●○). 객실 40.1%, 식음료 13.7%, 기타 46.2%</div>
+    <div class="fact-why"><span class="fact-label label-why">WHY</span>리모델링 후 ADR 상승 + OCC 회복 → 26E 본격 매출 기여. 삼성역 MICE 수요 흡수</div>
+    <div class="fact-so"><span class="fact-label label-so">SO WHAT</span>리모델링 완료가 26E 실적 변곡점. 564실 전면 가동 시 매출·OPM 동시 개선 기대</div>
+  </div>
+  <div class="fact-item">
+    <span class="fact-num">Fact 03</span>
+    <div class="fact-what"><span class="fact-label label-what">WHAT</span>PER 43.0배(25A), PBR 0.7배, ROE 2.3%. DPS 350원(배당성향 35.7%)</div>
+    <div class="fact-why"><span class="fact-label label-why">WHY</span>분할 상장 1년차로 기저 효과(24A 12월 1개월만 실적). 25A부터 정상 연간 실적. 부채비율 95.3%로 양호</div>
+    <div class="fact-so"><span class="fact-label label-so">SO WHAT</span>25A PER 높으나 26E 기준 정상화 예상. 부채비율 양호 + 배당 정책 수립으로 재무 안정성 확인</div>
+  </div>
+</section>
+
+<section>
+  <div class="section-title">📈 실적 전망 (연간)</div>
+  <table class="data-table">
+    <caption>단위: 억원 (SK증권 기준)</caption>
+    <thead><tr><th>구분</th><th>2024A(12월 1달)</th><th>2025A</th><th style="background:#dbeafe;color:#1e40af;font-weight:700;">2026E</th></tr></thead>
+    <tbody>
+      <tr><td>매출액</td><td>383</td><td>4,817</td><td class="key-col key-num">6,210</td></tr>
+      <tr><td>영업이익</td><td>-</td><td>780</td><td class="key-col key-num">1,150</td></tr>
+      <tr><td>YoY(%)</td><td>-</td><td>흑전</td><td class="key-col key-num">+47.4%</td></tr>
+      <tr><td>OPM(%)</td><td>-</td><td>16.2%</td><td class="key-col key-opm">18.5%</td></tr>
+      <tr><td>PER(배)</td><td>-</td><td>43.0</td><td class="key-col">-</td></tr>
+      <tr><td>PBR(배)</td><td>-</td><td>0.7</td><td class="key-col">-</td></tr>
+      <tr><td>ROE(%)</td><td>-</td><td>2.3%</td><td class="key-col">-</td></tr>
+    </tbody>
+  </table>
+  <p style="font-size:12px;color:#5a6280;margin-top:10px;">▶ 사업 구조: 객실 40.1%, 식음료 13.7%, 기타 46.2%. 서울(삼성역) 핵심 입지 호텔 중심.</p>
+</section>
+
+<section>
+  <div class="section-title">📅 분기별 실적 전망 — PDF에 있으면 반드시 기재, 생략 금지</div>
+  <table class="data-table">
+    <thead>
+      <tr>
+        <th>구분</th>
+        <th>1Q26E</th><th>2Q26E</th><th>3Q26E</th><th>4Q26E</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td>매출액</td><td>-</td><td>-</td><td>-</td><td>-</td></tr>
+      <tr><td>영업이익</td><td>-</td><td>-</td><td>-</td><td>-</td></tr>
+      <tr><td>OPM(%)</td><td>-</td><td>-</td><td>-</td><td>-</td></tr>
+    </tbody>
+  </table>
+  <p style="font-size:12px;color:#5a6280;margin-top:10px;padding:0 4px;">
+    ▶ Not Rated — 분기별 추정치 미제공. 웨스틴 파르나스 리모델링 완료(2025.09) 후 26E 본격 매출 기여 예상.
+  </p>
+</section>
+
+<section>
+  <div class="section-title">⚠️ 리스크</div>
+  <div class="risk-item risk-sev-high">
+    <div class="risk-assumption">🔴 신규 상장 리스크: 분할 상장 1년차, 실적 트랙레코드 부족</div>
+    <div class="risk-chain">→ 24A는 12월 1개월 실적만 존재. 25A가 첫 연간 실적. 실적 안정성 확인 필요</div>
+    <div class="risk-impact-num">→ 밸류에이션 기준 확립 전까지 변동성 높을 수 있음</div>
+  </div>
+  <div class="risk-item risk-sev-mid">
+    <div class="risk-assumption">🟠 웨스틴 파르나스 리모델링 효과 지연</div>
+    <div class="risk-chain">→ 리모델링 후 OCC 정상화 지연 시 → 26E 실적 기대 하회</div>
+    <div class="risk-impact-num">→ 26E OP 1,150억원 하회 가능</div>
+  </div>
+</section>
+
+<section>
+  <div class="section-title">💬 사견 & 투자 행동 결론</div>
+  <div class="opinion-box">
+    <p>GS피앤엘은 서울 핵심 입지(삼성역) 호텔을 보유한 순수 호텔 플레이. OPM 16.2%로 호텔업 고수익 + 웨스틴 파르나스 리모델링 효과(26E)가 매력. 다만 Not Rated(TP 부재) + 분할 상장 1년차로 실적 트랙레코드 축적 중. 커버리지 개시 시 주목~핵심 후보로 재평가 필요. 특히 26E OP +47.4% + OPM 18.5%이면 핵심 조건1 근접.</p>
+    <div class="decision-box">
+      <div class="decision-btn decision-buy decision-dim">✅ 지금 진입 가능<br/><span style="font-size:11px;font-weight:400;">-</span></div>
+      <div class="decision-btn decision-wait">⏳ 이벤트 후 진입<br/><span style="font-size:11px;font-weight:400;">커버리지 개시(Buy+TP) 후</span></div>
+      <div class="decision-btn decision-avoid decision-dim">🚫 관망<br/><span style="font-size:11px;font-weight:400;">-</span></div>
+    </div>
+  </div>
+</section>
+
+<div class="disclaimer">※ 본 글은 증권사 리포트를 개인 학습 목적으로 요약·정리한 것이며, 투자 권유가 아닙니다.<br/>※ 제공된 PDF 파일만 활용. 외부 검색·참조 없음.</div>
+</body>
+</html>

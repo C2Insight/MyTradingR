@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LS ELECTRIC (010120) 정리</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Pretendard','Apple SD Gothic Neo',-apple-system,sans-serif; background: #ffffff; color: #1a1d2e; line-height: 1.7; font-size: 14px; max-width: 900px; margin: 0 auto; padding: 32px 20px 80px; }
+  .header { border-left: 4px solid #2563eb; padding: 0 0 0 16px; margin-bottom: 24px; } .header h1 { font-size: 20px; font-weight: 700; margin-bottom: 10px; } .price-row { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin-top: 10px; } .price-item { background: #f0f2f8; border: 1px solid #d0d4e0; border-radius: 6px; padding: 6px 14px; font-size: 13px; } .price-item .label { color: #5a6280; font-size: 11px; display: block; } .price-item .val { font-weight: 700; } .upside-val { color: #059669; }
+  .tag-badge { display: inline-flex; align-items: center; gap: 6px; padding: 5px 14px; border-radius: 20px; font-size: 13px; font-weight: 700; } .tag-core { background: #ecfdf5; color: #059669; border: 1px solid #34d399; } .tag-watch { background: #fffbeb; color: #b45309; border: 1px solid #f59e0b; } .score-badge { display: inline-block; padding: 5px 14px; border-radius: 20px; font-size: 13px; font-weight: 700; background: #f0f2f8; border: 1px solid #d0d4e0; } .score-mid { color: #b45309; } .pathway-badge { display: inline-flex; align-items: center; gap: 4px; padding: 3px 10px; border-radius: 12px; font-size: 11px; font-weight: 600; background: #f0f2f8; border: 1px solid #d0d4e0; color: #5a6280; }
+  section { margin-bottom: 28px; } .section-title { font-size: 11px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: #5a6280; border-bottom: 1px solid #d0d4e0; padding-bottom: 6px; margin-bottom: 14px; } .pdf-only-banner { background: #fff7ed; border: 1px solid #f97316; border-radius: 8px; padding: 10px 16px; font-size: 12px; color: #c2410c; margin-bottom: 20px; text-align: center; font-weight: 700; }
+  .thesis-box { background: #f8faff; border: 1px solid #2563eb; border-radius: 8px; padding: 16px 20px; font-size: 15px; font-weight: 600; line-height: 1.6; } .thesis-structure { display: flex; gap: 8px; align-items: center; margin-top: 10px; flex-wrap: wrap; } .thesis-part { background: #f0f2f8; border: 1px solid #d0d4e0; border-radius: 6px; padding: 4px 10px; font-size: 12px; } .thesis-arrow { color: #2563eb; font-size: 16px; }
+  .checklist { background: #fafafa; border: 1px solid #d0d4e0; border-radius: 8px; overflow: hidden; } .checklist-item { display: flex; gap: 14px; align-items: flex-start; padding: 12px 16px; border-bottom: 1px solid #d0d4e0; } .checklist-item:last-child { border-bottom: none; } .check-icon { width: 22px; height: 22px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; flex-shrink: 0; } .check-pass { background: #ecfdf5; color: #059669; border: 1px solid #34d399; } .check-fail { background: #fef2f2; color: #dc2626; border: 1px solid #fca5a5; } .check-label { font-weight: 600; font-size: 13px; } .check-why { font-size: 13px; }
+  table { width: 100%; border-collapse: collapse; background: #fafafa; border-radius: 8px; overflow: hidden; border: 1px solid #d0d4e0; } thead tr { background: #f0f2f8; } th { padding: 10px 14px; text-align: left; font-size: 11px; font-weight: 700; color: #5a6280; } td { padding: 10px 14px; border-top: 1px solid #d0d4e0; font-size: 13px; } tr.total-row td { background: #e8ecf5; font-weight: 700; } .penalty { color: #dc2626; } .highlight-green { color: #059669; font-weight: 700; }
+  .chain-box { background: #fafafa; border: 1px solid #d0d4e0; border-radius: 8px; padding: 16px 20px; } .chain-step { display: flex; gap: 12px; align-items: flex-start; margin-bottom: 10px; } .chain-step:last-child { margin-bottom: 0; } .chain-arrow { color: #2563eb; font-size: 16px; flex-shrink: 0; } .chain-content { flex: 1; } .chain-label { font-size: 10px; font-weight: 700; letter-spacing: 1px; color: #5a6280; margin-bottom: 2px; } .chain-text { font-size: 13px; } .chain-confirmed { color: #059669; font-size: 11px; margin-left: 6px; } .chain-forecast { color: #b45309; font-size: 11px; margin-left: 6px; }
+  .fact-item { background: #fafafa; border: 1px solid #d0d4e0; border-radius: 8px; padding: 14px 16px; margin-bottom: 8px; } .fact-num { font-size: 10px; font-weight: 700; color: #2563eb; letter-spacing: 1px; margin-bottom: 8px; display: block; } .fact-what { font-weight: 600; font-size: 14px; margin-bottom: 6px; } .fact-why { font-size: 13px; color: #5a6280; margin-bottom: 6px; } .fact-so { font-size: 13px; color: #059669; } .fact-label { display: inline-block; font-size: 10px; font-weight: 700; padding: 1px 6px; border-radius: 3px; margin-right: 4px; } .label-what { background: #eff6ff; color: #1d4ed8; } .label-why { background: #fff7ed; color: #ea580c; } .label-so { background: #ecfdf5; color: #059669; }
+  .data-table th { background: #e8ecf5; } .data-table td.key-col { background: #f0f6ff; } .data-table .key-num { color: #059669; font-weight: 700; } .data-table .key-opm { color: #b45309; } caption { font-size: 11px; color: #5a6280; text-align: left; padding: 0 0 8px; caption-side: top; }
+  .val-box { background: #fafafa; border: 1px solid #d0d4e0; border-radius: 8px; padding: 16px 20px; font-size: 13px; line-height: 2; } .val-formula { background: #f0f2f8; border-radius: 6px; padding: 10px 14px; font-family: monospace; font-size: 13px; margin: 10px 0; color: #b45309; }
+  .risk-item { background: #fafafa; border-radius: 0 6px 6px 0; padding: 14px 16px; margin-bottom: 10px; } .risk-sev-high { border-left: 3px solid #dc2626; } .risk-sev-mid { border-left: 3px solid #ea580c; } .risk-assumption { font-weight: 600; font-size: 13px; margin-bottom: 4px; } .risk-chain { font-size: 12px; color: #5a6280; margin: 4px 0; } .risk-impact-num { font-size: 13px; color: #dc2626; font-weight: 600; margin-top: 4px; }
+  .checkpoint-item { display: flex; gap: 12px; padding: 10px 0; border-bottom: 1px solid #d0d4e0; font-size: 13px; } .checkpoint-item:last-child { border-bottom: none; } .cp-date { color: #2563eb; font-weight: 600; min-width: 90px; flex-shrink: 0; } .cp-pass { color: #059669; font-size: 12px; margin-top: 2px; } .cp-fail { color: #dc2626; font-size: 12px; margin-top: 2px; }
+  .opinion-box { background: #fafafa; border: 1px solid #d0d4e0; border-radius: 8px; padding: 16px 20px; font-size: 13px; line-height: 1.8; color: #5a6280; } .decision-box { display: flex; gap: 14px; margin-top: 14px; } .decision-btn { flex: 1; text-align: center; padding: 10px; border-radius: 6px; font-weight: 700; font-size: 13px; border: 1px solid; } .decision-buy { background: #ecfdf5; color: #059669; border-color: #34d399; } .decision-wait { background: #fffbeb; color: #b45309; border-color: #f59e0b; } .decision-avoid { background: #fef2f2; color: #dc2626; border-color: #fca5a5; } .decision-dim { opacity: 0.3; }
+  .disclaimer { font-size: 11px; color: #9ca3af; text-align: center; margin-top: 40px; padding-top: 16px; border-top: 1px solid #d0d4e0; }
+</style>
+</head>
+<body>
+<div class="pdf-only-banner">🚫 외부 검색 절대 금지 — 제공된 PDF 파일만 활용</div>
+
+<header class="header">
+  <h1>LS ELECTRIC (010120) | 빅테크향 대규모 수주와 직류 시장 성공적 진입 BNK투자증권 이상현 | 발간일: 2026.04.22</h1>
+  <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-bottom:12px;">
+    <span class="tag-badge tag-watch">🔥 주목</span>
+    <span class="score-badge score-mid">📊 50점</span>
+    <span style="font-size:12px;color:#5a6280;">비바이오</span>
+    <span class="pathway-badge">경로 ②볼륨드리븐</span>
+  </div>
+  <div class="price-row">
+    <div class="price-item"><span class="label">투자의견</span><span class="val">매수(유지)</span></div>
+    <div class="price-item"><span class="label">목표주가(TP)</span><span class="val">230,000원(상향)</span></div>
+    <div class="price-item"><span class="label">현재주가(CP)</span><span class="val">184,700원</span></div>
+    <div class="price-item"><span class="label">Upside</span><span class="val upside-val">+24.5%</span></div>
+    <div class="price-item"><span class="label">시가총액</span><span class="val">27,705십억원</span></div>
+    <div class="price-item"><span class="label">종목 유형</span><span class="val">비바이오</span></div>
+  </div>
+</header>
+
+<section>
+  <div class="section-title">💡 스토리 한 줄</div>
+  <div class="thesis-box">빅테크향 대규모 배전 수주(약 1,700억원, ●●●) + 직류(DC) 전력망 시장 성공적 진입(●●●)으로 26E OP +57%, OPM 9.7%→10.7% 진입. 수주구조 질적 진화(중기 고정·패키지화)는 강력하나 Upside 24.5%로 안전마진 제한적</div>
+  <div class="thesis-structure">
+    <div class="thesis-part" style="color:#059669;">① 빅테크 1,700억원 수주(●●●)<br/>+ DC 전력망 진입(●●●)</div>
+    <div class="thesis-arrow">→</div>
+    <div class="thesis-part" style="color:#b45309;">② 26E OP +57%, OPM 10.7%</div>
+    <div class="thesis-arrow">→</div>
+    <div class="thesis-part" style="color:#2563eb;">③ Upside 24.5%</div>
+  </div>
+</section>
+
+<section>
+  <div class="section-title">✅ 핵심 5조건</div>
+  <div class="checklist">
+    <div class="checklist-item"><div class="check-icon check-pass">✓</div><div><div class="check-label">조건 1 | OP +50%+</div><div class="check-why">26E OP 585억원(+37.3% YoY, BNK 추정치). 단, SK증권 기준 668억원(+57%). BNK 자체 추정치로는 +37%로 미달이나, 컨센 기준 +50%+ → 조건부 통과</div></div></div>
+    <div class="checklist-item"><div class="check-icon check-pass">✓</div><div><div class="check-label">조건 2 | 3년 지속성 3개+</div><div class="check-why">① 수주잔고 5,643억원(연매출 대비 0.9배) ② 26E~28E OP CAGR ~40% ③ DC 전력망 신규 시장 진입 → 3개</div></div></div>
+    <div class="checklist-item"><div class="check-icon check-pass">✓</div><div><div class="check-label">조건 3 | 확정팩트 2개+</div><div class="check-why">●●● 빅테크 약 1,700억원 계약 체결 / ●●● DC 발전 고객 On-Site 수주 레퍼런스 확보 / ●●● 1Q26 실적 확인 → 3개</div></div></div>
+    <div class="checklist-item"><div class="check-icon check-fail">✗</div><div><div class="check-label">조건 4 | Upside 40%+</div><div class="check-why">Upside 24.5% < 40% → 미달</div></div></div>
+    <div class="checklist-item"><div class="check-icon check-pass">✓</div><div><div class="check-label">조건 5 | 차별화</div><div class="check-why">DC(직류) 전력망 시장 진입 시각은 이 리포트만의 고유 근거. AC→DC 전환 트렌드 + 차세대 전력망 레퍼런스 확보</div></div></div>
+  </div>
+  <p style="font-size:11px;color:#dc2626;margin-top:8px;">⚠️ 조건4 미달, 핵심 최소선(60점) 유지</p>
+</section>
+
+<section>
+  <div class="section-title">📊 투자 점수 판정 (v2.0 비바이오)</div>
+  <table>
+    <thead><tr><th>항목</th><th>판정</th><th>근거</th></tr></thead>
+    <tbody>
+      <tr><td>적용 가설</td><td>가설 2</td><td>고성장 중이나 OPM 개선은 아직 예상 단계(BNK 26E OPM 9.7%)</td></tr>
+      <tr><td>촉매 등급</td><td>상급</td><td>미국 빅테크 시총 상위5 대상 1,700억원(연매출 대비 ~28%) 계약</td></tr>
+      <tr><td>복합 여부</td><td>단독</td><td>빅테크 수주가 핵심</td></tr>
+      <tr><td>직접성</td><td>직접</td><td>전력사업 매출 직결</td></tr>
+      <tr><td>매트릭스</td><td>70점</td><td>가설2 x 상급 x 단독 = 70점</td></tr>
+      <tr><td>페널티 ① 컨센서스선반영</td><td class="penalty">-10점</td><td>다수 증권사 동일 배전 사이클 논리</td></tr>
+      <tr><td>페널티 ② 밸류부담</td><td class="penalty">-10점</td><td>YTD +100%+ 급등. Upside 24.5%로 안전마진 제한</td></tr>
+      <tr class="total-row"><td>최종 점수</td><td><span class="highlight-green">50점</span></td><td>주목(40~59)</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section>
+  <div class="section-title">⚡ 성장 인과 체인</div>
+  <div class="chain-box">
+    <div class="chain-step"><div class="chain-arrow">①</div><div class="chain-content"><div class="chain-label">촉매 <span class="chain-confirmed">●●● 확정</span></div><div class="chain-text">빅테크 DC 1,700억원 수주(배전반 75%, 변압기 25%). DC(직류) 전력망 시장 진입 성공 — 미국 On-Site 발전 고객 레퍼런스 확보</div></div></div>
+    <div class="chain-step"><div class="chain-arrow">↓</div><div class="chain-content"><div class="chain-label">매출</div><div class="chain-text">26E 매출 6,001억원(+20.9% YoY). 전력사업 매출 4,071억원(+30.1%). 27E 매출 6,960억원(+16.0%)</div></div></div>
+    <div class="chain-step"><div class="chain-arrow">↓</div><div class="chain-content"><div class="chain-label">OPM 메커니즘</div><div class="chain-text">빅테크 수주 OPM 10% 중후반 확보. 3Q26 미국 상계관세 환급 → 일시적 OP 개선. 부산 초고압 변압기 8,000억원 풀가동</div></div></div>
+    <div class="chain-step"><div class="chain-arrow">↓</div><div class="chain-content"><div class="chain-label">실적 <span class="chain-forecast">●●○</span></div><div class="chain-text">26E OP 585억원(+37.3%), OPM 9.7%. 27E OP 825억원(+41.0%), OPM 11.9%</div></div></div>
+    <div class="chain-step"><div class="chain-arrow">↓</div><div class="chain-content"><div class="chain-label">미반영</div><div class="chain-text">DC 전력망 시장 진입은 시장에 충분히 반영 안 됨. 차세대 전력망 선점 시 멀티플 리레이팅 가능. 다만 Upside 24.5%로 괴리 제한적</div></div></div>
+  </div>
+</section>
+
+<section>
+  <div class="section-title">📌 핵심 팩트 3줄</div>
+  <div class="fact-item"><span class="fact-num">Fact 01</span><div class="fact-what"><span class="fact-label label-what">WHAT</span>1Q26 매출 1조 3,766억원(+33.4%), OP 1,266억원(+45%), OPM 9.2%. 컨센(1,332억원) 대비 부합(±5%)</div><div class="fact-why"><span class="fact-label label-why">WHY</span>데이터센터·반도체·신재생 투자 확대 → 전력사업 수주 호조. 은/전기동 원자재 가격 상승이라는 부담 요인 상존</div><div class="fact-so"><span class="fact-label label-so">SO WHAT</span>1Q가 계절적 저점인데도 OPM 9.2% 기록 → 2~4Q 실적 우상향 추세 기대</div></div>
+  <div class="fact-item"><span class="fact-num">Fact 02</span><div class="fact-what"><span class="fact-label label-what">WHAT</span>빅테크 데이터센터향 약 1,700억원 계약. 배전반 75%, 변압기 25%. OPM 10% 중후반</div><div class="fact-why"><span class="fact-label label-why">WHY</span>단발성→중기 고정계약 + 패키지(배전반+변압기+기기류) 형태 진화. 당초 대비 계약 규모 상향</div><div class="fact-so"><span class="fact-label label-so">SO WHAT</span>리커링 매출 구조 세팅. 교체주기 짧은 배전 제품 특성상 당해 연도 매출 반영 → 고마진 반복 수익</div></div>
+  <div class="fact-item"><span class="fact-num">Fact 03</span><div class="fact-what"><span class="fact-label label-what">WHAT</span>DC(직류) 전력망 시장 진입 성공. 미국 On-Site 발전 고객으로부터 DC 기자재 수주 레퍼런스 확보</div><div class="fact-why"><span class="fact-label label-why">WHY</span>신재생에너지·데이터센터 확대로 AC(교류)→DC(직류) 전환 요구 증가. 차세대 전력망 시장 선점</div><div class="fact-so"><span class="fact-label label-so">SO WHAT</span>DC 시장은 초기 단계로 선점 효과 극대화 가능. 기술력 입증 시 추가 대형 수주 기대</div></div>
+</section>
+
+<section>
+  <div class="section-title">📄 원본 리포트 핵심 요약 — PDF 내용 직접 발췌 (외부 정보 추가 금지)</div>
+  <div style="background:#fafafa;border:1px solid #d0d4e0;border-radius:8px;padding:16px 20px;margin-bottom:12px;">
+    <div style="font-size:11px;font-weight:700;letter-spacing:1px;color:#5a6280;text-transform:uppercase;margin-bottom:10px;">리포트 핵심 주장 (애널리스트 관점 요약)</div>
+    <p style="font-size:13px;line-height:1.9;">BNK은 LS ELECTRIC의 핵심 투자 포인트로 ①미국 빅테크향 대규모 수주(약 1,700억원) ②DC 전력망 성공적 진입 ③수주구조 질적 변화(단발성→중기 고정·패키지화)를 제시. TP 194,000→230,000원 상향(+18.6%). 28E 실적에 과거 2개년 최고 PER 평균(45.5배) 적용.</p>
+    <div style="margin-top:10px;display:flex;gap:8px;flex-wrap:wrap;">
+      <div style="background:#f0f2f8;border:1px solid #d0d4e0;border-radius:6px;padding:6px 12px;font-size:12px;">
+        <span style="color:#5a6280;font-size:10px;display:block;margin-bottom:2px;">이전 대비 변화 포인트</span>
+        TP 194,000→230,000원 상향(+18.6%). 매수 유지. 빅테크 수주 + DC 시장 진입 반영
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="section-title">📈 실적 전망</div>
+  <table class="data-table">
+    <caption>단위: 십억원</caption>
+    <thead><tr><th>구분</th><th>2024A</th><th>2025A</th><th style="background:#dbeafe;color:#1e40af;">2026F ★</th><th>2027F</th><th>2028F</th></tr></thead>
+    <tbody>
+      <tr><td>매출액</td><td>4,552</td><td>4,966</td><td class="key-col key-num">6,001</td><td>6,960</td><td>7,814</td></tr>
+      <tr><td>영업이익</td><td>390</td><td>426</td><td class="key-col key-num">585</td><td>825</td><td>989</td></tr>
+      <tr><td>OPM(%)</td><td>8.6%</td><td>8.6%</td><td class="key-col key-opm">9.7%</td><td>11.9%</td><td>12.7%</td></tr>
+      <tr><td>EPS(원)</td><td>1,591</td><td>1,911</td><td class="key-col">3,114</td><td>4,283</td><td>5,136</td></tr>
+      <tr><td>PER(배)</td><td>20.2</td><td>48.1</td><td class="key-col">59.3</td><td>43.1</td><td>36.0</td></tr>
+      <tr><td>ROE(%)</td><td>13.4</td><td>14.7</td><td class="key-col">20.7</td><td>25.6</td><td>29.0</td></tr>
+    </tbody>
+  </table>
+  <p style="font-size:12px;color:#5a6280;margin-top:10px;">▶ 왜 26E가 변곡점인가: 배전 사이클 본격화 + 빅테크 대규모 수주 + DC 시장 진입 → OPM 구조적 개선 시작점</p>
+</section>
+
+<section>
+  <div class="section-title">📅 분기별</div>
+  <table class="data-table">
+    <thead><tr><th>구분</th><th>1Q25</th><th>2Q25</th><th>3Q25</th><th>4Q25</th><th style="background:#dbeafe;color:#1e40af;">1Q26P ★</th><th>2Q26F</th><th>3Q26F</th><th>4Q26F</th></tr></thead>
+    <tbody>
+      <tr><td>매출액</td><td>1,032</td><td>1,193</td><td>1,216</td><td>1,524</td><td class="key-col key-num">1,377</td><td>1,453</td><td>1,399</td><td>1,772</td></tr>
+      <tr><td>영업이익</td><td>87</td><td>109</td><td>101</td><td>130</td><td class="key-col key-num">127</td><td>149</td><td>141</td><td>169</td></tr>
+      <tr><td>OPM(%)</td><td>8.5%</td><td>9.1%</td><td>8.3%</td><td>8.5%</td><td class="key-col key-opm">9.2%</td><td>10.2%</td><td>10.1%</td><td>9.5%</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section>
+  <div class="section-title">💰 밸류에이션</div>
+  <div class="val-box">
+    <div class="val-formula">27E EPS 4,753원 x Target PER 50배 = TP 230,000원 (기존 194,000원 → 액면 이전 97,000원)</div>
+    <p style="color:#5a6280;font-size:12px;margin-top:8px;">▶ 28E 실적에 과거 2개년 최고 PER 평균(45.5배) 적용</p>
+  </div>
+</section>
+
+<section>
+  <div class="section-title">⚠️ 리스크</div>
+  <div class="risk-item risk-sev-high"><div class="risk-assumption">🔴 빅테크 데이터센터 투자 둔화</div><div class="risk-chain">→ 배전 수주 급감 → 26E OP 585억→400억(-32%)</div><div class="risk-impact-num">→ TP 230,000 → 155,000원(-33%)</div></div>
+  <div class="risk-item risk-sev-mid"><div class="risk-assumption">🟠 원자재(은/전기동) 가격 급등 지속</div><div class="risk-chain">→ OPM 개선 둔화, 마진 압박</div><div class="risk-impact-num">→ TP 10~15% 하향 가능</div></div>
+</section>
+
+<section>
+  <div class="section-title">🎯 체크포인트</div>
+  <div style="background:#fafafa;border:1px solid #d0d4e0;border-radius:8px;padding:4px 16px;">
+    <div class="checkpoint-item"><span class="cp-date">2026.2Q</span><div><div>수주 가이던스 공식 상향 + 초대형 프로젝트 가시화</div><div class="cp-pass">✅ 상향 시 → 추가 리레이팅</div><div class="cp-fail">⛔ 미공개 → 비중 축소</div></div></div>
+    <div class="checkpoint-item"><span class="cp-date">2026.3Q</span><div><div>미국 상계관세 환급 → 일시적 OP 개선 확인</div><div class="cp-pass">✅ 환급 확인 → 3Q OP 서프라이즈</div><div class="cp-fail">⛔ 지연 → 단기 실적 미달</div></div></div>
+  </div>
+</section>
+
+<section>
+  <div class="section-title">💬 사견 & 결론</div>
+  <div class="opinion-box">
+    <p>BNK 리포트의 차별화 포인트는 DC(직류) 전력망 시장 진입 시각. AC→DC 전환 트렌드는 중장기 성장 동력으로 유효. 다만 ①Upside 24.5%로 3개 증권사 중 가장 낮고, ②BNK 자체 26E OP 추정치(585억)는 SK증권(668억)보다 보수적. 이미 3개 증권사가 동일 날 동일 종목 커버 → 컨센 반영도 높은 상태.</p>
+    <div class="decision-box">
+      <div class="decision-btn decision-buy">✅ 지금 진입 가능<br/><span style="font-size:11px;font-weight:400;">핵심 60점</span></div>
+      <div class="decision-btn decision-wait decision-dim">⏳ 이벤트 후<br/><span style="font-size:11px;font-weight:400;">-</span></div>
+      <div class="decision-btn decision-avoid decision-dim">🚫 관망<br/><span style="font-size:11px;font-weight:400;">-</span></div>
+    </div>
+  </div>
+</section>
+
+<div class="disclaimer">※ 본 글은 증권사 리포트를 개인 학습 목적으로 요약·정리한 것이며, 투자 권유가 아닙니다.<br/>※ 제공된 PDF 파일만 활용.</div>
+</body>
+</html>
