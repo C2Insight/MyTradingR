@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>대한조선 (439260) 정리</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Pretendard','Apple SD Gothic Neo',-apple-system,sans-serif; background: #ffffff; color: #1a1d2e; line-height: 1.7; font-size: 14px; max-width: 900px; margin: 0 auto; padding: 32px 20px 80px; }
+  .header { border-left: 4px solid #2563eb; padding: 0 0 0 16px; margin-bottom: 24px; }
+  .header h1 { font-size: 20px; font-weight: 700; margin-bottom: 10px; color: #1a1d2e; }
+  .price-row { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin-top: 10px; }
+  .price-item { background: #f0f2f8; border: 1px solid #d0d4e0; border-radius: 6px; padding: 6px 14px; font-size: 13px; }
+  .price-item .label { color: #5a6280; font-size: 11px; display: block; }
+  .price-item .val { font-weight: 700; color: #1a1d2e; }
+  .upside-val { color: #059669; }
+  .tag-badge { display: inline-flex; align-items: center; gap: 6px; padding: 5px 14px; border-radius: 20px; font-size: 13px; font-weight: 700; }
+  .tag-watch   { background: #fffbeb; color: #b45309; border: 1px solid #f59e0b; }
+  .score-badge { display: inline-block; padding: 5px 14px; border-radius: 20px; font-size: 13px; font-weight: 700; background: #f0f2f8; border: 1px solid #d0d4e0; color: #1a1d2e; }
+  .score-mid  { color: #b45309; }
+  .pathway-badge { display: inline-flex; align-items: center; gap: 4px; padding: 3px 10px; border-radius: 12px; font-size: 11px; font-weight: 600; background: #f0f2f8; border: 1px solid #d0d4e0; color: #5a6280; }
+  section { margin-bottom: 28px; }
+  .section-title { font-size: 11px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: #5a6280; border-bottom: 1px solid #d0d4e0; padding-bottom: 6px; margin-bottom: 14px; }
+  .pdf-only-banner { background: #fff7ed; border: 1px solid #f97316; border-radius: 8px; padding: 10px 16px; font-size: 12px; color: #c2410c; margin-bottom: 20px; text-align: center; font-weight: 700; }
+  .thesis-box { background: #f8faff; border: 1px solid #2563eb; border-radius: 8px; padding: 16px 20px; font-size: 15px; font-weight: 600; line-height: 1.6; color: #1a1d2e; }
+  .thesis-structure { display: flex; gap: 8px; align-items: center; margin-top: 10px; flex-wrap: wrap; }
+  .thesis-part { background: #f0f2f8; border: 1px solid #d0d4e0; border-radius: 6px; padding: 4px 10px; font-size: 12px; color: #1a1d2e; }
+  .thesis-arrow { color: #2563eb; font-size: 16px; }
+  .checklist { background: #fafafa; border: 1px solid #d0d4e0; border-radius: 8px; overflow: hidden; }
+  .checklist-item { display: flex; gap: 14px; align-items: flex-start; padding: 12px 16px; border-bottom: 1px solid #d0d4e0; }
+  .checklist-item:last-child { border-bottom: none; }
+  .check-icon { width: 22px; height: 22px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; flex-shrink: 0; margin-top: 1px; }
+  .check-pass { background: #ecfdf5; color: #059669; border: 1px solid #34d399; }
+  .check-fail { background: #fef2f2; color: #dc2626; border: 1px solid #fca5a5; }
+  .check-label { font-weight: 600; font-size: 13px; color: #1a1d2e; }
+  .check-detail { color: #5a6280; font-size: 12px; margin-top: 2px; }
+  .check-why { color: #1a1d2e; font-size: 13px; }
+  table { width: 100%; border-collapse: collapse; background: #fafafa; border-radius: 8px; overflow: hidden; border: 1px solid #d0d4e0; }
+  thead tr { background: #f0f2f8; }
+  th { padding: 10px 14px; text-align: left; font-size: 11px; font-weight: 700; color: #5a6280; letter-spacing: 0.8px; text-transform: uppercase; }
+  td { padding: 10px 14px; border-top: 1px solid #d0d4e0; font-size: 13px; color: #1a1d2e; }
+  tr.total-row td { background: #e8ecf5; font-weight: 700; }
+  .penalty { color: #dc2626; }
+  .highlight-green { color: #059669; font-weight: 700; }
+  .chain-box { background: #fafafa; border: 1px solid #d0d4e0; border-radius: 8px; padding: 16px 20px; }
+  .chain-step { display: flex; gap: 12px; align-items: flex-start; margin-bottom: 10px; }
+  .chain-step:last-child { margin-bottom: 0; }
+  .chain-arrow { color: #2563eb; font-size: 16px; flex-shrink: 0; margin-top: 1px; }
+  .chain-content { flex: 1; }
+  .chain-label { font-size: 10px; font-weight: 700; letter-spacing: 1px; color: #5a6280; text-transform: uppercase; margin-bottom: 2px; }
+  .chain-text { font-size: 13px; color: #1a1d2e; }
+  .chain-confirmed { color: #059669; font-size: 11px; margin-left: 6px; }
+  .chain-forecast { color: #b45309; font-size: 11px; margin-left: 6px; }
+  .fact-item { background: #fafafa; border: 1px solid #d0d4e0; border-radius: 8px; padding: 14px 16px; margin-bottom: 8px; }
+  .fact-item:last-child { margin-bottom: 0; }
+  .fact-num { font-size: 10px; font-weight: 700; color: #2563eb; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 8px; display: block; }
+  .fact-what { font-weight: 600; font-size: 14px; margin-bottom: 6px; color: #1a1d2e; }
+  .fact-why  { font-size: 13px; color: #5a6280; margin-bottom: 6px; }
+  .fact-so   { font-size: 13px; color: #059669; }
+  .fact-label { display: inline-block; font-size: 10px; font-weight: 700; padding: 1px 6px; border-radius: 3px; margin-right: 4px; }
+  .label-what { background: #eff6ff; color: #1d4ed8; }
+  .label-why  { background: #fff7ed; color: #ea580c; }
+  .label-so   { background: #ecfdf5; color: #059669; }
+  .data-table th { background: #e8ecf5; }
+  .data-table td.key-col { background: #f0f6ff; }
+  .data-table .key-num { color: #059669; font-weight: 700; }
+  .data-table .key-opm { color: #b45309; }
+  caption { font-size: 11px; color: #5a6280; text-align: left; padding: 0 0 8px; caption-side: top; }
+  .val-box { background: #fafafa; border: 1px solid #d0d4e0; border-radius: 8px; padding: 16px 20px; font-size: 13px; line-height: 2; color: #1a1d2e; }
+  .val-formula { background: #f0f2f8; border-radius: 6px; padding: 10px 14px; font-family: monospace; font-size: 13px; margin: 10px 0; color: #b45309; }
+  .risk-item { background: #fafafa; border-radius: 0 6px 6px 0; padding: 14px 16px; margin-bottom: 10px; }
+  .risk-sev-high { border-left: 3px solid #dc2626; }
+  .risk-sev-mid  { border-left: 3px solid #ea580c; }
+  .risk-assumption { font-weight: 600; font-size: 13px; margin-bottom: 4px; color: #1a1d2e; }
+  .risk-chain { font-size: 12px; color: #5a6280; margin: 4px 0; }
+  .risk-impact-num { font-size: 13px; color: #dc2626; font-weight: 600; margin-top: 4px; }
+  .checkpoint-item { display: flex; gap: 12px; padding: 10px 0; border-bottom: 1px solid #d0d4e0; font-size: 13px; }
+  .checkpoint-item:last-child { border-bottom: none; }
+  .cp-date { color: #2563eb; font-weight: 600; min-width: 90px; flex-shrink: 0; }
+  .cp-event { flex: 1; color: #1a1d2e; }
+  .cp-pass { color: #059669; font-size: 12px; margin-top: 2px; }
+  .cp-fail { color: #dc2626; font-size: 12px; margin-top: 2px; }
+  .opinion-box { background: #fafafa; border: 1px solid #d0d4e0; border-radius: 8px; padding: 16px 20px; font-size: 13px; line-height: 1.8; color: #5a6280; }
+  .decision-box { display: flex; gap: 14px; margin-top: 14px; }
+  .decision-btn { flex: 1; text-align: center; padding: 10px; border-radius: 6px; font-weight: 700; font-size: 13px; border: 1px solid; }
+  .decision-buy   { background: #ecfdf5; color: #059669; border-color: #34d399; }
+  .decision-wait  { background: #fffbeb; color: #b45309; border-color: #f59e0b; }
+  .decision-avoid { background: #fef2f2; color: #dc2626; border-color: #fca5a5; }
+  .decision-dim { opacity: 0.3; }
+  .upgrade-box { background: #eff6ff; border: 1px solid #93c5fd; border-radius: 8px; padding: 14px 16px; }
+  .upgrade-item { display: flex; gap: 10px; padding: 6px 0; border-bottom: 1px solid #dbeafe; font-size: 13px; color: #1a1d2e; }
+  .upgrade-item:last-child { border-bottom: none; }
+  .upgrade-when { color: #1d4ed8; font-weight: 600; min-width: 140px; flex-shrink: 0; }
+  .disclaimer { font-size: 11px; color: #9ca3af; text-align: center; margin-top: 40px; padding-top: 16px; border-top: 1px solid #d0d4e0; }
+</style>
+</head>
+<body>
+
+<div class="pdf-only-banner">
+  외부 검색 절대 금지 — 제공된 PDF 파일만 활용 | 당일 발간 리포트 기준 투자 종목 발굴 전용
+</div>
+
+<header class="header">
+  <h1>대한조선 (439260) | 1Q26 Preview: 벌써 2030년 슬롯 수주를 노리는 중 | 메리츠증권 배기연 | 발간일: 2026.04.21</h1>
+  <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-bottom:12px;">
+    <span class="tag-badge tag-watch">🔥 주목</span>
+    <span class="score-badge score-mid">📊 50점</span>
+    <span style="font-size:12px;color:#5a6280;">비바이오</span>
+    <span class="pathway-badge">경로 ② 볼륨드리븐</span>
+  </div>
+  <div class="price-row">
+    <div class="price-item"><span class="label">투자의견</span><span class="val">Not Rated</span></div>
+    <div class="price-item"><span class="label">목표주가(TP)</span><span class="val">N/A</span></div>
+    <div class="price-item"><span class="label">현재주가(CP)</span><span class="val">89,200원</span></div>
+    <div class="price-item"><span class="label">Upside</span><span class="val">N/A (TP 미제시)</span></div>
+    <div class="price-item"><span class="label">시가총액</span><span class="val">34,365억원</span></div>
+    <div class="price-item"><span class="label">종목 유형</span><span class="val">비바이오</span></div>
+  </div>
+</header>
+
+<section>
+  <div class="section-title">이 종목에 투자해야 하는 이유 — 스토리 한 줄</div>
+  <div class="thesis-box">
+    "수에즈막스 탱커 2029년 인도 슬롯을 이미 대부분 확보(●●●)하고 2030년 슬롯 영업 단계 진입, 1Q26E OP 858억(+22.9% YoY) OPM 27.2%(+6.1%p)로 컨센 대비 +5.9% 상회 전망인데, Not Rated 상태라 시장 목표주가가 없어 실적 기반 리레이팅 여지가 존재"
+  </div>
+  <div class="thesis-structure">
+    <div class="thesis-part" style="color:#059669;">① 확정 팩트<br/>2026년 수에즈막스 13척 수주 확보, 2029년 슬롯 소진 임박</div>
+    <div class="thesis-arrow">→</div>
+    <div class="thesis-part" style="color:#b45309;">② 실적 변화<br/>1Q26E OP +22.9%, OPM 22.7%→27.2% (+6.1%p)</div>
+    <div class="thesis-arrow">→</div>
+    <div class="thesis-part" style="color:#2563eb;">③ 시장 미반영<br/>컨센 OP 대비 +5.9% 상회, N/R로 TP 미형성</div>
+  </div>
+</section>
+
+<section>
+  <div class="section-title">핵심 태그 5가지 조건 체크 (5개 모두 통과해야 핵심 이상 가능)</div>
+  <div class="checklist">
+    <div class="checklist-item">
+      <div class="check-icon check-fail">✗</div>
+      <div>
+        <div class="check-label">조건 1 | 영업이익 성장 임계값</div>
+        <div class="check-detail">향후 1년 OP +50%+ AND (OPM +3%p+ OR OPM 15%+ 유지)</div>
+        <div class="check-why">26E OP 3,575억(+21.5% YoY). OPM 27.8%로 15% 이상 유지는 만족하나 OP +50% 미달 → 미충족</div>
+      </div>
+    </div>
+    <div class="checklist-item">
+      <div class="check-icon check-pass">✓</div>
+      <div>
+        <div class="check-label">조건 2 | 3년 지속성 (3개 이상 충족)</div>
+        <div class="check-detail">수주잔고 / CAPA 확대 / 독점·특허 / CAGR 15%+ 등</div>
+        <div class="check-why">① 2029년까지 일감 사실상 확보 ② 건조선가지표 75.8→87.9→93.2 상승 ③ 26E~27E OP CAGR +18% → 3개</div>
+      </div>
+    </div>
+    <div class="checklist-item">
+      <div class="check-icon check-fail">✗</div>
+      <div>
+        <div class="check-label">조건 3 | 확정 팩트(●●●) 2개 이상</div>
+        <div class="check-detail">●●● = 수주확정·인허가·실적 확인</div>
+        <div class="check-why">●●● 2026년 수에즈막스 13척 수주 확보 1개만 명확. 2030년 수주는 영업 진행 단계(●●○) → 2개 미달</div>
+      </div>
+    </div>
+    <div class="checklist-item">
+      <div class="check-icon check-fail">✗</div>
+      <div>
+        <div class="check-label">조건 4 | 시장 미반영 (둘 중 하나)</div>
+        <div class="check-detail">Upside 40%+ OR 컨센 괴리 +20%+</div>
+        <div class="check-why">TP 미제시(N/R). 1Q26 컨센 대비 OP +5.9%, 2026E 연간 컨센 대비 +1.6% 상회에 그침 → 미충족</div>
+      </div>
+    </div>
+    <div class="checklist-item">
+      <div class="check-icon check-pass">✓</div>
+      <div>
+        <div class="check-label">조건 5 | 이 리포트만의 차별화된 시각</div>
+        <div class="check-detail">"벌써 2030년 슬롯 수주를 노리는 중" 제목. 4분기 발표된 LPG 등 신 선종 일감 확보가 2030년 영업의 근거</div>
+        <div class="check-why">탱커 중심 사업모델로 인도 2029 슬롯을 사실상 채웠다는 프레임 제시 → 차별화</div>
+      </div>
+    </div>
+  </div>
+  <p style="font-size:11px;color:#dc2626;margin-top:8px;padding:0 4px;">
+    조건 1,3,4 미충족 → 주목 강등. TP 미제시 상태에서 Upside 계산 불가.
+  </p>
+</section>
+
+<section>
+  <div class="section-title">투자 점수 판정 (v2.0 비바이오)</div>
+  <table>
+    <thead><tr><th>항목</th><th>판정</th><th>근거 (Why)</th></tr></thead>
+    <tbody>
+      <tr><td>종목 유형</td><td>비바이오</td><td>조선업, 주가는 수주·실적에 결정</td></tr>
+      <tr><td>적용 가설</td><td>가설 2</td><td>이미 고성장 중(25년 OP +86%) + 26E OPM 개선 예상(23.9→27.8%)</td></tr>
+      <tr><td>촉매 등급</td><td>중급</td><td>수주잔고 2029년까지 확보 = 3년치 이상, 글로벌 탱커 수요 확대</td></tr>
+      <tr><td>복합 여부</td><td>복합</td><td>수주잔고 + 건조선가 상승(+15.9% YoY) + 신 선종 확장</td></tr>
+      <tr><td>직접성</td><td>직접</td><td>수주 → 매출·OPM 직결</td></tr>
+      <tr><td>매트릭스 기본 점수</td><td>70점</td><td>가설 2 × 중급 × 복합 = 70</td></tr>
+      <tr><td>페널티 ① 잠재수주 미확정</td><td class="penalty">-10점</td><td>2030년 슬롯은 아직 영업 단계로 미확정</td></tr>
+      <tr><td>페널티 ② 리스크 집중</td><td class="penalty">-10점</td><td>수에즈막스(COT) 단일 선종 매출 비중 92% 이상 집중</td></tr>
+      <tr class="total-row"><td>최종 투자 점수</td><td><span class="highlight-green">50점</span></td><td>주목 40+ 충족, 핵심 60점 미달</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section>
+  <div class="section-title">성장 인과 체인</div>
+  <div class="chain-box">
+    <div class="chain-step"><div class="chain-arrow">①</div><div class="chain-content"><div class="chain-label">구조 변화 / 촉매 <span class="chain-confirmed">● 확정 팩트</span></div><div class="chain-text">2026년 현재 수에즈막스 탱커 13척 수주 확보(●●●) = 연간 건조 CAPA 수준. 2029년 인도 슬롯 소진 임박</div></div></div>
+    <div class="chain-step"><div class="chain-arrow">↓</div><div class="chain-content"><div class="chain-label">매출 영향 (규모·비중 수치)</div><div class="chain-text">2026E 매출 1조 2,859억(+4.7% YoY), 2027E 1조 4,546억(+13.1%). COT(수에즈막스) 매출 2026E 8,200억 → 2027E 1조 21억</div></div></div>
+    <div class="chain-step"><div class="chain-arrow">↓</div><div class="chain-content"><div class="chain-label">OPM 변화 메커니즘</div><div class="chain-text">건조선가지표 75.8(2025)→87.9(26E)→93.2(27E)로 +15.9%/+6.1% YoY 상승. 과거 고선가 수주 물량이 매출화되며 OPM 23.9%→27.8%→29.0%로 단계적 상승</div></div></div>
+    <div class="chain-step"><div class="chain-arrow">↓</div><div class="chain-content"><div class="chain-label">최종 실적 결과 <span class="chain-forecast">● 추정</span></div><div class="chain-text">2026E OP 3,575억(+21.5%), 2027E 4,220억(+18.0%). 지배순이익 2,944억→3,501억</div></div></div>
+    <div class="chain-step"><div class="chain-arrow">↓</div><div class="chain-content"><div class="chain-label">시장 미반영 포인트 (So What)</div><div class="chain-text">Not Rated 상태로 TP 미제시. 컨센 PER 9.9배(27E). 2030년 슬롯 수주가 실제 체결되면 주주환원(배당·CAPEX) 정책 발표 가능성</div></div></div>
+  </div>
+</section>
+
+<section>
+  <div class="section-title">핵심 팩트 3줄</div>
+  <div class="fact-item">
+    <span class="fact-num">Fact 01</span>
+    <div class="fact-what"><span class="fact-label label-what">WHAT</span>1Q26E 매출 3,154억(+2.5% YoY), OP 858억(+22.9% YoY, QoQ -10.0%), OPM 27.2%(+6.1%p YoY)</div>
+    <div class="fact-why"><span class="fact-label label-why">WHY</span>전분기 대비 감소는 ① 내업 1공장 중대재해 + ② 2025년 목표 달성 위해 조업량을 4Q에 집중시킨 기저효과. 고선가 수주 물량 비중 확대로 OPM 급등</div>
+    <div class="fact-so"><span class="fact-label label-so">SO WHAT</span>컨센 OP 810억 대비 +5.9% 상회, 기존 추정치 대비 +0.6% 부합. 어닝 서프라이즈는 아니나 방향성 입증</div>
+  </div>
+  <div class="fact-item">
+    <span class="fact-num">Fact 02</span>
+    <div class="fact-what"><span class="fact-label label-what">WHAT</span>2029년 인도 슬롯 소진 임박. 2030년 슬롯부터 신 선종(LPG 등) 영업 단계 진입</div>
+    <div class="fact-why"><span class="fact-label label-why">WHY</span>2026년 현재 수에즈막스 13척 수주 완료 = 연간 건조 CAPA 수준. 4Q25 실적 발표에서 LPG 등 신 선종 일감 확보 전략 언급됨</div>
+    <div class="fact-so"><span class="fact-label label-so">SO WHAT</span>인도 사이클 2029까지 가시. 2028E 매출 1조 4,572억 수준 유지 + 주주환원 정책 또는 CAPEX 발표 기대</div>
+  </div>
+  <div class="fact-item">
+    <span class="fact-num">Fact 03</span>
+    <div class="fact-what"><span class="fact-label label-what">WHAT</span>26E 부채비율 30.1%(전년 40.8% → 개선), 순현금 비중 증가, ROE 32.2%(25)→23.7%(26E)→22.5%(27E)</div>
+    <div class="fact-why"><span class="fact-label label-why">WHY</span>25년 자본 증가 3,910억(증자 반영). 선수금 기반 영업현금흐름 2,950억(26E 추정) → 차입금 축소</div>
+    <div class="fact-so"><span class="fact-label label-so">SO WHAT</span>최대주주 KHI(구 STX조선해양) 매각 마무리되면 주주환원 또는 CAPEX 투자 발표 가능. 이 이벤트가 리레이팅 촉매</div>
+  </div>
+</section>
+
+<section>
+  <div class="section-title">원본 리포트 핵심 요약 — PDF 내용 직접 발췌</div>
+  <div style="background:#fafafa;border:1px solid #d0d4e0;border-radius:8px;padding:16px 20px;margin-bottom:12px;">
+    <div style="font-size:11px;font-weight:700;letter-spacing:1px;color:#5a6280;text-transform:uppercase;margin-bottom:10px;">리포트 핵심 주장 (애널리스트 관점 요약)</div>
+    <p style="font-size:13px;line-height:1.9;">"영업이익률이 +20%를 상회하며, 인도 기준 2029년까지 일감을 사실상 확보한 상황에서 대한조선의 미래 전략이 궁금. 최대주주 KHI가 케이조선에 대한 매각을 마무리하고 나면, 주주환원정책 또는 CAPEX 계획에 대한 발표가 나올 가능성을 주목." 1Q26E OP 858억(+22.9% YoY)으로 컨센 +5.9% 상회, 2026E OP 3,575억(+21.5% YoY)으로 컨센 +1.6% 상회 예상.</p>
+    <div style="margin-top:10px;display:flex;gap:8px;flex-wrap:wrap;">
+      <div style="background:#f0f2f8;border:1px solid #d0d4e0;border-radius:6px;padding:6px 12px;font-size:12px;">
+        <span style="color:#5a6280;font-size:10px;display:block;margin-bottom:2px;">투자의견</span>Not Rated (기존 N/R 유지)
+      </div>
+      <div style="background:#f0f2f8;border:1px solid #d0d4e0;border-radius:6px;padding:6px 12px;font-size:12px;">
+        <span style="color:#5a6280;font-size:10px;display:block;margin-bottom:2px;">컨센서스 대비</span>1Q26 OP +5.9% 상회, 26E OP +1.6% 상회
+      </div>
+    </div>
+  </div>
+  <div style="background:#fafafa;border:1px solid #d0d4e0;border-radius:8px;padding:16px 20px;margin-bottom:12px;">
+    <div style="font-size:11px;font-weight:700;letter-spacing:1px;color:#5a6280;text-transform:uppercase;margin-bottom:10px;">사업 구조 & 성장 동력</div>
+    <table style="margin:0;">
+      <thead><tr><th style="width:25%;">사업부</th><th style="width:20%;">매출 비중</th><th style="width:55%;">핵심 성장 드라이버</th></tr></thead>
+      <tbody>
+        <tr><td>COT (수에즈막스 탱커)</td><td>92% (26E)</td><td>2026년 건조 9척 인도(ASP 88.7백만 달러) → 2027년 11척(ASP 93.3백만 달러). 건조선가 +6.1% YoY 상승 → OPM 상승</td></tr>
+        <tr><td>PC (Product Carrier)</td><td>7.5% (26E)</td><td>1척 인도(ASP 74백만 달러). 2027년 인도 0척 → 2028년 피크아웃 우려</td></tr>
+        <tr><td>컨테이너선·기타</td><td>0.5%</td><td>2027년부터 컨테이너선 2척 인도 재개 예정(ASP 115.5백만 달러)</td></tr>
+      </tbody>
+    </table>
+    <p style="font-size:12px;color:#5a6280;margin-top:10px;">▶ 핵심 성장 메커니즘: 건조선가지표 75.8→87.9→93.2 (연평균 +11%) 상승이 매출화되며 OPM 23.9%→27.8%→29.0% 확대. 신 선종(LPG) 추가 확보 시 2030년 이후도 볼륨 유지</p>
+  </div>
+  <div style="background:#fafafa;border:1px solid #d0d4e0;border-radius:8px;padding:16px 20px;margin-bottom:12px;">
+    <div style="font-size:11px;font-weight:700;letter-spacing:1px;color:#5a6280;text-transform:uppercase;margin-bottom:10px;">시장 괴리 — 왜 지금 시장이 틀렸는가</div>
+    <table style="margin:0;">
+      <thead><tr><th style="width:30%;">구분</th><th>내용</th></tr></thead>
+      <tbody>
+        <tr><td style="color:#5a6280;">시장 현재 인식</td><td>Not Rated 섹터, 중형 조선사로서 커버리지 부재. 단일 선종 리스크 우려</td></tr>
+        <tr><td style="color:#2563eb;">이 리포트 주장</td><td>2029년까지 일감 사실상 확보 + 2030년 영업 단계 진입. 최대주주 매각 완료 후 주주환원·CAPEX 발표 가능</td></tr>
+        <tr><td style="color:#b45309;">괴리 해소 촉매</td><td>① KHI 매각 완료 → 자본 정책 발표 ② LPG 등 신 선종 수주 공시 ③ 2Q26 실적 발표</td></tr>
+        <tr><td>괴리 강도</td><td><span style="color:#b45309;">중</span> (TP 미제시 상태로 괴리 측정 어려움)</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div style="background:#fafafa;border:1px solid #d0d4e0;border-radius:8px;padding:16px 20px;">
+    <div style="font-size:11px;font-weight:700;letter-spacing:1px;color:#5a6280;text-transform:uppercase;margin-bottom:10px;">재무 특징</div>
+    <div style="display:flex;flex-wrap:wrap;gap:8px;">
+      <div style="background:#f0f2f8;border:1px solid #d0d4e0;border-radius:6px;padding:8px 12px;font-size:12px;flex:1;min-width:160px;"><span style="color:#5a6280;font-size:10px;display:block;margin-bottom:2px;">현금성 자산</span>26E 5,066억 → 27E 8,123억</div>
+      <div style="background:#f0f2f8;border:1px solid #d0d4e0;border-radius:6px;padding:8px 12px;font-size:12px;flex:1;min-width:160px;"><span style="color:#5a6280;font-size:10px;display:block;margin-bottom:2px;">부채비율</span>40.8%(25)→30.1%(26E)→27.7%(27E)</div>
+      <div style="background:#f0f2f8;border:1px solid #d0d4e0;border-radius:6px;padding:8px 12px;font-size:12px;flex:1;min-width:160px;"><span style="color:#5a6280;font-size:10px;display:block;margin-bottom:2px;">배당·자사주</span>DPS 250원, 배당수익률 0.3%</div>
+      <div style="background:#f0f2f8;border:1px solid #d0d4e0;border-radius:6px;padding:8px 12px;font-size:12px;flex:1;min-width:160px;"><span style="color:#5a6280;font-size:10px;display:block;margin-bottom:2px;">최대주주</span>KHI(케이에이치아이) 외 15인 47.64%. 매각 진행 중</div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="section-title">실적 전망 (연간)</div>
+  <table class="data-table">
+    <caption>단위: 십억원 | ★ = 투자 핵심 연도 (2026E)</caption>
+    <thead><tr><th>구분</th><th>2024A</th><th>2025A</th><th style="background:#dbeafe;color:#1e40af;font-weight:700;">2026E ★</th><th>2027E</th><th>2028E</th></tr></thead>
+    <tbody>
+      <tr><td>매출액</td><td>1,075.3</td><td>1,228.1</td><td class="key-col key-num">1,285.9</td><td>1,454.6</td><td>1,457.2</td></tr>
+      <tr><td>YoY(%)</td><td>31.7</td><td>14.2</td><td class="key-col">4.7</td><td>13.1</td><td>0.2</td></tr>
+      <tr><td>영업이익</td><td>158.1</td><td>294.1</td><td class="key-col key-num">357.5</td><td>422.0</td><td>310.8</td></tr>
+      <tr><td>YoY(%)</td><td>-</td><td>86.1</td><td class="key-col key-num">21.5</td><td>18.0</td><td>-26.3</td></tr>
+      <tr><td>OPM(%)</td><td>14.7</td><td>23.9</td><td class="key-col key-opm">27.8</td><td>29.0</td><td>21.3</td></tr>
+      <tr><td>EPS(원)</td><td>12,457</td><td>7,310</td><td class="key-col">7,601</td><td>9,012</td><td>6,712</td></tr>
+      <tr><td>PER(배)</td><td>-</td><td>9.2</td><td class="key-col">11.7</td><td>9.9</td><td>13.3</td></tr>
+      <tr><td>PBR(배)</td><td>-</td><td>2.4</td><td class="key-col">2.5</td><td>2.0</td><td>1.8</td></tr>
+      <tr><td>ROE(%)</td><td>55.3</td><td>32.2</td><td class="key-col">23.7</td><td>22.5</td><td>14.1</td></tr>
+    </tbody>
+  </table>
+  <p style="font-size:12px;color:#5a6280;margin-top:10px;padding:0 4px;">
+    ▶ 왜 2026E가 변곡점인가: 2023~2024년 고선가 수주 물량이 매출화되는 구간. 건조선가지표 87.9pt로 15.9% YoY 급등 → OPM 23.9%→27.8%로 상승. 다만 2028E는 PC 인도 공백으로 -26.3% 역성장 우려 존재.
+  </p>
+</section>
+
+<section>
+  <div class="section-title">분기별 실적 전망</div>
+  <table class="data-table">
+    <thead><tr><th>구분</th><th>1Q25</th><th>2Q25</th><th>3Q25</th><th>4Q25</th><th style="background:#dbeafe;color:#1e40af;font-weight:700;">1Q26E ★</th><th>2Q26E</th><th>3Q26E</th><th>4Q26E</th></tr></thead>
+    <tbody>
+      <tr><td>매출액</td><td>307.7</td><td>-</td><td>-</td><td>350.4</td><td class="key-col key-num">315.4</td><td>338.4</td><td>300.6</td><td>331.5</td></tr>
+      <tr><td>영업이익</td><td>69.8</td><td>-</td><td>-</td><td>95.3</td><td class="key-col key-num">85.8</td><td>95.8</td><td>82.1</td><td>93.8</td></tr>
+      <tr><td>OPM(%)</td><td>22.7</td><td>-</td><td>-</td><td>27.2</td><td class="key-col key-opm">27.2</td><td>28.3</td><td>27.3</td><td>28.3</td></tr>
+    </tbody>
+  </table>
+  <p style="font-size:12px;color:#5a6280;margin-top:10px;padding:0 4px;">
+    ▶ 1Q26 주목 포인트: OPM 27%+ 유지 여부. 확인 시 → 2026E 연간 OP 3,575억 달성 가시, 리레이팅 시작. 미달 시 → 중대재해 영향 지속 우려
+  </p>
+</section>
+
+<section>
+  <div class="section-title">밸류에이션</div>
+  <div class="val-box">
+    <div class="val-formula">Not Rated — 목표주가 미제시. 2026E PER 11.7배, PBR 2.5배, EV/EBITDA 7.2배</div>
+    <p style="color:#5a6280;font-size:12px;margin-top:8px;">▶ 왜 이 배수인가: 27E PER 9.9배, 2028E 피크아웃 우려로 밸류 상승 제한. 주주환원 발표 시 리레이팅 가능</p>
+    <p style="color:#5a6280;font-size:12px;margin-top:4px;">▶ Peer: 조선 대형사 대비 중형사 할인. EV/EBITDA 26E 7.2배로 중립적 수준</p>
+  </div>
+</section>
+
+<section>
+  <div class="section-title">리스크 — 핵심 가정이 틀릴 경우 시나리오</div>
+  <div class="risk-item risk-sev-high">
+    <div class="risk-assumption">🔴 핵심 가정: 2026년 건조선가 +15.9% YoY 매출화, OPM 27.8% 달성</div>
+    <div class="risk-chain" style="margin-top:6px;">→ 붕괴 시: 내업 1공장 중대재해 추가 발생, 생산성 하락<br/>→ 실적 영향: OPM 27.8%→22%대로 후퇴 → OP 3,575억→2,800억</div>
+    <div class="risk-impact-num">→ 주가 영향: 현재가 89,200원 → 70,000원대 추정 (-20% 수준)</div>
+  </div>
+  <div class="risk-item risk-sev-mid">
+    <div class="risk-assumption">🟠 두 번째 가정: 2028년 이후 PC 인도 공백 해소, 신 선종으로 볼륨 유지</div>
+    <div class="risk-chain" style="margin-top:6px;">→ 붕괴 시: 2028E OP -26.3% 역성장 현실화, 2030 영업 실패<br/>→ 실적 영향: 2028E 매출 제자리 + 2029E 감익 전환</div>
+    <div class="risk-impact-num">→ 주가 영향: PER 9~10배 박스권 고착, 상승 모멘텀 상실</div>
+  </div>
+</section>
+
+<section>
+  <div class="section-title">모멘텀 확인 체크포인트</div>
+  <div style="background:#fafafa;border:1px solid #d0d4e0;border-radius:8px;padding:4px 16px;">
+    <div class="checkpoint-item">
+      <span class="cp-date">2026.05</span>
+      <div>
+        <div class="cp-event">1Q26 실적 발표</div>
+        <div class="cp-pass">✅ OP 858억·OPM 27.2% 달성 시 → 비중 확대 검토</div>
+        <div class="cp-fail">⛔ 컨센 810억 미달 시 → 관망</div>
+      </div>
+    </div>
+    <div class="checkpoint-item">
+      <span class="cp-date">2026.3Q</span>
+      <div>
+        <div class="cp-event">KHI 매각 완료 후 자본 정책 발표</div>
+        <div class="cp-pass">✅ 주주환원·CAPEX 구체화 시 → 리레이팅 매수</div>
+        <div class="cp-fail">⛔ 매각 지연 시 → 관망 유지</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="section-title">사견 & 투자 행동 결론</div>
+  <div class="opinion-box">
+    <p>대한조선은 2029년 인도 일감을 사실상 확보했고 OPM 27%+를 실현 중인 점이 실적 차별점이다. 그러나 ① 메리츠증권이 Not Rated 상태로 TP를 제시하지 않아 Upside 확인 불가 ② 2028년 피크아웃 우려로 CAGR 성장 시나리오 약함 ③ 단일 선종(수에즈막스) 92% 집중 리스크 ④ KHI 매각이라는 이벤트성 촉매에 의존하는 구조가 약점이다. 핵심 5조건 중 3개 미달이므로 주목으로 분류하되, 1Q26 실적 발표·매각 완료 시점 확인 후 진입을 권고한다.</p>
+    <div class="decision-box">
+      <div class="decision-btn decision-buy decision-dim">✅ 지금 진입 가능<br/><span style="font-size:11px;font-weight:400;">핵심+ & 60점+</span></div>
+      <div class="decision-btn decision-wait">⏳ 이벤트 후 진입<br/><span style="font-size:11px;font-weight:400;">1Q26 실적 + KHI 매각 완료 후</span></div>
+      <div class="decision-btn decision-avoid decision-dim">🚫 관망<br/><span style="font-size:11px;font-weight:400;">-</span></div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="section-title">승격 조건 — 주목 종목 전용</div>
+  <div class="upgrade-box">
+    <div class="upgrade-item">
+      <span class="upgrade-when">2026.05 실적 발표</span>
+      <span>1Q26 OP 858억, OPM 27.2%+ 확인 + 2030 LPG 수주 공시 → ⭐ 핵심 승격</span>
+    </div>
+    <div class="upgrade-item">
+      <span class="upgrade-when">2026.3Q</span>
+      <span>KHI 매각 완료 + 주주환원 구체화 발표 → 🚀 SS급 검토</span>
+    </div>
+    <div class="upgrade-item">
+      <span class="upgrade-when">커버리지 개시</span>
+      <span>메리츠 Buy·TP 제시로 Upside 40%+ 확인 시 → ⭐ 핵심 승격</span>
+    </div>
+  </div>
+</section>
+
+<div class="disclaimer">
+  ※ 본 글은 증권사 리포트를 개인 학습 목적으로 요약·정리한 것이며, 투자 권유가 아닙니다.<br/>
+  ※ 제공된 PDF 파일만 활용. 외부 검색·참조 없음. 당일 발간 리포트 기준.
+</div>
+
+</body>
+</html>

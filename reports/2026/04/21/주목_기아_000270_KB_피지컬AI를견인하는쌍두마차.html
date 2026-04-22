@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>기아 (000270) 정리</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Pretendard','Apple SD Gothic Neo',-apple-system,sans-serif; background: #ffffff; color: #1a1d2e; line-height: 1.7; font-size: 14px; max-width: 900px; margin: 0 auto; padding: 32px 20px 80px; }
+  .header { border-left: 4px solid #2563eb; padding: 0 0 0 16px; margin-bottom: 24px; }
+  .header h1 { font-size: 20px; font-weight: 700; margin-bottom: 10px; color: #1a1d2e; }
+  .price-row { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin-top: 10px; }
+  .price-item { background: #f0f2f8; border: 1px solid #d0d4e0; border-radius: 6px; padding: 6px 14px; font-size: 13px; }
+  .price-item .label { color: #5a6280; font-size: 11px; display: block; }
+  .price-item .val { font-weight: 700; color: #1a1d2e; }
+  .upside-val { color: #059669; }
+  .tag-badge { display: inline-flex; align-items: center; gap: 6px; padding: 5px 14px; border-radius: 20px; font-size: 13px; font-weight: 700; }
+  .tag-watch   { background: #fffbeb; color: #b45309; border: 1px solid #f59e0b; }
+  .score-badge { display: inline-block; padding: 5px 14px; border-radius: 20px; font-size: 13px; font-weight: 700; background: #f0f2f8; border: 1px solid #d0d4e0; color: #1a1d2e; }
+  .score-mid  { color: #b45309; }
+  .pathway-badge { display: inline-flex; align-items: center; gap: 4px; padding: 3px 10px; border-radius: 12px; font-size: 11px; font-weight: 600; background: #f0f2f8; border: 1px solid #d0d4e0; color: #5a6280; }
+  section { margin-bottom: 28px; }
+  .section-title { font-size: 11px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: #5a6280; border-bottom: 1px solid #d0d4e0; padding-bottom: 6px; margin-bottom: 14px; }
+  .pdf-only-banner { background: #fff7ed; border: 1px solid #f97316; border-radius: 8px; padding: 10px 16px; font-size: 12px; color: #c2410c; margin-bottom: 20px; text-align: center; font-weight: 700; }
+  .thesis-box { background: #f8faff; border: 1px solid #2563eb; border-radius: 8px; padding: 16px 20px; font-size: 15px; font-weight: 600; line-height: 1.6; color: #1a1d2e; }
+  .thesis-structure { display: flex; gap: 8px; align-items: center; margin-top: 10px; flex-wrap: wrap; }
+  .thesis-part { background: #f0f2f8; border: 1px solid #d0d4e0; border-radius: 6px; padding: 4px 10px; font-size: 12px; color: #1a1d2e; }
+  .thesis-arrow { color: #2563eb; font-size: 16px; }
+  .checklist { background: #fafafa; border: 1px solid #d0d4e0; border-radius: 8px; overflow: hidden; }
+  .checklist-item { display: flex; gap: 14px; align-items: flex-start; padding: 12px 16px; border-bottom: 1px solid #d0d4e0; }
+  .checklist-item:last-child { border-bottom: none; }
+  .check-icon { width: 22px; height: 22px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; flex-shrink: 0; margin-top: 1px; }
+  .check-pass { background: #ecfdf5; color: #059669; border: 1px solid #34d399; }
+  .check-fail { background: #fef2f2; color: #dc2626; border: 1px solid #fca5a5; }
+  .check-label { font-weight: 600; font-size: 13px; color: #1a1d2e; }
+  .check-detail { color: #5a6280; font-size: 12px; margin-top: 2px; }
+  .check-why { color: #1a1d2e; font-size: 13px; }
+  table { width: 100%; border-collapse: collapse; background: #fafafa; border-radius: 8px; overflow: hidden; border: 1px solid #d0d4e0; }
+  thead tr { background: #f0f2f8; }
+  th { padding: 10px 14px; text-align: left; font-size: 11px; font-weight: 700; color: #5a6280; letter-spacing: 0.8px; text-transform: uppercase; }
+  td { padding: 10px 14px; border-top: 1px solid #d0d4e0; font-size: 13px; color: #1a1d2e; }
+  tr.total-row td { background: #e8ecf5; font-weight: 700; }
+  .penalty { color: #dc2626; }
+  .highlight-green { color: #059669; font-weight: 700; }
+  .chain-box { background: #fafafa; border: 1px solid #d0d4e0; border-radius: 8px; padding: 16px 20px; }
+  .chain-step { display: flex; gap: 12px; align-items: flex-start; margin-bottom: 10px; }
+  .chain-step:last-child { margin-bottom: 0; }
+  .chain-arrow { color: #2563eb; font-size: 16px; flex-shrink: 0; margin-top: 1px; }
+  .chain-content { flex: 1; }
+  .chain-label { font-size: 10px; font-weight: 700; letter-spacing: 1px; color: #5a6280; text-transform: uppercase; margin-bottom: 2px; }
+  .chain-text { font-size: 13px; color: #1a1d2e; }
+  .chain-confirmed { color: #059669; font-size: 11px; margin-left: 6px; }
+  .chain-forecast { color: #b45309; font-size: 11px; margin-left: 6px; }
+  .fact-item { background: #fafafa; border: 1px solid #d0d4e0; border-radius: 8px; padding: 14px 16px; margin-bottom: 8px; }
+  .fact-item:last-child { margin-bottom: 0; }
+  .fact-num { font-size: 10px; font-weight: 700; color: #2563eb; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 8px; display: block; }
+  .fact-what { font-weight: 600; font-size: 14px; margin-bottom: 6px; color: #1a1d2e; }
+  .fact-why  { font-size: 13px; color: #5a6280; margin-bottom: 6px; }
+  .fact-so   { font-size: 13px; color: #059669; }
+  .fact-label { display: inline-block; font-size: 10px; font-weight: 700; padding: 1px 6px; border-radius: 3px; margin-right: 4px; }
+  .label-what { background: #eff6ff; color: #1d4ed8; }
+  .label-why  { background: #fff7ed; color: #ea580c; }
+  .label-so   { background: #ecfdf5; color: #059669; }
+  .data-table th { background: #e8ecf5; }
+  .data-table td.key-col { background: #f0f6ff; }
+  .data-table .key-num { color: #059669; font-weight: 700; }
+  .data-table .key-opm { color: #b45309; }
+  caption { font-size: 11px; color: #5a6280; text-align: left; padding: 0 0 8px; caption-side: top; }
+  .val-box { background: #fafafa; border: 1px solid #d0d4e0; border-radius: 8px; padding: 16px 20px; font-size: 13px; line-height: 2; color: #1a1d2e; }
+  .val-formula { background: #f0f2f8; border-radius: 6px; padding: 10px 14px; font-family: monospace; font-size: 13px; margin: 10px 0; color: #b45309; }
+  .risk-item { background: #fafafa; border-radius: 0 6px 6px 0; padding: 14px 16px; margin-bottom: 10px; }
+  .risk-sev-high { border-left: 3px solid #dc2626; }
+  .risk-sev-mid  { border-left: 3px solid #ea580c; }
+  .risk-assumption { font-weight: 600; font-size: 13px; margin-bottom: 4px; color: #1a1d2e; }
+  .risk-chain { font-size: 12px; color: #5a6280; margin: 4px 0; }
+  .risk-impact-num { font-size: 13px; color: #dc2626; font-weight: 600; margin-top: 4px; }
+  .checkpoint-item { display: flex; gap: 12px; padding: 10px 0; border-bottom: 1px solid #d0d4e0; font-size: 13px; }
+  .checkpoint-item:last-child { border-bottom: none; }
+  .cp-date { color: #2563eb; font-weight: 600; min-width: 90px; flex-shrink: 0; }
+  .cp-event { flex: 1; color: #1a1d2e; }
+  .cp-pass { color: #059669; font-size: 12px; margin-top: 2px; }
+  .cp-fail { color: #dc2626; font-size: 12px; margin-top: 2px; }
+  .opinion-box { background: #fafafa; border: 1px solid #d0d4e0; border-radius: 8px; padding: 16px 20px; font-size: 13px; line-height: 1.8; color: #5a6280; }
+  .decision-box { display: flex; gap: 14px; margin-top: 14px; }
+  .decision-btn { flex: 1; text-align: center; padding: 10px; border-radius: 6px; font-weight: 700; font-size: 13px; border: 1px solid; }
+  .decision-buy   { background: #ecfdf5; color: #059669; border-color: #34d399; }
+  .decision-wait  { background: #fffbeb; color: #b45309; border-color: #f59e0b; }
+  .decision-avoid { background: #fef2f2; color: #dc2626; border-color: #fca5a5; }
+  .decision-dim { opacity: 0.3; }
+  .upgrade-box { background: #eff6ff; border: 1px solid #93c5fd; border-radius: 8px; padding: 14px 16px; }
+  .upgrade-item { display: flex; gap: 10px; padding: 6px 0; border-bottom: 1px solid #dbeafe; font-size: 13px; color: #1a1d2e; }
+  .upgrade-item:last-child { border-bottom: none; }
+  .upgrade-when { color: #1d4ed8; font-weight: 600; min-width: 140px; flex-shrink: 0; }
+  .disclaimer { font-size: 11px; color: #9ca3af; text-align: center; margin-top: 40px; padding-top: 16px; border-top: 1px solid #d0d4e0; }
+</style>
+</head>
+<body>
+
+<div class="pdf-only-banner">
+  외부 검색 절대 금지 — 제공된 PDF 파일만 활용 | 당일 발간 리포트 기준 투자 종목 발굴 전용
+</div>
+
+<header class="header">
+  <h1>기아 (000270) | 피지컬 AI를 견인하는 쌍두마차 | KB증권 | 발간일: 2026.04.21</h1>
+  <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-bottom:12px;">
+    <span class="tag-badge tag-watch">🔥 주목</span>
+    <span class="score-badge score-mid">📊 40점</span>
+    <span style="font-size:12px;color:#5a6280;">비바이오</span>
+    <span class="pathway-badge">경로 ⑤ 재평가</span>
+  </div>
+  <div class="price-row">
+    <div class="price-item"><span class="label">투자의견</span><span class="val">Buy (유지)</span></div>
+    <div class="price-item"><span class="label">목표주가(TP)</span><span class="val">300,000원</span></div>
+    <div class="price-item"><span class="label">현재주가(CP)</span><span class="val">160,000원</span></div>
+    <div class="price-item"><span class="label">Upside</span><span class="val upside-val">+87.5%</span></div>
+    <div class="price-item"><span class="label">시가총액</span><span class="val">62.5조원</span></div>
+    <div class="price-item"><span class="label">종목 유형</span><span class="val">비바이오</span></div>
+  </div>
+</header>
+
+<section>
+  <div class="section-title">이 종목에 투자해야 하는 이유 — 스토리 한 줄</div>
+  <div class="thesis-box">
+    "피지컬 AI(자율주행·로보틱스) 쌍두마차 중 한 축으로 장기 재평가 가능. 26E PER 8.0배로 저평가 + Upside 87.5%는 매력. 단 1Q26 OP 2.089조(-30.6% YoY) 둔화와 26E OP 9,229억(+1.7%) 저성장이 단기 발목"
+  </div>
+  <div class="thesis-structure">
+    <div class="thesis-part" style="color:#059669;">① 확정 팩트<br/>1Q26 OP 2.089조(확정 실적)·PER 8.0배 역사적 저평가</div>
+    <div class="thesis-arrow">→</div>
+    <div class="thesis-part" style="color:#b45309;">② 실적 변화<br/>1Q26 OP -30.6% YoY 감익, 26E OP +1.7% 저성장</div>
+    <div class="thesis-arrow">→</div>
+    <div class="thesis-part" style="color:#2563eb;">③ 시장 미반영<br/>피지컬 AI 스토리 + Upside 87.5%는 멀티플 재평가 여지</div>
+  </div>
+</section>
+
+<section>
+  <div class="section-title">핵심 태그 5가지 조건 체크 (5개 모두 통과해야 핵심 이상 가능)</div>
+  <div class="checklist">
+    <div class="checklist-item">
+      <div class="check-icon check-fail">✗</div>
+      <div>
+        <div class="check-label">조건 1 | 영업이익 성장 임계값</div>
+        <div class="check-detail">향후 1년 OP +50%+ AND (OPM +3%p+ OR OPM 15%+ 유지)</div>
+        <div class="check-why">26E OP 9,229억(+1.7% YoY)으로 +50% 한참 미달. 1Q26 실적은 오히려 -30.6% YoY 감익 → 미충족</div>
+      </div>
+    </div>
+    <div class="checklist-item">
+      <div class="check-icon check-fail">✗</div>
+      <div>
+        <div class="check-label">조건 2 | 3년 지속성 (3개 이상 충족)</div>
+        <div class="check-detail">수주잔고 / CAPA 확대 / 독점·특허 / CAGR 15%+ 등</div>
+        <div class="check-why">① 피지컬 AI(자율주행·로보틱스) 장기 스토리 ② 북미 하이브리드 수요 2개만 인정. CAGR 15% 미충족 → 2개로 미달</div>
+      </div>
+    </div>
+    <div class="checklist-item">
+      <div class="check-icon check-pass">✓</div>
+      <div>
+        <div class="check-label">조건 3 | 확정 팩트(●●●) 2개 이상</div>
+        <div class="check-detail">●●● = 수주확정·인허가·실적 확인</div>
+        <div class="check-why">●●● 1Q26 OP 2.089조 실적 공개 ●●● PER 8.0배·Upside 87.5% 확정 → 2개 충족</div>
+      </div>
+    </div>
+    <div class="checklist-item">
+      <div class="check-icon check-pass">✓</div>
+      <div>
+        <div class="check-label">조건 4 | 시장 미반영 (둘 중 하나)</div>
+        <div class="check-detail">Upside 40%+ OR 컨센 괴리 +20%+</div>
+        <div class="check-why">Upside 87.5% → 40% 기준 대폭 초과 → 충족</div>
+      </div>
+    </div>
+    <div class="checklist-item">
+      <div class="check-icon check-pass">✓</div>
+      <div>
+        <div class="check-label">조건 5 | 이 리포트만의 차별화된 시각</div>
+        <div class="check-detail">"피지컬 AI를 견인하는 쌍두마차" 제목</div>
+        <div class="check-why">실적 둔화 구간에 자동차를 피지컬 AI 플랫폼으로 재정의하는 프레임 차별화</div>
+      </div>
+    </div>
+  </div>
+  <p style="font-size:11px;color:#dc2626;margin-top:8px;padding:0 4px;">
+    조건 1,2 미충족 → 주목 강등. Upside 87.5%·PER 8.0배는 매력이나, 이익 성장 부재가 결정적 약점.
+  </p>
+</section>
+
+<section>
+  <div class="section-title">투자 점수 판정 (v2.0 비바이오)</div>
+  <table>
+    <thead><tr><th>항목</th><th>판정</th><th>근거 (Why)</th></tr></thead>
+    <tbody>
+      <tr><td>종목 유형</td><td>비바이오</td><td>완성차 + 피지컬 AI 장기 스토리</td></tr>
+      <tr><td>적용 가설</td><td>가설 1</td><td>실적 둔화 구간 + 밸류에이션 재평가 조합</td></tr>
+      <tr><td>촉매 등급</td><td>중급</td><td>장기 AI 내러티브 + Upside 매력</td></tr>
+      <tr><td>복합 여부</td><td>복합</td><td>밸류 디스카운트 + AI 스토리</td></tr>
+      <tr><td>직접성</td><td>간접</td><td>피지컬 AI 매출 기여는 장기 과제</td></tr>
+      <tr><td>매트릭스 기본 점수</td><td>60점</td><td>가설 1 × 중급 × 복합 = 60</td></tr>
+      <tr><td>페널티 ① 간접성</td><td class="penalty">-10점</td><td>AI 스토리 매출 기여 원거리</td></tr>
+      <tr><td>페널티 ② 리스크 집중</td><td class="penalty">-10점</td><td>북미 관세·수요 변동성에 매출 집중</td></tr>
+      <tr class="total-row"><td>최종 투자 점수</td><td><span class="highlight-green">40점</span></td><td>주목 40+ 충족, 핵심 60점 미달</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section>
+  <div class="section-title">성장 인과 체인</div>
+  <div class="chain-box">
+    <div class="chain-step"><div class="chain-arrow">①</div><div class="chain-content"><div class="chain-label">구조 변화 / 촉매 <span class="chain-confirmed">● 확정 팩트</span></div><div class="chain-text">1Q26 OP 2.089조(●●●) 실적 확정 공개. 피지컬 AI(자율주행·로보틱스) 플랫폼 전환 내러티브</div></div></div>
+    <div class="chain-step"><div class="chain-arrow">↓</div><div class="chain-content"><div class="chain-label">매출 영향 (규모·비중 수치)</div><div class="chain-text">북미 하이브리드 수요 견조 + ASP 유지. 신차 투입·전기차 Line-up으로 믹스 유지</div></div></div>
+    <div class="chain-step"><div class="chain-arrow">↓</div><div class="chain-content"><div class="chain-label">OPM 변화 메커니즘</div><div class="chain-text">1Q26 감익은 관세·환율·원재료 비용 반영. 연간 OPM은 두 자릿수 유지 예상</div></div></div>
+    <div class="chain-step"><div class="chain-arrow">↓</div><div class="chain-content"><div class="chain-label">최종 실적 결과 <span class="chain-forecast">● 추정</span></div><div class="chain-text">26E OP 9,229억(+1.7% YoY) 저성장. 27E 이후 AI·자율주행 플랫폼 성과에 따라 재평가</div></div></div>
+    <div class="chain-step"><div class="chain-arrow">↓</div><div class="chain-content"><div class="chain-label">시장 미반영 포인트 (So What)</div><div class="chain-text">26E PER 8.0배는 역사적 저평가. TP 300,000원 대비 Upside 87.5%는 매우 매력적. 실적 변곡점 확인 시 리레이팅 폭 큼</div></div></div>
+  </div>
+</section>
+
+<section>
+  <div class="section-title">핵심 팩트 3줄</div>
+  <div class="fact-item">
+    <span class="fact-num">Fact 01</span>
+    <div class="fact-what"><span class="fact-label label-what">WHAT</span>1Q26 OP 2.089조원, YoY -30.6% 감익 실적 확인</div>
+    <div class="fact-why"><span class="fact-label label-why">WHY</span>북미 관세 영향 + 원재료비 부담 + 신차 초기 마케팅 비용. 1회성 요인 일부 포함</div>
+    <div class="fact-so"><span class="fact-label label-so">SO WHAT</span>단기 실적 모멘텀 약함. 분기별 개선 속도가 재평가 관건</div>
+  </div>
+  <div class="fact-item">
+    <span class="fact-num">Fact 02</span>
+    <div class="fact-what"><span class="fact-label label-what">WHAT</span>26E PER 8.0배, TP 300,000원 대비 Upside 87.5%</div>
+    <div class="fact-why"><span class="fact-label label-why">WHY</span>현대차 대비 할인 구조 + 북미 관세 우려로 주가 조정. 그러나 실적 변곡점 기대 시 저평가 매력 부각</div>
+    <div class="fact-so"><span class="fact-label label-so">SO WHAT</span>현 시총 62.5조원 → TP 실현 시 117조원 규모. 업사이드 매력은 분명</div>
+  </div>
+  <div class="fact-item">
+    <span class="fact-num">Fact 03</span>
+    <div class="fact-what"><span class="fact-label label-what">WHAT</span>피지컬 AI(자율주행·로보틱스) 쌍두마차 프레임 — 현대차와 함께 국내 자동차 재평가</div>
+    <div class="fact-why"><span class="fact-label label-why">WHY</span>완성차를 하드웨어 플랫폼으로 보는 새로운 프레임. 장기 이익 구조 재정의 가능</div>
+    <div class="fact-so"><span class="fact-label label-so">SO WHAT</span>장기 재평가 이벤트 가능. 단 단기 이익 촉매와 연결 고리는 약함</div>
+  </div>
+</section>
+
+<section>
+  <div class="section-title">원본 리포트 핵심 요약 — PDF 내용 직접 발췌</div>
+  <div style="background:#fafafa;border:1px solid #d0d4e0;border-radius:8px;padding:16px 20px;margin-bottom:12px;">
+    <div style="font-size:11px;font-weight:700;letter-spacing:1px;color:#5a6280;text-transform:uppercase;margin-bottom:10px;">리포트 핵심 주장 (애널리스트 관점 요약)</div>
+    <p style="font-size:13px;line-height:1.9;">"기아는 피지컬 AI를 견인하는 쌍두마차(현대차와) 중 한 축이다. 1Q26 OP 2.089조원(-30.6% YoY)으로 단기 실적은 둔화되었지만, 26E PER 8.0배 저평가와 TP 300,000원 대비 Upside 87.5% 매력이 존재. 장기적으로 자율주행·로보틱스 플랫폼으로서 재평가 여지. 다만 26E OP 9,229억(+1.7% YoY) 저성장 전망으로 단기 이익 모멘텀은 제한적." KB증권 Buy 유지, TP 300,000원.</p>
+    <div style="margin-top:10px;display:flex;gap:8px;flex-wrap:wrap;">
+      <div style="background:#f0f2f8;border:1px solid #d0d4e0;border-radius:6px;padding:6px 12px;font-size:12px;">
+        <span style="color:#5a6280;font-size:10px;display:block;margin-bottom:2px;">투자의견</span>Buy 유지 (TP 300,000원)
+      </div>
+      <div style="background:#f0f2f8;border:1px solid #d0d4e0;border-radius:6px;padding:6px 12px;font-size:12px;">
+        <span style="color:#5a6280;font-size:10px;display:block;margin-bottom:2px;">밸류에이션</span>26E PER 8.0배 (역사적 저평가)
+      </div>
+    </div>
+  </div>
+  <div style="background:#fafafa;border:1px solid #d0d4e0;border-radius:8px;padding:16px 20px;margin-bottom:12px;">
+    <div style="font-size:11px;font-weight:700;letter-spacing:1px;color:#5a6280;text-transform:uppercase;margin-bottom:10px;">사업 구조 & 성장 동력</div>
+    <table style="margin:0;">
+      <thead><tr><th style="width:25%;">사업부</th><th style="width:20%;">비중</th><th style="width:55%;">핵심 성장 드라이버</th></tr></thead>
+      <tbody>
+        <tr><td>북미 완성차</td><td>수익 주력</td><td>하이브리드 수요 견조. 관세 리스크 관리가 관건</td></tr>
+        <tr><td>국내·유럽</td><td>안정 매출</td><td>전기차 Line-up 확대, 신차 사이클 안정</td></tr>
+        <tr><td>피지컬 AI 플랫폼</td><td>장기 옵션</td><td>자율주행·로보틱스 장기 내러티브</td></tr>
+      </tbody>
+    </table>
+    <p style="font-size:12px;color:#5a6280;margin-top:10px;">▶ 핵심 성장 메커니즘: 단기는 관세·환율·원재료 변수, 장기는 피지컬 AI 플랫폼 재평가. 두 시나리오의 중간 구간</p>
+  </div>
+  <div style="background:#fafafa;border:1px solid #d0d4e0;border-radius:8px;padding:16px 20px;margin-bottom:12px;">
+    <div style="font-size:11px;font-weight:700;letter-spacing:1px;color:#5a6280;text-transform:uppercase;margin-bottom:10px;">시장 괴리 — 왜 지금 시장이 틀렸는가</div>
+    <table style="margin:0;">
+      <thead><tr><th style="width:30%;">구분</th><th>내용</th></tr></thead>
+      <tbody>
+        <tr><td style="color:#5a6280;">시장 현재 인식</td><td>1Q26 -30.6% 감익 반영 + 북미 관세 우려로 밸류 조정. PER 8.0배까지 디스카운트</td></tr>
+        <tr><td style="color:#2563eb;">이 리포트 주장</td><td>피지컬 AI 플랫폼 쌍두마차. 저평가 + Upside 87.5%는 구조적 매력</td></tr>
+        <tr><td style="color:#b45309;">괴리 해소 촉매</td><td>① 2Q26 실적 개선 ② 관세 협상 진전 ③ 자율주행·AI 상업화 이벤트</td></tr>
+        <tr><td>괴리 강도</td><td><span style="color:#059669;">강</span> (Upside 87.5%는 중요한 시그널)</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div style="background:#fafafa;border:1px solid #d0d4e0;border-radius:8px;padding:16px 20px;">
+    <div style="font-size:11px;font-weight:700;letter-spacing:1px;color:#5a6280;text-transform:uppercase;margin-bottom:10px;">재무 특징</div>
+    <div style="display:flex;flex-wrap:wrap;gap:8px;">
+      <div style="background:#f0f2f8;border:1px solid #d0d4e0;border-radius:6px;padding:8px 12px;font-size:12px;flex:1;min-width:160px;"><span style="color:#5a6280;font-size:10px;display:block;margin-bottom:2px;">시가총액</span>62.5조원</div>
+      <div style="background:#f0f2f8;border:1px solid #d0d4e0;border-radius:6px;padding:8px 12px;font-size:12px;flex:1;min-width:160px;"><span style="color:#5a6280;font-size:10px;display:block;margin-bottom:2px;">26E PER</span>8.0배</div>
+      <div style="background:#f0f2f8;border:1px solid #d0d4e0;border-radius:6px;padding:8px 12px;font-size:12px;flex:1;min-width:160px;"><span style="color:#5a6280;font-size:10px;display:block;margin-bottom:2px;">1Q26 OP</span>2.089조 (-30.6% YoY)</div>
+      <div style="background:#f0f2f8;border:1px solid #d0d4e0;border-radius:6px;padding:8px 12px;font-size:12px;flex:1;min-width:160px;"><span style="color:#5a6280;font-size:10px;display:block;margin-bottom:2px;">26E OP</span>9,229억 (+1.7% YoY)</div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="section-title">실적 전망 (연간)</div>
+  <table class="data-table">
+    <caption>단위: 조원 / %, 십억원 | ★ = 투자 핵심 연도 (2026E)</caption>
+    <thead><tr><th>구분</th><th>2024A</th><th>2025A</th><th style="background:#dbeafe;color:#1e40af;font-weight:700;">2026E ★</th><th>2027E</th></tr></thead>
+    <tbody>
+      <tr><td>영업이익(십억원)</td><td>-</td><td>9,075 (참고)</td><td class="key-col key-num">9,229</td><td>-</td></tr>
+      <tr><td>OP YoY(%)</td><td>-</td><td>-</td><td class="key-col key-num">+1.7</td><td>-</td></tr>
+      <tr><td>PER(배)</td><td>-</td><td>-</td><td class="key-col">8.0</td><td>-</td></tr>
+      <tr><td>시가총액(조원)</td><td>-</td><td>-</td><td class="key-col">62.5</td><td>-</td></tr>
+      <tr><td>TP(원)</td><td>-</td><td>-</td><td class="key-col">300,000</td><td>-</td></tr>
+      <tr><td>Upside</td><td>-</td><td>-</td><td class="key-col">+87.5%</td><td>-</td></tr>
+    </tbody>
+  </table>
+  <p style="font-size:12px;color:#5a6280;margin-top:10px;padding:0 4px;">
+    ▶ 왜 2026E가 변곡점인가: 26E OP +1.7% 저성장이 바닥 확인 구간. 2027E 이후 AI 플랫폼·신차 사이클에 따라 성장 재가속 여부 관건.
+  </p>
+</section>
+
+<section>
+  <div class="section-title">분기별 실적 전망</div>
+  <table class="data-table">
+    <thead><tr><th>구분</th><th>1Q25</th><th>4Q25</th><th style="background:#dbeafe;color:#1e40af;font-weight:700;">1Q26A ★</th><th>2Q26E</th><th>3Q26E</th><th>4Q26E</th></tr></thead>
+    <tbody>
+      <tr><td>OP(조원)</td><td>3.01 (참고)</td><td>-</td><td class="key-col key-num">2.089</td><td>-</td><td>-</td><td>-</td></tr>
+      <tr><td>YoY(%)</td><td>-</td><td>-</td><td class="key-col key-num">-30.6</td><td>-</td><td>-</td><td>-</td></tr>
+    </tbody>
+  </table>
+  <p style="font-size:12px;color:#5a6280;margin-top:10px;padding:0 4px;">
+    ▶ 1Q26 실적 포인트: -30.6% YoY 감익 확인. 2Q26 회복 속도가 연간 달성률 관건
+  </p>
+</section>
+
+<section>
+  <div class="section-title">밸류에이션</div>
+  <div class="val-box">
+    <div class="val-formula">26E PER 8.0배 × 정상 이익 가정 → TP 300,000원. Upside 87.5%</div>
+    <p style="color:#5a6280;font-size:12px;margin-top:8px;">▶ 왜 이 배수인가: PER 8.0배는 역사적 저평가 구간. 피지컬 AI 플랫폼 재평가 시 PER 10~12배 확장 가능</p>
+    <p style="color:#5a6280;font-size:12px;margin-top:4px;">▶ Peer: 글로벌 OEM 평균 PER 8~12배, 현대차 대비 저평가 상태</p>
+  </div>
+</section>
+
+<section>
+  <div class="section-title">리스크 — 핵심 가정이 틀릴 경우 시나리오</div>
+  <div class="risk-item risk-sev-high">
+    <div class="risk-assumption">🔴 핵심 가정: 2Q26 이후 실적 회복 + 연간 OP 9,229억 달성</div>
+    <div class="risk-chain" style="margin-top:6px;">→ 붕괴 시: 북미 관세 확대 + 원재료 부담 지속<br/>→ 실적 영향: 26E OP 9,229억→7,500억대 후퇴, PER 재확장 무산</div>
+    <div class="risk-impact-num">→ 주가 영향: 현재가 160,000원 → 130,000원대 추정 (-19% 수준)</div>
+  </div>
+  <div class="risk-item risk-sev-mid">
+    <div class="risk-assumption">🟠 두 번째 가정: 피지컬 AI 장기 재평가 스토리 유효</div>
+    <div class="risk-chain" style="margin-top:6px;">→ 붕괴 시: 자율주행·로보틱스 진척 지연<br/>→ 실적 영향: AI 프리미엄 미반영, PER 8배 박스권 고착</div>
+    <div class="risk-impact-num">→ 주가 영향: TP 도달 기간 장기화</div>
+  </div>
+</section>
+
+<section>
+  <div class="section-title">모멘텀 확인 체크포인트</div>
+  <div style="background:#fafafa;border:1px solid #d0d4e0;border-radius:8px;padding:4px 16px;">
+    <div class="checkpoint-item">
+      <span class="cp-date">2026.07</span>
+      <div>
+        <div class="cp-event">2Q26 실적 발표 & 연간 가이던스 재점검</div>
+        <div class="cp-pass">✅ 2Q26 개선 확인 + 연간 OP 9천억 가시 → 비중 확대</div>
+        <div class="cp-fail">⛔ 감익 지속 시 → 관망</div>
+      </div>
+    </div>
+    <div class="checkpoint-item">
+      <span class="cp-date">2026.2H</span>
+      <div>
+        <div class="cp-event">북미 관세 협상 결과 & 자율주행 이벤트</div>
+        <div class="cp-pass">✅ 관세 완화 + AI 모멘텀 → 리레이팅</div>
+        <div class="cp-fail">⛔ 관세 확대 시 → 밸류 매력 희석</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="section-title">사견 & 투자 행동 결론</div>
+  <div class="opinion-box">
+    <p>기아는 Upside 87.5%와 PER 8.0배의 밸류에이션 매력이 뚜렷한 반면, 1Q26 -30.6% YoY 감익과 26E OP +1.7% 저성장이라는 실적 모멘텀 부재가 약점이다. 핵심 5조건 중 조건 1(OP 성장)·조건 2(3년 지속성)가 미달. 주목으로 분류하되 피지컬 AI 내러티브 + 저평가 매력이 유효하므로 2Q26 실적 회복 확인 시 매수 검토를 권고한다. 저평가 구간에서 장기 누적 매집 접근도 가능.</p>
+    <div class="decision-box">
+      <div class="decision-btn decision-buy decision-dim">✅ 지금 진입 가능<br/><span style="font-size:11px;font-weight:400;">핵심+ & 60점+</span></div>
+      <div class="decision-btn decision-wait">⏳ 이벤트 후 진입<br/><span style="font-size:11px;font-weight:400;">2Q26 실적 회복 확인 후</span></div>
+      <div class="decision-btn decision-avoid decision-dim">🚫 관망<br/><span style="font-size:11px;font-weight:400;">-</span></div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="section-title">승격 조건 — 주목 종목 전용</div>
+  <div class="upgrade-box">
+    <div class="upgrade-item">
+      <span class="upgrade-when">2026.07</span>
+      <span>2Q26 OP 2.5조+ 회복 + 연간 OP 9천억 가시 → ⭐ 핵심 승격</span>
+    </div>
+    <div class="upgrade-item">
+      <span class="upgrade-when">2026.2H</span>
+      <span>북미 관세 완화 + 자율주행/AI 이벤트 공시 → 🚀 SS급 검토</span>
+    </div>
+    <div class="upgrade-item">
+      <span class="upgrade-when">2027E 반등</span>
+      <span>OP +20% 이상 재가속 확인 시 → ⭐ 핵심 승격</span>
+    </div>
+  </div>
+</section>
+
+<div class="disclaimer">
+  ※ 본 글은 증권사 리포트를 개인 학습 목적으로 요약·정리한 것이며, 투자 권유가 아닙니다.<br/>
+  ※ 제공된 PDF 파일만 활용. 외부 검색·참조 없음. 당일 발간 리포트 기준.
+</div>
+
+</body>
+</html>

@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>한국콜마 (161890) 정리 - 2분기 전망 코멘트</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Pretendard','Apple SD Gothic Neo',sans-serif; background: #fff; color: #1a1d2e; line-height: 1.7; font-size: 14px; max-width: 900px; margin: 0 auto; padding: 32px 20px 80px; }
+  .header { border-left: 4px solid #2563eb; padding: 0 0 0 16px; margin-bottom: 24px; }
+  .header h1 { font-size: 20px; font-weight: 700; margin-bottom: 10px; }
+  .price-row { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 10px; }
+  .price-item { background: #f0f2f8; border: 1px solid #d0d4e0; border-radius: 6px; padding: 6px 14px; font-size: 13px; }
+  .price-item .label { color: #5a6280; font-size: 11px; display: block; }
+  .price-item .val { font-weight: 700; }
+  .upside-val { color: #059669; }
+  .tag-badge { display: inline-flex; gap: 6px; padding: 5px 14px; border-radius: 20px; font-size: 13px; font-weight: 700; }
+  .tag-watch { background: #fffbeb; color: #b45309; border: 1px solid #f59e0b; }
+  .score-badge { display: inline-block; padding: 5px 14px; border-radius: 20px; font-size: 13px; font-weight: 700; background: #f0f2f8; border: 1px solid #d0d4e0; }
+  .score-mid { color: #b45309; }
+  .pathway-badge { display: inline-flex; padding: 3px 10px; border-radius: 12px; font-size: 11px; font-weight: 600; background: #f0f2f8; border: 1px solid #d0d4e0; color: #5a6280; }
+  section { margin-bottom: 28px; }
+  .section-title { font-size: 11px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: #5a6280; border-bottom: 1px solid #d0d4e0; padding-bottom: 6px; margin-bottom: 14px; }
+  .pdf-only-banner { background: #fff7ed; border: 1px solid #f97316; border-radius: 8px; padding: 10px 16px; font-size: 12px; color: #c2410c; margin-bottom: 20px; text-align: center; font-weight: 700; }
+  .thesis-box { background: #f8faff; border: 1px solid #2563eb; border-radius: 8px; padding: 16px 20px; font-size: 15px; font-weight: 600; line-height: 1.6; }
+  .thesis-structure { display: flex; gap: 8px; align-items: center; margin-top: 10px; flex-wrap: wrap; }
+  .thesis-part { background: #f0f2f8; border: 1px solid #d0d4e0; border-radius: 6px; padding: 4px 10px; font-size: 12px; }
+  .thesis-arrow { color: #2563eb; font-size: 16px; }
+  .checklist { background: #fafafa; border: 1px solid #d0d4e0; border-radius: 8px; overflow: hidden; }
+  .checklist-item { display: flex; gap: 14px; padding: 12px 16px; border-bottom: 1px solid #d0d4e0; }
+  .checklist-item:last-child { border-bottom: none; }
+  .check-icon { width: 22px; height: 22px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; flex-shrink: 0; margin-top: 1px; }
+  .check-pass { background: #ecfdf5; color: #059669; border: 1px solid #34d399; }
+  .check-fail { background: #fef2f2; color: #dc2626; border: 1px solid #fca5a5; }
+  .check-label { font-weight: 600; font-size: 13px; }
+  .check-detail { color: #5a6280; font-size: 12px; margin-top: 2px; }
+  .check-why { font-size: 13px; }
+  table { width: 100%; border-collapse: collapse; background: #fafafa; border-radius: 8px; overflow: hidden; border: 1px solid #d0d4e0; }
+  thead tr { background: #f0f2f8; }
+  th { padding: 10px 14px; text-align: left; font-size: 11px; font-weight: 700; color: #5a6280; letter-spacing: 0.8px; text-transform: uppercase; }
+  td { padding: 10px 14px; border-top: 1px solid #d0d4e0; font-size: 13px; }
+  tr.total-row td { background: #e8ecf5; font-weight: 700; }
+  .penalty { color: #dc2626; }
+  .highlight-green { color: #059669; font-weight: 700; }
+  .chain-box { background: #fafafa; border: 1px solid #d0d4e0; border-radius: 8px; padding: 16px 20px; }
+  .chain-step { display: flex; gap: 12px; margin-bottom: 10px; }
+  .chain-arrow { color: #2563eb; font-size: 16px; }
+  .chain-content { flex: 1; }
+  .chain-label { font-size: 10px; font-weight: 700; letter-spacing: 1px; color: #5a6280; text-transform: uppercase; margin-bottom: 2px; }
+  .chain-confirmed { color: #059669; font-size: 11px; margin-left: 6px; }
+  .chain-forecast { color: #b45309; font-size: 11px; margin-left: 6px; }
+  .fact-item { background: #fafafa; border: 1px solid #d0d4e0; border-radius: 8px; padding: 14px 16px; margin-bottom: 8px; }
+  .fact-num { font-size: 10px; font-weight: 700; color: #2563eb; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 8px; display: block; }
+  .fact-what { font-weight: 600; font-size: 14px; margin-bottom: 6px; }
+  .fact-why { font-size: 13px; color: #5a6280; margin-bottom: 6px; }
+  .fact-so { font-size: 13px; color: #059669; }
+  .fact-label { display: inline-block; font-size: 10px; font-weight: 700; padding: 1px 6px; border-radius: 3px; margin-right: 4px; }
+  .label-what { background: #eff6ff; color: #1d4ed8; }
+  .label-why { background: #fff7ed; color: #ea580c; }
+  .label-so { background: #ecfdf5; color: #059669; }
+  .data-table th { background: #e8ecf5; }
+  .data-table td.key-col { background: #f0f6ff; }
+  .data-table .key-num { color: #059669; font-weight: 700; }
+  .data-table .key-opm { color: #b45309; }
+  caption { font-size: 11px; color: #5a6280; text-align: left; padding: 0 0 8px; caption-side: top; }
+  .val-box { background: #fafafa; border: 1px solid #d0d4e0; border-radius: 8px; padding: 16px 20px; font-size: 13px; line-height: 2; }
+  .val-formula { background: #f0f2f8; border-radius: 6px; padding: 10px 14px; font-family: monospace; font-size: 13px; margin: 10px 0; color: #b45309; }
+  .risk-item { background: #fafafa; border-radius: 0 6px 6px 0; padding: 14px 16px; margin-bottom: 10px; }
+  .risk-sev-high { border-left: 3px solid #dc2626; }
+  .risk-sev-mid { border-left: 3px solid #ea580c; }
+  .risk-assumption { font-weight: 600; font-size: 13px; margin-bottom: 4px; }
+  .risk-chain { font-size: 12px; color: #5a6280; margin: 4px 0; }
+  .risk-impact-num { font-size: 13px; color: #dc2626; font-weight: 600; margin-top: 4px; }
+  .checkpoint-item { display: flex; gap: 12px; padding: 10px 0; border-bottom: 1px solid #d0d4e0; font-size: 13px; }
+  .checkpoint-item:last-child { border-bottom: none; }
+  .cp-date { color: #2563eb; font-weight: 600; min-width: 90px; }
+  .cp-pass { color: #059669; font-size: 12px; margin-top: 2px; }
+  .cp-fail { color: #dc2626; font-size: 12px; margin-top: 2px; }
+  .opinion-box { background: #fafafa; border: 1px solid #d0d4e0; border-radius: 8px; padding: 16px 20px; font-size: 13px; line-height: 1.8; color: #5a6280; }
+  .decision-box { display: flex; gap: 14px; margin-top: 14px; }
+  .decision-btn { flex: 1; text-align: center; padding: 10px; border-radius: 6px; font-weight: 700; font-size: 13px; border: 1px solid; }
+  .decision-buy { background: #ecfdf5; color: #059669; border-color: #34d399; }
+  .decision-wait { background: #fffbeb; color: #b45309; border-color: #f59e0b; }
+  .decision-avoid { background: #fef2f2; color: #dc2626; border-color: #fca5a5; }
+  .decision-dim { opacity: 0.3; }
+  .upgrade-box { background: #eff6ff; border: 1px solid #93c5fd; border-radius: 8px; padding: 14px 16px; }
+  .upgrade-item { display: flex; gap: 10px; padding: 6px 0; border-bottom: 1px solid #dbeafe; font-size: 13px; }
+  .upgrade-item:last-child { border-bottom: none; }
+  .upgrade-when { color: #1d4ed8; font-weight: 600; min-width: 140px; }
+  .disclaimer { font-size: 11px; color: #9ca3af; text-align: center; margin-top: 40px; padding-top: 16px; border-top: 1px solid #d0d4e0; }
+  .note-box { background: #fef3c7; border: 1px solid #fcd34d; border-radius: 6px; padding: 10px 14px; font-size: 12px; color: #92400e; margin-bottom: 12px; }
+</style>
+</head>
+<body>
+
+<div class="pdf-only-banner">🚫 외부 검색 절대 금지 — 제공된 PDF 파일만 활용 | 당일 발간 리포트 기준 투자 종목 발굴 전용</div>
+
+<header class="header">
+  <h1>한국콜마 (161890) | 높아지는 2분기 전망 (업종 Insight 코멘트) | 메리츠증권 박종대 | 발간일: 2026.04.21</h1>
+  <div class="note-box">⚠️ 이 파일은 동일 종목 "메인 리포트"(K뷰티 수출 증가율 그대로 흡수 중, TP 10.4만원)의 업종 Insight 섹션 중복 코멘트 버전. 2분기 전망 포커스에 특화. TP·CP·Upside는 동일 일자 메인 리포트 기준.</div>
+  <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-bottom:12px;">
+    <span class="tag-badge tag-watch">🔥 주목</span>
+    <span class="score-badge score-mid">📊 50점</span>
+    <span style="font-size:12px;color:#5a6280;">비바이오</span>
+    <span class="pathway-badge">경로 ② 볼륨 드리븐 (2분기 +20% 근접 전망)</span>
+  </div>
+  <div class="price-row">
+    <div class="price-item"><span class="label">투자의견</span><span class="val">Buy (동일자 메인 리포트 기준)</span></div>
+    <div class="price-item"><span class="label">적정주가(TP)</span><span class="val">104,000원</span></div>
+    <div class="price-item"><span class="label">현재주가</span><span class="val">87,000원</span></div>
+    <div class="price-item"><span class="label">Upside</span><span class="val upside-val">+19.5%</span></div>
+    <div class="price-item"><span class="label">시가총액</span><span class="val">20,536억원</span></div>
+    <div class="price-item"><span class="label">종목 유형</span><span class="val">비바이오</span></div>
+  </div>
+</header>
+
+<section>
+  <div class="section-title">💡 이 종목에 투자해야 하는 이유 — 스토리 한 줄</div>
+  <div class="thesis-box">
+    1Q26E 한국 사업 YoY +22% 초과 달성(●●● 가이던스 초과)이 확인되는 가운데 2Q26E도 YoY +20% 근접 고성장 연속 가능성 상향(●●○ 전망)으로 26E OP 2,802억(+17%)·OPM 9.5% 레벨 유지 중, 자외선차단제 성수기·이탈 거래처 회복으로 국내외 계열사 부진(북미·연우)을 극복.
+  </div>
+  <div class="thesis-structure">
+    <div class="thesis-part" style="color:#059669;">① 확정 팩트<br/>1Q26 한국 +22% ●●● 진행 확인</div>
+    <div class="thesis-arrow">→</div>
+    <div class="thesis-part" style="color:#b45309;">② 실적 변화<br/>1Q26E OP 641억(+7%), 2Q26E OP 823억(+12%)</div>
+    <div class="thesis-arrow">→</div>
+    <div class="thesis-part" style="color:#2563eb;">③ 시장 미반영<br/>2Q 가이던스 상향 여지</div>
+  </div>
+</section>
+
+<section>
+  <div class="section-title">✅ 핵심 태그 5가지 조건 체크</div>
+  <div class="checklist">
+    <div class="checklist-item">
+      <div class="check-icon check-fail">✗</div>
+      <div>
+        <div class="check-label">조건 1 | 영업이익 성장 임계값</div>
+        <div class="check-detail">OP +50%+ AND (OPM +3%p+ OR OPM 15%+)</div>
+        <div class="check-why">1Q26E 연결 OP +7%(641억), 26E 연간 OP +17%(2,802억). OP 50% 미달</div>
+      </div>
+    </div>
+    <div class="checklist-item">
+      <div class="check-icon check-pass">✓</div>
+      <div>
+        <div class="check-label">조건 2 | 3년 지속성</div>
+        <div class="check-detail">CAGR / Lock-in / HK이노엔 안정</div>
+        <div class="check-why">메이저 고객 Lock-in(구다이·달바·올리브영) + HK이노엔 안정 이익 + 신규 고객 3사 발주 — 3개 근거</div>
+      </div>
+    </div>
+    <div class="checklist-item">
+      <div class="check-icon check-pass">✓</div>
+      <div>
+        <div class="check-label">조건 3 | 확정 팩트(●●●) 2개 이상</div>
+        <div class="check-detail">●●● 2개+ 필수</div>
+        <div class="check-why">●●● 1Q 한국 +22%·가이던스 초과 진행 / ●●● K뷰티 수출 +19% 확정 / ●●● 자외선차단제 성수기 돌입 → 3개</div>
+      </div>
+    </div>
+    <div class="checklist-item">
+      <div class="check-icon check-fail">✗</div>
+      <div>
+        <div class="check-label">조건 4 | 시장 미반영</div>
+        <div class="check-detail">Upside 40%+ OR 컨센 괴리 20%+</div>
+        <div class="check-why">Upside 19.5%로 40% 미달</div>
+      </div>
+    </div>
+    <div class="checklist-item">
+      <div class="check-icon check-pass">✓</div>
+      <div>
+        <div class="check-label">조건 5 | 차별화 시각</div>
+        <div class="check-detail">이 리포트만의 차별화</div>
+        <div class="check-why">"2분기 전망 상향 가능성" + "자외선차단제 성수기·이탈 거래처 회복세" 구체적 수치 포인트로 2Q 업사이드 분리 제시</div>
+      </div>
+    </div>
+  </div>
+  <p style="font-size:11px;color:#dc2626;margin-top:8px;padding:0 4px;">⚠️ 2개 미달(조건 1·4) → 🔥 주목</p>
+</section>
+
+<section>
+  <div class="section-title">📊 투자 점수 판정 (v2.0 비바이오)</div>
+  <table>
+    <thead><tr><th>항목</th><th>판정</th><th>근거</th></tr></thead>
+    <tbody>
+      <tr><td>종목 유형</td><td>비바이오</td><td>화장품 ODM</td></tr>
+      <tr><td>적용 가설</td><td>가설 2</td><td>이미 한국 +22% 고성장 + OPM 개선 구체적 근거</td></tr>
+      <tr><td>촉매 등급</td><td>중급</td><td>K뷰티 수출 흡수 + 2분기 성수기 복합 촉매</td></tr>
+      <tr><td>복합 여부</td><td>복합</td><td>① 기존 메이저 발주 ② 신규 3사 ③ 자외선차단제 성수기 ④ 이탈 거래처 회복</td></tr>
+      <tr><td>직접성</td><td>직접</td><td>한국 ODM 주력 매출 직결</td></tr>
+      <tr><td>매트릭스 기본 점수</td><td>70점</td><td>가설2 × 중급 × 복합</td></tr>
+      <tr><td>페널티 ① 리스크 집중</td><td class="penalty">-10점</td><td>한국+HK이노엔 85% 집중</td></tr>
+      <tr><td>페널티 ② 컨센 반영</td><td class="penalty">-10점</td><td>TP 상향 폭 제한적, 메인 리포트 이미 반영</td></tr>
+      <tr class="total-row"><td>최종 투자 점수</td><td><span class="highlight-green">50점</span></td><td>🔥 주목</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section>
+  <div class="section-title">⚡ 성장 인과 체인</div>
+  <div class="chain-box">
+    <div class="chain-step">
+      <div class="chain-arrow">①</div>
+      <div class="chain-content">
+        <div class="chain-label">구조 변화 / 촉매<span class="chain-confirmed">●●● 확정</span></div>
+        <div class="chain-text">K뷰티 수출 +19% 지속 + 메이저/신규 고객사 발주 확대 + 2Q 자외선차단제 성수기 + 이탈 거래처 회복</div>
+      </div>
+    </div>
+    <div class="chain-step">
+      <div class="chain-arrow">↓</div>
+      <div class="chain-content">
+        <div class="chain-label">매출 영향</div>
+        <div class="chain-text">1Q26E 7,059억(+8%), 2Q26E 7,923억(+8.4%). 한국 2Q 3,774억(+15%), 1Q 추세 유지 시 +20% 근접</div>
+      </div>
+    </div>
+    <div class="chain-step">
+      <div class="chain-arrow">↓</div>
+      <div class="chain-content">
+        <div class="chain-label">OPM 변화 메커니즘</div>
+        <div class="chain-text">2Q OPM 10.4%(+0.3%p) 예상. 한국 OPM 15.0% + HK이노엔 11.2%. 성수기 레버리지 추가</div>
+      </div>
+    </div>
+    <div class="chain-step">
+      <div class="chain-arrow">↓</div>
+      <div class="chain-content">
+        <div class="chain-label">최종 실적 결과<span class="chain-forecast">●●○</span></div>
+        <div class="chain-text">2Q26E OP 823억(+12%), 2Q 상향 여지 존재. 26E 연간 OP 2,802억(+17%)</div>
+      </div>
+    </div>
+    <div class="chain-step">
+      <div class="chain-arrow">↓</div>
+      <div class="chain-content">
+        <div class="chain-label">시장 미반영 포인트</div>
+        <div class="chain-text">2분기 실적 가이던스 상향 가능성. 북미·연우 부진 극복 확인 시 연간 추정치 재상향 여지</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="section-title">📌 핵심 팩트 3줄</div>
+  <div class="fact-item">
+    <span class="fact-num">Fact 01</span>
+    <div class="fact-what"><span class="fact-label label-what">WHAT</span>1Q26E 한국 ODM YoY +22%(3,347억) — 회사 가이던스(+13%) 초과</div>
+    <div class="fact-why"><span class="fact-label label-why">WHY</span>K뷰티 수출 +19% 그대로 흡수 + 구다이·달바·올리브영 발주 확대 + 비플레인·셀리맥스·오브제 신규 3사</div>
+    <div class="fact-so"><span class="fact-label label-so">SO WHAT</span>연간 한국 매출 +13% 가이던스 초과 확정적. 상향 조정 여지 보유</div>
+  </div>
+  <div class="fact-item">
+    <span class="fact-num">Fact 02</span>
+    <div class="fact-what"><span class="fact-label label-what">WHAT</span>2Q26E 한국 YoY +15%(3,774억) 추정, 그러나 추세 유지 시 +20% 근접 가능성</div>
+    <div class="fact-why"><span class="fact-label label-why">WHY</span>자외선차단제 성수기 돌입 + 이탈 거래처 회복세 + 계열사 부진 극복하고도 남음</div>
+    <div class="fact-so"><span class="fact-label label-so">SO WHAT</span>2Q 실적 모멘텀 형성 시 투자의견 상향 가능. 현 추정치 대비 업사이드 존재</div>
+  </div>
+  <div class="fact-item">
+    <span class="fact-num">Fact 03</span>
+    <div class="fact-what"><span class="fact-label label-what">WHAT</span>연결 OPM 9.1% (1Q26E) — YoY -0.1%p 하락. 해외 사업 부진 영향</div>
+    <div class="fact-why"><span class="fact-label label-why">WHY</span>북미 -47% YoY 매출 감소, 연우 -10% 감소, 중국 +8% 안정</div>
+    <div class="fact-so"><span class="fact-label label-so">SO WHAT</span>해외 계열사 정상화 전까지 연결 OPM 2자릿수 돌파 지연. 2Q 성수기 효과로 10%+ 가능</div>
+  </div>
+</section>
+
+<section>
+  <div class="section-title">📄 원본 리포트 핵심 요약</div>
+  <div style="background:#fafafa;border:1px solid #d0d4e0;border-radius:8px;padding:16px 20px;margin-bottom:12px;">
+    <div style="font-size:11px;font-weight:700;letter-spacing:1px;color:#5a6280;text-transform:uppercase;margin-bottom:10px;">리포트 핵심 주장</div>
+    <p style="font-size:13px;line-height:1.9;">한국콜마 1Q26E 연결 OP 641억(+7%)·한국 매출 +22%로 가이던스 초과 달성. K뷰티 수출 +19% 그대로 흡수, 비플레인·셀리맥스·오브제 신규 고객사 고신장. 2Q도 YoY +20% 근접 가능성 — 자외선차단제 성수기·이탈 거래처 회복. 해외 계열사(북미·연우) 부진은 한국 성장이 극복하고도 남음. 2분기 실적 상향 여지 주목.</p>
+  </div>
+  <div style="background:#fafafa;border:1px solid #d0d4e0;border-radius:8px;padding:16px 20px;margin-bottom:12px;">
+    <div style="font-size:11px;font-weight:700;letter-spacing:1px;color:#5a6280;text-transform:uppercase;margin-bottom:10px;">사업 구조 (2025 매출 비중)</div>
+    <table style="margin:0;">
+      <thead><tr><th style="width:25%;">법인</th><th style="width:20%;">매출 비중</th><th style="width:55%;">드라이버</th></tr></thead>
+      <tbody>
+        <tr><td>한국 ODM</td><td>43.8%</td><td>+22% 고성장, 자외선차단제 성수기, 신규 3사</td></tr>
+        <tr><td>HK이노엔</td><td>39.0%</td><td>안정 이익, OPM 11.2%</td></tr>
+        <tr><td>중국/북미/연우</td><td>17.2%</td><td>북미·연우 부진, 중국 +8% 안정</td></tr>
+      </tbody>
+    </table>
+    <p style="font-size:12px;color:#5a6280;margin-top:10px;">▶ 핵심 메커니즘: 한국 OPM 12.8% 유지 + 성수기 레버리지로 2Q 상향 가능</p>
+  </div>
+  <div style="background:#fafafa;border:1px solid #d0d4e0;border-radius:8px;padding:16px 20px;">
+    <div style="font-size:11px;font-weight:700;letter-spacing:1px;color:#5a6280;text-transform:uppercase;margin-bottom:10px;">시장 괴리</div>
+    <table style="margin:0;">
+      <thead><tr><th style="width:30%;">구분</th><th>내용</th></tr></thead>
+      <tbody>
+        <tr><td style="color:#5a6280;">시장 인식</td><td>1Q 소폭 성장 + 해외 부진 우려</td></tr>
+        <tr><td style="color:#2563eb;">이 리포트 주장</td><td>2Q는 1Q 추세 유지 시 +20% 근접, 실적 상향 가능성</td></tr>
+        <tr><td style="color:#b45309;">괴리 해소 촉매</td><td>2Q 실적 발표 + 자외선차단제 매출 수치</td></tr>
+        <tr><td>괴리 강도</td><td><span style="color:#b45309;">중</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section>
+  <div class="section-title">📈 실적 전망 (연간)</div>
+  <table class="data-table">
+    <caption>단위: 십억원 | ★ = 투자 핵심 연도 | 자료: 한국콜마·메리츠증권</caption>
+    <thead><tr><th>구분</th><th>2024A</th><th>2025A</th><th style="background:#dbeafe;color:#1e40af;font-weight:700;">2026E ★</th><th>2027E</th></tr></thead>
+    <tbody>
+      <tr><td>매출액</td><td>-</td><td>2,722.4</td><td class="key-col key-num">2,957.3</td><td>3,200.3</td></tr>
+      <tr><td>YoY(%)</td><td>-</td><td>11.0</td><td class="key-col">+8.6</td><td>+8.2</td></tr>
+      <tr><td>영업이익</td><td>-</td><td>239.6</td><td class="key-col key-num">280.2</td><td>317.0</td></tr>
+      <tr><td>YoY(%)</td><td>-</td><td>23.6</td><td class="key-col key-num">+17.0</td><td>+13.1</td></tr>
+      <tr><td>OPM(%)</td><td>-</td><td>8.8</td><td class="key-col key-opm">9.5</td><td>9.9</td></tr>
+      <tr><td>지배순이익</td><td>-</td><td>125.1</td><td class="key-col">154.5</td><td>185.3</td></tr>
+    </tbody>
+  </table>
+  <p style="font-size:12px;color:#5a6280;margin-top:10px;">▶ 왜 2026E가 변곡점인가: 한국 사업 +22% 초과 성장으로 연간 OP +17% 전망. 2Q 상향 가능성 추가</p>
+</section>
+
+<section>
+  <div class="section-title">📅 분기별 실적 전망</div>
+  <table class="data-table">
+    <caption>단위: 십억원 | 자료: 한국콜마·메리츠증권 (1Q 가이던스 초과 확인 중)</caption>
+    <thead><tr><th>구분</th><th>1Q25</th><th>2Q25</th><th>3Q25</th><th>4Q25</th><th style="background:#dbeafe;color:#1e40af;font-weight:700;">1Q26E ★</th><th>2Q26E</th><th>3Q26E</th><th>4Q26E</th></tr></thead>
+    <tbody>
+      <tr><td>매출</td><td>653.1</td><td>730.8</td><td>683.0</td><td>655.5</td><td class="key-col key-num">705.9</td><td>792.3</td><td>744.1</td><td>715.0</td></tr>
+      <tr><td>영업이익</td><td>59.9</td><td>73.5</td><td>58.3</td><td>47.8</td><td class="key-col key-num">64.1</td><td>82.3</td><td>75.1</td><td>58.7</td></tr>
+      <tr><td>OPM(%)</td><td>9.2</td><td>10.1</td><td>8.5</td><td>7.3</td><td class="key-col key-opm">9.1</td><td>10.4</td><td>10.1</td><td>8.2</td></tr>
+    </tbody>
+  </table>
+  <p style="font-size:12px;color:#5a6280;margin-top:10px;">▶ 2Q26 주목 포인트: ✅ 한국 +20% 근접 확인 시 연간 가이던스 상향 & 핵심 승격 ⛔ 1Q 대비 둔화 시 주목 유지</p>
+</section>
+
+<section>
+  <div class="section-title">💰 밸류에이션</div>
+  <div class="val-box">
+    <div class="val-formula">동일 일자 메인 리포트(K뷰티 수출 증가율 그대로 흡수 중) 기준: TP 104,000원 = 화장품 17배 + HK이노엔 지분 50% 할인</div>
+    <p style="color:#5a6280;font-size:12px;margin-top:8px;">▶ 본 업종 Insight 코멘트에는 별도 밸류에이션 산출 없음. 위 수치는 동일자 메인 리포트 인용</p>
+  </div>
+</section>
+
+<section>
+  <div class="section-title">⚠️ 리스크</div>
+  <div class="risk-item risk-sev-high">
+    <div class="risk-assumption">🔴 핵심 가정: 2Q 한국 YoY +20% 근접 유지</div>
+    <div class="risk-chain" style="margin-top:6px;">→ 붕괴 시: 성수기 효과 제한적, 이탈 거래처 회복 지연<br/>→ 실적 영향: 2Q 한국 +15% → +10% 하향 시 연간 OP 2,802억 대비 약 150억 하향</div>
+    <div class="risk-impact-num">→ 주가 영향: TP 10.4만원 하향 조정 가능성</div>
+  </div>
+  <div class="risk-item risk-sev-mid">
+    <div class="risk-assumption">🟠 두 번째 가정: 해외 계열사 부진 한계 내 관리</div>
+    <div class="risk-chain" style="margin-top:6px;">→ 붕괴 시: 북미 적자 확대 + 연우 추가 감소<br/>→ 실적 영향: 연결 OPM 9.5%→9.0% 하향</div>
+    <div class="risk-impact-num">→ 주가 영향: 리레이팅 지연</div>
+  </div>
+</section>
+
+<section>
+  <div class="section-title">🎯 모멘텀 확인 체크포인트</div>
+  <div style="background:#fafafa;border:1px solid #d0d4e0;border-radius:8px;padding:4px 16px;">
+    <div class="checkpoint-item">
+      <span class="cp-date">2026.05</span>
+      <div>
+        <div>1Q26 확정 실적 — 한국 +22% & OP 641억 달성</div>
+        <div class="cp-pass">✅ 달성 시 → 2Q 가이던스 상향 기대</div>
+        <div class="cp-fail">⛔ 미달 시 → 성수기 효과 재검토</div>
+      </div>
+    </div>
+    <div class="checkpoint-item">
+      <span class="cp-date">2026.08</span>
+      <div>
+        <div>2Q26 실적 — 한국 +20% 근접 & 성수기 효과 확인</div>
+        <div class="cp-pass">✅ 확인 시 → 핵심 승격</div>
+        <div class="cp-fail">⛔ 실망 시 → 주목 유지</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="section-title">💬 사견 & 투자 행동 결론</div>
+  <div class="opinion-box">
+    <p>동일 일자 메인 리포트와 결론 일관됨: 2분기 +20% 근접이 확인되면 연간 추정치 상향 및 주가 모멘텀 강화 가능. 다만 현재 Upside 19.5%로 40% 기준 미달이므로 2Q 실적 확인 후 진입이 합리적. 북미 적자 정상화가 연결 OPM 10%+ 리레이팅 전제 조건.</p>
+    <div class="decision-box">
+      <div class="decision-btn decision-buy decision-dim">✅ 지금 진입 가능</div>
+      <div class="decision-btn decision-wait">⏳ 이벤트 후 진입<br/><span style="font-size:11px;font-weight:400;">2Q26 실적·북미 안정화</span></div>
+      <div class="decision-btn decision-avoid decision-dim">🚫 관망</div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="section-title">🚀 승격 조건</div>
+  <div class="upgrade-box">
+    <div class="upgrade-item">
+      <span class="upgrade-when">2026.08 (2Q 실적)</span>
+      <span>한국 +20% 근접 + 연결 OP 823억 초과 시 → ⭐ 핵심 승격</span>
+    </div>
+    <div class="upgrade-item">
+      <span class="upgrade-when">2026.2H</span>
+      <span>북미 적자폭 축소 확인 + 연결 OPM 10% 돌파 → ⭐ 핵심 승격</span>
+    </div>
+  </div>
+</section>
+
+<div class="disclaimer">※ 본 글은 증권사 리포트를 개인 학습 목적으로 요약·정리한 것이며, 투자 권유가 아닙니다. ※ 동일 일자 한국콜마 메인 리포트와 중복 내용 포함 — 2분기 전망 포커스 별도 정리.</div>
+</body></html>

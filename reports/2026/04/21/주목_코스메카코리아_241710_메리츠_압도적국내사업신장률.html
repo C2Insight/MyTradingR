@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>코스메카코리아 (241710) 정리</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Pretendard','Apple SD Gothic Neo',sans-serif; background: #fff; color: #1a1d2e; line-height: 1.7; font-size: 14px; max-width: 900px; margin: 0 auto; padding: 32px 20px 80px; }
+  .header { border-left: 4px solid #2563eb; padding: 0 0 0 16px; margin-bottom: 24px; }
+  .header h1 { font-size: 20px; font-weight: 700; margin-bottom: 10px; }
+  .price-row { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 10px; }
+  .price-item { background: #f0f2f8; border: 1px solid #d0d4e0; border-radius: 6px; padding: 6px 14px; font-size: 13px; }
+  .price-item .label { color: #5a6280; font-size: 11px; display: block; }
+  .price-item .val { font-weight: 700; }
+  .upside-val { color: #059669; }
+  .tag-badge { display: inline-flex; gap: 6px; padding: 5px 14px; border-radius: 20px; font-size: 13px; font-weight: 700; }
+  .tag-watch { background: #fffbeb; color: #b45309; border: 1px solid #f59e0b; }
+  .score-badge { display: inline-block; padding: 5px 14px; border-radius: 20px; font-size: 13px; font-weight: 700; background: #f0f2f8; border: 1px solid #d0d4e0; }
+  .score-mid { color: #b45309; }
+  .pathway-badge { display: inline-flex; padding: 3px 10px; border-radius: 12px; font-size: 11px; font-weight: 600; background: #f0f2f8; border: 1px solid #d0d4e0; color: #5a6280; }
+  section { margin-bottom: 28px; }
+  .section-title { font-size: 11px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: #5a6280; border-bottom: 1px solid #d0d4e0; padding-bottom: 6px; margin-bottom: 14px; }
+  .pdf-only-banner { background: #fff7ed; border: 1px solid #f97316; border-radius: 8px; padding: 10px 16px; font-size: 12px; color: #c2410c; margin-bottom: 20px; text-align: center; font-weight: 700; }
+  .thesis-box { background: #f8faff; border: 1px solid #2563eb; border-radius: 8px; padding: 16px 20px; font-size: 15px; font-weight: 600; line-height: 1.6; }
+  .thesis-structure { display: flex; gap: 8px; align-items: center; margin-top: 10px; flex-wrap: wrap; }
+  .thesis-part { background: #f0f2f8; border: 1px solid #d0d4e0; border-radius: 6px; padding: 4px 10px; font-size: 12px; }
+  .thesis-arrow { color: #2563eb; font-size: 16px; }
+  .checklist { background: #fafafa; border: 1px solid #d0d4e0; border-radius: 8px; overflow: hidden; }
+  .checklist-item { display: flex; gap: 14px; padding: 12px 16px; border-bottom: 1px solid #d0d4e0; }
+  .checklist-item:last-child { border-bottom: none; }
+  .check-icon { width: 22px; height: 22px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; flex-shrink: 0; margin-top: 1px; }
+  .check-pass { background: #ecfdf5; color: #059669; border: 1px solid #34d399; }
+  .check-fail { background: #fef2f2; color: #dc2626; border: 1px solid #fca5a5; }
+  .check-label { font-weight: 600; font-size: 13px; }
+  .check-detail { color: #5a6280; font-size: 12px; margin-top: 2px; }
+  .check-why { font-size: 13px; }
+  table { width: 100%; border-collapse: collapse; background: #fafafa; border-radius: 8px; overflow: hidden; border: 1px solid #d0d4e0; }
+  thead tr { background: #f0f2f8; }
+  th { padding: 10px 14px; text-align: left; font-size: 11px; font-weight: 700; color: #5a6280; letter-spacing: 0.8px; text-transform: uppercase; }
+  td { padding: 10px 14px; border-top: 1px solid #d0d4e0; font-size: 13px; }
+  tr.total-row td { background: #e8ecf5; font-weight: 700; }
+  .penalty { color: #dc2626; }
+  .highlight-green { color: #059669; font-weight: 700; }
+  .chain-box { background: #fafafa; border: 1px solid #d0d4e0; border-radius: 8px; padding: 16px 20px; }
+  .chain-step { display: flex; gap: 12px; margin-bottom: 10px; }
+  .chain-arrow { color: #2563eb; font-size: 16px; }
+  .chain-content { flex: 1; }
+  .chain-label { font-size: 10px; font-weight: 700; letter-spacing: 1px; color: #5a6280; text-transform: uppercase; margin-bottom: 2px; }
+  .chain-confirmed { color: #059669; font-size: 11px; margin-left: 6px; }
+  .chain-forecast { color: #b45309; font-size: 11px; margin-left: 6px; }
+  .fact-item { background: #fafafa; border: 1px solid #d0d4e0; border-radius: 8px; padding: 14px 16px; margin-bottom: 8px; }
+  .fact-num { font-size: 10px; font-weight: 700; color: #2563eb; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 8px; display: block; }
+  .fact-what { font-weight: 600; font-size: 14px; margin-bottom: 6px; }
+  .fact-why { font-size: 13px; color: #5a6280; margin-bottom: 6px; }
+  .fact-so { font-size: 13px; color: #059669; }
+  .fact-label { display: inline-block; font-size: 10px; font-weight: 700; padding: 1px 6px; border-radius: 3px; margin-right: 4px; }
+  .label-what { background: #eff6ff; color: #1d4ed8; }
+  .label-why { background: #fff7ed; color: #ea580c; }
+  .label-so { background: #ecfdf5; color: #059669; }
+  .data-table th { background: #e8ecf5; }
+  .data-table td.key-col { background: #f0f6ff; }
+  .data-table .key-num { color: #059669; font-weight: 700; }
+  .data-table .key-opm { color: #b45309; }
+  caption { font-size: 11px; color: #5a6280; text-align: left; padding: 0 0 8px; caption-side: top; }
+  .val-box { background: #fafafa; border: 1px solid #d0d4e0; border-radius: 8px; padding: 16px 20px; font-size: 13px; line-height: 2; }
+  .val-formula { background: #f0f2f8; border-radius: 6px; padding: 10px 14px; font-family: monospace; font-size: 13px; margin: 10px 0; color: #b45309; }
+  .risk-item { background: #fafafa; border-radius: 0 6px 6px 0; padding: 14px 16px; margin-bottom: 10px; }
+  .risk-sev-high { border-left: 3px solid #dc2626; }
+  .risk-sev-mid { border-left: 3px solid #ea580c; }
+  .risk-assumption { font-weight: 600; font-size: 13px; margin-bottom: 4px; }
+  .risk-chain { font-size: 12px; color: #5a6280; margin: 4px 0; }
+  .risk-impact-num { font-size: 13px; color: #dc2626; font-weight: 600; margin-top: 4px; }
+  .checkpoint-item { display: flex; gap: 12px; padding: 10px 0; border-bottom: 1px solid #d0d4e0; font-size: 13px; }
+  .checkpoint-item:last-child { border-bottom: none; }
+  .cp-date { color: #2563eb; font-weight: 600; min-width: 90px; }
+  .cp-pass { color: #059669; font-size: 12px; margin-top: 2px; }
+  .cp-fail { color: #dc2626; font-size: 12px; margin-top: 2px; }
+  .opinion-box { background: #fafafa; border: 1px solid #d0d4e0; border-radius: 8px; padding: 16px 20px; font-size: 13px; line-height: 1.8; color: #5a6280; }
+  .decision-box { display: flex; gap: 14px; margin-top: 14px; }
+  .decision-btn { flex: 1; text-align: center; padding: 10px; border-radius: 6px; font-weight: 700; font-size: 13px; border: 1px solid; }
+  .decision-buy { background: #ecfdf5; color: #059669; border-color: #34d399; }
+  .decision-wait { background: #fffbeb; color: #b45309; border-color: #f59e0b; }
+  .decision-avoid { background: #fef2f2; color: #dc2626; border-color: #fca5a5; }
+  .decision-dim { opacity: 0.3; }
+  .upgrade-box { background: #eff6ff; border: 1px solid #93c5fd; border-radius: 8px; padding: 14px 16px; }
+  .upgrade-item { display: flex; gap: 10px; padding: 6px 0; border-bottom: 1px solid #dbeafe; font-size: 13px; }
+  .upgrade-item:last-child { border-bottom: none; }
+  .upgrade-when { color: #1d4ed8; font-weight: 600; min-width: 140px; }
+  .disclaimer { font-size: 11px; color: #9ca3af; text-align: center; margin-top: 40px; padding-top: 16px; border-top: 1px solid #d0d4e0; }
+</style>
+</head>
+<body>
+
+<div class="pdf-only-banner">🚫 외부 검색 절대 금지 — 제공된 PDF 파일만 활용 | 당일 발간 리포트 기준 투자 종목 발굴 전용</div>
+
+<header class="header">
+  <h1>코스메카코리아 (241710) | 압도적 국내 사업 신장률 | 메리츠증권 박종대 | 발간일: 2026.04.21</h1>
+  <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-bottom:12px;">
+    <span class="tag-badge tag-watch">🔥 주목</span>
+    <span class="score-badge score-mid">📊 50점</span>
+    <span style="font-size:12px;color:#5a6280;">비바이오</span>
+    <span class="pathway-badge">경로 ② 볼륨 드리븐 (국내 ODM 매출 +66% 폭증)</span>
+  </div>
+  <div class="price-row">
+    <div class="price-item"><span class="label">투자의견</span><span class="val">PDF 명시 없음 (Industry Insight 코멘트)</span></div>
+    <div class="price-item"><span class="label">목표주가(TP)</span><span class="val">-</span></div>
+    <div class="price-item"><span class="label">현재주가(CP)</span><span class="val">-</span></div>
+    <div class="price-item"><span class="label">Upside</span><span class="val upside-val">-</span></div>
+    <div class="price-item"><span class="label">시가총액</span><span class="val">-</span></div>
+    <div class="price-item"><span class="label">종목 유형</span><span class="val">비바이오</span></div>
+  </div>
+</header>
+
+<section>
+  <div class="section-title">💡 이 종목에 투자해야 하는 이유 — 스토리 한 줄</div>
+  <div class="thesis-box">
+    국내 사업 1Q26E 매출 1,234억(YoY +66%, ●●● 매출 1,200억 돌파) 닥터멜락신·구다이글로벌·아누아·달바글로벌 발주 급증으로 1Q26E 연결 OP 184억(+50%), 26E OP 946억(+13%)·OPM 13.1% 유지 가능. 다만 미국·잉글우드랩·중국 부진으로 2~4Q 성장률 한 자릿수로 급격히 둔화되며 TP·Upside 수치 PDF 미제시.
+  </div>
+  <div class="thesis-structure">
+    <div class="thesis-part" style="color:#059669;">① 확정 팩트<br/>국내 매출 +66%·OP +69% ●●● 진행 중 확인</div>
+    <div class="thesis-arrow">→</div>
+    <div class="thesis-part" style="color:#b45309;">② 실적 변화<br/>1Q26E OP +50%, 26E OP +13%, OPM 13.1%</div>
+    <div class="thesis-arrow">→</div>
+    <div class="thesis-part" style="color:#2563eb;">③ 시장 미반영<br/>Upside — PDF 미제시</div>
+  </div>
+</section>
+
+<section>
+  <div class="section-title">✅ 핵심 태그 5가지 조건 체크</div>
+  <div class="checklist">
+    <div class="checklist-item">
+      <div class="check-icon check-pass">✓</div>
+      <div>
+        <div class="check-label">조건 1 | 영업이익 성장 임계값 (분기 기준만 통과)</div>
+        <div class="check-detail">OP +50%+ AND (OPM +3%p+ OR OPM 15%+ 유지)</div>
+        <div class="check-why">1Q26E OP +50%(184억), OPM 11.4%(+1%p) — OPM 15%+ 유지(3Q26E 14.2%)는 부분 충족. 단 26E 연간 OP +13%(946억)는 기준 미달 → 1Q 기준만 통과, 연간은 미달</div>
+      </div>
+    </div>
+    <div class="checklist-item">
+      <div class="check-icon check-fail">✗</div>
+      <div>
+        <div class="check-label">조건 2 | 3년 지속성</div>
+        <div class="check-detail">CAGR 15%+ / 독점·Lock-in</div>
+        <div class="check-why">매출 CAGR 26~27E 13.3%, OP CAGR 14.7% — 15% 근접하나 미달. 닥터멜락신·아누아 등 고객사 포트폴리오는 우수하나 ODM 특성상 Lock-in 약함</div>
+      </div>
+    </div>
+    <div class="checklist-item">
+      <div class="check-icon check-pass">✓</div>
+      <div>
+        <div class="check-label">조건 3 | 확정 팩트(●●●) 2개 이상</div>
+        <div class="check-detail">수주확정·인허가·계약공시·실적</div>
+        <div class="check-why">●●● 국내 매출 1,200억 돌파(1Q26 진행 중), ●●● 닥터멜락신 매출 기여도 지속 상승 확인, ●●● 하이드로겔 마스크 라인(청주 4개 라인) 본격 가동 → 3개 확정 팩트</div>
+      </div>
+    </div>
+    <div class="checklist-item">
+      <div class="check-icon check-fail">✗</div>
+      <div>
+        <div class="check-label">조건 4 | 시장 미반영</div>
+        <div class="check-detail">Upside 40%+ OR 컨센 +20%+ 괴리</div>
+        <div class="check-why">PDF에 TP·CP·Upside·컨센 수치 미제시</div>
+      </div>
+    </div>
+    <div class="checklist-item">
+      <div class="check-icon check-pass">✓</div>
+      <div>
+        <div class="check-label">조건 5 | 차별화 시각</div>
+        <div class="check-detail">이 리포트만의 차별화</div>
+        <div class="check-why">"국내 압도적 신장·해외 부진" 비대칭 프레임. 잉글우드랩·토토와 재고 관리 이슈와 중국 재발주 지연까지 구체적으로 짚음</div>
+      </div>
+    </div>
+  </div>
+  <p style="font-size:11px;color:#dc2626;margin-top:8px;padding:0 4px;">⚠️ 2개 미달(조건 2·4) → 🔥 주목 확정</p>
+</section>
+
+<section>
+  <div class="section-title">📊 투자 점수 판정 (v2.0 비바이오)</div>
+  <table>
+    <thead><tr><th>항목</th><th>판정</th><th>근거</th></tr></thead>
+    <tbody>
+      <tr><td>종목 유형</td><td>비바이오</td><td>화장품 ODM 중견</td></tr>
+      <tr><td>적용 가설</td><td>가설 2</td><td>이미 고성장 중(25년 매출 +22.2%·OP +38.1%) + OPM 유지 예상 — 기초 카테고리 비중 확대</td></tr>
+      <tr><td>촉매 등급</td><td>중급</td><td>닥터멜락신·하이드로겔 등 특정 제품 카테고리 성장 — 국내 대기업 발주 수준 중급</td></tr>
+      <tr><td>복합 여부</td><td>복합</td><td>① 닥터멜락신 매출 확대 ② 하이드로겔 4개 라인 신규 가동 ③ 구다이글로벌·아누아·달바 발주 증가 — 3개 촉매</td></tr>
+      <tr><td>직접성</td><td>직접</td><td>ODM 주력 매출 직결</td></tr>
+      <tr><td>매트릭스 기본 점수</td><td>70점</td><td>가설2 × 중급 × 복합 = 70점</td></tr>
+      <tr><td>페널티 ① 리스크 집중</td><td class="penalty">-10점</td><td>국내 매출 비중 68.8%(25년 4,415억/6,409억), 해외 3개 법인(미국·중국·잉글우드랩) 모두 부진</td></tr>
+      <tr><td>페널티 ② 잠재수주 미확정</td><td class="penalty">-10점</td><td>하반기 잉글우드랩 신규 고객사 매출·토토와 회복 등 ●○○ 전망 의존도 30%+</td></tr>
+      <tr class="total-row"><td>최종 투자 점수</td><td><span class="highlight-green">50점</span></td><td>🔥 주목</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section>
+  <div class="section-title">⚡ 성장 인과 체인</div>
+  <div class="chain-box">
+    <div class="chain-step">
+      <div class="chain-arrow">①</div>
+      <div class="chain-content">
+        <div class="chain-label">구조 변화 / 촉매<span class="chain-confirmed">●●● 진행중</span></div>
+        <div class="chain-text">닥터멜락신 매출 기여도 지속 상승 + 구다이글로벌·아누아·달바글로벌 발주 견조 + 하이드로겔 마스크 라인(청주 4개 라인) 본격 가동 + 글로벌 인디 브랜드 ODM 수요 증가</div>
+      </div>
+    </div>
+    <div class="chain-step">
+      <div class="chain-arrow">↓</div>
+      <div class="chain-content">
+        <div class="chain-label">매출 영향</div>
+        <div class="chain-text">1Q26E 매출 1,611억(+36.1%). 국내 1,234억(+66%), 미국 425억(0%), 중국 80억(-8%). 26E 연간 매출 7,209억(+12.5%)</div>
+      </div>
+    </div>
+    <div class="chain-step">
+      <div class="chain-arrow">↓</div>
+      <div class="chain-content">
+        <div class="chain-label">OPM 변화 메커니즘</div>
+        <div class="chain-text">왜 OPM 유지되는가: 국내 고마진 카테고리(닥터멜락신 프리미엄 ODM) 매출 비중 상승 + 청주 하이드로겔 CAPA 가동으로 물량 확대. 1Q26E OPM 11.4%(+1%p), 3Q26E 14.2%, 연간 13.1%(전년 동일)</div>
+      </div>
+    </div>
+    <div class="chain-step">
+      <div class="chain-arrow">↓</div>
+      <div class="chain-content">
+        <div class="chain-label">최종 실적 결과<span class="chain-forecast">●●○ 추정</span></div>
+        <div class="chain-text">26E OP 946억(+13.2%), OPM 13.1% 유지. 27E OP 1,106억(+16.9%), OPM 13.5%</div>
+      </div>
+    </div>
+    <div class="chain-step">
+      <div class="chain-arrow">↓</div>
+      <div class="chain-content">
+        <div class="chain-label">시장 미반영 포인트</div>
+        <div class="chain-text">국내 ODM 점유율 확대 + 하이드로겔 라인 가동 효과. 다만 1Q 고성장 이후 2Q~4Q 한 자릿수로 둔화 예상되는 것이 부담 요인</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="section-title">📌 핵심 팩트 3줄</div>
+  <div class="fact-item">
+    <span class="fact-num">Fact 01</span>
+    <div class="fact-what"><span class="fact-label label-what">WHAT</span>1Q26E 국내 매출 1,234억(YoY +66%), 국내 OP 136억(+69%), 연결 매출 1,611억(+36%)</div>
+    <div class="fact-why"><span class="fact-label label-why">WHY</span>닥터멜락신 매출 기여 상승 + 구다이글로벌·아누아·달바글로벌 발주 견조 + 하이드로겔 4개 라인 신규 가동 + 글로벌 인디 브랜드 ODM 수요 증가</div>
+    <div class="fact-so"><span class="fact-label label-so">SO WHAT</span>국내 사업만 보면 최상급 신장률. 화장품 ODM 업계에서 점유율 확대 가속</div>
+  </div>
+  <div class="fact-item">
+    <span class="fact-num">Fact 02</span>
+    <div class="fact-what"><span class="fact-label label-what">WHAT</span>잉글우드랩 1Q26 부진: 잉글우드랩코리아 QoQ 크게 감소, 토토와 주 고객사 납품 시점 이동으로 1Q 성장 제한</div>
+    <div class="fact-why"><span class="fact-label label-why">WHY</span>고객사 재고 관리 + 전년 4Q로 납품 당김. 하반기 신규 고객사 매출 늘며 YoY (+) 전환 기대</div>
+    <div class="fact-so"><span class="fact-label label-so">SO WHAT</span>미국 법인 1Q26E OP 51억(-46%) YoY 급감. 26E 연간 미국 OP 334억(-10%)로 역성장 예상 — 국내 초고성장을 해외 부진이 일부 상쇄</div>
+  </div>
+  <div class="fact-item">
+    <span class="fact-num">Fact 03</span>
+    <div class="fact-what"><span class="fact-label label-what">WHAT</span>중국 사업 1Q26 매출 80억 수준·소폭 적자 예상. 26E 연간 -10억 적자 지속</div>
+    <div class="fact-why"><span class="fact-label label-why">WHY</span>4Q25 구조조정 완료 후 대량 공급건으로 흑자전환했으나 재발주가 지연. 대형 프로젝트 단발성 이슈</div>
+    <div class="fact-so"><span class="fact-label label-so">SO WHAT</span>중국 턴어라운드가 지연되면서 전사 성장률의 글로벌 레버리지가 제한적. 국내 집중도 리스크 확대</div>
+  </div>
+</section>
+
+<section>
+  <div class="section-title">📄 원본 리포트 핵심 요약</div>
+  <div style="background:#fafafa;border:1px solid #d0d4e0;border-radius:8px;padding:16px 20px;margin-bottom:12px;">
+    <div style="font-size:11px;font-weight:700;letter-spacing:1px;color:#5a6280;text-transform:uppercase;margin-bottom:10px;">리포트 핵심 주장</div>
+    <p style="font-size:13px;line-height:1.9;">코스메카코리아의 1Q26는 국내 YoY +66% 매출과 +69% OP의 압도적 신장률이 견인. 닥터멜락신·구다이글로벌·아누아·달바글로벌 주력 고객사 발주 견조하며 하이드로겔 4개 라인 가동은 추가 동력. 다만 잉글우드랩은 고객사 재고 관리로 쉬어가고 중국은 재발주 지연으로 1Q 80억 수준 소폭 적자 예상. "국내 훨씬 좋고, 해외 부진" 비대칭 구조가 특징.</p>
+  </div>
+  <div style="background:#fafafa;border:1px solid #d0d4e0;border-radius:8px;padding:16px 20px;margin-bottom:12px;">
+    <div style="font-size:11px;font-weight:700;letter-spacing:1px;color:#5a6280;text-transform:uppercase;margin-bottom:10px;">사업 구조 (2025 매출 비중)</div>
+    <table style="margin:0;">
+      <thead><tr><th style="width:25%;">지역/법인</th><th style="width:20%;">매출 비중</th><th style="width:55%;">드라이버</th></tr></thead>
+      <tbody>
+        <tr><td>국내</td><td>68.9%</td><td>닥터멜락신·구다이·아누아·달바 + 하이드로겔 신규</td></tr>
+        <tr><td>미국(잉글우드랩)</td><td>33.8%</td><td>고객사 재고 관리로 1Q 부진, 하반기 신규 고객사 기대</td></tr>
+        <tr><td>중국</td><td>5.3%</td><td>4Q25 구조조정 완료, 재발주 지연으로 소폭 적자</td></tr>
+      </tbody>
+    </table>
+    <p style="font-size:12px;color:#5a6280;margin-top:10px;">▶ 핵심 메커니즘: 국내 압도적 성장이 해외 부진을 상쇄하는 국내 중심 ODM 구조</p>
+  </div>
+  <div style="background:#fafafa;border:1px solid #d0d4e0;border-radius:8px;padding:16px 20px;margin-bottom:12px;">
+    <div style="font-size:11px;font-weight:700;letter-spacing:1px;color:#5a6280;text-transform:uppercase;margin-bottom:10px;">시장 괴리</div>
+    <table style="margin:0;">
+      <thead><tr><th style="width:30%;">구분</th><th>내용</th></tr></thead>
+      <tbody>
+        <tr><td style="color:#5a6280;">시장 인식</td><td>미국·중국 해외 부진으로 성장성 평가 보수적</td></tr>
+        <tr><td style="color:#2563eb;">이 리포트 주장</td><td>국내 +66% 압도적 신장으로 해외 부진 상쇄. 하이드로겔 신규 엔진</td></tr>
+        <tr><td style="color:#b45309;">괴리 해소 촉매</td><td>1Q26 실적 + 하이드로겔 라인 가동률 확인</td></tr>
+        <tr><td>괴리 강도</td><td><span style="color:#b45309;">중</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section>
+  <div class="section-title">📈 실적 전망 (연간)</div>
+  <table class="data-table">
+    <caption>단위: 십억원 | ★ = 투자 핵심 연도 | 자료: 코스메카코리아·메리츠증권</caption>
+    <thead><tr><th>구분</th><th>2024A</th><th>2025A</th><th style="background:#dbeafe;color:#1e40af;font-weight:700;">2026E ★</th><th>2027E</th></tr></thead>
+    <tbody>
+      <tr><td>매출액</td><td>-</td><td>640.9</td><td class="key-col key-num">720.9</td><td>821.4</td></tr>
+      <tr><td>YoY(%)</td><td>-</td><td>+22.2</td><td class="key-col">+12.5</td><td>+14.0</td></tr>
+      <tr><td>영업이익</td><td>-</td><td>83.5</td><td class="key-col key-num">94.6</td><td>110.6</td></tr>
+      <tr><td>YoY(%)</td><td>-</td><td>+38.1</td><td class="key-col key-num">+13.2</td><td>+16.9</td></tr>
+      <tr><td>OPM(%)</td><td>-</td><td>13.0</td><td class="key-col key-opm">13.1</td><td>13.5</td></tr>
+      <tr><td>지배순이익</td><td>-</td><td>45.5</td><td class="key-col">62.0</td><td>73.3</td></tr>
+    </tbody>
+  </table>
+  <p style="font-size:12px;color:#5a6280;margin-top:10px;">▶ 왜 2026E가 변곡점인가: 1Q 압도적 국내 성장이 연간 모멘텀 주도. OPM 13.1%로 유지되지만 2~4Q 성장률 한 자릿수로 둔화 → 하반기 잉글우드랩 회복 여부가 관건</p>
+</section>
+
+<section>
+  <div class="section-title">📅 분기별 실적 전망</div>
+  <table class="data-table">
+    <caption>단위: 십억원 | 자료: 코스메카코리아·메리츠증권</caption>
+    <thead><tr><th>구분</th><th>1Q25</th><th>2Q25</th><th>3Q25</th><th>4Q25</th><th style="background:#dbeafe;color:#1e40af;font-weight:700;">1Q26E ★</th><th>2Q26E</th><th>3Q26E</th><th>4Q26E</th></tr></thead>
+    <tbody>
+      <tr><td>매출</td><td>118.4</td><td>161.7</td><td>182.4</td><td>178.5</td><td class="key-col key-num">161.1</td><td>184.3</td><td>198.0</td><td>177.5</td></tr>
+      <tr><td>영업이익</td><td>12.3</td><td>23.0</td><td>27.2</td><td>21.0</td><td class="key-col key-num">18.4</td><td>22.5</td><td>28.1</td><td>25.6</td></tr>
+      <tr><td>OPM(%)</td><td>10.4</td><td>14.2</td><td>14.9</td><td>11.8</td><td class="key-col key-opm">11.4</td><td>12.2</td><td>14.2</td><td>14.4</td></tr>
+    </tbody>
+  </table>
+  <p style="font-size:12px;color:#5a6280;margin-top:10px;">▶ 1Q26 주목: ✅ 국내 YoY +66% + OPM 11.4% 확인 시 압도적 성장 재확인 ⛔ 미달 시 해외 부진이 지배 → 보류 검토</p>
+</section>
+
+<section>
+  <div class="section-title">💰 밸류에이션</div>
+  <div class="val-box">
+    <div class="val-formula">PDF에 TP·Target PER 수치 미제시 (업종 Insight 코멘트)</div>
+    <p style="color:#5a6280;font-size:12px;margin-top:8px;">▶ 리포트는 화장품 업종 Insight의 종목별 코멘트. 개별 밸류에이션·TP 미포함</p>
+  </div>
+</section>
+
+<section>
+  <div class="section-title">⚠️ 리스크</div>
+  <div class="risk-item risk-sev-high">
+    <div class="risk-assumption">🔴 핵심 가정: 하반기 잉글우드랩 신규 고객사 매출 회복</div>
+    <div class="risk-chain" style="margin-top:6px;">→ 붕괴 시: 미국 고객사 재고 관리 장기화<br/>→ 실적 영향: 26E 미국 OP 334억→250억 수준, 연결 OP 946억→860억 하향</div>
+    <div class="risk-impact-num">→ 주가 영향: PDF 미제시</div>
+  </div>
+  <div class="risk-item risk-sev-mid">
+    <div class="risk-assumption">🟠 두 번째 가정: 국내 초고성장세의 지속성</div>
+    <div class="risk-chain" style="margin-top:6px;">→ 붕괴 시: 1Q +66% 이후 2Q~4Q 둔화 확인되며 연간 가이던스 미달<br/>→ 실적 영향: 국내 OP 615억→550억 수준 하향 가능</div>
+    <div class="risk-impact-num">→ 주가 영향: 단기 조정</div>
+  </div>
+</section>
+
+<section>
+  <div class="section-title">🎯 모멘텀 확인 체크포인트</div>
+  <div style="background:#fafafa;border:1px solid #d0d4e0;border-radius:8px;padding:4px 16px;">
+    <div class="checkpoint-item">
+      <span class="cp-date">2026.05</span>
+      <div>
+        <div>1Q26 실적 — 국내 +66% & OPM 11.4% 달성 여부</div>
+        <div class="cp-pass">✅ 달성 시 → 핵심 승격 검토</div>
+        <div class="cp-fail">⛔ 미달 시 → 관망 유지</div>
+      </div>
+    </div>
+    <div class="checkpoint-item">
+      <span class="cp-date">2026.2H</span>
+      <div>
+        <div>잉글우드랩 신규 고객사 매출 전환 확인</div>
+        <div class="cp-pass">✅ 미국 YoY (+) 전환 → 포지션 확대</div>
+        <div class="cp-fail">⛔ 부진 지속 → 주목 유지</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="section-title">💬 사견 & 투자 행동 결론</div>
+  <div class="opinion-box">
+    <p>국내 YoY +66%는 업계 최상급이지만 1Q 이후 빠른 성장 둔화와 해외 법인 부진이 부담. OPM 13%대 유지는 긍정적이나 연간 OP +13%로 핵심 기준 미달. TP·Upside가 PDF에 부재해 매수 시점 판단이 제한되며 1Q 확정 실적 후 진입이 합리적.</p>
+    <div class="decision-box">
+      <div class="decision-btn decision-buy decision-dim">✅ 지금 진입 가능</div>
+      <div class="decision-btn decision-wait">⏳ 이벤트 후 진입<br/><span style="font-size:11px;font-weight:400;">1Q26 확정 실적·잉글우드랩 회복</span></div>
+      <div class="decision-btn decision-avoid decision-dim">🚫 관망</div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="section-title">🚀 승격 조건</div>
+  <div class="upgrade-box">
+    <div class="upgrade-item">
+      <span class="upgrade-when">2026.05 (1Q 실적)</span>
+      <span>국내 +66% + OPM 11%+ 확인 시 → ⭐ 핵심 승격 검토</span>
+    </div>
+    <div class="upgrade-item">
+      <span class="upgrade-when">2026.2H</span>
+      <span>잉글우드랩 신규 고객사 매출 + 중국 턴어라운드 확인 → ⭐ 핵심 승격</span>
+    </div>
+  </div>
+</section>
+
+<div class="disclaimer">※ 본 글은 증권사 리포트를 개인 학습 목적으로 요약·정리한 것이며, 투자 권유가 아닙니다.</div>
+</body></html>

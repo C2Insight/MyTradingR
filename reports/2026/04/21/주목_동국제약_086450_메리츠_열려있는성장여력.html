@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>동국제약 (086450) 정리</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Pretendard','Apple SD Gothic Neo',-apple-system,sans-serif; background: #ffffff; color: #1a1d2e; line-height: 1.7; font-size: 14px; max-width: 900px; margin: 0 auto; padding: 32px 20px 80px; }
+  .header { border-left: 4px solid #2563eb; padding: 0 0 0 16px; margin-bottom: 24px; }
+  .header h1 { font-size: 20px; font-weight: 700; margin-bottom: 10px; color: #1a1d2e; }
+  .price-row { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin-top: 10px; }
+  .price-item { background: #f0f2f8; border: 1px solid #d0d4e0; border-radius: 6px; padding: 6px 14px; font-size: 13px; }
+  .price-item .label { color: #5a6280; font-size: 11px; display: block; }
+  .price-item .val { font-weight: 700; color: #1a1d2e; }
+  .upside-val { color: #059669; }
+  .tag-badge { display: inline-flex; align-items: center; gap: 6px; padding: 5px 14px; border-radius: 20px; font-size: 13px; font-weight: 700; }
+  .tag-watch { background: #fffbeb; color: #b45309; border: 1px solid #f59e0b; }
+  .score-badge { display: inline-block; padding: 5px 14px; border-radius: 20px; font-size: 13px; font-weight: 700; background: #f0f2f8; border: 1px solid #d0d4e0; color: #1a1d2e; }
+  .score-mid { color: #b45309; }
+  .pathway-badge { display: inline-flex; align-items: center; gap: 4px; padding: 3px 10px; border-radius: 12px; font-size: 11px; font-weight: 600; background: #f0f2f8; border: 1px solid #d0d4e0; color: #5a6280; }
+  section { margin-bottom: 28px; }
+  .section-title { font-size: 11px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: #5a6280; border-bottom: 1px solid #d0d4e0; padding-bottom: 6px; margin-bottom: 14px; }
+  .pdf-only-banner { background: #fff7ed; border: 1px solid #f97316; border-radius: 8px; padding: 10px 16px; font-size: 12px; color: #c2410c; margin-bottom: 20px; text-align: center; font-weight: 700; }
+  .thesis-box { background: #f8faff; border: 1px solid #2563eb; border-radius: 8px; padding: 16px 20px; font-size: 15px; font-weight: 600; line-height: 1.6; color: #1a1d2e; }
+  .thesis-structure { display: flex; gap: 8px; align-items: center; margin-top: 10px; flex-wrap: wrap; }
+  .thesis-part { background: #f0f2f8; border: 1px solid #d0d4e0; border-radius: 6px; padding: 4px 10px; font-size: 12px; color: #1a1d2e; }
+  .thesis-arrow { color: #2563eb; font-size: 16px; }
+  .checklist { background: #fafafa; border: 1px solid #d0d4e0; border-radius: 8px; overflow: hidden; }
+  .checklist-item { display: flex; gap: 14px; align-items: flex-start; padding: 12px 16px; border-bottom: 1px solid #d0d4e0; }
+  .checklist-item:last-child { border-bottom: none; }
+  .check-icon { width: 22px; height: 22px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; flex-shrink: 0; margin-top: 1px; }
+  .check-pass { background: #ecfdf5; color: #059669; border: 1px solid #34d399; }
+  .check-fail { background: #fef2f2; color: #dc2626; border: 1px solid #fca5a5; }
+  .check-label { font-weight: 600; font-size: 13px; color: #1a1d2e; }
+  .check-detail { color: #5a6280; font-size: 12px; margin-top: 2px; }
+  .check-why { color: #1a1d2e; font-size: 13px; }
+  table { width: 100%; border-collapse: collapse; background: #fafafa; border-radius: 8px; overflow: hidden; border: 1px solid #d0d4e0; }
+  thead tr { background: #f0f2f8; }
+  th { padding: 10px 14px; text-align: left; font-size: 11px; font-weight: 700; color: #5a6280; letter-spacing: 0.8px; text-transform: uppercase; }
+  td { padding: 10px 14px; border-top: 1px solid #d0d4e0; font-size: 13px; color: #1a1d2e; }
+  tr.total-row td { background: #e8ecf5; font-weight: 700; }
+  .penalty { color: #dc2626; }
+  .highlight-green { color: #059669; font-weight: 700; }
+  .chain-box { background: #fafafa; border: 1px solid #d0d4e0; border-radius: 8px; padding: 16px 20px; }
+  .chain-step { display: flex; gap: 12px; align-items: flex-start; margin-bottom: 10px; }
+  .chain-step:last-child { margin-bottom: 0; }
+  .chain-arrow { color: #2563eb; font-size: 16px; flex-shrink: 0; margin-top: 1px; }
+  .chain-content { flex: 1; }
+  .chain-label { font-size: 10px; font-weight: 700; letter-spacing: 1px; color: #5a6280; text-transform: uppercase; margin-bottom: 2px; }
+  .chain-text { font-size: 13px; color: #1a1d2e; }
+  .fact-grid { display: grid; grid-template-columns: 1fr; gap: 10px; }
+  .fact-card { background: #fafafa; border: 1px solid #d0d4e0; border-radius: 8px; padding: 14px 16px; }
+  .fact-what { font-weight: 700; font-size: 13px; margin-bottom: 6px; color: #1a1d2e; }
+  .fact-why { color: #5a6280; font-size: 12px; margin-bottom: 4px; }
+  .fact-so { color: #2563eb; font-size: 12px; font-weight: 600; }
+  .biz-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 16px; }
+  .biz-card { background: #fafafa; border: 1px solid #d0d4e0; border-radius: 8px; padding: 12px 14px; }
+  .biz-title { font-weight: 700; font-size: 12px; color: #2563eb; margin-bottom: 4px; }
+  .biz-detail { font-size: 12px; color: #1a1d2e; line-height: 1.5; }
+  .valuation-formula { background: #f8faff; border: 1px solid #2563eb; border-radius: 8px; padding: 14px 18px; font-size: 13px; color: #1a1d2e; }
+  .risk-grid { display: grid; grid-template-columns: 1fr; gap: 10px; }
+  .risk-card { background: #fff7ed; border: 1px solid #fb923c; border-radius: 8px; padding: 12px 14px; }
+  .risk-title { font-weight: 700; font-size: 13px; color: #c2410c; margin-bottom: 4px; }
+  .risk-detail { font-size: 12px; color: #1a1d2e; }
+  .checkpoint-list { background: #fafafa; border: 1px solid #d0d4e0; border-radius: 8px; padding: 14px 16px; }
+  .checkpoint-item { display: flex; gap: 10px; padding: 6px 0; }
+  .cp-date { font-weight: 700; color: #2563eb; font-size: 12px; min-width: 70px; }
+  .cp-text { font-size: 13px; color: #1a1d2e; }
+  .decision-box { background: #f0f9ff; border: 2px solid #2563eb; border-radius: 8px; padding: 16px 20px; }
+  .decision-title { font-size: 12px; font-weight: 700; letter-spacing: 1px; color: #2563eb; text-transform: uppercase; margin-bottom: 8px; }
+  .decision-text { font-size: 14px; font-weight: 600; color: #1a1d2e; margin-bottom: 6px; }
+  .decision-reason { font-size: 12px; color: #5a6280; }
+  .upgrade-box { background: #fffbeb; border: 1px solid #f59e0b; border-radius: 8px; padding: 14px 16px; }
+  .upgrade-title { font-size: 12px; font-weight: 700; color: #b45309; margin-bottom: 6px; }
+  .upgrade-item { font-size: 13px; color: #1a1d2e; padding: 3px 0; }
+</style>
+</head>
+<body>
+
+<div class="pdf-only-banner">※ 본 리포트는 제공된 PDF 1개(메리츠증권 2026.4.21) 원문만을 근거로 작성됨 — 외부 웹 검색 미사용</div>
+
+<div class="header">
+  <h1>동국제약 (086450) — 열려 있는 성장 여력</h1>
+  <div class="price-row">
+    <span class="tag-badge tag-watch">🔥 주목</span>
+    <span class="score-badge score-mid">40점</span>
+    <span class="pathway-badge">바이오 · 제네릭/OTC</span>
+    <div class="price-item"><span class="label">투자의견</span><span class="val">Buy(추정)</span></div>
+    <div class="price-item"><span class="label">목표가</span><span class="val">미공개</span></div>
+    <div class="price-item"><span class="label">26E 매출</span><span class="val">1조247억</span></div>
+    <div class="price-item"><span class="label">26E OP</span><span class="val">1,132억</span></div>
+  </div>
+</div>
+
+<section>
+  <div class="section-title">A. 투자 테제 (One-Liner)</div>
+  <div class="thesis-box">
+    OTC·ETC·헬스케어 3사업부 균형 성장 + 마이크로스피어 DDS 기술 기반 제형 혁신 → 1Q26E 매출 2,500억(+12%), OP 288억(+14%) / 26E 매출 1조 돌파
+    <div class="thesis-structure">
+      <span class="thesis-part">3사업부 균형 성장</span>
+      <span class="thesis-arrow">→</span>
+      <span class="thesis-part">마이크로스피어 DDS 기술</span>
+      <span class="thesis-arrow">→</span>
+      <span class="thesis-part">제형 혁신 파이프라인</span>
+      <span class="thesis-arrow">→</span>
+      <span class="thesis-part">26E 매출 1조 + OP +14%</span>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="section-title">C. 핵심 5조건 체크리스트</div>
+  <div class="checklist">
+    <div class="checklist-item">
+      <div class="check-icon check-fail">✗</div>
+      <div>
+        <div class="check-label">조건 1. OP +50% 이상 증가 (3년)</div>
+        <div class="check-detail">1Q26E OP +14% / 26E OP 1,132억(전년비 한 자릿수 추정) — 기준 크게 미달</div>
+        <div class="check-why">안정적 한 자릿~두 자릿수 초반 성장</div>
+      </div>
+    </div>
+    <div class="checklist-item">
+      <div class="check-icon check-pass">✓</div>
+      <div>
+        <div class="check-label">조건 2. 3년 체크포인트 3개 이상</div>
+        <div class="check-detail">① OTC 신제품 런칭 ② ETC 제네릭 추가 승인 ③ 헬스케어 해외 확장 ④ 마이크로스피어 제품 출시</div>
+        <div class="check-why">다각화된 성장 드라이버</div>
+      </div>
+    </div>
+    <div class="checklist-item">
+      <div class="check-icon check-pass">✓</div>
+      <div>
+        <div class="check-label">조건 3. ●●● 확정 팩트 2개 이상</div>
+        <div class="check-detail">3사업부 구조 ●●● (안정) · 26E 매출 1조 돌파 ●●○ (추정) · OTC 브랜드 자산 ●●● (인사돌/마데카솔 등)</div>
+        <div class="check-why">브랜드 자산 기반 확정급 2개</div>
+      </div>
+    </div>
+    <div class="checklist-item">
+      <div class="check-icon check-fail">✗</div>
+      <div>
+        <div class="check-label">조건 4. Upside 40% 이상</div>
+        <div class="check-detail">목표가 미공개 — Upside 계산 불가</div>
+        <div class="check-why">추정치 공식 TP 부재</div>
+      </div>
+    </div>
+    <div class="checklist-item">
+      <div class="check-icon check-pass">✓</div>
+      <div>
+        <div class="check-label">조건 5. 차별화 포인트</div>
+        <div class="check-detail">마이크로스피어 DDS(약물전달체) 기술 기반 제형 혁신 + 전통 OTC 브랜드 파워 결합</div>
+        <div class="check-why">기술+브랜드 복합 차별화</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="section-title">D-2. 바이오 4축 점수 산출</div>
+  <table>
+    <thead><tr><th>축</th><th>판정</th><th>점수</th></tr></thead>
+    <tbody>
+      <tr><td>파이프라인 가치 (25)</td><td>마이크로스피어 DDS 기술 + OTC/ETC 제품군 다각화</td><td>13</td></tr>
+      <tr><td>계약/임상 이벤트 (35)</td><td>개별 임상 빅이벤트 부재 — 제네릭/OTC 안정 성장 중심</td><td>10</td></tr>
+      <tr><td>계약조건 품질 (20)</td><td>3사업부 수익구조 안정 + 자체 판매채널 보유</td><td>12</td></tr>
+      <tr><td>3년 지속성 (20)</td><td>26E 매출 1조 돌파 + OP 한 자릿수 성장 지속</td><td>13</td></tr>
+      <tr class="total-row"><td>소계 (Raw)</td><td></td><td>48</td></tr>
+      <tr><td class="penalty">페널티: 컨센 반영 / OP 성장 제한적</td><td>-</td><td class="penalty">-8</td></tr>
+      <tr class="total-row"><td>최종 점수</td><td>🔥 주목</td><td>40점</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section>
+  <div class="section-title">E. 성장 체인 (5 Step)</div>
+  <div class="chain-box">
+    <div class="chain-step"><span class="chain-arrow">①</span><div class="chain-content"><div class="chain-label">OTC (일반의약품)</div><div class="chain-text">인사돌/마데카솔 등 장수 브랜드 + 헬스케어 신규 런칭</div></div></div>
+    <div class="chain-step"><span class="chain-arrow">②</span><div class="chain-content"><div class="chain-label">ETC (전문의약품)</div><div class="chain-text">제네릭 신규 허가 + 만성질환 파이프라인 확대</div></div></div>
+    <div class="chain-step"><span class="chain-arrow">③</span><div class="chain-content"><div class="chain-label">헬스케어</div><div class="chain-text">건강기능식품/코스메틱 영역 확장 → 성장 동력 추가</div></div></div>
+    <div class="chain-step"><span class="chain-arrow">④</span><div class="chain-content"><div class="chain-label">마이크로스피어 DDS 기술</div><div class="chain-text">서방형 주사제 개발 → 고마진 신제품 파이프라인 확보</div></div></div>
+    <div class="chain-step"><span class="chain-arrow">⑤</span><div class="chain-content"><div class="chain-label">26E 매출 1조247억 · OP 1,132억</div><div class="chain-text">OPM 11.0%대 유지 / 1Q26E OP +14% YoY</div></div></div>
+  </div>
+</section>
+
+<section>
+  <div class="section-title">F. 핵심 팩트 3개 (WHAT · WHY · SO WHAT)</div>
+  <div class="fact-grid">
+    <div class="fact-card">
+      <div class="fact-what">① 1Q26E 매출 2,500억(+12%), OP 288억(+14%, OPM 11.5%)</div>
+      <div class="fact-why">WHY: 3사업부 균형 성장 + OTC 계절적 호조 + ETC 신제품 기여</div>
+      <div class="fact-so">SO WHAT: 분기 실적 안정 성장 확인 → 26E 매출 1조 돌파 가시성 강화</div>
+    </div>
+    <div class="fact-card">
+      <div class="fact-what">② 26E 매출 1조247억 · OP 1,132억</div>
+      <div class="fact-why">WHY: OTC/ETC/헬스케어 3축 동시 성장 + 신제품 기여</div>
+      <div class="fact-so">SO WHAT: 매출 1조 클럽 진입 → 대형 제약사로의 위상 재평가 여지</div>
+    </div>
+    <div class="fact-card">
+      <div class="fact-what">③ 마이크로스피어 DDS 기술 보유</div>
+      <div class="fact-why">WHY: 약물을 미세구체에 담아 서방형 방출하는 제형 기술 → 고마진 제품화 가능</div>
+      <div class="fact-so">SO WHAT: 기존 제네릭 대비 차별화된 제형 파이프라인 → 장기 성장 여력</div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="section-title">F-2. 사업부별 구조</div>
+  <div class="biz-grid">
+    <div class="biz-card"><div class="biz-title">OTC (일반의약품)</div><div class="biz-detail">인사돌/마데카솔 등 장수 브랜드 / 헬스케어 접점</div></div>
+    <div class="biz-card"><div class="biz-title">ETC (전문의약품)</div><div class="biz-detail">제네릭 + 만성질환 치료제 / 제네릭 신규 승인</div></div>
+    <div class="biz-card"><div class="biz-title">헬스케어</div><div class="biz-detail">건기식/코스메틱 / 신규 성장 축</div></div>
+    <div class="biz-card"><div class="biz-title">마이크로스피어 DDS</div><div class="biz-detail">서방형 주사제 / 고마진 신제품 파이프라인</div></div>
+  </div>
+</section>
+
+<section>
+  <div class="section-title">G. 연간 실적 (단위: 억원)</div>
+  <table>
+    <thead><tr><th>구분</th><th>2024</th><th>2025E</th><th>2026E</th><th>2027E</th></tr></thead>
+    <tbody>
+      <tr><td>매출</td><td>8,100</td><td>9,150</td><td>10,247</td><td>11,300</td></tr>
+      <tr><td>YoY 증감률</td><td>-</td><td>+13.0%</td><td>+12.0%</td><td>+10.3%</td></tr>
+      <tr><td>영업이익</td><td>870</td><td>990</td><td>1,132</td><td>1,280</td></tr>
+      <tr><td>OPM (%)</td><td>10.7</td><td>10.8</td><td>11.0</td><td>11.3</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section>
+  <div class="section-title">H. Valuation</div>
+  <div class="valuation-formula">
+    목표가 미공개 (메리츠 섹터 리포트 일부 수록 건)<br>
+    ※ 26E OP 1,132억 + OPM 11.0% + 26E 매출 1조 돌파 기반으로 섹터 평균 PER 15~18배 적용 시 재평가 여지<br>
+    ※ 리포트에서는 "열려 있는 성장 여력" — 시장 컨센 대비 상향 여지 시사
+  </div>
+</section>
+
+<section>
+  <div class="section-title">J. 리스크 시나리오</div>
+  <div class="risk-grid">
+    <div class="risk-card">
+      <div class="risk-title">시나리오 1. OTC 경쟁 심화</div>
+      <div class="risk-detail">헬스&뷰티 스토어/H&B 채널 확장 정체 시 OTC 매출 둔화 → OPM 압박</div>
+    </div>
+    <div class="risk-card">
+      <div class="risk-title">시나리오 2. 제네릭 약가 인하</div>
+      <div class="risk-detail">정부 약가 인하 압력 시 ETC 마진 축소 → 26E OP 성장률 저하</div>
+    </div>
+    <div class="risk-card">
+      <div class="risk-title">시나리오 3. 마이크로스피어 상용화 지연</div>
+      <div class="risk-detail">DDS 기술 제품화 지연 시 차별화 스토리 약화 → 밸류에이션 재조정</div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="section-title">K. 체크포인트</div>
+  <div class="checkpoint-list">
+    <div class="checkpoint-item"><span class="cp-date">1Q26</span><span class="cp-text">매출 2,500억(+12%), OP 288억(+14%) 컨센 대비 실적</span></div>
+    <div class="checkpoint-item"><span class="cp-date">2H26</span><span class="cp-text">26E 매출 1조 돌파 + 마이크로스피어 제품 상용화 일정</span></div>
+    <div class="checkpoint-item"><span class="cp-date">분기별</span><span class="cp-text">OTC/ETC/헬스케어 3사업부 성장률 균형 유지 여부</span></div>
+  </div>
+</section>
+
+<section>
+  <div class="section-title">L. 의사결정</div>
+  <div class="decision-box">
+    <div class="decision-title">Active Decision</div>
+    <div class="decision-text">▶ 분할 매수 관찰 — 1Q26 실적 확인 후 매출 1조 가시성 판단</div>
+    <div class="decision-reason">TP 미공개 + OP 성장 한 자릿수 ~ 두 자릿수 초반 구간 → 핵심 승격 미달. 단 매출 1조 클럽 진입 + 마이크로스피어 상용화 재료가 결합되면 리레이팅 가능</div>
+  </div>
+</section>
+
+<section>
+  <div class="section-title">M. 승격 조건 (→ 핵심)</div>
+  <div class="upgrade-box">
+    <div class="upgrade-title">다음 조건 달성 시 핵심(60+) 재평가</div>
+    <div class="upgrade-item">① 26E 매출 1조 돌파 확정 + OP +20% 이상 서프라이즈</div>
+    <div class="upgrade-item">② 마이크로스피어 DDS 기반 신제품 상용화 공시</div>
+    <div class="upgrade-item">③ 메리츠 공식 TP 제시 + Upside 30% 이상 확보</div>
+  </div>
+</section>
+
+</body>
+</html>

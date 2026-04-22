@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>코리안리 (003690) 정리</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Pretendard','Apple SD Gothic Neo',-apple-system,sans-serif; background: #ffffff; color: #1a1d2e; line-height: 1.7; font-size: 14px; max-width: 900px; margin: 0 auto; padding: 32px 20px 80px; }
+  .header { border-left: 4px solid #2563eb; padding: 0 0 0 16px; margin-bottom: 24px; }
+  .header h1 { font-size: 20px; font-weight: 700; margin-bottom: 10px; color: #1a1d2e; }
+  .price-row { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin-top: 10px; }
+  .price-item { background: #f0f2f8; border: 1px solid #d0d4e0; border-radius: 6px; padding: 6px 14px; font-size: 13px; }
+  .price-item .label { color: #5a6280; font-size: 11px; display: block; }
+  .price-item .val { font-weight: 700; color: #1a1d2e; }
+  .upside-val { color: #059669; }
+  .tag-badge { display: inline-flex; align-items: center; gap: 6px; padding: 5px 14px; border-radius: 20px; font-size: 13px; font-weight: 700; }
+  .tag-stable { background: #f0fdf4; color: #15803d; border: 1px solid #4ade80; }
+  .score-badge { display: inline-block; padding: 5px 14px; border-radius: 20px; font-size: 13px; font-weight: 700; background: #f0f2f8; border: 1px solid #d0d4e0; color: #1a1d2e; }
+  .score-low { color: #15803d; }
+  .pathway-badge { display: inline-flex; align-items: center; gap: 4px; padding: 3px 10px; border-radius: 12px; font-size: 11px; font-weight: 600; background: #f0f2f8; border: 1px solid #d0d4e0; color: #5a6280; }
+  section { margin-bottom: 28px; }
+  .section-title { font-size: 11px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: #5a6280; border-bottom: 1px solid #d0d4e0; padding-bottom: 6px; margin-bottom: 14px; }
+  .pdf-only-banner { background: #fff7ed; border: 1px solid #f97316; border-radius: 8px; padding: 10px 16px; font-size: 12px; color: #c2410c; margin-bottom: 20px; text-align: center; font-weight: 700; }
+  .thesis-box { background: #f8faff; border: 1px solid #2563eb; border-radius: 8px; padding: 16px 20px; font-size: 15px; font-weight: 600; line-height: 1.6; color: #1a1d2e; }
+  .thesis-structure { display: flex; gap: 8px; align-items: center; margin-top: 10px; flex-wrap: wrap; }
+  .thesis-part { background: #f0f2f8; border: 1px solid #d0d4e0; border-radius: 6px; padding: 4px 10px; font-size: 12px; color: #1a1d2e; }
+  .thesis-arrow { color: #2563eb; font-size: 16px; }
+  .checklist { background: #fafafa; border: 1px solid #d0d4e0; border-radius: 8px; overflow: hidden; }
+  .checklist-item { display: flex; gap: 14px; align-items: flex-start; padding: 12px 16px; border-bottom: 1px solid #d0d4e0; }
+  .checklist-item:last-child { border-bottom: none; }
+  .check-icon { width: 22px; height: 22px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; flex-shrink: 0; margin-top: 1px; }
+  .check-pass { background: #ecfdf5; color: #059669; border: 1px solid #34d399; }
+  .check-fail { background: #fef2f2; color: #dc2626; border: 1px solid #fca5a5; }
+  .check-label { font-weight: 600; font-size: 13px; color: #1a1d2e; }
+  .check-detail { color: #5a6280; font-size: 12px; margin-top: 2px; }
+  .check-why { color: #1a1d2e; font-size: 13px; }
+  table { width: 100%; border-collapse: collapse; background: #fafafa; border-radius: 8px; overflow: hidden; border: 1px solid #d0d4e0; }
+  thead tr { background: #f0f2f8; }
+  th { padding: 10px 14px; text-align: left; font-size: 11px; font-weight: 700; color: #5a6280; letter-spacing: 0.8px; text-transform: uppercase; }
+  td { padding: 10px 14px; border-top: 1px solid #d0d4e0; font-size: 13px; color: #1a1d2e; }
+  tr.total-row td { background: #e8ecf5; font-weight: 700; }
+  .penalty { color: #dc2626; }
+  .highlight-green { color: #059669; font-weight: 700; }
+  .chain-box { background: #fafafa; border: 1px solid #d0d4e0; border-radius: 8px; padding: 16px 20px; }
+  .chain-step { display: flex; gap: 12px; align-items: flex-start; margin-bottom: 10px; }
+  .chain-step:last-child { margin-bottom: 0; }
+  .chain-arrow { color: #2563eb; font-size: 16px; flex-shrink: 0; margin-top: 1px; }
+  .chain-content { flex: 1; }
+  .chain-label { font-size: 10px; font-weight: 700; letter-spacing: 1px; color: #5a6280; text-transform: uppercase; margin-bottom: 2px; }
+  .chain-text { font-size: 13px; color: #1a1d2e; }
+  .fact-grid { display: grid; grid-template-columns: 1fr; gap: 10px; }
+  .fact-card { background: #fafafa; border: 1px solid #d0d4e0; border-radius: 8px; padding: 14px 16px; }
+  .fact-what { font-weight: 700; font-size: 13px; margin-bottom: 6px; color: #1a1d2e; }
+  .fact-why { color: #5a6280; font-size: 12px; margin-bottom: 4px; }
+  .fact-so { color: #2563eb; font-size: 12px; font-weight: 600; }
+  .valuation-formula { background: #f8faff; border: 1px solid #2563eb; border-radius: 8px; padding: 14px 18px; font-size: 13px; color: #1a1d2e; }
+  .risk-grid { display: grid; grid-template-columns: 1fr; gap: 10px; }
+  .risk-card { background: #fff7ed; border: 1px solid #fb923c; border-radius: 8px; padding: 12px 14px; }
+  .risk-title { font-weight: 700; font-size: 13px; color: #c2410c; margin-bottom: 4px; }
+  .risk-detail { font-size: 12px; color: #1a1d2e; }
+  .checkpoint-list { background: #fafafa; border: 1px solid #d0d4e0; border-radius: 8px; padding: 14px 16px; }
+  .checkpoint-item { display: flex; gap: 10px; padding: 6px 0; }
+  .cp-date { font-weight: 700; color: #2563eb; font-size: 12px; min-width: 70px; }
+  .cp-text { font-size: 13px; color: #1a1d2e; }
+  .decision-box { background: #f0f9ff; border: 2px solid #2563eb; border-radius: 8px; padding: 16px 20px; }
+  .decision-title { font-size: 12px; font-weight: 700; letter-spacing: 1px; color: #2563eb; text-transform: uppercase; margin-bottom: 8px; }
+  .decision-text { font-size: 14px; font-weight: 600; color: #1a1d2e; margin-bottom: 6px; }
+  .decision-reason { font-size: 12px; color: #5a6280; }
+</style>
+</head>
+<body>
+
+<div class="pdf-only-banner">※ 본 리포트는 제공된 PDF 1개(iM증권 2026.4.21) 원문만을 근거로 작성됨 — 외부 웹 검색 미사용</div>
+
+<div class="header">
+  <h1>코리안리 (003690) — 사이클 전환에도 계속될 안정성</h1>
+  <div class="price-row">
+    <span class="tag-badge tag-stable">📈 안정</span>
+    <span class="score-badge score-low">20점</span>
+    <span class="pathway-badge">⑤ 배당/안정</span>
+    <div class="price-item"><span class="label">목표가</span><span class="val">15,000원</span></div>
+    <div class="price-item"><span class="label">현재가</span><span class="val">12,310원</span></div>
+    <div class="price-item"><span class="label">Upside</span><span class="val upside-val">+21.9%</span></div>
+    <div class="price-item"><span class="label">배당수익률</span><span class="val">5.1%</span></div>
+  </div>
+</div>
+
+<section>
+  <div class="section-title">A. 투자 테제 (One-Liner)</div>
+  <div class="thesis-box">
+    재보험 사이클 전환 구간에도 손익 안정성 유지 — 26E 순이익 3,417억(+7.9%) 완만 성장 + DPS 630원 배당수익률 5.1% 매력
+    <div class="thesis-structure">
+      <span class="thesis-part">재보험 사이클 전환</span>
+      <span class="thesis-arrow">→</span>
+      <span class="thesis-part">손익 안정성 유지</span>
+      <span class="thesis-arrow">→</span>
+      <span class="thesis-part">DPS 630원 배당</span>
+      <span class="thesis-arrow">→</span>
+      <span class="thesis-part">ROE 11.7% 안정</span>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="section-title">C. 핵심 5조건 체크리스트</div>
+  <div class="checklist">
+    <div class="checklist-item">
+      <div class="check-icon check-fail">✗</div>
+      <div>
+        <div class="check-label">조건 1. OP/순이익 +50% 이상 증가 (3년)</div>
+        <div class="check-detail">26E +7.9% 완만 성장 — 기준 크게 미달</div>
+        <div class="check-why">성장주 아닌 안정주</div>
+      </div>
+    </div>
+    <div class="checklist-item">
+      <div class="check-icon check-fail">✗</div>
+      <div>
+        <div class="check-label">조건 2. 3년 체크포인트 3개 이상</div>
+        <div class="check-detail">사이클 전환 + 배당 유지 → 체크포인트 2개 수준</div>
+        <div class="check-why">성장 드라이버 제한적</div>
+      </div>
+    </div>
+    <div class="checklist-item">
+      <div class="check-icon check-pass">✓</div>
+      <div>
+        <div class="check-label">조건 3. ●●● 확정 팩트 2개 이상</div>
+        <div class="check-detail">DPS 630원 ●●● · 재보험 시장 지위 ●●● (국내 1위)</div>
+        <div class="check-why">확정급 2개 확보</div>
+      </div>
+    </div>
+    <div class="checklist-item">
+      <div class="check-icon check-fail">✗</div>
+      <div>
+        <div class="check-label">조건 4. Upside 40% 이상</div>
+        <div class="check-detail">Upside +21.9% — 기준 미달</div>
+        <div class="check-why">안정주 특성</div>
+      </div>
+    </div>
+    <div class="checklist-item">
+      <div class="check-icon check-fail">✗</div>
+      <div>
+        <div class="check-label">조건 5. 차별화 포인트 (성장)</div>
+        <div class="check-detail">국내 유일 재보험사라는 독점 지위 있으나 성장 모멘텀 제한</div>
+        <div class="check-why">안정성 차별화는 있으나 성장성 없음</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="section-title">D-1. 비바이오 점수 산출</div>
+  <table>
+    <thead><tr><th>항목</th><th>판정</th><th>점수</th></tr></thead>
+    <tbody>
+      <tr><td>가설 5 (배당/안정) · 하급 · 단독</td><td>사이클 전환 구간 안정성 유지</td><td>25</td></tr>
+      <tr><td class="penalty">페널티: 없음</td><td>-</td><td>0</td></tr>
+      <tr class="total-row"><td>소계 (Raw)</td><td></td><td>25</td></tr>
+      <tr><td>안정(20~39) 구간 — 성장 부재</td><td>완만 +7.9% 성장 반영</td><td>20</td></tr>
+      <tr class="total-row"><td>최종 점수</td><td>📈 안정</td><td>20점</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section>
+  <div class="section-title">E. 성장 체인 (5 Step)</div>
+  <div class="chain-box">
+    <div class="chain-step"><span class="chain-arrow">①</span><div class="chain-content"><div class="chain-label">재보험 사이클 전환</div><div class="chain-text">Hard market → Soft market 전환 구간 진입</div></div></div>
+    <div class="chain-step"><span class="chain-arrow">②</span><div class="chain-content"><div class="chain-label">수재/출재 균형 유지</div><div class="chain-text">국내 유일 재보험사로서 수재료 안정 유지</div></div></div>
+    <div class="chain-step"><span class="chain-arrow">③</span><div class="chain-content"><div class="chain-label">운용수익 안정</div><div class="chain-text">투자자산 수익률 유지 → 26E 순이익 3,417억(+7.9%)</div></div></div>
+    <div class="chain-step"><span class="chain-arrow">④</span><div class="chain-content"><div class="chain-label">ROE 11.7% 안정</div><div class="chain-text">사이클 전환에도 ROE 두 자릿수 유지</div></div></div>
+    <div class="chain-step"><span class="chain-arrow">⑤</span><div class="chain-content"><div class="chain-label">DPS 630원 · 배당수익률 5.1%</div><div class="chain-text">Target PBR 0.95배 / TP 15,000원 / Total Return ~27%</div></div></div>
+  </div>
+</section>
+
+<section>
+  <div class="section-title">F. 핵심 팩트 3개 (WHAT · WHY · SO WHAT)</div>
+  <div class="fact-grid">
+    <div class="fact-card">
+      <div class="fact-what">① 국내 유일 재보험사 독점 지위</div>
+      <div class="fact-why">WHY: 재보험 시장 진입장벽 + 규제상 국내 수재 우선권 → 안정적 시장 점유율</div>
+      <div class="fact-so">SO WHAT: 사이클 전환에도 손익 변동성 제한적 → 안정주 매력 유지</div>
+    </div>
+    <div class="fact-card">
+      <div class="fact-what">② 26E 순이익 3,417억 (+7.9% YoY)</div>
+      <div class="fact-why">WHY: Soft market 전환에도 수재료 안정 + 운용수익 유지</div>
+      <div class="fact-so">SO WHAT: 폭증은 아니나 꾸준한 이익 창출 → 배당 여력 유지</div>
+    </div>
+    <div class="fact-card">
+      <div class="fact-what">③ DPS 630원 · 배당수익률 5.1%</div>
+      <div class="fact-why">WHY: 안정적 배당성향 유지 정책 + ROE 11.7% 기반</div>
+      <div class="fact-so">SO WHAT: 채권 대체 배당주 포지션 → Total Return 방어력 확보</div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="section-title">G. 연간 실적 (단위: 억원)</div>
+  <table>
+    <thead><tr><th>구분</th><th>2024</th><th>2025E</th><th>2026E</th><th>2027E</th></tr></thead>
+    <tbody>
+      <tr><td>순이익</td><td>2,950</td><td>3,167</td><td>3,417</td><td>3,550</td></tr>
+      <tr><td>YoY 증감률</td><td>-</td><td>+7.4%</td><td>+7.9%</td><td>+3.9%</td></tr>
+      <tr><td>ROE (%)</td><td>10.8</td><td>11.3</td><td>11.7</td><td>11.5</td></tr>
+      <tr><td>DPS (원)</td><td>580</td><td>610</td><td>630</td><td>650</td></tr>
+      <tr><td>배당수익률 (%)</td><td>4.8</td><td>5.0</td><td>5.1</td><td>5.3</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section>
+  <div class="section-title">H. Valuation</div>
+  <div class="valuation-formula">
+    TP 15,000원 = BPS 약 15,790원 × Target PBR 0.95배<br>
+    ※ Target PBR 0.95배 = 지속 ROE 11.7% / COE 12.3% 가정<br>
+    ※ 현재가 12,310원 기준 Upside +21.9% + 배당 5.1% = Total Return ~27%
+  </div>
+</section>
+
+<section>
+  <div class="section-title">J. 리스크 시나리오</div>
+  <div class="risk-grid">
+    <div class="risk-card">
+      <div class="risk-title">시나리오 1. 대형 자연재해 발생</div>
+      <div class="risk-detail">국내외 대형 자연재해 발생 시 보험금 지급 급증 → 손해율 악화 → 배당 여력 위축 가능</div>
+    </div>
+    <div class="risk-card">
+      <div class="risk-title">시나리오 2. Soft market 장기화</div>
+      <div class="risk-detail">재보험 요율 하락 장기화 시 수재료 역성장 → ROE 11%대 유지 불가능 → Target PBR 하향</div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="section-title">K. 체크포인트</div>
+  <div class="checkpoint-list">
+    <div class="checkpoint-item"><span class="cp-date">분기별</span><span class="cp-text">손해율 및 합산비율 추이</span></div>
+    <div class="checkpoint-item"><span class="cp-date">연말</span><span class="cp-text">DPS 630원 이상 유지 공시 여부</span></div>
+  </div>
+</section>
+
+<section>
+  <div class="section-title">L. 의사결정</div>
+  <div class="decision-box">
+    <div class="decision-title">Active Decision</div>
+    <div class="decision-text">▶ 배당 목적 소량 편입 — 채권 대체 안정주</div>
+    <div class="decision-reason">성장 모멘텀 없음 + Upside 21.9% 제한적 — 단 사이클 전환에도 안정적 ROE 11.7% + 배당 5.1% → 배당 포트폴리오 편입 검토</div>
+  </div>
+</section>
+
+</body>
+</html>

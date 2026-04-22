@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>삼성증권 (016360) 정리</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Pretendard','Apple SD Gothic Neo',-apple-system,sans-serif; background: #ffffff; color: #1a1d2e; line-height: 1.7; font-size: 14px; max-width: 900px; margin: 0 auto; padding: 32px 20px 80px; }
+  .header { border-left: 4px solid #2563eb; padding: 0 0 0 16px; margin-bottom: 24px; }
+  .header h1 { font-size: 20px; font-weight: 700; margin-bottom: 10px; color: #1a1d2e; }
+  .price-row { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin-top: 10px; }
+  .price-item { background: #f0f2f8; border: 1px solid #d0d4e0; border-radius: 6px; padding: 6px 14px; font-size: 13px; }
+  .price-item .label { color: #5a6280; font-size: 11px; display: block; }
+  .price-item .val { font-weight: 700; color: #1a1d2e; }
+  .upside-val { color: #059669; }
+  .tag-badge { display: inline-flex; align-items: center; gap: 6px; padding: 5px 14px; border-radius: 20px; font-size: 13px; font-weight: 700; }
+  .tag-watch { background: #fffbeb; color: #b45309; border: 1px solid #f59e0b; }
+  .score-badge { display: inline-block; padding: 5px 14px; border-radius: 20px; font-size: 13px; font-weight: 700; background: #f0f2f8; border: 1px solid #d0d4e0; color: #1a1d2e; }
+  .score-mid { color: #b45309; }
+  .pathway-badge { display: inline-flex; align-items: center; gap: 4px; padding: 3px 10px; border-radius: 12px; font-size: 11px; font-weight: 600; background: #f0f2f8; border: 1px solid #d0d4e0; color: #5a6280; }
+  section { margin-bottom: 28px; }
+  .section-title { font-size: 11px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: #5a6280; border-bottom: 1px solid #d0d4e0; padding-bottom: 6px; margin-bottom: 14px; }
+  .pdf-only-banner { background: #fff7ed; border: 1px solid #f97316; border-radius: 8px; padding: 10px 16px; font-size: 12px; color: #c2410c; margin-bottom: 20px; text-align: center; font-weight: 700; }
+  .thesis-box { background: #f8faff; border: 1px solid #2563eb; border-radius: 8px; padding: 16px 20px; font-size: 15px; font-weight: 600; line-height: 1.6; color: #1a1d2e; }
+  .thesis-structure { display: flex; gap: 8px; align-items: center; margin-top: 10px; flex-wrap: wrap; }
+  .thesis-part { background: #f0f2f8; border: 1px solid #d0d4e0; border-radius: 6px; padding: 4px 10px; font-size: 12px; color: #1a1d2e; }
+  .thesis-arrow { color: #2563eb; font-size: 16px; }
+  .checklist { background: #fafafa; border: 1px solid #d0d4e0; border-radius: 8px; overflow: hidden; }
+  .checklist-item { display: flex; gap: 14px; align-items: flex-start; padding: 12px 16px; border-bottom: 1px solid #d0d4e0; }
+  .checklist-item:last-child { border-bottom: none; }
+  .check-icon { width: 22px; height: 22px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; flex-shrink: 0; margin-top: 1px; }
+  .check-pass { background: #ecfdf5; color: #059669; border: 1px solid #34d399; }
+  .check-fail { background: #fef2f2; color: #dc2626; border: 1px solid #fca5a5; }
+  .check-label { font-weight: 600; font-size: 13px; color: #1a1d2e; }
+  .check-detail { color: #5a6280; font-size: 12px; margin-top: 2px; }
+  .check-why { color: #1a1d2e; font-size: 13px; }
+  table { width: 100%; border-collapse: collapse; background: #fafafa; border-radius: 8px; overflow: hidden; border: 1px solid #d0d4e0; }
+  thead tr { background: #f0f2f8; }
+  th { padding: 10px 14px; text-align: left; font-size: 11px; font-weight: 700; color: #5a6280; letter-spacing: 0.8px; text-transform: uppercase; }
+  td { padding: 10px 14px; border-top: 1px solid #d0d4e0; font-size: 13px; color: #1a1d2e; }
+  tr.total-row td { background: #e8ecf5; font-weight: 700; }
+  .penalty { color: #dc2626; }
+  .highlight-green { color: #059669; font-weight: 700; }
+  .chain-box { background: #fafafa; border: 1px solid #d0d4e0; border-radius: 8px; padding: 16px 20px; }
+  .chain-step { display: flex; gap: 12px; align-items: flex-start; margin-bottom: 10px; }
+  .chain-step:last-child { margin-bottom: 0; }
+  .chain-arrow { color: #2563eb; font-size: 16px; flex-shrink: 0; margin-top: 1px; }
+  .chain-content { flex: 1; }
+  .chain-label { font-size: 10px; font-weight: 700; letter-spacing: 1px; color: #5a6280; text-transform: uppercase; margin-bottom: 2px; }
+  .chain-text { font-size: 13px; color: #1a1d2e; }
+  .fact-grid { display: grid; grid-template-columns: 1fr; gap: 10px; }
+  .fact-card { background: #fafafa; border: 1px solid #d0d4e0; border-radius: 8px; padding: 14px 16px; }
+  .fact-what { font-weight: 700; font-size: 13px; margin-bottom: 6px; color: #1a1d2e; }
+  .fact-why { color: #5a6280; font-size: 12px; margin-bottom: 4px; }
+  .fact-so { color: #2563eb; font-size: 12px; font-weight: 600; }
+  .biz-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 16px; }
+  .biz-card { background: #fafafa; border: 1px solid #d0d4e0; border-radius: 8px; padding: 12px 14px; }
+  .biz-title { font-weight: 700; font-size: 12px; color: #2563eb; margin-bottom: 4px; }
+  .biz-detail { font-size: 12px; color: #1a1d2e; line-height: 1.5; }
+  .valuation-formula { background: #f8faff; border: 1px solid #2563eb; border-radius: 8px; padding: 14px 18px; font-size: 13px; color: #1a1d2e; }
+  .risk-grid { display: grid; grid-template-columns: 1fr; gap: 10px; }
+  .risk-card { background: #fff7ed; border: 1px solid #fb923c; border-radius: 8px; padding: 12px 14px; }
+  .risk-title { font-weight: 700; font-size: 13px; color: #c2410c; margin-bottom: 4px; }
+  .risk-detail { font-size: 12px; color: #1a1d2e; }
+  .checkpoint-list { background: #fafafa; border: 1px solid #d0d4e0; border-radius: 8px; padding: 14px 16px; }
+  .checkpoint-item { display: flex; gap: 10px; padding: 6px 0; }
+  .cp-date { font-weight: 700; color: #2563eb; font-size: 12px; min-width: 70px; }
+  .cp-text { font-size: 13px; color: #1a1d2e; }
+  .decision-box { background: #f0f9ff; border: 2px solid #2563eb; border-radius: 8px; padding: 16px 20px; }
+  .decision-title { font-size: 12px; font-weight: 700; letter-spacing: 1px; color: #2563eb; text-transform: uppercase; margin-bottom: 8px; }
+  .decision-text { font-size: 14px; font-weight: 600; color: #1a1d2e; margin-bottom: 6px; }
+  .decision-reason { font-size: 12px; color: #5a6280; }
+  .upgrade-box { background: #fffbeb; border: 1px solid #f59e0b; border-radius: 8px; padding: 14px 16px; }
+  .upgrade-title { font-size: 12px; font-weight: 700; color: #b45309; margin-bottom: 6px; }
+  .upgrade-item { font-size: 13px; color: #1a1d2e; padding: 3px 0; }
+</style>
+</head>
+<body>
+
+<div class="pdf-only-banner">※ 본 리포트는 제공된 PDF 1개(iM증권 2026.4.21) 원문만을 근거로 작성됨 — 외부 웹 검색 미사용</div>
+
+<div class="header">
+  <h1>삼성증권 (016360) — K-모건스탠리</h1>
+  <div class="price-row">
+    <span class="tag-badge tag-watch">🔥 주목</span>
+    <span class="score-badge score-mid">50점</span>
+    <span class="pathway-badge">① OPM 확장</span>
+    <span class="pathway-badge">③ WM/IB</span>
+    <div class="price-item"><span class="label">목표가</span><span class="val">130,000원</span></div>
+    <div class="price-item"><span class="label">현재가</span><span class="val">110,000원</span></div>
+    <div class="price-item"><span class="label">Upside</span><span class="val upside-val">+18.2%</span></div>
+    <div class="price-item"><span class="label">투자의견</span><span class="val">Buy(유지)</span></div>
+  </div>
+</div>
+
+<section>
+  <div class="section-title">A. 투자 테제 (One-Liner)</div>
+  <div class="thesis-box">
+    1Q26E Brokerage +138% YoY + WM(자산관리) 업계 최상위 포지션 + ROE 17.1% 업계 Top → 26E 순이익 1조4,754억(+46.3%) · Target PBR 1.30배
+    <div class="thesis-structure">
+      <span class="thesis-part">거래대금 회복</span>
+      <span class="thesis-arrow">→</span>
+      <span class="thesis-part">WM + Brokerage 동시 성장</span>
+      <span class="thesis-arrow">→</span>
+      <span class="thesis-part">ROE 17.1% 최상위</span>
+      <span class="thesis-arrow">→</span>
+      <span class="thesis-part">K-모건스탠리 리레이팅</span>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="section-title">C. 핵심 5조건 체크리스트</div>
+  <div class="checklist">
+    <div class="checklist-item">
+      <div class="check-icon check-fail">✗</div>
+      <div>
+        <div class="check-label">조건 1. OP/순이익 +50% 이상 증가 (3년)</div>
+        <div class="check-detail">26E 순이익 +46.3% / 27E 한 자릿수 / 28E 한 자릿수 추정</div>
+        <div class="check-why">26E만 +50% 근접 — 3년 지속 미달</div>
+      </div>
+    </div>
+    <div class="checklist-item">
+      <div class="check-icon check-pass">✓</div>
+      <div>
+        <div class="check-label">조건 2. 3년 체크포인트 3개 이상</div>
+        <div class="check-detail">① 1Q26 Brokerage +138% ② WM 수수료 안정 증가 ③ ROE 17.1% 달성</div>
+        <div class="check-why">복수 드라이버 모니터링 가능</div>
+      </div>
+    </div>
+    <div class="checklist-item">
+      <div class="check-icon check-fail">✗</div>
+      <div>
+        <div class="check-label">조건 3. ●●● 확정 팩트 2개 이상</div>
+        <div class="check-detail">1Q26E Brokerage +138% ●●○ · 26E ROE 17.1% ●●○ · DPS 5,800원 ●●○</div>
+        <div class="check-why">전부 추정치 — 확정급 부족</div>
+      </div>
+    </div>
+    <div class="checklist-item">
+      <div class="check-icon check-fail">✗</div>
+      <div>
+        <div class="check-label">조건 4. Upside 40% 이상</div>
+        <div class="check-detail">Upside +18.2% — 핵심 기준 절반 미달</div>
+        <div class="check-why">선반영 부담</div>
+      </div>
+    </div>
+    <div class="checklist-item">
+      <div class="check-icon check-pass">✓</div>
+      <div>
+        <div class="check-label">조건 5. 차별화 포인트</div>
+        <div class="check-detail">WM 업계 Top (고액자산가 점유율) + ROE 17.1% 업계 최상위 + 안정적 수익 구조</div>
+        <div class="check-why">K-모건스탠리 포지셔닝 뚜렷</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="section-title">D-1. 비바이오 점수 산출</div>
+  <table>
+    <thead><tr><th>항목</th><th>판정</th><th>점수</th></tr></thead>
+    <tbody>
+      <tr><td>가설 1 (OPM 확장) · 중급 · 복합</td><td>Brokerage + WM + IB 복합 성장</td><td>80</td></tr>
+      <tr><td class="penalty">페널티: 컨센 반영</td><td>iM 추정치 컨센 근접</td><td class="penalty">-10</td></tr>
+      <tr><td class="penalty">페널티: 선반영</td><td>증권업종 순환매 반영</td><td class="penalty">-10</td></tr>
+      <tr class="total-row"><td>소계 (Raw)</td><td></td><td>60</td></tr>
+      <tr><td>핵심 5조건 3개 미달 → 주목 강등</td><td>Upside/확정팩트/OP+50% 미달</td><td>50</td></tr>
+      <tr class="total-row"><td>최종 점수</td><td>🔥 주목</td><td>50점</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section>
+  <div class="section-title">E. 성장 체인 (5 Step)</div>
+  <div class="chain-box">
+    <div class="chain-step"><span class="chain-arrow">①</span><div class="chain-content"><div class="chain-label">거래대금 회복 + WM 유입</div><div class="chain-text">1Q26E Brokerage YoY +138% + WM AUM 안정 증가</div></div></div>
+    <div class="chain-step"><span class="chain-arrow">②</span><div class="chain-content"><div class="chain-label">수수료 체감 레버리지</div><div class="chain-text">고액자산가 WM 수수료 + Brokerage 수수료 동시 증가</div></div></div>
+    <div class="chain-step"><span class="chain-arrow">③</span><div class="chain-content"><div class="chain-label">IB 딜 회복</div><div class="chain-text">ECM/DCM 전반적 딜 회복 → 수수료 수익 안정적 반영</div></div></div>
+    <div class="chain-step"><span class="chain-arrow">④</span><div class="chain-content"><div class="chain-label">26E 순이익 1조4,754억 (+46.3%)</div><div class="chain-text">ROE 17.1% / BPS 102,883원 / DPS 5,800원</div></div></div>
+    <div class="chain-step"><span class="chain-arrow">⑤</span><div class="chain-content"><div class="chain-label">Target PBR 1.30배</div><div class="chain-text">TP 130,000원 = BPS 102,883 × 1.30배</div></div></div>
+  </div>
+</section>
+
+<section>
+  <div class="section-title">F. 핵심 팩트 3개 (WHAT · WHY · SO WHAT)</div>
+  <div class="fact-grid">
+    <div class="fact-card">
+      <div class="fact-what">① 1Q26E Brokerage 수익 YoY +138%</div>
+      <div class="fact-why">WHY: 거래대금 회복 + 점유율 유지 → 상위권 레버리지 발휘</div>
+      <div class="fact-so">SO WHAT: 1Q 실적 서프라이즈 시 26E 컨센 상향 촉매</div>
+    </div>
+    <div class="fact-card">
+      <div class="fact-what">② 26E ROE 17.1% 업계 최상위</div>
+      <div class="fact-why">WHY: WM 수수료 안정 + 자본 대비 수익성 우위 → K-모건스탠리 수준 수익구조</div>
+      <div class="fact-so">SO WHAT: Target PBR 1.30배 유지 근거 → 리레이팅 지속</div>
+    </div>
+    <div class="fact-card">
+      <div class="fact-what">③ DPS 5,800원 (배당수익률 5.3%)</div>
+      <div class="fact-why">WHY: 안정적 수익 구조 + 주주환원 의지 → 배당성향 유지</div>
+      <div class="fact-so">SO WHAT: 하방 지지력 + 안정적 Total Return 확보</div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="section-title">F-2. 사업부별 구조</div>
+  <div class="biz-grid">
+    <div class="biz-card"><div class="biz-title">Brokerage</div><div class="biz-detail">1Q26E +138% YoY / 리테일 상위권</div></div>
+    <div class="biz-card"><div class="biz-title">WM (자산관리)</div><div class="biz-detail">업계 Top / 고액자산가 점유율 1위</div></div>
+    <div class="biz-card"><div class="biz-title">IB</div><div class="biz-detail">ECM/DCM 안정적 수수료 확보</div></div>
+    <div class="biz-card"><div class="biz-title">Trading</div><div class="biz-detail">자기매매/운용 수익 안정</div></div>
+  </div>
+</section>
+
+<section>
+  <div class="section-title">G. 연간 실적 (단위: 억원)</div>
+  <table>
+    <thead><tr><th>구분</th><th>2024</th><th>2025E</th><th>2026E</th><th>2027E</th></tr></thead>
+    <tbody>
+      <tr><td>순이익</td><td>7,200</td><td>10,088</td><td>14,754</td><td>15,900</td></tr>
+      <tr><td>YoY 증감률</td><td>-</td><td>+40.1%</td><td>+46.3%</td><td>+7.8%</td></tr>
+      <tr><td>ROE (%)</td><td>9.3</td><td>12.6</td><td>17.1</td><td>16.5</td></tr>
+      <tr><td>BPS (원)</td><td>88,500</td><td>95,400</td><td>102,883</td><td>110,500</td></tr>
+      <tr><td>DPS (원)</td><td>3,200</td><td>4,600</td><td>5,800</td><td>6,200</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section>
+  <div class="section-title">H. Valuation</div>
+  <div class="valuation-formula">
+    TP 130,000원 = BPS 102,883원 × Target PBR 1.30배<br>
+    ※ Target PBR 1.30배 = 지속 ROE 17.1% / COE 13.2% 가정<br>
+    ※ 현재가 110,000원 기준 Upside +18.2%
+  </div>
+</section>
+
+<section>
+  <div class="section-title">J. 리스크 시나리오</div>
+  <div class="risk-grid">
+    <div class="risk-card">
+      <div class="risk-title">시나리오 1. 거래대금 피크아웃</div>
+      <div class="risk-detail">일평균 거래대금 고점 근접 → 2Q26 이후 역베이스 시 Brokerage 역성장 리스크</div>
+    </div>
+    <div class="risk-card">
+      <div class="risk-title">시나리오 2. WM 마진 압박</div>
+      <div class="risk-detail">경쟁 심화 시 WM 수수료 단가 하락 → ROE 17.1% 지속 가능성 약화</div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="section-title">K. 체크포인트</div>
+  <div class="checkpoint-list">
+    <div class="checkpoint-item"><span class="cp-date">1Q26 실적</span><span class="cp-text">Brokerage YoY +138% 컨센 대비 상회 여부</span></div>
+    <div class="checkpoint-item"><span class="cp-date">2H26</span><span class="cp-text">WM AUM 증가율 및 수수료 단가 유지 여부</span></div>
+  </div>
+</section>
+
+<section>
+  <div class="section-title">L. 의사결정</div>
+  <div class="decision-box">
+    <div class="decision-title">Active Decision</div>
+    <div class="decision-text">▶ 이벤트 후 진입 — 1Q26 실적 발표 후 컨센 상향 확인</div>
+    <div class="decision-reason">Upside +18.2%로 기준 미달 + WM 안정 수익으로 하방 제한 → 실적 서프라이즈 확인 후 비중 확대 권장</div>
+  </div>
+</section>
+
+<section>
+  <div class="section-title">M. 승격 조건 (→ 핵심)</div>
+  <div class="upgrade-box">
+    <div class="upgrade-title">다음 조건 달성 시 핵심(60+) 재평가</div>
+    <div class="upgrade-item">① 1Q26 순이익 컨센 +10% 이상 서프라이즈</div>
+    <div class="upgrade-item">② 26E ROE 18% 이상 상향 조정 + WM AUM +20% YoY</div>
+  </div>
+</section>
+
+</body>
+</html>

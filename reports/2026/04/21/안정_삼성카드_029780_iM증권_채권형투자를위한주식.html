@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>삼성카드 (029780) 정리</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Pretendard','Apple SD Gothic Neo',-apple-system,sans-serif; background: #ffffff; color: #1a1d2e; line-height: 1.7; font-size: 14px; max-width: 900px; margin: 0 auto; padding: 32px 20px 80px; }
+  .header { border-left: 4px solid #2563eb; padding: 0 0 0 16px; margin-bottom: 24px; }
+  .header h1 { font-size: 20px; font-weight: 700; margin-bottom: 10px; color: #1a1d2e; }
+  .price-row { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin-top: 10px; }
+  .price-item { background: #f0f2f8; border: 1px solid #d0d4e0; border-radius: 6px; padding: 6px 14px; font-size: 13px; }
+  .price-item .label { color: #5a6280; font-size: 11px; display: block; }
+  .price-item .val { font-weight: 700; color: #1a1d2e; }
+  .upside-val { color: #059669; }
+  .tag-badge { display: inline-flex; align-items: center; gap: 6px; padding: 5px 14px; border-radius: 20px; font-size: 13px; font-weight: 700; }
+  .tag-stable { background: #f0fdf4; color: #15803d; border: 1px solid #4ade80; }
+  .score-badge { display: inline-block; padding: 5px 14px; border-radius: 20px; font-size: 13px; font-weight: 700; background: #f0f2f8; border: 1px solid #d0d4e0; color: #1a1d2e; }
+  .score-low { color: #15803d; }
+  .pathway-badge { display: inline-flex; align-items: center; gap: 4px; padding: 3px 10px; border-radius: 12px; font-size: 11px; font-weight: 600; background: #f0f2f8; border: 1px solid #d0d4e0; color: #5a6280; }
+  section { margin-bottom: 28px; }
+  .section-title { font-size: 11px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: #5a6280; border-bottom: 1px solid #d0d4e0; padding-bottom: 6px; margin-bottom: 14px; }
+  .pdf-only-banner { background: #fff7ed; border: 1px solid #f97316; border-radius: 8px; padding: 10px 16px; font-size: 12px; color: #c2410c; margin-bottom: 20px; text-align: center; font-weight: 700; }
+  .thesis-box { background: #f8faff; border: 1px solid #2563eb; border-radius: 8px; padding: 16px 20px; font-size: 15px; font-weight: 600; line-height: 1.6; color: #1a1d2e; }
+  .thesis-structure { display: flex; gap: 8px; align-items: center; margin-top: 10px; flex-wrap: wrap; }
+  .thesis-part { background: #f0f2f8; border: 1px solid #d0d4e0; border-radius: 6px; padding: 4px 10px; font-size: 12px; color: #1a1d2e; }
+  .thesis-arrow { color: #2563eb; font-size: 16px; }
+  .checklist { background: #fafafa; border: 1px solid #d0d4e0; border-radius: 8px; overflow: hidden; }
+  .checklist-item { display: flex; gap: 14px; align-items: flex-start; padding: 12px 16px; border-bottom: 1px solid #d0d4e0; }
+  .checklist-item:last-child { border-bottom: none; }
+  .check-icon { width: 22px; height: 22px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; flex-shrink: 0; margin-top: 1px; }
+  .check-pass { background: #ecfdf5; color: #059669; border: 1px solid #34d399; }
+  .check-fail { background: #fef2f2; color: #dc2626; border: 1px solid #fca5a5; }
+  .check-label { font-weight: 600; font-size: 13px; color: #1a1d2e; }
+  .check-detail { color: #5a6280; font-size: 12px; margin-top: 2px; }
+  .check-why { color: #1a1d2e; font-size: 13px; }
+  table { width: 100%; border-collapse: collapse; background: #fafafa; border-radius: 8px; overflow: hidden; border: 1px solid #d0d4e0; }
+  thead tr { background: #f0f2f8; }
+  th { padding: 10px 14px; text-align: left; font-size: 11px; font-weight: 700; color: #5a6280; letter-spacing: 0.8px; text-transform: uppercase; }
+  td { padding: 10px 14px; border-top: 1px solid #d0d4e0; font-size: 13px; color: #1a1d2e; }
+  tr.total-row td { background: #e8ecf5; font-weight: 700; }
+  .penalty { color: #dc2626; }
+  .highlight-green { color: #059669; font-weight: 700; }
+  .chain-box { background: #fafafa; border: 1px solid #d0d4e0; border-radius: 8px; padding: 16px 20px; }
+  .chain-step { display: flex; gap: 12px; align-items: flex-start; margin-bottom: 10px; }
+  .chain-step:last-child { margin-bottom: 0; }
+  .chain-arrow { color: #2563eb; font-size: 16px; flex-shrink: 0; margin-top: 1px; }
+  .chain-content { flex: 1; }
+  .chain-label { font-size: 10px; font-weight: 700; letter-spacing: 1px; color: #5a6280; text-transform: uppercase; margin-bottom: 2px; }
+  .chain-text { font-size: 13px; color: #1a1d2e; }
+  .fact-grid { display: grid; grid-template-columns: 1fr; gap: 10px; }
+  .fact-card { background: #fafafa; border: 1px solid #d0d4e0; border-radius: 8px; padding: 14px 16px; }
+  .fact-what { font-weight: 700; font-size: 13px; margin-bottom: 6px; color: #1a1d2e; }
+  .fact-why { color: #5a6280; font-size: 12px; margin-bottom: 4px; }
+  .fact-so { color: #2563eb; font-size: 12px; font-weight: 600; }
+  .biz-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 16px; }
+  .biz-card { background: #fafafa; border: 1px solid #d0d4e0; border-radius: 8px; padding: 12px 14px; }
+  .biz-title { font-weight: 700; font-size: 12px; color: #2563eb; margin-bottom: 4px; }
+  .biz-detail { font-size: 12px; color: #1a1d2e; line-height: 1.5; }
+  .valuation-formula { background: #f8faff; border: 1px solid #2563eb; border-radius: 8px; padding: 14px 18px; font-size: 13px; color: #1a1d2e; }
+  .risk-grid { display: grid; grid-template-columns: 1fr; gap: 10px; }
+  .risk-card { background: #fff7ed; border: 1px solid #fb923c; border-radius: 8px; padding: 12px 14px; }
+  .risk-title { font-weight: 700; font-size: 13px; color: #c2410c; margin-bottom: 4px; }
+  .risk-detail { font-size: 12px; color: #1a1d2e; }
+  .checkpoint-list { background: #fafafa; border: 1px solid #d0d4e0; border-radius: 8px; padding: 14px 16px; }
+  .checkpoint-item { display: flex; gap: 10px; padding: 6px 0; }
+  .cp-date { font-weight: 700; color: #2563eb; font-size: 12px; min-width: 70px; }
+  .cp-text { font-size: 13px; color: #1a1d2e; }
+  .decision-box { background: #f0f9ff; border: 2px solid #2563eb; border-radius: 8px; padding: 16px 20px; }
+  .decision-title { font-size: 12px; font-weight: 700; letter-spacing: 1px; color: #2563eb; text-transform: uppercase; margin-bottom: 8px; }
+  .decision-text { font-size: 14px; font-weight: 600; color: #1a1d2e; margin-bottom: 6px; }
+  .decision-reason { font-size: 12px; color: #5a6280; }
+</style>
+</head>
+<body>
+
+<div class="pdf-only-banner">※ 본 리포트는 제공된 PDF 1개(iM증권 2026.4.21) 원문만을 근거로 작성됨 — 외부 웹 검색 미사용</div>
+
+<div class="header">
+  <h1>삼성카드 (029780) — 채권형 투자를 위한 주식</h1>
+  <div class="price-row">
+    <span class="tag-badge tag-stable">📈 안정</span>
+    <span class="score-badge score-low">20점</span>
+    <span class="pathway-badge">⑤ 배당/리레이팅</span>
+    <div class="price-item"><span class="label">목표가</span><span class="val">63,000원</span></div>
+    <div class="price-item"><span class="label">현재가</span><span class="val">54,400원</span></div>
+    <div class="price-item"><span class="label">Upside</span><span class="val upside-val">+15.8%</span></div>
+    <div class="price-item"><span class="label">배당수익률</span><span class="val">5.1%</span></div>
+  </div>
+</div>
+
+<section>
+  <div class="section-title">A. 투자 테제 (One-Liner)</div>
+  <div class="thesis-box">
+    성장주가 아닌 "채권형" 배당 안정주 — 26E 순이익 5,953억(-7.8%) 감익 전망이나 DPS 2,800원 유지 → 배당수익률 5.1% 확정 지급구조
+    <div class="thesis-structure">
+      <span class="thesis-part">카드 업황 둔화</span>
+      <span class="thesis-arrow">→</span>
+      <span class="thesis-part">순이익 감익 수용</span>
+      <span class="thesis-arrow">→</span>
+      <span class="thesis-part">배당 2,800원 유지</span>
+      <span class="thesis-arrow">→</span>
+      <span class="thesis-part">Total Return 방어</span>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="section-title">C. 핵심 5조건 체크리스트</div>
+  <div class="checklist">
+    <div class="checklist-item">
+      <div class="check-icon check-fail">✗</div>
+      <div>
+        <div class="check-label">조건 1. OP/순이익 +50% 이상 증가 (3년)</div>
+        <div class="check-detail">26E 순이익 -7.8% 감익 — 기준 완전 미달</div>
+        <div class="check-why">성장주 아닌 배당주 성격</div>
+      </div>
+    </div>
+    <div class="checklist-item">
+      <div class="check-icon check-fail">✗</div>
+      <div>
+        <div class="check-label">조건 2. 3년 체크포인트 3개 이상</div>
+        <div class="check-detail">배당 유지 여부 외 성장 드라이버 빈약</div>
+        <div class="check-why">체크포인트 1개(배당)에 국한</div>
+      </div>
+    </div>
+    <div class="checklist-item">
+      <div class="check-icon check-pass">✓</div>
+      <div>
+        <div class="check-label">조건 3. ●●● 확정 팩트 2개 이상</div>
+        <div class="check-detail">DPS 2,800원 ●●● (배당정책 확립) · 배당성향 유지 ●●● (확정)</div>
+        <div class="check-why">확정급 팩트 2개 확보 — 배당 중심</div>
+      </div>
+    </div>
+    <div class="checklist-item">
+      <div class="check-icon check-fail">✗</div>
+      <div>
+        <div class="check-label">조건 4. Upside 40% 이상</div>
+        <div class="check-detail">Upside +15.8% — 기준 미달</div>
+        <div class="check-why">안정주 특성상 제한적</div>
+      </div>
+    </div>
+    <div class="checklist-item">
+      <div class="check-icon check-fail">✗</div>
+      <div>
+        <div class="check-label">조건 5. 차별화 포인트 (성장)</div>
+        <div class="check-detail">배당 안정성 이외 차별화 요소 부족</div>
+        <div class="check-why">성장 차별화 없음 (채권형)</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="section-title">D-1. 비바이오 점수 산출</div>
+  <table>
+    <thead><tr><th>항목</th><th>판정</th><th>점수</th></tr></thead>
+    <tbody>
+      <tr><td>가설 5 (배당/리레이팅) · 하급 · 단독</td><td>DPS 2,800원 배당 중심</td><td>25</td></tr>
+      <tr><td class="penalty">페널티: 없음 (감익 구조 이미 반영)</td><td>-</td><td>0</td></tr>
+      <tr class="total-row"><td>소계 (Raw)</td><td></td><td>25</td></tr>
+      <tr><td>안정(20~39) 구간 유지 — 성장 부재</td><td>순이익 감익 반영</td><td>20</td></tr>
+      <tr class="total-row"><td>최종 점수</td><td>📈 안정</td><td>20점</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section>
+  <div class="section-title">E. 성장 체인 (5 Step)</div>
+  <div class="chain-box">
+    <div class="chain-step"><span class="chain-arrow">①</span><div class="chain-content"><div class="chain-label">카드 업황 둔화</div><div class="chain-text">가맹점 수수료 규제 + 소비 둔화 → 업종 전반 마진 압박</div></div></div>
+    <div class="chain-step"><span class="chain-arrow">②</span><div class="chain-content"><div class="chain-label">비용 통제</div><div class="chain-text">대손율 안정화 + 운영비 절감 → 수익성 방어</div></div></div>
+    <div class="chain-step"><span class="chain-arrow">③</span><div class="chain-content"><div class="chain-label">26E 순이익 5,953억 (-7.8%)</div><div class="chain-text">ROE 6.6% / 전년 대비 소폭 감익</div></div></div>
+    <div class="chain-step"><span class="chain-arrow">④</span><div class="chain-content"><div class="chain-label">배당성향 유지</div><div class="chain-text">DPS 2,800원 유지 → 배당수익률 5.1%</div></div></div>
+    <div class="chain-step"><span class="chain-arrow">⑤</span><div class="chain-content"><div class="chain-label">Target PBR 0.76배</div><div class="chain-text">TP 63,000원 / Upside +15.8% / 채권형 배당주 포지션</div></div></div>
+  </div>
+</section>
+
+<section>
+  <div class="section-title">F. 핵심 팩트 3개 (WHAT · WHY · SO WHAT)</div>
+  <div class="fact-grid">
+    <div class="fact-card">
+      <div class="fact-what">① DPS 2,800원 · 배당수익률 5.1%</div>
+      <div class="fact-why">WHY: 배당성향 유지 정책 + 안정적 현금흐름 → 국내 Top 배당수익률군</div>
+      <div class="fact-so">SO WHAT: 금리 대비 프리미엄 → 채권 대체 수요 유입 가능</div>
+    </div>
+    <div class="fact-card">
+      <div class="fact-what">② 26E 순이익 5,953억 (-7.8% YoY)</div>
+      <div class="fact-why">WHY: 가맹점 수수료 규제 + 대손 비용 소폭 증가 → 수익성 완만 둔화</div>
+      <div class="fact-so">SO WHAT: 성장보다는 방어/안정 스토리 → 금리 하락기 수혜</div>
+    </div>
+    <div class="fact-card">
+      <div class="fact-what">③ Target PBR 0.76배 / BPS 82,500원 추정</div>
+      <div class="fact-why">WHY: ROE 6.6% 낮은 편이나 안정성 프리미엄 반영</div>
+      <div class="fact-so">SO WHAT: 저평가 매력 + 배당 결합 → 장기 배당형 포트폴리오 적합</div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="section-title">G. 연간 실적 (단위: 억원)</div>
+  <table>
+    <thead><tr><th>구분</th><th>2024</th><th>2025E</th><th>2026E</th><th>2027E</th></tr></thead>
+    <tbody>
+      <tr><td>순이익</td><td>6,650</td><td>6,455</td><td>5,953</td><td>6,050</td></tr>
+      <tr><td>YoY 증감률</td><td>-</td><td>-2.9%</td><td class="penalty">-7.8%</td><td>+1.6%</td></tr>
+      <tr><td>ROE (%)</td><td>7.5</td><td>7.1</td><td>6.6</td><td>6.5</td></tr>
+      <tr><td>DPS (원)</td><td>2,700</td><td>2,800</td><td>2,800</td><td>2,800</td></tr>
+      <tr><td>배당수익률 (%)</td><td>5.0</td><td>5.2</td><td>5.1</td><td>5.1</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section>
+  <div class="section-title">H. Valuation</div>
+  <div class="valuation-formula">
+    TP 63,000원 = BPS 약 82,900원 × Target PBR 0.76배<br>
+    ※ Target PBR 0.76배 = 지속 ROE 6.6% / COE 8.7% 가정<br>
+    ※ 현재가 54,400원 기준 Upside +15.8% + 배당 5.1% = Total Return ~21%
+  </div>
+</section>
+
+<section>
+  <div class="section-title">J. 리스크 시나리오</div>
+  <div class="risk-grid">
+    <div class="risk-card">
+      <div class="risk-title">시나리오 1. 가맹점 수수료 추가 인하</div>
+      <div class="risk-detail">재규제 시 26E 순이익 추가 감익 → 배당성향 유지 불가능 시 DPS 인하 리스크</div>
+    </div>
+    <div class="risk-card">
+      <div class="risk-title">시나리오 2. 대손율 급등</div>
+      <div class="risk-detail">경기 둔화 심화 시 연체율 상승 → 대손충당금 증가 → 배당 여력 위축</div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="section-title">K. 체크포인트</div>
+  <div class="checkpoint-list">
+    <div class="checkpoint-item"><span class="cp-date">분기별</span><span class="cp-text">연체율 및 대손율 변동 모니터링</span></div>
+    <div class="checkpoint-item"><span class="cp-date">연말</span><span class="cp-text">DPS 2,800원 유지 공시 여부</span></div>
+  </div>
+</section>
+
+<section>
+  <div class="section-title">L. 의사결정</div>
+  <div class="decision-box">
+    <div class="decision-title">Active Decision</div>
+    <div class="decision-text">▶ 배당 목적 소량 편입 — 성장주 아닌 채권 대체 포지션</div>
+    <div class="decision-reason">성장 모멘텀 없음 + Upside 15.8% 제한적 — 단 배당수익률 5.1% 확정 매력 → 배당 포트폴리오 내 제한적 편입 검토</div>
+  </div>
+</section>
+
+</body>
+</html>

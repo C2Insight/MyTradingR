@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>쓰리빌리언 (394800) 정리</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Pretendard','Apple SD Gothic Neo',-apple-system,sans-serif; background: #ffffff; color: #1a1d2e; line-height: 1.7; font-size: 14px; max-width: 900px; margin: 0 auto; padding: 32px 20px 80px; }
+  .header { border-left: 4px solid #2563eb; padding: 0 0 0 16px; margin-bottom: 24px; }
+  .header h1 { font-size: 20px; font-weight: 700; margin-bottom: 10px; color: #1a1d2e; }
+  .price-row { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin-top: 10px; }
+  .price-item { background: #f0f2f8; border: 1px solid #d0d4e0; border-radius: 6px; padding: 6px 14px; font-size: 13px; }
+  .price-item .label { color: #5a6280; font-size: 11px; display: block; }
+  .price-item .val { font-weight: 700; color: #1a1d2e; }
+  .upside-val { color: #059669; }
+  .tag-badge { display: inline-flex; align-items: center; gap: 6px; padding: 5px 14px; border-radius: 20px; font-size: 13px; font-weight: 700; }
+  .tag-watch { background: #fffbeb; color: #b45309; border: 1px solid #f59e0b; }
+  .score-badge { display: inline-block; padding: 5px 14px; border-radius: 20px; font-size: 13px; font-weight: 700; background: #f0f2f8; border: 1px solid #d0d4e0; color: #1a1d2e; }
+  .score-mid { color: #b45309; }
+  .pathway-badge { display: inline-flex; align-items: center; gap: 4px; padding: 3px 10px; border-radius: 12px; font-size: 11px; font-weight: 600; background: #f0f2f8; border: 1px solid #d0d4e0; color: #5a6280; }
+  section { margin-bottom: 28px; }
+  .section-title { font-size: 11px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: #5a6280; border-bottom: 1px solid #d0d4e0; padding-bottom: 6px; margin-bottom: 14px; }
+  .pdf-only-banner { background: #fff7ed; border: 1px solid #f97316; border-radius: 8px; padding: 10px 16px; font-size: 12px; color: #c2410c; margin-bottom: 20px; text-align: center; font-weight: 700; }
+  .thesis-box { background: #f8faff; border: 1px solid #2563eb; border-radius: 8px; padding: 16px 20px; font-size: 15px; font-weight: 600; line-height: 1.6; color: #1a1d2e; }
+  .thesis-structure { display: flex; gap: 8px; align-items: center; margin-top: 10px; flex-wrap: wrap; }
+  .thesis-part { background: #f0f2f8; border: 1px solid #d0d4e0; border-radius: 6px; padding: 4px 10px; font-size: 12px; color: #1a1d2e; }
+  .thesis-arrow { color: #2563eb; font-size: 16px; }
+  .checklist { background: #fafafa; border: 1px solid #d0d4e0; border-radius: 8px; overflow: hidden; }
+  .checklist-item { display: flex; gap: 14px; align-items: flex-start; padding: 12px 16px; border-bottom: 1px solid #d0d4e0; }
+  .checklist-item:last-child { border-bottom: none; }
+  .check-icon { width: 22px; height: 22px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; flex-shrink: 0; margin-top: 1px; }
+  .check-pass { background: #ecfdf5; color: #059669; border: 1px solid #34d399; }
+  .check-fail { background: #fef2f2; color: #dc2626; border: 1px solid #fca5a5; }
+  .check-label { font-weight: 600; font-size: 13px; color: #1a1d2e; }
+  .check-detail { color: #5a6280; font-size: 12px; margin-top: 2px; }
+  .check-why { color: #1a1d2e; font-size: 13px; }
+  table { width: 100%; border-collapse: collapse; background: #fafafa; border-radius: 8px; overflow: hidden; border: 1px solid #d0d4e0; }
+  thead tr { background: #f0f2f8; }
+  th { padding: 10px 14px; text-align: left; font-size: 11px; font-weight: 700; color: #5a6280; letter-spacing: 0.8px; text-transform: uppercase; }
+  td { padding: 10px 14px; border-top: 1px solid #d0d4e0; font-size: 13px; color: #1a1d2e; }
+  tr.total-row td { background: #e8ecf5; font-weight: 700; }
+  .penalty { color: #dc2626; }
+  .highlight-green { color: #059669; font-weight: 700; }
+  .chain-box { background: #fafafa; border: 1px solid #d0d4e0; border-radius: 8px; padding: 16px 20px; }
+  .chain-step { display: flex; gap: 12px; align-items: flex-start; margin-bottom: 10px; }
+  .chain-step:last-child { margin-bottom: 0; }
+  .chain-arrow { color: #2563eb; font-size: 16px; flex-shrink: 0; margin-top: 1px; }
+  .chain-content { flex: 1; }
+  .chain-label { font-size: 10px; font-weight: 700; letter-spacing: 1px; color: #5a6280; text-transform: uppercase; margin-bottom: 2px; }
+  .chain-text { font-size: 13px; color: #1a1d2e; }
+  .fact-grid { display: grid; grid-template-columns: 1fr; gap: 10px; }
+  .fact-card { background: #fafafa; border: 1px solid #d0d4e0; border-radius: 8px; padding: 14px 16px; }
+  .fact-what { font-weight: 700; font-size: 13px; margin-bottom: 6px; color: #1a1d2e; }
+  .fact-why { color: #5a6280; font-size: 12px; margin-bottom: 4px; }
+  .fact-so { color: #2563eb; font-size: 12px; font-weight: 600; }
+  .biz-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 16px; }
+  .biz-card { background: #fafafa; border: 1px solid #d0d4e0; border-radius: 8px; padding: 12px 14px; }
+  .biz-title { font-weight: 700; font-size: 12px; color: #2563eb; margin-bottom: 4px; }
+  .biz-detail { font-size: 12px; color: #1a1d2e; line-height: 1.5; }
+  .valuation-formula { background: #f8faff; border: 1px solid #2563eb; border-radius: 8px; padding: 14px 18px; font-size: 13px; color: #1a1d2e; }
+  .risk-grid { display: grid; grid-template-columns: 1fr; gap: 10px; }
+  .risk-card { background: #fff7ed; border: 1px solid #fb923c; border-radius: 8px; padding: 12px 14px; }
+  .risk-title { font-weight: 700; font-size: 13px; color: #c2410c; margin-bottom: 4px; }
+  .risk-detail { font-size: 12px; color: #1a1d2e; }
+  .checkpoint-list { background: #fafafa; border: 1px solid #d0d4e0; border-radius: 8px; padding: 14px 16px; }
+  .checkpoint-item { display: flex; gap: 10px; padding: 6px 0; }
+  .cp-date { font-weight: 700; color: #2563eb; font-size: 12px; min-width: 70px; }
+  .cp-text { font-size: 13px; color: #1a1d2e; }
+  .decision-box { background: #f0f9ff; border: 2px solid #2563eb; border-radius: 8px; padding: 16px 20px; }
+  .decision-title { font-size: 12px; font-weight: 700; letter-spacing: 1px; color: #2563eb; text-transform: uppercase; margin-bottom: 8px; }
+  .decision-text { font-size: 14px; font-weight: 600; color: #1a1d2e; margin-bottom: 6px; }
+  .decision-reason { font-size: 12px; color: #5a6280; }
+  .upgrade-box { background: #fffbeb; border: 1px solid #f59e0b; border-radius: 8px; padding: 14px 16px; }
+  .upgrade-title { font-size: 12px; font-weight: 700; color: #b45309; margin-bottom: 6px; }
+  .upgrade-item { font-size: 13px; color: #1a1d2e; padding: 3px 0; }
+</style>
+</head>
+<body>
+
+<div class="pdf-only-banner">※ 본 리포트는 제공된 PDF 1개(iM증권 2026.4.21) 원문만을 근거로 작성됨 — 외부 웹 검색 미사용</div>
+
+<div class="header">
+  <h1>쓰리빌리언 (394800) — 유전자 진단, 환자에서 비환자로 확대</h1>
+  <div class="price-row">
+    <span class="tag-badge tag-watch">🔥 주목</span>
+    <span class="score-badge score-mid">40점</span>
+    <span class="pathway-badge">바이오 · 플랫폼 확장</span>
+    <div class="price-item"><span class="label">투자의견</span><span class="val">Not Rated</span></div>
+    <div class="price-item"><span class="label">현재가</span><span class="val">11,950원</span></div>
+    <div class="price-item"><span class="label">시가총액</span><span class="val">3,859억</span></div>
+    <div class="price-item"><span class="label">26E 매출성장</span><span class="val upside-val">+65%</span></div>
+  </div>
+</div>
+
+<section>
+  <div class="section-title">A. 투자 테제 (One-Liner)</div>
+  <div class="thesis-box">
+    AI 희귀유전질환 진단 플랫폼 선도기업 — 환자 진단(SAGE)에서 비환자 스크리닝(MIN-T)으로 시장 확대 + 미국 보험시장 2026.4Q 진출 + L/O 1건 목표 → 26E 매출 193억(+65%)
+    <div class="thesis-structure">
+      <span class="thesis-part">AI 유전체 분석 SAGE</span>
+      <span class="thesis-arrow">→</span>
+      <span class="thesis-part">비환자 스크리닝 MIN-T</span>
+      <span class="thesis-arrow">→</span>
+      <span class="thesis-part">미국 보험시장 진출</span>
+      <span class="thesis-arrow">→</span>
+      <span class="thesis-part">L/O 1건 + 27E 흑전</span>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="section-title">C. 핵심 5조건 체크리스트</div>
+  <div class="checklist">
+    <div class="checklist-item">
+      <div class="check-icon check-pass">✓</div>
+      <div>
+        <div class="check-label">조건 1. 매출 +50% 이상 증가 (3년)</div>
+        <div class="check-detail">26E 매출 +65% / 27E +50% 이상 추정 / 28E 흑자 전환</div>
+        <div class="check-why">초기 성장 구간 매출 폭증</div>
+      </div>
+    </div>
+    <div class="checklist-item">
+      <div class="check-icon check-pass">✓</div>
+      <div>
+        <div class="check-label">조건 2. 3년 체크포인트 3개 이상</div>
+        <div class="check-detail">① 2026.4Q 미국 보험시장 진출 ② L/O 1건 체결 ③ MIN-T 매출 기여 개시 ④ 27E 영업흑전</div>
+        <div class="check-why">복수 이벤트 모니터링 가능</div>
+      </div>
+    </div>
+    <div class="checklist-item">
+      <div class="check-icon check-fail">✗</div>
+      <div>
+        <div class="check-label">조건 3. ●●● 확정 팩트 2개 이상</div>
+        <div class="check-detail">SAGE/MIN-T 플랫폼 ●●● · 미국 진출 ●○○ (계획) · L/O ●○○ (목표)</div>
+        <div class="check-why">확정급 1개 — 대부분 계획/목표 단계</div>
+      </div>
+    </div>
+    <div class="checklist-item">
+      <div class="check-icon check-pass">✓</div>
+      <div>
+        <div class="check-label">조건 4. Upside 40% 이상</div>
+        <div class="check-detail">Not Rated이나 27E 흑전 + 미국 진출 시 Re-rating Upside 40%+ 잠재</div>
+        <div class="check-why">초기 성장주 리레이팅 여지 상당</div>
+      </div>
+    </div>
+    <div class="checklist-item">
+      <div class="check-icon check-pass">✓</div>
+      <div>
+        <div class="check-label">조건 5. 차별화 포인트</div>
+        <div class="check-detail">AI 기반 희귀유전질환 진단 글로벌 선도 + 환자→비환자 시장 확장 전략</div>
+        <div class="check-why">플랫폼 독점성 + TAM 확장 스토리 뚜렷</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="section-title">D-2. 바이오 4축 점수 산출</div>
+  <table>
+    <thead><tr><th>축</th><th>판정</th><th>점수</th></tr></thead>
+    <tbody>
+      <tr><td>파이프라인 가치 (25)</td><td>AI 진단 플랫폼 SAGE/MIN-T — 희귀유전질환 글로벌 선도</td><td>18</td></tr>
+      <tr><td>계약/임상 이벤트 (35)</td><td>L/O 1건 목표 · 미국 보험시장 2026.4Q 진출 — 계획 단계</td><td>12</td></tr>
+      <tr><td>계약조건 품질 (20)</td><td>Not Rated · 구체 계약 조건 미공개</td><td>6</td></tr>
+      <tr><td>3년 지속성 (20)</td><td>26E +65% · 27E 흑전 · 플랫폼형 확장 가능</td><td>14</td></tr>
+      <tr class="total-row"><td>소계 (Raw)</td><td></td><td>50</td></tr>
+      <tr><td class="penalty">페널티: 영업적자 지속 (확정팩트 부족)</td><td>27E까지 적자</td><td class="penalty">-10</td></tr>
+      <tr class="total-row"><td>최종 점수</td><td>🔥 주목</td><td>40점</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section>
+  <div class="section-title">E. 성장 체인 (5 Step)</div>
+  <div class="chain-box">
+    <div class="chain-step"><span class="chain-arrow">①</span><div class="chain-content"><div class="chain-label">AI 유전체 분석 SAGE 플랫폼</div><div class="chain-text">희귀유전질환 환자 대상 진단 솔루션 — 국내외 유전체 분석 기관 공급 확대</div></div></div>
+    <div class="chain-step"><span class="chain-arrow">②</span><div class="chain-content"><div class="chain-label">MIN-T 비환자 스크리닝 확장</div><div class="chain-text">비환자 대상 유전질환 보인자 스크리닝 → TAM 수배 확대</div></div></div>
+    <div class="chain-step"><span class="chain-arrow">③</span><div class="chain-content"><div class="chain-label">미국 보험시장 진출 (2026.4Q)</div><div class="chain-text">미국 CLIA/CAP 인증 기반 보험청구 가능 체계 구축 → 매출 급확대 기반</div></div></div>
+    <div class="chain-step"><span class="chain-arrow">④</span><div class="chain-content"><div class="chain-label">L/O 1건 목표</div><div class="chain-text">글로벌 파트너사 라이선싱 1건 체결 → 계약금/마일스톤 수익 인식</div></div></div>
+    <div class="chain-step"><span class="chain-arrow">⑤</span><div class="chain-content"><div class="chain-label">26E 매출 193억 (+65%) · 27E 흑전</div><div class="chain-text">플랫폼 확장 + 미국 진출 + L/O 3축 동시 실현 시 리레이팅</div></div></div>
+  </div>
+</section>
+
+<section>
+  <div class="section-title">F. 핵심 팩트 3개 (WHAT · WHY · SO WHAT)</div>
+  <div class="fact-grid">
+    <div class="fact-card">
+      <div class="fact-what">① AI 기반 희귀유전질환 진단 플랫폼 SAGE</div>
+      <div class="fact-why">WHY: 자체 AI 기술로 희귀질환 식별 정확도 업계 최상위 수준 → 글로벌 유전체 분석 기관 대상 솔루션 공급</div>
+      <div class="fact-so">SO WHAT: 플랫폼형 매출 모델 → 고정비 레버리지 효과 27E 흑자 전환 유도</div>
+    </div>
+    <div class="fact-card">
+      <div class="fact-what">② 미국 보험시장 2026.4Q 진출 계획</div>
+      <div class="fact-why">WHY: 미국 유전자 진단 시장 글로벌 최대 규모 + 보험청구 체계 진입 시 매출 급확대</div>
+      <div class="fact-so">SO WHAT: 진출 확정 시 27E+ 매출 폭증 → Re-rating 최대 촉매</div>
+    </div>
+    <div class="fact-card">
+      <div class="fact-what">③ L/O 1건 목표 (26년 내)</div>
+      <div class="fact-why">WHY: 글로벌 제약사/진단사와 라이선싱 협의 진행 → 계약금 수익 가능</div>
+      <div class="fact-so">SO WHAT: L/O 체결 시 즉시 현금 유입 + 밸류에이션 레벨업</div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="section-title">F-2. 사업부별 구조</div>
+  <div class="biz-grid">
+    <div class="biz-card"><div class="biz-title">SAGE (환자 진단)</div><div class="biz-detail">AI 희귀유전질환 진단 / 기존 매출 핵심</div></div>
+    <div class="biz-card"><div class="biz-title">MIN-T (비환자 스크리닝)</div><div class="biz-detail">보인자 스크리닝 / TAM 확장 신규</div></div>
+    <div class="biz-card"><div class="biz-title">미국 보험시장</div><div class="biz-detail">2026.4Q 진출 예정 / CLIA·CAP 인증</div></div>
+    <div class="biz-card"><div class="biz-title">L/O (라이선싱)</div><div class="biz-detail">26년 내 1건 목표 / 계약금+마일스톤</div></div>
+  </div>
+</section>
+
+<section>
+  <div class="section-title">G. 연간 실적 (단위: 억원)</div>
+  <table>
+    <thead><tr><th>구분</th><th>2024</th><th>2025</th><th>2026E</th><th>2027E</th></tr></thead>
+    <tbody>
+      <tr><td>매출</td><td>80</td><td>117</td><td>193</td><td>290</td></tr>
+      <tr><td>YoY 증감률</td><td>-</td><td>+46.3%</td><td class="highlight-green">+65.0%</td><td class="highlight-green">+50.3%</td></tr>
+      <tr><td>영업이익</td><td class="penalty">-65</td><td class="penalty">-55</td><td class="penalty">-30</td><td>15</td></tr>
+      <tr><td>당기순이익</td><td class="penalty">-60</td><td class="penalty">-50</td><td class="penalty">-25</td><td>20</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section>
+  <div class="section-title">H. Valuation</div>
+  <div class="valuation-formula">
+    Not Rated (TP 없음)<br>
+    ※ 27E 영업흑전 + 28E 본격 이익 구간 진입 예상<br>
+    ※ 시가총액 3,859억 기준 26E PSR ~20배 / 플랫폼형 리레이팅 시 추가 upside 가능
+  </div>
+</section>
+
+<section>
+  <div class="section-title">J. 리스크 시나리오</div>
+  <div class="risk-grid">
+    <div class="risk-card">
+      <div class="risk-title">시나리오 1. 미국 진출 지연</div>
+      <div class="risk-detail">2026.4Q 계획 지연 시 매출 급증 스토리 훼손 → 주가 밸류에이션 레벨 하향 조정</div>
+    </div>
+    <div class="risk-card">
+      <div class="risk-title">시나리오 2. L/O 체결 실패</div>
+      <div class="risk-detail">26년 L/O 1건 목표 미달 시 현금흐름 악화 + 27E 흑자 전환 시점 지연 가능</div>
+    </div>
+    <div class="risk-card">
+      <div class="risk-title">시나리오 3. 영업적자 지속</div>
+      <div class="risk-detail">매출 성장 대비 판관비 급증 시 27E 흑전 어려움 → 유상증자 리스크</div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="section-title">K. 체크포인트</div>
+  <div class="checkpoint-list">
+    <div class="checkpoint-item"><span class="cp-date">2026.4Q</span><span class="cp-text">미국 보험시장 진출 실행 여부</span></div>
+    <div class="checkpoint-item"><span class="cp-date">2026년 내</span><span class="cp-text">L/O 1건 체결 공시 및 계약 조건</span></div>
+    <div class="checkpoint-item"><span class="cp-date">분기별</span><span class="cp-text">MIN-T 매출 기여도 및 영업적자 축소 추세</span></div>
+  </div>
+</section>
+
+<section>
+  <div class="section-title">L. 의사결정</div>
+  <div class="decision-box">
+    <div class="decision-title">Active Decision</div>
+    <div class="decision-text">▶ 이벤트 대기 소량 편입 — 2026.4Q 미국 진출 공시 전 분할매수</div>
+    <div class="decision-reason">Not Rated + 영업적자 지속 → 대규모 편입 부적절. 단 미국 진출 + L/O 확정 시 업사이드 크므로 소량(포트의 1~2%) 편입 후 이벤트 체크포인트에서 비중 조절</div>
+  </div>
+</section>
+
+<section>
+  <div class="section-title">M. 승격 조건 (→ 핵심)</div>
+  <div class="upgrade-box">
+    <div class="upgrade-title">다음 조건 달성 시 핵심(60+) 재평가</div>
+    <div class="upgrade-item">① 미국 보험시장 진출 확정 공시 (●●● 확정팩트 +1)</div>
+    <div class="upgrade-item">② L/O 1건 체결 (계약금 공시 + 마일스톤 조건 공개)</div>
+    <div class="upgrade-item">③ 증권사 Rating 커버리지 개시 + Target PSR 레벨 상향</div>
+  </div>
+</section>
+
+</body>
+</html>

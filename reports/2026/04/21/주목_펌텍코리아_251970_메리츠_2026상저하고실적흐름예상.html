@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>펌텍코리아 (251970) 정리</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Pretendard','Apple SD Gothic Neo',-apple-system,sans-serif; background: #ffffff; color: #1a1d2e; line-height: 1.7; font-size: 14px; max-width: 900px; margin: 0 auto; padding: 32px 20px 80px; }
+  .header { border-left: 4px solid #2563eb; padding: 0 0 0 16px; margin-bottom: 24px; }
+  .header h1 { font-size: 20px; font-weight: 700; margin-bottom: 10px; color: #1a1d2e; }
+  .price-row { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin-top: 10px; }
+  .price-item { background: #f0f2f8; border: 1px solid #d0d4e0; border-radius: 6px; padding: 6px 14px; font-size: 13px; }
+  .price-item .label { color: #5a6280; font-size: 11px; display: block; }
+  .price-item .val { font-weight: 700; color: #1a1d2e; }
+  .tag-badge { display: inline-flex; align-items: center; gap: 6px; padding: 5px 14px; border-radius: 20px; font-size: 13px; font-weight: 700; }
+  .tag-watch { background: #fffbeb; color: #b45309; border: 1px solid #f59e0b; }
+  .score-badge { display: inline-block; padding: 5px 14px; border-radius: 20px; font-size: 13px; font-weight: 700; background: #f0f2f8; border: 1px solid #d0d4e0; color: #1a1d2e; }
+  .score-mid { color: #b45309; }
+  .pathway-badge { display: inline-flex; align-items: center; gap: 4px; padding: 3px 10px; border-radius: 12px; font-size: 11px; font-weight: 600; background: #f0f2f8; border: 1px solid #d0d4e0; color: #5a6280; }
+  section { margin-bottom: 28px; }
+  .section-title { font-size: 11px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: #5a6280; border-bottom: 1px solid #d0d4e0; padding-bottom: 6px; margin-bottom: 14px; }
+  .pdf-only-banner { background: #fff7ed; border: 1px solid #f97316; border-radius: 8px; padding: 10px 16px; font-size: 12px; color: #c2410c; margin-bottom: 20px; text-align: center; font-weight: 700; }
+  .thesis-box { background: #f8faff; border: 1px solid #2563eb; border-radius: 8px; padding: 16px 20px; font-size: 15px; font-weight: 600; line-height: 1.6; color: #1a1d2e; }
+  .thesis-structure { display: flex; gap: 8px; align-items: center; margin-top: 10px; flex-wrap: wrap; }
+  .thesis-part { background: #f0f2f8; border: 1px solid #d0d4e0; border-radius: 6px; padding: 4px 10px; font-size: 12px; color: #1a1d2e; }
+  .thesis-arrow { color: #2563eb; font-size: 16px; }
+  .checklist { background: #fafafa; border: 1px solid #d0d4e0; border-radius: 8px; overflow: hidden; }
+  .checklist-item { display: flex; gap: 14px; align-items: flex-start; padding: 12px 16px; border-bottom: 1px solid #d0d4e0; }
+  .checklist-item:last-child { border-bottom: none; }
+  .check-icon { width: 22px; height: 22px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; flex-shrink: 0; margin-top: 1px; }
+  .check-pass { background: #ecfdf5; color: #059669; border: 1px solid #34d399; }
+  .check-fail { background: #fef2f2; color: #dc2626; border: 1px solid #fca5a5; }
+  .check-label { font-weight: 600; font-size: 13px; color: #1a1d2e; }
+  .check-detail { color: #5a6280; font-size: 12px; margin-top: 2px; }
+  table { width: 100%; border-collapse: collapse; background: #fafafa; border-radius: 8px; overflow: hidden; border: 1px solid #d0d4e0; }
+  thead tr { background: #f0f2f8; }
+  th { padding: 10px 14px; text-align: left; font-size: 11px; font-weight: 700; color: #5a6280; letter-spacing: 0.8px; text-transform: uppercase; }
+  td { padding: 10px 14px; border-top: 1px solid #d0d4e0; font-size: 13px; color: #1a1d2e; }
+  tr.total-row td { background: #e8ecf5; font-weight: 700; }
+  .penalty { color: #dc2626; }
+  .highlight-green { color: #059669; font-weight: 700; }
+  .chain-box { background: #fafafa; border: 1px solid #d0d4e0; border-radius: 8px; padding: 16px 20px; }
+  .chain-step { display: flex; gap: 12px; align-items: flex-start; margin-bottom: 10px; }
+  .chain-step:last-child { margin-bottom: 0; }
+  .chain-arrow { color: #2563eb; font-size: 16px; flex-shrink: 0; margin-top: 1px; }
+  .chain-content { flex: 1; }
+  .chain-label { font-size: 10px; font-weight: 700; letter-spacing: 1px; color: #5a6280; text-transform: uppercase; margin-bottom: 2px; }
+  .chain-text { font-size: 13px; color: #1a1d2e; }
+  .chain-confirmed { color: #059669; font-size: 11px; margin-left: 6px; }
+  .chain-forecast { color: #b45309; font-size: 11px; margin-left: 6px; }
+  .fact-item { background: #fafafa; border: 1px solid #d0d4e0; border-radius: 8px; padding: 14px 16px; margin-bottom: 8px; }
+  .fact-num { font-size: 10px; font-weight: 700; color: #2563eb; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 8px; display: block; }
+  .fact-what { font-weight: 600; font-size: 14px; margin-bottom: 6px; color: #1a1d2e; }
+  .fact-why { font-size: 13px; color: #5a6280; margin-bottom: 6px; }
+  .fact-so { font-size: 13px; color: #059669; }
+  .fact-label { display: inline-block; font-size: 10px; font-weight: 700; padding: 1px 6px; border-radius: 3px; margin-right: 4px; }
+  .label-what { background: #eff6ff; color: #1d4ed8; }
+  .label-why { background: #fff7ed; color: #ea580c; }
+  .label-so { background: #ecfdf5; color: #059669; }
+  .data-table th { background: #e8ecf5; }
+  .data-table td.key-col { background: #f0f6ff; }
+  .data-table .key-num { color: #059669; font-weight: 700; }
+  .data-table .key-opm { color: #b45309; }
+  caption { font-size: 11px; color: #5a6280; text-align: left; padding: 0 0 8px; caption-side: top; }
+  .val-box { background: #fafafa; border: 1px solid #d0d4e0; border-radius: 8px; padding: 16px 20px; font-size: 13px; line-height: 2; color: #1a1d2e; }
+  .risk-item { background: #fafafa; border-radius: 0 6px 6px 0; padding: 14px 16px; margin-bottom: 10px; }
+  .risk-sev-high { border-left: 3px solid #dc2626; }
+  .risk-sev-mid { border-left: 3px solid #ea580c; }
+  .risk-assumption { font-weight: 600; font-size: 13px; margin-bottom: 4px; color: #1a1d2e; }
+  .risk-chain { font-size: 12px; color: #5a6280; margin: 4px 0; }
+  .risk-impact-num { font-size: 13px; color: #dc2626; font-weight: 600; margin-top: 4px; }
+  .checkpoint-item { display: flex; gap: 12px; padding: 10px 0; border-bottom: 1px solid #d0d4e0; font-size: 13px; }
+  .checkpoint-item:last-child { border-bottom: none; }
+  .cp-date { color: #2563eb; font-weight: 600; min-width: 90px; flex-shrink: 0; }
+  .cp-event { flex: 1; color: #1a1d2e; }
+  .opinion-box { background: #fafafa; border: 1px solid #d0d4e0; border-radius: 8px; padding: 16px 20px; font-size: 13px; line-height: 1.8; color: #5a6280; }
+  .decision-box { display: flex; gap: 14px; margin-top: 14px; }
+  .decision-btn { flex: 1; text-align: center; padding: 10px; border-radius: 6px; font-weight: 700; font-size: 13px; border: 1px solid; }
+  .decision-buy { background: #ecfdf5; color: #059669; border-color: #34d399; }
+  .decision-wait { background: #fffbeb; color: #b45309; border-color: #f59e0b; }
+  .decision-avoid { background: #fef2f2; color: #dc2626; border-color: #fca5a5; }
+  .decision-dim { opacity: 0.3; }
+  .upgrade-box { background: #eff6ff; border: 1px solid #93c5fd; border-radius: 8px; padding: 14px 16px; }
+  .upgrade-item { display: flex; gap: 10px; padding: 6px 0; border-bottom: 1px solid #dbeafe; font-size: 13px; color: #1a1d2e; }
+  .upgrade-item:last-child { border-bottom: none; }
+  .upgrade-when { color: #1d4ed8; font-weight: 600; min-width: 140px; flex-shrink: 0; }
+  .disclaimer { font-size: 11px; color: #9ca3af; text-align: center; margin-top: 40px; padding-top: 16px; border-top: 1px solid #d0d4e0; }
+</style>
+</head>
+<body>
+
+<div class="pdf-only-banner">🚫 외부 검색 절대 금지 — 제공된 PDF 파일만 활용 | 당일 발간 리포트 기준 투자 종목 발굴 전용</div>
+
+<header class="header">
+  <h1>펌텍코리아 (251970) · 2026 상저하고 실적 흐름 예상</h1>
+  <div class="price-row">
+    <span class="tag-badge tag-watch">🟠 주목</span>
+    <span class="score-badge score-mid">40점</span>
+    <span class="pathway-badge">[가] 실적 성장</span>
+    <span class="price-item"><span class="label">발행</span><span class="val">2026-04-21 메리츠증권</span></span>
+    <span class="price-item"><span class="label">TP</span><span class="val">PDF 미제시</span></span>
+    <span class="price-item"><span class="label">Upside</span><span class="val">PDF 미제시</span></span>
+  </div>
+</header>
+
+<section>
+  <div class="section-title">A. 핵심 가설 (Thesis)</div>
+  <div class="thesis-box">
+    1Q26 비우호 기저 + 중동 원가 상승으로 상반기 부진하나, 하반기 신규 카테고리(스포이드) 확대 + 3공장 본격 가동으로 26E OP +15% YoY 회복 예상
+    <div class="thesis-structure">
+      <span class="thesis-part">[확정] 자회사 부국티엔씨 1Q 부진</span>
+      <span class="thesis-arrow">→</span>
+      <span class="thesis-part">[OP +15% YoY, OPM 15.8%]</span>
+      <span class="thesis-arrow">→</span>
+      <span class="thesis-part">[Upside PDF 미제시]</span>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="section-title">B. 19-Check 체크리스트 (요약 7종)</div>
+  <div class="checklist">
+    <div class="checklist-item">
+      <div class="check-icon check-fail">✗</div>
+      <div>
+        <div class="check-label">C1. 확정 팩트(●●●) 3개 이상</div>
+        <div class="check-detail">26E 가이던스 + 자회사 기저 이슈 + 3공장 가동 예정 → 확정은 1~2개, 나머지는 추정</div>
+      </div>
+    </div>
+    <div class="checklist-item">
+      <div class="check-icon check-fail">✗</div>
+      <div>
+        <div class="check-label">C2. Upside ≥ 40%</div>
+        <div class="check-detail">TP·목표가 PDF 미제시 → 측정 불가</div>
+      </div>
+    </div>
+    <div class="checklist-item">
+      <div class="check-icon check-fail">✗</div>
+      <div>
+        <div class="check-label">C3. OP 성장률 ≥ 50% (연간)</div>
+        <div class="check-detail">26E OP +15% YoY (650억) — 임계 미달</div>
+      </div>
+    </div>
+    <div class="checklist-item">
+      <div class="check-icon check-pass">✓</div>
+      <div>
+        <div class="check-label">C4. OPM 개선 가시성</div>
+        <div class="check-detail">26E OPM 15.8% (25년 16.0% 대비 소폭 하락) — 중동 원가 상승 반영</div>
+      </div>
+    </div>
+    <div class="checklist-item">
+      <div class="check-icon check-pass">✓</div>
+      <div>
+        <div class="check-label">C5. 매출 성장률 10%+</div>
+        <div class="check-detail">26E 매출 4,100억 (+16.4% YoY) — 양호</div>
+      </div>
+    </div>
+    <div class="checklist-item">
+      <div class="check-icon check-pass">✓</div>
+      <div>
+        <div class="check-label">C6. 카테고리 믹스 개선</div>
+        <div class="check-detail">펌프 → 스포이드 믹스 이동, 신규 카테고리 확대 중</div>
+      </div>
+    </div>
+    <div class="checklist-item">
+      <div class="check-icon check-fail">✗</div>
+      <div>
+        <div class="check-label">C7. 단기 촉매 가시성</div>
+        <div class="check-detail">상반기 부진 불가피, 하반기 회복 시나리오</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="section-title">C. 인과 체인 (WHY → SO WHAT)</div>
+  <div class="chain-box">
+    <div class="chain-step">
+      <span class="chain-arrow">①</span>
+      <div class="chain-content">
+        <div class="chain-label">Driver</div>
+        <div class="chain-text">자회사 부국티엔씨 1Q 비우호 기저 + 중동 전쟁으로 원재료 단가 상승 <span class="chain-confirmed">●●● 확정</span></div>
+      </div>
+    </div>
+    <div class="chain-step">
+      <span class="chain-arrow">②</span>
+      <div class="chain-content">
+        <div class="chain-label">Mechanism</div>
+        <div class="chain-text">1Q26E OP 122억 (YoY -9%) → 원가 부담 + 자회사 실적 부진 동시 반영 <span class="chain-forecast">●●○ 추정</span></div>
+      </div>
+    </div>
+    <div class="chain-step">
+      <span class="chain-arrow">③</span>
+      <div class="chain-content">
+        <div class="chain-label">Result</div>
+        <div class="chain-text">하반기 신규 카테고리 + 3공장 본격 가동으로 26E OP 650억 (+15% YoY) 회복 <span class="chain-forecast">●●○ 추정</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="section-title">D. 팩트 리스트 (WHAT+WHY+SO WHAT)</div>
+  <div class="fact-item">
+    <span class="fact-num">FACT 01</span>
+    <div class="fact-what"><span class="fact-label label-what">WHAT</span>1Q26E 매출 900억 (YoY +5%), OP 122억 (YoY -9%)</div>
+    <div class="fact-why"><span class="fact-label label-why">WHY</span>자회사 부국티엔씨 1Q24 고기저 + 중동 원재료 단가 상승 영향</div>
+    <div class="fact-so"><span class="fact-label label-so">SO WHAT</span>상반기 부진 선반영 완료 → 2H 회복 가시성 확보</div>
+  </div>
+  <div class="fact-item">
+    <span class="fact-num">FACT 02</span>
+    <div class="fact-what"><span class="fact-label label-what">WHAT</span>매출 비중: 펌텍코리아 75.6% / 부국티엔씨 23.7% / 잘론네츄럴 1.8%</div>
+    <div class="fact-why"><span class="fact-label label-why">WHY</span>메인 본사 중심 + 자회사 2개 포트폴리오 구조</div>
+    <div class="fact-so"><span class="fact-label label-so">SO WHAT</span>본사 1Q26E +13% 성장으로 자회사 부진 상쇄 가능</div>
+  </div>
+  <div class="fact-item">
+    <span class="fact-num">FACT 03</span>
+    <div class="fact-what"><span class="fact-label label-what">WHAT</span>26E 매출 4,100억 (+16.4%), OP 650억 (+15%), OPM 15.8%</div>
+    <div class="fact-why"><span class="fact-label label-why">WHY</span>3공장 본격 가동 + 스포이드 카테고리 확대</div>
+    <div class="fact-so"><span class="fact-label label-so">SO WHAT</span>성장 궤도 유지 확인, 단 마진 확대 여력은 제한적</div>
+  </div>
+  <div class="fact-item">
+    <span class="fact-num">FACT 04</span>
+    <div class="fact-what"><span class="fact-label label-what">WHAT</span>카테고리 믹스 이동: 펌프 → 스포이드 확대</div>
+    <div class="fact-why"><span class="fact-label label-why">WHY</span>K-뷰티 메이크업 카테고리 수요 호조</div>
+    <div class="fact-so"><span class="fact-label label-so">SO WHAT</span>신규 카테고리 내 ASP·믹스 개선 여지</div>
+  </div>
+</section>
+
+<section>
+  <div class="section-title">D-2. 실적 추이 (핵심 숫자)</div>
+  <table class="data-table">
+    <caption>단위: 억원 / PDF 기준 요약</caption>
+    <thead><tr><th>항목</th><th>1Q26E</th><th>YoY</th><th class="key-col">26E</th><th>YoY</th></tr></thead>
+    <tbody>
+      <tr><td>매출</td><td>900</td><td>+5%</td><td class="key-col key-num">4,100</td><td>+16.4%</td></tr>
+      <tr><td>영업이익</td><td>122</td><td>-9%</td><td class="key-col key-num">650</td><td>+15%</td></tr>
+      <tr><td>OPM</td><td>13.6%</td><td>-2.1%p</td><td class="key-col key-opm">15.8%</td><td>-0.2%p</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section>
+  <div class="section-title">E. 점수표 (비바이오 v2.0)</div>
+  <table>
+    <thead><tr><th>구분</th><th>항목</th><th>배점</th><th>획득</th><th>근거</th></tr></thead>
+    <tbody>
+      <tr><td rowspan="2">가설</td><td>실적 성장</td><td>40</td><td>20</td><td>OP +15% YoY — 임계(+50%) 미달</td></tr>
+      <tr><td>OPM 개선</td><td>10</td><td>0</td><td>OPM -0.2%p (소폭 하락)</td></tr>
+      <tr><td rowspan="2">촉매</td><td>단기 촉매 등급</td><td>20</td><td>10</td><td>3공장 가동·스포이드 — C 등급</td></tr>
+      <tr><td>중장기 가시성</td><td>10</td><td>5</td><td>매출 +16% 지속 가능성</td></tr>
+      <tr><td>복합성</td><td>단독/복합</td><td>10</td><td>5</td><td>본사+자회사 믹스 (복합)</td></tr>
+      <tr><td>페널티</td><td>자회사 부진</td><td>-10</td><td class="penalty">-5</td><td>부국티엔씨 1Q 기저 부담</td></tr>
+      <tr><td>페널티</td><td>원재료 상승</td><td>-10</td><td class="penalty">-5</td><td>중동發 원가 압력</td></tr>
+      <tr class="total-row"><td colspan="3">합계</td><td>40</td><td>주목 등급</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section>
+  <div class="section-title">F. 리스크</div>
+  <div class="risk-item risk-sev-mid">
+    <div class="risk-assumption">자회사 부국티엔씨 부진 장기화</div>
+    <div class="risk-chain">중동 원가 상승 지속 → 부국 수익성 추가 악화 → 연결 OP 전망 하향</div>
+    <div class="risk-impact-num">영향: 26E OP -5~10% 가능</div>
+  </div>
+  <div class="risk-item risk-sev-mid">
+    <div class="risk-assumption">3공장 가동률 램프업 지연</div>
+    <div class="risk-chain">하반기 신규 수주 지연 시 → 감가상각비 레버리지 악화 → OPM 하락</div>
+    <div class="risk-impact-num">영향: OPM -1~2%p</div>
+  </div>
+</section>
+
+<section>
+  <div class="section-title">G. 체크포인트</div>
+  <div class="checkpoint-item"><div class="cp-date">2026-05</div><div class="cp-event">1Q26 실적 발표 — OP 122억 근접 여부</div></div>
+  <div class="checkpoint-item"><div class="cp-date">2026-08</div><div class="cp-event">2Q26 실적 — 중동 원가 이슈 피크아웃 확인</div></div>
+  <div class="checkpoint-item"><div class="cp-date">2026-11</div><div class="cp-event">3Q 3공장 가동률 체크 — 상저하고 시나리오 검증</div></div>
+</section>
+
+<section>
+  <div class="section-title">H. 판단 (Decision)</div>
+  <div class="opinion-box">
+    실적 성장은 유지되나 증가율 둔화(+15%) + 1H 원가 부담 + 자회사 기저 → 핵심 조건(OP +50%) 미충족. 3공장 가동 본격화 전까지 관망.
+    <div class="decision-box">
+      <div class="decision-btn decision-buy decision-dim">매수</div>
+      <div class="decision-btn decision-wait">관망/주목</div>
+      <div class="decision-btn decision-avoid decision-dim">회피</div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="section-title">I. 업그레이드 조건</div>
+  <div class="upgrade-box">
+    <div class="upgrade-item"><span class="upgrade-when">3Q 가동률 80%+</span><span>상저하고 시나리오 확증 → 핵심 승격</span></div>
+    <div class="upgrade-item"><span class="upgrade-when">중동 원가 피크아웃</span><span>OPM +1%p 이상 회복 시 → 점수 +10~15</span></div>
+    <div class="upgrade-item"><span class="upgrade-when">신규 대형 수주</span><span>Top-tier K뷰티 브랜드 신규 추가 시 → 주목 → 핵심</span></div>
+  </div>
+</section>
+
+<section>
+  <div class="section-title">J. 밸류에이션</div>
+  <div class="val-box">
+    TP·목표가: <strong>PDF 미제시</strong> · Upside: <strong>PDF 미제시</strong><br>
+    26E OP 650억 (+15% YoY) 기반 실적 재평가 필요
+  </div>
+</section>
+
+<section>
+  <div class="section-title">K. 원문 요지</div>
+  <div class="opinion-box">
+    2026년 상저하고 실적 흐름 예상. 1Q26E OP 122억(YoY -9%)로 자회사 부진과 중동 원가 상승 영향. 하반기 3공장 본격 가동 + 스포이드 카테고리 확대로 26E OP 650억(+15%) 회복 시나리오. 매출 비중은 펌텍 75.6% / 부국티엔씨 23.7% / 잘론 1.8%.
+  </div>
+</section>
+
+<section>
+  <div class="section-title">L. 태그 근거</div>
+  <div class="opinion-box">
+    OP +50% 미달(+15%), Upside 미제시, 원가·자회사 페널티 2건 → <strong>주목</strong> 유지. 3공장·카테고리 확장은 중기 촉매로 관찰.
+  </div>
+</section>
+
+<section>
+  <div class="section-title">M. 투자 경로</div>
+  <div class="opinion-box">
+    [가] 실적 성장 경로: 26E OP +15% 회복은 상저하고 구조 — 2H부터 모멘텀 발생 가정 시 진입 고려.
+  </div>
+</section>
+
+<div class="disclaimer">본 자료는 PDF 원문 요약/정리본이며 투자 권유가 아닙니다. 출처: 메리츠증권 (2026-04-21)</div>
+
+</body>
+</html>

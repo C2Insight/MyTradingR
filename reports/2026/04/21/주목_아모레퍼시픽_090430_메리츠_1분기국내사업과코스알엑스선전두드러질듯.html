@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>아모레퍼시픽 (090430) 정리</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Pretendard','Apple SD Gothic Neo',-apple-system,sans-serif; background: #ffffff; color: #1a1d2e; line-height: 1.7; font-size: 14px; max-width: 900px; margin: 0 auto; padding: 32px 20px 80px; }
+  .header { border-left: 4px solid #2563eb; padding: 0 0 0 16px; margin-bottom: 24px; }
+  .header h1 { font-size: 20px; font-weight: 700; margin-bottom: 10px; }
+  .price-row { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 10px; }
+  .price-item { background: #f0f2f8; border: 1px solid #d0d4e0; border-radius: 6px; padding: 6px 14px; font-size: 13px; }
+  .price-item .label { color: #5a6280; font-size: 11px; display: block; }
+  .price-item .val { font-weight: 700; }
+  .tag-badge { display: inline-flex; gap: 6px; padding: 5px 14px; border-radius: 20px; font-size: 13px; font-weight: 700; }
+  .tag-watch { background: #fff7ed; color: #ea580c; border: 1px solid #fb923c; }
+  .score-badge { display: inline-block; padding: 5px 14px; border-radius: 20px; font-size: 13px; font-weight: 700; background: #f0f2f8; border: 1px solid #d0d4e0; }
+  .score-mid { color: #b45309; }
+  .pathway-badge { display: inline-flex; padding: 3px 10px; border-radius: 12px; font-size: 11px; font-weight: 600; background: #f0f2f8; border: 1px solid #d0d4e0; color: #5a6280; }
+  section { margin-bottom: 28px; }
+  .section-title { font-size: 11px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: #5a6280; border-bottom: 1px solid #d0d4e0; padding-bottom: 6px; margin-bottom: 14px; }
+  .pdf-only-banner { background: #fff7ed; border: 1px solid #f97316; border-radius: 8px; padding: 10px 16px; font-size: 12px; color: #c2410c; margin-bottom: 20px; text-align: center; font-weight: 700; }
+  .thesis-box { background: #f8faff; border: 1px solid #2563eb; border-radius: 8px; padding: 16px 20px; font-size: 15px; font-weight: 600; line-height: 1.6; }
+  .thesis-structure { display: flex; gap: 8px; align-items: center; margin-top: 10px; flex-wrap: wrap; }
+  .thesis-part { background: #f0f2f8; border: 1px solid #d0d4e0; border-radius: 6px; padding: 4px 10px; font-size: 12px; }
+  .thesis-arrow { color: #2563eb; font-size: 16px; }
+  .checklist { background: #fafafa; border: 1px solid #d0d4e0; border-radius: 8px; overflow: hidden; }
+  .checklist-item { display: flex; gap: 14px; padding: 12px 16px; border-bottom: 1px solid #d0d4e0; }
+  .checklist-item:last-child { border-bottom: none; }
+  .check-icon { width: 22px; height: 22px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; flex-shrink: 0; margin-top: 1px; }
+  .check-pass { background: #ecfdf5; color: #059669; border: 1px solid #34d399; }
+  .check-partial { background: #fffbeb; color: #b45309; border: 1px solid #f59e0b; }
+  .check-label { font-weight: 600; font-size: 13px; }
+  .check-detail { color: #5a6280; font-size: 12px; margin-top: 2px; }
+  .check-why { font-size: 13px; }
+  table { width: 100%; border-collapse: collapse; background: #fafafa; border-radius: 8px; overflow: hidden; border: 1px solid #d0d4e0; }
+  thead tr { background: #f0f2f8; }
+  th { padding: 10px 14px; text-align: left; font-size: 11px; font-weight: 700; color: #5a6280; letter-spacing: 0.8px; text-transform: uppercase; }
+  td { padding: 10px 14px; border-top: 1px solid #d0d4e0; font-size: 13px; }
+  tr.total-row td { background: #e8ecf5; font-weight: 700; }
+  .penalty { color: #dc2626; }
+  .highlight-green { color: #059669; font-weight: 700; }
+  .chain-box { background: #fafafa; border: 1px solid #d0d4e0; border-radius: 8px; padding: 16px 20px; }
+  .chain-step { display: flex; gap: 12px; margin-bottom: 10px; }
+  .chain-step:last-child { margin-bottom: 0; }
+  .chain-arrow { color: #2563eb; font-size: 16px; }
+  .chain-label { font-size: 10px; font-weight: 700; letter-spacing: 1px; color: #5a6280; text-transform: uppercase; margin-bottom: 2px; }
+  .chain-text { font-size: 13px; }
+  .chain-confirmed { color: #059669; font-size: 11px; margin-left: 6px; }
+  .chain-forecast { color: #b45309; font-size: 11px; margin-left: 6px; }
+  .fact-item { background: #fafafa; border: 1px solid #d0d4e0; border-radius: 8px; padding: 14px 16px; margin-bottom: 8px; }
+  .fact-num { font-size: 10px; font-weight: 700; color: #2563eb; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 8px; display: block; }
+  .fact-what { font-weight: 600; font-size: 14px; margin-bottom: 6px; }
+  .fact-why { font-size: 13px; color: #5a6280; margin-bottom: 6px; }
+  .fact-so { font-size: 13px; color: #059669; }
+  .fact-label { display: inline-block; font-size: 10px; font-weight: 700; padding: 1px 6px; border-radius: 3px; margin-right: 4px; }
+  .label-what { background: #eff6ff; color: #1d4ed8; }
+  .label-why { background: #fff7ed; color: #ea580c; }
+  .label-so { background: #ecfdf5; color: #059669; }
+  .data-table th { background: #e8ecf5; }
+  .data-table td.key-col { background: #f0f6ff; }
+  .data-table .key-num { color: #059669; font-weight: 700; }
+  .data-table .key-opm { color: #b45309; }
+  caption { font-size: 11px; color: #5a6280; text-align: left; padding: 0 0 8px; caption-side: top; }
+  .val-box { background: #fafafa; border: 1px solid #d0d4e0; border-radius: 8px; padding: 16px 20px; font-size: 13px; line-height: 2; }
+  .val-formula { background: #f0f2f8; border-radius: 6px; padding: 10px 14px; font-family: monospace; font-size: 13px; margin: 10px 0; color: #b45309; }
+  .risk-item { background: #fafafa; border-radius: 0 6px 6px 0; padding: 14px 16px; margin-bottom: 10px; }
+  .risk-sev-high { border-left: 3px solid #dc2626; }
+  .risk-sev-mid { border-left: 3px solid #ea580c; }
+  .risk-assumption { font-weight: 600; font-size: 13px; margin-bottom: 4px; }
+  .risk-chain { font-size: 12px; color: #5a6280; margin: 4px 0; }
+  .risk-impact-num { font-size: 13px; color: #dc2626; font-weight: 600; margin-top: 4px; }
+  .checkpoint-item { display: flex; gap: 12px; padding: 10px 0; border-bottom: 1px solid #d0d4e0; font-size: 13px; }
+  .checkpoint-item:last-child { border-bottom: none; }
+  .cp-date { color: #2563eb; font-weight: 600; min-width: 90px; flex-shrink: 0; }
+  .cp-event { flex: 1; }
+  .cp-pass { color: #059669; font-size: 12px; margin-top: 2px; }
+  .cp-fail { color: #dc2626; font-size: 12px; margin-top: 2px; }
+  .opinion-box { background: #fafafa; border: 1px solid #d0d4e0; border-radius: 8px; padding: 16px 20px; font-size: 13px; line-height: 1.8; color: #5a6280; }
+  .decision-box { display: flex; gap: 14px; margin-top: 14px; }
+  .decision-btn { flex: 1; text-align: center; padding: 10px; border-radius: 6px; font-weight: 700; font-size: 13px; border: 1px solid; }
+  .decision-buy { background: #ecfdf5; color: #059669; border-color: #34d399; }
+  .decision-wait { background: #fffbeb; color: #b45309; border-color: #f59e0b; }
+  .decision-avoid { background: #fef2f2; color: #dc2626; border-color: #fca5a5; }
+  .decision-dim { opacity: 0.3; }
+  .upgrade-box { background: #eff6ff; border: 1px solid #93c5fd; border-radius: 8px; padding: 14px 16px; }
+  .upgrade-item { display: flex; gap: 10px; padding: 6px 0; border-bottom: 1px solid #dbeafe; font-size: 13px; color: #1a1d2e; }
+  .upgrade-item:last-child { border-bottom: none; }
+  .upgrade-when { color: #1d4ed8; font-weight: 600; min-width: 140px; flex-shrink: 0; }
+  .disclaimer { font-size: 11px; color: #9ca3af; text-align: center; margin-top: 40px; padding-top: 16px; border-top: 1px solid #d0d4e0; }
+</style></head><body>
+
+<div class="pdf-only-banner">외부 검색 절대 금지 — 제공된 PDF 파일만 활용 | 당일 발간 리포트 기준</div>
+
+<header class="header">
+  <h1>아모레퍼시픽 (090430) | 1분기 국내 사업과 코스알엑스 선전 두드러질 듯 | 메리츠증권 (화장품 업종 리포트) | 발간일: 2026.04.21</h1>
+  <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-bottom:12px;">
+    <span class="tag-badge tag-watch">🔥 주목</span>
+    <span class="score-badge score-mid">📊 55점</span>
+    <span style="font-size:12px;color:#5a6280;">비바이오</span>
+    <span class="pathway-badge">경로 ⑤재평가 (Turn-around)</span>
+  </div>
+  <div class="price-row">
+    <div class="price-item"><span class="label">투자의견</span><span class="val">PDF 미기재</span></div>
+    <div class="price-item"><span class="label">목표주가(TP)</span><span class="val">PDF 미기재</span></div>
+    <div class="price-item"><span class="label">현재주가(CP)</span><span class="val">PDF 미기재</span></div>
+    <div class="price-item"><span class="label">Upside</span><span class="val">PDF 미기재</span></div>
+    <div class="price-item"><span class="label">시가총액</span><span class="val">PDF 미기재</span></div>
+    <div class="price-item"><span class="label">종목 유형</span><span class="val">비바이오</span></div>
+  </div>
+</header>
+
+<section>
+  <div class="section-title">💡 이 종목에 투자해야 하는 이유 — 스토리 한 줄</div>
+  <div class="thesis-box">
+    "1Q26 국내 본업 회복 + 코스알엑스 선전 동시 확인되는데, 2026E OP +42.5% 턴어라운드 모드 진입, 대형주 리레이팅 초입 단계."
+  </div>
+  <div class="thesis-structure">
+    <div class="thesis-part" style="color:#059669;">① 확정 팩트<br/>1Q26E OP +3%, 국내/COSRX 선전</div>
+    <div class="thesis-arrow">→</div>
+    <div class="thesis-part" style="color:#b45309;">② 실적 변화<br/>2026E OP +42.5%, OPM 두 자릿수</div>
+    <div class="thesis-arrow">→</div>
+    <div class="thesis-part" style="color:#2563eb;">③ 시장 미반영<br/>턴어라운드 본격화 시 대형주 재평가</div>
+  </div>
+</section>
+
+<section>
+  <div class="section-title">✅ 주목 태그 조건 체크 (40점+ 유지)</div>
+  <div class="checklist">
+    <div class="checklist-item">
+      <div class="check-icon check-pass">✓</div>
+      <div>
+        <div class="check-label">조건 1 | 성장성 회복</div>
+        <div class="check-detail">OP 성장률 +20%+ 회복</div>
+        <div class="check-why">2026E OP +42.5% 큰 폭 회복. 2027E도 +20%대 지속 — 통과</div>
+      </div>
+    </div>
+    <div class="checklist-item">
+      <div class="check-icon check-pass">✓</div>
+      <div>
+        <div class="check-label">조건 2 | 구조적 변화</div>
+        <div class="check-detail">사업 재편 확정</div>
+        <div class="check-why">국내 본업 회복 + 코스알엑스 해외 선전 동시 진행. 멀티 드라이버 확보 — 통과</div>
+      </div>
+    </div>
+    <div class="checklist-item">
+      <div class="check-icon check-partial">△</div>
+      <div>
+        <div class="check-label">조건 3 | 확정 팩트</div>
+        <div class="check-detail">1Q 실적 가시성</div>
+        <div class="check-why">1Q26E OP +3%로 초기 회복 확인. 연 +42% 달성 위해 2H 가속 필요 — 부분 통과</div>
+      </div>
+    </div>
+    <div class="checklist-item">
+      <div class="check-icon check-partial">△</div>
+      <div>
+        <div class="check-label">조건 4 | 시장 미반영</div>
+        <div class="check-detail">컨센 괴리</div>
+        <div class="check-why">턴어라운드 스토리는 컨센에 일부 반영. 속도/폭 차별화 필요</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="section-title">📊 투자 점수 판정 (v2.0 비바이오)</div>
+  <table>
+    <thead><tr><th>항목</th><th>판정</th><th>근거 (Why)</th></tr></thead>
+    <tbody>
+      <tr><td>종목 유형</td><td>비바이오</td><td>국내 1위 화장품 대형주, COSRX 글로벌</td></tr>
+      <tr><td>적용 가설</td><td>가설 1</td><td>2026E OP +42.5% 가속, 실적 모멘텀 확정 국면</td></tr>
+      <tr><td>촉매 등급</td><td>중급</td><td>국내 회복 + COSRX 해외 성장 2대 드라이버. 개별 촉매는 점진적</td></tr>
+      <tr><td>복합 여부</td><td>복합</td><td>① 국내 본업 회복 ② COSRX 글로벌 ③ 라네즈/설화수 리셋</td></tr>
+      <tr><td>직접성</td><td>직접</td><td>화장품 본업</td></tr>
+      <tr><td>매트릭스 기본 점수</td><td>70점</td><td>가설1 × 중급 × 복합 = 70점</td></tr>
+      <tr><td>페널티 ① 컨센 반영</td><td class="penalty">-10점</td><td>대형주로 턴어라운드 스토리 이미 컨센에 일부 반영</td></tr>
+      <tr><td>페널티 ② 1Q 성장폭 제한</td><td class="penalty">-5점</td><td>1Q OP +3%는 아직 가속 전 단계 — 2H 확인 필요</td></tr>
+      <tr class="total-row"><td>최종 투자 점수</td><td><span class="highlight-green">55점</span></td><td>70 - 10 - 5 = 55점. 주목(40+) 통과, 핵심(60+) 문턱</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section>
+  <div class="section-title">⚡ 성장 인과 체인</div>
+  <div class="chain-box">
+    <div class="chain-step">
+      <div class="chain-arrow">①</div>
+      <div>
+        <div class="chain-label">구조 변화 / 촉매 <span class="chain-confirmed">● 확정 팩트</span></div>
+        <div class="chain-text">국내 본업 회복(●●) + COSRX 해외 선전(●●●, 리포트 제목 명시) + 라네즈/설화수 브랜드 리셋(●●)</div>
+      </div>
+    </div>
+    <div class="chain-step">
+      <div class="chain-arrow">↓</div>
+      <div>
+        <div class="chain-label">매출 영향 (규모·비중 수치)</div>
+        <div class="chain-text">1Q26E 매출 1.15조, 2026E 매출 4.35조(+10%대). COSRX 기여 증가</div>
+      </div>
+    </div>
+    <div class="chain-step">
+      <div class="chain-arrow">↓</div>
+      <div>
+        <div class="chain-label">OPM 변화 메커니즘</div>
+        <div class="chain-text">2025 OPM 7%대→2026E 10%대 회복. 고마진 COSRX 비중 증가, 국내 구조조정 효과</div>
+      </div>
+    </div>
+    <div class="chain-step">
+      <div class="chain-arrow">↓</div>
+      <div>
+        <div class="chain-label">최종 실적 결과 <span class="chain-forecast">● 추정</span></div>
+        <div class="chain-text">2026E OP 4,378억(+42.5%), 2027E OP 5,400억+(+20%대)</div>
+      </div>
+    </div>
+    <div class="chain-step">
+      <div class="chain-arrow">↓</div>
+      <div>
+        <div class="chain-label">시장 미반영 포인트 (So What)</div>
+        <div class="chain-text">턴어라운드 가속 시 대형주 디스카운트 해소. COSRX 해외 독립 성장주로 재평가 여지</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="section-title">📌 핵심 팩트 3줄</div>
+  <div class="fact-item">
+    <span class="fact-num">Fact 01</span>
+    <div class="fact-what"><span class="fact-label label-what">WHAT</span>1Q26E 매출 1.15조, OP 1,040억(+3%) — 국내 본업 회복</div>
+    <div class="fact-why"><span class="fact-label label-why">WHY</span>내수 채널 정비 완료, 라네즈/설화수 리셋 효과 초기 반영</div>
+    <div class="fact-so"><span class="fact-label label-so">SO WHAT</span>2Q부터 회복 가속 본격화, 1Q는 변곡점 확인 분기</div>
+  </div>
+  <div class="fact-item">
+    <span class="fact-num">Fact 02</span>
+    <div class="fact-what"><span class="fact-label label-what">WHAT</span>COSRX 해외 선전 — 리포트 제목에 명시</div>
+    <div class="fact-why"><span class="fact-label label-why">WHY</span>K뷰티 해외 수요 수혜. 미국/동남아/유럽 지속 성장</div>
+    <div class="fact-so"><span class="fact-label label-so">SO WHAT</span>COSRX 분사/독립 가치 평가 시 대형주 할증 여지</div>
+  </div>
+  <div class="fact-item">
+    <span class="fact-num">Fact 03</span>
+    <div class="fact-what"><span class="fact-label label-what">WHAT</span>2026E OP 4,378억(+42.5%) 턴어라운드 모드</div>
+    <div class="fact-why"><span class="fact-label label-why">WHY</span>2025 저점(3,074억) 통과, 국내+해외 동시 회복</div>
+    <div class="fact-so"><span class="fact-label label-so">SO WHAT</span>대형주 밸류에이션 정상화 초입. OPM 두 자릿수 회복 시 리레이팅</div>
+  </div>
+</section>
+
+<section>
+  <div class="section-title">📄 원본 리포트 핵심 요약</div>
+  <div style="background:#fafafa;border:1px solid #d0d4e0;border-radius:8px;padding:16px 20px;margin-bottom:12px;">
+    <div style="font-size:11px;font-weight:700;letter-spacing:1px;color:#5a6280;text-transform:uppercase;margin-bottom:10px;">리포트 핵심 주장</div>
+    <p style="font-size:13px;line-height:1.9;">"아모레퍼시픽은 1분기 국내 사업 회복과 코스알엑스 해외 선전이 두드러질 것. 2025 저점 통과 후 2026E OP +42.5% 큰 폭 회복. 대형주 턴어라운드 국면 진입."</p>
+  </div>
+  <div style="background:#fafafa;border:1px solid #d0d4e0;border-radius:8px;padding:16px 20px;margin-bottom:12px;">
+    <div style="font-size:11px;font-weight:700;letter-spacing:1px;color:#5a6280;text-transform:uppercase;margin-bottom:10px;">사업 구조 & 성장 동력</div>
+    <table style="margin:0;">
+      <thead><tr><th style="width:25%;">구분</th><th style="width:75%;">핵심 내용</th></tr></thead>
+      <tbody>
+        <tr><td>국내 본업</td><td>라네즈/설화수/아이오페 브랜드 리셋 후 회복 국면. 올리브영·면세 채널 정상화</td></tr>
+        <tr><td>COSRX</td><td>해외 핵심 성장축 — 미국/동남아 지속 확장</td></tr>
+        <tr><td>해외 본업</td><td>중국 의존도 낮추고 비중국 전환 중</td></tr>
+      </tbody>
+    </table>
+    <p style="font-size:12px;color:#5a6280;margin-top:10px;">▶ 핵심 성장 메커니즘: 국내 회복 + COSRX 해외 가속 동시 발현으로 OP 3,074억→4,378억 턴어라운드</p>
+  </div>
+</section>
+
+<section>
+  <div class="section-title">📈 실적 전망 (연간)</div>
+  <table class="data-table">
+    <caption>단위: 십억원 | ★ = 투자 핵심 연도</caption>
+    <thead><tr><th>구분</th><th>2025A</th><th style="background:#dbeafe;color:#1e40af;font-weight:700;">2026E ★</th><th>2027E</th></tr></thead>
+    <tbody>
+      <tr><td>매출액</td><td>3,950</td><td class="key-col key-num">4,350</td><td>4,750</td></tr>
+      <tr><td>YoY(%)</td><td>-</td><td class="key-col">+10.1</td><td>+9.2</td></tr>
+      <tr><td>영업이익</td><td>307.4</td><td class="key-col key-num">437.8</td><td>540.0</td></tr>
+      <tr><td>YoY(%)</td><td>-</td><td class="key-col key-num">+42.5</td><td>+23.3</td></tr>
+      <tr><td>OPM(%)</td><td>7.8</td><td class="key-col key-opm">10.1</td><td>11.4</td></tr>
+    </tbody>
+  </table>
+  <p style="font-size:12px;color:#5a6280;margin-top:10px;">▶ 왜 2026E가 변곡점인가: OPM 7%대→10%대 회복이 대형주 재평가 임계값</p>
+</section>
+
+<section>
+  <div class="section-title">📅 분기별 실적 전망</div>
+  <table class="data-table">
+    <caption>단위: 십억원</caption>
+    <thead>
+      <tr><th>구분</th><th>1Q25</th><th>2Q25</th><th>3Q25</th><th>4Q25</th>
+        <th style="background:#dbeafe;color:#1e40af;font-weight:700;">1Q26E ★</th>
+        <th>2Q26E</th><th>3Q26E</th><th>4Q26E</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>매출</td><td>1,120</td><td>960</td><td>910</td><td>960</td><td class="key-col key-num">1,150</td><td>1,060</td><td>1,020</td><td>1,120</td></tr>
+      <tr><td>영업이익</td><td>101</td><td>60</td><td>70</td><td>76</td><td class="key-col key-num">104</td><td>105</td><td>110</td><td>118</td></tr>
+      <tr><td>OPM(%)</td><td>9.0</td><td>6.3</td><td>7.7</td><td>7.9</td><td class="key-col key-opm">9.0</td><td>9.9</td><td>10.8</td><td>10.5</td></tr>
+    </tbody>
+  </table>
+  <p style="font-size:12px;color:#5a6280;margin-top:10px;">▶ 1Q26 주목 포인트: OP 1,040억(+3%) 확인, 국내/COSRX 선전 여부</p>
+</section>
+
+<section>
+  <div class="section-title">💰 밸류에이션</div>
+  <div class="val-box">
+    <div class="val-formula">PDF에 TP·PER 미기재 — 업종리포트 한정</div>
+    <p style="color:#5a6280;font-size:12px;margin-top:8px;">▶ 리레이팅 논리: OPM 10%+ 회복 시 대형주 정상 밸류에이션 복귀, COSRX 독립가치 재평가</p>
+  </div>
+</section>
+
+<section>
+  <div class="section-title">⚠️ 리스크 시나리오</div>
+  <div class="risk-item risk-sev-mid">
+    <div class="risk-assumption">🟠 핵심 가정: 국내 본업 회복 지속</div>
+    <div class="risk-chain" style="margin-top:6px;">→ 내수 채널 재둔화 시: 국내 OP 회복 지연<br/>→ 실적 영향: 2026E OP 4,378→3,900억</div>
+    <div class="risk-impact-num">→ 주가 영향: -10%</div>
+  </div>
+  <div class="risk-item risk-sev-mid">
+    <div class="risk-assumption">🟠 두 번째 가정: COSRX 해외 성장 지속</div>
+    <div class="risk-chain" style="margin-top:6px;">→ 미국/동남아 둔화 시: 성장 드라이버 약화<br/>→ 실적 영향: OP 성장률 +42% → +25% 미만</div>
+    <div class="risk-impact-num">→ 주가 영향: -15%</div>
+  </div>
+</section>
+
+<section>
+  <div class="section-title">🎯 모멘텀 체크포인트</div>
+  <div style="background:#fafafa;border:1px solid #d0d4e0;border-radius:8px;padding:4px 16px;">
+    <div class="checkpoint-item">
+      <span class="cp-date">2026.05</span>
+      <div>
+        <div class="cp-event">1Q26 실적 — OP 1,040억, 국내/COSRX 선전 확인</div>
+        <div class="cp-pass">✅ OP 1,040억+ 및 COSRX 두 자릿수 성장 → 추가</div>
+        <div class="cp-fail">⛔ OP 1,000억 미달 시 → 턴어라운드 지연 재검토</div>
+      </div>
+    </div>
+    <div class="checkpoint-item">
+      <span class="cp-date">2026.2H</span>
+      <div>
+        <div class="cp-event">OPM 10%+ 분기 확인 여부</div>
+        <div class="cp-pass">✅ 분기 OPM 10%+ → 핵심 승격</div>
+        <div class="cp-fail">⛔ 9% 정체 시 → 주목 유지</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="section-title">💬 사견 & 투자 행동 결론</div>
+  <div class="opinion-box">
+    <p>아모레퍼시픽은 대형 턴어라운드 초입. 1Q26 OP +3%는 방향성 확인 분기이며, 2H OPM 10%+ 안착이 핵심 트리거. COSRX 해외 모멘텀이 차별화 포인트. 대형주 특성상 주가 급반등보다 점진적 재평가. 1Q 발표 후 확인 매수가 합리적.</p>
+    <div class="decision-box">
+      <div class="decision-btn decision-buy decision-dim">✅ 지금 진입<br/><span style="font-size:11px;font-weight:400;"></span></div>
+      <div class="decision-btn decision-wait">⏳ 1Q 발표 후 진입<br/><span style="font-size:11px;font-weight:400;">OPM 회복세 확인</span></div>
+      <div class="decision-btn decision-avoid decision-dim">🚫 관망<br/><span style="font-size:11px;font-weight:400;"></span></div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="section-title">🚀 승격 조건 — 주목 종목 전용</div>
+  <div class="upgrade-box">
+    <div class="upgrade-item">
+      <span class="upgrade-when">2026.2Q-3Q</span>
+      <span>분기 OPM 10%+ 2분기 연속 확인 시 → ⭐ 핵심 승격</span>
+    </div>
+    <div class="upgrade-item">
+      <span class="upgrade-when">2026.2H</span>
+      <span>COSRX 해외 매출 YoY +30%+ 지속 및 분사/별도상장 언급 시 → 🚀 SS급 검토</span>
+    </div>
+    <div class="upgrade-item">
+      <span class="upgrade-when">2026E 연간</span>
+      <span>OP 5,000억+ 가이던스 상향 시 → ⭐ 핵심 승격</span>
+    </div>
+  </div>
+</section>
+
+<div class="disclaimer">
+  ※ 본 글은 증권사 리포트를 개인 학습 목적으로 요약·정리한 것이며, 투자 권유가 아닙니다.<br/>
+  ※ 제공된 PDF 파일만 활용. 외부 검색·참조 없음. 당일 발간 리포트 기준.
+</div>
+
+</body></html>

@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>네오팜 (092730) 정리</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Pretendard','Apple SD Gothic Neo',-apple-system,sans-serif; background: #ffffff; color: #1a1d2e; line-height: 1.7; font-size: 14px; max-width: 900px; margin: 0 auto; padding: 32px 20px 80px; }
+  .header { border-left: 4px solid #2563eb; padding: 0 0 0 16px; margin-bottom: 24px; }
+  .header h1 { font-size: 20px; font-weight: 700; margin-bottom: 10px; }
+  .price-row { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 10px; }
+  .price-item { background: #f0f2f8; border: 1px solid #d0d4e0; border-radius: 6px; padding: 6px 14px; font-size: 13px; }
+  .price-item .label { color: #5a6280; font-size: 11px; display: block; }
+  .price-item .val { font-weight: 700; }
+  .tag-badge { display: inline-flex; gap: 6px; padding: 5px 14px; border-radius: 20px; font-size: 13px; font-weight: 700; }
+  .tag-watch { background: #fff7ed; color: #ea580c; border: 1px solid #fb923c; }
+  .score-badge { display: inline-block; padding: 5px 14px; border-radius: 20px; font-size: 13px; font-weight: 700; background: #f0f2f8; border: 1px solid #d0d4e0; }
+  .score-mid { color: #b45309; }
+  .pathway-badge { display: inline-flex; padding: 3px 10px; border-radius: 12px; font-size: 11px; font-weight: 600; background: #f0f2f8; border: 1px solid #d0d4e0; color: #5a6280; }
+  section { margin-bottom: 28px; }
+  .section-title { font-size: 11px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: #5a6280; border-bottom: 1px solid #d0d4e0; padding-bottom: 6px; margin-bottom: 14px; }
+  .pdf-only-banner { background: #fff7ed; border: 1px solid #f97316; border-radius: 8px; padding: 10px 16px; font-size: 12px; color: #c2410c; margin-bottom: 20px; text-align: center; font-weight: 700; }
+  .thesis-box { background: #f8faff; border: 1px solid #2563eb; border-radius: 8px; padding: 16px 20px; font-size: 15px; font-weight: 600; line-height: 1.6; }
+  .thesis-structure { display: flex; gap: 8px; align-items: center; margin-top: 10px; flex-wrap: wrap; }
+  .thesis-part { background: #f0f2f8; border: 1px solid #d0d4e0; border-radius: 6px; padding: 4px 10px; font-size: 12px; }
+  .thesis-arrow { color: #2563eb; font-size: 16px; }
+  .checklist { background: #fafafa; border: 1px solid #d0d4e0; border-radius: 8px; overflow: hidden; }
+  .checklist-item { display: flex; gap: 14px; padding: 12px 16px; border-bottom: 1px solid #d0d4e0; }
+  .checklist-item:last-child { border-bottom: none; }
+  .check-icon { width: 22px; height: 22px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; flex-shrink: 0; margin-top: 1px; }
+  .check-pass { background: #ecfdf5; color: #059669; border: 1px solid #34d399; }
+  .check-partial { background: #fffbeb; color: #b45309; border: 1px solid #f59e0b; }
+  .check-label { font-weight: 600; font-size: 13px; }
+  .check-detail { color: #5a6280; font-size: 12px; margin-top: 2px; }
+  .check-why { font-size: 13px; }
+  table { width: 100%; border-collapse: collapse; background: #fafafa; border-radius: 8px; overflow: hidden; border: 1px solid #d0d4e0; }
+  thead tr { background: #f0f2f8; }
+  th { padding: 10px 14px; text-align: left; font-size: 11px; font-weight: 700; color: #5a6280; letter-spacing: 0.8px; text-transform: uppercase; }
+  td { padding: 10px 14px; border-top: 1px solid #d0d4e0; font-size: 13px; }
+  tr.total-row td { background: #e8ecf5; font-weight: 700; }
+  .penalty { color: #dc2626; }
+  .highlight-green { color: #059669; font-weight: 700; }
+  .chain-box { background: #fafafa; border: 1px solid #d0d4e0; border-radius: 8px; padding: 16px 20px; }
+  .chain-step { display: flex; gap: 12px; margin-bottom: 10px; }
+  .chain-step:last-child { margin-bottom: 0; }
+  .chain-arrow { color: #2563eb; font-size: 16px; }
+  .chain-label { font-size: 10px; font-weight: 700; letter-spacing: 1px; color: #5a6280; text-transform: uppercase; margin-bottom: 2px; }
+  .chain-text { font-size: 13px; }
+  .chain-confirmed { color: #059669; font-size: 11px; margin-left: 6px; }
+  .chain-forecast { color: #b45309; font-size: 11px; margin-left: 6px; }
+  .fact-item { background: #fafafa; border: 1px solid #d0d4e0; border-radius: 8px; padding: 14px 16px; margin-bottom: 8px; }
+  .fact-num { font-size: 10px; font-weight: 700; color: #2563eb; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 8px; display: block; }
+  .fact-what { font-weight: 600; font-size: 14px; margin-bottom: 6px; }
+  .fact-why { font-size: 13px; color: #5a6280; margin-bottom: 6px; }
+  .fact-so { font-size: 13px; color: #059669; }
+  .fact-label { display: inline-block; font-size: 10px; font-weight: 700; padding: 1px 6px; border-radius: 3px; margin-right: 4px; }
+  .label-what { background: #eff6ff; color: #1d4ed8; }
+  .label-why { background: #fff7ed; color: #ea580c; }
+  .label-so { background: #ecfdf5; color: #059669; }
+  .data-table th { background: #e8ecf5; }
+  .data-table td.key-col { background: #f0f6ff; }
+  .data-table .key-num { color: #059669; font-weight: 700; }
+  .data-table .key-opm { color: #b45309; }
+  caption { font-size: 11px; color: #5a6280; text-align: left; padding: 0 0 8px; caption-side: top; }
+  .val-box { background: #fafafa; border: 1px solid #d0d4e0; border-radius: 8px; padding: 16px 20px; font-size: 13px; line-height: 2; }
+  .val-formula { background: #f0f2f8; border-radius: 6px; padding: 10px 14px; font-family: monospace; font-size: 13px; margin: 10px 0; color: #b45309; }
+  .risk-item { background: #fafafa; border-radius: 0 6px 6px 0; padding: 14px 16px; margin-bottom: 10px; }
+  .risk-sev-high { border-left: 3px solid #dc2626; }
+  .risk-sev-mid { border-left: 3px solid #ea580c; }
+  .risk-assumption { font-weight: 600; font-size: 13px; margin-bottom: 4px; }
+  .risk-chain { font-size: 12px; color: #5a6280; margin: 4px 0; }
+  .risk-impact-num { font-size: 13px; color: #dc2626; font-weight: 600; margin-top: 4px; }
+  .checkpoint-item { display: flex; gap: 12px; padding: 10px 0; border-bottom: 1px solid #d0d4e0; font-size: 13px; }
+  .checkpoint-item:last-child { border-bottom: none; }
+  .cp-date { color: #2563eb; font-weight: 600; min-width: 90px; flex-shrink: 0; }
+  .cp-event { flex: 1; }
+  .cp-pass { color: #059669; font-size: 12px; margin-top: 2px; }
+  .cp-fail { color: #dc2626; font-size: 12px; margin-top: 2px; }
+  .opinion-box { background: #fafafa; border: 1px solid #d0d4e0; border-radius: 8px; padding: 16px 20px; font-size: 13px; line-height: 1.8; color: #5a6280; }
+  .decision-box { display: flex; gap: 14px; margin-top: 14px; }
+  .decision-btn { flex: 1; text-align: center; padding: 10px; border-radius: 6px; font-weight: 700; font-size: 13px; border: 1px solid; }
+  .decision-buy { background: #ecfdf5; color: #059669; border-color: #34d399; }
+  .decision-wait { background: #fffbeb; color: #b45309; border-color: #f59e0b; }
+  .decision-avoid { background: #fef2f2; color: #dc2626; border-color: #fca5a5; }
+  .decision-dim { opacity: 0.3; }
+  .upgrade-box { background: #eff6ff; border: 1px solid #93c5fd; border-radius: 8px; padding: 14px 16px; }
+  .upgrade-item { display: flex; gap: 10px; padding: 6px 0; border-bottom: 1px solid #dbeafe; font-size: 13px; color: #1a1d2e; }
+  .upgrade-item:last-child { border-bottom: none; }
+  .upgrade-when { color: #1d4ed8; font-weight: 600; min-width: 140px; flex-shrink: 0; }
+  .disclaimer { font-size: 11px; color: #9ca3af; text-align: center; margin-top: 40px; padding-top: 16px; border-top: 1px solid #d0d4e0; }
+</style></head><body>
+
+<div class="pdf-only-banner">외부 검색 절대 금지 — 제공된 PDF 파일만 활용 | 당일 발간 리포트 기준</div>
+
+<header class="header">
+  <h1>네오팜 (092730) | 수출 회사로 거듭나는 중 | 메리츠증권 (화장품 업종 리포트) | 발간일: 2026.04.21</h1>
+  <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-bottom:12px;">
+    <span class="tag-badge tag-watch">🔥 주목</span>
+    <span class="score-badge score-mid">📊 50점</span>
+    <span style="font-size:12px;color:#5a6280;">비바이오</span>
+    <span class="pathway-badge">경로 ②볼륨드리븐(수출전환)</span>
+  </div>
+  <div class="price-row">
+    <div class="price-item"><span class="label">투자의견</span><span class="val">PDF 미기재</span></div>
+    <div class="price-item"><span class="label">목표주가(TP)</span><span class="val">PDF 미기재</span></div>
+    <div class="price-item"><span class="label">현재주가(CP)</span><span class="val">PDF 미기재</span></div>
+    <div class="price-item"><span class="label">Upside</span><span class="val">PDF 미기재</span></div>
+    <div class="price-item"><span class="label">시가총액</span><span class="val">PDF 미기재</span></div>
+    <div class="price-item"><span class="label">종목 유형</span><span class="val">비바이오</span></div>
+  </div>
+</header>
+
+<section>
+  <div class="section-title">💡 이 종목에 투자해야 하는 이유 — 스토리 한 줄</div>
+  <div class="thesis-box">
+    "1Q26 OP +3%(102억)로 회복 신호 확인되는데, 수출 비중 35% 확대(2024년 대비 +10%p 추정)로 '내수 한계 회사'에서 '수출 회사'로 사업 구조 전환 중 — 더마코스메틱 해외 침투 초기."
+  </div>
+  <div class="thesis-structure">
+    <div class="thesis-part" style="color:#059669;">① 확정 팩트<br/>1Q26E OP 102억(+2.8%), OPM 21.8%</div>
+    <div class="thesis-arrow">→</div>
+    <div class="thesis-part" style="color:#b45309;">② 실적 변화<br/>2026E OP 430억(+8.7%), 수출 35%</div>
+    <div class="thesis-arrow">→</div>
+    <div class="thesis-part" style="color:#2563eb;">③ 시장 미반영<br/>수출 비중 확대에 따른 리레이팅</div>
+  </div>
+</section>
+
+<section>
+  <div class="section-title">✅ 주목 태그 조건 체크 (40점+ 유지)</div>
+  <div class="checklist">
+    <div class="checklist-item">
+      <div class="check-icon check-pass">✓</div>
+      <div>
+        <div class="check-label">조건 1 | OPM 15%+ 유지</div>
+        <div class="check-detail">꾸준한 수익성</div>
+        <div class="check-why">1Q26E OPM 21.8%, 2026E 20.8% — 15% 훌쩍 상회. 더마코스메틱 고마진 유지</div>
+      </div>
+    </div>
+    <div class="checklist-item">
+      <div class="check-icon check-partial">△</div>
+      <div>
+        <div class="check-label">조건 2 | 성장성 회복</div>
+        <div class="check-detail">OP 성장률 개선 여부</div>
+        <div class="check-why">2026E OP +8.7%로 고성장은 아니나, 2025 역성장 탈피. 수출 35% 확대가 구조적 전환 신호</div>
+      </div>
+    </div>
+    <div class="checklist-item">
+      <div class="check-icon check-pass">✓</div>
+      <div>
+        <div class="check-label">조건 3 | 구조적 변화 확정</div>
+        <div class="check-detail">수출 비중 전환</div>
+        <div class="check-why">수출 비중 35% 도달(2024년 20% 초중반→확대). "수출 회사로 거듭나는 중" 리포트 명시</div>
+      </div>
+    </div>
+    <div class="checklist-item">
+      <div class="check-icon check-partial">△</div>
+      <div>
+        <div class="check-label">조건 4 | 재평가 촉매</div>
+        <div class="check-detail">모멘텀 존재</div>
+        <div class="check-why">더마코스메틱 글로벌 트렌드 수혜, 수출 확대로 내수 리스크 분산 — 단 규모는 제한적</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="section-title">📊 투자 점수 판정 (v2.0 비바이오)</div>
+  <table>
+    <thead><tr><th>항목</th><th>판정</th><th>근거 (Why)</th></tr></thead>
+    <tbody>
+      <tr><td>종목 유형</td><td>비바이오</td><td>더마코스메틱(아토팜/리얼베리어)</td></tr>
+      <tr><td>적용 가설</td><td>가설 1</td><td>2025 매출 +8.6%, OP +11.4% 기확보. 2026E 매출 +11.6%, OP +8.7% 성장 지속</td></tr>
+      <tr><td>촉매 등급</td><td>중급</td><td>수출 비중 35% 확대, 내수→글로벌 전환 진행. 메이저 글로벌 채널 확정은 아님</td></tr>
+      <tr><td>복합 여부</td><td>단독</td><td>수출 비중 확대가 주 모멘텀. 지역/채널 세부 드라이버 제한적</td></tr>
+      <tr><td>직접성</td><td>직접</td><td>화장품 본업</td></tr>
+      <tr><td>매트릭스 기본 점수</td><td>60점</td><td>가설1 × 중급 × 단독 = 60점</td></tr>
+      <tr><td>페널티 ① 성장률 둔화</td><td class="penalty">-10점</td><td>2026E OP +8.7%로 전년 +11% 대비 소폭 둔화, 고성장 피어 대비 비교열위</td></tr>
+      <tr class="total-row"><td>최종 투자 점수</td><td><span class="highlight-green">50점</span></td><td>60 - 10 = 50점. 주목(40+) 통과</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section>
+  <div class="section-title">⚡ 성장 인과 체인</div>
+  <div class="chain-box">
+    <div class="chain-step">
+      <div class="chain-arrow">①</div>
+      <div>
+        <div class="chain-label">구조 변화 / 촉매 <span class="chain-confirmed">● 확정 팩트</span></div>
+        <div class="chain-text">수출 비중 35% 확대(●●●, 업종리포트 명시) + 더마코스메틱 글로벌 카테고리 고성장 + 내수 채널 회복세(●●)</div>
+      </div>
+    </div>
+    <div class="chain-step">
+      <div class="chain-arrow">↓</div>
+      <div>
+        <div class="chain-label">매출 영향 (규모·비중 수치)</div>
+        <div class="chain-text">1Q26E 매출 469억(+10.6%). 2026E 매출 2,068억(+11.6%). 수출 35% = 약 724억 기여</div>
+      </div>
+    </div>
+    <div class="chain-step">
+      <div class="chain-arrow">↓</div>
+      <div>
+        <div class="chain-label">OPM 변화 메커니즘</div>
+        <div class="chain-text">1Q26E OPM 21.8%, 2026E 20.8%. 수출(고마진) 비중 확대 대비 마케팅비 증가로 OPM 소폭 하락. 장기적 20%+ 유지</div>
+      </div>
+    </div>
+    <div class="chain-step">
+      <div class="chain-arrow">↓</div>
+      <div>
+        <div class="chain-label">최종 실적 결과 <span class="chain-forecast">● 추정</span></div>
+        <div class="chain-text">2026E 매출 2,068억(+11.6%), OP 430억(+8.7%), OPM 20.8%. 2027E 매출 2,296억(+11%), OP 478억(+11.2%)</div>
+      </div>
+    </div>
+    <div class="chain-step">
+      <div class="chain-arrow">↓</div>
+      <div>
+        <div class="chain-label">시장 미반영 포인트 (So What)</div>
+        <div class="chain-text">수출 비중 35% 도달은 피어 평균 상회 — '내수 한계주' 이미지 벗기 시작. 더마코스메틱 글로벌 수요 지속 확장 시 추가 수출 성장 여지</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="section-title">📌 핵심 팩트 3줄</div>
+  <div class="fact-item">
+    <span class="fact-num">Fact 01</span>
+    <div class="fact-what"><span class="fact-label label-what">WHAT</span>1Q26E 매출 469억(+10.6%), OP 102억(+2.8%), OPM 21.8%</div>
+    <div class="fact-why"><span class="fact-label label-why">WHY</span>내수 회복 + 수출 확대 동시 진행. 더마코스메틱 글로벌 수요 증가</div>
+    <div class="fact-so"><span class="fact-label label-so">SO WHAT</span>2025 역성장 우려 탈피. 분기 OP 100억 회복</div>
+  </div>
+  <div class="fact-item">
+    <span class="fact-num">Fact 02</span>
+    <div class="fact-what"><span class="fact-label label-what">WHAT</span>수출 비중 35% 도달 — '수출 회사' 전환 중</div>
+    <div class="fact-why"><span class="fact-label label-why">WHY</span>기존 내수 중심 한계 극복, 더마코스메틱 해외 침투 시작. 업종리포트 "수출 회사로 거듭나는 중" 명시</div>
+    <div class="fact-so"><span class="fact-label label-so">SO WHAT</span>피어 대비 수출 확장 스토리, 내수 둔화 리스크 분산</div>
+  </div>
+  <div class="fact-item">
+    <span class="fact-num">Fact 03</span>
+    <div class="fact-what"><span class="fact-label label-what">WHAT</span>2026E OP 430억(+8.7%), 2027E 478억(+11.2%) 점진 회복</div>
+    <div class="fact-why"><span class="fact-label label-why">WHY</span>수출 채널 확대 속도에 따라 가속 가능. OPM 20%+ 유지로 수익성 안정</div>
+    <div class="fact-so"><span class="fact-label label-so">SO WHAT</span>수출 비중이 40%+ 도달 시 핵심 승격 기대</div>
+  </div>
+</section>
+
+<section>
+  <div class="section-title">📄 원본 리포트 핵심 요약</div>
+  <div style="background:#fafafa;border:1px solid #d0d4e0;border-radius:8px;padding:16px 20px;margin-bottom:12px;">
+    <div style="font-size:11px;font-weight:700;letter-spacing:1px;color:#5a6280;text-transform:uppercase;margin-bottom:10px;">리포트 핵심 주장</div>
+    <p style="font-size:13px;line-height:1.9;">"네오팜은 수출 비중 35% 도달로 내수 중심 기업에서 수출 기업으로 사업 구조가 전환 중. 1Q26 매출 +10.6%, OP +2.8% 회복 확인. 더마코스메틱 글로벌 수요 수혜, OPM 20%+ 유지. 점진적 체질 개선에 주목."</p>
+  </div>
+  <div style="background:#fafafa;border:1px solid #d0d4e0;border-radius:8px;padding:16px 20px;margin-bottom:12px;">
+    <div style="font-size:11px;font-weight:700;letter-spacing:1px;color:#5a6280;text-transform:uppercase;margin-bottom:10px;">사업 구조 & 성장 동력</div>
+    <table style="margin:0;">
+      <thead><tr><th style="width:25%;">구분</th><th style="width:25%;">비중</th><th style="width:50%;">특징</th></tr></thead>
+      <tbody>
+        <tr><td>내수</td><td>약 65%</td><td>아토팜/리얼베리어 등 더마코스메틱 국내 채널</td></tr>
+        <tr><td>수출</td><td>약 35%</td><td>해외 더마코스메틱 침투 확대, 회사 체질 전환 중</td></tr>
+      </tbody>
+    </table>
+    <p style="font-size:12px;color:#5a6280;margin-top:10px;">▶ 핵심 성장 메커니즘: 수출 비중 확대 → 내수 한계 돌파 + 글로벌 고마진 채널 레버리지</p>
+  </div>
+  <div style="background:#fafafa;border:1px solid #d0d4e0;border-radius:8px;padding:16px 20px;">
+    <div style="font-size:11px;font-weight:700;letter-spacing:1px;color:#5a6280;text-transform:uppercase;margin-bottom:10px;">재무 특징</div>
+    <div style="display:flex;flex-wrap:wrap;gap:8px;">
+      <div style="background:#f0f2f8;border:1px solid #d0d4e0;border-radius:6px;padding:8px 12px;font-size:12px;flex:1;min-width:160px;"><span style="color:#5a6280;font-size:10px;display:block;margin-bottom:2px;">OPM 유지력</span>20%+ 꾸준한 수익성</div>
+      <div style="background:#f0f2f8;border:1px solid #d0d4e0;border-radius:6px;padding:8px 12px;font-size:12px;flex:1;min-width:160px;"><span style="color:#5a6280;font-size:10px;display:block;margin-bottom:2px;">전환 지표</span>수출 비중 35% 돌파</div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="section-title">📈 실적 전망 (연간)</div>
+  <table class="data-table">
+    <caption>단위: 십억원 | ★ = 투자 핵심 연도</caption>
+    <thead><tr><th>구분</th><th>2025A</th><th style="background:#dbeafe;color:#1e40af;font-weight:700;">2026E ★</th><th>2027E</th></tr></thead>
+    <tbody>
+      <tr><td>매출액</td><td>185.4</td><td class="key-col key-num">206.8</td><td>229.6</td></tr>
+      <tr><td>YoY(%)</td><td>+8.6</td><td class="key-col">+11.6</td><td>+11.0</td></tr>
+      <tr><td>영업이익</td><td>39.6</td><td class="key-col key-num">43.0</td><td>47.8</td></tr>
+      <tr><td>YoY(%)</td><td>+11.4</td><td class="key-col key-num">+8.7</td><td>+11.2</td></tr>
+      <tr><td>OPM(%)</td><td>21.4</td><td class="key-col key-opm">20.8</td><td>20.8</td></tr>
+    </tbody>
+  </table>
+  <p style="font-size:12px;color:#5a6280;margin-top:10px;">▶ 왜 2026E가 변곡점인가: 수출 비중 35% 확정으로 구조 전환 확인, 2027+에 가속 여지</p>
+</section>
+
+<section>
+  <div class="section-title">📅 분기별 실적 전망</div>
+  <table class="data-table">
+    <caption>단위: 십억원</caption>
+    <thead>
+      <tr><th>구분</th><th>1Q25</th><th>2Q25</th><th>3Q25</th><th>4Q25</th>
+        <th style="background:#dbeafe;color:#1e40af;font-weight:700;">1Q26E ★</th>
+        <th>2Q26E</th><th>3Q26E</th><th>4Q26E</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>매출</td><td>42.4</td><td>46.3</td><td>44.4</td><td>52.3</td><td class="key-col key-num">46.9</td><td>51.4</td><td>50.4</td><td>58.1</td></tr>
+      <tr><td>영업이익</td><td>9.9</td><td>10.3</td><td>9.4</td><td>10.0</td><td class="key-col key-num">10.2</td><td>10.9</td><td>10.8</td><td>11.1</td></tr>
+      <tr><td>OPM(%)</td><td>23.4</td><td>22.3</td><td>21.2</td><td>19.1</td><td class="key-col key-opm">21.8</td><td>21.2</td><td>21.4</td><td>19.1</td></tr>
+    </tbody>
+  </table>
+  <p style="font-size:12px;color:#5a6280;margin-top:10px;">▶ 1Q26 주목 포인트: OP 102억 확인, 수출 비중 35% 달성 여부</p>
+</section>
+
+<section>
+  <div class="section-title">💰 밸류에이션</div>
+  <div class="val-box">
+    <div class="val-formula">PDF에 TP·PER·PBR 미기재 — 업종리포트 한정</div>
+    <p style="color:#5a6280;font-size:12px;margin-top:8px;">▶ 리레이팅 논리: 수출 비중 40%+ 도달 시 '수출 중심 더마코스메틱주'로 재평가 가능</p>
+  </div>
+</section>
+
+<section>
+  <div class="section-title">⚠️ 리스크 시나리오</div>
+  <div class="risk-item risk-sev-mid">
+    <div class="risk-assumption">🟠 핵심 가정: 수출 비중 35% 이상 유지 및 확대</div>
+    <div class="risk-chain" style="margin-top:6px;">→ 붕괴 시: 글로벌 채널 둔화 시 수출 정체 가능<br/>→ 실적 영향: 2026E 매출 2,068→1,950억 하향</div>
+    <div class="risk-impact-num">→ 주가 영향: -10%</div>
+  </div>
+  <div class="risk-item risk-sev-mid">
+    <div class="risk-assumption">🟠 두 번째 가정: 내수 회복 지속</div>
+    <div class="risk-chain" style="margin-top:6px;">→ 내수 부진 재개 시: 전체 매출 성장률 +10% 미달<br/>→ 실적 영향: OP 430→400억</div>
+    <div class="risk-impact-num">→ 주가 영향: -8%</div>
+  </div>
+</section>
+
+<section>
+  <div class="section-title">🎯 모멘텀 체크포인트</div>
+  <div style="background:#fafafa;border:1px solid #d0d4e0;border-radius:8px;padding:4px 16px;">
+    <div class="checkpoint-item">
+      <span class="cp-date">2026.05</span>
+      <div>
+        <div class="cp-event">1Q26 실적 발표 — 매출 469억, OP 102억 확인</div>
+        <div class="cp-pass">✅ 수출 비중 35%+ 확인 시 → 보유</div>
+        <div class="cp-fail">⛔ OP 100억 미달 시 → 재검토</div>
+      </div>
+    </div>
+    <div class="checkpoint-item">
+      <span class="cp-date">2026.2H</span>
+      <div>
+        <div class="cp-event">수출 비중 40%+ 도달 여부</div>
+        <div class="cp-pass">✅ 수출 40%+ → 핵심 승격</div>
+        <div class="cp-fail">⛔ 30%대 정체 → 주목 유지</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="section-title">💬 사견 & 투자 행동 결론</div>
+  <div class="opinion-box">
+    <p>네오팜은 기존 '내수 더마코스메틱' 이미지를 벗고 수출 비중 35%로 체질 전환 중. OP 성장률 +8.7%는 고성장 피어 대비 낮으나, OPM 20%+ 유지로 수익성 안정. 수출 확대 속도가 관건이며, 40%+ 돌파 시 핵심 승격 가능. 현재는 확인 매수 단계.</p>
+    <div class="decision-box">
+      <div class="decision-btn decision-buy decision-dim">✅ 지금 진입<br/><span style="font-size:11px;font-weight:400;"></span></div>
+      <div class="decision-btn decision-wait">⏳ 1Q 발표 후 진입<br/><span style="font-size:11px;font-weight:400;">수출 비중 확인</span></div>
+      <div class="decision-btn decision-avoid decision-dim">🚫 관망<br/><span style="font-size:11px;font-weight:400;"></span></div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="section-title">🚀 승격 조건 — 주목 종목 전용</div>
+  <div class="upgrade-box">
+    <div class="upgrade-item">
+      <span class="upgrade-when">2026.2Q 또는 그 이후</span>
+      <span>수출 비중 40%+ 확인 및 분기 OP +15% 이상 성장 시 → ⭐ 핵심 승격</span>
+    </div>
+    <div class="upgrade-item">
+      <span class="upgrade-when">2026.3Q-4Q</span>
+      <span>글로벌 메이저 채널(아마존/세포라 등) 계약 공시 시 → 🚀 SS급 검토</span>
+    </div>
+    <div class="upgrade-item">
+      <span class="upgrade-when">2026E 가이던스 상향</span>
+      <span>연간 OP 500억+로 상향 시(현재 430억) → ⭐ 핵심 승격</span>
+    </div>
+  </div>
+</section>
+
+<div class="disclaimer">
+  ※ 본 글은 증권사 리포트를 개인 학습 목적으로 요약·정리한 것이며, 투자 권유가 아닙니다.<br/>
+  ※ 제공된 PDF 파일만 활용. 외부 검색·참조 없음. 당일 발간 리포트 기준.
+</div>
+
+</body></html>

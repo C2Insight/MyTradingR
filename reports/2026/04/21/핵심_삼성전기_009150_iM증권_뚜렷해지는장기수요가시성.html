@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>삼성전기 (009150) 정리</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Pretendard','Apple SD Gothic Neo',-apple-system,sans-serif; background: #ffffff; color: #1a1d2e; line-height: 1.7; font-size: 14px; max-width: 900px; margin: 0 auto; padding: 32px 20px 80px; }
+  .header { border-left: 4px solid #2563eb; padding: 0 0 0 16px; margin-bottom: 24px; }
+  .header h1 { font-size: 20px; font-weight: 700; margin-bottom: 10px; color: #1a1d2e; }
+  .price-row { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin-top: 10px; }
+  .price-item { background: #f0f2f8; border: 1px solid #d0d4e0; border-radius: 6px; padding: 6px 14px; font-size: 13px; }
+  .price-item .label { color: #5a6280; font-size: 11px; display: block; }
+  .price-item .val { font-weight: 700; color: #1a1d2e; }
+  .upside-val { color: #059669; }
+  .tag-badge { display: inline-flex; align-items: center; gap: 6px; padding: 5px 14px; border-radius: 20px; font-size: 13px; font-weight: 700; }
+  .tag-core { background: #ecfdf5; color: #059669; border: 1px solid #34d399; }
+  .score-badge { display: inline-block; padding: 5px 14px; border-radius: 20px; font-size: 13px; font-weight: 700; background: #f0f2f8; border: 1px solid #d0d4e0; color: #1a1d2e; }
+  .score-mid { color: #b45309; }
+  .pathway-badge { display: inline-flex; align-items: center; gap: 4px; padding: 3px 10px; border-radius: 12px; font-size: 11px; font-weight: 600; background: #f0f2f8; border: 1px solid #d0d4e0; color: #5a6280; }
+  section { margin-bottom: 28px; }
+  .section-title { font-size: 11px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: #5a6280; border-bottom: 1px solid #d0d4e0; padding-bottom: 6px; margin-bottom: 14px; }
+  .pdf-only-banner { background: #fff7ed; border: 1px solid #f97316; border-radius: 8px; padding: 10px 16px; font-size: 12px; color: #c2410c; margin-bottom: 20px; text-align: center; font-weight: 700; }
+  .thesis-box { background: #f8faff; border: 1px solid #2563eb; border-radius: 8px; padding: 16px 20px; font-size: 15px; font-weight: 600; line-height: 1.6; color: #1a1d2e; }
+  .thesis-structure { display: flex; gap: 8px; align-items: center; margin-top: 10px; flex-wrap: wrap; }
+  .thesis-part { background: #f0f2f8; border: 1px solid #d0d4e0; border-radius: 6px; padding: 4px 10px; font-size: 12px; color: #1a1d2e; }
+  .thesis-arrow { color: #2563eb; font-size: 16px; }
+  .checklist { background: #fafafa; border: 1px solid #d0d4e0; border-radius: 8px; overflow: hidden; }
+  .checklist-item { display: flex; gap: 14px; align-items: flex-start; padding: 12px 16px; border-bottom: 1px solid #d0d4e0; }
+  .checklist-item:last-child { border-bottom: none; }
+  .check-icon { width: 22px; height: 22px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; flex-shrink: 0; margin-top: 1px; }
+  .check-pass { background: #ecfdf5; color: #059669; border: 1px solid #34d399; }
+  .check-label { font-weight: 600; font-size: 13px; color: #1a1d2e; }
+  .check-detail { color: #5a6280; font-size: 12px; margin-top: 2px; }
+  .check-why { color: #1a1d2e; font-size: 13px; }
+  table { width: 100%; border-collapse: collapse; background: #fafafa; border-radius: 8px; overflow: hidden; border: 1px solid #d0d4e0; }
+  thead tr { background: #f0f2f8; }
+  th { padding: 10px 14px; text-align: left; font-size: 11px; font-weight: 700; color: #5a6280; letter-spacing: 0.8px; text-transform: uppercase; }
+  td { padding: 10px 14px; border-top: 1px solid #d0d4e0; font-size: 13px; color: #1a1d2e; }
+  tr.total-row td { background: #e8ecf5; font-weight: 700; }
+  .penalty { color: #dc2626; }
+  .highlight-green { color: #059669; font-weight: 700; }
+  .chain-box { background: #fafafa; border: 1px solid #d0d4e0; border-radius: 8px; padding: 16px 20px; }
+  .chain-step { display: flex; gap: 12px; align-items: flex-start; margin-bottom: 10px; }
+  .chain-step:last-child { margin-bottom: 0; }
+  .chain-arrow { color: #2563eb; font-size: 16px; flex-shrink: 0; margin-top: 1px; }
+  .chain-content { flex: 1; }
+  .chain-label { font-size: 10px; font-weight: 700; letter-spacing: 1px; color: #5a6280; text-transform: uppercase; margin-bottom: 2px; }
+  .chain-text { font-size: 13px; color: #1a1d2e; }
+  .chain-confirmed { color: #059669; font-size: 11px; margin-left: 6px; }
+  .chain-forecast { color: #b45309; font-size: 11px; margin-left: 6px; }
+  .fact-item { background: #fafafa; border: 1px solid #d0d4e0; border-radius: 8px; padding: 14px 16px; margin-bottom: 8px; }
+  .fact-num { font-size: 10px; font-weight: 700; color: #2563eb; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 8px; display: block; }
+  .fact-what { font-weight: 600; font-size: 14px; margin-bottom: 6px; color: #1a1d2e; }
+  .fact-why { font-size: 13px; color: #5a6280; margin-bottom: 6px; }
+  .fact-so { font-size: 13px; color: #059669; }
+  .fact-label { display: inline-block; font-size: 10px; font-weight: 700; padding: 1px 6px; border-radius: 3px; margin-right: 4px; }
+  .label-what { background: #eff6ff; color: #1d4ed8; }
+  .label-why { background: #fff7ed; color: #ea580c; }
+  .label-so { background: #ecfdf5; color: #059669; }
+  .data-table th { background: #e8ecf5; }
+  .data-table td.key-col { background: #f0f6ff; }
+  .data-table .key-num { color: #059669; font-weight: 700; }
+  .data-table .key-opm { color: #b45309; }
+  caption { font-size: 11px; color: #5a6280; text-align: left; padding: 0 0 8px; caption-side: top; }
+  .val-box { background: #fafafa; border: 1px solid #d0d4e0; border-radius: 8px; padding: 16px 20px; font-size: 13px; line-height: 2; color: #1a1d2e; }
+  .val-formula { background: #f0f2f8; border-radius: 6px; padding: 10px 14px; font-family: monospace; font-size: 13px; margin: 10px 0; color: #b45309; }
+  .risk-item { background: #fafafa; border-radius: 0 6px 6px 0; padding: 14px 16px; margin-bottom: 10px; }
+  .risk-sev-high { border-left: 3px solid #dc2626; }
+  .risk-sev-mid { border-left: 3px solid #ea580c; }
+  .risk-assumption { font-weight: 600; font-size: 13px; margin-bottom: 4px; color: #1a1d2e; }
+  .risk-chain { font-size: 12px; color: #5a6280; margin: 4px 0; }
+  .risk-impact-num { font-size: 13px; color: #dc2626; font-weight: 600; margin-top: 4px; }
+  .checkpoint-item { display: flex; gap: 12px; padding: 10px 0; border-bottom: 1px solid #d0d4e0; font-size: 13px; }
+  .checkpoint-item:last-child { border-bottom: none; }
+  .cp-date { color: #2563eb; font-weight: 600; min-width: 90px; flex-shrink: 0; }
+  .cp-event { flex: 1; color: #1a1d2e; }
+  .cp-pass { color: #059669; font-size: 12px; margin-top: 2px; }
+  .cp-fail { color: #dc2626; font-size: 12px; margin-top: 2px; }
+  .opinion-box { background: #fafafa; border: 1px solid #d0d4e0; border-radius: 8px; padding: 16px 20px; font-size: 13px; line-height: 1.8; color: #5a6280; }
+  .decision-box { display: flex; gap: 14px; margin-top: 14px; }
+  .decision-btn { flex: 1; text-align: center; padding: 10px; border-radius: 6px; font-weight: 700; font-size: 13px; border: 1px solid; }
+  .decision-buy { background: #ecfdf5; color: #059669; border-color: #34d399; }
+  .decision-wait { background: #fffbeb; color: #b45309; border-color: #f59e0b; }
+  .decision-avoid { background: #fef2f2; color: #dc2626; border-color: #fca5a5; }
+  .decision-dim { opacity: 0.3; }
+  .disclaimer { font-size: 11px; color: #9ca3af; text-align: center; margin-top: 40px; padding-top: 16px; border-top: 1px solid #d0d4e0; }
+</style>
+</head>
+<body>
+
+<div class="pdf-only-banner">
+  외부 검색 절대 금지 — 제공된 PDF 파일만 활용 | 당일 발간 리포트 기준 투자 종목 발굴 전용
+</div>
+
+<header class="header">
+  <h1>삼성전기 (009150) | 뚜렷해지는 장기 수요 가시성 | iM증권 | 발간일: 2026.04.21</h1>
+  <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-bottom:12px;">
+    <span class="tag-badge tag-core">⭐ 핵심</span>
+    <span class="score-badge score-mid">📊 60점</span>
+    <span style="font-size:12px;color:#5a6280;">비바이오</span>
+    <span class="pathway-badge">경로 ① OPM 확장형</span>
+  </div>
+  <div class="price-row">
+    <div class="price-item"><span class="label">투자의견</span><span class="val">Buy(Maintain)</span></div>
+    <div class="price-item"><span class="label">목표주가(TP)</span><span class="val">860,000원 (상향)</span></div>
+    <div class="price-item"><span class="label">현재주가(CP)</span><span class="val">680,000원</span></div>
+    <div class="price-item"><span class="label">Upside</span><span class="val upside-val">+26.5%</span></div>
+    <div class="price-item"><span class="label">시가총액</span><span class="val">50,792십억원</span></div>
+    <div class="price-item"><span class="label">종목 유형</span><span class="val">비바이오</span></div>
+  </div>
+</header>
+
+<section>
+  <div class="section-title">이 종목에 투자해야 하는 이유 — 스토리 한 줄</div>
+  <div class="thesis-box">
+    MLCC 수급 구조적 타이트화(●●○ 2선업체도 2H26 풀가동 근접) + FC-BGA 3년 수주 가시성 확보(●●●)로 27E 영업이익 2.56조원(+74%), 전사 OPM 8.1%→17.2%(+9.1%p)로 급등. 그러나 컨센서스는 2.0조원(MLCC 판가인상 10%·패키지기판 판가인상 미반영) → 이 리포트 추정 대비 -22% 괴리, TP 상향 43% 반영으로 Upside 26.5%.
+  </div>
+  <div class="thesis-structure">
+    <div class="thesis-part" style="color:#059669;">① 확정 팩트<br/>FC-BGA 3년후 수주 논의·2H26 풀가동</div>
+    <div class="thesis-arrow">→</div>
+    <div class="thesis-part" style="color:#b45309;">② 실적 변화<br/>27E OP +74%, OPM +9.1%p</div>
+    <div class="thesis-arrow">→</div>
+    <div class="thesis-part" style="color:#2563eb;">③ 시장 미반영<br/>Upside 26.5%, 컨센 대비 +22%</div>
+  </div>
+</section>
+
+<section>
+  <div class="section-title">핵심 태그 5가지 조건 체크 (5개 모두 통과해야 핵심 이상 가능)</div>
+  <div class="checklist">
+    <div class="checklist-item">
+      <div class="check-icon check-pass">✓</div>
+      <div>
+        <div class="check-label">조건 1 | 영업이익 성장 임계값</div>
+        <div class="check-detail">향후 1년 OP +50%+ AND (OPM +3%p+ OR OPM 15%+ 유지)</div>
+        <div class="check-why">26E OP +61%(1.47조), 27E +74%(2.56조), OPM 8.1→11.5→17.2%(+9.1%p) → 통과</div>
+      </div>
+    </div>
+    <div class="checklist-item">
+      <div class="check-icon check-pass">✓</div>
+      <div>
+        <div class="check-label">조건 2 | 3년 지속성 (3개 이상 충족)</div>
+        <div class="check-detail">수주잔고 / CAPA 확대 / 독점·특허 / Lock-in / CAGR 15%+</div>
+        <div class="check-why">① FC-BGA 2H26→27년 풀가동·28년 증설 필요 ② MLCC AI 응용처 구조적 수급 타이트 ③ 26E~28E OP CAGR +47% ④ 컴포넌트 OPM 11.7→24.7% 고마진 구조 → 4개 충족</div>
+      </div>
+    </div>
+    <div class="checklist-item">
+      <div class="check-icon check-pass">✓</div>
+      <div>
+        <div class="check-label">조건 3 | 확정 팩트(●●●) 2개 이상</div>
+        <div class="check-detail">●●● = 수주확정·인허가·계약공시·실적 확인 / ●●○ 4개 = 충족</div>
+        <div class="check-why">●●● FC-BGA 3년후 수주 논의 ●●● 2H26 FC-BGA 풀가동 도달 ●●○ Yageo 등 2선업체 풀가동 근접 → 통과</div>
+      </div>
+    </div>
+    <div class="checklist-item">
+      <div class="check-icon check-pass">✓</div>
+      <div>
+        <div class="check-label">조건 4 | 시장 미반영 (둘 중 하나)</div>
+        <div class="check-detail">Upside 40%+ OR 컨센서스 대비 추정치 +20%+ 괴리</div>
+        <div class="check-why">27E 컨센 OP 2.0조 vs iM추정 2.56조 → 컨센 괴리 +28%, Upside 26.5% → 컨센 괴리 요건으로 통과</div>
+      </div>
+    </div>
+    <div class="checklist-item">
+      <div class="check-icon check-pass">✓</div>
+      <div>
+        <div class="check-label">조건 5 | 이 리포트만의 차별화된 시각</div>
+        <div class="check-detail">모든 증권사 동일 논리면 주목. 신규 커버리지·고유 근거·컨센 상회 필수</div>
+        <div class="check-why">MLCC +10% 판가인상 시나리오 및 패키지기판 판가인상 효과를 선제적으로 반영, 27년 BPS × P/B 5.3배(2018 고점 배수 대비 2배 할증)로 TP 43% 상향 → 차별화</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="section-title">투자 점수 판정 (v2.0 비바이오) — 모든 근거 칸 필수 기재</div>
+  <table>
+    <thead><tr><th>항목</th><th>판정</th><th>근거 (Why)</th></tr></thead>
+    <tbody>
+      <tr><td>종목 유형</td><td>비바이오</td><td>MLCC·패키지기판 제조업, 실적에 주가 결정</td></tr>
+      <tr><td>적용 가설</td><td>가설 2</td><td>1Q25~4Q25 매출 YoY +4.8~16.4% 고성장 진행중 + 27E OPM 17.2%로 구체적 상승 근거</td></tr>
+      <tr><td>촉매 등급</td><td>중급</td><td>MLCC 수급 타이트·FC-BGA 풀가동 (글로벌 섹터 1위급 발표 아님)</td></tr>
+      <tr><td>복합 여부</td><td>복합</td><td>① MLCC 판가인상 ② FC-BGA 장기수주 ③ Yageo 풀가동 → 3촉매 동시</td></tr>
+      <tr><td>직접성</td><td>직접</td><td>MLCC·패키지기판이 컴포넌트·패키지 주력 매출 직결</td></tr>
+      <tr><td>매트릭스 기본 점수</td><td>70점</td><td>가설2 × 중급 × 복합 = 70점</td></tr>
+      <tr><td>페널티 ① 단기 선반영</td><td class="penalty">-10점</td><td>1M +46.4%, 3M +141.1% → 선반영 30%+ 해당</td></tr>
+      <tr class="total-row"><td>최종 투자 점수</td><td><span class="highlight-green">60점</span></td><td>70 - 10 = 60점 → 핵심 충족</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section>
+  <div class="section-title">성장 인과 체인 — 왜 성장하는가 (각 단계에 수치 필수)</div>
+  <div class="chain-box">
+    <div class="chain-step">
+      <div class="chain-arrow">①</div>
+      <div class="chain-content">
+        <div class="chain-label">구조 변화 / 촉매 <span class="chain-confirmed">● 확정 팩트</span></div>
+        <div class="chain-text">MLCC 배송 리드타임 장기화(●●○) + FC-BGA 고객사 3년 후 수주 논의(●●●) + 2H26 기점 풀가동(●●●)</div>
+      </div>
+    </div>
+    <div class="chain-step">
+      <div class="chain-arrow">↓</div>
+      <div class="chain-content">
+        <div class="chain-label">매출 영향 (규모·비중 수치)</div>
+        <div class="chain-text">컴포넌트(MLCC) 5.2조→6.1조→7.5조(+23% YoY 27E), 패키지 2.3조→2.9조→3.4조(+17% YoY 27E), 전사 11.3조→12.8조→14.9조</div>
+      </div>
+    </div>
+    <div class="chain-step">
+      <div class="chain-arrow">↓</div>
+      <div class="chain-content">
+        <div class="chain-label">OPM 변화 메커니즘 (왜 마진이 오르는가)</div>
+        <div class="chain-text">컴포넌트 OPM 11.7→16.8→24.7% 급등(AI향 고난도 MLCC 양산 난이도 급증으로 판가 인상+수급 타이트), 패키지 OPM 5.9→10.5→16.1%(FC-BGA 풀가동 진입으로 고정비 레버리지)</div>
+      </div>
+    </div>
+    <div class="chain-step">
+      <div class="chain-arrow">↓</div>
+      <div class="chain-content">
+        <div class="chain-label">최종 실적 결과 <span class="chain-forecast">● 추정</span></div>
+        <div class="chain-text">27E OP 2.56조원(+74% YoY), 전사 OPM 17.2%(+5.7%p), 28E OP 3.17조·OPM 19.9% → '고원형' 이익구조</div>
+      </div>
+    </div>
+    <div class="chain-step">
+      <div class="chain-arrow">↓</div>
+      <div class="chain-content">
+        <div class="chain-label">시장 미반영 포인트 (So What)</div>
+        <div class="chain-text">컨센 27E OP 2.0조(MLCC +10%·패키지기판 판가인상 미반영) → iM추정 2.56조 대비 -22% 괴리, 27년 BPS×P/B 5.3배(2018 고점 대비 2배 할증)로 TP 860,000원</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="section-title">핵심 팩트 3줄 — WHAT(숫자) + WHY(원인) + SO WHAT(의미) 3요소 필수</div>
+  <div class="fact-item">
+    <span class="fact-num">Fact 01</span>
+    <div class="fact-what"><span class="fact-label label-what">WHAT</span>27E OP 2.56조원(+74% YoY), 전사 OPM 17.2%(+5.7%p), ROE 17.8%</div>
+    <div class="fact-why"><span class="fact-label label-why">WHY</span>컴포넌트(MLCC) 부문 OPM 11.7→24.7% 급등. AI 응용처향 고난도 MLCC 양산 난이도 급증과 2선업체 풀가동 근접으로 수급 타이트가 구조적 고착화</div>
+    <div class="fact-so"><span class="fact-label label-so">SO WHAT</span>27·28년 ROE 18~19%로 '고원형' 이익구조 지속 → BPS 빠른 확대·P/B 리레이팅 정당화</div>
+  </div>
+  <div class="fact-item">
+    <span class="fact-num">Fact 02</span>
+    <div class="fact-what"><span class="fact-label label-what">WHAT</span>FC-BGA 2H26 풀가동 도달 → 27년 온기 풀가동, 28년 수요 대응 위한 증설 불가피</div>
+    <div class="fact-why"><span class="fact-label label-why">WHY</span>고객사 장기 로드맵 기반 3년 후 수주 논의 중. 패키지 부문 OPM 5.9→10.5→16.1%로 고정비 레버리지 극대화</div>
+    <div class="fact-so"><span class="fact-label label-so">SO WHAT</span>3년 수주 가시성 확보 = 컨센이 반영하지 못한 28년 증설 매출 기여가 순차 반영 → 장기 멀티플 재평가 근거</div>
+  </div>
+  <div class="fact-item">
+    <span class="fact-num">Fact 03</span>
+    <div class="fact-what"><span class="fact-label label-what">WHAT</span>27E 컨센서스 OP 2.0조원 vs iM증권 추정 2.56조원 (컨센 대비 +28% 상회)</div>
+    <div class="fact-why"><span class="fact-label label-why">WHY</span>컨센은 한 달 만에 +22% 상향되었으나 MLCC 판가인상 +10% 시나리오·패키지기판 판가인상 효과 미반영</div>
+    <div class="fact-so"><span class="fact-label label-so">SO WHAT</span>1Q~2Q26 실적에서 판가인상 효과 확인 시 컨센 연쇄 상향 → 주가 추가 업사이드 촉매</div>
+  </div>
+</section>
+
+<section>
+  <div class="section-title">원본 리포트 핵심 요약 — PDF 내용 직접 발췌 (외부 정보 추가 금지)</div>
+  <div style="background:#fafafa;border:1px solid #d0d4e0;border-radius:8px;padding:16px 20px;margin-bottom:12px;">
+    <div style="font-size:11px;font-weight:700;letter-spacing:1px;color:#5a6280;text-transform:uppercase;margin-bottom:10px;">리포트 핵심 주장 (애널리스트 관점 요약)</div>
+    <p style="font-size:13px;line-height:1.9;">MLCC 수급 구조적 타이트화(2H26 기점 Yageo 등 2선업체 풀가동 근접)와 FC-BGA 장기 수요 가시성(3년 후 수주 논의)이 동시에 확인되는 상황. 27년 기준 ROE 18%·28년 19%로 20%에 근접하는 '고원형' 이익구조가 지속될 전망이며, 이에 따라 BPS가 빠르게 확대되어 목표 P/B 5.3배(2018 고점 배수 대비 2배 할증) 적용해도 TP 86만원으로 상향 가능.</p>
+    <div style="margin-top:10px;display:flex;gap:8px;flex-wrap:wrap;">
+      <div style="background:#f0f2f8;border:1px solid #d0d4e0;border-radius:6px;padding:6px 12px;font-size:12px;"><span style="color:#5a6280;font-size:10px;display:block;margin-bottom:2px;">이전 대비 변화 포인트</span>TP 600,000→860,000원 (+43%), 27E OP 추정치 +14% 상향</div>
+      <div style="background:#f0f2f8;border:1px solid #d0d4e0;border-radius:6px;padding:6px 12px;font-size:12px;"><span style="color:#5a6280;font-size:10px;display:block;margin-bottom:2px;">컨센서스 대비</span>27E OP 2.0조 컨센 vs iM 2.56조 → +28% 괴리</div>
+    </div>
+  </div>
+  <div style="background:#fafafa;border:1px solid #d0d4e0;border-radius:8px;padding:16px 20px;margin-bottom:12px;">
+    <div style="font-size:11px;font-weight:700;letter-spacing:1px;color:#5a6280;text-transform:uppercase;margin-bottom:10px;">사업 구조 & 성장 동력</div>
+    <table style="margin:0;">
+      <thead><tr><th style="width:25%;">사업부</th><th style="width:20%;">매출 비중 (26E)</th><th style="width:55%;">핵심 성장 드라이버 (Why 포함)</th></tr></thead>
+      <tbody>
+        <tr><td>컴포넌트(MLCC)</td><td>48% (6.1조)</td><td>AI향 고난도 MLCC 수급 타이트 구조 고착화 → OPM 16.8→24.7% 급등(+7.9%p)</td></tr>
+        <tr><td>패키지(FC-BGA 등)</td><td>23% (2.9조)</td><td>2H26 풀가동·28년 증설 논의 → FC-BGA 판가+고정비 레버리지로 OPM 10.5→16.1%</td></tr>
+        <tr><td>광학</td><td>29% (3.7조)</td><td>YoY -1.7%로 저성장, 성장 기여도 제한적</td></tr>
+      </tbody>
+    </table>
+    <p style="font-size:12px;color:#5a6280;margin-top:10px;">▶ 핵심 성장 메커니즘: AI 응용처 고난도 MLCC + FC-BGA 3년 수주 가시성이 동시에 OPM 팽창 → 27E 전사 OPM 17.2% 도달</p>
+  </div>
+  <div style="background:#fafafa;border:1px solid #d0d4e0;border-radius:8px;padding:16px 20px;margin-bottom:12px;">
+    <div style="font-size:11px;font-weight:700;letter-spacing:1px;color:#5a6280;text-transform:uppercase;margin-bottom:10px;">시장 괴리 — 왜 지금 시장이 틀렸는가</div>
+    <table style="margin:0;">
+      <thead><tr><th style="width:30%;">구분</th><th>내용</th></tr></thead>
+      <tbody>
+        <tr><td style="color:#5a6280;">시장 현재 인식</td><td>27E 컨센 OP 2.0조. 최근 한 달간 +22% 상향되었으나 MLCC 판가인상·패키지기판 판가인상 효과 미반영</td></tr>
+        <tr><td style="color:#2563eb;">이 리포트 주장</td><td>27E OP 2.56조(+28% 상회). FC-BGA 3년 수주 논의는 구조적 수요 가시성의 증거이며 28년 증설 매출이 이후 컨센을 추가 상향시킬 것</td></tr>
+        <tr><td style="color:#b45309;">괴리 해소 촉매</td><td>1Q~2Q26 판가인상 효과 실적 반영 (2026.2Q~3Q)</td></tr>
+        <tr><td>괴리 강도</td><td><span style="color:#b45309;">중</span> (컨센 상향 진행 중이나 TP 기준 배수 재평가는 아직)</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section>
+  <div class="section-title">실적 전망 (연간) — PDF 원문 수치만 기재</div>
+  <table class="data-table">
+    <caption>단위: 십억원 | ★ = 투자 핵심 연도</caption>
+    <thead>
+      <tr><th>구분</th><th>2024A</th><th>2025A</th><th style="background:#dbeafe;color:#1e40af;font-weight:700;">2026E ★</th><th>2027E</th><th>2028E</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>매출액</td><td>10,294</td><td>11,314</td><td class="key-col key-num">12,772</td><td>14,856</td><td>15,896</td></tr>
+      <tr><td>YoY(%)</td><td>15.8</td><td>9.9</td><td class="key-col">12.9</td><td>16.3</td><td>7.0</td></tr>
+      <tr><td>영업이익</td><td>735</td><td>913</td><td class="key-col key-num">1,473</td><td>2,561</td><td>3,165</td></tr>
+      <tr><td>YoY(%)</td><td>-</td><td>24.3</td><td class="key-col key-num">61.3</td><td>73.9</td><td>23.6</td></tr>
+      <tr><td>OPM(%)</td><td>7.1</td><td>8.1</td><td class="key-col key-opm">11.5</td><td>17.2</td><td>19.9</td></tr>
+      <tr><td>EPS(원)</td><td>-</td><td>9,099</td><td class="key-col">14,983</td><td>26,588</td><td>33,230</td></tr>
+      <tr><td>PER(배)</td><td>-</td><td>28.0</td><td class="key-col">45.3</td><td>25.5</td><td>20.4</td></tr>
+      <tr><td>PBR(배)</td><td>-</td><td>2.1</td><td class="key-col">4.9</td><td>4.2</td><td>3.6</td></tr>
+      <tr><td>ROE(%)</td><td>-</td><td>7.7</td><td class="key-col">11.5</td><td>17.8</td><td>18.9</td></tr>
+    </tbody>
+  </table>
+  <p style="font-size:12px;color:#5a6280;margin-top:10px;padding:0 4px;">
+    ▶ 왜 27E가 변곡점인가: 26E에 MLCC 판가인상+FC-BGA 풀가동이 부분 반영되지만 27E에 온기로 작동 → OPM 11.5→17.2%로 +5.7%p 단년 점프, OP 1.47→2.56조로 +74% 폭증하는 구간.
+  </p>
+</section>
+
+<section>
+  <div class="section-title">분기별 실적 전망 — PDF에 있으면 반드시 기재</div>
+  <table class="data-table">
+    <thead>
+      <tr><th>구분</th><th>1Q25</th><th>2Q25</th><th>3Q25</th><th>4Q25</th><th style="background:#dbeafe;color:#1e40af;font-weight:700;">1Q26E ★</th><th>2Q26E</th><th>3Q26E</th><th>4Q26E</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>매출액(십억)</td><td>2,739</td><td>2,785</td><td>2,889</td><td>2,902</td><td class="key-col key-num">3,123</td><td>3,118</td><td>3,290</td><td>3,242</td></tr>
+      <tr><td>영업이익(십억)</td><td>201</td><td>213</td><td>260</td><td>239</td><td class="key-col key-num">263</td><td>350</td><td>444</td><td>416</td></tr>
+      <tr><td>OPM(%)</td><td>7.3</td><td>7.6</td><td>9.0</td><td>8.3</td><td class="key-col key-opm">8.4</td><td>11.2</td><td>13.5</td><td>12.8</td></tr>
+    </tbody>
+  </table>
+  <p style="font-size:12px;color:#5a6280;margin-top:10px;padding:0 4px;">
+    ▶ 1Q26 주목 포인트: 전사 OPM 8.4% 유지 예상. 2Q26 이후 11.2→13.5%로 단계적 상승이 판가인상 효과 반영 여부의 1차 검증 지점 → 확인 시 27E 컨센 상향 촉매.
+  </p>
+</section>
+
+<section>
+  <div class="section-title">밸류에이션 — 왜 이 배수인가 1문장 필수</div>
+  <div class="val-box">
+    <div class="val-formula">2027E BPS 161,283원 × Target P/B 5.3배 = TP 860,000원</div>
+    <p style="color:#5a6280;font-size:12px;margin-top:8px;">▶ 왜 이 배수인가: 2018년 고점 배수 대비 2배 할증. 근거는 27·28년 ROE 18~19%로 20% 근접하는 '고원형' 이익구조가 지속될 전망으로 BPS가 빠르게 확대되기 때문</p>
+    <p style="color:#5a6280;font-size:12px;margin-top:4px;">▶ 내재 PER: TP 860,000원 기준 27년 PER 32배 = 동사 10년 평균 P/E 17배·+2SD 30배를 소폭 상회</p>
+  </div>
+</section>
+
+<section>
+  <div class="section-title">리스크 — 핵심 가정이 틀릴 경우 시나리오</div>
+  <div class="risk-item risk-sev-high">
+    <div class="risk-assumption">🔴 핵심 가정: MLCC 판가 +10% 인상이 실제 실행되고 AI 응용처 수요 타이트가 시장 전반으로 확산</div>
+    <div class="risk-chain" style="margin-top:6px;">→ 붕괴 시: Yageo 등 2선업체가 풀가동 도달 지연 / AI 수요 급냉<br/>→ 실적 영향: 27E 컴포넌트 OPM 24.7% → 16~18% 회귀, 전사 OP 2.56조 → 1.9조 수준</div>
+    <div class="risk-impact-num">→ 주가 영향: TP 기준 P/B 5.3→3.5배 재하향 시 560,000원 (-18%)</div>
+  </div>
+  <div class="risk-item risk-sev-mid">
+    <div class="risk-assumption">🟠 두 번째 가정: FC-BGA 28년 증설 이후 수요 동반 확대</div>
+    <div class="risk-chain" style="margin-top:6px;">→ 붕괴 시: 고객사 3년 후 수주 논의가 구체적 계약으로 이어지지 않을 경우<br/>→ 패키지 OPM 16.1% → 11% 대 회귀, 증설 감가상각 레버리지 희석</div>
+    <div class="risk-impact-num">→ 주가 영향: 28년 이후 장기 멀티플 디레이팅, TP 20% 이상 하향 가능</div>
+  </div>
+</section>
+
+<section>
+  <div class="section-title">모멘텀 확인 체크포인트</div>
+  <div style="background:#fafafa;border:1px solid #d0d4e0;border-radius:8px;padding:4px 16px;">
+    <div class="checkpoint-item">
+      <span class="cp-date">2026.07~08</span>
+      <div>
+        <div class="cp-event">2Q26 실적 발표 (OPM 11.2%·OP 3,500억 기준)</div>
+        <div class="cp-pass">✅ 기준 충족 시 → 판가인상 효과 확인·컨센 상향 → 추가 매수</div>
+        <div class="cp-fail">⛔ OPM 9% 하회 시 → 27E OP 2.56조 추정 하향 리스크 → 관망</div>
+      </div>
+    </div>
+    <div class="checkpoint-item">
+      <span class="cp-date">2026.4Q</span>
+      <div>
+        <div class="cp-event">FC-BGA 풀가동 도달 및 28년 증설 결정 공시</div>
+        <div class="cp-pass">✅ 증설 확정 시 → 3년 수주 가시성 재확인 → 27년 온기 풀가동 전제 유지</div>
+        <div class="cp-fail">⛔ 지연·취소 시 → 장기 수요 테제 훼손 → 포지션 축소</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="section-title">사견 & 투자 행동 결론</div>
+  <div class="opinion-box">
+    <p>컨센 대비 차이: iM증권은 MLCC +10% 판가인상·패키지기판 판가인상 효과를 선제 반영하여 27E OP 2.56조(컨센 2.0조 대비 +28%). TP는 27년 BPS×P/B 5.3배(2018 고점 대비 2배 할증)로 43% 상향. 우려 포인트: 1M +46.4%·3M +141.1%의 단기 급등으로 선반영 페널티 -10점 적용, Upside 26.5%로 핵심 조건4(40%+)는 컨센 괴리 +28%로 보완하여 통과. 타이밍: 2Q26 실적이 판가인상 효과를 확인하는 1차 변곡점.</p>
+    <div class="decision-box">
+      <div class="decision-btn decision-buy">지금 진입 가능<br/><span style="font-size:11px;font-weight:400;">핵심 60점 & 컨센 괴리 +28%</span></div>
+      <div class="decision-btn decision-wait decision-dim">이벤트 후 진입<br/><span style="font-size:11px;font-weight:400;">2Q26 실적 확인 후</span></div>
+      <div class="decision-btn decision-avoid decision-dim">관망<br/><span style="font-size:11px;font-weight:400;">단기 급등 부담</span></div>
+    </div>
+  </div>
+</section>
+
+<div class="disclaimer">
+  ※ 본 글은 증권사 리포트를 개인 학습 목적으로 요약·정리한 것이며, 투자 권유가 아닙니다.<br/>
+  ※ 제공된 PDF 파일만 활용. 외부 검색·참조 없음. 당일 발간 리포트 기준.
+</div>
+
+</body>
+</html>

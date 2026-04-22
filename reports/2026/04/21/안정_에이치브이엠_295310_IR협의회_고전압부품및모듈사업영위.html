@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>에이치브이엠 (295310) 정리</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Pretendard','Apple SD Gothic Neo',-apple-system,sans-serif; background: #ffffff; color: #1a1d2e; line-height: 1.7; font-size: 14px; max-width: 900px; margin: 0 auto; padding: 32px 20px 80px; }
+  .header { border-left: 4px solid #2563eb; padding: 0 0 0 16px; margin-bottom: 24px; }
+  .header h1 { font-size: 20px; font-weight: 700; margin-bottom: 10px; color: #1a1d2e; }
+  .price-row { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin-top: 10px; }
+  .price-item { background: #f0f2f8; border: 1px solid #d0d4e0; border-radius: 6px; padding: 6px 14px; font-size: 13px; }
+  .price-item .label { color: #5a6280; font-size: 11px; display: block; }
+  .price-item .val { font-weight: 700; color: #1a1d2e; }
+  .upside-val { color: #059669; }
+  .tag-badge { display: inline-flex; align-items: center; gap: 6px; padding: 5px 14px; border-radius: 20px; font-size: 13px; font-weight: 700; }
+  .tag-stable { background: #f5f3ff; color: #6d28d9; border: 1px solid #c4b5fd; }
+  .score-badge { display: inline-block; padding: 5px 14px; border-radius: 20px; font-size: 13px; font-weight: 700; background: #f0f2f8; border: 1px solid #d0d4e0; color: #1a1d2e; }
+  .score-low { color: #6d28d9; }
+  .pathway-badge { display: inline-flex; align-items: center; gap: 4px; padding: 3px 10px; border-radius: 12px; font-size: 11px; font-weight: 600; background: #f0f2f8; border: 1px solid #d0d4e0; color: #5a6280; }
+  section { margin-bottom: 28px; }
+  .section-title { font-size: 11px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: #5a6280; border-bottom: 1px solid #d0d4e0; padding-bottom: 6px; margin-bottom: 14px; }
+  .pdf-only-banner { background: #fff7ed; border: 1px solid #f97316; border-radius: 8px; padding: 10px 16px; font-size: 12px; color: #c2410c; margin-bottom: 20px; text-align: center; font-weight: 700; }
+  .thesis-box { background: #f8faff; border: 1px solid #2563eb; border-radius: 8px; padding: 16px 20px; font-size: 15px; font-weight: 600; line-height: 1.6; color: #1a1d2e; }
+  .thesis-structure { display: flex; gap: 8px; align-items: center; margin-top: 10px; flex-wrap: wrap; }
+  .thesis-part { background: #f0f2f8; border: 1px solid #d0d4e0; border-radius: 6px; padding: 4px 10px; font-size: 12px; color: #1a1d2e; }
+  .thesis-arrow { color: #2563eb; font-size: 16px; }
+  .checklist { background: #fafafa; border: 1px solid #d0d4e0; border-radius: 8px; overflow: hidden; }
+  .checklist-item { display: flex; gap: 14px; align-items: flex-start; padding: 12px 16px; border-bottom: 1px solid #d0d4e0; }
+  .checklist-item:last-child { border-bottom: none; }
+  .check-icon { width: 22px; height: 22px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; flex-shrink: 0; margin-top: 1px; }
+  .check-pass { background: #ecfdf5; color: #059669; border: 1px solid #34d399; }
+  .check-fail { background: #fef2f2; color: #dc2626; border: 1px solid #fca5a5; }
+  .check-label { font-weight: 600; font-size: 13px; color: #1a1d2e; }
+  .check-detail { color: #5a6280; font-size: 12px; margin-top: 2px; }
+  .check-why { color: #1a1d2e; font-size: 13px; }
+  table { width: 100%; border-collapse: collapse; background: #fafafa; border-radius: 8px; overflow: hidden; border: 1px solid #d0d4e0; }
+  thead tr { background: #f0f2f8; }
+  th { padding: 10px 14px; text-align: left; font-size: 11px; font-weight: 700; color: #5a6280; letter-spacing: 0.8px; text-transform: uppercase; }
+  td { padding: 10px 14px; border-top: 1px solid #d0d4e0; font-size: 13px; color: #1a1d2e; }
+  tr.total-row td { background: #e8ecf5; font-weight: 700; }
+  .penalty { color: #dc2626; }
+  .highlight-green { color: #059669; font-weight: 700; }
+  .chain-box { background: #fafafa; border: 1px solid #d0d4e0; border-radius: 8px; padding: 16px 20px; }
+  .chain-step { display: flex; gap: 12px; align-items: flex-start; margin-bottom: 10px; }
+  .chain-step:last-child { margin-bottom: 0; }
+  .chain-arrow { color: #2563eb; font-size: 16px; flex-shrink: 0; margin-top: 1px; }
+  .chain-content { flex: 1; }
+  .chain-label { font-size: 10px; font-weight: 700; letter-spacing: 1px; color: #5a6280; text-transform: uppercase; margin-bottom: 2px; }
+  .chain-text { font-size: 13px; color: #1a1d2e; }
+  .chain-confirmed { color: #059669; font-size: 11px; margin-left: 6px; }
+  .chain-forecast { color: #b45309; font-size: 11px; margin-left: 6px; }
+  .fact-item { background: #fafafa; border: 1px solid #d0d4e0; border-radius: 8px; padding: 14px 16px; margin-bottom: 8px; }
+  .fact-num { font-size: 10px; font-weight: 700; color: #2563eb; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 8px; display: block; }
+  .fact-what { font-weight: 600; font-size: 14px; margin-bottom: 6px; color: #1a1d2e; }
+  .fact-why { font-size: 13px; color: #5a6280; margin-bottom: 6px; }
+  .fact-so { font-size: 13px; color: #059669; }
+  .fact-label { display: inline-block; font-size: 10px; font-weight: 700; padding: 1px 6px; border-radius: 3px; margin-right: 4px; }
+  .label-what { background: #eff6ff; color: #1d4ed8; }
+  .label-why { background: #fff7ed; color: #ea580c; }
+  .label-so { background: #ecfdf5; color: #059669; }
+  .data-table th { background: #e8ecf5; }
+  .data-table td.key-col { background: #f0f6ff; }
+  .data-table .key-num { color: #059669; font-weight: 700; }
+  .data-table .key-opm { color: #b45309; }
+  caption { font-size: 11px; color: #5a6280; text-align: left; padding: 0 0 8px; caption-side: top; }
+  .val-box { background: #fafafa; border: 1px solid #d0d4e0; border-radius: 8px; padding: 16px 20px; font-size: 13px; line-height: 2; color: #1a1d2e; }
+  .val-formula { background: #f0f2f8; border-radius: 6px; padding: 10px 14px; font-family: monospace; font-size: 13px; margin: 10px 0; color: #b45309; }
+  .risk-item { background: #fafafa; border-radius: 0 6px 6px 0; padding: 14px 16px; margin-bottom: 10px; }
+  .risk-sev-high { border-left: 3px solid #dc2626; }
+  .risk-sev-mid { border-left: 3px solid #ea580c; }
+  .risk-assumption { font-weight: 600; font-size: 13px; margin-bottom: 4px; color: #1a1d2e; }
+  .risk-chain { font-size: 12px; color: #5a6280; margin: 4px 0; }
+  .risk-impact-num { font-size: 13px; color: #dc2626; font-weight: 600; margin-top: 4px; }
+  .checkpoint-item { display: flex; gap: 12px; padding: 10px 0; border-bottom: 1px solid #d0d4e0; font-size: 13px; }
+  .checkpoint-item:last-child { border-bottom: none; }
+  .cp-date { color: #2563eb; font-weight: 600; min-width: 90px; flex-shrink: 0; }
+  .cp-event { flex: 1; color: #1a1d2e; }
+  .cp-pass { color: #059669; font-size: 12px; margin-top: 2px; }
+  .cp-fail { color: #dc2626; font-size: 12px; margin-top: 2px; }
+  .opinion-box { background: #fafafa; border: 1px solid #d0d4e0; border-radius: 8px; padding: 16px 20px; font-size: 13px; line-height: 1.8; color: #5a6280; }
+  .decision-box { display: flex; gap: 14px; margin-top: 14px; }
+  .decision-btn { flex: 1; text-align: center; padding: 10px; border-radius: 6px; font-weight: 700; font-size: 13px; border: 1px solid; }
+  .decision-buy { background: #ecfdf5; color: #059669; border-color: #34d399; }
+  .decision-wait { background: #fffbeb; color: #b45309; border-color: #f59e0b; }
+  .decision-avoid { background: #fef2f2; color: #dc2626; border-color: #fca5a5; }
+  .decision-dim { opacity: 0.3; }
+  .disclaimer { font-size: 11px; color: #9ca3af; text-align: center; margin-top: 40px; padding-top: 16px; border-top: 1px solid #d0d4e0; }
+</style>
+</head>
+<body>
+
+<div class="pdf-only-banner">
+  외부 검색 절대 금지 — 제공된 PDF 파일만 활용 | 당일 발간 리포트 기준 투자 종목 발굴 전용
+</div>
+
+<header class="header">
+  <h1>에이치브이엠 (295310) | 고전압 부품 및 모듈 사업 영위 | IR협의회 AI Report | 발간일: 2026.04.21</h1>
+  <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-bottom:12px;">
+    <span class="tag-badge tag-stable">🛡️ 안정</span>
+    <span class="score-badge score-low">📊 20점</span>
+    <span style="font-size:12px;color:#5a6280;">비바이오</span>
+    <span class="pathway-badge">경로 ③ BEP 돌파형(흑자전환 후 확장)</span>
+  </div>
+  <div class="price-row">
+    <div class="price-item"><span class="label">투자의견</span><span class="val">IR협의회 (TP 미제시)</span></div>
+    <div class="price-item"><span class="label">목표주가(TP)</span><span class="val">미제시 (AI Report)</span></div>
+    <div class="price-item"><span class="label">현재주가(CP)</span><span class="val">35,300원 (04/17)</span></div>
+    <div class="price-item"><span class="label">Upside</span><span class="val upside-val">산출 불가</span></div>
+    <div class="price-item"><span class="label">시가총액</span><span class="val">1,079십억원</span></div>
+    <div class="price-item"><span class="label">종목 유형</span><span class="val">비바이오</span></div>
+  </div>
+</header>
+
+<section>
+  <div class="section-title">이 종목에 투자해야 하는 이유 — 스토리 한 줄</div>
+  <div class="thesis-box">
+    우주·항공·방산·반도체 고부가가치 금속 소재(Fe계·Ni계·Cu계 합금, 스퍼터링 타겟) 제조업체. 25년 매출 665억(+47.4% YoY), OP 58억(적자 → 흑자전환), OPM -15.0→8.8%로 회복. 2025년 서산 제2공장 준공(최대 12톤 진공용해 설비) → CAPA 확장. 주가 12M +343%로 이미 급등 반영 + AI Report로 TP·추정치 부재 → '안정' 분류.
+  </div>
+  <div class="thesis-structure">
+    <div class="thesis-part" style="color:#059669;">① 확정 팩트<br/>25년 매출 +47.4%·OP 흑전(-100→58억)</div>
+    <div class="thesis-arrow">→</div>
+    <div class="thesis-part" style="color:#b45309;">② 실적 변화<br/>OPM -15.0→8.8%(+23.8%p), ROE -17.4→16.1%</div>
+    <div class="thesis-arrow">→</div>
+    <div class="thesis-part" style="color:#2563eb;">③ 시장 미반영<br/>주가 12M +343% 선반영, TP 미제시</div>
+  </div>
+</section>
+
+<section>
+  <div class="section-title">핵심 태그 5가지 조건 체크 (주목 이하 불완전 허용)</div>
+  <div class="checklist">
+    <div class="checklist-item">
+      <div class="check-icon check-pass">✓</div>
+      <div>
+        <div class="check-label">조건 1 | 영업이익 성장 임계값</div>
+        <div class="check-detail">향후 1년 OP +50%+ AND (OPM +3%p+ OR OPM 15%+ 유지)</div>
+        <div class="check-why">25년 OP -100억 → 58억(흑자전환), OPM -15.0→8.8%(+23.8%p) → 과거 실적 기준 통과 (미래 추정은 아님)</div>
+      </div>
+    </div>
+    <div class="checklist-item">
+      <div class="check-icon check-fail">✗</div>
+      <div>
+        <div class="check-label">조건 2 | 3년 지속성 (3개 이상 충족)</div>
+        <div class="check-detail">수주잔고 / CAPA 확대 / 독점·특허 / Lock-in / CAGR 15%+</div>
+        <div class="check-why">서산 제2공장 준공(CAPA 확대 1건) 확인. 매출 CAGR 21~25년 +10.7% 수준이나 수주잔고·독점 구체 수치 부재 → 1~2개만 충족(3개 미만) → 미충족</div>
+      </div>
+    </div>
+    <div class="checklist-item">
+      <div class="check-icon check-fail">✗</div>
+      <div>
+        <div class="check-label">조건 3 | 확정 팩트(●●●) 2개 이상</div>
+        <div class="check-detail">●●● = 수주확정·인허가·계약공시·실적 확인</div>
+        <div class="check-why">25년 실적 확인(●●●) 1건, 서산 제2공장 준공(●●●) 1건 → 2건 성립하나 수주·계약 공시 부재 → 경계선</div>
+      </div>
+    </div>
+    <div class="checklist-item">
+      <div class="check-icon check-fail">✗</div>
+      <div>
+        <div class="check-label">조건 4 | 시장 미반영 (둘 중 하나)</div>
+        <div class="check-detail">Upside 40%+ OR 컨센서스 대비 추정치 +20%+ 괴리</div>
+        <div class="check-why">TP 미제시 Upside 산출 불가. 주가 12M +343%로 이미 급등 반영, P/E 55.6배·P/B 7.8배 고평가 → 오히려 역방향 → 미충족</div>
+      </div>
+    </div>
+    <div class="checklist-item">
+      <div class="check-icon check-fail">✗</div>
+      <div>
+        <div class="check-label">조건 5 | 이 리포트만의 차별화된 시각</div>
+        <div class="check-detail">모든 증권사 동일 논리면 주목. 신규 커버리지·고유 근거·컨센 상회 필수</div>
+        <div class="check-why">AI Report는 공시 기반 현황 요약 중심, 고유 분석 관점 부재 → 미충족</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="section-title">투자 점수 판정 (v2.0 비바이오) — 모든 근거 칸 필수 기재</div>
+  <table>
+    <thead><tr><th>항목</th><th>판정</th><th>근거 (Why)</th></tr></thead>
+    <tbody>
+      <tr><td>종목 유형</td><td>비바이오</td><td>고전압 부품·특수 합금 금속 소재 제조업</td></tr>
+      <tr><td>적용 가설</td><td>가설 3</td><td>25년 흑자전환 확인, 우주·항공·반도체 소재 수요 일반 트렌드. 26년 이후 추정치 부재</td></tr>
+      <tr><td>촉매 등급</td><td>약</td><td>서산 제2공장 준공은 CAPA 확보 수준, 특정 고객·수주 공시 없음</td></tr>
+      <tr><td>복합 여부</td><td>단독</td><td>특수 합금 금속 소재 단일 사업</td></tr>
+      <tr><td>직접성</td><td>직접</td><td>주력 사업 직결</td></tr>
+      <tr><td>매트릭스 기본 점수</td><td>30점</td><td>가설3 × 약 × 단독 = 30점</td></tr>
+      <tr><td>페널티 ① 추정치·TP 부재</td><td class="penalty">-10점</td><td>AI Report로 TP·시장 미반영 근거 부재</td></tr>
+      <tr class="total-row"><td>최종 투자 점수</td><td><span style="color:#6d28d9;font-weight:700;">20점</span></td><td>30 - 10 = 20점 → 안정 충족</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section>
+  <div class="section-title">성장 인과 체인 — 왜 성장하는가 (각 단계에 수치 필수)</div>
+  <div class="chain-box">
+    <div class="chain-step">
+      <div class="chain-arrow">①</div>
+      <div class="chain-content">
+        <div class="chain-label">구조 변화 / 촉매 <span class="chain-confirmed">● 확정 팩트</span></div>
+        <div class="chain-text">25년 매출 665억(+47.4%, ●●●) + 25년 OP 58억(적자 → 흑자전환, ●●●) + 2025년 서산 제2공장 준공으로 최대 12톤 진공용해 설비 확보(●●●). 우주산업 매출 비중 59.4% 중심</div>
+      </div>
+    </div>
+    <div class="chain-step">
+      <div class="chain-arrow">↓</div>
+      <div class="chain-content">
+        <div class="chain-label">매출 영향 (규모·비중 수치)</div>
+        <div class="chain-text">21년 266→22년 319→23년 384→24년 451→25년 665억원. 우주 59.4%, 항공·방산·반도체 고부가가치 소재. Fe계·Ni계·Cu계 합금 및 스퍼터링 타겟 주력</div>
+      </div>
+    </div>
+    <div class="chain-step">
+      <div class="chain-arrow">↓</div>
+      <div class="chain-content">
+        <div class="chain-label">OPM 변화 메커니즘 (왜 마진이 오르는가)</div>
+        <div class="chain-text">고부가가치 합금·타겟 제품 믹스 개선 + 매출 규모 확장에 따른 고정비 레버리지 → OPM -15.0→8.8%(+23.8%p) 대폭 개선. 우주산업 중심 고부가가치 제품 매출 확대가 핵심</div>
+      </div>
+    </div>
+    <div class="chain-step">
+      <div class="chain-arrow">↓</div>
+      <div class="chain-content">
+        <div class="chain-label">최종 실적 결과 <span class="chain-confirmed">● 실적 확인</span></div>
+        <div class="chain-text">25년 영업이익 58억(흑자전환), 순이익 41억(흑자전환), ROE -17.4→16.1%, EBITDA 흑자전환</div>
+      </div>
+    </div>
+    <div class="chain-step">
+      <div class="chain-arrow">↓</div>
+      <div class="chain-content">
+        <div class="chain-label">시장 미반영 포인트 (So What)</div>
+        <div class="chain-text">주가 12M +343%로 이미 강하게 반영, P/E 55.6배·P/B 7.8배로 고평가. TP 부재 상황에서 추가 업사이드 검증 불능 → 재평가보다 이익 지속성 확인 단계</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="section-title">핵심 팩트 3줄 — WHAT(숫자) + WHY(원인) + SO WHAT(의미) 3요소 필수</div>
+  <div class="fact-item">
+    <span class="fact-num">Fact 01</span>
+    <div class="fact-what"><span class="fact-label label-what">WHAT</span>25년 매출 665억(+47.4% YoY), 영업이익 58억(적자전환), OPM -15.0→8.8% (+23.8%p)</div>
+    <div class="fact-why"><span class="fact-label label-why">WHY</span>우주산업 매출 59.4% 비중 확대와 고부가가치 합금·스퍼터링 타겟 제품 믹스 개선. 매출 규모 확장에 따른 고정비 레버리지 효과</div>
+    <div class="fact-so"><span class="fact-label label-so">SO WHAT</span>적자 → 흑자전환으로 BEP 돌파형 재무구조 개선. ROE -17.4→16.1%로 자본 수익성 회복</div>
+  </div>
+  <div class="fact-item">
+    <span class="fact-num">Fact 02</span>
+    <div class="fact-what"><span class="fact-label label-what">WHAT</span>2025년 서산 제2공장 준공, 최대 12톤 진공용해 설비 확보</div>
+    <div class="fact-why"><span class="fact-label label-why">WHY</span>우주·항공·방산·반도체 시장 고부가가치 합금 수요 확대에 대응 CAPA 확보. 대형 설비로 상대적 경쟁 우위 구축</div>
+    <div class="fact-so"><span class="fact-label label-so">SO WHAT</span>26년 이후 추가 매출 확장 기반 확보. 단, 구체적인 매출 추정치·가동률 데이터는 AI Report에 부재</div>
+  </div>
+  <div class="fact-item">
+    <span class="fact-num">Fact 03</span>
+    <div class="fact-what"><span class="fact-label label-what">WHAT</span>주가 12M +343%, 시총 1,079십억원, P/E 55.6배·P/B 7.8배</div>
+    <div class="fact-why"><span class="fact-label label-why">WHY</span>우주·방산 테마와 흑자전환이 결합되며 급등. 다만 AI Report 기준 TP 산정 없음</div>
+    <div class="fact-so"><span class="fact-label label-so">SO WHAT</span>이미 고평가 구간 진입, 추가 업사이드 검증 필요. 이익 지속성 확인 후 재평가 관점 유리</div>
+  </div>
+</section>
+
+<section>
+  <div class="section-title">원본 리포트 핵심 요약 — PDF 내용 직접 발췌 (외부 정보 추가 금지)</div>
+  <div style="background:#fafafa;border:1px solid #d0d4e0;border-radius:8px;padding:16px 20px;margin-bottom:12px;">
+    <div style="font-size:11px;font-weight:700;letter-spacing:1px;color:#5a6280;text-transform:uppercase;margin-bottom:10px;">리포트 핵심 주장 (AI Report 요약)</div>
+    <p style="font-size:13px;line-height:1.9;">에이치브이엠은 고전압 부품 및 모듈, 특수 합금 소재 사업을 영위하며, 우주·항공·방산·반도체 분야 고부가가치 금속 소재(Fe계·Ni계·Cu계 합금, 스퍼터링 타겟)를 제조. 2025년 매출 665억·영업이익 58억(흑자전환)으로 구조적 턴어라운드. 매출 비중: 우주 59.4%, 기타 산업 포함 다각화. 2025년 서산 제2공장 준공으로 최대 12톤 진공용해 설비 확보. 주가는 최근 12개월 +343% 급등, 시가총액 1,079십억원. 자체 R&D와 설비 확장으로 장기 성장 동력 확보 시도.</p>
+    <div style="margin-top:10px;display:flex;gap:8px;flex-wrap:wrap;">
+      <div style="background:#f0f2f8;border:1px solid #d0d4e0;border-radius:6px;padding:6px 12px;font-size:12px;"><span style="color:#5a6280;font-size:10px;display:block;margin-bottom:2px;">리포트 성격</span>IR협의회 AI Report(공시 기반 현황 요약)</div>
+      <div style="background:#f0f2f8;border:1px solid #d0d4e0;border-radius:6px;padding:6px 12px;font-size:12px;"><span style="color:#5a6280;font-size:10px;display:block;margin-bottom:2px;">투자의견·TP</span>미제시 (AI 작성)</div>
+    </div>
+  </div>
+  <div style="background:#fafafa;border:1px solid #d0d4e0;border-radius:8px;padding:16px 20px;margin-bottom:12px;">
+    <div style="font-size:11px;font-weight:700;letter-spacing:1px;color:#5a6280;text-transform:uppercase;margin-bottom:10px;">사업 구조 & 성장 동력</div>
+    <table style="margin:0;">
+      <thead><tr><th style="width:25%;">사업/제품</th><th style="width:25%;">적용 산업</th><th style="width:50%;">성장 동력 (Why 포함)</th></tr></thead>
+      <tbody>
+        <tr><td>Fe계·Ni계·Cu계 합금</td><td>우주·방산·항공</td><td>고온·고압·내식성 요구 환경, 국산화 수요</td></tr>
+        <tr><td>스퍼터링 타겟</td><td>반도체</td><td>반도체 박막 증착 공정 소재, CAPA 확장 수혜</td></tr>
+        <tr><td>고전압 부품·모듈</td><td>전력 인프라</td><td>전력 인프라 고도화, 특수 용도 수요</td></tr>
+        <tr><td>서산 제2공장</td><td>CAPA 확장</td><td>25년 준공, 최대 12톤 진공용해 설비</td></tr>
+      </tbody>
+    </table>
+    <p style="font-size:12px;color:#5a6280;margin-top:10px;">▶ 핵심 성장 메커니즘: 우주·방산 고부가가치 합금 + 서산 제2공장 CAPA 기반 매출 확장</p>
+  </div>
+  <div style="background:#fafafa;border:1px solid #d0d4e0;border-radius:8px;padding:16px 20px;margin-bottom:12px;">
+    <div style="font-size:11px;font-weight:700;letter-spacing:1px;color:#5a6280;text-transform:uppercase;margin-bottom:10px;">매출 구조 & 재무 특성</div>
+    <table style="margin:0;">
+      <thead><tr><th style="width:30%;">구분</th><th>내용</th></tr></thead>
+      <tbody>
+        <tr><td style="color:#5a6280;">매출 비중</td><td>우주산업 59.4%, 기타 방산·항공·반도체 등</td></tr>
+        <tr><td style="color:#2563eb;">주요 설비</td><td>2025년 서산 제2공장 준공, 최대 12톤 진공용해 설비</td></tr>
+        <tr><td style="color:#b45309;">재무 상태</td><td>25년 흑자전환(OP 58억·NP 41억), ROE 16.1% 회복</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section>
+  <div class="section-title">실적 전망 (연간) — PDF 원문 수치만 기재</div>
+  <table class="data-table">
+    <caption>단위: 억원 (매출·영업이익), 원(EPS) | ★ = 최근 확인 실적</caption>
+    <thead>
+      <tr><th>구분</th><th>2021A</th><th>2022A</th><th>2023A</th><th>2024A</th><th style="background:#dbeafe;color:#1e40af;font-weight:700;">2025A ★</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>매출액</td><td>266</td><td>319</td><td>384</td><td>451</td><td class="key-col key-num">665</td></tr>
+      <tr><td>영업이익</td><td>22</td><td>-6</td><td>-22</td><td>-68</td><td class="key-col key-num">58</td></tr>
+      <tr><td>YoY 매출(%)</td><td>-</td><td>20</td><td>20</td><td>17</td><td class="key-col">47.4</td></tr>
+      <tr><td>OPM(%)</td><td>8.4</td><td>-1.9</td><td>-5.6</td><td>-15.0</td><td class="key-col key-opm">8.8</td></tr>
+      <tr><td>지배주주순이익</td><td>-</td><td>-</td><td>-</td><td>-78</td><td class="key-col">41</td></tr>
+      <tr><td>P/E(배)</td><td>-</td><td>-</td><td>-</td><td>-</td><td class="key-col">55.6</td></tr>
+      <tr><td>P/B(배)</td><td>-</td><td>-</td><td>-</td><td>-</td><td class="key-col">7.8</td></tr>
+      <tr><td>ROE(%)</td><td>-</td><td>-</td><td>-</td><td>-17.4</td><td class="key-col">16.1</td></tr>
+    </tbody>
+  </table>
+  <p style="font-size:12px;color:#5a6280;margin-top:10px;padding:0 4px;">
+    ▶ 25년 실적 의미: 적자 → 흑자전환(OP -68 → 58억)이 핵심 변곡점. 26년 이후 추정치는 AI Report에 부재.
+  </p>
+</section>
+
+<section>
+  <div class="section-title">분기별 실적 전망 — PDF에 있으면 반드시 기재</div>
+  <table class="data-table">
+    <thead>
+      <tr><th>구분</th><th colspan="4" style="text-align:center;">데이터 없음 (AI Report)</th></tr>
+    </thead>
+    <tbody>
+      <tr><td colspan="5" style="text-align:center;color:#5a6280;">IR협의회 AI Report 특성상 분기별 실적·추정치 미제공. 연간 공시 데이터만 포함.</td></tr>
+    </tbody>
+  </table>
+  <p style="font-size:12px;color:#5a6280;margin-top:10px;padding:0 4px;">
+    ▶ 분기 데이터 공백: 증권사 정식 커버리지가 아니므로 분기 추정치 확인을 위해서는 별도 정식 리포트 필요.
+  </p>
+</section>
+
+<section>
+  <div class="section-title">밸류에이션 — 왜 이 배수인가 1문장 필수</div>
+  <div class="val-box">
+    <div class="val-formula">IR협의회 AI Report — TP 산정 없음. 참고 지표만 제공</div>
+    <p style="color:#5a6280;font-size:12px;margin-top:8px;">▶ 참고 지표: 25년 P/E 55.6배·P/B 7.8배. 흑자전환 첫해 기준 일시적 배수로 26년 이후 이익 정상화 시 하락 여지</p>
+    <p style="color:#5a6280;font-size:12px;margin-top:4px;">▶ 왜 밸류에이션이 높은가: 주가 12M +343% 급등으로 성장 기대 선반영, 우주·방산 테마 프리미엄 반영</p>
+  </div>
+</section>
+
+<section>
+  <div class="section-title">리스크 — 핵심 가정이 틀릴 경우 시나리오</div>
+  <div class="risk-item risk-sev-high">
+    <div class="risk-assumption">🔴 핵심 가정: 우주·방산 수요 지속 확대와 서산 제2공장 가동률 상승으로 이익 성장 지속</div>
+    <div class="risk-chain" style="margin-top:6px;">→ 붕괴 시: 우주·방산 수주 둔화, 제2공장 가동률 저조로 고정비 부담<br/>→ 실적 영향: OPM 8.8% → 적자 재회귀 가능성, ROE 16.1% 재악화</div>
+    <div class="risk-impact-num">→ 주가 영향: P/E 55.6배 재평가 시 -40%+ 조정 가능성</div>
+  </div>
+  <div class="risk-item risk-sev-mid">
+    <div class="risk-assumption">🟠 두 번째 가정: 특수 합금·스퍼터링 타겟의 고부가가치 수익성 유지</div>
+    <div class="risk-chain" style="margin-top:6px;">→ 붕괴 시: 원자재(Fe·Ni·Cu) 가격 급등 및 경쟁사 진입 시 마진 압박<br/>→ OPM 8.8% → 저 한 자릿수 하락 시 이익 재축소</div>
+    <div class="risk-impact-num">→ 주가 영향: 고평가 해소 과정 -20~30% 수준</div>
+  </div>
+</section>
+
+<section>
+  <div class="section-title">모멘텀 확인 체크포인트</div>
+  <div style="background:#fafafa;border:1px solid #d0d4e0;border-radius:8px;padding:4px 16px;">
+    <div class="checkpoint-item">
+      <span class="cp-date">2026.분기 공시</span>
+      <div>
+        <div class="cp-event">분기 실적 공시 (흑자 지속성 및 서산 제2공장 가동률 반영 여부)</div>
+        <div class="cp-pass">✅ OPM 8%+ 유지 & 매출 성장 지속 시 → 구조적 전환 재확인</div>
+        <div class="cp-fail">⛔ OPM 다시 적자 전환 시 → 일회성 턴어라운드 가능성 재검토</div>
+      </div>
+    </div>
+    <div class="checkpoint-item">
+      <span class="cp-date">2026 전체</span>
+      <div>
+        <div class="cp-event">증권사 정식 커버리지 개시 및 수주 공시</div>
+        <div class="cp-pass">✅ 우주·방산 대규모 수주 공시 확인 시 → 핵심 이상 재평가 가능</div>
+        <div class="cp-fail">⛔ 수주 공시 부재 지속 시 → 테마주 성격 유지, 변동성 확대</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="section-title">사견 & 투자 행동 결론</div>
+  <div class="opinion-box">
+    <p>IR협의회 AI Report로 TP·26년 이후 추정치 부재. 25년 흑자전환 + 서산 제2공장 준공은 구조적 개선 신호이나, 주가가 이미 12M +343% 급등하며 P/E 55.6배·P/B 7.8배 고평가 구간 진입. 우주·방산 테마 프리미엄이 크게 반영된 상태로, 추가 상승 모멘텀은 대규모 수주 공시 또는 26년 분기 실적에서 OPM 유지/상승 확인 필요. 핵심 5조건 중 실질적으로 조건 1(과거 기준)만 통과 → 안정 분류. 타이밍: 26년 상반기 분기 실적 발표 이후 수주 공시 유무에 따른 재평가 권장.</p>
+    <div class="decision-box">
+      <div class="decision-btn decision-buy decision-dim">지금 진입 가능<br/><span style="font-size:11px;font-weight:400;">고평가 구간</span></div>
+      <div class="decision-btn decision-wait">이벤트 후 진입<br/><span style="font-size:11px;font-weight:400;">수주 공시·분기 실적 대기</span></div>
+      <div class="decision-btn decision-avoid decision-dim">관망<br/><span style="font-size:11px;font-weight:400;">흑자전환 성립</span></div>
+    </div>
+  </div>
+</section>
+
+<div class="disclaimer">
+  ※ 본 글은 증권사 리포트를 개인 학습 목적으로 요약·정리한 것이며, 투자 권유가 아닙니다.<br/>
+  ※ 제공된 PDF 파일만 활용. 외부 검색·참조 없음. 당일 발간 리포트 기준.
+</div>
+
+</body>
+</html>

@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SK이터닉스 (475150) 정리</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Pretendard','Apple SD Gothic Neo',-apple-system,sans-serif; background: #ffffff; color: #1a1d2e; line-height: 1.7; font-size: 14px; max-width: 900px; margin: 0 auto; padding: 32px 20px 80px; }
+  .header { border-left: 4px solid #2563eb; padding: 0 0 0 16px; margin-bottom: 24px; }
+  .header h1 { font-size: 20px; font-weight: 700; margin-bottom: 10px; color: #1a1d2e; }
+  .price-row { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin-top: 10px; }
+  .price-item { background: #f0f2f8; border: 1px solid #d0d4e0; border-radius: 6px; padding: 6px 14px; font-size: 13px; }
+  .price-item .label { color: #5a6280; font-size: 11px; display: block; }
+  .price-item .val { font-weight: 700; color: #1a1d2e; }
+  .upside-val { color: #059669; }
+  .tag-badge { display: inline-flex; align-items: center; gap: 6px; padding: 5px 14px; border-radius: 20px; font-size: 13px; font-weight: 700; }
+  .tag-watch   { background: #fffbeb; color: #b45309; border: 1px solid #f59e0b; }
+  .score-badge { display: inline-block; padding: 5px 14px; border-radius: 20px; font-size: 13px; font-weight: 700; background: #f0f2f8; border: 1px solid #d0d4e0; color: #1a1d2e; }
+  .score-mid  { color: #b45309; }
+  .pathway-badge { display: inline-flex; align-items: center; gap: 4px; padding: 3px 10px; border-radius: 12px; font-size: 11px; font-weight: 600; background: #f0f2f8; border: 1px solid #d0d4e0; color: #5a6280; }
+  section { margin-bottom: 28px; }
+  .section-title { font-size: 11px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: #5a6280; border-bottom: 1px solid #d0d4e0; padding-bottom: 6px; margin-bottom: 14px; }
+  .pdf-only-banner { background: #fff7ed; border: 1px solid #f97316; border-radius: 8px; padding: 10px 16px; font-size: 12px; color: #c2410c; margin-bottom: 20px; text-align: center; font-weight: 700; }
+  .thesis-box { background: #f8faff; border: 1px solid #2563eb; border-radius: 8px; padding: 16px 20px; font-size: 15px; font-weight: 600; line-height: 1.6; color: #1a1d2e; }
+  .thesis-structure { display: flex; gap: 8px; align-items: center; margin-top: 10px; flex-wrap: wrap; }
+  .thesis-part { background: #f0f2f8; border: 1px solid #d0d4e0; border-radius: 6px; padding: 4px 10px; font-size: 12px; color: #1a1d2e; }
+  .thesis-arrow { color: #2563eb; font-size: 16px; }
+  .checklist { background: #fafafa; border: 1px solid #d0d4e0; border-radius: 8px; overflow: hidden; }
+  .checklist-item { display: flex; gap: 14px; align-items: flex-start; padding: 12px 16px; border-bottom: 1px solid #d0d4e0; }
+  .checklist-item:last-child { border-bottom: none; }
+  .check-icon { width: 22px; height: 22px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; flex-shrink: 0; margin-top: 1px; }
+  .check-pass { background: #ecfdf5; color: #059669; border: 1px solid #34d399; }
+  .check-fail { background: #fef2f2; color: #dc2626; border: 1px solid #fca5a5; }
+  .check-label { font-weight: 600; font-size: 13px; color: #1a1d2e; }
+  .check-detail { color: #5a6280; font-size: 12px; margin-top: 2px; }
+  .check-why { color: #1a1d2e; font-size: 13px; }
+  table { width: 100%; border-collapse: collapse; background: #fafafa; border-radius: 8px; overflow: hidden; border: 1px solid #d0d4e0; }
+  thead tr { background: #f0f2f8; }
+  th { padding: 10px 14px; text-align: left; font-size: 11px; font-weight: 700; color: #5a6280; letter-spacing: 0.8px; text-transform: uppercase; }
+  td { padding: 10px 14px; border-top: 1px solid #d0d4e0; font-size: 13px; color: #1a1d2e; }
+  tr.total-row td { background: #e8ecf5; font-weight: 700; }
+  .penalty { color: #dc2626; }
+  .highlight-green { color: #059669; font-weight: 700; }
+  .chain-box { background: #fafafa; border: 1px solid #d0d4e0; border-radius: 8px; padding: 16px 20px; }
+  .chain-step { display: flex; gap: 12px; align-items: flex-start; margin-bottom: 10px; }
+  .chain-step:last-child { margin-bottom: 0; }
+  .chain-arrow { color: #2563eb; font-size: 16px; flex-shrink: 0; margin-top: 1px; }
+  .chain-content { flex: 1; }
+  .chain-label { font-size: 10px; font-weight: 700; letter-spacing: 1px; color: #5a6280; text-transform: uppercase; margin-bottom: 2px; }
+  .chain-text { font-size: 13px; color: #1a1d2e; }
+  .chain-confirmed { color: #059669; font-size: 11px; margin-left: 6px; }
+  .chain-forecast { color: #b45309; font-size: 11px; margin-left: 6px; }
+  .fact-item { background: #fafafa; border: 1px solid #d0d4e0; border-radius: 8px; padding: 14px 16px; margin-bottom: 8px; }
+  .fact-item:last-child { margin-bottom: 0; }
+  .fact-num { font-size: 10px; font-weight: 700; color: #2563eb; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 8px; display: block; }
+  .fact-what { font-weight: 600; font-size: 14px; margin-bottom: 6px; color: #1a1d2e; }
+  .fact-why  { font-size: 13px; color: #5a6280; margin-bottom: 6px; }
+  .fact-so   { font-size: 13px; color: #059669; }
+  .fact-label { display: inline-block; font-size: 10px; font-weight: 700; padding: 1px 6px; border-radius: 3px; margin-right: 4px; }
+  .label-what { background: #eff6ff; color: #1d4ed8; }
+  .label-why  { background: #fff7ed; color: #ea580c; }
+  .label-so   { background: #ecfdf5; color: #059669; }
+  .data-table th { background: #e8ecf5; }
+  .data-table td.key-col { background: #f0f6ff; }
+  .data-table .key-num { color: #059669; font-weight: 700; }
+  .data-table .key-opm { color: #b45309; }
+  caption { font-size: 11px; color: #5a6280; text-align: left; padding: 0 0 8px; caption-side: top; }
+  .val-box { background: #fafafa; border: 1px solid #d0d4e0; border-radius: 8px; padding: 16px 20px; font-size: 13px; line-height: 2; color: #1a1d2e; }
+  .val-formula { background: #f0f2f8; border-radius: 6px; padding: 10px 14px; font-family: monospace; font-size: 13px; margin: 10px 0; color: #b45309; }
+  .risk-item { background: #fafafa; border-radius: 0 6px 6px 0; padding: 14px 16px; margin-bottom: 10px; }
+  .risk-sev-high { border-left: 3px solid #dc2626; }
+  .risk-sev-mid  { border-left: 3px solid #ea580c; }
+  .risk-assumption { font-weight: 600; font-size: 13px; margin-bottom: 4px; color: #1a1d2e; }
+  .risk-chain { font-size: 12px; color: #5a6280; margin: 4px 0; }
+  .risk-impact-num { font-size: 13px; color: #dc2626; font-weight: 600; margin-top: 4px; }
+  .checkpoint-item { display: flex; gap: 12px; padding: 10px 0; border-bottom: 1px solid #d0d4e0; font-size: 13px; }
+  .checkpoint-item:last-child { border-bottom: none; }
+  .cp-date { color: #2563eb; font-weight: 600; min-width: 90px; flex-shrink: 0; }
+  .cp-event { flex: 1; color: #1a1d2e; }
+  .cp-pass { color: #059669; font-size: 12px; margin-top: 2px; }
+  .cp-fail { color: #dc2626; font-size: 12px; margin-top: 2px; }
+  .opinion-box { background: #fafafa; border: 1px solid #d0d4e0; border-radius: 8px; padding: 16px 20px; font-size: 13px; line-height: 1.8; color: #5a6280; }
+  .decision-box { display: flex; gap: 14px; margin-top: 14px; }
+  .decision-btn { flex: 1; text-align: center; padding: 10px; border-radius: 6px; font-weight: 700; font-size: 13px; border: 1px solid; }
+  .decision-buy   { background: #ecfdf5; color: #059669; border-color: #34d399; }
+  .decision-wait  { background: #fffbeb; color: #b45309; border-color: #f59e0b; }
+  .decision-avoid { background: #fef2f2; color: #dc2626; border-color: #fca5a5; }
+  .decision-dim { opacity: 0.3; }
+  .upgrade-box { background: #eff6ff; border: 1px solid #93c5fd; border-radius: 8px; padding: 14px 16px; }
+  .upgrade-item { display: flex; gap: 10px; padding: 6px 0; border-bottom: 1px solid #dbeafe; font-size: 13px; color: #1a1d2e; }
+  .upgrade-item:last-child { border-bottom: none; }
+  .upgrade-when { color: #1d4ed8; font-weight: 600; min-width: 140px; flex-shrink: 0; }
+  .disclaimer { font-size: 11px; color: #9ca3af; text-align: center; margin-top: 40px; padding-top: 16px; border-top: 1px solid #d0d4e0; }
+</style>
+</head>
+<body>
+
+<div class="pdf-only-banner">
+  외부 검색 절대 금지 — 제공된 PDF 파일만 활용 | 당일 발간 리포트 기준 투자 종목 발굴 전용
+</div>
+
+<header class="header">
+  <h1>SK이터닉스 (475150) | 아직 열지 않은 보물상자 | 메리츠증권 | 발간일: 2026.04.21</h1>
+  <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-bottom:12px;">
+    <span class="tag-badge tag-watch">🔥 주목</span>
+    <span class="score-badge score-mid">📊 40점</span>
+    <span style="font-size:12px;color:#5a6280;">비바이오</span>
+    <span class="pathway-badge">경로 ② 볼륨드리븐</span>
+  </div>
+  <div class="price-row">
+    <div class="price-item"><span class="label">투자의견</span><span class="val">Not Rated</span></div>
+    <div class="price-item"><span class="label">목표주가(TP)</span><span class="val">N/A</span></div>
+    <div class="price-item"><span class="label">현재주가(CP)</span><span class="val">54,300원</span></div>
+    <div class="price-item"><span class="label">Upside</span><span class="val">N/A (TP 미제시)</span></div>
+    <div class="price-item"><span class="label">시가총액</span><span class="val">18,498억원</span></div>
+    <div class="price-item"><span class="label">종목 유형</span><span class="val">비바이오</span></div>
+  </div>
+</header>
+
+<section>
+  <div class="section-title">이 종목에 투자해야 하는 이유 — 스토리 한 줄</div>
+  <div class="thesis-box">
+    "솔라닉스 2026년 200MW 가동 + 신안우이 390MW 착공이라는 신재생 파이프라인이 줄줄이 대기. 27E PER 33배로 이미 선반영 부담 있으나, 실제 개별 프로젝트 준공·수익화로 '보물상자'가 열리면 업사이드 구간"
+  </div>
+  <div class="thesis-structure">
+    <div class="thesis-part" style="color:#059669;">① 확정 팩트<br/>솔라닉스 2026 200MW 가동 예정, 신안우이 390MW 착공</div>
+    <div class="thesis-arrow">→</div>
+    <div class="thesis-part" style="color:#b45309;">② 실적 변화<br/>2026~2027 단계적 프로젝트 준공으로 매출·OP 반영</div>
+    <div class="thesis-arrow">→</div>
+    <div class="thesis-part" style="color:#2563eb;">③ 시장 미반영<br/>27E PER 33배로 선반영되었지만 장기 파이프라인은 미확인 상태</div>
+  </div>
+</section>
+
+<section>
+  <div class="section-title">핵심 태그 5가지 조건 체크 (5개 모두 통과해야 핵심 이상 가능)</div>
+  <div class="checklist">
+    <div class="checklist-item">
+      <div class="check-icon check-fail">✗</div>
+      <div>
+        <div class="check-label">조건 1 | 영업이익 성장 임계값</div>
+        <div class="check-detail">향후 1년 OP +50%+ AND (OPM +3%p+ OR OPM 15%+ 유지)</div>
+        <div class="check-why">PDF 내 OP 정량 수치 부재. 27E PER 33배 기준으로 2026~27 이익 성장 가정되지만 검증 수치 부족 → 미충족</div>
+      </div>
+    </div>
+    <div class="checklist-item">
+      <div class="check-icon check-pass">✓</div>
+      <div>
+        <div class="check-label">조건 2 | 3년 지속성 (3개 이상 충족)</div>
+        <div class="check-detail">수주잔고 / CAPA 확대 / 독점·특허 / CAGR 15%+ 등</div>
+        <div class="check-why">① 솔라닉스 200MW(2026) ② 신안우이 390MW 착공 ③ 신재생 포트폴리오 추가 파이프라인 → 3개 충족</div>
+      </div>
+    </div>
+    <div class="checklist-item">
+      <div class="check-icon check-fail">✗</div>
+      <div>
+        <div class="check-label">조건 3 | 확정 팩트(●●●) 2개 이상</div>
+        <div class="check-detail">●●● = 수주확정·인허가·실적 확인</div>
+        <div class="check-why">●●● 신안우이 착공 1개는 확실. 솔라닉스 200MW 가동은 2026 예정 상태로 ●●○. → 1개 미달</div>
+      </div>
+    </div>
+    <div class="checklist-item">
+      <div class="check-icon check-fail">✗</div>
+      <div>
+        <div class="check-label">조건 4 | 시장 미반영 (둘 중 하나)</div>
+        <div class="check-detail">Upside 40%+ OR 컨센 괴리 +20%+</div>
+        <div class="check-why">Not Rated + 27E PER 33배로 이미 선반영. Upside 40%+ 근거 부재 → 미충족</div>
+      </div>
+    </div>
+    <div class="checklist-item">
+      <div class="check-icon check-pass">✓</div>
+      <div>
+        <div class="check-label">조건 5 | 이 리포트만의 차별화된 시각</div>
+        <div class="check-detail">"아직 열지 않은 보물상자" 제목</div>
+        <div class="check-why">현재가는 기존 파이프라인만 반영, 추가 프로젝트가 '보물상자'로 미반영이라는 프레임 차별화</div>
+      </div>
+    </div>
+  </div>
+  <p style="font-size:11px;color:#dc2626;margin-top:8px;padding:0 4px;">
+    조건 1,3,4 미충족 → 주목 강등. 27E PER 33배의 높은 멀티플이 리스크.
+  </p>
+</section>
+
+<section>
+  <div class="section-title">투자 점수 판정 (v2.0 비바이오)</div>
+  <table>
+    <thead><tr><th>항목</th><th>판정</th><th>근거 (Why)</th></tr></thead>
+    <tbody>
+      <tr><td>종목 유형</td><td>비바이오</td><td>신재생에너지 발전·프로젝트</td></tr>
+      <tr><td>적용 가설</td><td>가설 1</td><td>신규 프로젝트 연속 가동으로 볼륨 증익</td></tr>
+      <tr><td>촉매 등급</td><td>중급</td><td>솔라닉스 200MW + 신안우이 390MW</td></tr>
+      <tr><td>복합 여부</td><td>복합</td><td>태양광 + 해상풍력 복합 포트폴리오</td></tr>
+      <tr><td>직접성</td><td>직접</td><td>프로젝트 가동 → 발전 매출 직결</td></tr>
+      <tr><td>매트릭스 기본 점수</td><td>60점</td><td>가설 1 × 중급 × 복합 = 60</td></tr>
+      <tr><td>페널티 ① 선반영</td><td class="penalty">-10점</td><td>27E PER 33배로 이미 성장 프리미엄 반영</td></tr>
+      <tr><td>페널티 ② 미확정 30%+</td><td class="penalty">-10점</td><td>솔라닉스 200MW 가동 일정, 신안우이 준공 시점 미확정</td></tr>
+      <tr class="total-row"><td>최종 투자 점수</td><td><span class="highlight-green">40점</span></td><td>주목 40+ 충족, 핵심 60점 미달</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section>
+  <div class="section-title">성장 인과 체인</div>
+  <div class="chain-box">
+    <div class="chain-step"><div class="chain-arrow">①</div><div class="chain-content"><div class="chain-label">구조 변화 / 촉매 <span class="chain-confirmed">● 확정 팩트</span></div><div class="chain-text">신안우이 390MW 해상풍력 착공(●●●) + 솔라닉스 200MW 태양광 2026 가동 예정. 신재생 파이프라인 연속 구조</div></div></div>
+    <div class="chain-step"><div class="chain-arrow">↓</div><div class="chain-content"><div class="chain-label">매출 영향 (규모·비중 수치)</div><div class="chain-text">프로젝트 단계적 준공 → 발전 매출·REC(신재생 공급인증서) 수익 반영. 중장기 사업 구조 확장</div></div></div>
+    <div class="chain-step"><div class="chain-arrow">↓</div><div class="chain-content"><div class="chain-label">OPM 변화 메커니즘</div><div class="chain-text">발전 프로젝트는 초기 감가상각 부담 후 안정적 캐시플로우 창출. 규모의 경제 효과</div></div></div>
+    <div class="chain-step"><div class="chain-arrow">↓</div><div class="chain-content"><div class="chain-label">최종 실적 결과 <span class="chain-forecast">● 추정</span></div><div class="chain-text">27E PER 33배로 이익 성장 프리미엄 선반영. 프로젝트 준공으로 PER 정상화(20배대)</div></div></div>
+    <div class="chain-step"><div class="chain-arrow">↓</div><div class="chain-content"><div class="chain-label">시장 미반영 포인트 (So What)</div><div class="chain-text">추가 파이프라인(보물상자)이 공시되면 재평가 여지. 현재는 공개된 프로젝트만 반영</div></div></div>
+  </div>
+</section>
+
+<section>
+  <div class="section-title">핵심 팩트 3줄</div>
+  <div class="fact-item">
+    <span class="fact-num">Fact 01</span>
+    <div class="fact-what"><span class="fact-label label-what">WHAT</span>솔라닉스 2026년 200MW 태양광 발전 가동 예정</div>
+    <div class="fact-why"><span class="fact-label label-why">WHY</span>SK이터닉스 주력 태양광 프로젝트. REC 수익 + 전력판매수익 연속 확보</div>
+    <div class="fact-so"><span class="fact-label label-so">SO WHAT</span>2026 하반기~2027 상반기 매출 반영. 발전 포트폴리오 확대의 핵심 기둥</div>
+  </div>
+  <div class="fact-item">
+    <span class="fact-num">Fact 02</span>
+    <div class="fact-what"><span class="fact-label label-what">WHAT</span>신안우이 390MW 해상풍력 프로젝트 착공 시작</div>
+    <div class="fact-why"><span class="fact-label label-why">WHY</span>국내 대형 해상풍력 수주. SK이터닉스 신재생 사업 확장 모멘텀</div>
+    <div class="fact-so"><span class="fact-label label-so">SO WHAT</span>준공 시점 이후 장기 매출 기여. 해상풍력 대형 프로젝트 레퍼런스 확보</div>
+  </div>
+  <div class="fact-item">
+    <span class="fact-num">Fact 03</span>
+    <div class="fact-what"><span class="fact-label label-what">WHAT</span>2027E PER 33배 — 성장 기대 선반영 상태, Not Rated</div>
+    <div class="fact-why"><span class="fact-label label-why">WHY</span>메리츠증권이 커버리지 개시 없이 산업 탐방 형태로 공개. 성장률 가정이 프리미엄 반영</div>
+    <div class="fact-so"><span class="fact-label label-so">SO WHAT</span>현재 밸류는 부담 구간. 추가 프로젝트 공시로 이익 가시성 확대 시에만 재평가 가능</div>
+  </div>
+</section>
+
+<section>
+  <div class="section-title">원본 리포트 핵심 요약 — PDF 내용 직접 발췌</div>
+  <div style="background:#fafafa;border:1px solid #d0d4e0;border-radius:8px;padding:16px 20px;margin-bottom:12px;">
+    <div style="font-size:11px;font-weight:700;letter-spacing:1px;color:#5a6280;text-transform:uppercase;margin-bottom:10px;">리포트 핵심 주장 (애널리스트 관점 요약)</div>
+    <p style="font-size:13px;line-height:1.9;">"SK이터닉스는 아직 열지 않은 보물상자 같은 종목이다. 솔라닉스 2026년 200MW 가동과 신안우이 390MW 해상풍력 착공이라는 가시 파이프라인이 있고, 추가적으로 공개되지 않은 프로젝트 파이프라인이 존재. 27E PER 33배로 현재 시가는 성장 기대를 반영하고 있지만, 미공개 프로젝트가 순차 공시되면 이익 가시성이 더 커질 수 있다. 탐방 기준." Not Rated.</p>
+    <div style="margin-top:10px;display:flex;gap:8px;flex-wrap:wrap;">
+      <div style="background:#f0f2f8;border:1px solid #d0d4e0;border-radius:6px;padding:6px 12px;font-size:12px;">
+        <span style="color:#5a6280;font-size:10px;display:block;margin-bottom:2px;">투자의견</span>Not Rated
+      </div>
+      <div style="background:#f0f2f8;border:1px solid #d0d4e0;border-radius:6px;padding:6px 12px;font-size:12px;">
+        <span style="color:#5a6280;font-size:10px;display:block;margin-bottom:2px;">27E PER</span>33배 (성장 선반영)
+      </div>
+    </div>
+  </div>
+  <div style="background:#fafafa;border:1px solid #d0d4e0;border-radius:8px;padding:16px 20px;margin-bottom:12px;">
+    <div style="font-size:11px;font-weight:700;letter-spacing:1px;color:#5a6280;text-transform:uppercase;margin-bottom:10px;">사업 구조 & 성장 동력</div>
+    <table style="margin:0;">
+      <thead><tr><th style="width:25%;">사업부/프로젝트</th><th style="width:20%;">규모</th><th style="width:55%;">핵심 성장 드라이버</th></tr></thead>
+      <tbody>
+        <tr><td>솔라닉스(태양광)</td><td>200MW (2026)</td><td>2026년 가동 예정. 태양광 REC·전력판매 수익 연속</td></tr>
+        <tr><td>신안우이(해상풍력)</td><td>390MW 착공</td><td>국내 대형 해상풍력 프로젝트. 장기 수익 기반</td></tr>
+        <tr><td>기타 파이프라인</td><td>'보물상자'</td><td>공개되지 않은 추가 프로젝트 존재 추정</td></tr>
+      </tbody>
+    </table>
+    <p style="font-size:12px;color:#5a6280;margin-top:10px;">▶ 핵심 성장 메커니즘: 신재생 발전 프로젝트 단계적 준공 → REC·전력판매 수익 누적. 장기 안정 캐시플로우</p>
+  </div>
+  <div style="background:#fafafa;border:1px solid #d0d4e0;border-radius:8px;padding:16px 20px;margin-bottom:12px;">
+    <div style="font-size:11px;font-weight:700;letter-spacing:1px;color:#5a6280;text-transform:uppercase;margin-bottom:10px;">시장 괴리 — 왜 지금 시장이 틀렸는가</div>
+    <table style="margin:0;">
+      <thead><tr><th style="width:30%;">구분</th><th>내용</th></tr></thead>
+      <tbody>
+        <tr><td style="color:#5a6280;">시장 현재 인식</td><td>27E PER 33배로 이미 성장 프리미엄 반영. 추가 업사이드 제한적 시각</td></tr>
+        <tr><td style="color:#2563eb;">이 리포트 주장</td><td>공개되지 않은 파이프라인이 존재. 순차 공시 시 이익 가시성 확대</td></tr>
+        <tr><td style="color:#b45309;">괴리 해소 촉매</td><td>① 추가 프로젝트 공시 ② 솔라닉스 가동 시점 확정 ③ 신안우이 중간 마일스톤</td></tr>
+        <tr><td>괴리 강도</td><td><span style="color:#b45309;">중</span> (선반영 압박 + 원거리 촉매)</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div style="background:#fafafa;border:1px solid #d0d4e0;border-radius:8px;padding:16px 20px;">
+    <div style="font-size:11px;font-weight:700;letter-spacing:1px;color:#5a6280;text-transform:uppercase;margin-bottom:10px;">재무 특징</div>
+    <div style="display:flex;flex-wrap:wrap;gap:8px;">
+      <div style="background:#f0f2f8;border:1px solid #d0d4e0;border-radius:6px;padding:8px 12px;font-size:12px;flex:1;min-width:160px;"><span style="color:#5a6280;font-size:10px;display:block;margin-bottom:2px;">시가총액</span>18,498억원</div>
+      <div style="background:#f0f2f8;border:1px solid #d0d4e0;border-radius:6px;padding:8px 12px;font-size:12px;flex:1;min-width:160px;"><span style="color:#5a6280;font-size:10px;display:block;margin-bottom:2px;">27E PER</span>33배</div>
+      <div style="background:#f0f2f8;border:1px solid #d0d4e0;border-radius:6px;padding:8px 12px;font-size:12px;flex:1;min-width:160px;"><span style="color:#5a6280;font-size:10px;display:block;margin-bottom:2px;">솔라닉스</span>2026 200MW 가동</div>
+      <div style="background:#f0f2f8;border:1px solid #d0d4e0;border-radius:6px;padding:8px 12px;font-size:12px;flex:1;min-width:160px;"><span style="color:#5a6280;font-size:10px;display:block;margin-bottom:2px;">신안우이</span>390MW 착공</div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="section-title">실적 전망 (연간)</div>
+  <table class="data-table">
+    <caption>단위: 십억원 | ★ = 투자 핵심 연도 (2027E) | PDF 내 정량 추정치 제한</caption>
+    <thead><tr><th>구분</th><th>2025A</th><th>2026E</th><th style="background:#dbeafe;color:#1e40af;font-weight:700;">2027E ★</th><th>2028E</th></tr></thead>
+    <tbody>
+      <tr><td>매출액</td><td>PDF 미명시</td><td>솔라닉스 가동</td><td class="key-col key-num">신안우이 일부 반영</td><td>본격 성장</td></tr>
+      <tr><td>영업이익</td><td>-</td><td>-</td><td class="key-col key-num">-</td><td>-</td></tr>
+      <tr><td>PER(배)</td><td>-</td><td>-</td><td class="key-col">33</td><td>정상화 기대</td></tr>
+    </tbody>
+  </table>
+  <p style="font-size:12px;color:#5a6280;margin-top:10px;padding:0 4px;">
+    ▶ 왜 2027E가 변곡점인가: 솔라닉스 200MW 연간 가동 전체 반영 + 신안우이 진척도 상승. PER 33배 정상화 여부 관건.
+  </p>
+</section>
+
+<section>
+  <div class="section-title">분기별 실적 전망</div>
+  <table class="data-table">
+    <thead><tr><th>구분</th><th>1Q25</th><th>4Q25</th><th style="background:#dbeafe;color:#1e40af;font-weight:700;">1Q26E ★</th><th>3Q26E</th><th>4Q26E</th></tr></thead>
+    <tbody>
+      <tr><td>매출·OP</td><td>PDF 미명시</td><td>PDF 미명시</td><td class="key-col key-num">솔라닉스 가동 전 구간</td><td>솔라닉스 초기 반영</td><td>반영 확대</td></tr>
+    </tbody>
+  </table>
+  <p style="font-size:12px;color:#5a6280;margin-top:10px;padding:0 4px;">
+    ▶ 1Q26 주목 포인트: 솔라닉스 가동 일정·신안우이 진척률 확인. 가동 지연 시 27E 숫자 하향 리스크
+  </p>
+</section>
+
+<section>
+  <div class="section-title">밸류에이션</div>
+  <div class="val-box">
+    <div class="val-formula">Not Rated — 27E PER 33배 (성장 프리미엄 선반영). 시가총액 18,498억원</div>
+    <p style="color:#5a6280;font-size:12px;margin-top:8px;">▶ 왜 이 배수인가: 신재생 발전 장기 캐시플로우 + 추가 파이프라인 기대. 다만 성장률 가정 하회 시 하방 리스크 큼</p>
+    <p style="color:#5a6280;font-size:12px;margin-top:4px;">▶ Peer: 태양광·해상풍력 발전사업자 대비 프리미엄. SK그룹 프리미엄도 반영</p>
+  </div>
+</section>
+
+<section>
+  <div class="section-title">리스크 — 핵심 가정이 틀릴 경우 시나리오</div>
+  <div class="risk-item risk-sev-high">
+    <div class="risk-assumption">🔴 핵심 가정: 솔라닉스 2026 200MW 가동 + 신안우이 준공 일정 준수</div>
+    <div class="risk-chain" style="margin-top:6px;">→ 붕괴 시: 프로젝트 지연 + 추가 파이프라인 미공개<br/>→ 실적 영향: 27E 이익 성장 미달, PER 33배 정상화 실패</div>
+    <div class="risk-impact-num">→ 주가 영향: 현재가 54,300원 → 40,000원대 추정 (-25% 수준)</div>
+  </div>
+  <div class="risk-item risk-sev-mid">
+    <div class="risk-assumption">🟠 두 번째 가정: 신재생 정책 지원 유지 + REC 가격 안정</div>
+    <div class="risk-chain" style="margin-top:6px;">→ 붕괴 시: REC 가격 급락 + 정책 후퇴<br/>→ 실적 영향: 전력판매·REC 수익 감소, 프로젝트 수익성 하락</div>
+    <div class="risk-impact-num">→ 주가 영향: 성장 프리미엄 박탈, 멀티플 디레이팅</div>
+  </div>
+</section>
+
+<section>
+  <div class="section-title">모멘텀 확인 체크포인트</div>
+  <div style="background:#fafafa;border:1px solid #d0d4e0;border-radius:8px;padding:4px 16px;">
+    <div class="checkpoint-item">
+      <span class="cp-date">2026.2H</span>
+      <div>
+        <div class="cp-event">솔라닉스 200MW 가동 이벤트</div>
+        <div class="cp-pass">✅ 일정 내 가동 → 보물상자 첫 번째 개봉</div>
+        <div class="cp-fail">⛔ 가동 지연 시 → 관망</div>
+      </div>
+    </div>
+    <div class="checkpoint-item">
+      <span class="cp-date">2027</span>
+      <div>
+        <div class="cp-event">추가 프로젝트 파이프라인 공시 & 신안우이 중간 마일스톤</div>
+        <div class="cp-pass">✅ 신규 프로젝트 공시 → 재평가 구간 진입</div>
+        <div class="cp-fail">⛔ 파이프라인 부재 시 → PER 33배 부담 현실화</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="section-title">사견 & 투자 행동 결론</div>
+  <div class="opinion-box">
+    <p>SK이터닉스는 솔라닉스·신안우이라는 공개 파이프라인과 미공개 추가 프로젝트 가능성이 결합된 '보물상자' 스토리다. 그러나 ① 27E PER 33배로 이미 성장 프리미엄 선반영 ② ●●● 확정 팩트 1개에 그침 ③ Not Rated + 정량 OP 수치 부재 ④ 추가 파이프라인이 미공개 상태라는 약점이 크다. 핵심 5조건 중 3개 미달이므로 주목으로 분류, 솔라닉스 가동·추가 파이프라인 공시 확인 후 진입 권고한다.</p>
+    <div class="decision-box">
+      <div class="decision-btn decision-buy decision-dim">✅ 지금 진입 가능<br/><span style="font-size:11px;font-weight:400;">핵심+ & 60점+</span></div>
+      <div class="decision-btn decision-wait">⏳ 이벤트 후 진입<br/><span style="font-size:11px;font-weight:400;">솔라닉스 가동 + 추가 파이프라인 공시 후</span></div>
+      <div class="decision-btn decision-avoid decision-dim">🚫 관망<br/><span style="font-size:11px;font-weight:400;">-</span></div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="section-title">승격 조건 — 주목 종목 전용</div>
+  <div class="upgrade-box">
+    <div class="upgrade-item">
+      <span class="upgrade-when">2026.2H</span>
+      <span>솔라닉스 200MW 가동 일정 준수 확인 → ⭐ 핵심 승격</span>
+    </div>
+    <div class="upgrade-item">
+      <span class="upgrade-when">2027</span>
+      <span>추가 프로젝트 공시 + 신안우이 중간 마일스톤 달성 → 🚀 SS급 검토</span>
+    </div>
+    <div class="upgrade-item">
+      <span class="upgrade-when">커버리지 개시</span>
+      <span>메리츠 Buy·TP 제시로 Upside 40%+ 확인 시 → ⭐ 핵심 승격</span>
+    </div>
+  </div>
+</section>
+
+<div class="disclaimer">
+  ※ 본 글은 증권사 리포트를 개인 학습 목적으로 요약·정리한 것이며, 투자 권유가 아닙니다.<br/>
+  ※ 제공된 PDF 파일만 활용. 외부 검색·참조 없음. 당일 발간 리포트 기준.
+</div>
+
+</body>
+</html>

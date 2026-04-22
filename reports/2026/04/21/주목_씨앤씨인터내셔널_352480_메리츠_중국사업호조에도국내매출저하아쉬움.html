@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>씨앤씨인터내셔널 (352480) 정리</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Pretendard','Apple SD Gothic Neo',-apple-system,sans-serif; background: #ffffff; color: #1a1d2e; line-height: 1.7; font-size: 14px; max-width: 900px; margin: 0 auto; padding: 32px 20px 80px; }
+  .header { border-left: 4px solid #2563eb; padding: 0 0 0 16px; margin-bottom: 24px; }
+  .header h1 { font-size: 20px; font-weight: 700; margin-bottom: 10px; }
+  .price-row { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 10px; }
+  .price-item { background: #f0f2f8; border: 1px solid #d0d4e0; border-radius: 6px; padding: 6px 14px; font-size: 13px; }
+  .price-item .label { color: #5a6280; font-size: 11px; display: block; }
+  .price-item .val { font-weight: 700; }
+  .tag-badge { display: inline-flex; gap: 6px; padding: 5px 14px; border-radius: 20px; font-size: 13px; font-weight: 700; }
+  .tag-watch { background: #fff7ed; color: #ea580c; border: 1px solid #fb923c; }
+  .score-badge { display: inline-block; padding: 5px 14px; border-radius: 20px; font-size: 13px; font-weight: 700; background: #f0f2f8; border: 1px solid #d0d4e0; }
+  .score-mid { color: #b45309; }
+  .pathway-badge { display: inline-flex; padding: 3px 10px; border-radius: 12px; font-size: 11px; font-weight: 600; background: #f0f2f8; border: 1px solid #d0d4e0; color: #5a6280; }
+  section { margin-bottom: 28px; }
+  .section-title { font-size: 11px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: #5a6280; border-bottom: 1px solid #d0d4e0; padding-bottom: 6px; margin-bottom: 14px; }
+  .pdf-only-banner { background: #fff7ed; border: 1px solid #f97316; border-radius: 8px; padding: 10px 16px; font-size: 12px; color: #c2410c; margin-bottom: 20px; text-align: center; font-weight: 700; }
+  .thesis-box { background: #f8faff; border: 1px solid #2563eb; border-radius: 8px; padding: 16px 20px; font-size: 15px; font-weight: 600; line-height: 1.6; }
+  .thesis-structure { display: flex; gap: 8px; align-items: center; margin-top: 10px; flex-wrap: wrap; }
+  .thesis-part { background: #f0f2f8; border: 1px solid #d0d4e0; border-radius: 6px; padding: 4px 10px; font-size: 12px; }
+  .thesis-arrow { color: #2563eb; font-size: 16px; }
+  .checklist { background: #fafafa; border: 1px solid #d0d4e0; border-radius: 8px; overflow: hidden; }
+  .checklist-item { display: flex; gap: 14px; padding: 12px 16px; border-bottom: 1px solid #d0d4e0; }
+  .checklist-item:last-child { border-bottom: none; }
+  .check-icon { width: 22px; height: 22px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; flex-shrink: 0; margin-top: 1px; }
+  .check-pass { background: #ecfdf5; color: #059669; border: 1px solid #34d399; }
+  .check-partial { background: #fffbeb; color: #b45309; border: 1px solid #f59e0b; }
+  .check-fail { background: #fef2f2; color: #dc2626; border: 1px solid #fca5a5; }
+  .check-label { font-weight: 600; font-size: 13px; }
+  .check-detail { color: #5a6280; font-size: 12px; margin-top: 2px; }
+  .check-why { font-size: 13px; }
+  table { width: 100%; border-collapse: collapse; background: #fafafa; border-radius: 8px; overflow: hidden; border: 1px solid #d0d4e0; }
+  thead tr { background: #f0f2f8; }
+  th { padding: 10px 14px; text-align: left; font-size: 11px; font-weight: 700; color: #5a6280; letter-spacing: 0.8px; text-transform: uppercase; }
+  td { padding: 10px 14px; border-top: 1px solid #d0d4e0; font-size: 13px; }
+  tr.total-row td { background: #e8ecf5; font-weight: 700; }
+  .penalty { color: #dc2626; }
+  .highlight-green { color: #059669; font-weight: 700; }
+  .chain-box { background: #fafafa; border: 1px solid #d0d4e0; border-radius: 8px; padding: 16px 20px; }
+  .chain-step { display: flex; gap: 12px; margin-bottom: 10px; }
+  .chain-step:last-child { margin-bottom: 0; }
+  .chain-arrow { color: #2563eb; font-size: 16px; }
+  .chain-label { font-size: 10px; font-weight: 700; letter-spacing: 1px; color: #5a6280; text-transform: uppercase; margin-bottom: 2px; }
+  .chain-text { font-size: 13px; }
+  .chain-confirmed { color: #059669; font-size: 11px; margin-left: 6px; }
+  .chain-forecast { color: #b45309; font-size: 11px; margin-left: 6px; }
+  .fact-item { background: #fafafa; border: 1px solid #d0d4e0; border-radius: 8px; padding: 14px 16px; margin-bottom: 8px; }
+  .fact-num { font-size: 10px; font-weight: 700; color: #2563eb; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 8px; display: block; }
+  .fact-what { font-weight: 600; font-size: 14px; margin-bottom: 6px; }
+  .fact-why { font-size: 13px; color: #5a6280; margin-bottom: 6px; }
+  .fact-so { font-size: 13px; color: #059669; }
+  .fact-label { display: inline-block; font-size: 10px; font-weight: 700; padding: 1px 6px; border-radius: 3px; margin-right: 4px; }
+  .label-what { background: #eff6ff; color: #1d4ed8; }
+  .label-why { background: #fff7ed; color: #ea580c; }
+  .label-so { background: #ecfdf5; color: #059669; }
+  .data-table th { background: #e8ecf5; }
+  .data-table td.key-col { background: #f0f6ff; }
+  .data-table .key-num { color: #059669; font-weight: 700; }
+  .data-table .key-opm { color: #b45309; }
+  caption { font-size: 11px; color: #5a6280; text-align: left; padding: 0 0 8px; caption-side: top; }
+  .val-box { background: #fafafa; border: 1px solid #d0d4e0; border-radius: 8px; padding: 16px 20px; font-size: 13px; line-height: 2; }
+  .val-formula { background: #f0f2f8; border-radius: 6px; padding: 10px 14px; font-family: monospace; font-size: 13px; margin: 10px 0; color: #b45309; }
+  .risk-item { background: #fafafa; border-radius: 0 6px 6px 0; padding: 14px 16px; margin-bottom: 10px; }
+  .risk-sev-high { border-left: 3px solid #dc2626; }
+  .risk-sev-mid { border-left: 3px solid #ea580c; }
+  .risk-assumption { font-weight: 600; font-size: 13px; margin-bottom: 4px; }
+  .risk-chain { font-size: 12px; color: #5a6280; margin: 4px 0; }
+  .risk-impact-num { font-size: 13px; color: #dc2626; font-weight: 600; margin-top: 4px; }
+  .checkpoint-item { display: flex; gap: 12px; padding: 10px 0; border-bottom: 1px solid #d0d4e0; font-size: 13px; }
+  .checkpoint-item:last-child { border-bottom: none; }
+  .cp-date { color: #2563eb; font-weight: 600; min-width: 90px; flex-shrink: 0; }
+  .cp-event { flex: 1; }
+  .cp-pass { color: #059669; font-size: 12px; margin-top: 2px; }
+  .cp-fail { color: #dc2626; font-size: 12px; margin-top: 2px; }
+  .opinion-box { background: #fafafa; border: 1px solid #d0d4e0; border-radius: 8px; padding: 16px 20px; font-size: 13px; line-height: 1.8; color: #5a6280; }
+  .decision-box { display: flex; gap: 14px; margin-top: 14px; }
+  .decision-btn { flex: 1; text-align: center; padding: 10px; border-radius: 6px; font-weight: 700; font-size: 13px; border: 1px solid; }
+  .decision-buy { background: #ecfdf5; color: #059669; border-color: #34d399; }
+  .decision-wait { background: #fffbeb; color: #b45309; border-color: #f59e0b; }
+  .decision-avoid { background: #fef2f2; color: #dc2626; border-color: #fca5a5; }
+  .decision-dim { opacity: 0.3; }
+  .upgrade-box { background: #eff6ff; border: 1px solid #93c5fd; border-radius: 8px; padding: 14px 16px; }
+  .upgrade-item { display: flex; gap: 10px; padding: 6px 0; border-bottom: 1px solid #dbeafe; font-size: 13px; color: #1a1d2e; }
+  .upgrade-item:last-child { border-bottom: none; }
+  .upgrade-when { color: #1d4ed8; font-weight: 600; min-width: 140px; flex-shrink: 0; }
+  .disclaimer { font-size: 11px; color: #9ca3af; text-align: center; margin-top: 40px; padding-top: 16px; border-top: 1px solid #d0d4e0; }
+</style></head><body>
+
+<div class="pdf-only-banner">외부 검색 절대 금지 — 제공된 PDF 파일만 활용 | 당일 발간 리포트 기준</div>
+
+<header class="header">
+  <h1>씨앤씨인터내셔널 (352480) | 중국 사업 호조에도 국내 매출 저하 아쉬움 | 메리츠증권 (화장품 업종 리포트) | 발간일: 2026.04.21</h1>
+  <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-bottom:12px;">
+    <span class="tag-badge tag-watch">🔥 주목</span>
+    <span class="score-badge score-mid">📊 45점</span>
+    <span style="font-size:12px;color:#5a6280;">비바이오</span>
+    <span class="pathway-badge">경로 ②볼륨드리븐(중국 이중구조)</span>
+  </div>
+  <div class="price-row">
+    <div class="price-item"><span class="label">투자의견</span><span class="val">PDF 미기재</span></div>
+    <div class="price-item"><span class="label">목표주가(TP)</span><span class="val">PDF 미기재</span></div>
+    <div class="price-item"><span class="label">현재주가(CP)</span><span class="val">PDF 미기재</span></div>
+    <div class="price-item"><span class="label">Upside</span><span class="val">PDF 미기재</span></div>
+    <div class="price-item"><span class="label">시가총액</span><span class="val">PDF 미기재</span></div>
+    <div class="price-item"><span class="label">종목 유형</span><span class="val">비바이오</span></div>
+  </div>
+</header>
+
+<section>
+  <div class="section-title">💡 이 종목에 투자해야 하는 이유 — 스토리 한 줄</div>
+  <div class="thesis-box">
+    "1Q26 중국 매출 +90% 고성장으로 해외 모멘텀 확인되나 국내 매출 저하 상쇄로 OP -14%, 이중구조 부담 — 중국 성장 속도가 국내 하락 커버할 시점까지 대기."
+  </div>
+  <div class="thesis-structure">
+    <div class="thesis-part" style="color:#059669;">① 확정 팩트<br/>1Q26 중국 +90% 고성장</div>
+    <div class="thesis-arrow">→</div>
+    <div class="thesis-part" style="color:#dc2626;">② 실적 변화<br/>1Q26 OP -14%, 국내 매출 저하 상쇄</div>
+    <div class="thesis-arrow">→</div>
+    <div class="thesis-part" style="color:#2563eb;">③ 시장 미반영<br/>중국 비중 확대 시 믹스 개선 기대</div>
+  </div>
+</section>
+
+<section>
+  <div class="section-title">✅ 주목 태그 조건 체크 (40점+ 유지)</div>
+  <div class="checklist">
+    <div class="checklist-item">
+      <div class="check-icon check-pass">✓</div>
+      <div>
+        <div class="check-label">조건 1 | 해외(중국) 고성장</div>
+        <div class="check-detail">매출 YoY +50%+</div>
+        <div class="check-why">1Q26 중국 매출 +90% 고성장 확인 — 해외 드라이버 강력 (통과)</div>
+      </div>
+    </div>
+    <div class="checklist-item">
+      <div class="check-icon check-fail">✗</div>
+      <div>
+        <div class="check-label">조건 2 | OP 성장</div>
+        <div class="check-detail">분기 OP +10%+</div>
+        <div class="check-why">1Q26 OP -14% 역성장 — 국내 매출 저하 충격 (미통과)</div>
+      </div>
+    </div>
+    <div class="checklist-item">
+      <div class="check-icon check-partial">△</div>
+      <div>
+        <div class="check-label">조건 3 | 이중 구조 관리</div>
+        <div class="check-detail">국내 하락 반전 가능성</div>
+        <div class="check-why">국내 ODM 재고조정 구간. 하반기 정상화 예상하나 가시성 제한</div>
+      </div>
+    </div>
+    <div class="checklist-item">
+      <div class="check-icon check-partial">△</div>
+      <div>
+        <div class="check-label">조건 4 | OPM 유지</div>
+        <div class="check-detail">두 자릿수 유지</div>
+        <div class="check-why">1Q26 OPM 15.8%로 고수익 유지. 2026E 15%대 전망</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="section-title">📊 투자 점수 판정 (v2.0 비바이오)</div>
+  <table>
+    <thead><tr><th>항목</th><th>판정</th><th>근거 (Why)</th></tr></thead>
+    <tbody>
+      <tr><td>종목 유형</td><td>비바이오</td><td>색조 ODM 전문</td></tr>
+      <tr><td>적용 가설</td><td>가설 2</td><td>중국 +90% 고성장이나 국내 저하 상쇄, OP -14% — 혼조 성장</td></tr>
+      <tr><td>촉매 등급</td><td>중급</td><td>중국 이중구조 비중 확대가 주 촉매</td></tr>
+      <tr><td>복합 여부</td><td>단독</td><td>중국 드라이버 단일. 국내는 부담 요인</td></tr>
+      <tr><td>직접성</td><td>직접</td><td>ODM 본업</td></tr>
+      <tr><td>매트릭스 기본 점수</td><td>50점</td><td>가설2 × 중급 × 단독 = 50점</td></tr>
+      <tr><td>페널티 ① 1Q OP 역성장</td><td class="penalty">-5점</td><td>OP -14% 역성장 — 단기 실적 부담</td></tr>
+      <tr class="total-row"><td>최종 투자 점수</td><td><span class="highlight-green">45점</span></td><td>50 - 5 = 45점. 주목(40+) 통과</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section>
+  <div class="section-title">⚡ 성장 인과 체인</div>
+  <div class="chain-box">
+    <div class="chain-step">
+      <div class="chain-arrow">①</div>
+      <div>
+        <div class="chain-label">구조 변화 / 촉매 <span class="chain-confirmed">● 확정 팩트</span></div>
+        <div class="chain-text">중국 매출 +90% 고성장(●●●) + 국내 ODM 매출 저하(●●) + 현지법인 이중구조 강화</div>
+      </div>
+    </div>
+    <div class="chain-step">
+      <div class="chain-arrow">↓</div>
+      <div>
+        <div class="chain-label">매출 영향 (규모·비중 수치)</div>
+        <div class="chain-text">1Q26 매출 +3% 내외(국내 하락 중국 상승 상쇄). 2026E 매출 +10%대 점진 회복</div>
+      </div>
+    </div>
+    <div class="chain-step">
+      <div class="chain-arrow">↓</div>
+      <div>
+        <div class="chain-label">OPM 변화 메커니즘</div>
+        <div class="chain-text">1Q26 OPM 15.8%로 두 자릿수 유지. 중국 비중 확대 시 믹스 개선 가능</div>
+      </div>
+    </div>
+    <div class="chain-step">
+      <div class="chain-arrow">↓</div>
+      <div>
+        <div class="chain-label">최종 실적 결과 <span class="chain-forecast">● 추정</span></div>
+        <div class="chain-text">2026E OP 반등 전환 예상하나 1Q 부진으로 연간 폭 제한</div>
+      </div>
+    </div>
+    <div class="chain-step">
+      <div class="chain-arrow">↓</div>
+      <div>
+        <div class="chain-label">시장 미반영 포인트 (So What)</div>
+        <div class="chain-text">중국 비중이 국내 하락 완전 커버하는 시점이 리레이팅 트리거</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="section-title">📌 핵심 팩트 3줄</div>
+  <div class="fact-item">
+    <span class="fact-num">Fact 01</span>
+    <div class="fact-what"><span class="fact-label label-what">WHAT</span>1Q26 중국 매출 +90% 고성장</div>
+    <div class="fact-why"><span class="fact-label label-why">WHY</span>현지 색조 ODM 수요 확대, 도우인/티몰 채널 침투</div>
+    <div class="fact-so"><span class="fact-label label-so">SO WHAT</span>해외 드라이버 강력 확인, 중국 비중 확대 중</div>
+  </div>
+  <div class="fact-item">
+    <span class="fact-num">Fact 02</span>
+    <div class="fact-what"><span class="fact-label label-what">WHAT</span>1Q26 OP -14% 역성장, 국내 ODM 매출 저하</div>
+    <div class="fact-why"><span class="fact-label label-why">WHY</span>국내 고객사 재고조정 + 주문 감소. 중국 성장이 하락 완전 상쇄 못함</div>
+    <div class="fact-so"><span class="fact-label label-so">SO WHAT</span>국내 매출 반등 타이밍이 투자 트리거</div>
+  </div>
+  <div class="fact-item">
+    <span class="fact-num">Fact 03</span>
+    <div class="fact-what"><span class="fact-label label-what">WHAT</span>OPM 15.8% 두 자릿수 유지</div>
+    <div class="fact-why"><span class="fact-label label-why">WHY</span>ODM 특성상 수익성 안정. 중국 고마진 채널 비중 증가</div>
+    <div class="fact-so"><span class="fact-label label-so">SO WHAT</span>국내 정상화 시 OPM 상승 레버리지 가능</div>
+  </div>
+</section>
+
+<section>
+  <div class="section-title">📄 원본 리포트 핵심 요약</div>
+  <div style="background:#fafafa;border:1px solid #d0d4e0;border-radius:8px;padding:16px 20px;margin-bottom:12px;">
+    <div style="font-size:11px;font-weight:700;letter-spacing:1px;color:#5a6280;text-transform:uppercase;margin-bottom:10px;">리포트 핵심 주장</div>
+    <p style="font-size:13px;line-height:1.9;">"중국 사업 +90% 고성장에도 국내 ODM 매출 저하가 상쇄해 1Q26 OP -14% 역성장. 중국 비중이 국내 하락을 완전히 커버할 시점까지 관망 필요. OPM 15%대 유지는 긍정적."</p>
+  </div>
+  <div style="background:#fafafa;border:1px solid #d0d4e0;border-radius:8px;padding:16px 20px;margin-bottom:12px;">
+    <div style="font-size:11px;font-weight:700;letter-spacing:1px;color:#5a6280;text-transform:uppercase;margin-bottom:10px;">사업 구조 & 성장 동력</div>
+    <table style="margin:0;">
+      <thead><tr><th style="width:25%;">구분</th><th style="width:75%;">동향</th></tr></thead>
+      <tbody>
+        <tr><td>중국 ODM</td><td>+90% 고성장, 현지법인 이중구조 레버리지</td></tr>
+        <tr><td>국내 ODM</td><td>고객사 재고조정으로 매출 저하, 부담 요인</td></tr>
+      </tbody>
+    </table>
+    <p style="font-size:12px;color:#5a6280;margin-top:10px;">▶ 핵심 성장 메커니즘: 중국 고성장 vs 국내 부진 양립. 중국 비중이 임계 돌파 시 이익 레버리지 발현</p>
+  </div>
+</section>
+
+<section>
+  <div class="section-title">📈 실적 전망 (연간)</div>
+  <table class="data-table">
+    <caption>단위: 십억원 | ★ = 투자 핵심 연도</caption>
+    <thead><tr><th>구분</th><th>2025A</th><th style="background:#dbeafe;color:#1e40af;font-weight:700;">2026E ★</th><th>2027E</th></tr></thead>
+    <tbody>
+      <tr><td>매출액</td><td>280</td><td class="key-col key-num">310</td><td>355</td></tr>
+      <tr><td>YoY(%)</td><td>-</td><td class="key-col">+10.7</td><td>+14.5</td></tr>
+      <tr><td>영업이익</td><td>46</td><td class="key-col key-num">50</td><td>60</td></tr>
+      <tr><td>YoY(%)</td><td>-</td><td class="key-col">+8.7</td><td>+20.0</td></tr>
+      <tr><td>OPM(%)</td><td>16.4</td><td class="key-col key-opm">16.1</td><td>16.9</td></tr>
+    </tbody>
+  </table>
+  <p style="font-size:12px;color:#5a6280;margin-top:10px;">▶ 왜 2026E가 변곡점인가: 중국 비중 임계 돌파 여부 확인 구간</p>
+</section>
+
+<section>
+  <div class="section-title">📅 분기별 실적 전망</div>
+  <table class="data-table">
+    <caption>단위: 십억원</caption>
+    <thead>
+      <tr><th>구분</th><th>1Q25</th><th>2Q25</th><th>3Q25</th><th>4Q25</th>
+        <th style="background:#dbeafe;color:#1e40af;font-weight:700;">1Q26E ★</th>
+        <th>2Q26E</th><th>3Q26E</th><th>4Q26E</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>매출</td><td>70</td><td>72</td><td>68</td><td>70</td><td class="key-col key-num">72</td><td>77</td><td>76</td><td>85</td></tr>
+      <tr><td>영업이익</td><td>13.2</td><td>12.5</td><td>10.5</td><td>9.8</td><td class="key-col key-num">11.4</td><td>12.8</td><td>12.0</td><td>13.8</td></tr>
+      <tr><td>OPM(%)</td><td>18.9</td><td>17.4</td><td>15.4</td><td>14.0</td><td class="key-col key-opm">15.8</td><td>16.6</td><td>15.8</td><td>16.2</td></tr>
+    </tbody>
+  </table>
+  <p style="font-size:12px;color:#5a6280;margin-top:10px;">▶ 1Q26 주목 포인트: 중국 +90%, 국내 저하 규모 확인. 2Q 국내 회복 가능성</p>
+</section>
+
+<section>
+  <div class="section-title">💰 밸류에이션</div>
+  <div class="val-box">
+    <div class="val-formula">PDF에 TP·PER 미기재 — 업종리포트 한정</div>
+    <p style="color:#5a6280;font-size:12px;margin-top:8px;">▶ 리레이팅 논리: 중국 비중 50%+ 돌파 및 국내 저점 통과 확인 시 ODM 프리미엄 복원</p>
+  </div>
+</section>
+
+<section>
+  <div class="section-title">⚠️ 리스크 시나리오</div>
+  <div class="risk-item risk-sev-high">
+    <div class="risk-assumption">🔴 핵심 가정: 국내 ODM 매출 2H 정상화</div>
+    <div class="risk-chain" style="margin-top:6px;">→ 국내 저하 지속 시: 중국 +90% 성장도 OP 턴어라운드 힘듬<br/>→ 실적 영향: 2026E OP 50억→42억</div>
+    <div class="risk-impact-num">→ 주가 영향: -15%</div>
+  </div>
+  <div class="risk-item risk-sev-mid">
+    <div class="risk-assumption">🟠 두 번째 가정: 중국 +90% 고성장 유지</div>
+    <div class="risk-chain" style="margin-top:6px;">→ 중국 둔화 시: 해외 드라이버 약화<br/>→ 실적 영향: 중국 비중 확대 스토리 약화</div>
+    <div class="risk-impact-num">→ 주가 영향: -10%</div>
+  </div>
+</section>
+
+<section>
+  <div class="section-title">🎯 모멘텀 체크포인트</div>
+  <div style="background:#fafafa;border:1px solid #d0d4e0;border-radius:8px;padding:4px 16px;">
+    <div class="checkpoint-item">
+      <span class="cp-date">2026.05</span>
+      <div>
+        <div class="cp-event">1Q26 실적 — 중국 +90% 확인, 국내 하락폭 측정</div>
+        <div class="cp-pass">✅ 중국 +90% 유지 + 국내 QoQ 반등 → 추가</div>
+        <div class="cp-fail">⛔ 국내 -20%+ 심화 시 → 재검토</div>
+      </div>
+    </div>
+    <div class="checkpoint-item">
+      <span class="cp-date">2026.3Q</span>
+      <div>
+        <div class="cp-event">2Q·3Q 국내 정상화 여부</div>
+        <div class="cp-pass">✅ 국내 YoY 플러스 전환 → 핵심 승격</div>
+        <div class="cp-fail">⛔ 국내 역성장 지속 → 보류 하향</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="section-title">💬 사견 & 투자 행동 결론</div>
+  <div class="opinion-box">
+    <p>중국 고성장(+90%)은 확실한 포지티브지만, 국내 ODM 저하가 1Q OP -14% 역성장을 초래. 이중구조의 한쪽이 구멍 났을 때 전체 실적이 눌림을 재확인. 국내 정상화 가시성 확보 전까지 신규 매수 보류가 합리적. OPM 15%+ 유지는 버팀목.</p>
+    <div class="decision-box">
+      <div class="decision-btn decision-buy decision-dim">✅ 지금 진입<br/><span style="font-size:11px;font-weight:400;"></span></div>
+      <div class="decision-btn decision-wait">⏳ 국내 반등 확인 후<br/><span style="font-size:11px;font-weight:400;">2Q 회복 확인 시</span></div>
+      <div class="decision-btn decision-avoid decision-dim">🚫 관망<br/><span style="font-size:11px;font-weight:400;"></span></div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="section-title">🚀 승격 조건 — 주목 종목 전용</div>
+  <div class="upgrade-box">
+    <div class="upgrade-item">
+      <span class="upgrade-when">2026.2Q-3Q</span>
+      <span>국내 ODM 매출 YoY 플러스 전환 및 분기 OP YoY +15%+ 시 → ⭐ 핵심 승격</span>
+    </div>
+    <div class="upgrade-item">
+      <span class="upgrade-when">2026.2H</span>
+      <span>중국 비중 50%+ 돌파 및 OPM 18%+ 달성 시 → 🚀 SS급 검토</span>
+    </div>
+    <div class="upgrade-item">
+      <span class="upgrade-when">2026E 연간</span>
+      <span>국내 매출 역성장 탈피 및 OP 60억+ 상향 시 → ⭐ 핵심 승격</span>
+    </div>
+  </div>
+</section>
+
+<div class="disclaimer">
+  ※ 본 글은 증권사 리포트를 개인 학습 목적으로 요약·정리한 것이며, 투자 권유가 아닙니다.<br/>
+  ※ 제공된 PDF 파일만 활용. 외부 검색·참조 없음. 당일 발간 리포트 기준.
+</div>
+
+</body></html>

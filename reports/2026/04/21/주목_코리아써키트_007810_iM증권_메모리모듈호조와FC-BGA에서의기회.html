@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>코리아써키트 (007810) 정리</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Pretendard','Apple SD Gothic Neo',-apple-system,sans-serif; background: #ffffff; color: #1a1d2e; line-height: 1.7; font-size: 14px; max-width: 900px; margin: 0 auto; padding: 32px 20px 80px; }
+  .header { border-left: 4px solid #2563eb; padding: 0 0 0 16px; margin-bottom: 24px; }
+  .header h1 { font-size: 20px; font-weight: 700; margin-bottom: 10px; color: #1a1d2e; }
+  .price-row { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin-top: 10px; }
+  .price-item { background: #f0f2f8; border: 1px solid #d0d4e0; border-radius: 6px; padding: 6px 14px; font-size: 13px; }
+  .price-item .label { color: #5a6280; font-size: 11px; display: block; }
+  .price-item .val { font-weight: 700; color: #1a1d2e; }
+  .upside-val { color: #059669; }
+  .tag-badge { display: inline-flex; align-items: center; gap: 6px; padding: 5px 14px; border-radius: 20px; font-size: 13px; font-weight: 700; }
+  .tag-watch { background: #eff6ff; color: #1d4ed8; border: 1px solid #93c5fd; }
+  .score-badge { display: inline-block; padding: 5px 14px; border-radius: 20px; font-size: 13px; font-weight: 700; background: #f0f2f8; border: 1px solid #d0d4e0; color: #1a1d2e; }
+  .score-mid { color: #b45309; }
+  .pathway-badge { display: inline-flex; align-items: center; gap: 4px; padding: 3px 10px; border-radius: 12px; font-size: 11px; font-weight: 600; background: #f0f2f8; border: 1px solid #d0d4e0; color: #5a6280; }
+  section { margin-bottom: 28px; }
+  .section-title { font-size: 11px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: #5a6280; border-bottom: 1px solid #d0d4e0; padding-bottom: 6px; margin-bottom: 14px; }
+  .pdf-only-banner { background: #fff7ed; border: 1px solid #f97316; border-radius: 8px; padding: 10px 16px; font-size: 12px; color: #c2410c; margin-bottom: 20px; text-align: center; font-weight: 700; }
+  .thesis-box { background: #f8faff; border: 1px solid #2563eb; border-radius: 8px; padding: 16px 20px; font-size: 15px; font-weight: 600; line-height: 1.6; color: #1a1d2e; }
+  .thesis-structure { display: flex; gap: 8px; align-items: center; margin-top: 10px; flex-wrap: wrap; }
+  .thesis-part { background: #f0f2f8; border: 1px solid #d0d4e0; border-radius: 6px; padding: 4px 10px; font-size: 12px; color: #1a1d2e; }
+  .thesis-arrow { color: #2563eb; font-size: 16px; }
+  .checklist { background: #fafafa; border: 1px solid #d0d4e0; border-radius: 8px; overflow: hidden; }
+  .checklist-item { display: flex; gap: 14px; align-items: flex-start; padding: 12px 16px; border-bottom: 1px solid #d0d4e0; }
+  .checklist-item:last-child { border-bottom: none; }
+  .check-icon { width: 22px; height: 22px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; flex-shrink: 0; margin-top: 1px; }
+  .check-pass { background: #ecfdf5; color: #059669; border: 1px solid #34d399; }
+  .check-fail { background: #fef2f2; color: #dc2626; border: 1px solid #fca5a5; }
+  .check-label { font-weight: 600; font-size: 13px; color: #1a1d2e; }
+  .check-detail { color: #5a6280; font-size: 12px; margin-top: 2px; }
+  .check-why { color: #1a1d2e; font-size: 13px; }
+  table { width: 100%; border-collapse: collapse; background: #fafafa; border-radius: 8px; overflow: hidden; border: 1px solid #d0d4e0; }
+  thead tr { background: #f0f2f8; }
+  th { padding: 10px 14px; text-align: left; font-size: 11px; font-weight: 700; color: #5a6280; letter-spacing: 0.8px; text-transform: uppercase; }
+  td { padding: 10px 14px; border-top: 1px solid #d0d4e0; font-size: 13px; color: #1a1d2e; }
+  tr.total-row td { background: #e8ecf5; font-weight: 700; }
+  .penalty { color: #dc2626; }
+  .highlight-green { color: #059669; font-weight: 700; }
+  .chain-box { background: #fafafa; border: 1px solid #d0d4e0; border-radius: 8px; padding: 16px 20px; }
+  .chain-step { display: flex; gap: 12px; align-items: flex-start; margin-bottom: 10px; }
+  .chain-step:last-child { margin-bottom: 0; }
+  .chain-arrow { color: #2563eb; font-size: 16px; flex-shrink: 0; margin-top: 1px; }
+  .chain-content { flex: 1; }
+  .chain-label { font-size: 10px; font-weight: 700; letter-spacing: 1px; color: #5a6280; text-transform: uppercase; margin-bottom: 2px; }
+  .chain-text { font-size: 13px; color: #1a1d2e; }
+  .chain-confirmed { color: #059669; font-size: 11px; margin-left: 6px; }
+  .chain-forecast { color: #b45309; font-size: 11px; margin-left: 6px; }
+  .fact-item { background: #fafafa; border: 1px solid #d0d4e0; border-radius: 8px; padding: 14px 16px; margin-bottom: 8px; }
+  .fact-num { font-size: 10px; font-weight: 700; color: #2563eb; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 8px; display: block; }
+  .fact-what { font-weight: 600; font-size: 14px; margin-bottom: 6px; color: #1a1d2e; }
+  .fact-why { font-size: 13px; color: #5a6280; margin-bottom: 6px; }
+  .fact-so { font-size: 13px; color: #059669; }
+  .fact-label { display: inline-block; font-size: 10px; font-weight: 700; padding: 1px 6px; border-radius: 3px; margin-right: 4px; }
+  .label-what { background: #eff6ff; color: #1d4ed8; }
+  .label-why { background: #fff7ed; color: #ea580c; }
+  .label-so { background: #ecfdf5; color: #059669; }
+  .data-table th { background: #e8ecf5; }
+  .data-table td.key-col { background: #f0f6ff; }
+  .data-table .key-num { color: #059669; font-weight: 700; }
+  .data-table .key-opm { color: #b45309; }
+  caption { font-size: 11px; color: #5a6280; text-align: left; padding: 0 0 8px; caption-side: top; }
+  .val-box { background: #fafafa; border: 1px solid #d0d4e0; border-radius: 8px; padding: 16px 20px; font-size: 13px; line-height: 2; color: #1a1d2e; }
+  .val-formula { background: #f0f2f8; border-radius: 6px; padding: 10px 14px; font-family: monospace; font-size: 13px; margin: 10px 0; color: #b45309; }
+  .risk-item { background: #fafafa; border-radius: 0 6px 6px 0; padding: 14px 16px; margin-bottom: 10px; }
+  .risk-sev-high { border-left: 3px solid #dc2626; }
+  .risk-sev-mid { border-left: 3px solid #ea580c; }
+  .risk-assumption { font-weight: 600; font-size: 13px; margin-bottom: 4px; color: #1a1d2e; }
+  .risk-chain { font-size: 12px; color: #5a6280; margin: 4px 0; }
+  .risk-impact-num { font-size: 13px; color: #dc2626; font-weight: 600; margin-top: 4px; }
+  .checkpoint-item { display: flex; gap: 12px; padding: 10px 0; border-bottom: 1px solid #d0d4e0; font-size: 13px; }
+  .checkpoint-item:last-child { border-bottom: none; }
+  .cp-date { color: #2563eb; font-weight: 600; min-width: 90px; flex-shrink: 0; }
+  .cp-event { flex: 1; color: #1a1d2e; }
+  .cp-pass { color: #059669; font-size: 12px; margin-top: 2px; }
+  .cp-fail { color: #dc2626; font-size: 12px; margin-top: 2px; }
+  .opinion-box { background: #fafafa; border: 1px solid #d0d4e0; border-radius: 8px; padding: 16px 20px; font-size: 13px; line-height: 1.8; color: #5a6280; }
+  .decision-box { display: flex; gap: 14px; margin-top: 14px; }
+  .decision-btn { flex: 1; text-align: center; padding: 10px; border-radius: 6px; font-weight: 700; font-size: 13px; border: 1px solid; }
+  .decision-buy { background: #ecfdf5; color: #059669; border-color: #34d399; }
+  .decision-wait { background: #fffbeb; color: #b45309; border-color: #f59e0b; }
+  .decision-avoid { background: #fef2f2; color: #dc2626; border-color: #fca5a5; }
+  .decision-dim { opacity: 0.3; }
+  .disclaimer { font-size: 11px; color: #9ca3af; text-align: center; margin-top: 40px; padding-top: 16px; border-top: 1px solid #d0d4e0; }
+</style>
+</head>
+<body>
+
+<div class="pdf-only-banner">
+  외부 검색 절대 금지 — 제공된 PDF 파일만 활용 | 당일 발간 리포트 기준 투자 종목 발굴 전용
+</div>
+
+<header class="header">
+  <h1>코리아써키트 (007810) | 메모리모듈 호조와 FC-BGA에서의 기회 | iM증권 | 발간일: 2026.04.21</h1>
+  <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-bottom:12px;">
+    <span class="tag-badge tag-watch">👀 주목</span>
+    <span class="score-badge score-mid">📊 40점</span>
+    <span style="font-size:12px;color:#5a6280;">비바이오</span>
+    <span class="pathway-badge">경로 ③ BEP 돌파형</span>
+  </div>
+  <div class="price-row">
+    <div class="price-item"><span class="label">투자의견</span><span class="val">NR (Not Rated)</span></div>
+    <div class="price-item"><span class="label">목표주가(TP)</span><span class="val">미제시 (NR)</span></div>
+    <div class="price-item"><span class="label">현재주가(CP)</span><span class="val">90,600원</span></div>
+    <div class="price-item"><span class="label">Upside</span><span class="val upside-val">산출 불가</span></div>
+    <div class="price-item"><span class="label">시가총액</span><span class="val">2,173십억원</span></div>
+    <div class="price-item"><span class="label">종목 유형</span><span class="val">비바이오</span></div>
+  </div>
+</header>
+
+<section>
+  <div class="section-title">이 종목에 투자해야 하는 이유 — 스토리 한 줄</div>
+  <div class="thesis-box">
+    탐방후기 기반의 3개 성장 포인트 확인 — ① PKG 26년 4,400억(FC-BGA 중심 회복), ② HDI 내 모듈·SSD 비중 25년 47%→26년 65% 급확대, ③ SOCAMM 메모리모듈 PCB 내 비중 26년 5%→27년 35% 급상승. 26·27E 컨센 P/E 24배·17배로 해외 Peer 및 국내 경쟁사 대비 매력적. 다만 iM증권 NR(Not Rated)로 TP 미제시 → 정확한 괴리 수치 부재로 '주목' 분류.
+  </div>
+  <div class="thesis-structure">
+    <div class="thesis-part" style="color:#059669;">① 확정 팩트<br/>HDI 26년 모듈·SSD 비중 65%·1,100억 투자 집행</div>
+    <div class="thesis-arrow">→</div>
+    <div class="thesis-part" style="color:#b45309;">② 실적 변화<br/>25E OP 흑전 54억→26F 137억(+291%)</div>
+    <div class="thesis-arrow">→</div>
+    <div class="thesis-part" style="color:#2563eb;">③ 시장 미반영<br/>NR로 TP 미제시, 컨센 P/E 17~24배</div>
+  </div>
+</section>
+
+<section>
+  <div class="section-title">핵심 태그 5가지 조건 체크 (5개 모두 통과해야 핵심 이상 가능)</div>
+  <div class="checklist">
+    <div class="checklist-item">
+      <div class="check-icon check-pass">✓</div>
+      <div>
+        <div class="check-label">조건 1 | 영업이익 성장 임계값</div>
+        <div class="check-detail">향후 1년 OP +50%+ AND (OPM +3%p+ OR OPM 15%+ 유지)</div>
+        <div class="check-why">25E OP 540억(흑전)→26F 1,372억(+291%), OPM 3.6→7.7%(+4.1%p) → 통과</div>
+      </div>
+    </div>
+    <div class="checklist-item">
+      <div class="check-icon check-pass">✓</div>
+      <div>
+        <div class="check-label">조건 2 | 3년 지속성 (3개 이상 충족)</div>
+        <div class="check-detail">수주잔고 / CAPA 확대 / 독점·특허 / Lock-in / CAGR 15%+</div>
+        <div class="check-why">① 26년 1,100억(모듈 증설 720억 포함) CAPA 투자 집행 ② 27년 추가 1,100억 투자 여력 ③ 메모리 고객사 확대(4Q26 추가 고객) ④ 매출 CAGR 16% → 4개 충족</div>
+      </div>
+    </div>
+    <div class="checklist-item">
+      <div class="check-icon check-pass">✓</div>
+      <div>
+        <div class="check-label">조건 3 | 확정 팩트(●●●) 2개 이상</div>
+        <div class="check-detail">●●● = 수주확정·인허가·계약공시·실적 확인</div>
+        <div class="check-why">●●● 26년 1,100억 투자 집행 중(CAPEX 확정) ●●● 4Q26 본격 양산 계획 설정 ●●○ SOCAMM 공급 진행 중(주요 메모리 고객사 1곳) → 통과</div>
+      </div>
+    </div>
+    <div class="checklist-item">
+      <div class="check-icon check-fail">✗</div>
+      <div>
+        <div class="check-label">조건 4 | 시장 미반영 (둘 중 하나)</div>
+        <div class="check-detail">Upside 40%+ OR 컨센서스 대비 추정치 +20%+ 괴리</div>
+        <div class="check-why">NR로 TP 미제시 → Upside·추정치 괴리 수치 산출 불가 → 조건 4 미충족(주목 강등)</div>
+      </div>
+    </div>
+    <div class="checklist-item">
+      <div class="check-icon check-pass">✓</div>
+      <div>
+        <div class="check-label">조건 5 | 이 리포트만의 차별화된 시각</div>
+        <div class="check-detail">모든 증권사 동일 논리면 주목. 신규 커버리지·고유 근거·컨센 상회 필수</div>
+        <div class="check-why">탐방후기 기반 3대 포인트(PKG·HDI·SOCAMM 비중 수치 구체화), SOCAMM 16층 고난도 스펙의 RDIMM 대비 면적당 판가 4배 근거 제시 → 차별화</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="section-title">투자 점수 판정 (v2.0 비바이오) — 모든 근거 칸 필수 기재</div>
+  <table>
+    <thead><tr><th>항목</th><th>판정</th><th>근거 (Why)</th></tr></thead>
+    <tbody>
+      <tr><td>종목 유형</td><td>비바이오</td><td>HDI·PKG 기판 제조업</td></tr>
+      <tr><td>적용 가설</td><td>가설 2</td><td>모듈·SSD 비중 47→65% 증거 있음, 26년 OP +291% 컨센 추정</td></tr>
+      <tr><td>촉매 등급</td><td>중급</td><td>SOCAMM·FC-BGA 기회 (NR이라 공식 TP 상향 없음)</td></tr>
+      <tr><td>복합 여부</td><td>복합</td><td>① PKG FC-BGA 회복 ② HDI 모듈·SSD 확대 ③ SOCAMM 장기 → 3촉매</td></tr>
+      <tr><td>직접성</td><td>직접</td><td>HDI·PKG가 주력 매출 직결</td></tr>
+      <tr><td>매트릭스 기본 점수</td><td>70점</td><td>가설2 × 중급 × 복합 = 70점</td></tr>
+      <tr><td>페널티 ① 단기 선반영</td><td class="penalty">-10점</td><td>3M +50.2%, 6M +372.6%, 12M +804.2% → 선반영 30%+ 해당</td></tr>
+      <tr><td>페널티 ② NR·TP 미제시 감점</td><td class="penalty">-20점</td><td>iM증권 NR로 목표주가·Upside 산출 불가 → 시장 미반영 검증 불능</td></tr>
+      <tr class="total-row"><td>최종 투자 점수</td><td><span style="color:#b45309;font-weight:700;">40점</span></td><td>70 - 10 - 20 = 40점 → 주목 충족</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section>
+  <div class="section-title">성장 인과 체인 — 왜 성장하는가 (각 단계에 수치 필수)</div>
+  <div class="chain-box">
+    <div class="chain-step">
+      <div class="chain-arrow">①</div>
+      <div class="chain-content">
+        <div class="chain-label">구조 변화 / 촉매 <span class="chain-confirmed">● 확정 팩트</span></div>
+        <div class="chain-text">26년 1,100억 투자 집행 중(모듈 증설 720억 포함, ●●●), 인터플렉스 보유 공장 외층 설비 투자·7월 장비 셋업·4Q26 본격 양산(●●●), SOCAMM 16층 고난도 스펙·주요 메모리 고객사 1곳 공급 중(●●○)</div>
+      </div>
+    </div>
+    <div class="chain-step">
+      <div class="chain-arrow">↓</div>
+      <div class="chain-content">
+        <div class="chain-label">매출 영향 (규모·비중 수치)</div>
+        <div class="chain-text">26F 매출 1.79조(+18.8%), 27F 2.08조(+15.8%). PKG 26년 4,400억 기대(FC-BGA 중심), HDI 내 모듈·SSD 비중 25년 47%→26년 65% 급확대, SOCAMM 비중 26년 5%→27년 35%로 급상승</div>
+      </div>
+    </div>
+    <div class="chain-step">
+      <div class="chain-arrow">↓</div>
+      <div class="chain-content">
+        <div class="chain-label">OPM 변화 메커니즘 (왜 마진이 오르는가)</div>
+        <div class="chain-text">전사 OPM -2.4→3.6→7.7→8.9%(4년 연속 상승). FC-BGA 전용 P3 공장 가동률 50% 후반→풀가동 지향으로 고정비 레버리지, SOCAMM 판가(RDIMM 대비 면적당 4배 프리미엄)가 믹스 개선 기여</div>
+      </div>
+    </div>
+    <div class="chain-step">
+      <div class="chain-arrow">↓</div>
+      <div class="chain-content">
+        <div class="chain-label">최종 실적 결과 <span class="chain-forecast">● 추정</span></div>
+        <div class="chain-text">25A OP 538억(흑전), 26F 1,372억(+291%), 27F 1,850억(+65.5%). ROE -31.1→11.5%로 흑자 전환</div>
+      </div>
+    </div>
+    <div class="chain-step">
+      <div class="chain-arrow">↓</div>
+      <div class="chain-content">
+        <div class="chain-label">시장 미반영 포인트 (So What)</div>
+        <div class="chain-text">26·27F 컨센 P/E 24배·17배로 해외 Peer 및 국내 경쟁사 대비 매력적. iM증권은 NR이나 탐방후기를 통해 3대 투자포인트 선제 식별, 향후 공식 커버리지 개시 시 TP 제시 가능</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="section-title">핵심 팩트 3줄 — WHAT(숫자) + WHY(원인) + SO WHAT(의미) 3요소 필수</div>
+  <div class="fact-item">
+    <span class="fact-num">Fact 01</span>
+    <div class="fact-what"><span class="fact-label label-what">WHAT</span>HDI 내 모듈·SSD 비중 25년 47%→26년 65%로 급확대, 26년 CAPEX 1,100억 집행 중</div>
+    <div class="fact-why"><span class="fact-label label-why">WHY</span>적기 수요 대응 차원. 인터플렉스 보유 공장에 외층 설비 추가 투자, 7월 장비 셋업 후 4Q26부터 본격 양산 계획</div>
+    <div class="fact-so"><span class="fact-label label-so">SO WHAT</span>27년 추가 1,100억 투자 여력 열림 → HDI 부문이 구조적 성장 축으로 전환, 26F OP +291%·27F +65.5%의 성장 가속화 근거</div>
+  </div>
+  <div class="fact-item">
+    <span class="fact-num">Fact 02</span>
+    <div class="fact-what"><span class="fact-label label-what">WHAT</span>SOCAMM이 메모리모듈 PCB 내 비중 26년 5%→27년 35%로 급상승, 16층 고난도 스펙</div>
+    <div class="fact-why"><span class="fact-label label-why">WHY</span>현재 주요 메모리 고객사 1곳 공급 중, 4Q26 추가 고객사향 매출 발생 기대. 16층 고난도 SOCAMM 기판은 동급 RDIMM 대비 면적당 판가가 최대 4배 높음</div>
+    <div class="fact-so"><span class="fact-label label-so">SO WHAT</span>고단가 제품 믹스 확대로 27년 이후 OPM 두자릿수 진입 여력 → 장기 수익성 레버리지 확보</div>
+  </div>
+  <div class="fact-item">
+    <span class="fact-num">Fact 03</span>
+    <div class="fact-what"><span class="fact-label label-what">WHAT</span>PKG 26년 매출 4,400억 기대, FC-BGA 전용 P3 공장 가동률 50% 후반→점진적 개선</div>
+    <div class="fact-why"><span class="fact-label label-why">WHY</span>FC-BGA 중심의 실적 회복. 주요 팹리스향 WiFi·셋톱박스 칩셋용 기판 공급 중, 2H26 동일 고객사향 N/W 기판 양산 목표(본격 성과는 '27년 기대)</div>
+    <div class="fact-so"><span class="fact-label label-so">SO WHAT</span>PKG 응용처 다변화가 27년 성장 드라이버 → 컨센 P/E 24→17배 할인 축소 여력</div>
+  </div>
+</section>
+
+<section>
+  <div class="section-title">원본 리포트 핵심 요약 — PDF 내용 직접 발췌 (외부 정보 추가 금지)</div>
+  <div style="background:#fafafa;border:1px solid #d0d4e0;border-radius:8px;padding:16px 20px;margin-bottom:12px;">
+    <div style="font-size:11px;font-weight:700;letter-spacing:1px;color:#5a6280;text-transform:uppercase;margin-bottom:10px;">리포트 핵심 주장 (애널리스트 관점 요약)</div>
+    <p style="font-size:13px;line-height:1.9;">탐방후기 기반 3개 투자포인트 점검 — ① PKG 실적 회복 및 응용처 다변화(FC-BGA 중심 4,400억), ② HDI 내 모듈·SSD 비중 급확대(47→65%), ③ SOCAMM 중심 장기 성장성(26년 5%→27년 35%). iM증권은 정식 커버리지가 아닌 NR 상태, TP 미제시이나 26·27F 컨센 P/E 24·17배가 해외 Peer 및 국내 경쟁사 대비 매력적이라는 의견.</p>
+    <div style="margin-top:10px;display:flex;gap:8px;flex-wrap:wrap;">
+      <div style="background:#f0f2f8;border:1px solid #d0d4e0;border-radius:6px;padding:6px 12px;font-size:12px;"><span style="color:#5a6280;font-size:10px;display:block;margin-bottom:2px;">이전 대비 변화 포인트</span>NR 상태 유지, 탐방 이후 구체적 수치(모듈 비중·CAPEX) 공개</div>
+      <div style="background:#f0f2f8;border:1px solid #d0d4e0;border-radius:6px;padding:6px 12px;font-size:12px;"><span style="color:#5a6280;font-size:10px;display:block;margin-bottom:2px;">컨센서스 대비</span>26F OP 1,372억·27F 1,850억 컨센 기준 상회 여부 판단 불가(NR)</div>
+    </div>
+  </div>
+  <div style="background:#fafafa;border:1px solid #d0d4e0;border-radius:8px;padding:16px 20px;margin-bottom:12px;">
+    <div style="font-size:11px;font-weight:700;letter-spacing:1px;color:#5a6280;text-transform:uppercase;margin-bottom:10px;">사업 구조 & 성장 동력</div>
+    <table style="margin:0;">
+      <thead><tr><th style="width:25%;">사업부</th><th style="width:20%;">26F 매출</th><th style="width:55%;">핵심 성장 드라이버 (Why 포함)</th></tr></thead>
+      <tbody>
+        <tr><td>PKG</td><td>4,400억</td><td>FC-BGA 회복, WiFi·셋톱박스·N/W 칩셋용 기판 공급, P3 가동률 50%대 → 상승</td></tr>
+        <tr><td>HDI</td><td>주력</td><td>모듈·SSD 비중 47→65% 급확대. 1,100억 투자 집행 중(4Q26 본격 양산)</td></tr>
+        <tr><td>SOCAMM (HDI 내)</td><td>비중 5→35%(27년)</td><td>16층 고난도, RDIMM 대비 면적당 판가 4배 높은 고단가 제품</td></tr>
+      </tbody>
+    </table>
+    <p style="font-size:12px;color:#5a6280;margin-top:10px;">▶ 핵심 성장 메커니즘: 탐방후기 통해 확인된 '적기 CAPEX(26년 1,100억·27년 추가 1,100억 여력) + 판가 프리미엄 제품 믹스 전환' 조합</p>
+  </div>
+  <div style="background:#fafafa;border:1px solid #d0d4e0;border-radius:8px;padding:16px 20px;margin-bottom:12px;">
+    <div style="font-size:11px;font-weight:700;letter-spacing:1px;color:#5a6280;text-transform:uppercase;margin-bottom:10px;">시장 괴리 — 왜 지금 시장이 틀렸는가</div>
+    <table style="margin:0;">
+      <thead><tr><th style="width:30%;">구분</th><th>내용</th></tr></thead>
+      <tbody>
+        <tr><td style="color:#5a6280;">시장 현재 인식</td><td>12M +804.2%, 3M +50.2% 급등 선반영. 컨센 P/E 24배(26F)·17배(27F)</td></tr>
+        <tr><td style="color:#2563eb;">이 리포트 주장</td><td>해외 Peer·국내 경쟁사 대비 P/E 매력, 탐방 통해 구조적 성장 확인. 단 TP 미제시</td></tr>
+        <tr><td style="color:#b45309;">괴리 해소 촉매</td><td>4Q26 본격 양산·27년 SOCAMM 비중 35% 달성 확인 시</td></tr>
+        <tr><td>괴리 강도</td><td><span style="color:#b45309;">불명확</span> (NR로 공식 TP 괴리 수치 없음)</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section>
+  <div class="section-title">실적 전망 (연간) — PDF 원문 수치만 기재</div>
+  <table class="data-table">
+    <caption>단위: 십억원 | ★ = 투자 핵심 연도 | F = 컨센 기준 추정</caption>
+    <thead>
+      <tr><th>구분</th><th>2022A</th><th>2023A</th><th>2024A</th><th>2025A</th><th style="background:#dbeafe;color:#1e40af;font-weight:700;">2026F ★</th><th>2027F</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>매출액</td><td>1,597</td><td>1,332</td><td>1,407</td><td>1,510</td><td class="key-col key-num">1,793</td><td>2,076</td></tr>
+      <tr><td>YoY(%)</td><td>12.1</td><td>-16.6</td><td>5.6</td><td>7.3</td><td class="key-col">18.8</td><td>15.8</td></tr>
+      <tr><td>영업이익</td><td>99</td><td>-32</td><td>-33</td><td>54</td><td class="key-col key-num">137</td><td>185</td></tr>
+      <tr><td>YoY(%)</td><td>16.5</td><td>적전</td><td>적지</td><td>흑전</td><td class="key-col key-num">291.2</td><td>65.5</td></tr>
+      <tr><td>OPM(%)</td><td>6.2</td><td>-2.4</td><td>-2.4</td><td>3.6</td><td class="key-col key-opm">7.7</td><td>8.9</td></tr>
+      <tr><td>EPS(원)</td><td>2,906</td><td>-1,550</td><td>-5,331</td><td>2,000</td><td class="key-col">4,300</td><td>5,654</td></tr>
+      <tr><td>PER(배)</td><td>4.1</td><td>-</td><td>-</td><td>24.1</td><td class="key-col">24</td><td>17</td></tr>
+      <tr><td>PBR(배)</td><td>0.7</td><td>1.3</td><td>0.7</td><td>3.0</td><td class="key-col">-</td><td>-</td></tr>
+      <tr><td>ROE(%)</td><td>15.5</td><td>-8.1</td><td>-31.1</td><td>11.5</td><td class="key-col">-</td><td>-</td></tr>
+    </tbody>
+  </table>
+  <p style="font-size:12px;color:#5a6280;margin-top:10px;padding:0 4px;">
+    ▶ 왜 26F가 변곡점인가: 25A 흑자전환(OP 540억)을 발판으로 26F에 모듈·SSD CAPEX 효과·FC-BGA 가동률 개선 본격 반영 → OP 540→1,372억(+291%). 27F OPM 8.9%로 마진 구조적 재도약.
+  </p>
+</section>
+
+<section>
+  <div class="section-title">분기별 실적 전망 — PDF에 있으면 반드시 기재</div>
+  <table class="data-table">
+    <thead>
+      <tr><th>구분</th><th>1Q25</th><th>2Q25</th><th>3Q25</th><th>4Q25</th><th>1Q26F</th><th>2Q26F</th><th>3Q26F</th><th style="background:#dbeafe;color:#1e40af;font-weight:700;">4Q26F ★</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>매출액(십억)</td><td>354.6</td><td>331.3</td><td>375.7</td><td>448.1</td><td>422.5</td><td>416.1</td><td>455.6</td><td class="key-col key-num">504.4</td></tr>
+      <tr><td>영업이익(십억)</td><td>-1.7</td><td>6.2</td><td>13.3</td><td>36.1</td><td>30.9</td><td>30.0</td><td>34.4</td><td class="key-col key-num">41.1</td></tr>
+      <tr><td>OPM(%)</td><td>-0.5</td><td>1.9</td><td>3.5</td><td>8.0</td><td>7.3</td><td>7.2</td><td>7.5</td><td class="key-col key-opm">8.2</td></tr>
+    </tbody>
+  </table>
+  <p style="font-size:12px;color:#5a6280;margin-top:10px;padding:0 4px;">
+    ▶ 4Q26 포인트: 모듈 증설 양산 개시 분기. 매출 5,044억·OPM 8.2% 달성 여부가 27F OP 1,850억 추정 정합성 검증 1차 지점.
+  </p>
+</section>
+
+<section>
+  <div class="section-title">밸류에이션 — 왜 이 배수인가 1문장 필수</div>
+  <div class="val-box">
+    <div class="val-formula">iM증권 NR (Not Rated) — TP 미제시</div>
+    <p style="color:#5a6280;font-size:12px;margin-top:8px;">▶ 참고 지표: 컨센 기준 26F P/E 24배, 27F P/E 17배. 해외 Peer(Ibiden·Unimicron 등) 27년 평균 P/E 35배 대비 저평가이나 정식 TP 없음</p>
+    <p style="color:#5a6280;font-size:12px;margin-top:4px;">▶ 왜 NR인가: iM증권은 본 리포트에서 정식 커버리지 개시 없이 탐방후기 형태로 발간. 공식 TP·투자의견 제시 전 단계</p>
+  </div>
+</section>
+
+<section>
+  <div class="section-title">리스크 — 핵심 가정이 틀릴 경우 시나리오</div>
+  <div class="risk-item risk-sev-high">
+    <div class="risk-assumption">🔴 핵심 가정: 4Q26 모듈 증설 본격 양산 및 SOCAMM 27년 비중 35% 확대 실현</div>
+    <div class="risk-chain" style="margin-top:6px;">→ 붕괴 시: CAPEX 집행 지연·추가 고객사 확보 실패 / 4Q26 가동률 저조<br/>→ 실적 영향: 27F OP 1,850억 → 1,200억 수준(-35%), OPM 8.9→6% 회귀</div>
+    <div class="risk-impact-num">→ 주가 영향: P/E 17→12배 재하향 시 -35% 수준</div>
+  </div>
+  <div class="risk-item risk-sev-mid">
+    <div class="risk-assumption">🟠 두 번째 가정: FC-BGA P3 가동률 개선·팹리스 고객사 N/W 기판 양산 성공</div>
+    <div class="risk-chain" style="margin-top:6px;">→ 붕괴 시: 2H26 N/W 양산 일정 지연, P3 가동률 50%대 고착화<br/>→ PKG 26F 4,400억 매출 미달, 이익 기여 감소</div>
+    <div class="risk-impact-num">→ 주가 영향: OPM 7.7%→5% 회귀 시 15~20% 추가 조정</div>
+  </div>
+</section>
+
+<section>
+  <div class="section-title">모멘텀 확인 체크포인트</div>
+  <div style="background:#fafafa;border:1px solid #d0d4e0;border-radius:8px;padding:4px 16px;">
+    <div class="checkpoint-item">
+      <span class="cp-date">2026.07</span>
+      <div>
+        <div class="cp-event">인터플렉스 공장 외층 설비 장비 셋업 완료 확인</div>
+        <div class="cp-pass">✅ 일정대로 진행 시 → 4Q26 양산 계획 유지, 27F 추정 유지</div>
+        <div class="cp-fail">⛔ 지연 시 → 27F 추정 OP 하향 리스크</div>
+      </div>
+    </div>
+    <div class="checkpoint-item">
+      <span class="cp-date">2026.4Q</span>
+      <div>
+        <div class="cp-event">SOCAMM 추가 고객사향 공급 개시 및 4Q26 실적 발표</div>
+        <div class="cp-pass">✅ OPM 8.2%·OP 411억 달성 시 → 27F OP 1,850억 컨센 정합 → iM증권 NR→정식 커버리지 전환 가능성</div>
+        <div class="cp-fail">⛔ 추가 고객 확보 실패 시 → SOCAMM 비중 35% 달성 차질</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="section-title">사견 & 투자 행동 결론</div>
+  <div class="opinion-box">
+    <p>iM증권 NR 상태로 공식 TP·Upside 미제시. 컨센 P/E 26F 24배·27F 17배로 해외 Peer 대비 매력적 구간이나 12M +804% 급등으로 단기 선반영 부담 큼. 탐방후기의 3대 포인트(HDI 모듈·SSD 비중 급확대·SOCAMM 장기 성장·FC-BGA 회복)는 핵심 5조건 중 4개 통과했으나 조건 4(시장 미반영)가 NR로 검증 불능. 핵심 점수 페널티 -20점 추가 적용하여 주목 태그로 분류. 타이밍: 4Q26 모듈 양산 개시 확인 후 정식 커버리지 개시 시점이 재평가 트리거.</p>
+    <div class="decision-box">
+      <div class="decision-btn decision-buy decision-dim">지금 진입 가능<br/><span style="font-size:11px;font-weight:400;">NR로 TP 미제시</span></div>
+      <div class="decision-btn decision-wait">이벤트 후 진입<br/><span style="font-size:11px;font-weight:400;">4Q26 양산 & 정식 커버리지 대기</span></div>
+      <div class="decision-btn decision-avoid decision-dim">관망<br/><span style="font-size:11px;font-weight:400;">12M +804% 부담</span></div>
+    </div>
+  </div>
+</section>
+
+<div class="disclaimer">
+  ※ 본 글은 증권사 리포트를 개인 학습 목적으로 요약·정리한 것이며, 투자 권유가 아닙니다.<br/>
+  ※ 제공된 PDF 파일만 활용. 외부 검색·참조 없음. 당일 발간 리포트 기준.
+</div>
+
+</body>
+</html>

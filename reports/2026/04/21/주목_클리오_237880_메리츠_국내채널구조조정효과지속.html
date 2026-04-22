@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>클리오 (237880) 정리</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Pretendard','Apple SD Gothic Neo',-apple-system,sans-serif; background: #ffffff; color: #1a1d2e; line-height: 1.7; font-size: 14px; max-width: 900px; margin: 0 auto; padding: 32px 20px 80px; }
+  .header { border-left: 4px solid #2563eb; padding: 0 0 0 16px; margin-bottom: 24px; }
+  .header h1 { font-size: 20px; font-weight: 700; margin-bottom: 10px; color: #1a1d2e; }
+  .price-row { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin-top: 10px; }
+  .price-item { background: #f0f2f8; border: 1px solid #d0d4e0; border-radius: 6px; padding: 6px 14px; font-size: 13px; }
+  .price-item .label { color: #5a6280; font-size: 11px; display: block; }
+  .price-item .val { font-weight: 700; color: #1a1d2e; }
+  .upside-val { color: #059669; }
+  .tag-badge { display: inline-flex; align-items: center; gap: 6px; padding: 5px 14px; border-radius: 20px; font-size: 13px; font-weight: 700; }
+  .tag-watch { background: #fffbeb; color: #b45309; border: 1px solid #f59e0b; }
+  .score-badge { display: inline-block; padding: 5px 14px; border-radius: 20px; font-size: 13px; font-weight: 700; background: #f0f2f8; border: 1px solid #d0d4e0; color: #1a1d2e; }
+  .score-mid { color: #b45309; }
+  .pathway-badge { display: inline-flex; align-items: center; gap: 4px; padding: 3px 10px; border-radius: 12px; font-size: 11px; font-weight: 600; background: #f0f2f8; border: 1px solid #d0d4e0; color: #5a6280; }
+  section { margin-bottom: 28px; }
+  .section-title { font-size: 11px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: #5a6280; border-bottom: 1px solid #d0d4e0; padding-bottom: 6px; margin-bottom: 14px; }
+  .pdf-only-banner { background: #fff7ed; border: 1px solid #f97316; border-radius: 8px; padding: 10px 16px; font-size: 12px; color: #c2410c; margin-bottom: 20px; text-align: center; font-weight: 700; }
+  .thesis-box { background: #f8faff; border: 1px solid #2563eb; border-radius: 8px; padding: 16px 20px; font-size: 15px; font-weight: 600; line-height: 1.6; color: #1a1d2e; }
+  .thesis-structure { display: flex; gap: 8px; align-items: center; margin-top: 10px; flex-wrap: wrap; }
+  .thesis-part { background: #f0f2f8; border: 1px solid #d0d4e0; border-radius: 6px; padding: 4px 10px; font-size: 12px; color: #1a1d2e; }
+  .thesis-arrow { color: #2563eb; font-size: 16px; }
+  .checklist { background: #fafafa; border: 1px solid #d0d4e0; border-radius: 8px; overflow: hidden; }
+  .checklist-item { display: flex; gap: 14px; align-items: flex-start; padding: 12px 16px; border-bottom: 1px solid #d0d4e0; }
+  .checklist-item:last-child { border-bottom: none; }
+  .check-icon { width: 22px; height: 22px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; flex-shrink: 0; margin-top: 1px; }
+  .check-pass { background: #ecfdf5; color: #059669; border: 1px solid #34d399; }
+  .check-fail { background: #fef2f2; color: #dc2626; border: 1px solid #fca5a5; }
+  .check-label { font-weight: 600; font-size: 13px; color: #1a1d2e; }
+  .check-detail { color: #5a6280; font-size: 12px; margin-top: 2px; }
+  .check-why { color: #1a1d2e; font-size: 13px; }
+  table { width: 100%; border-collapse: collapse; background: #fafafa; border-radius: 8px; overflow: hidden; border: 1px solid #d0d4e0; }
+  thead tr { background: #f0f2f8; }
+  th { padding: 10px 14px; text-align: left; font-size: 11px; font-weight: 700; color: #5a6280; letter-spacing: 0.8px; text-transform: uppercase; }
+  td { padding: 10px 14px; border-top: 1px solid #d0d4e0; font-size: 13px; color: #1a1d2e; }
+  tr.total-row td { background: #e8ecf5; font-weight: 700; }
+  .penalty { color: #dc2626; }
+  .highlight-green { color: #059669; font-weight: 700; }
+  .chain-box { background: #fafafa; border: 1px solid #d0d4e0; border-radius: 8px; padding: 16px 20px; }
+  .chain-step { display: flex; gap: 12px; align-items: flex-start; margin-bottom: 10px; }
+  .chain-step:last-child { margin-bottom: 0; }
+  .chain-arrow { color: #2563eb; font-size: 16px; flex-shrink: 0; margin-top: 1px; }
+  .chain-content { flex: 1; }
+  .chain-label { font-size: 10px; font-weight: 700; letter-spacing: 1px; color: #5a6280; text-transform: uppercase; margin-bottom: 2px; }
+  .chain-text { font-size: 13px; color: #1a1d2e; }
+  .chain-confirmed { color: #059669; font-size: 11px; margin-left: 6px; }
+  .chain-forecast { color: #b45309; font-size: 11px; margin-left: 6px; }
+  .fact-item { background: #fafafa; border: 1px solid #d0d4e0; border-radius: 8px; padding: 14px 16px; margin-bottom: 8px; }
+  .fact-num { font-size: 10px; font-weight: 700; color: #2563eb; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 8px; display: block; }
+  .fact-what { font-weight: 600; font-size: 14px; margin-bottom: 6px; color: #1a1d2e; }
+  .fact-why { font-size: 13px; color: #5a6280; margin-bottom: 6px; }
+  .fact-so { font-size: 13px; color: #059669; }
+  .fact-label { display: inline-block; font-size: 10px; font-weight: 700; padding: 1px 6px; border-radius: 3px; margin-right: 4px; }
+  .label-what { background: #eff6ff; color: #1d4ed8; }
+  .label-why { background: #fff7ed; color: #ea580c; }
+  .label-so { background: #ecfdf5; color: #059669; }
+  .data-table th { background: #e8ecf5; }
+  .data-table td.key-col { background: #f0f6ff; }
+  .data-table .key-num { color: #059669; font-weight: 700; }
+  .data-table .key-opm { color: #b45309; }
+  caption { font-size: 11px; color: #5a6280; text-align: left; padding: 0 0 8px; caption-side: top; }
+  .val-box { background: #fafafa; border: 1px solid #d0d4e0; border-radius: 8px; padding: 16px 20px; font-size: 13px; line-height: 2; color: #1a1d2e; }
+  .val-formula { background: #f0f2f8; border-radius: 6px; padding: 10px 14px; font-family: monospace; font-size: 13px; margin: 10px 0; color: #b45309; }
+  .risk-item { background: #fafafa; border-radius: 0 6px 6px 0; padding: 14px 16px; margin-bottom: 10px; }
+  .risk-sev-high { border-left: 3px solid #dc2626; }
+  .risk-sev-mid { border-left: 3px solid #ea580c; }
+  .risk-assumption { font-weight: 600; font-size: 13px; margin-bottom: 4px; color: #1a1d2e; }
+  .risk-chain { font-size: 12px; color: #5a6280; margin: 4px 0; }
+  .risk-impact-num { font-size: 13px; color: #dc2626; font-weight: 600; margin-top: 4px; }
+  .checkpoint-item { display: flex; gap: 12px; padding: 10px 0; border-bottom: 1px solid #d0d4e0; font-size: 13px; }
+  .checkpoint-item:last-child { border-bottom: none; }
+  .cp-date { color: #2563eb; font-weight: 600; min-width: 90px; flex-shrink: 0; }
+  .cp-event { flex: 1; color: #1a1d2e; }
+  .cp-pass { color: #059669; font-size: 12px; margin-top: 2px; }
+  .cp-fail { color: #dc2626; font-size: 12px; margin-top: 2px; }
+  .opinion-box { background: #fafafa; border: 1px solid #d0d4e0; border-radius: 8px; padding: 16px 20px; font-size: 13px; line-height: 1.8; color: #5a6280; }
+  .decision-box { display: flex; gap: 14px; margin-top: 14px; }
+  .decision-btn { flex: 1; text-align: center; padding: 10px; border-radius: 6px; font-weight: 700; font-size: 13px; border: 1px solid; }
+  .decision-buy { background: #ecfdf5; color: #059669; border-color: #34d399; }
+  .decision-wait { background: #fffbeb; color: #b45309; border-color: #f59e0b; }
+  .decision-avoid { background: #fef2f2; color: #dc2626; border-color: #fca5a5; }
+  .decision-dim { opacity: 0.3; }
+  .upgrade-box { background: #eff6ff; border: 1px solid #93c5fd; border-radius: 8px; padding: 14px 16px; }
+  .upgrade-item { display: flex; gap: 10px; padding: 6px 0; border-bottom: 1px solid #dbeafe; font-size: 13px; color: #1a1d2e; }
+  .upgrade-item:last-child { border-bottom: none; }
+  .upgrade-when { color: #1d4ed8; font-weight: 600; min-width: 140px; flex-shrink: 0; }
+  .disclaimer { font-size: 11px; color: #9ca3af; text-align: center; margin-top: 40px; padding-top: 16px; border-top: 1px solid #d0d4e0; }
+</style>
+</head>
+<body>
+
+<div class="pdf-only-banner">🚫 외부 검색 절대 금지 — 제공된 PDF 파일만 활용 | 당일 발간 리포트 기준 투자 종목 발굴 전용</div>
+
+<header class="header">
+  <h1>클리오 (237880) | 국내 채널 구조조정 효과 지속 | 메리츠증권 박종대 | 발간일: 2026.04.21</h1>
+  <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-bottom:12px;">
+    <span class="tag-badge tag-watch">🔥 주목</span>
+    <span class="score-badge score-mid">📊 40점</span>
+    <span style="font-size:12px;color:#5a6280;">비바이오</span>
+    <span class="pathway-badge">경로 ① OPM 확장 (저마진 채널 정리→OPM 상승)</span>
+  </div>
+  <div class="price-row">
+    <div class="price-item"><span class="label">투자의견</span><span class="val">PDF 명시 없음 (업종 Insight 코멘트)</span></div>
+    <div class="price-item"><span class="label">목표주가(TP)</span><span class="val">-</span></div>
+    <div class="price-item"><span class="label">현재주가(CP)</span><span class="val">-</span></div>
+    <div class="price-item"><span class="label">Upside</span><span class="val upside-val">-</span></div>
+    <div class="price-item"><span class="label">시가총액</span><span class="val">-</span></div>
+    <div class="price-item"><span class="label">종목 유형</span><span class="val">비바이오</span></div>
+  </div>
+</header>
+
+<section>
+  <div class="section-title">💡 이 종목에 투자해야 하는 이유 — 스토리 한 줄</div>
+  <div class="thesis-box">
+    저마진 홈쇼핑/다이소 채널 축소(●●● 실적 확인)로 1Q26E 매출은 YoY -3%지만 OP 40억원(YoY +249%)·OPM 5.0%(+3.6%p)로 수익성이 극적으로 개선 중, 26E 연간 OP 233억(+42%) 전망이나 미국 BEP 돌파·2분기 일본 신제품 입점 외 확정 팩트가 제한되어 업사이드 수치는 리포트에 미제시됨.
+  </div>
+  <div class="thesis-structure">
+    <div class="thesis-part" style="color:#059669;">① 확정 팩트<br/>저마진 홈쇼핑·다이소 축소(●●● 4Q25 실적)</div>
+    <div class="thesis-arrow">→</div>
+    <div class="thesis-part" style="color:#b45309;">② 실적 변화<br/>1Q26E OP +249%, OPM 1.4→5.0%(+3.6%p)</div>
+    <div class="thesis-arrow">→</div>
+    <div class="thesis-part" style="color:#2563eb;">③ 시장 미반영<br/>Upside — PDF 미제시 (업종 인덱스 리포트)</div>
+  </div>
+</section>
+
+<section>
+  <div class="section-title">✅ 핵심 태그 5가지 조건 체크 (5개 모두 통과해야 ⭐핵심 이상 가능)</div>
+  <div class="checklist">
+    <div class="checklist-item">
+      <div class="check-icon check-pass">✓</div>
+      <div>
+        <div class="check-label">조건 1 | 영업이익 성장 임계값</div>
+        <div class="check-detail">향후 1년 OP +50%+ AND (OPM +3%p+ OR OPM 15%+ 유지)</div>
+        <div class="check-why">1Q26E OP +249% (40억), OPM 1.4%→5.0%(+3.6%p) 통과. 그러나 26E 연간 OP +42%(233억), OPM 6.9%로 연간 기준은 +50% 미달 → 분기 기준만 통과</div>
+      </div>
+    </div>
+    <div class="checklist-item">
+      <div class="check-icon check-fail">✗</div>
+      <div>
+        <div class="check-label">조건 2 | 3년 지속성 (3개 이상 충족)</div>
+        <div class="check-detail">수주잔고 / CAPA 확대 / 독점·특허 / CAGR 15%+ / L/O 등</div>
+        <div class="check-why">26E~28E OP CAGR 약 9%(23→25억원). 리커링·독점·CAPA 명시 없음. 해외 신규 입점(얼타뷰티·코스트코·세븐일레븐)은 있으나 3개년 CAGR 15% 기준 미달</div>
+      </div>
+    </div>
+    <div class="checklist-item">
+      <div class="check-icon check-fail">✗</div>
+      <div>
+        <div class="check-label">조건 3 | 확정 팩트(●●●) 2개 이상</div>
+        <div class="check-detail">●●● = 수주확정·인허가·계약공시·실적 확인</div>
+        <div class="check-why">●●● 저마진 채널 축소 실적 확인(4Q25), ●●○ 얼타뷰티 힐링버드·코스트코 구달세럼 입점 예정(시점 ●●○), ●●○ 일본 코스트코·세븐일레븐 구달비타씨세럼 2Q 입점 예정 → ●●● 1개 부족</div>
+      </div>
+    </div>
+    <div class="checklist-item">
+      <div class="check-icon check-fail">✗</div>
+      <div>
+        <div class="check-label">조건 4 | 시장 미반영 (둘 중 하나)</div>
+        <div class="check-detail">Upside 40%+ OR 컨센서스 대비 추정치 +20%+ 괴리</div>
+        <div class="check-why">PDF에 TP·CP·Upside·컨센 괴리 수치 미제시(업종 Industry Insight 코멘트). 판정 불가 → 안전하게 FAIL 처리</div>
+      </div>
+    </div>
+    <div class="checklist-item">
+      <div class="check-icon check-pass">✓</div>
+      <div>
+        <div class="check-label">조건 5 | 이 리포트만의 차별화된 시각</div>
+        <div class="check-detail">모든 증권사 동일 논리면 주목. 신규 커버리지·고유 근거·컨센 상회 필수</div>
+        <div class="check-why">"채널 구조조정 효과 지속" 프레임으로 매출 감소를 수익성 개선의 긍정 신호로 재해석. 올영 어워즈에서 페리페라·구달이 뒤로 밀렸다는 우려 요인도 솔직히 병기 → 차별화된 밸런스 시각</div>
+      </div>
+    </div>
+  </div>
+  <p style="font-size:11px;color:#dc2626;margin-top:8px;padding:0 4px;">⚠️ 5개 중 3개 미달 → 핵심 불가, 🔥 주목 확정</p>
+</section>
+
+<section>
+  <div class="section-title">📊 투자 점수 판정 (v2.0 비바이오)</div>
+  <table>
+    <thead><tr><th>항목</th><th>판정</th><th>근거</th></tr></thead>
+    <tbody>
+      <tr><td>종목 유형</td><td>비바이오</td><td>색조·스킨케어 브랜드사. 주가가 실적으로 결정</td></tr>
+      <tr><td>적용 가설</td><td>가설 2</td><td>이미 4Q25부터 수익성 개선 진행 중(OPM 1.4→8.7%) + 채널 구조조정 효과로 OPM 지속 개선 예상</td></tr>
+      <tr><td>촉매 등급</td><td>중급</td><td>저마진 채널 축소는 전사 구조 변화지만 단일 구조조정 건이며 연간 OP +42% 수준</td></tr>
+      <tr><td>복합 여부</td><td>복합</td><td>① 국내 채널 구조조정 ② 미국 BEP 돌파(얼타·코스트코) ③ 일본 구달 신규 입점 — 3개 촉매</td></tr>
+      <tr><td>직접성</td><td>직접</td><td>채널 정리·해외 신규 입점 모두 주력 매출 1단계 직결</td></tr>
+      <tr><td>매트릭스 기본 점수</td><td>70점</td><td>가설2 × 중급 × 복합 = 70점</td></tr>
+      <tr><td>페널티 ① 잠재수주 미확정</td><td class="penalty">-10점</td><td>미국 BEP·일본 신제품 등 하반기 기대 요인 중 다수가 ●●○(예정)에 의존 30%+</td></tr>
+      <tr><td>페널티 ② 리스크 집중</td><td class="penalty">-10점</td><td>국내 매출 비중 55%(2025년 186억/329억, 약 57%) + 올영 의존도 높음 → 단일 채널 집중도 고위험</td></tr>
+      <tr><td>페널티 ③ 컨센 이미 반영</td><td class="penalty">-10점</td><td>채널 구조조정·수익성 개선 내러티브는 업종 공통 인식 → 차별화 정도 제한적. 안전보수 적용</td></tr>
+      <tr class="total-row"><td>최종 투자 점수</td><td><span class="highlight-green">40점</span></td><td>🔥 주목 하단 (40점 == 주목 최소)</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section>
+  <div class="section-title">⚡ 성장 인과 체인 — 왜 성장하는가</div>
+  <div class="chain-box">
+    <div class="chain-step">
+      <div class="chain-arrow">①</div>
+      <div class="chain-content">
+        <div class="chain-label">구조 변화 / 촉매<span class="chain-confirmed">●●● 확정</span></div>
+        <div class="chain-text">저마진 홈쇼핑·다이소 채널 비중 축소 (4Q25 실적으로 YoY +6,310% 영업이익 확인) + 얼타뷰티 힐링버드·코스트코 구달세럼 입점 예정(●●○)</div>
+      </div>
+    </div>
+    <div class="chain-step">
+      <div class="chain-arrow">↓</div>
+      <div class="chain-content">
+        <div class="chain-label">매출 영향</div>
+        <div class="chain-text">1Q26E 매출 802억(YoY -3%) — 국내 채널 축소로 YoY(-), 그러나 미국 YoY +15%, EMEA YoY +40%. 26E 연간 매출 3,365억(+2.3%)</div>
+      </div>
+    </div>
+    <div class="chain-step">
+      <div class="chain-arrow">↓</div>
+      <div class="chain-content">
+        <div class="chain-label">OPM 변화 메커니즘</div>
+        <div class="chain-text">왜 OPM 오르는가: 저마진 홈쇼핑·다이소 제거 + 미국 BEP 돌파(B2B 비중↑) → 매출 비중이 고마진 올영/해외로 이동. 1Q26 OPM 5.0%(+3.6%p), 연간 6.9%(+1.9%p)</div>
+      </div>
+    </div>
+    <div class="chain-step">
+      <div class="chain-arrow">↓</div>
+      <div class="chain-content">
+        <div class="chain-label">최종 실적 결과<span class="chain-forecast">●●○ 추정</span></div>
+        <div class="chain-text">26E OP 233억(+42%), OPM 6.9%(+1.9%p). 27E OP 254억(+9%) — 2년차 성장 둔화</div>
+      </div>
+    </div>
+    <div class="chain-step">
+      <div class="chain-arrow">↓</div>
+      <div class="chain-content">
+        <div class="chain-label">시장 미반영 포인트</div>
+        <div class="chain-text">PDF 내 Upside 수치 없음. 체크 포인트는 2Q26 일본 코스트코·세븐일레븐 입점 효과 확인 및 미국 얼타뷰티 힐링버드 판매 데이터</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="section-title">📌 핵심 팩트 3줄 — WHAT+WHY+SO WHAT</div>
+  <div class="fact-item">
+    <span class="fact-num">Fact 01</span>
+    <div class="fact-what"><span class="fact-label label-what">WHAT</span>1Q26E 영업이익 40억(YoY +249%), OPM 1.4%→5.0%(+3.6%p)</div>
+    <div class="fact-why"><span class="fact-label label-why">WHY</span>저마진 홈쇼핑·다이소 채널을 의도적으로 축소하면서 매출은 YoY -3%지만 믹스 업그레이드가 마진을 2.5배로 끌어올림 (4Q25 OPM 8.7% 이미 확인)</div>
+    <div class="fact-so"><span class="fact-label label-so">SO WHAT</span>전형적인 "매출 희생을 통한 수익성 회복" 구조조정 1년차. 채널 정리가 추가 진행되면 OPM 10% 레벨까지 재평가 여지</div>
+  </div>
+  <div class="fact-item">
+    <span class="fact-num">Fact 02</span>
+    <div class="fact-what"><span class="fact-label label-what">WHAT</span>미국 1Q26E 매출 66억(YoY +15%), BEP 돌파 전망. 얼타뷰티에 힐링버드, 코스트코에 구달 세럼 입점 예정</div>
+    <div class="fact-why"><span class="fact-label label-why">WHY</span>마스카라·쿠션 중심 B2B 비중 확대. 대형 오프라인 유통망 진입 시 대량 볼륨 + 마케팅비 분산 → 해외 자체 영업 레버리지 발생</div>
+    <div class="fact-so"><span class="fact-label label-so">SO WHAT</span>미국 비중 8.3%(27.5억/329억, 2025) → 27E 10.8%로 상승. 국내 성장 둔화를 상쇄하는 구조적 동력</div>
+  </div>
+  <div class="fact-item">
+    <span class="fact-num">Fact 03</span>
+    <div class="fact-what"><span class="fact-label label-what">WHAT</span>2025 올영 어워즈 색조 1위 유지했지만 페리페라·구달은 순위 하락. 일본 1Q26 매출 YoY -27% 부진</div>
+    <div class="fact-why"><span class="fact-label label-why">WHY</span>립치크탭 작년 초 베이스 효과 + 일본 법인 조직 리셋. 국내 경쟁 강도 상승(신규 인디 브랜드 부상)</div>
+    <div class="fact-so"><span class="fact-label label-so">SO WHAT</span>마진 개선은 확인되지만 매출 모멘텀 둔화는 리스크. 2Q 일본 구달 비타씨세럼 입점 성과가 일본 법인 턴어라운드의 첫 확인점</div>
+  </div>
+</section>
+
+<section>
+  <div class="section-title">📄 원본 리포트 핵심 요약</div>
+  <div style="background:#fafafa;border:1px solid #d0d4e0;border-radius:8px;padding:16px 20px;margin-bottom:12px;">
+    <div style="font-size:11px;font-weight:700;letter-spacing:1px;color:#5a6280;text-transform:uppercase;margin-bottom:10px;">리포트 핵심 주장</div>
+    <p style="font-size:13px;line-height:1.9;">클리오의 1Q26는 매출 YoY -3%, 영업이익 YoY +249%로 전형적 채널 구조조정 1년차. 국내 채널 정비(홈쇼핑·다이소 축소)가 수익성을 정상화시키고 있고, 해외에서는 미국 BEP 돌파·일본 2Q 신제품 입점·중국 낮은 베이스에서 YoY +15% 신장이 기대된다. 다만 올영 어워즈에서 페리페라·구달 순위 하락 등 경쟁 강도 상승은 경계 요인.</p>
+    <div style="margin-top:10px;display:flex;gap:8px;flex-wrap:wrap;">
+      <div style="background:#f0f2f8;border:1px solid #d0d4e0;border-radius:6px;padding:6px 12px;font-size:12px;"><span style="color:#5a6280;font-size:10px;display:block;margin-bottom:2px;">이전 대비 변화</span>업종 Insight 코멘트로 개별 TP 변경 없음</div>
+      <div style="background:#f0f2f8;border:1px solid #d0d4e0;border-radius:6px;padding:6px 12px;font-size:12px;"><span style="color:#5a6280;font-size:10px;display:block;margin-bottom:2px;">컨센서스 대비</span>PDF 미제시</div>
+    </div>
+  </div>
+  <div style="background:#fafafa;border:1px solid #d0d4e0;border-radius:8px;padding:16px 20px;margin-bottom:12px;">
+    <div style="font-size:11px;font-weight:700;letter-spacing:1px;color:#5a6280;text-transform:uppercase;margin-bottom:10px;">사업 구조 & 성장 동력 (2025 기준)</div>
+    <table style="margin:0;">
+      <thead><tr><th style="width:25%;">지역</th><th style="width:20%;">매출 비중</th><th style="width:55%;">핵심 드라이버</th></tr></thead>
+      <tbody>
+        <tr><td>국내</td><td>56.6%</td><td>올영 채널 중심 / 홈쇼핑·다이소 축소 진행 / 색조 1위 유지</td></tr>
+        <tr><td>일본</td><td>11.7%</td><td>YoY -7% 부진, 2Q 구달 비타씨세럼 신규 입점 기대</td></tr>
+        <tr><td>미국</td><td>8.4%</td><td>얼타뷰티·코스트코 입점 예정, 26E +20% 성장</td></tr>
+        <tr><td>중국/동남아/기타</td><td>23.3%</td><td>중국 구달 YoY +200% 고신장, 러시아·튀르키예 견조</td></tr>
+      </tbody>
+    </table>
+    <p style="font-size:12px;color:#5a6280;margin-top:10px;">▶ 핵심 성장 메커니즘: 저마진 국내 채널 정리 + 미국/EMEA 고성장 → 믹스 개선으로 OPM 리레이팅</p>
+  </div>
+  <div style="background:#fafafa;border:1px solid #d0d4e0;border-radius:8px;padding:16px 20px;margin-bottom:12px;">
+    <div style="font-size:11px;font-weight:700;letter-spacing:1px;color:#5a6280;text-transform:uppercase;margin-bottom:10px;">시장 괴리</div>
+    <table style="margin:0;">
+      <thead><tr><th style="width:30%;">구분</th><th>내용</th></tr></thead>
+      <tbody>
+        <tr><td style="color:#5a6280;">시장 현재 인식</td><td>국내 매출 감소세·올영 경쟁 심화로 저성장 브랜드사로 평가</td></tr>
+        <tr><td style="color:#2563eb;">이 리포트 주장</td><td>채널 구조조정으로 수익성 레벨업 진행 중. 미국·EMEA 고성장 엔진 추가</td></tr>
+        <tr><td style="color:#b45309;">괴리 해소 촉매</td><td>2Q26 일본 코스트코·세븐일레븐 구달 비타씨세럼 입점 효과 + 미국 얼타뷰티 힐링버드 판매 데이터</td></tr>
+        <tr><td>괴리 강도</td><td><span style="color:#b45309;">중</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section>
+  <div class="section-title">📈 실적 전망 (연간)</div>
+  <table class="data-table">
+    <caption>단위: 십억원 | ★ = 투자 핵심 연도 | 자료: 클리오·메리츠증권</caption>
+    <thead>
+      <tr><th>구분</th><th>2024A</th><th>2025A</th><th style="background:#dbeafe;color:#1e40af;font-weight:700;">2026E ★</th><th>2027E</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>매출액</td><td>-</td><td>328.9</td><td class="key-col key-num">336.5</td><td>354.8</td></tr>
+      <tr><td>YoY(%)</td><td>-</td><td>-6.4</td><td class="key-col">+2.3</td><td>+5.4</td></tr>
+      <tr><td>영업이익</td><td>-</td><td>16.4</td><td class="key-col key-num">23.3</td><td>25.4</td></tr>
+      <tr><td>YoY(%)</td><td>-</td><td>-33.2</td><td class="key-col key-num">+41.7</td><td>+9.1</td></tr>
+      <tr><td>OPM(%)</td><td>-</td><td>5.0</td><td class="key-col key-opm">6.9</td><td>7.2</td></tr>
+      <tr><td>지배순이익</td><td>-</td><td>13.6</td><td class="key-col">21.6</td><td>23.2</td></tr>
+    </tbody>
+  </table>
+  <p style="font-size:12px;color:#5a6280;margin-top:10px;padding:0 4px;">▶ 왜 2026E가 변곡점인가: 저마진 채널 정리 효과가 연간 전체에 반영되어 OPM 5.0→6.9%(+1.9%p), OP YoY +42%. 다만 매출 성장률은 +2.3%로 제한적이며 27E부터는 성장 둔화</p>
+</section>
+
+<section>
+  <div class="section-title">📅 분기별 실적 전망</div>
+  <table class="data-table">
+    <caption>단위: 십억원 | 자료: 클리오·메리츠증권</caption>
+    <thead>
+      <tr><th>구분</th><th>1Q25</th><th>2Q25</th><th>3Q25</th><th>4Q25</th><th style="background:#dbeafe;color:#1e40af;font-weight:700;">1Q26E ★</th><th>2Q26E</th><th>3Q26E</th><th>4Q26E</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>매출</td><td>82.3</td><td>82.1</td><td>83.8</td><td>80.6</td><td class="key-col key-num">80.2</td><td>81.5</td><td>87.5</td><td>87.3</td></tr>
+      <tr><td>영업이익</td><td>1.1</td><td>3.5</td><td>4.7</td><td>7.0</td><td class="key-col key-num">4.0</td><td>4.9</td><td>7.0</td><td>7.4</td></tr>
+      <tr><td>OPM(%)</td><td>1.4</td><td>4.3</td><td>5.6</td><td>8.7</td><td class="key-col key-opm">5.0</td><td>6.0</td><td>8.0</td><td>8.5</td></tr>
+    </tbody>
+  </table>
+  <p style="font-size:12px;color:#5a6280;margin-top:10px;padding:0 4px;">▶ 1Q26E 주목 포인트: ✅ OPM 5% 확인 시 구조조정 효과 지속 → 2Q 구달 비타씨세럼 일본 입점 트래킹 ⛔ OPM 4% 미달 시 올영 경쟁 심화 리스크 현실화</p>
+</section>
+
+<section>
+  <div class="section-title">💰 밸류에이션</div>
+  <div class="val-box">
+    <div class="val-formula">PDF에 TP·CP·Target PER 수치 미제시 (업종 Industry Insight 개별 컴포넌트)</div>
+    <p style="color:#5a6280;font-size:12px;margin-top:8px;">▶ 리포트 성격: 화장품 업종 Insight 리포트의 종목별 섹션 — 개별 밸류에이션 배수·TP 산출 없음. 투자의견·적정주가 별도 제시 없음</p>
+    <p style="color:#5a6280;font-size:12px;margin-top:4px;">▶ 참고: 26E EPS·PER·PBR·ROE 등 Financial Data 테이블도 본 PDF에는 부재</p>
+  </div>
+</section>
+
+<section>
+  <div class="section-title">⚠️ 리스크</div>
+  <div class="risk-item risk-sev-high">
+    <div class="risk-assumption">🔴 핵심 가정: 해외 신규 입점(미국 얼타뷰티 힐링버드·코스트코 구달세럼, 일본 코스트코·세븐일레븐) 순조롭게 진행</div>
+    <div class="risk-chain" style="margin-top:6px;">→ 붕괴 시: 얼타·코스트코 Sell-in 후 판매 부진 시 재발주 취소<br/>→ 실적 영향: 26E 미국 매출 330억(+20%)·일본 358억(-7%) 가이드 미달 → 연결 OP 233억→180억 수준</div>
+    <div class="risk-impact-num">→ 주가 영향: PDF 미제시 (정량 추정 불가)</div>
+  </div>
+  <div class="risk-item risk-sev-mid">
+    <div class="risk-assumption">🟠 두 번째 가정: 국내 올영 경쟁 강도 관리 가능</div>
+    <div class="risk-chain" style="margin-top:6px;">→ 붕괴 시: 올영 어워즈에서 페리페라·구달 추가 순위 하락 + 신규 인디 브랜드의 매대 잠식 가속<br/>→ 실적 영향: 국내 매출 26E 1,834억→1,750억 수준으로 하향, OPM 회복세 둔화</div>
+    <div class="risk-impact-num">→ 주가 영향: PDF 미제시</div>
+  </div>
+</section>
+
+<section>
+  <div class="section-title">🎯 모멘텀 확인 체크포인트</div>
+  <div style="background:#fafafa;border:1px solid #d0d4e0;border-radius:8px;padding:4px 16px;">
+    <div class="checkpoint-item">
+      <span class="cp-date">2026.05</span>
+      <div>
+        <div class="cp-event">1Q26 확정 실적 발표 (OPM 5.0% 달성 여부)</div>
+        <div class="cp-pass">✅ OPM 5%+ 확인 시 → 채널 구조조정 효과 지속 → 관망 유지 중 점진 매수</div>
+        <div class="cp-fail">⛔ OPM 4% 미달 시 → 보류로 강등</div>
+      </div>
+    </div>
+    <div class="checkpoint-item">
+      <span class="cp-date">2026.06~07</span>
+      <div>
+        <div class="cp-event">일본 코스트코·세븐일레븐 구달 비타씨세럼 입점 개시</div>
+        <div class="cp-pass">✅ 일본 YoY 감소폭 축소 확인 시 → 업그레이드 검토</div>
+        <div class="cp-fail">⛔ 입점 지연·판매 부진 → 성장 둔화 지속</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="section-title">💬 사견 & 투자 행동 결론</div>
+  <div class="opinion-box">
+    <p>채널 구조조정 1년차로 1Q26 OP +249%는 인상적이지만 연간 OP +42%(233억), 27E +9%로 단기 모멘텀이 약하고 TP·Upside가 PDF에 부재하여 정량 투자 판단이 제한된다. 국내 매출 57% 비중 + 올영 경쟁 강도 상승은 중기 리스크. 미국 BEP 돌파·일본 신제품 입점이 확정 팩트화되기 전까지는 관망이 합리적이다.</p>
+    <div class="decision-box">
+      <div class="decision-btn decision-buy decision-dim">✅ 지금 진입 가능<br/><span style="font-size:11px;font-weight:400;">핵심+ & 60점+</span></div>
+      <div class="decision-btn decision-wait">⏳ 이벤트 후 진입<br/><span style="font-size:11px;font-weight:400;">1Q26 OPM + 일본 구달 입점 확인</span></div>
+      <div class="decision-btn decision-avoid decision-dim">🚫 관망<br/><span style="font-size:11px;font-weight:400;">리스크 우위</span></div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="section-title">🚀 승격 조건</div>
+  <div class="upgrade-box">
+    <div class="upgrade-item">
+      <span class="upgrade-when">2026.05 (1Q 확정 실적)</span>
+      <span>OPM 5% 이상 + 미국 영업흑자 확인 시 → ⭐ 핵심 승격 검토</span>
+    </div>
+    <div class="upgrade-item">
+      <span class="upgrade-when">2026.2H (일본 입점 결과)</span>
+      <span>일본 매출 YoY 전환 + 미국 YoY +20% 달성 시 → ⭐ 핵심 승격</span>
+    </div>
+  </div>
+</section>
+
+<div class="disclaimer">
+  ※ 본 글은 증권사 리포트를 개인 학습 목적으로 요약·정리한 것이며, 투자 권유가 아닙니다.<br/>
+  ※ 제공된 PDF 파일만 활용. 외부 검색·참조 없음. 당일 발간 리포트 기준.
+</div>
+
+</body>
+</html>

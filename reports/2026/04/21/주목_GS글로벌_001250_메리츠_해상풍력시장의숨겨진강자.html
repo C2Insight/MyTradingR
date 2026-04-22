@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GS글로벌 (001250) 정리</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Pretendard','Apple SD Gothic Neo',-apple-system,sans-serif; background: #ffffff; color: #1a1d2e; line-height: 1.7; font-size: 14px; max-width: 900px; margin: 0 auto; padding: 32px 20px 80px; }
+  .header { border-left: 4px solid #2563eb; padding: 0 0 0 16px; margin-bottom: 24px; }
+  .header h1 { font-size: 20px; font-weight: 700; margin-bottom: 10px; color: #1a1d2e; }
+  .price-row { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin-top: 10px; }
+  .price-item { background: #f0f2f8; border: 1px solid #d0d4e0; border-radius: 6px; padding: 6px 14px; font-size: 13px; }
+  .price-item .label { color: #5a6280; font-size: 11px; display: block; }
+  .price-item .val { font-weight: 700; color: #1a1d2e; }
+  .upside-val { color: #059669; }
+  .tag-badge { display: inline-flex; align-items: center; gap: 6px; padding: 5px 14px; border-radius: 20px; font-size: 13px; font-weight: 700; }
+  .tag-watch   { background: #fffbeb; color: #b45309; border: 1px solid #f59e0b; }
+  .score-badge { display: inline-block; padding: 5px 14px; border-radius: 20px; font-size: 13px; font-weight: 700; background: #f0f2f8; border: 1px solid #d0d4e0; color: #1a1d2e; }
+  .score-mid  { color: #b45309; }
+  .pathway-badge { display: inline-flex; align-items: center; gap: 4px; padding: 3px 10px; border-radius: 12px; font-size: 11px; font-weight: 600; background: #f0f2f8; border: 1px solid #d0d4e0; color: #5a6280; }
+  section { margin-bottom: 28px; }
+  .section-title { font-size: 11px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: #5a6280; border-bottom: 1px solid #d0d4e0; padding-bottom: 6px; margin-bottom: 14px; }
+  .pdf-only-banner { background: #fff7ed; border: 1px solid #f97316; border-radius: 8px; padding: 10px 16px; font-size: 12px; color: #c2410c; margin-bottom: 20px; text-align: center; font-weight: 700; }
+  .thesis-box { background: #f8faff; border: 1px solid #2563eb; border-radius: 8px; padding: 16px 20px; font-size: 15px; font-weight: 600; line-height: 1.6; color: #1a1d2e; }
+  .thesis-structure { display: flex; gap: 8px; align-items: center; margin-top: 10px; flex-wrap: wrap; }
+  .thesis-part { background: #f0f2f8; border: 1px solid #d0d4e0; border-radius: 6px; padding: 4px 10px; font-size: 12px; color: #1a1d2e; }
+  .thesis-arrow { color: #2563eb; font-size: 16px; }
+  .checklist { background: #fafafa; border: 1px solid #d0d4e0; border-radius: 8px; overflow: hidden; }
+  .checklist-item { display: flex; gap: 14px; align-items: flex-start; padding: 12px 16px; border-bottom: 1px solid #d0d4e0; }
+  .checklist-item:last-child { border-bottom: none; }
+  .check-icon { width: 22px; height: 22px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; flex-shrink: 0; margin-top: 1px; }
+  .check-pass { background: #ecfdf5; color: #059669; border: 1px solid #34d399; }
+  .check-fail { background: #fef2f2; color: #dc2626; border: 1px solid #fca5a5; }
+  .check-label { font-weight: 600; font-size: 13px; color: #1a1d2e; }
+  .check-detail { color: #5a6280; font-size: 12px; margin-top: 2px; }
+  .check-why { color: #1a1d2e; font-size: 13px; }
+  table { width: 100%; border-collapse: collapse; background: #fafafa; border-radius: 8px; overflow: hidden; border: 1px solid #d0d4e0; }
+  thead tr { background: #f0f2f8; }
+  th { padding: 10px 14px; text-align: left; font-size: 11px; font-weight: 700; color: #5a6280; letter-spacing: 0.8px; text-transform: uppercase; }
+  td { padding: 10px 14px; border-top: 1px solid #d0d4e0; font-size: 13px; color: #1a1d2e; }
+  tr.total-row td { background: #e8ecf5; font-weight: 700; }
+  .penalty { color: #dc2626; }
+  .highlight-green { color: #059669; font-weight: 700; }
+  .chain-box { background: #fafafa; border: 1px solid #d0d4e0; border-radius: 8px; padding: 16px 20px; }
+  .chain-step { display: flex; gap: 12px; align-items: flex-start; margin-bottom: 10px; }
+  .chain-step:last-child { margin-bottom: 0; }
+  .chain-arrow { color: #2563eb; font-size: 16px; flex-shrink: 0; margin-top: 1px; }
+  .chain-content { flex: 1; }
+  .chain-label { font-size: 10px; font-weight: 700; letter-spacing: 1px; color: #5a6280; text-transform: uppercase; margin-bottom: 2px; }
+  .chain-text { font-size: 13px; color: #1a1d2e; }
+  .chain-confirmed { color: #059669; font-size: 11px; margin-left: 6px; }
+  .chain-forecast { color: #b45309; font-size: 11px; margin-left: 6px; }
+  .fact-item { background: #fafafa; border: 1px solid #d0d4e0; border-radius: 8px; padding: 14px 16px; margin-bottom: 8px; }
+  .fact-item:last-child { margin-bottom: 0; }
+  .fact-num { font-size: 10px; font-weight: 700; color: #2563eb; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 8px; display: block; }
+  .fact-what { font-weight: 600; font-size: 14px; margin-bottom: 6px; color: #1a1d2e; }
+  .fact-why  { font-size: 13px; color: #5a6280; margin-bottom: 6px; }
+  .fact-so   { font-size: 13px; color: #059669; }
+  .fact-label { display: inline-block; font-size: 10px; font-weight: 700; padding: 1px 6px; border-radius: 3px; margin-right: 4px; }
+  .label-what { background: #eff6ff; color: #1d4ed8; }
+  .label-why  { background: #fff7ed; color: #ea580c; }
+  .label-so   { background: #ecfdf5; color: #059669; }
+  .data-table th { background: #e8ecf5; }
+  .data-table td.key-col { background: #f0f6ff; }
+  .data-table .key-num { color: #059669; font-weight: 700; }
+  .data-table .key-opm { color: #b45309; }
+  caption { font-size: 11px; color: #5a6280; text-align: left; padding: 0 0 8px; caption-side: top; }
+  .val-box { background: #fafafa; border: 1px solid #d0d4e0; border-radius: 8px; padding: 16px 20px; font-size: 13px; line-height: 2; color: #1a1d2e; }
+  .val-formula { background: #f0f2f8; border-radius: 6px; padding: 10px 14px; font-family: monospace; font-size: 13px; margin: 10px 0; color: #b45309; }
+  .risk-item { background: #fafafa; border-radius: 0 6px 6px 0; padding: 14px 16px; margin-bottom: 10px; }
+  .risk-sev-high { border-left: 3px solid #dc2626; }
+  .risk-sev-mid  { border-left: 3px solid #ea580c; }
+  .risk-assumption { font-weight: 600; font-size: 13px; margin-bottom: 4px; color: #1a1d2e; }
+  .risk-chain { font-size: 12px; color: #5a6280; margin: 4px 0; }
+  .risk-impact-num { font-size: 13px; color: #dc2626; font-weight: 600; margin-top: 4px; }
+  .checkpoint-item { display: flex; gap: 12px; padding: 10px 0; border-bottom: 1px solid #d0d4e0; font-size: 13px; }
+  .checkpoint-item:last-child { border-bottom: none; }
+  .cp-date { color: #2563eb; font-weight: 600; min-width: 90px; flex-shrink: 0; }
+  .cp-event { flex: 1; color: #1a1d2e; }
+  .cp-pass { color: #059669; font-size: 12px; margin-top: 2px; }
+  .cp-fail { color: #dc2626; font-size: 12px; margin-top: 2px; }
+  .opinion-box { background: #fafafa; border: 1px solid #d0d4e0; border-radius: 8px; padding: 16px 20px; font-size: 13px; line-height: 1.8; color: #5a6280; }
+  .decision-box { display: flex; gap: 14px; margin-top: 14px; }
+  .decision-btn { flex: 1; text-align: center; padding: 10px; border-radius: 6px; font-weight: 700; font-size: 13px; border: 1px solid; }
+  .decision-buy   { background: #ecfdf5; color: #059669; border-color: #34d399; }
+  .decision-wait  { background: #fffbeb; color: #b45309; border-color: #f59e0b; }
+  .decision-avoid { background: #fef2f2; color: #dc2626; border-color: #fca5a5; }
+  .decision-dim { opacity: 0.3; }
+  .upgrade-box { background: #eff6ff; border: 1px solid #93c5fd; border-radius: 8px; padding: 14px 16px; }
+  .upgrade-item { display: flex; gap: 10px; padding: 6px 0; border-bottom: 1px solid #dbeafe; font-size: 13px; color: #1a1d2e; }
+  .upgrade-item:last-child { border-bottom: none; }
+  .upgrade-when { color: #1d4ed8; font-weight: 600; min-width: 140px; flex-shrink: 0; }
+  .disclaimer { font-size: 11px; color: #9ca3af; text-align: center; margin-top: 40px; padding-top: 16px; border-top: 1px solid #d0d4e0; }
+</style>
+</head>
+<body>
+
+<div class="pdf-only-banner">
+  외부 검색 절대 금지 — 제공된 PDF 파일만 활용 | 당일 발간 리포트 기준 투자 종목 발굴 전용
+</div>
+
+<header class="header">
+  <h1>GS글로벌 (001250) | 해상풍력 시장의 숨겨진 강자 | 메리츠증권 | 발간일: 2026.04.21</h1>
+  <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-bottom:12px;">
+    <span class="tag-badge tag-watch">🔥 주목</span>
+    <span class="score-badge score-mid">📊 40점</span>
+    <span style="font-size:12px;color:#5a6280;">비바이오</span>
+    <span class="pathway-badge">경로 ② 볼륨드리븐</span>
+  </div>
+  <div class="price-row">
+    <div class="price-item"><span class="label">투자의견</span><span class="val">Not Rated</span></div>
+    <div class="price-item"><span class="label">목표주가(TP)</span><span class="val">N/A</span></div>
+    <div class="price-item"><span class="label">현재주가(CP)</span><span class="val">3,395원</span></div>
+    <div class="price-item"><span class="label">Upside</span><span class="val">N/A (TP 미제시)</span></div>
+    <div class="price-item"><span class="label">시가총액</span><span class="val">2,802억원</span></div>
+    <div class="price-item"><span class="label">종목 유형</span><span class="val">비바이오</span></div>
+  </div>
+</header>
+
+<section>
+  <div class="section-title">이 종목에 투자해야 하는 이유 — 스토리 한 줄</div>
+  <div class="thesis-box">
+    "자회사 GS엔텍이 2026년 6월 CAPA 3배 확장 완공 + 모노파일 SIF 라이선스 보유. 해상풍력 대형화 구조 변화에서 국내 소수 공급 체인 보유의 '숨겨진 강자' 포지션. GS엔텍 가치 반영 시 재평가 여지"
+  </div>
+  <div class="thesis-structure">
+    <div class="thesis-part" style="color:#059669;">① 확정 팩트<br/>GS엔텍 CAPA 3배 증설 2026.6 완공 확정, SIF 모노파일 라이선스 보유</div>
+    <div class="thesis-arrow">→</div>
+    <div class="thesis-part" style="color:#b45309;">② 실적 변화<br/>증설 완료 후 해상풍력 수주·매출 증가 구간 진입</div>
+    <div class="thesis-arrow">→</div>
+    <div class="thesis-part" style="color:#2563eb;">③ 시장 미반영<br/>Not Rated + GS엔텍 가치 모종목에 미반영</div>
+  </div>
+</section>
+
+<section>
+  <div class="section-title">핵심 태그 5가지 조건 체크 (5개 모두 통과해야 핵심 이상 가능)</div>
+  <div class="checklist">
+    <div class="checklist-item">
+      <div class="check-icon check-fail">✗</div>
+      <div>
+        <div class="check-label">조건 1 | 영업이익 성장 임계값</div>
+        <div class="check-detail">향후 1년 OP +50%+ AND (OPM +3%p+ OR OPM 15%+ 유지)</div>
+        <div class="check-why">PDF 내 정량 OP 수치 미제공. CAPA 확장 효과는 2026년 하반기 이후 반영 → 미충족</div>
+      </div>
+    </div>
+    <div class="checklist-item">
+      <div class="check-icon check-pass">✓</div>
+      <div>
+        <div class="check-label">조건 2 | 3년 지속성 (3개 이상 충족)</div>
+        <div class="check-detail">수주잔고 / CAPA 확대 / 독점·특허 / CAGR 15%+ 등</div>
+        <div class="check-why">① GS엔텍 CAPA 3배 확장(2026.6 완공) ② SIF 모노파일 라이선스 보유 ③ 해상풍력 대형화 CAGR → 3개 충족</div>
+      </div>
+    </div>
+    <div class="checklist-item">
+      <div class="check-icon check-pass">✓</div>
+      <div>
+        <div class="check-label">조건 3 | 확정 팩트(●●●) 2개 이상</div>
+        <div class="check-detail">●●● = 수주확정·인허가·실적 확인</div>
+        <div class="check-why">●●● CAPA 3배 증설 완공(2026.6) 확정 + SIF 라이선스 계약 체결 → 2개 충족</div>
+      </div>
+    </div>
+    <div class="checklist-item">
+      <div class="check-icon check-fail">✗</div>
+      <div>
+        <div class="check-label">조건 4 | 시장 미반영 (둘 중 하나)</div>
+        <div class="check-detail">Upside 40%+ OR 컨센 괴리 +20%+</div>
+        <div class="check-why">Not Rated 상태로 TP·Upside 정량 측정 불가 → 미충족</div>
+      </div>
+    </div>
+    <div class="checklist-item">
+      <div class="check-icon check-pass">✓</div>
+      <div>
+        <div class="check-label">조건 5 | 이 리포트만의 차별화된 시각</div>
+        <div class="check-detail">"해상풍력 시장의 숨겨진 강자" 제목</div>
+        <div class="check-why">무역상사 이미지에 가려진 GS엔텍 가치를 해상풍력 공급체인 관점에서 재조명 — 차별화</div>
+      </div>
+    </div>
+  </div>
+  <p style="font-size:11px;color:#dc2626;margin-top:8px;padding:0 4px;">
+    조건 1,4 미충족 → 주목 강등. OP 정량 수치 부재가 결정적 약점.
+  </p>
+</section>
+
+<section>
+  <div class="section-title">투자 점수 판정 (v2.0 비바이오)</div>
+  <table>
+    <thead><tr><th>항목</th><th>판정</th><th>근거 (Why)</th></tr></thead>
+    <tbody>
+      <tr><td>종목 유형</td><td>비바이오</td><td>무역상사 + 자회사 GS엔텍(해상풍력)</td></tr>
+      <tr><td>적용 가설</td><td>가설 1</td><td>기존 무역 + 자회사 재평가 결합</td></tr>
+      <tr><td>촉매 등급</td><td>중급</td><td>CAPA 3배 + 라이선스 보유</td></tr>
+      <tr><td>복합 여부</td><td>복합</td><td>CAPA 확장 + 라이선스 + 해상풍력 업황</td></tr>
+      <tr><td>직접성</td><td>간접</td><td>GS엔텍 가치가 GS글로벌 주가에 반영되는 경로는 간접</td></tr>
+      <tr><td>매트릭스 기본 점수</td><td>60점</td><td>가설 1 × 중급 × 복합 = 60</td></tr>
+      <tr><td>페널티 ① 간접성</td><td class="penalty">-10점</td><td>지주사 유사 구조로 자회사 가치 반영 지연</td></tr>
+      <tr><td>페널티 ② 미확정 30%+</td><td class="penalty">-10점</td><td>증설 완공 후 수주·매출 반영까지 시차</td></tr>
+      <tr class="total-row"><td>최종 투자 점수</td><td><span class="highlight-green">40점</span></td><td>주목 40+ 충족, 핵심 60점 미달</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section>
+  <div class="section-title">성장 인과 체인</div>
+  <div class="chain-box">
+    <div class="chain-step"><div class="chain-arrow">①</div><div class="chain-content"><div class="chain-label">구조 변화 / 촉매 <span class="chain-confirmed">● 확정 팩트</span></div><div class="chain-text">자회사 GS엔텍 CAPA 3배 확장 2026.6 완공(●●●) + SIF 모노파일 라이선스 보유(●●●). 해상풍력 대형화 공급체인 강화</div></div></div>
+    <div class="chain-step"><div class="chain-arrow">↓</div><div class="chain-content"><div class="chain-label">매출 영향 (규모·비중 수치)</div><div class="chain-text">GS엔텍 CAPA 3배 확대 → 수주 소화 능력 증가. 모노파일 공급 본격화 시 모회사 매출 기여 확대</div></div></div>
+    <div class="chain-step"><div class="chain-arrow">↓</div><div class="chain-content"><div class="chain-label">OPM 변화 메커니즘</div><div class="chain-text">해상풍력 구조물은 ASP·마진이 높은 제품군. 라이선스 기반 독점 공급 가능 시 OPM 개선</div></div></div>
+    <div class="chain-step"><div class="chain-arrow">↓</div><div class="chain-content"><div class="chain-label">최종 실적 결과 <span class="chain-forecast">● 추정</span></div><div class="chain-text">2026년 하반기 매출 반영 시작 → 2027E 매출 단계적 확대 기대</div></div></div>
+    <div class="chain-step"><div class="chain-arrow">↓</div><div class="chain-content"><div class="chain-label">시장 미반영 포인트 (So What)</div><div class="chain-text">N/R 상태 + 무역상사 이미지로 GS엔텍 가치 미반영. 수주 공시·증설 완공 시 재평가 촉매</div></div></div>
+  </div>
+</section>
+
+<section>
+  <div class="section-title">핵심 팩트 3줄</div>
+  <div class="fact-item">
+    <span class="fact-num">Fact 01</span>
+    <div class="fact-what"><span class="fact-label label-what">WHAT</span>자회사 GS엔텍 CAPA 3배 확장 공사 진행 중, 2026년 6월 완공 예정</div>
+    <div class="fact-why"><span class="fact-label label-why">WHY</span>해상풍력 대형화 대응 + 모노파일 수요 급증 대응. 기존 CAPA로는 수주 소화 한계</div>
+    <div class="fact-so"><span class="fact-label label-so">SO WHAT</span>완공 후 수주 소화량 3배 확대. 2027E부터 매출·이익 본격 반영</div>
+  </div>
+  <div class="fact-item">
+    <span class="fact-num">Fact 02</span>
+    <div class="fact-what"><span class="fact-label label-what">WHAT</span>네덜란드 SIF의 모노파일 제조 라이선스 보유 — 국내 희소성</div>
+    <div class="fact-why"><span class="fact-label label-why">WHY</span>SIF는 글로벌 모노파일 1위. 라이선스 기반 기술·품질 확보로 해외 EPC 발주에 우위</div>
+    <div class="fact-so"><span class="fact-label label-so">SO WHAT</span>국내 대형 해상풍력 프로젝트 수주 가능성 + 수출 레퍼런스 기반 확보</div>
+  </div>
+  <div class="fact-item">
+    <span class="fact-num">Fact 03</span>
+    <div class="fact-what"><span class="fact-label label-what">WHAT</span>Not Rated 상태, 시가총액 2,802억원으로 중소형 구간</div>
+    <div class="fact-why"><span class="fact-label label-why">WHY</span>무역상사 이미지로 자회사 GS엔텍 가치 저평가. 해상풍력 공급체인 관점에서 재조명 필요</div>
+    <div class="fact-so"><span class="fact-label label-so">SO WHAT</span>증설 완공 + 대형 수주 공시 시 멀티플 확장. 저평가 재평가 여지</div>
+  </div>
+</section>
+
+<section>
+  <div class="section-title">원본 리포트 핵심 요약 — PDF 내용 직접 발췌</div>
+  <div style="background:#fafafa;border:1px solid #d0d4e0;border-radius:8px;padding:16px 20px;margin-bottom:12px;">
+    <div style="font-size:11px;font-weight:700;letter-spacing:1px;color:#5a6280;text-transform:uppercase;margin-bottom:10px;">리포트 핵심 주장 (애널리스트 관점 요약)</div>
+    <p style="font-size:13px;line-height:1.9;">"GS글로벌은 해상풍력 시장의 숨겨진 강자다. 자회사 GS엔텍이 2026년 6월 완공을 목표로 CAPA 3배 확장 공사를 진행하고 있으며, 네덜란드 SIF와의 모노파일 라이선스 계약을 통해 국내 희소 공급사 지위를 확보. 해상풍력 대형화 트렌드와 국내 대형 프로젝트 본격화에 따라 수주 소화 능력이 3배 확대되는 구간에 진입하는 점이 투자 포인트." Not Rated.</p>
+    <div style="margin-top:10px;display:flex;gap:8px;flex-wrap:wrap;">
+      <div style="background:#f0f2f8;border:1px solid #d0d4e0;border-radius:6px;padding:6px 12px;font-size:12px;">
+        <span style="color:#5a6280;font-size:10px;display:block;margin-bottom:2px;">투자의견</span>Not Rated
+      </div>
+      <div style="background:#f0f2f8;border:1px solid #d0d4e0;border-radius:6px;padding:6px 12px;font-size:12px;">
+        <span style="color:#5a6280;font-size:10px;display:block;margin-bottom:2px;">핵심 트리거</span>GS엔텍 CAPA 3배 + SIF 라이선스
+      </div>
+    </div>
+  </div>
+  <div style="background:#fafafa;border:1px solid #d0d4e0;border-radius:8px;padding:16px 20px;margin-bottom:12px;">
+    <div style="font-size:11px;font-weight:700;letter-spacing:1px;color:#5a6280;text-transform:uppercase;margin-bottom:10px;">사업 구조 & 성장 동력</div>
+    <table style="margin:0;">
+      <thead><tr><th style="width:25%;">사업부</th><th style="width:20%;">비중</th><th style="width:55%;">핵심 성장 드라이버</th></tr></thead>
+      <tbody>
+        <tr><td>무역·상사(본업)</td><td>매출 주력</td><td>에너지·원자재 트레이딩. 전통 사업, 안정적 캐시플로우</td></tr>
+        <tr><td>GS엔텍(자회사)</td><td>재평가 핵심</td><td>해상풍력 구조물(모노파일) 제조. CAPA 3배 + SIF 라이선스</td></tr>
+        <tr><td>기타 자회사</td><td>보조</td><td>유통·자동차 등 소규모</td></tr>
+      </tbody>
+    </table>
+    <p style="font-size:12px;color:#5a6280;margin-top:10px;">▶ 핵심 성장 메커니즘: 본업 캐시플로우가 GS엔텍 증설 자금 공급, 증설 완공 후 해상풍력 수주 소화 역량 3배 확대 → 자회사 가치 재평가</p>
+  </div>
+  <div style="background:#fafafa;border:1px solid #d0d4e0;border-radius:8px;padding:16px 20px;margin-bottom:12px;">
+    <div style="font-size:11px;font-weight:700;letter-spacing:1px;color:#5a6280;text-transform:uppercase;margin-bottom:10px;">시장 괴리 — 왜 지금 시장이 틀렸는가</div>
+    <table style="margin:0;">
+      <thead><tr><th style="width:30%;">구분</th><th>내용</th></tr></thead>
+      <tbody>
+        <tr><td style="color:#5a6280;">시장 현재 인식</td><td>무역상사 이미지로 저평가. GS엔텍 가치가 모회사 주가에 제한적 반영</td></tr>
+        <tr><td style="color:#2563eb;">이 리포트 주장</td><td>GS엔텍 CAPA 3배 + SIF 라이선스로 국내 해상풍력 공급체인의 희소 강자 포지션</td></tr>
+        <tr><td style="color:#b45309;">괴리 해소 촉매</td><td>① 2026.6 CAPA 완공 ② 대형 모노파일 수주 공시 ③ 해외 레퍼런스 확보</td></tr>
+        <tr><td>괴리 강도</td><td><span style="color:#b45309;">중</span> (TP 미제시 + 모회사 디스카운트 구조)</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div style="background:#fafafa;border:1px solid #d0d4e0;border-radius:8px;padding:16px 20px;">
+    <div style="font-size:11px;font-weight:700;letter-spacing:1px;color:#5a6280;text-transform:uppercase;margin-bottom:10px;">재무 특징</div>
+    <div style="display:flex;flex-wrap:wrap;gap:8px;">
+      <div style="background:#f0f2f8;border:1px solid #d0d4e0;border-radius:6px;padding:8px 12px;font-size:12px;flex:1;min-width:160px;"><span style="color:#5a6280;font-size:10px;display:block;margin-bottom:2px;">시가총액</span>2,802억원</div>
+      <div style="background:#f0f2f8;border:1px solid #d0d4e0;border-radius:6px;padding:8px 12px;font-size:12px;flex:1;min-width:160px;"><span style="color:#5a6280;font-size:10px;display:block;margin-bottom:2px;">CAPA 완공</span>2026년 6월 (3배 확장)</div>
+      <div style="background:#f0f2f8;border:1px solid #d0d4e0;border-radius:6px;padding:8px 12px;font-size:12px;flex:1;min-width:160px;"><span style="color:#5a6280;font-size:10px;display:block;margin-bottom:2px;">라이선스</span>SIF 모노파일 (국내 희소)</div>
+      <div style="background:#f0f2f8;border:1px solid #d0d4e0;border-radius:6px;padding:8px 12px;font-size:12px;flex:1;min-width:160px;"><span style="color:#5a6280;font-size:10px;display:block;margin-bottom:2px;">자회사</span>GS엔텍 (해상풍력 구조물)</div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="section-title">실적 전망 (연간)</div>
+  <table class="data-table">
+    <caption>단위: 십억원 | ★ = 투자 핵심 연도 (2026E) | PDF 내 정량 추정치 제한</caption>
+    <thead><tr><th>구분</th><th>2024A</th><th>2025A</th><th style="background:#dbeafe;color:#1e40af;font-weight:700;">2026E ★</th><th>2027E</th></tr></thead>
+    <tbody>
+      <tr><td>매출액</td><td>PDF 미명시</td><td>PDF 미명시</td><td class="key-col key-num">CAPA 완공 하반기 반영</td><td>본격 성장 기대</td></tr>
+      <tr><td>영업이익</td><td>-</td><td>-</td><td class="key-col key-num">증설 효과 단계적 반영</td><td>-</td></tr>
+      <tr><td>OPM(%)</td><td>-</td><td>-</td><td class="key-col key-opm">-</td><td>-</td></tr>
+    </tbody>
+  </table>
+  <p style="font-size:12px;color:#5a6280;margin-top:10px;padding:0 4px;">
+    ▶ 왜 2026E가 변곡점인가: 2026.6 GS엔텍 CAPA 3배 완공 → 하반기부터 수주·매출 반영. 2027E 본격 성장 예상.
+  </p>
+</section>
+
+<section>
+  <div class="section-title">분기별 실적 전망</div>
+  <table class="data-table">
+    <thead><tr><th>구분</th><th>1Q25</th><th>4Q25</th><th style="background:#dbeafe;color:#1e40af;font-weight:700;">1Q26E ★</th><th>3Q26E</th><th>4Q26E</th></tr></thead>
+    <tbody>
+      <tr><td>매출·OP</td><td>PDF 미명시</td><td>PDF 미명시</td><td class="key-col key-num">증설 공정 진행 중</td><td>CAPA 반영 시작</td><td>수주 소화 확대</td></tr>
+    </tbody>
+  </table>
+  <p style="font-size:12px;color:#5a6280;margin-top:10px;padding:0 4px;">
+    ▶ 1Q26 주목 포인트: 증설 공정률 및 수주 파이프라인 확인. 3Q26부터 CAPA 반영 시작
+  </p>
+</section>
+
+<section>
+  <div class="section-title">밸류에이션</div>
+  <div class="val-box">
+    <div class="val-formula">Not Rated — TP 미제시. 시가총액 2,802억원 대비 자회사 GS엔텍 가치 할인 거래 추정</div>
+    <p style="color:#5a6280;font-size:12px;margin-top:8px;">▶ 왜 이 배수인가: 무역상사 멀티플 + 자회사 할인 구조. 증설 완공·수주 공시 시 자회사 가치 재평가 여지</p>
+    <p style="color:#5a6280;font-size:12px;margin-top:4px;">▶ Peer: 씨에스윈드·씨에스베어링·SK오션플랜트 등 해상풍력 공급체인 대비 저평가</p>
+  </div>
+</section>
+
+<section>
+  <div class="section-title">리스크 — 핵심 가정이 틀릴 경우 시나리오</div>
+  <div class="risk-item risk-sev-high">
+    <div class="risk-assumption">🔴 핵심 가정: GS엔텍 2026.6 CAPA 완공 + 해상풍력 수주 본격화</div>
+    <div class="risk-chain" style="margin-top:6px;">→ 붕괴 시: 완공 지연 or 해상풍력 국내 프로젝트 지연<br/>→ 실적 영향: 증설 감가상각 부담 + 가동률 저하로 수익성 악화</div>
+    <div class="risk-impact-num">→ 주가 영향: 현재가 3,395원 → 2,700원대 추정 (-20% 수준)</div>
+  </div>
+  <div class="risk-item risk-sev-mid">
+    <div class="risk-assumption">🟠 두 번째 가정: 모노파일 글로벌 경쟁 심화, SIF 라이선스 가치 유지</div>
+    <div class="risk-chain" style="margin-top:6px;">→ 붕괴 시: 중국·유럽 경쟁사 진출로 마진 압박<br/>→ 실적 영향: OPM 하락, 자회사 밸류에이션 디스카운트 지속</div>
+    <div class="risk-impact-num">→ 주가 영향: 재평가 무산, 박스권 지속</div>
+  </div>
+</section>
+
+<section>
+  <div class="section-title">모멘텀 확인 체크포인트</div>
+  <div style="background:#fafafa;border:1px solid #d0d4e0;border-radius:8px;padding:4px 16px;">
+    <div class="checkpoint-item">
+      <span class="cp-date">2026.06</span>
+      <div>
+        <div class="cp-event">GS엔텍 CAPA 3배 증설 완공 이벤트</div>
+        <div class="cp-pass">✅ 일정 준수 완공 → 비중 확대</div>
+        <div class="cp-fail">⛔ 완공 지연 시 → 관망</div>
+      </div>
+    </div>
+    <div class="checkpoint-item">
+      <span class="cp-date">2026.2H</span>
+      <div>
+        <div class="cp-event">대형 모노파일 수주 공시 & 해외 EPC 레퍼런스 확보</div>
+        <div class="cp-pass">✅ 대형 수주 공시 → 자회사 가치 재평가</div>
+        <div class="cp-fail">⛔ 수주 부재 시 → 저평가 해소 지연</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="section-title">사견 & 투자 행동 결론</div>
+  <div class="opinion-box">
+    <p>GS글로벌은 GS엔텍 CAPA 3배 확장과 SIF 모노파일 라이선스 2가지 ●●● 확정 팩트로 해상풍력 공급체인 내 희소 포지션을 확보한 점이 차별적이다. 그러나 ① PDF 내 OP 정량 수치 부재로 OP +50% 검증 불가 ② Not Rated 상태로 Upside 정량 측정 불가 ③ 모회사-자회사 구조 디스카운트 구조 ④ 증설 완공까지 시차 존재가 약점. 핵심 5조건 중 2개 미달이므로 주목으로 분류, 2026.6 CAPA 완공 + 대형 수주 공시 시점까지 대기 권고한다.</p>
+    <div class="decision-box">
+      <div class="decision-btn decision-buy decision-dim">✅ 지금 진입 가능<br/><span style="font-size:11px;font-weight:400;">핵심+ & 60점+</span></div>
+      <div class="decision-btn decision-wait">⏳ 이벤트 후 진입<br/><span style="font-size:11px;font-weight:400;">CAPA 완공 + 대형 수주 공시 후</span></div>
+      <div class="decision-btn decision-avoid decision-dim">🚫 관망<br/><span style="font-size:11px;font-weight:400;">-</span></div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="section-title">승격 조건 — 주목 종목 전용</div>
+  <div class="upgrade-box">
+    <div class="upgrade-item">
+      <span class="upgrade-when">2026.06</span>
+      <span>GS엔텍 CAPA 완공 + 대형 모노파일 수주 공시 → ⭐ 핵심 승격</span>
+    </div>
+    <div class="upgrade-item">
+      <span class="upgrade-when">2026.2H</span>
+      <span>해외 EPC 레퍼런스 확보 + 자회사 가치 SOTP 재평가 → 🚀 SS급 검토</span>
+    </div>
+    <div class="upgrade-item">
+      <span class="upgrade-when">커버리지 개시</span>
+      <span>메리츠 Buy·TP 제시로 Upside 40%+ 확인 시 → ⭐ 핵심 승격</span>
+    </div>
+  </div>
+</section>
+
+<div class="disclaimer">
+  ※ 본 글은 증권사 리포트를 개인 학습 목적으로 요약·정리한 것이며, 투자 권유가 아닙니다.<br/>
+  ※ 제공된 PDF 파일만 활용. 외부 검색·참조 없음. 당일 발간 리포트 기준.
+</div>
+
+</body>
+</html>

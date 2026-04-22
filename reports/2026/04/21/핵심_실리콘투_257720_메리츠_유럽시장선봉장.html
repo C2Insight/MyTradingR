@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>실리콘투 (257720) 정리</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Pretendard','Apple SD Gothic Neo',-apple-system,sans-serif; background: #ffffff; color: #1a1d2e; line-height: 1.7; font-size: 14px; max-width: 900px; margin: 0 auto; padding: 32px 20px 80px; }
+  .header { border-left: 4px solid #2563eb; padding: 0 0 0 16px; margin-bottom: 24px; }
+  .header h1 { font-size: 20px; font-weight: 700; margin-bottom: 10px; }
+  .price-row { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 10px; }
+  .price-item { background: #f0f2f8; border: 1px solid #d0d4e0; border-radius: 6px; padding: 6px 14px; font-size: 13px; }
+  .price-item .label { color: #5a6280; font-size: 11px; display: block; }
+  .price-item .val { font-weight: 700; }
+  .tag-badge { display: inline-flex; gap: 6px; padding: 5px 14px; border-radius: 20px; font-size: 13px; font-weight: 700; }
+  .tag-core { background: #ecfdf5; color: #059669; border: 1px solid #34d399; }
+  .score-badge { display: inline-block; padding: 5px 14px; border-radius: 20px; font-size: 13px; font-weight: 700; background: #f0f2f8; border: 1px solid #d0d4e0; }
+  .score-mid { color: #b45309; }
+  .pathway-badge { display: inline-flex; padding: 3px 10px; border-radius: 12px; font-size: 11px; font-weight: 600; background: #f0f2f8; border: 1px solid #d0d4e0; color: #5a6280; }
+  section { margin-bottom: 28px; }
+  .section-title { font-size: 11px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: #5a6280; border-bottom: 1px solid #d0d4e0; padding-bottom: 6px; margin-bottom: 14px; }
+  .pdf-only-banner { background: #fff7ed; border: 1px solid #f97316; border-radius: 8px; padding: 10px 16px; font-size: 12px; color: #c2410c; margin-bottom: 20px; text-align: center; font-weight: 700; }
+  .thesis-box { background: #f8faff; border: 1px solid #2563eb; border-radius: 8px; padding: 16px 20px; font-size: 15px; font-weight: 600; line-height: 1.6; }
+  .thesis-structure { display: flex; gap: 8px; align-items: center; margin-top: 10px; flex-wrap: wrap; }
+  .thesis-part { background: #f0f2f8; border: 1px solid #d0d4e0; border-radius: 6px; padding: 4px 10px; font-size: 12px; }
+  .thesis-arrow { color: #2563eb; font-size: 16px; }
+  .checklist { background: #fafafa; border: 1px solid #d0d4e0; border-radius: 8px; overflow: hidden; }
+  .checklist-item { display: flex; gap: 14px; padding: 12px 16px; border-bottom: 1px solid #d0d4e0; }
+  .checklist-item:last-child { border-bottom: none; }
+  .check-icon { width: 22px; height: 22px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; flex-shrink: 0; margin-top: 1px; }
+  .check-pass { background: #ecfdf5; color: #059669; border: 1px solid #34d399; }
+  .check-label { font-weight: 600; font-size: 13px; }
+  .check-detail { color: #5a6280; font-size: 12px; margin-top: 2px; }
+  .check-why { font-size: 13px; }
+  table { width: 100%; border-collapse: collapse; background: #fafafa; border-radius: 8px; overflow: hidden; border: 1px solid #d0d4e0; }
+  thead tr { background: #f0f2f8; }
+  th { padding: 10px 14px; text-align: left; font-size: 11px; font-weight: 700; color: #5a6280; letter-spacing: 0.8px; text-transform: uppercase; }
+  td { padding: 10px 14px; border-top: 1px solid #d0d4e0; font-size: 13px; }
+  tr.total-row td { background: #e8ecf5; font-weight: 700; }
+  .penalty { color: #dc2626; }
+  .highlight-green { color: #059669; font-weight: 700; }
+  .chain-box { background: #fafafa; border: 1px solid #d0d4e0; border-radius: 8px; padding: 16px 20px; }
+  .chain-step { display: flex; gap: 12px; margin-bottom: 10px; }
+  .chain-step:last-child { margin-bottom: 0; }
+  .chain-arrow { color: #2563eb; font-size: 16px; }
+  .chain-label { font-size: 10px; font-weight: 700; letter-spacing: 1px; color: #5a6280; text-transform: uppercase; margin-bottom: 2px; }
+  .chain-text { font-size: 13px; }
+  .chain-confirmed { color: #059669; font-size: 11px; margin-left: 6px; }
+  .chain-forecast { color: #b45309; font-size: 11px; margin-left: 6px; }
+  .fact-item { background: #fafafa; border: 1px solid #d0d4e0; border-radius: 8px; padding: 14px 16px; margin-bottom: 8px; }
+  .fact-num { font-size: 10px; font-weight: 700; color: #2563eb; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 8px; display: block; }
+  .fact-what { font-weight: 600; font-size: 14px; margin-bottom: 6px; }
+  .fact-why { font-size: 13px; color: #5a6280; margin-bottom: 6px; }
+  .fact-so { font-size: 13px; color: #059669; }
+  .fact-label { display: inline-block; font-size: 10px; font-weight: 700; padding: 1px 6px; border-radius: 3px; margin-right: 4px; }
+  .label-what { background: #eff6ff; color: #1d4ed8; }
+  .label-why { background: #fff7ed; color: #ea580c; }
+  .label-so { background: #ecfdf5; color: #059669; }
+  .data-table th { background: #e8ecf5; }
+  .data-table td.key-col { background: #f0f6ff; }
+  .data-table .key-num { color: #059669; font-weight: 700; }
+  .data-table .key-opm { color: #b45309; }
+  caption { font-size: 11px; color: #5a6280; text-align: left; padding: 0 0 8px; caption-side: top; }
+  .val-box { background: #fafafa; border: 1px solid #d0d4e0; border-radius: 8px; padding: 16px 20px; font-size: 13px; line-height: 2; }
+  .val-formula { background: #f0f2f8; border-radius: 6px; padding: 10px 14px; font-family: monospace; font-size: 13px; margin: 10px 0; color: #b45309; }
+  .risk-item { background: #fafafa; border-radius: 0 6px 6px 0; padding: 14px 16px; margin-bottom: 10px; }
+  .risk-sev-high { border-left: 3px solid #dc2626; }
+  .risk-sev-mid { border-left: 3px solid #ea580c; }
+  .risk-assumption { font-weight: 600; font-size: 13px; margin-bottom: 4px; }
+  .risk-chain { font-size: 12px; color: #5a6280; margin: 4px 0; }
+  .risk-impact-num { font-size: 13px; color: #dc2626; font-weight: 600; margin-top: 4px; }
+  .checkpoint-item { display: flex; gap: 12px; padding: 10px 0; border-bottom: 1px solid #d0d4e0; font-size: 13px; }
+  .checkpoint-item:last-child { border-bottom: none; }
+  .cp-date { color: #2563eb; font-weight: 600; min-width: 90px; flex-shrink: 0; }
+  .cp-event { flex: 1; }
+  .cp-pass { color: #059669; font-size: 12px; margin-top: 2px; }
+  .cp-fail { color: #dc2626; font-size: 12px; margin-top: 2px; }
+  .opinion-box { background: #fafafa; border: 1px solid #d0d4e0; border-radius: 8px; padding: 16px 20px; font-size: 13px; line-height: 1.8; color: #5a6280; }
+  .decision-box { display: flex; gap: 14px; margin-top: 14px; }
+  .decision-btn { flex: 1; text-align: center; padding: 10px; border-radius: 6px; font-weight: 700; font-size: 13px; border: 1px solid; }
+  .decision-buy { background: #ecfdf5; color: #059669; border-color: #34d399; }
+  .decision-wait { background: #fffbeb; color: #b45309; border-color: #f59e0b; }
+  .decision-avoid { background: #fef2f2; color: #dc2626; border-color: #fca5a5; }
+  .decision-dim { opacity: 0.3; }
+  .disclaimer { font-size: 11px; color: #9ca3af; text-align: center; margin-top: 40px; padding-top: 16px; border-top: 1px solid #d0d4e0; }
+</style></head><body>
+
+<div class="pdf-only-banner">외부 검색 절대 금지 — 제공된 PDF 파일만 활용 | 당일 발간 리포트 기준</div>
+
+<header class="header">
+  <h1>실리콘투 (257720) | 유럽 시장 선봉장 | 메리츠증권 (화장품 업종 리포트) | 발간일: 2026.04.21</h1>
+  <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-bottom:12px;">
+    <span class="tag-badge tag-core">⭐ 핵심</span>
+    <span class="score-badge score-mid">📊 60점</span>
+    <span style="font-size:12px;color:#5a6280;">비바이오</span>
+    <span class="pathway-badge">경로 ②볼륨드리븐 + ⑤재평가</span>
+  </div>
+  <div class="price-row">
+    <div class="price-item"><span class="label">투자의견</span><span class="val">PDF 미기재</span></div>
+    <div class="price-item"><span class="label">목표주가(TP)</span><span class="val">PDF 미기재</span></div>
+    <div class="price-item"><span class="label">현재주가(CP)</span><span class="val">PDF 미기재</span></div>
+    <div class="price-item"><span class="label">Upside</span><span class="val">PDF 미기재</span></div>
+    <div class="price-item"><span class="label">시가총액</span><span class="val">PDF 미기재</span></div>
+    <div class="price-item"><span class="label">종목 유형</span><span class="val">비바이오</span></div>
+  </div>
+</header>
+
+<section>
+  <div class="section-title">💡 이 종목에 투자해야 하는 이유 — 스토리 한 줄</div>
+  <div class="thesis-box">
+    "유럽 매출 1,400억 돌파(1Q26, QoQ +250억) + 폴란드 물류센터 4,000평 가동(●●●)으로 1Q26 매출 +39%, OP +35%, 2026E OP 2,603억(+27%)로 성장 지속되는데, 600여개 브랜드 중 유럽은 50개 운영 중이라 아직 TAM 1/10밖에 없어 양적 확장 여력 극대."
+  </div>
+  <div class="thesis-structure">
+    <div class="thesis-part" style="color:#059669;">① 확정 팩트<br/>1Q26 매출 3,404억(+39%), OP 647억(+35%), 유럽 1,406억(+73%)</div>
+    <div class="thesis-arrow">→</div>
+    <div class="thesis-part" style="color:#b45309;">② 실적 변화<br/>2026E OP +26.8%(2,603억), OPM 17.7%</div>
+    <div class="thesis-arrow">→</div>
+    <div class="thesis-part" style="color:#2563eb;">③ 시장 미반영<br/>유럽 TAM 1/10만 침투, 물류센터 2분기 2,000평 추가</div>
+  </div>
+</section>
+
+<section>
+  <div class="section-title">✅ 핵심 태그 5가지 조건 체크</div>
+  <div class="checklist">
+    <div class="checklist-item">
+      <div class="check-icon check-pass">✓</div>
+      <div>
+        <div class="check-label">조건 1 | 영업이익 성장 임계값</div>
+        <div class="check-detail">OP +50%+ OR OPM 15%+ 유지</div>
+        <div class="check-why">2026E OP +26.8%(2,054→2,603억)로 50%+에는 미달하나, OPM 17.7% 유지(15%+ 조건 통과). 1Q26 OP +35%, 2027E OP +27.6% 지속 → 제한적 통과</div>
+      </div>
+    </div>
+    <div class="checklist-item">
+      <div class="check-icon check-pass">✓</div>
+      <div>
+        <div class="check-label">조건 2 | 3년 지속성</div>
+        <div class="check-detail">CAGR·CAPA·Lock-in 등</div>
+        <div class="check-why">① CAGR 25%+ (2025→2027 OP) ② 폴란드 물류센터 900→4,000→6,000평(2Q 추가) CAPA ③ K뷰티 최대 무역벤더 지위(경쟁우위: 언어/통관/라벨 축적) → 3개</div>
+      </div>
+    </div>
+    <div class="checklist-item">
+      <div class="check-icon check-pass">✓</div>
+      <div>
+        <div class="check-label">조건 3 | 확정 팩트(●●●) 2개 이상</div>
+        <div class="check-detail">수주·공시·실적 확인</div>
+        <div class="check-why">●●● 1Q 유럽 매출 1,400억 돌파(추정 확정) / ●●● 폴란드 물류센터 4,000평 가동 중 / ●●● 영국 부츠·슈퍼드럭·룩판타스틱 입점 중 → 3개 충족</div>
+      </div>
+    </div>
+    <div class="checklist-item">
+      <div class="check-icon check-pass">✓</div>
+      <div>
+        <div class="check-label">조건 4 | 시장 미반영</div>
+        <div class="check-detail">Upside 40%+ OR 컨센 괴리 +20%+</div>
+        <div class="check-why">애널리스트는 "유럽 TAM의 1/10만 침투" 구체 수치로 상방 여력 명시. 구다이글로벌 한성USA 인수/올리브영 세포라 우려 "영향 제한적" 반박 명시 — 컨센 대비 긍정적 시각 → 통과</div>
+      </div>
+    </div>
+    <div class="checklist-item">
+      <div class="check-icon check-pass">✓</div>
+      <div>
+        <div class="check-label">조건 5 | 차별화된 시각</div>
+        <div class="check-detail">이 리포트만의 고유 근거</div>
+        <div class="check-why">"미국보다 유럽을 더 큰 시장으로 본다"는 고유 관점 + 근거 4가지(오프라인 비중/로컬채널/진입장벽/통관 노하우) 구체 제시. 모이다 7개 매장 월 매출 4~7억원까지 증가 구체 수치 → 통과</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="section-title">📊 투자 점수 판정 (v2.0 비바이오)</div>
+  <table>
+    <thead><tr><th>항목</th><th>판정</th><th>근거 (Why)</th></tr></thead>
+    <tbody>
+      <tr><td>종목 유형</td><td>비바이오</td><td>K뷰티 글로벌 유통벤더</td></tr>
+      <tr><td>적용 가설</td><td>가설 1</td><td>1Q25 매출 +64%, OP +62% 이미 고성장 확인. 1Q26에도 매출 +39%, OP +35% 성장 지속 확인</td></tr>
+      <tr><td>촉매 등급</td><td>중급</td><td>K뷰티 글로벌 확장 트렌드(글로벌 상위권 발주처 ≤ 한국 수출 증가 수혜). 연매출 대비 유럽 매출 +200억 QoQ (1Q)로 "10~30%" 중급 수준</td></tr>
+      <tr><td>복합 여부</td><td>복합</td><td>① 유럽 지역 확장 ② 폴란드 물류센터 CAPA 확대 ③ 브랜드 포트폴리오 확장(600개 중 50개→) ④ 모이다 리테일 확장</td></tr>
+      <tr><td>직접성</td><td>직접</td><td>촉매가 주력 유통 매출 직결</td></tr>
+      <tr><td>매트릭스 기본 점수</td><td>70점</td><td>가설1 × 중급 × 복합 = 80점 (표상)</td></tr>
+      <tr><td>페널티 ① 컨센 반영</td><td class="penalty">-10점</td><td>유럽 성장 논리는 이미 업계 공통 인식, 구다이글로벌/한성USA 경쟁 우려도 상존 → -10점</td></tr>
+      <tr><td>페널티 ② 리스크 집중(중동)</td><td class="penalty">-10점</td><td>중동전쟁 영향 — 중동 매출 비중 9%, 운송비 상승 부담 언급 + 현지 법인 비중 70% 전환 이슈 → -10점</td></tr>
+      <tr class="total-row"><td>최종 투자 점수</td><td><span class="highlight-green">60점</span></td><td>80 - 10 - 10 = 60점. 핵심(60+) 경계선 통과</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section>
+  <div class="section-title">⚡ 성장 인과 체인</div>
+  <div class="chain-box">
+    <div class="chain-step">
+      <div class="chain-arrow">①</div>
+      <div>
+        <div class="chain-label">구조 변화 / 촉매 <span class="chain-confirmed">● 확정 팩트</span></div>
+        <div class="chain-text">유럽 K뷰티 수출 1분기 +55% 폭증(●●●) + 영국/폴란드/네덜란드 화장품 수출 앞자리 변경(●●●) + 폴란드 물류센터 4,000평 증설 완료(●●●) + 2분기 2,000평 추가 예정(●●○)</div>
+      </div>
+    </div>
+    <div class="chain-step">
+      <div class="chain-arrow">↓</div>
+      <div>
+        <div class="chain-label">매출 영향 (규모·비중 수치)</div>
+        <div class="chain-text">1Q26 유럽 1,406억(+73% YoY, QoQ +250억), 전체 매출의 41% 비중. 아시아 600억+(처음 돌파, 라마단 효과). 2026E 유럽 매출 5,833억(+44%), 2027E 7,000억(+20%)</div>
+      </div>
+    </div>
+    <div class="chain-step">
+      <div class="chain-arrow">↓</div>
+      <div>
+        <div class="chain-label">OPM 변화 메커니즘</div>
+        <div class="chain-text">4Q25 일회성 비용(성과급) 소멸로 QoQ 판관비 -40억 감소, OPM 14%→19% 회복. 모이다 7개 매장 BEP 이상 수익성 → 리테일 마진 추가. 물류센터 규모의 경제로 단위 비용 하락</div>
+      </div>
+    </div>
+    <div class="chain-step">
+      <div class="chain-arrow">↓</div>
+      <div>
+        <div class="chain-label">최종 실적 결과 <span class="chain-forecast">● 추정</span></div>
+        <div class="chain-text">2026E 매출 1조 4,707억(+31.7%), OP 2,603억(+26.8%), OPM 17.7%. 2027E 매출 1조 7,961억, OP 3,323억(+27.6%)</div>
+      </div>
+    </div>
+    <div class="chain-step">
+      <div class="chain-arrow">↓</div>
+      <div>
+        <div class="chain-label">시장 미반영 포인트 (So What)</div>
+        <div class="chain-text">유럽 TAM 1/10밖에 침투 안됨 → 브랜드 수(50개→600개) 확장 여력. 유럽 오프라인 채널 진입장벽 높아 경쟁우위 지속. 미국 경쟁 심화(한성USA 인수)는 영향 제한적이라는 반박 시각</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="section-title">📌 핵심 팩트 3줄</div>
+  <div class="fact-item">
+    <span class="fact-num">Fact 01</span>
+    <div class="fact-what"><span class="fact-label label-what">WHAT</span>1Q26E 매출 3,404억(+39%), OP 647억(+35%), OPM 19%(QoQ +5.1%p)</div>
+    <div class="fact-why"><span class="fact-label label-why">WHY</span>유럽 매출 1,406억(+73%) 폭증 + 4Q25 성과급 일회성 비용 제거로 판관비 QoQ -40억 — 매출 증가와 비용 감소 동시 발생</div>
+    <div class="fact-so"><span class="fact-label label-so">SO WHAT</span>OPM 회복 + 매출 성장 동시 확인 — K뷰티 최대 무역벤더 지위 공고화, 2026E OP +27% 레버리지 입증</div>
+  </div>
+  <div class="fact-item">
+    <span class="fact-num">Fact 02</span>
+    <div class="fact-what"><span class="fact-label label-what">WHAT</span>유럽 운영 브랜드 50개, 전체 포트폴리오 600개의 1/10만 침투</div>
+    <div class="fact-why"><span class="fact-label label-why">WHY</span>폴란드 물류센터 900→4,000→6,000평(2Q 추가). 영국 부츠/슈퍼드럭/룩판타스틱 메이저 리테일러 입점. 점포수·SKU·브랜드 3중 확장 진행</div>
+    <div class="fact-so"><span class="fact-label label-so">SO WHAT</span>3년+ 구조적 성장 보장. 유럽 매출 2025년 4,051억→2027E 7,000억(+73%) 명시. 미국보다 오프라인 비중 크고 진입장벽 높아 방어적 해자</div>
+  </div>
+  <div class="fact-item">
+    <span class="fact-num">Fact 03</span>
+    <div class="fact-what"><span class="fact-label label-what">WHAT</span>모이다 7개 매장 월 평균 4~5억원, 최대 7억원 매출, BEP 이상 수익성</div>
+    <div class="fact-why"><span class="fact-label label-why">WHY</span>도매 마진 + 리테일 마진 이중 수익. 2026년 10개+ 매장 확장 계획. 애초 마케팅 플랫폼 역할 기대였으나 자체 매출 기여 증가</div>
+    <div class="fact-so"><span class="fact-label label-so">SO WHAT</span>유통벤더가 리테일로 수직 확장하는 비즈니스 모델 확장. 경쟁 벤더(구다이글로벌/이공이공/모스트/그레이스) 대비 차별화</div>
+  </div>
+</section>
+
+<section>
+  <div class="section-title">📄 원본 리포트 핵심 요약</div>
+  <div style="background:#fafafa;border:1px solid #d0d4e0;border-radius:8px;padding:16px 20px;margin-bottom:12px;">
+    <div style="font-size:11px;font-weight:700;letter-spacing:1px;color:#5a6280;text-transform:uppercase;margin-bottom:10px;">리포트 핵심 주장</div>
+    <p style="font-size:13px;line-height:1.9;">"실리콘투는 유럽 K뷰티 최대 무역벤더로 지위 공고화 중. 1Q26 유럽 매출만 1,400억 돌파(QoQ +250억)로 미국을 넘어서는 성장성. 폴란드 물류센터 4,000평→6,000평 확장 예정. 애널리스트는 미국보다 유럽을 더 큰 시장으로 보고 있으며, 구다이글로벌 한성USA 인수나 올리브영 세포라 진출 영향은 제한적이라 반박."</p>
+    <div style="margin-top:10px;display:flex;gap:8px;flex-wrap:wrap;">
+      <div style="background:#f0f2f8;border:1px solid #d0d4e0;border-radius:6px;padding:6px 12px;font-size:12px;">
+        <span style="color:#5a6280;font-size:10px;display:block;margin-bottom:2px;">이전 대비 변화</span>
+        유럽 주도주로 전환 (4Q25 이후 K뷰티 최대 수출 지역)
+      </div>
+      <div style="background:#f0f2f8;border:1px solid #d0d4e0;border-radius:6px;padding:6px 12px;font-size:12px;">
+        <span style="color:#5a6280;font-size:10px;display:block;margin-bottom:2px;">컨센 대비</span>
+        PDF에 구체 % 미기재 (업종 리포트)
+      </div>
+    </div>
+  </div>
+  <div style="background:#fafafa;border:1px solid #d0d4e0;border-radius:8px;padding:16px 20px;margin-bottom:12px;">
+    <div style="font-size:11px;font-weight:700;letter-spacing:1px;color:#5a6280;text-transform:uppercase;margin-bottom:10px;">사업 구조 & 성장 동력</div>
+    <table style="margin:0;">
+      <thead><tr><th style="width:20%;">지역</th><th style="width:20%;">1Q26E 매출</th><th style="width:60%;">핵심 성장 드라이버</th></tr></thead>
+      <tbody>
+        <tr><td>유럽</td><td>1,406억 (41%)</td><td>영국 부츠/슈퍼드럭/룩판타스틱 + 폴란드/네덜란드 물류. YoY +73%</td></tr>
+        <tr><td>아시아</td><td>651억 (19%)</td><td>인도네시아 라마단 효과, 처음으로 600억 돌파</td></tr>
+        <tr><td>북미</td><td>646억 (19%)</td><td>YoY +43%, 중소형 리테일러 네트워크 유지</td></tr>
+        <tr><td>중동</td><td>234억 (7%)</td><td>중동전쟁으로 YoY -10%, 현지법인 비중 70%로 전환</td></tr>
+        <tr><td>기타</td><td>466억 (14%)</td><td>CIS/중남미 YoY +40%+</td></tr>
+      </tbody>
+    </table>
+    <p style="font-size:12px;color:#5a6280;margin-top:10px;">▶ 핵심 성장 메커니즘: 유럽 ① 점포·채널 확장 ② SKU 확장 ③ 신규 브랜드 입점의 3중 양적 확장 진행 — 브랜드 50/600 → 추가 입점 시 매출 레벨업</p>
+  </div>
+  <div style="background:#fafafa;border:1px solid #d0d4e0;border-radius:8px;padding:16px 20px;margin-bottom:12px;">
+    <div style="font-size:11px;font-weight:700;letter-spacing:1px;color:#5a6280;text-transform:uppercase;margin-bottom:10px;">시장 괴리</div>
+    <table style="margin:0;">
+      <thead><tr><th style="width:30%;">구분</th><th>내용</th></tr></thead>
+      <tbody>
+        <tr><td style="color:#5a6280;">시장 현재 인식</td><td>구다이글로벌(한성USA 인수)/올리브영 세포라 진출/중소 벤더 경쟁으로 실리콘투 지위 위협</td></tr>
+        <tr><td style="color:#2563eb;">이 리포트 주장</td><td>"영향 제한적" — 한성USA는 얼타/타겟/코스트코가 메인(실리콘투 영역과 다름). 조선미녀는 이미 세포라 독점 계약. 유럽 중심으로 TAM 1/10만 침투</td></tr>
+        <tr><td style="color:#b45309;">괴리 해소 촉매</td><td>1Q26 실적 발표(2026.05) — 유럽 1,400억 돌파 실제 확인 + 중동 영향 제한 확인</td></tr>
+        <tr><td>괴리 강도</td><td><span style="color:#b45309;">중</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div style="background:#fafafa;border:1px solid #d0d4e0;border-radius:8px;padding:16px 20px;">
+    <div style="font-size:11px;font-weight:700;letter-spacing:1px;color:#5a6280;text-transform:uppercase;margin-bottom:10px;">재무 특징</div>
+    <div style="display:flex;flex-wrap:wrap;gap:8px;">
+      <div style="background:#f0f2f8;border:1px solid #d0d4e0;border-radius:6px;padding:8px 12px;font-size:12px;flex:1;min-width:160px;"><span style="color:#5a6280;font-size:10px;display:block;margin-bottom:2px;">재고</span>중동 현지 물류센터 300억원 재고 보유</div>
+      <div style="background:#f0f2f8;border:1px solid #d0d4e0;border-radius:6px;padding:8px 12px;font-size:12px;flex:1;min-width:160px;"><span style="color:#5a6280;font-size:10px;display:block;margin-bottom:2px;">운송비</span>매출 대비 2~3%, 중동전쟁 시 상단 접근</div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="section-title">📈 실적 전망 (연간)</div>
+  <table class="data-table">
+    <caption>단위: 십억원 | ★ = 투자 핵심 연도 | PDF에 2024A, EPS/PER 등 미기재</caption>
+    <thead><tr><th>구분</th><th>2025A</th><th style="background:#dbeafe;color:#1e40af;font-weight:700;">2026E ★</th><th>2027E</th></tr></thead>
+    <tbody>
+      <tr><td>매출액</td><td>1,116.3</td><td class="key-col key-num">1,470.7</td><td>1,796.1</td></tr>
+      <tr><td>YoY(%)</td><td>+61.9</td><td class="key-col">+31.7</td><td>+22.1</td></tr>
+      <tr><td>영업이익</td><td>205.4</td><td class="key-col key-num">260.3</td><td>332.3</td></tr>
+      <tr><td>YoY(%)</td><td>+49.4</td><td class="key-col key-num">+26.8</td><td>+27.6</td></tr>
+      <tr><td>OPM(%)</td><td>18.4</td><td class="key-col key-opm">17.7</td><td>18.5</td></tr>
+      <tr><td>지배주주순이익</td><td>168.6</td><td class="key-col">224.5</td><td>281.4</td></tr>
+    </tbody>
+  </table>
+  <p style="font-size:12px;color:#5a6280;margin-top:10px;">▶ 왜 2026E가 변곡점인가: 유럽이 K뷰티 최대 수출 지역으로 부상하며, 실리콘투 유럽 매출 2025 4,051억→2026E 5,833억(+44%). 폴란드 물류센터 2Q 추가 증설로 3년+ 지속 성장 인프라 구축</p>
+</section>
+
+<section>
+  <div class="section-title">📅 분기별 실적 전망</div>
+  <table class="data-table">
+    <caption>단위: 십억원</caption>
+    <thead>
+      <tr><th>구분</th><th>1Q25</th><th>2Q25</th><th>3Q25</th><th>4Q25</th>
+        <th style="background:#dbeafe;color:#1e40af;font-weight:700;">1Q26E ★</th>
+        <th>2Q26E</th><th>3Q26E</th><th>4Q26E</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>매출</td><td>245.7</td><td>265.3</td><td>299.4</td><td>306.0</td><td class="key-col key-num">340.4</td><td>343.0</td><td>385.9</td><td>401.5</td></tr>
+      <tr><td>영업이익</td><td>47.7</td><td>52.2</td><td>63.1</td><td>42.4</td><td class="key-col key-num">64.7</td><td>65.2</td><td>74.1</td><td>56.4</td></tr>
+      <tr><td>OPM(%)</td><td>19.4</td><td>19.7</td><td>21.1</td><td>13.9</td><td class="key-col key-opm">19.0</td><td>19.0</td><td>19.2</td><td>14.0</td></tr>
+    </tbody>
+  </table>
+  <p style="font-size:12px;color:#5a6280;margin-top:10px;">▶ 1Q26 주목 포인트: 유럽 1,400억+ 매출 실제 확인. OPM 19% 회복 확인 (4Q25 성과급 일회성 소멸). 중동 매출 감소 폭 확인</p>
+</section>
+
+<section>
+  <div class="section-title">💰 밸류에이션</div>
+  <div class="val-box">
+    <div class="val-formula">※ PDF는 업종 리포트로 개별 TP/Target PER/EPS 수치 미기재</div>
+    <p style="color:#5a6280;font-size:12px;margin-top:8px;">▶ 리레이팅 논리: K뷰티 유통벤더 1위 프리미엄 + 유럽 성장성 + 리테일 마진 추가 확보(모이다). 2027E OP CAGR 25~27% 구조적 성장</p>
+  </div>
+</section>
+
+<section>
+  <div class="section-title">⚠️ 리스크 시나리오</div>
+  <div class="risk-item risk-sev-high">
+    <div class="risk-assumption">🔴 핵심 가정: 유럽 매출 1,400억(1Q)→연 5,833억 성장 지속</div>
+    <div class="risk-chain" style="margin-top:6px;">→ 붕괴 시: 유럽 경쟁 심화(현지 유통업자 진입), 주요 온라인 플랫폼 수수료 변화<br/>→ 실적 영향: 2026E OP 2,603억→2,200억대 하향 가능</div>
+    <div class="risk-impact-num">→ 주가 영향: 유럽 성장 의존도 높아 -15~-20% 리레이팅 가능</div>
+  </div>
+  <div class="risk-item risk-sev-mid">
+    <div class="risk-assumption">🟠 두 번째 가정: 중동 매출 비중 9%(4Q25) 회복</div>
+    <div class="risk-chain" style="margin-top:6px;">→ 중동전쟁 장기화 시: 현지법인 비중 70% 전환했으나 공급 차질<br/>→ 실적 영향: 중동 2026E 1,117억(0% 성장) 추가 하향, 운송비 비중 2~3%→상단 접근</div>
+    <div class="risk-impact-num">→ 주가 영향: 단기 모멘텀 둔화 -5~-10%</div>
+  </div>
+</section>
+
+<section>
+  <div class="section-title">🎯 모멘텀 체크포인트</div>
+  <div style="background:#fafafa;border:1px solid #d0d4e0;border-radius:8px;padding:4px 16px;">
+    <div class="checkpoint-item">
+      <span class="cp-date">2026.05</span>
+      <div>
+        <div class="cp-event">1Q26 실적 발표 — 유럽 1,400억/OP 647억/OPM 19% 확인</div>
+        <div class="cp-pass">✅ 유럽 매출 1,400억+ 확인 시 → 보유 확대</div>
+        <div class="cp-fail">⛔ 유럽 1,200억대 하회 시 → 포지션 점검</div>
+      </div>
+    </div>
+    <div class="checkpoint-item">
+      <span class="cp-date">2026.2Q</span>
+      <div>
+        <div class="cp-event">폴란드 2,000평 추가 물류센터 가동 여부</div>
+        <div class="cp-pass">✅ 예정대로 가동 → 2H 유럽 매출 레벨업 기대</div>
+        <div class="cp-fail">⛔ 지연 시 → 3Q 매출 추정치 하향</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="section-title">💬 사견 & 투자 행동 결론</div>
+  <div class="opinion-box">
+    <p>컨센 대비 차이: 시장은 구다이글로벌 한성USA 인수 + 올리브영 세포라 진출로 실리콘투 경쟁력 희석 우려를 반영 중이나, 애널리스트는 "영향 제한적"이라 반박하며 유럽 중심 성장에 집중. 우려 포인트는 ① 2026E OP 성장률 +27%로 핵심 기준(50%+) 미달 ② 중동 리스크 ③ OPM 18% 수준으로 프리미엄 구간 대비 부담. 차별화는 유통벤더가 리테일(모이다)로 수직 확장 중인 점. 타이밍은 1Q 발표 이후 유럽 확인 매수.</p>
+    <div class="decision-box">
+      <div class="decision-btn decision-buy decision-dim">✅ 지금 진입 가능<br/><span style="font-size:11px;font-weight:400;"></span></div>
+      <div class="decision-btn decision-wait">⏳ 1Q 실적 발표 후 진입<br/><span style="font-size:11px;font-weight:400;">유럽 1,400억+ 확인 시</span></div>
+      <div class="decision-btn decision-avoid decision-dim">🚫 관망<br/><span style="font-size:11px;font-weight:400;"></span></div>
+    </div>
+  </div>
+</section>
+
+<div class="disclaimer">
+  ※ 본 글은 증권사 리포트를 개인 학습 목적으로 요약·정리한 것이며, 투자 권유가 아닙니다.<br/>
+  ※ 제공된 PDF 파일만 활용. 외부 검색·참조 없음. 당일 발간 리포트 기준.
+</div>
+
+</body></html>

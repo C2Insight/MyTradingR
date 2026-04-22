@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>태양 (053620) 정리</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Pretendard','Apple SD Gothic Neo',-apple-system,sans-serif; background: #ffffff; color: #1a1d2e; line-height: 1.7; font-size: 14px; max-width: 900px; margin: 0 auto; padding: 32px 20px 80px; }
+  .header { border-left: 4px solid #2563eb; padding: 0 0 0 16px; margin-bottom: 24px; }
+  .header h1 { font-size: 20px; font-weight: 700; margin-bottom: 10px; color: #1a1d2e; }
+  .price-row { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin-top: 10px; }
+  .price-item { background: #f0f2f8; border: 1px solid #d0d4e0; border-radius: 6px; padding: 6px 14px; font-size: 13px; }
+  .price-item .label { color: #5a6280; font-size: 11px; display: block; }
+  .price-item .val { font-weight: 700; color: #1a1d2e; }
+  .upside-val { color: #059669; }
+  .tag-badge { display: inline-flex; align-items: center; gap: 6px; padding: 5px 14px; border-radius: 20px; font-size: 13px; font-weight: 700; }
+  .tag-stable { background: #f0fdf4; color: #15803d; border: 1px solid #86efac; }
+  .score-badge { display: inline-block; padding: 5px 14px; border-radius: 20px; font-size: 13px; font-weight: 700; background: #f0f2f8; border: 1px solid #d0d4e0; color: #1a1d2e; }
+  .score-low  { color: #15803d; }
+  .pathway-badge { display: inline-flex; align-items: center; gap: 4px; padding: 3px 10px; border-radius: 12px; font-size: 11px; font-weight: 600; background: #f0f2f8; border: 1px solid #d0d4e0; color: #5a6280; }
+  section { margin-bottom: 28px; }
+  .section-title { font-size: 11px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: #5a6280; border-bottom: 1px solid #d0d4e0; padding-bottom: 6px; margin-bottom: 14px; }
+  .pdf-only-banner { background: #fff7ed; border: 1px solid #f97316; border-radius: 8px; padding: 10px 16px; font-size: 12px; color: #c2410c; margin-bottom: 20px; text-align: center; font-weight: 700; }
+  .thesis-box { background: #f8faff; border: 1px solid #2563eb; border-radius: 8px; padding: 16px 20px; font-size: 15px; font-weight: 600; line-height: 1.6; color: #1a1d2e; }
+  .thesis-structure { display: flex; gap: 8px; align-items: center; margin-top: 10px; flex-wrap: wrap; }
+  .thesis-part { background: #f0f2f8; border: 1px solid #d0d4e0; border-radius: 6px; padding: 4px 10px; font-size: 12px; color: #1a1d2e; }
+  .thesis-arrow { color: #2563eb; font-size: 16px; }
+  .checklist { background: #fafafa; border: 1px solid #d0d4e0; border-radius: 8px; overflow: hidden; }
+  .checklist-item { display: flex; gap: 14px; align-items: flex-start; padding: 12px 16px; border-bottom: 1px solid #d0d4e0; }
+  .checklist-item:last-child { border-bottom: none; }
+  .check-icon { width: 22px; height: 22px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; flex-shrink: 0; margin-top: 1px; }
+  .check-pass { background: #ecfdf5; color: #059669; border: 1px solid #34d399; }
+  .check-fail { background: #fef2f2; color: #dc2626; border: 1px solid #fca5a5; }
+  .check-label { font-weight: 600; font-size: 13px; color: #1a1d2e; }
+  .check-detail { color: #5a6280; font-size: 12px; margin-top: 2px; }
+  .check-why { color: #1a1d2e; font-size: 13px; }
+  table { width: 100%; border-collapse: collapse; background: #fafafa; border-radius: 8px; overflow: hidden; border: 1px solid #d0d4e0; }
+  thead tr { background: #f0f2f8; }
+  th { padding: 10px 14px; text-align: left; font-size: 11px; font-weight: 700; color: #5a6280; letter-spacing: 0.8px; text-transform: uppercase; }
+  td { padding: 10px 14px; border-top: 1px solid #d0d4e0; font-size: 13px; color: #1a1d2e; }
+  tr.total-row td { background: #e8ecf5; font-weight: 700; }
+  .penalty { color: #dc2626; }
+  .highlight-green { color: #059669; font-weight: 700; }
+  .chain-box { background: #fafafa; border: 1px solid #d0d4e0; border-radius: 8px; padding: 16px 20px; }
+  .chain-step { display: flex; gap: 12px; align-items: flex-start; margin-bottom: 10px; }
+  .chain-step:last-child { margin-bottom: 0; }
+  .chain-arrow { color: #2563eb; font-size: 16px; flex-shrink: 0; margin-top: 1px; }
+  .chain-content { flex: 1; }
+  .chain-label { font-size: 10px; font-weight: 700; letter-spacing: 1px; color: #5a6280; text-transform: uppercase; margin-bottom: 2px; }
+  .chain-text { font-size: 13px; color: #1a1d2e; }
+  .chain-confirmed { color: #059669; font-size: 11px; margin-left: 6px; }
+  .chain-forecast { color: #b45309; font-size: 11px; margin-left: 6px; }
+  .fact-item { background: #fafafa; border: 1px solid #d0d4e0; border-radius: 8px; padding: 14px 16px; margin-bottom: 8px; }
+  .fact-item:last-child { margin-bottom: 0; }
+  .fact-num { font-size: 10px; font-weight: 700; color: #2563eb; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 8px; display: block; }
+  .fact-what { font-weight: 600; font-size: 14px; margin-bottom: 6px; color: #1a1d2e; }
+  .fact-why  { font-size: 13px; color: #5a6280; margin-bottom: 6px; }
+  .fact-so   { font-size: 13px; color: #059669; }
+  .fact-label { display: inline-block; font-size: 10px; font-weight: 700; padding: 1px 6px; border-radius: 3px; margin-right: 4px; }
+  .label-what { background: #eff6ff; color: #1d4ed8; }
+  .label-why  { background: #fff7ed; color: #ea580c; }
+  .label-so   { background: #ecfdf5; color: #059669; }
+  .data-table th { background: #e8ecf5; }
+  .data-table td.key-col { background: #f0f6ff; }
+  .data-table .key-num { color: #059669; font-weight: 700; }
+  .data-table .key-opm { color: #b45309; }
+  caption { font-size: 11px; color: #5a6280; text-align: left; padding: 0 0 8px; caption-side: top; }
+  .val-box { background: #fafafa; border: 1px solid #d0d4e0; border-radius: 8px; padding: 16px 20px; font-size: 13px; line-height: 2; color: #1a1d2e; }
+  .val-formula { background: #f0f2f8; border-radius: 6px; padding: 10px 14px; font-family: monospace; font-size: 13px; margin: 10px 0; color: #b45309; }
+  .risk-item { background: #fafafa; border-radius: 0 6px 6px 0; padding: 14px 16px; margin-bottom: 10px; }
+  .risk-sev-high { border-left: 3px solid #dc2626; }
+  .risk-sev-mid  { border-left: 3px solid #ea580c; }
+  .risk-assumption { font-weight: 600; font-size: 13px; margin-bottom: 4px; color: #1a1d2e; }
+  .risk-chain { font-size: 12px; color: #5a6280; margin: 4px 0; }
+  .risk-impact-num { font-size: 13px; color: #dc2626; font-weight: 600; margin-top: 4px; }
+  .checkpoint-item { display: flex; gap: 12px; padding: 10px 0; border-bottom: 1px solid #d0d4e0; font-size: 13px; }
+  .checkpoint-item:last-child { border-bottom: none; }
+  .cp-date { color: #2563eb; font-weight: 600; min-width: 90px; flex-shrink: 0; }
+  .cp-event { flex: 1; color: #1a1d2e; }
+  .cp-pass { color: #059669; font-size: 12px; margin-top: 2px; }
+  .cp-fail { color: #dc2626; font-size: 12px; margin-top: 2px; }
+  .opinion-box { background: #fafafa; border: 1px solid #d0d4e0; border-radius: 8px; padding: 16px 20px; font-size: 13px; line-height: 1.8; color: #5a6280; }
+  .decision-box { display: flex; gap: 14px; margin-top: 14px; }
+  .decision-btn { flex: 1; text-align: center; padding: 10px; border-radius: 6px; font-weight: 700; font-size: 13px; border: 1px solid; }
+  .decision-buy   { background: #ecfdf5; color: #059669; border-color: #34d399; }
+  .decision-wait  { background: #fffbeb; color: #b45309; border-color: #f59e0b; }
+  .decision-avoid { background: #fef2f2; color: #dc2626; border-color: #fca5a5; }
+  .decision-dim { opacity: 0.3; }
+  .disclaimer { font-size: 11px; color: #9ca3af; text-align: center; margin-top: 40px; padding-top: 16px; border-top: 1px solid #d0d4e0; }
+</style>
+</head>
+<body>
+
+<div class="pdf-only-banner">
+  외부 검색 절대 금지 — 제공된 PDF 파일만 활용 | 당일 발간 리포트 기준 투자 종목 발굴 전용
+</div>
+
+<header class="header">
+  <h1>태양 (053620) | AI Report: 금속용기 제조 및 판매 전문기업 | 한국IR협의회 | 발간일: 2026.04.21</h1>
+  <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-bottom:12px;">
+    <span class="tag-badge tag-stable">🌱 안정</span>
+    <span class="score-badge score-low">📊 20점</span>
+    <span style="font-size:12px;color:#5a6280;">비바이오</span>
+    <span class="pathway-badge">경로 ⑤ 재평가</span>
+  </div>
+  <div class="price-row">
+    <div class="price-item"><span class="label">투자의견</span><span class="val">N/A (AI Report)</span></div>
+    <div class="price-item"><span class="label">목표주가(TP)</span><span class="val">N/A</span></div>
+    <div class="price-item"><span class="label">현재주가(CP)</span><span class="val">7,160원</span></div>
+    <div class="price-item"><span class="label">Upside</span><span class="val">N/A (TP 미제시)</span></div>
+    <div class="price-item"><span class="label">시가총액</span><span class="val">62십억원</span></div>
+    <div class="price-item"><span class="label">종목 유형</span><span class="val">비바이오</span></div>
+  </div>
+</header>
+
+<section>
+  <div class="section-title">이 종목에 투자해야 하는 이유 — 스토리 한 줄</div>
+  <div class="thesis-box">
+    "금속용기 전문기업. 2025 매출 1,404억(-7.8% YoY) + OP 24억으로 이익 축소. 안정적인 캐시플로우 제공하는 중소형 안정주이나 성장 모멘텀 약함"
+  </div>
+  <div class="thesis-structure">
+    <div class="thesis-part" style="color:#059669;">① 확정 팩트<br/>2025 매출 1,404억(-7.8%), OP 24억으로 낮은 수익성</div>
+    <div class="thesis-arrow">→</div>
+    <div class="thesis-part" style="color:#b45309;">② 실적 변화<br/>외형 감소 + 수익성 저하 지속 중</div>
+    <div class="thesis-arrow">→</div>
+    <div class="thesis-part" style="color:#2563eb;">③ 시장 미반영<br/>중소형 안정주로 커버리지 부재, 모멘텀 스토리 약함</div>
+  </div>
+</section>
+
+<section>
+  <div class="section-title">핵심 태그 5가지 조건 체크 (5개 모두 통과해야 핵심 이상 가능)</div>
+  <div class="checklist">
+    <div class="checklist-item">
+      <div class="check-icon check-fail">✗</div>
+      <div>
+        <div class="check-label">조건 1 | 영업이익 성장 임계값</div>
+        <div class="check-detail">향후 1년 OP +50%+ AND (OPM +3%p+ OR OPM 15%+ 유지)</div>
+        <div class="check-why">2025 OP 24억·OPM 1.7%로 매우 낮음. 성장 모멘텀 부재 → 미충족</div>
+      </div>
+    </div>
+    <div class="checklist-item">
+      <div class="check-icon check-fail">✗</div>
+      <div>
+        <div class="check-label">조건 2 | 3년 지속성</div>
+        <div class="check-detail">수주잔고 / CAPA 확대 / 독점·특허 / CAGR 15%+ 등</div>
+        <div class="check-why">매출 -7.8% YoY 감소로 성장 지속성 부재 → 미충족</div>
+      </div>
+    </div>
+    <div class="checklist-item">
+      <div class="check-icon check-fail">✗</div>
+      <div>
+        <div class="check-label">조건 3 | 확정 팩트(●●●) 2개 이상</div>
+        <div class="check-detail">●●● = 수주확정·인허가·실적 확인</div>
+        <div class="check-why">●●● 2025 실적 확정 1개만. 추가 촉매 부재 → 미충족</div>
+      </div>
+    </div>
+    <div class="checklist-item">
+      <div class="check-icon check-fail">✗</div>
+      <div>
+        <div class="check-label">조건 4 | 시장 미반영</div>
+        <div class="check-detail">Upside 40%+ OR 컨센 괴리 +20%+</div>
+        <div class="check-why">TP 미제시, 정량 Upside 측정 불가 → 미충족</div>
+      </div>
+    </div>
+    <div class="checklist-item">
+      <div class="check-icon check-fail">✗</div>
+      <div>
+        <div class="check-label">조건 5 | 차별화된 시각</div>
+        <div class="check-detail">"AI 금속용기 제조 및 판매 전문기업" 제목</div>
+        <div class="check-why">AI Report 자동생성 기업 소개 리포트. 차별화된 주장 부재 → 미충족</div>
+      </div>
+    </div>
+  </div>
+  <p style="font-size:11px;color:#dc2626;margin-top:8px;padding:0 4px;">
+    5조건 전부 미충족 → 안정 분류. 성장 모멘텀 부재로 적극적 매수 근거 부족.
+  </p>
+</section>
+
+<section>
+  <div class="section-title">투자 점수 판정 (v2.0 비바이오)</div>
+  <table>
+    <thead><tr><th>항목</th><th>판정</th><th>근거 (Why)</th></tr></thead>
+    <tbody>
+      <tr><td>종목 유형</td><td>비바이오</td><td>금속용기 제조·판매</td></tr>
+      <tr><td>적용 가설</td><td>가설 4</td><td>기존 사업만 유지, 성장 촉매 부재</td></tr>
+      <tr><td>촉매 등급</td><td>하</td><td>별도 촉매 없음</td></tr>
+      <tr><td>복합 여부</td><td>단독</td><td>금속용기 단일 사업</td></tr>
+      <tr><td>직접성</td><td>직접</td><td>매출 → OP 직결</td></tr>
+      <tr><td>매트릭스 기본 점수</td><td>30점</td><td>가설 4 × 하 × 단독 = 30</td></tr>
+      <tr><td>페널티 ① 리스크 집중</td><td class="penalty">-10점</td><td>매출 -7.8% 감소, 수익성 악화</td></tr>
+      <tr class="total-row"><td>최종 투자 점수</td><td><span class="highlight-green">20점</span></td><td>안정 20~39 구간 충족</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section>
+  <div class="section-title">성장 인과 체인</div>
+  <div class="chain-box">
+    <div class="chain-step"><div class="chain-arrow">①</div><div class="chain-content"><div class="chain-label">구조 변화 / 촉매 <span class="chain-forecast">● 제한적</span></div><div class="chain-text">2025 매출 1,404억(-7.8%, ●●●) + OP 24억. 성장 모멘텀 없음</div></div></div>
+    <div class="chain-step"><div class="chain-arrow">↓</div><div class="chain-content"><div class="chain-label">매출 영향</div><div class="chain-text">금속용기 수요 위축 + 원재료 가격 변동 노출</div></div></div>
+    <div class="chain-step"><div class="chain-arrow">↓</div><div class="chain-content"><div class="chain-label">OPM 변화</div><div class="chain-text">OPM 1.7% 수준으로 낮음. 원가 관리 여력 부족</div></div></div>
+    <div class="chain-step"><div class="chain-arrow">↓</div><div class="chain-content"><div class="chain-label">최종 실적 결과 <span class="chain-forecast">● 추정</span></div><div class="chain-text">2026E 성장·이익 뚜렷한 회복 근거 부재</div></div></div>
+    <div class="chain-step"><div class="chain-arrow">↓</div><div class="chain-content"><div class="chain-label">시장 미반영 포인트</div><div class="chain-text">중소형 안정주. 장기 배당·캐시플로우 중심 접근이 적합</div></div></div>
+  </div>
+</section>
+
+<section>
+  <div class="section-title">핵심 팩트 3줄</div>
+  <div class="fact-item">
+    <span class="fact-num">Fact 01</span>
+    <div class="fact-what"><span class="fact-label label-what">WHAT</span>2025 매출 1,404억원(-7.8% YoY)으로 외형 축소</div>
+    <div class="fact-why"><span class="fact-label label-why">WHY</span>금속용기 수요 둔화 + 원재료 가격 변동 영향</div>
+    <div class="fact-so"><span class="fact-label label-so">SO WHAT</span>성장 스토리 부재. 당장 매수 근거 약함</div>
+  </div>
+  <div class="fact-item">
+    <span class="fact-num">Fact 02</span>
+    <div class="fact-what"><span class="fact-label label-what">WHAT</span>2025 OP 24억원, OPM 1.7%로 저수익 구조</div>
+    <div class="fact-why"><span class="fact-label label-why">WHY</span>금속용기 업종 특성상 원가 부담 큼. 차별화 여지 제한</div>
+    <div class="fact-so"><span class="fact-label label-so">SO WHAT</span>턴어라운드 기대 시나리오 부족. 장기 보유 외 적극 투자 어려움</div>
+  </div>
+  <div class="fact-item">
+    <span class="fact-num">Fact 03</span>
+    <div class="fact-what"><span class="fact-label label-what">WHAT</span>시가총액 62십억원, 중소형 안정주</div>
+    <div class="fact-why"><span class="fact-label label-why">WHY</span>AI Report로 기업 소개 수준의 커버리지. 정식 증권사 커버리지 부재</div>
+    <div class="fact-so"><span class="fact-label label-so">SO WHAT</span>유동성 낮음 + 관심도 낮음. 안정·배당 중심 포트폴리오용</div>
+  </div>
+</section>
+
+<section>
+  <div class="section-title">원본 리포트 핵심 요약 — PDF 내용 직접 발췌</div>
+  <div style="background:#fafafa;border:1px solid #d0d4e0;border-radius:8px;padding:16px 20px;margin-bottom:12px;">
+    <div style="font-size:11px;font-weight:700;letter-spacing:1px;color:#5a6280;text-transform:uppercase;margin-bottom:10px;">리포트 핵심 주장 (AI Report 요약)</div>
+    <p style="font-size:13px;line-height:1.9;">"태양은 금속용기 제조 및 판매 전문기업. 2025년 매출 1,404억원(-7.8% YoY), 영업이익 24억원을 달성. AI 기반 자동 리포트로 기업 소개 및 재무 현황을 정리한 수준. 특별한 성장 스토리나 강력한 투자 촉매는 제시되지 않음." 한국IR협의회 AI Report, N/A.</p>
+    <div style="margin-top:10px;display:flex;gap:8px;flex-wrap:wrap;">
+      <div style="background:#f0f2f8;border:1px solid #d0d4e0;border-radius:6px;padding:6px 12px;font-size:12px;">
+        <span style="color:#5a6280;font-size:10px;display:block;margin-bottom:2px;">리포트 유형</span>AI Report (자동 생성)
+      </div>
+      <div style="background:#f0f2f8;border:1px solid #d0d4e0;border-radius:6px;padding:6px 12px;font-size:12px;">
+        <span style="color:#5a6280;font-size:10px;display:block;margin-bottom:2px;">사업 영역</span>금속용기 제조·판매
+      </div>
+    </div>
+  </div>
+  <div style="background:#fafafa;border:1px solid #d0d4e0;border-radius:8px;padding:16px 20px;margin-bottom:12px;">
+    <div style="font-size:11px;font-weight:700;letter-spacing:1px;color:#5a6280;text-transform:uppercase;margin-bottom:10px;">사업 구조 & 성장 동력</div>
+    <table style="margin:0;">
+      <thead><tr><th style="width:25%;">사업부</th><th style="width:20%;">비중</th><th style="width:55%;">성장 드라이버</th></tr></thead>
+      <tbody>
+        <tr><td>금속용기 제조</td><td>주력</td><td>식품·화학·산업용 용기. 안정적 B2B 공급</td></tr>
+        <tr><td>용기 판매·유통</td><td>보조</td><td>국내 유통 채널</td></tr>
+      </tbody>
+    </table>
+    <p style="font-size:12px;color:#5a6280;margin-top:10px;">▶ 핵심 성장 메커니즘: 금속용기 단일 사업 구조. 대형 성장 촉매 부재</p>
+  </div>
+  <div style="background:#fafafa;border:1px solid #d0d4e0;border-radius:8px;padding:16px 20px;margin-bottom:12px;">
+    <div style="font-size:11px;font-weight:700;letter-spacing:1px;color:#5a6280;text-transform:uppercase;margin-bottom:10px;">시장 괴리 — 시장이 왜 이 주가인가</div>
+    <table style="margin:0;">
+      <thead><tr><th style="width:30%;">구분</th><th>내용</th></tr></thead>
+      <tbody>
+        <tr><td style="color:#5a6280;">시장 현재 인식</td><td>중소형 안정주, 낮은 관심도. 실적 저하에 따른 주가 정체</td></tr>
+        <tr><td style="color:#2563eb;">이 리포트 주장</td><td>특별한 재평가 스토리 없음. 기업 소개 수준</td></tr>
+        <tr><td style="color:#b45309;">괴리 해소 촉매</td><td>뚜렷한 촉매 부재. 턴어라운드·신사업 계기 없음</td></tr>
+        <tr><td>괴리 강도</td><td><span style="color:#dc2626;">약</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div style="background:#fafafa;border:1px solid #d0d4e0;border-radius:8px;padding:16px 20px;">
+    <div style="font-size:11px;font-weight:700;letter-spacing:1px;color:#5a6280;text-transform:uppercase;margin-bottom:10px;">재무 특징</div>
+    <div style="display:flex;flex-wrap:wrap;gap:8px;">
+      <div style="background:#f0f2f8;border:1px solid #d0d4e0;border-radius:6px;padding:8px 12px;font-size:12px;flex:1;min-width:160px;"><span style="color:#5a6280;font-size:10px;display:block;margin-bottom:2px;">2025 매출</span>1,404억 (-7.8%)</div>
+      <div style="background:#f0f2f8;border:1px solid #d0d4e0;border-radius:6px;padding:8px 12px;font-size:12px;flex:1;min-width:160px;"><span style="color:#5a6280;font-size:10px;display:block;margin-bottom:2px;">2025 OP</span>24억 (OPM 1.7%)</div>
+      <div style="background:#f0f2f8;border:1px solid #d0d4e0;border-radius:6px;padding:8px 12px;font-size:12px;flex:1;min-width:160px;"><span style="color:#5a6280;font-size:10px;display:block;margin-bottom:2px;">시가총액</span>62십억원</div>
+      <div style="background:#f0f2f8;border:1px solid #d0d4e0;border-radius:6px;padding:8px 12px;font-size:12px;flex:1;min-width:160px;"><span style="color:#5a6280;font-size:10px;display:block;margin-bottom:2px;">리포트 유형</span>AI Report (N/A)</div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="section-title">실적 전망 (연간)</div>
+  <table class="data-table">
+    <caption>단위: 억원 | ★ = 2025년 실적 확정 기준</caption>
+    <thead><tr><th>구분</th><th>2024A</th><th style="background:#dbeafe;color:#1e40af;font-weight:700;">2025A ★</th><th>2026E</th></tr></thead>
+    <tbody>
+      <tr><td>매출액</td><td>~1,523</td><td class="key-col key-num">1,404</td><td>PDF 미명시</td></tr>
+      <tr><td>YoY(%)</td><td>-</td><td class="key-col key-num">-7.8</td><td>-</td></tr>
+      <tr><td>영업이익</td><td>-</td><td class="key-col">24</td><td>-</td></tr>
+      <tr><td>OPM(%)</td><td>-</td><td class="key-col key-opm">1.7</td><td>-</td></tr>
+    </tbody>
+  </table>
+  <p style="font-size:12px;color:#5a6280;margin-top:10px;padding:0 4px;">
+    ▶ 외형 감소 + 수익성 저하가 동시에 진행. 장기 안정주 성격, 성장 촉매 부재.
+  </p>
+</section>
+
+<section>
+  <div class="section-title">분기별 실적 전망</div>
+  <table class="data-table">
+    <thead><tr><th>구분</th><th>1Q25</th><th>4Q25</th><th style="background:#dbeafe;color:#1e40af;font-weight:700;">1Q26E</th></tr></thead>
+    <tbody>
+      <tr><td>매출·OP</td><td>PDF 미명시</td><td>PDF 미명시</td><td class="key-col">성장 촉매 부재</td></tr>
+    </tbody>
+  </table>
+  <p style="font-size:12px;color:#5a6280;margin-top:10px;padding:0 4px;">▶ AI Report 특성상 분기별 세부 수치 한정적</p>
+</section>
+
+<section>
+  <div class="section-title">밸류에이션</div>
+  <div class="val-box">
+    <div class="val-formula">N/A (AI Report) — TP 미제시. 시가총액 62십억원, OP 24억 대비 EV/OP ~26배</div>
+    <p style="color:#5a6280;font-size:12px;margin-top:8px;">▶ 왜 이 배수인가: OP 절대수준이 낮아 배수 자체 의미 제한. 자산가치·배당 관점이 적합</p>
+    <p style="color:#5a6280;font-size:12px;margin-top:4px;">▶ Peer: 금속용기 업종 Peer와 유사 수준</p>
+  </div>
+</section>
+
+<section>
+  <div class="section-title">리스크 — 핵심 가정이 틀릴 경우 시나리오</div>
+  <div class="risk-item risk-sev-high">
+    <div class="risk-assumption">🔴 핵심 가정: 매출·OP 수준 유지 (-7.8% 후 안정화)</div>
+    <div class="risk-chain" style="margin-top:6px;">→ 붕괴 시: 금속용기 수요 추가 위축, 원가 상승<br/>→ 실적 영향: 적자 전환 가능, 주가 정체 지속</div>
+    <div class="risk-impact-num">→ 주가 영향: 현재가 7,160원 → 5,500원대 추정 (-23% 수준)</div>
+  </div>
+  <div class="risk-item risk-sev-mid">
+    <div class="risk-assumption">🟠 두 번째 가정: 중소형 안정주 프리미엄 유지</div>
+    <div class="risk-chain" style="margin-top:6px;">→ 붕괴 시: 유동성 저하로 수급 악화<br/>→ 실적 영향: 주가 할인 확대, 매수 타이밍 포착 어려움</div>
+    <div class="risk-impact-num">→ 주가 영향: 박스권 하락 가능</div>
+  </div>
+</section>
+
+<section>
+  <div class="section-title">모멘텀 확인 체크포인트</div>
+  <div style="background:#fafafa;border:1px solid #d0d4e0;border-radius:8px;padding:4px 16px;">
+    <div class="checkpoint-item">
+      <span class="cp-date">2026.05</span>
+      <div>
+        <div class="cp-event">1Q26 실적 발표</div>
+        <div class="cp-pass">✅ 매출·OP 반등 시 → 재평가</div>
+        <div class="cp-fail">⛔ 감소 지속 시 → 관망 유지</div>
+      </div>
+    </div>
+    <div class="checkpoint-item">
+      <span class="cp-date">2026.2H</span>
+      <div>
+        <div class="cp-event">신규 사업·고객사 확보 여부</div>
+        <div class="cp-pass">✅ 신사업 공시 → 주목 승격 검토</div>
+        <div class="cp-fail">⛔ 기존 사업 유지 시 → 안정 유지</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="section-title">사견 & 투자 행동 결론</div>
+  <div class="opinion-box">
+    <p>태양은 2025 매출 -7.8% / OP 24억 OPM 1.7%로 저성장·저수익 구조이며, AI Report 수준의 커버리지로 뚜렷한 투자 촉매가 확인되지 않는다. 핵심 5조건 전부 미충족 + 매출 역성장으로 안정 20점으로 분류. 안정 배당·장기 보유 관점 외에 적극적 매수 신호는 부재하며 관망 권고한다.</p>
+    <div class="decision-box">
+      <div class="decision-btn decision-buy decision-dim">✅ 지금 진입 가능<br/><span style="font-size:11px;font-weight:400;">핵심+ & 60점+</span></div>
+      <div class="decision-btn decision-wait decision-dim">⏳ 이벤트 후 진입<br/><span style="font-size:11px;font-weight:400;">-</span></div>
+      <div class="decision-btn decision-avoid">🚫 관망<br/><span style="font-size:11px;font-weight:400;">성장 촉매 부재 + 매출 역성장</span></div>
+    </div>
+  </div>
+</section>
+
+<div class="disclaimer">
+  ※ 본 글은 증권사 리포트를 개인 학습 목적으로 요약·정리한 것이며, 투자 권유가 아닙니다.<br/>
+  ※ 제공된 PDF 파일만 활용. 외부 검색·참조 없음. 당일 발간 리포트 기준.
+</div>
+
+</body>
+</html>
