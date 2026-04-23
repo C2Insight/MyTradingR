@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>SODream 재료 기반 주가평가 결과 — 2026-04-22</title>
+<style>
+*, *::before, *::after { box-sizing: border-box; }
+body { font-family: 'Malgun Gothic', 'Apple SD Gothic Neo', Arial, sans-serif; font-size: 13px; margin: 24px; background: #f5f6fa; color: #222; }
+a { color: #1a5fb4; text-decoration: none; } a:hover { text-decoration: underline; }
+h1 { color: #1a2a6c; border-bottom: 3px solid #1a2a6c; padding-bottom: 8px; font-size: 18px; }
+.meta { background: #fff; padding: 12px 18px; border-radius: 6px; box-shadow: 0 1px 3px rgba(0,0,0,0.08); margin-bottom: 20px; font-size: 12px; }
+.meta span { display: inline-block; margin-right: 18px; } .meta b { color: #1a2a6c; }
+.badge { display: inline-block; padding: 2px 8px; border-radius: 4px; font-size: 11px; margin-left: 4px; color: #fff; font-weight: bold; }
+.badge-v394 { background: #ede7f6; color: #4527a0; }
+.badge-pass { background: #d4edda; color: #155724; } .badge-fail { background: #f8d7da; color: #721c24; }
+.section-h2 { color: #1a2a6c; border-left: 4px solid #1a2a6c; padding-left: 10px; margin-top: 30px; font-size: 15px; }
+.summary-table { border-collapse: collapse; width: 100%; background: #fff; box-shadow: 0 1px 4px rgba(0,0,0,0.08); margin-bottom: 20px; }
+.summary-table th { background: #1a1a2e; color: #fff; padding: 8px 12px; text-align: center; font-size: 12px; }
+.summary-table td { padding: 8px 12px; border-bottom: 1px solid #e8e8e8; text-align: center; font-size: 12px; }
+.card { background: #fff; border-radius: 10px; margin-bottom: 14px; padding: 16px 20px; box-shadow: 0 2px 6px rgba(0,0,0,0.06); border-left: 6px solid #bbb; }
+.card-pass { border-left-color: #1e7e34; }
+.card-fail30 { border-left-color: #6c757d; }
+.card-fail0 { border-left-color: #c82333; }
+.rank { display: inline-block; width: 28px; height: 28px; background: #1a2a6c; color: #fff; border-radius: 50%; text-align: center; line-height: 28px; font-weight: bold; margin-right: 10px; font-size: 13px; }
+.stock-name { font-size: 18px; font-weight: bold; color: #1a2a6c; }
+.stock-code { color: #666; font-size: 14px; margin-left: 6px; }
+.change-up { color: #c82333; font-weight: bold; margin-left: 12px; }
+.badge-type-A { background: #2c3e50; } .badge-type-B { background: #8e44ad; }
+.badge-type-C { background: #16a085; } .badge-type-D { background: #d35400; }
+.score-box { display: inline-block; float: right; padding: 6px 14px; border-radius: 6px; font-weight: bold; font-size: 16px; }
+.score-pass { background: #d4edda; color: #155724; }
+.score-fail0 { background: #f8d7da; color: #721c24; }
+.row { margin-top: 8px; font-size: 13px; line-height: 1.7; }
+.row b { color: #1a2a6c; }
+.one-liner { background: #f8f9fa; padding: 8px 12px; border-radius: 4px; margin-top: 8px; font-size: 12px; color: #495057; }
+.dream-size-box { background: #f0f4ff; border: 1px solid #b0c4de; padding: 8px; border-radius: 4px; margin-top: 6px; font-size: 12px; }
+.quality-gate-box { background: #fff8e1; border: 1px solid #ffe082; padding: 8px; border-radius: 4px; margin-top: 6px; font-size: 12px; }
+.qi-pass { color: #2e7d32; font-weight: bold; } .qi-fail { color: #c62828; font-weight: bold; }
+.estimated { color: #e65100; font-style: italic; }
+.cap-70 { background: #fff3e0; padding: 1px 6px; border-radius: 3px; font-size: 11px; color: #e65100; }
+.baseline-box { padding: 6px; margin-top: 4px; font-size: 12px; background: #e3f2fd; border-left: 3px solid #1565c0; border-radius: 4px; }
+.upside-box { padding: 6px; margin-top: 4px; font-size: 12px; background: #e8f5e9; border-left: 3px solid #2e7d32; border-radius: 4px; }
+.tp-consensus-box { padding: 6px; margin-top: 4px; font-size: 12px; background: #fce4ec; border-left: 3px solid #c62828; border-radius: 4px; }
+.penalty-tag { background: #ffebee; color: #b71c1c; padding: 1px 6px; border-radius: 3px; font-size: 11px; margin-right: 4px; }
+.filter-fail { color: #b71c1c; font-weight: bold; background: #ffebee; padding: 1px 6px; border-radius: 3px; font-size: 11px; }
+.filter-pass { color: #155724; font-weight: bold; background: #d4edda; padding: 1px 6px; border-radius: 3px; font-size: 11px; }
+.gate-60-pass { color: #155724; font-weight: bold; background: #d4edda; padding: 1px 6px; border-radius: 3px; font-size: 11px; }
+.gate-60-fail { color: #fff; font-weight: bold; background: #c82333; padding: 1px 6px; border-radius: 3px; font-size: 11px; }
+.step1-fail { color: #fff; font-weight: bold; background: #e65100; padding: 1px 6px; border-radius: 3px; font-size: 11px; }
+.correction { color: #c82333; font-weight: bold; font-size: 11px; background: #fff3e0; padding: 2px 6px; border-radius: 3px; border-left: 2px solid #c82333; }
+.zero-table { border-collapse: collapse; width: 100%; background: #fff; margin-bottom: 20px; box-shadow: 0 1px 4px rgba(0,0,0,0.08); }
+.zero-table th { background: #c82333; color: #fff; padding: 6px 10px; font-size: 11px; text-align: left; }
+.zero-table td { padding: 6px 10px; border-bottom: 1px solid #eee; font-size: 11px; }
+.footer { margin-top: 30px; padding: 16px; background: #f8f9fa; border-radius: 6px; font-size: 11px; color: #666; }
+</style>
+</head>
+<body>
+
+<h1>SODream 재료 기반 주��평가 — 2026-04-22</h1>
+
+<div class="meta">
+  <span><b>실행ID:</b> 20260422-SODream-v2</span>
+  <span><b>지침:</b> CLAUDE_재료기반_평가지침_v2.0 (v3.9.4 인라인)</span>
+  <span><b>평가 기준일:</b> 2026-04-22</span>
+  <span><b>입력:</b> 재료조회_20260422.xlsx (11종목, 43건)</span>
+  <span class="badge badge-v394">v3.9.4</span>
+</div>
+
+<!-- 판정 분포 요약 -->
+<h2 class="section-h2">판정 분포</h2>
+<table class="summary-table">
+<tr>
+  <th>구분</th><th>Pass (&ge;60)</th><th>Step1 Fail (0점)</th><th>6-0 Fail (0점)</th><th>5절 Fail (0점)</th><th>전체</th>
+</tr>
+<tr>
+  <td><b>종목 수</b></td>
+  <td style="color:#155724;font-weight:bold;">1</td>
+  <td>5</td>
+  <td>3</td>
+  <td>2</td>
+  <td><b>11</b></td>
+</tr>
+</table>
+
+<table class="summary-table">
+<tr><th>지표</th><th>값</th></tr>
+<tr><td>전체 종목 수</td><td>11</td></tr>
+<tr><td>전체 재료 수</td><td>43</td></tr>
+<tr><td>배치 수</td><td>3 (3+3+3, 5절 Fail 2종목 사전 제���)</td></tr>
+<tr><td>5절 Fail</td><td>2건 (퍼스텍, 삼아알미늄 — ⑧ only)</td></tr>
+<tr><td>6-0 Fail</td><td>3건 (HJ중공업 원문미확인, 동진쎄미켐 밸류업단독, KEC 주식병합)</td></tr>
+<tr><td>Step 1 Fail</td><td>5건 (LIG디펜스 1.5%, HD현대중공업 6.7%, 이수페타시스 24.7%, LG이노텍 19.6%, 미래에셋벤처투자 22.8%)</td></tr>
+<tr><td>6-0-C 추정 경로 채택</td><td>1건 (미래에셋벤처투자)</td></tr>
+<tr><td>Phase 3 교정</td><td>5건 — Step1 Fail 후 평가 속행 오류 교정 (LIG 50→0, HD현대중공업 70→0, 이수페타시스 100→0 실현율교정, LG이노텍 90→0, 미래에셋벤처투자 30→0 유형교정)</td></tr>
+</table>
+
+<!-- ═══════════ Pass 종목 카드 ═══════════ -->
+<h2 class="section-h2">Pass 종목 (&ge;60점) — 1건</h2>
+
+<!-- 1. DS단석 70점 -->
+<div class="card card-pass">
+  <span class="rank">1</span>
+  <span class="stock-name">DS단석</span>
+  <span class="stock-code">017860</span>
+  <span class="change-up">+29.95%</span>
+  <span class="badge badge-type-A">유형 A</span>
+  <span class="score-box score-pass">70점</span>
+
+  <div class="row"><b>판정:</b> 분할 진입 검토</div>
+  <div class="row"><b>대분류:</b> ②수주/계약 + ⑤메가테마 + ⑥기업행동</div>
+  <div class="row"><b>시총:</b> 4,615억원</div>
+
+  <div class="row">
+    <span class="filter-pass">[5절] Pass</span> — IR공시(D-2), 증권사리포트(D-1), 추가상장(D-1). 핵심 키워드 "필립스66", "1조216억원", "SAF" 출처 본문 명시.
+  </div>
+  <div class="row">
+    <span class="gate-60-pass">[6-0 게이트] Pass (1차 팩트)</span> — 필립스66 공급계약 금액 1조215억8070만원 공시 직접 명시. 복수 매체(뉴시스, 와이드경제, 헤럴드경제) 확인.
+  </div>
+
+  <div class="baseline-box">
+    <b>Baseline OP:</b> 80억원 (2025년 연간, 컴퍼니가이드)<br>
+    <small>OPM 3.4% (2025 Q1 기준: 75억/2,185억). 매출 9,549억원. 바이오에너지 비중 69%.</small>
+  </div>
+  <div class="upside-box">
+    <b>Upside:</b> 최종 증분 OP +289억원 (+361.3%)<br>
+    <small>경로: 1차 팩트 | 근거: 필립스66 SAF 공급계약 1조216억원 (2024-10-28 공시)</small>
+    <div class="dream-size-box">
+      <b>꿈의 크기 산출 근거</b><br>
+      ① 꿈의 크기 (최대 증분 OP): <b>340억원</b><br>
+      &nbsp;&nbsp;산출식: HVO/SAF 본격화 연간 증분매출 1조 × OPM 3.4% (범위: 200~500억원)<br>
+      ② 적용 실현 확률: <b>85%</b> <span style="background:#ffecb3;padding:1px 4px;border-radius:3px;font-size:11px;">유형: 계약금액 공개 공급계약</span><br>
+      ③ 최종 증분 OP: 340억 × 85% = <b>289억원</b> → Baseline 80억 대비 +361.3%
+    </div>
+    <div class="quality-gate-box">
+      <b>품질 게이트 (5항목)</b><br>
+      (a) WebFetch 출처: <span class="qi-pass">Y</span> — 뉴시스, FnGuide<br>
+      (b) 중앙값 근거: <span class="qi-pass">Y</span> — 연간 증분매출 1조 × OPM<br>
+      (c) OPM 출처: <span class="qi-pass">Y</span> — 2025 Q1 실적 3.4%<br>
+      (d) 변수 범위 병기: <span class="qi-pass">Y</span> — 200~500억원<br>
+      (e) 공식 적합성: <span class="qi-pass">Y</span> — 계약금액 공개 공급계약<br>
+      <b>미달: 0개</b> → 중앙값 그대로 사용
+    </div>
+  </div>
+  <div class="tp-consensus-box">
+    <b>TP 컨센:</b> 없음 (증권사 커버리지 부재)
+  </div>
+
+  <div class="row">
+    <b>점수 계산:</b> 매트릭스 90점 (가설2 × 상급복합) → 직접성 조정 90점 (직접) → 상한 후 90점 → <span class="penalty-tag">공시 신선도 미달 -20점</span> (필립스66 계약 원공시 2024-10-28, 18개월 경과) → <b>최종 70점</b>
+  </div>
+
+  <div class="one-liner">
+    필립스66 1조216억원 SAF 공급계약(공시 확인)과 2030년 매출 3조 비전은 강력한 성장 스토리이나, 현재 영업이익 80억원(OPM 0.84%)의 저수익 구조에서 SAF/HVO 본격 양산은 2028년 이후. 계약 실체는 검증되었으나 단기 실적 전환에는 시간 필요. 상한가(+29.95%) 당일 진입 리스크 주의.
+  </div>
+
+  <div class="row" style="font-size:11px;color:#666;margin-top:6px;">
+    <b>출처:</b>
+    <a href="https://www.newsis.com/view/NISX20241028_0002936171" target="_blank">뉴시스 — 필립스66 공급계약 (2024-10-28, 1차)</a> |
+    <a href="https://www.widedaily.com/news/articleView.html?idxno=252393" target="_blank">와이드경제 — 계약금액 (1차)</a> |
+    <a href="https://biz.heraldcorp.com/article/10522545" target="_blank">헤럴드경제 — 2030 매출목표 (1차)</a> |
+    컴퍼니가이드 FnGuide (재무)
+  </div>
+</div>
+
+<!-- ═══════════ 0점 종목 일괄 ═══════════ -->
+<h2 class="section-h2">0점 종목 — 10건 (점수순 → 등락률순)</h2>
+
+<!-- Step1 Fail 5건 -->
+<h3 style="color:#e65100;margin-top:20px;font-size:13px;">Step 1 Fail — 5건 (Upside &lt; 30%)</h3>
+
+<!-- 이수페타시스 -->
+<div class="card card-fail0">
+  <span class="rank">2</span>
+  <span class="stock-name">이수페타시스</span>
+  <span class="stock-code">007660</span>
+  <span class="change-up">+21.17%</span>
+  <span class="badge badge-type-A">유형 A</span>
+  <span class="score-box score-fail0">0점</span>
+
+  <div class="row"><b>판정:</b> 투자 금지 | <b>Fail 게이트:</b> <span class="step1-fail">Step1 Fail (24.7% &lt; 30%)</span></div>
+  <div class="row"><b>대분류:</b> ①실적 + ⑤AI/반도체 + ⑦CAPEX/증설 | <b>시총:</b> —</div>
+  <div class="row">
+    <span class="filter-pass">[5절] Pass</span> |
+    <span class="gate-60-pass">[6-0] Pass (1차 팩트)</span>
+  </div>
+  <div class="baseline-box"><b>Baseline OP:</b> 2,047억 (2025 확정실적) | <b>2026E OP 컨센:</b> 2,721억~3,547억</div>
+  <div class="upside-box">
+    <b>꿈의크기:</b> 674억 (2026E 컨센 중앙값 2,721억 - Baseline 2,047억)<br>
+    <b>실현율:</b> 75% (가이던스 상향) <span class="correction">← 교정: 어닝서프라이즈 100% 적용 불가 (이미 발생 = 적용 제외, Forward 성장분은 75%)</span><br>
+    <b>최종증분OP:</b> 674 × 75% = 505.5억 → Upside <b>24.7%</b> (&lt;30%)
+  </div>
+  <div class="tp-consensus-box"><b>TP 컨센:</b> 166,692원 (13곳, 114,000~270,000원)</div>
+  <div class="one-liner">2025 OP 2배 달성 확정(2,047억) + AI MLB 구조적 수혜이나, Forward 성장분 실현율은 75%(가이던스 상향)이므로 Upside 24.7%로 Step1 미달. 배치 에이전트의 100%(어닝서프라이즈) 적용은 "이미 발생 = 적용 제외" 원칙 위반.</div>
+  <div class="row" style="font-size:11px;color:#666;">
+    <b>출처:</b>
+    <a href="http://www.nongaek.com/news/articleView.html?idxno=95160" target="_blank">nongaek — 2025 실적 (1차)</a> |
+    <a href="https://www.pinpointnews.co.kr/news/articleView.html?idxno=447560" target="_blank">pinpointnews — 4/5공장 (1차)</a> |
+    <a href="https://markets.hankyung.com/stock/007660/consensus" target="_blank">한경 컨센서스</a>
+  </div>
+</div>
+
+<!-- 미래에셋벤처투자 -->
+<div class="card card-fail0">
+  <span class="rank">3</span>
+  <span class="stock-name">미래에셋벤���투자</span>
+  <span class="stock-code">100790</span>
+  <span class="change-up">+21.86%</span>
+  <span class="badge badge-type-A">유형 A</span>
+  <span class="score-box score-fail0">0점</span>
+
+  <div class="row"><b>판정:</b> 투자 금지 | <b>Fail ��이트:</b> <span class="step1-fail">Step1 Fail (22.8% &lt; 30%)</span></div>
+  <div class="row"><b>대분류:</b> ⑤SpaceX + ⑥기업행동 | <b>시총:</b> 30,652억</div>
+  <div class="row">
+    <span class="filter-pass">[5��] Pass</span> |
+    <span class="gate-60-pass">[6-0] Pass (6-0-C 추정)</span> <span class="cap-70">70점 캡</span>
+    <span class="correction">← 유형 교정: D(바이오임상) → A(흑자비바이오, OP 351억&gt;0)</span>
+  </div>
+  <div class="baseline-box"><b>Baseline OP:</b> 351억 (2025, 컴퍼니가이드)</div>
+  <div class="upside-box">
+    <b>꿈의크기:</b> 280억 (LP 출자 40억 × SpaceX 11.7배 평가이익 × 60% 하한)<br>
+    <b>품질게이트:</b> 1개 미달(OPM 출처) → 하한 200억 재계산<br>
+    <b>실현율:</b> 40% (공식D 투자지분평가)<br>
+    <b>최종증분OP:</b> 200 × 40% = 80억 → Upside <b>22.8%</b> (&lt;30%)
+  </div>
+  <div class="tp-consensus-box"><b>TP 컨센:</b> 없음 (커버리지 부재)</div>
+  <div class="one-liner">SpaceX IPO(1조7500억달러)는 메가급 촉매이나, 실제 LP 출자금 40억원은 시총 3조원 대비 미미. 투자경고종목 지정예고 상태. 테마성 급등.</div>
+  <div class="row" style="font-size:11px;color:#666;">
+    <b>출처:</b>
+    <a href="https://www.etoday.co.kr/news/view/2577940" target="_blank">etoday (1차)</a> |
+    <a href="http://www.edaily.co.kr/news/newspath.asp?newsid=03296406645418744" target="_blank">edaily (1차)</a> |
+    <a href="https://www.newspim.com/news/view/20260422000366" target="_blank">newspim (1차)</a>
+  </div>
+</div>
+
+<!-- LG이노텍 -->
+<div class="card card-fail0">
+  <span class="rank">4</span>
+  <span class="stock-name">LG이노텍</span>
+  <span class="stock-code">011070</span>
+  <span class="change-up">+17.65%</span>
+  <span class="badge badge-type-A">유형 A</span>
+  <span class="score-box score-fail0">0점</span>
+
+  <div class="row"><b>판정:</b> 투자 금지 | <b>Fail 게이트:</b> <span class="step1-fail">Step1 Fail (19.6% &lt; 30%)</span></div>
+  <div class="row"><b>대분류:</b> ①실적 + ⑤AI/반도체 | <b>시총:</b> 118,335억</div>
+  <div class="row">
+    <span class="filter-pass">[5절] Pass</span> |
+    <span class="gate-60-pass">[6-0] Pass (1차 팩트)</span>
+  </div>
+  <div class="baseline-box"><b>Baseline OP:</b> 7,561억 (2025 확정실적)</div>
+  <div class="upside-box">
+    <b>꿈의크기:</b> 1,980억 (2026E 중앙값 9,541억 - Baseline 7,561억)<br>
+    <b>실현율:</b> 75% (가이던스 상향 — 메리츠 TP 43만원 상향 + SK증권 OP 1조344억)<br>
+    <b>최종증분OP:</b> 1,980 × 75% = 1,485억 → Upside <b>19.6%</b> (&lt;30%)
+  </div>
+  <div class="tp-consensus-box"><b>TP 컨센:</b> 349,885원 (23곳, 190,000~480,000원)</div>
+  <div class="one-liner">메리츠 TP 43만 상향, FC-BGA +200% + 가변조리개 최초 탑재 + 로봇 진출 복합 성장동력. 그러나 Upside 19.6%로 Step1 미달. 배치 에이전트가 Step1 Fail 판정 후에도 90점 부여한 오류 교정.</div>
+  <div class="row" style="font-size:11px;color:#666;">
+    <b>출처:</b>
+    <a href="https://www.ajunews.com/view/20260420083156175" target="_blank">ajunews — 메리츠 TP 43만 (1차)</a> |
+    <a href="https://www.businesspost.co.kr/BP?command=article_view&amp;num=436037" target="_blank">businesspost — FC-BGA (1차)</a> |
+    <a href="https://core.asiae.co.kr/article/2026010807545030627" target="_blank">asiae — 2025 OP 확정 (1차)</a>
+  </div>
+</div>
+
+<!-- LIG디펜스 -->
+<div class="card card-fail0">
+  <span class="rank">5</span>
+  <span class="stock-name">LIG디펜스앤에어로스페이��</span>
+  <span class="stock-code">079550</span>
+  <span class="change-up">+12.21%</span>
+  <span class="badge badge-type-A">유형 A</span>
+  <span class="score-box score-fail0">0점</span>
+
+  <div class="row"><b>판정:</b> 투자 금지 | <b>Fail 게이트:</b> <span class="step1-fail">Step1 Fail (1.5% &lt; 30%)</span></div>
+  <div class="row"><b>대분류:</b> ②수주/계약 | <b>시총:</b> 224,000억</div>
+  <div class="row">
+    <span class="filter-pass">[5절] Pass</span> |
+    <span class="gate-60-pass">[6-0] Pass (1차 팩트)</span>
+  </div>
+  <div class="baseline-box"><b>Baseline OP:</b> 4,213억 (키움증권 2026E)</div>
+  <div class="upside-box">
+    <b>꿈의크기:</b> 92억 (1,077억 × OPM 8.5%) | <b>실현율:</b> 70% (계약금액 미공개)<br>
+    <b>최종증분OP:</b> 92 × 70% = 64억 → Upside <b>1.5%</b> (&lt;30%)
+  </div>
+  <div class="tp-consensus-box"><b>TP 컨센:</b> ~1,100,000원 (4곳+, 편차 ±7%)</div>
+  <div class="one-liner">비밀유지 수주 1,077억+ 규모는 시총 22.4조 대비 임팩트 제한적. 천궁II 실전검증·수출확대가 구조적 상승 배경이나, 당일 재료의 Upside는 미미.</div>
+  <div class="row" style="font-size:11px;color:#666;">
+    <b>출처:</b>
+    <a href="https://www.cbci.co.kr/news/articleView.html?idxno=569295" target="_blank">CBC뉴스 — 공급계약 (1차)</a> |
+    <a href="https://www.etoday.co.kr/news/view/2577924" target="_blank">이투데이 — 방산주 특징주 (2차)</a>
+  </div>
+</div>
+
+<!-- HD현대중공업 -->
+<div class="card card-fail0">
+  <span class="rank">6</span>
+  <span class="stock-name">HD현대중공업</span>
+  <span class="stock-code">329180</span>
+  <span class="change-up">+11.28%</span>
+  <span class="badge badge-type-A">유형 A</span>
+  <span class="score-box score-fail0">0점</span>
+
+  <div class="row"><b>���정:</b> 투자 금지 | <b>Fail 게이트:</b> <span class="step1-fail">Step1 Fail (6.7% &lt; 30%)</span></div>
+  <div class="row"><b>대분류:</b> ①실적 + ②수주 + ⑤AI데이터센터 + ⑦CAPEX | <b>시총:</b> 672,801억</div>
+  <div class="row">
+    <span class="filter-pass">[5절] Pass</span> |
+    <span class="gate-60-pass">[6-0] Pass (1차 팩트)</span>
+  </div>
+  <div class="baseline-box"><b>Baseline OP:</b> 37,153억 (메리츠증권 2026E)</div>
+  <div class="upside-box">
+    <b>수주 3건 합산:</b> P/C선 6,117억 + 쇄빙선 5,148억 + HiMSEN 6,271억 = 1.75조<br>
+    <b>꿈의크기:</b> 2,947억 (수주별 OPM: 조선 13%, 특수선 15%, 엔진 22%) | <b>실현율:</b> 85%<br>
+    <b>최종증분OP:</b> 2,505억 → Upside <b>6.7%</b> (&lt;30%)
+  </div>
+  <div class="tp-consensus-box"><b>TP 컨센:</b> 780,000~860,000원 (4곳+)</div>
+  <div class="one-liner">1Q26 어닝서프라이즈(+15.6%) + 쇄빙선·HiMSEN 데이터센터 첫진출 복합 촉매 강력이나, Baseline OP 3.7조 대비 증분 2,505억원은 6.7%에 불과. EB 3.3조원(6월 교환청구)도 오버행 요인.</div>
+  <div class="row" style="font-size:11px;color:#666;">
+    <b>출처:</b>
+    <a href="https://www.newspim.com/news/view/20260422000232" target="_blank">뉴스피임 — 쇄빙선 (1차)</a> |
+    <a href="https://www.newspim.com/news/view/20260422000793" target="_blank">뉴스피임 — HiMSEN (1차)</a> |
+    <a href="https://zdnet.co.kr/view/?no=20260422140000" target="_blank">ZDNet — 쇄빙선 (1차)</a>
+  </div>
+</div>
+
+<!-- 6-0 Fail 3건 -->
+<h3 style="color:#c82333;margin-top:20px;font-size:13px;">6-0 게이트 Fail — 3건</h3>
+
+<!-- HJ중공업 -->
+<div class="card card-fail0">
+  <span class="rank">7</span>
+  <span class="stock-name">HJ중공업</span>
+  <span class="stock-code">097230</span>
+  <span class="change-up">+10.71%</span>
+  <span class="score-box score-fail0">0점</span>
+
+  <div class="row"><b>판정:</b> 투자 금지 | <b>Fail 게이트:</b> <span class="gate-60-fail">6-0 Fail (원문 미확인)</span></div>
+  <div class="row"><b>대분류:</b> ②수주/계약 | <b>시총:</b> 27,991���</div>
+  <div class="row">
+    <span class="filter-pass">[5절] Pass</span> — 단일판매공급계약 공시(D0) 존재 |
+    <span class="gate-60-fail">[6-0] Fail</span> — 계약금액·상대방 미확인 (fnguide/DART 동적 콘텐츠 추출 실패)
+  </div>
+  <div class="one-liner">단일판매공급계약 공시가 확인되나 계약금액·상대방 등 핵심 수치를 원문에서 확인하지 못해 6-0 Fail. HD현대중공업·조선 섹터 연동 수급 상승으로 판단.</div>
+  <div class="row" style="font-size:11px;color:#666;">
+    <b>출처:</b> fnguide 공시 팝업 (접근실패) | <a href="https://www.shippingnewsnet.com/news/articleView.html?idxno=68902" target="_blank">쉬핑뉴스넷 — 실적 (2차)</a>
+  </div>
+</div>
+
+<!-- 동진쎄미켐 -->
+<div class="card card-fail0">
+  <span class="rank">8</span>
+  <span class="stock-name">동진쎄미���</span>
+  <span class="stock-code">005290</span>
+  <span class="change-up">+10.42%</span>
+  <span class="score-box score-fail0">0점</span>
+
+  <div class="row"><b>판정:</b> 투자 금지 | <b>Fail 게이트:</b> <span class="gate-60-fail">6-0 Fail (밸류업 단독)</span></div>
+  <div class="row"><b>대분류:</b> ⑥기업행동(자사주소각) | <b>시총:</b> 31,054억</div>
+  <div class="row">
+    <span class="filter-pass">[5��] Pass</span> — 자기주식 444,368주 전량 소각 공시(D0) |
+    <span class="gate-60-fail">[6-0] Fail</span> — 자사주 소각은 OP 증분 아닌 밸류업 이벤트. 분자 부적격.
+  </div>
+  <div class="one-liner">자사주 소각(발행주식 대비 ~0.86%)은 주주환원 시그널이나 OP 증분 부재로 6-0 Fail. 2026E OP +12% 성장(1,729→1,937억) 전망은 긍정적이나 당일 재료는 밸류업 단독.</div>
+  <div class="row" style="font-size:11px;color:#666;">
+    <b>출처:</b>
+    <a href="https://www.bloter.net/news/articleView.html?idxno=659319" target="_blank">bloter — 자사주 소각 (1차)</a> |
+    <a href="https://www.thecommoditiesnews.com/news/articleView.html?idxno=10429" target="_blank">thecommoditiesnews — 실적 (1���)</a>
+  </div>
+</div>
+
+<!-- KEC -->
+<div class="card card-fail0">
+  <span class="rank">9</span>
+  <span class="stock-name">KEC</span>
+  <span class="stock-code">092220</span>
+  <span class="change-up">+29.97%</span>
+  <span class="score-box score-fail0">0점</span>
+
+  <div class="row"><b>��정:</b> 투자 금지 | <b>Fail 게이트:</b> <span class="gate-60-fail">6-0 Fail (주식병합)</span></div>
+  <div class="row"><b>대분류:</b> ⑥기업행동(주식병합) | <b>시총:</b> 3,700억</div>
+  <div class="row">
+    <span class="filter-pass">[5절] Pass</span> — 매매거래정지 및 해제(주식병합 2:1) 공시(D-1) |
+    <span class="gate-60-fail">[6-0] Fail</span> — 주식병합은 액면가 변경. 시총·실적 변동 없음.
+  </div>
+  <div class="one-liner">주식병합(2:1, 액면 500→1,000원)은 시가총액·실적에 영향 없음. 영업적자(-218억) 기업의 상한가(+29.97%)는 수급 이벤트. 투자 근거 전무.</div>
+  <div class="row" style="font-size:11px;color:#666;">
+    <b>출처:</b> KRX 공시 — 매매거래정지및정지해제(주식병합) (2026-04-21) | 컴퍼니가이드 FnGuide
+  </div>
+</div>
+
+<!-- 5절 Fail 2��� -->
+<h3 style="color:#b71c1c;margin-top:20px;font-size:13px;">5절 3일 필터 Fail — 2건 (⑧ only)</h3>
+
+<!-- 퍼스텍 -->
+<div class="card card-fail0">
+  <span class="rank">10</span>
+  <span class="stock-name">퍼스텍</span>
+  <span class="stock-code">010820</span>
+  <span class="change-up">+13.53%</span>
+  <span class="score-box score-fail0">0점</span>
+
+  <div class="row"><b>판정:</b> 투자 금지 | <b>Fail 게이트:</b> <span class="filter-fail">[5절] Fail (⑧ only)</span></div>
+  <div class="row"><b>대분류:</b> ⑧수급/기타 | <b>시총:</b> 7,979억</div>
+  <div class="row">
+    <span class="filter-fail">[5절] Fail</span> — 재료 1건: 투자경고종목 지정예고(D-2)만 존재. 개별 실적·수주·공시 0건.
+  </div>
+  <div class="one-liner">투자경고종목 지정예고(5일간 45%+ 상승)만 존재. 상승 이유의 핵심 키워드가 식별 불가. 5절 사전 필터 Fail.</div>
+</div>
+
+<!-- 삼아알미늄 -->
+<div class="card card-fail0">
+  <span class="rank">11</span>
+  <span class="stock-name">삼아알미늄</span>
+  <span class="stock-code">006110</span>
+  <span class="change-up">+21.88%</span>
+  <span class="score-box score-fail0">0점</span>
+
+  <div class="row"><b>판정:</b> 투자 금��� | <b>Fail 게이트:</b> <span class="filter-fail">[5절] Fail (⑧ only)</span></div>
+  <div class="row"><b>대분류:</b> ⑧수급/기타 | <b>시총:</b> 10,783억</div>
+  <div class="row">
+    <span class="filter-fail">[5절] Fail</span> — 재료 2건: 소수계좌 매수관여 과다종목(D-5) + 수급/기타. 개별 실적·수주·공시 0건.
+  </div>
+  <div class="one-liner">15일간 상승종목으로서 소수계좌(상위 20개) 매수관여 비율 30%+ 과다종목 지정. 개별 실적·공시 부재로 5절 Fail.</div>
+</div>
+
+<!-- 총평 -->
+<div style="background:#fffde7;border:1px solid #f9a825;border-radius:6px;padding:16px 20px;margin-top:22px;">
+  <h3 style="color:#1a2a6c;font-size:14px;margin:0 0 12px 0;border-left:3px solid #f9a825;padding-left:8px;">총평 — 2026년 4월 22일</h3>
+
+  <div style="font-size:12px;line-height:1.8;">
+    <b>투자 검토 가능 종목:</b> 1개 (분할 1개) | 관찰 유지 0개<br>
+    <b>5절 3일 필터:</b> Pass 9개 / Fail 2개 (Fail 비율 18.2%)<br>
+    <b>6-0 게이트:</b> Pass 6개 / Fail 3개 (Fail 비율 33.3%)<br>
+    <b>종목 유형 분포 (6-0 Pass):</b> 유형 A 5개 / 유형 B 0개 / 유형 C 0개 / 유형 D 0개 / 6-0-C 추정 1개<br>
+    <b>Step 1 Fail:</b> 5건 — 유형 A 전수, Upside 1.5%~24.7% (모두 30% 미달)<br>
+    <b>페널티 적용:</b> 공시 신선도 미달 1건 (DS단석 -20점)<br>
+    <b>Phase 3 교정:</b> 5건 — 배치 에이전트의 Step1 Fail 후 평가 속행 오류 전수 교정<br>
+  </div>
+
+  <div style="margin:12px 0;padding:9px 13px;background:#fff8e1;border-radius:4px;font-size:12px;line-height:1.75;">
+    당일 11종목 중 DS단석(70점) 1종목만 Pass. 5절 Fail 2건(⑧ only)과 6-0 Fail 3건(원문미확인·밸류업·주식병합)을 제외한 6종목이 6-0 Pass했으나, 모두 Upside 30% 미달로 Step 1에서 탈락. 시총이 큰 대형주(HD현대중공업 67.3조, LIG디펜스 22.4조, LG이노텍 11.8조)는 개별 촉매의 실적 임팩트가 Baseline 대비 작아 구조적으로 Step 1을 통과하기 어려운 구간. 유일한 Pass인 DS단석은 Baseline OP 80억원의 저수익 기업에 1조+ 계약이 걸린 비대칭 구조.
+  </div>
+
+  <p style="font-size:12px;font-weight:bold;color:#4a148c;margin:10px 0 4px;">▸ 투자 검토 종목 (70점 이상)</p>
+  <ul style="margin:0 0 6px;padding-left:18px;font-size:12px;line-height:1.85;">
+    <li><b>DS단석</b> (70점, 분할 진입 검토) — 필립스66 SAF 공급계약 1조216억원. 신선도 -20점 차감. SAF/HVO 본격 양산 2028년 이후.</li>
+  </ul>
+
+  <div style="margin-top:12px;padding:8px 13px;background:#ffebee;border-left:3px solid #b71c1c;font-size:12px;color:#b71c1c;border-radius:0 4px 4px 0;line-height:1.7;">
+    당일 평가 종목의 91%(10/11)가 0점 처리 — 대형주 위주의 시장 상승이 개별 종목 수준의 실적 Upside 30% 기준을 충족하지 못하는 "시총 대비 촉매 임팩트 부족" 구간. 소형·저수익 기업의 대형 계약만이 Step 1을 통과할 수 있는 비대칭 구조.
+  </div>
+</div>
+
+<!-- 면책 고지 -->
+<div class="footer">
+  ※ 본 평가는 CLAUDE_재료기반_평가지침_v2.0 (v3.9.4 인라인)에 따른 참고 의견이며, 투자 결정의 최종 책임은 투자자 본인에게 있습니다.<br>
+  ※ 평가 기준일: 2026-04-22. 이후 발생한 공시·뉴스는 반영되지 않습니다.<br>
+  ※ Step 1 Upside 기준: 유형 A/B &ge;30%, 유형 C &ge;20%, 유형 D 상급 촉매. ①② 하나라도 Fail → 0점 확정.<br>
+  ��� 실현 확률 벤치마크: 계약공개 85%, 미공개 70%, 가이던스 상향 75%, 공식A 40%, 공식D 40%. 어닝서프라이즈(이미 발생) = 적용 제외.<br>
+  ※ 6-0-C 추정 경로: 70점 캡 + 품질 게이트 5항목 점검 필수.
+</div>
+
+</body>
+</html>
