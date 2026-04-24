@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>LG이노텍 (011070) 정리 - 삼성</title>
+<style>
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:'Pretendard','Apple SD Gothic Neo',sans-serif;background:#fff;color:#1a1d2e;line-height:1.7;font-size:14px;max-width:900px;margin:0 auto;padding:32px 20px 80px;}
+  .header{border-left:4px solid #2563eb;padding:0 0 0 16px;margin-bottom:24px;}
+  .header h1{font-size:20px;font-weight:700;margin-bottom:10px;}
+  .price-row{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-top:10px;}
+  .price-item{background:#f0f2f8;border:1px solid #d0d4e0;border-radius:6px;padding:6px 14px;font-size:13px;}
+  .price-item .label{color:#5a6280;font-size:11px;display:block;}
+  .price-item .val{font-weight:700;}
+  .upside-val{color:#059669;}
+  .tag-badge{display:inline-flex;padding:5px 14px;border-radius:20px;font-size:13px;font-weight:700;}
+  .tag-watch{background:#fffbeb;color:#b45309;border:1px solid #f59e0b;}
+  .score-badge{display:inline-block;padding:5px 14px;border-radius:20px;font-size:13px;font-weight:700;background:#f0f2f8;border:1px solid #d0d4e0;}
+  .score-mid{color:#b45309;}
+  .pathway-badge{display:inline-flex;padding:3px 10px;border-radius:12px;font-size:11px;font-weight:600;background:#f0f2f8;border:1px solid #d0d4e0;color:#5a6280;}
+  section{margin-bottom:28px;}
+  .section-title{font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:#5a6280;border-bottom:1px solid #d0d4e0;padding-bottom:6px;margin-bottom:14px;}
+  .pdf-only-banner{background:#fff7ed;border:1px solid #f97316;border-radius:8px;padding:10px 16px;font-size:12px;color:#c2410c;margin-bottom:20px;text-align:center;font-weight:700;}
+  .thesis-box{background:#f8faff;border:1px solid #2563eb;border-radius:8px;padding:16px 20px;font-size:15px;font-weight:600;line-height:1.6;}
+  .thesis-structure{display:flex;gap:8px;align-items:center;margin-top:10px;flex-wrap:wrap;}
+  .thesis-part{background:#f0f2f8;border:1px solid #d0d4e0;border-radius:6px;padding:4px 10px;font-size:12px;}
+  .thesis-arrow{color:#2563eb;font-size:16px;}
+  .checklist{background:#fafafa;border:1px solid #d0d4e0;border-radius:8px;overflow:hidden;}
+  .checklist-item{display:flex;gap:14px;padding:12px 16px;border-bottom:1px solid #d0d4e0;}
+  .checklist-item:last-child{border-bottom:none;}
+  .check-icon{width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;flex-shrink:0;}
+  .check-pass{background:#ecfdf5;color:#059669;border:1px solid #34d399;}
+  .check-fail{background:#fef2f2;color:#dc2626;border:1px solid #fca5a5;}
+  .check-label{font-weight:600;font-size:13px;}
+  .check-detail{color:#5a6280;font-size:12px;margin-top:2px;}
+  table{width:100%;border-collapse:collapse;background:#fafafa;border-radius:8px;overflow:hidden;border:1px solid #d0d4e0;}
+  thead tr{background:#f0f2f8;}
+  th{padding:10px 14px;text-align:left;font-size:11px;font-weight:700;color:#5a6280;letter-spacing:0.8px;text-transform:uppercase;}
+  td{padding:10px 14px;border-top:1px solid #d0d4e0;font-size:13px;}
+  tr.total-row td{background:#e8ecf5;font-weight:700;}
+  .penalty{color:#dc2626;}
+  .highlight-green{color:#059669;font-weight:700;}
+  .chain-box{background:#fafafa;border:1px solid #d0d4e0;border-radius:8px;padding:16px 20px;}
+  .chain-step{display:flex;gap:12px;margin-bottom:10px;}
+  .chain-step:last-child{margin-bottom:0;}
+  .chain-arrow{color:#2563eb;font-size:16px;}
+  .chain-label{font-size:10px;font-weight:700;letter-spacing:1px;color:#5a6280;text-transform:uppercase;margin-bottom:2px;}
+  .chain-confirmed{color:#059669;font-size:11px;margin-left:6px;}
+  .chain-forecast{color:#b45309;font-size:11px;margin-left:6px;}
+  .fact-item{background:#fafafa;border:1px solid #d0d4e0;border-radius:8px;padding:14px 16px;margin-bottom:8px;}
+  .fact-num{font-size:10px;font-weight:700;color:#2563eb;letter-spacing:1px;text-transform:uppercase;margin-bottom:8px;display:block;}
+  .fact-what{font-weight:600;font-size:14px;margin-bottom:6px;}
+  .fact-why{font-size:13px;color:#5a6280;margin-bottom:6px;}
+  .fact-so{font-size:13px;color:#059669;}
+  .fact-label{display:inline-block;font-size:10px;font-weight:700;padding:1px 6px;border-radius:3px;margin-right:4px;}
+  .label-what{background:#eff6ff;color:#1d4ed8;}
+  .label-why{background:#fff7ed;color:#ea580c;}
+  .label-so{background:#ecfdf5;color:#059669;}
+  .data-table th{background:#e8ecf5;}
+  .data-table td.key-col{background:#f0f6ff;}
+  .data-table .key-num{color:#059669;font-weight:700;}
+  .data-table .key-opm{color:#b45309;}
+  caption{font-size:11px;color:#5a6280;text-align:left;padding:0 0 8px;caption-side:top;}
+  .val-box{background:#fafafa;border:1px solid #d0d4e0;border-radius:8px;padding:16px 20px;font-size:13px;line-height:2;}
+  .val-formula{background:#f0f2f8;border-radius:6px;padding:10px 14px;font-family:monospace;font-size:13px;margin:10px 0;color:#b45309;}
+  .risk-item{background:#fafafa;border-radius:0 6px 6px 0;padding:14px 16px;margin-bottom:10px;}
+  .risk-sev-high{border-left:3px solid #dc2626;}
+  .risk-sev-mid{border-left:3px solid #ea580c;}
+  .risk-assumption{font-weight:600;font-size:13px;margin-bottom:4px;}
+  .risk-chain{font-size:12px;color:#5a6280;margin:4px 0;}
+  .risk-impact-num{font-size:13px;color:#dc2626;font-weight:600;margin-top:4px;}
+  .checkpoint-item{display:flex;gap:12px;padding:10px 0;border-bottom:1px solid #d0d4e0;font-size:13px;}
+  .checkpoint-item:last-child{border-bottom:none;}
+  .cp-date{color:#2563eb;font-weight:600;min-width:90px;flex-shrink:0;}
+  .cp-pass{color:#059669;font-size:12px;margin-top:2px;}
+  .cp-fail{color:#dc2626;font-size:12px;margin-top:2px;}
+  .opinion-box{background:#fafafa;border:1px solid #d0d4e0;border-radius:8px;padding:16px 20px;font-size:13px;line-height:1.8;color:#5a6280;}
+  .decision-box{display:flex;gap:14px;margin-top:14px;}
+  .decision-btn{flex:1;text-align:center;padding:10px;border-radius:6px;font-weight:700;font-size:13px;border:1px solid;}
+  .decision-buy{background:#ecfdf5;color:#059669;border-color:#34d399;}
+  .decision-wait{background:#fffbeb;color:#b45309;border-color:#f59e0b;}
+  .decision-avoid{background:#fef2f2;color:#dc2626;border-color:#fca5a5;}
+  .decision-dim{opacity:0.3;}
+  .upgrade-box{background:#eff6ff;border:1px solid #93c5fd;border-radius:8px;padding:14px 16px;}
+  .upgrade-item{display:flex;gap:10px;padding:6px 0;border-bottom:1px solid #dbeafe;font-size:13px;}
+  .upgrade-item:last-child{border-bottom:none;}
+  .upgrade-when{color:#1d4ed8;font-weight:600;min-width:140px;flex-shrink:0;}
+  .disclaimer{font-size:11px;color:#9ca3af;text-align:center;margin-top:40px;padding-top:16px;border-top:1px solid #d0d4e0;}
+</style>
+</head>
+<body>
+
+<div class="pdf-only-banner">🚫 외부 검색 절대 금지 — 제공된 PDF 파일만 활용 | 당일 발간 리포트 기준 투자 종목 발굴 전용</div>
+
+<header class="header">
+  <h1>LG이노텍 (011070) | 이제는 기판 업체이다 | 삼성증권 이종욱/김경빈 | 발간일: 2026.04.24</h1>
+  <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-bottom:12px;">
+    <span class="tag-badge tag-watch">🔥 주목</span>
+    <span class="score-badge score-mid">📊 40점</span>
+    <span style="font-size:12px;color:#5a6280;">비바이오</span>
+    <span class="pathway-badge">경로 ⑤재평가 + ①OPM확장</span>
+  </div>
+  <div class="price-row">
+    <div class="price-item"><span class="label">투자의견</span><span class="val">BUY(유지)</span></div>
+    <div class="price-item"><span class="label">목표주가(TP)</span><span class="val">650,000원 (330,000→상향)</span></div>
+    <div class="price-item"><span class="label">현재주가(CP)</span><span class="val">500,000원</span></div>
+    <div class="price-item"><span class="label">Upside</span><span class="val upside-val">+30.0%</span></div>
+    <div class="price-item"><span class="label">시가총액</span><span class="val">118,000억원 (11.8조)</span></div>
+    <div class="price-item"><span class="label">종목 유형</span><span class="val">비바이오</span></div>
+  </div>
+</header>
+
+<section>
+  <div class="section-title">💡 이 종목에 투자해야 하는 이유 — 스토리 한 줄</div>
+  <div class="thesis-box">"1Q26 영업이익 2,450억원(컨센 9.3% 상회, ●●○) + FC-BGA 기판 사업 본격화로, 26E 영업이익 +48.7%(665억→9,890억), OPM 3.0%→3.9%(+0.9%p)로 개선되는데, Target PBR 2.1배 정당화로 Upside 30%. 기판 업체 리레이팅 기대"</div>
+  <div class="thesis-structure">
+    <div class="thesis-part" style="color:#059669;">① 확정 팩트<br/>1Q26 OP 2,450억 컨센 상회</div>
+    <div class="thesis-arrow">→</div>
+    <div class="thesis-part" style="color:#b45309;">② 실적 변화<br/>26E OP +48.7%, OPM +0.9%p</div>
+    <div class="thesis-arrow">→</div>
+    <div class="thesis-part" style="color:#2563eb;">③ 시장 미반영<br/>Upside 30% (40% 미달)</div>
+  </div>
+</section>
+
+<section>
+  <div class="section-title">✅ 핵심 태그 5가지 조건 체크</div>
+  <div class="checklist">
+    <div class="checklist-item">
+      <div class="check-icon check-fail">✗</div>
+      <div>
+        <div class="check-label">조건 1 | 영업이익 성장 임계값</div>
+        <div class="check-detail">향후 1년 OP +50%+ AND OPM +3%p+ OR OPM 15%+ 유지</div>
+        <div>26E OP +48.7% (665억→9,890억)로 50% 미달. OPM 3.0%→3.9% (+0.9%p)로 +3%p 미달. OPM 15% 미달 → <b>미통과</b></div>
+      </div>
+    </div>
+    <div class="checklist-item">
+      <div class="check-icon check-pass">✓</div>
+      <div>
+        <div class="check-label">조건 2 | 3년 지속성 (3개 이상)</div>
+        <div class="check-detail">수주잔고·CAPA·CAGR 등</div>
+        <div>① 26년·27년 기판 매출 각각 +23%·+25% 성장 ② FC-BGA 후발업체 증설 기회 (타이트한 업황) ③ 고객사 점유율 확대 → 3개 충족</div>
+      </div>
+    </div>
+    <div class="checklist-item">
+      <div class="check-icon check-pass">✓</div>
+      <div>
+        <div class="check-label">조건 3 | 확정 팩트(●●●) 2개 이상</div>
+        <div class="check-detail">실적·계약·공시</div>
+        <div>●●● 1Q26 영업이익 2,450억 컨센 9.3% 상회 달성 / ●●● 25년부터 FC-BGA(ABF) 본격 매출 발생 / ●●○ 기판 매출 23% 성장 (추정) → 2개+ 충족</div>
+      </div>
+    </div>
+    <div class="checklist-item">
+      <div class="check-icon check-fail">✗</div>
+      <div>
+        <div class="check-label">조건 4 | 시장 미반영</div>
+        <div class="check-detail">Upside 40%+ OR 컨센 괴리 20%+</div>
+        <div>Upside 30%로 40% 미달. 컨센 TP 391,500원 대비 목표가 +66% 상회하나 컨센 점수 4.0(BUY 합의) → 컨센 상회 논리 있으나 Upside 미달 → <b>미통과</b></div>
+      </div>
+    </div>
+    <div class="checklist-item">
+      <div class="check-icon check-pass">✓</div>
+      <div>
+        <div class="check-label">조건 5 | 차별화된 시각</div>
+        <div class="check-detail">고유 근거</div>
+        <div>'정체된 모바일 업체'에서 '성장 기판 업체'로의 리레이팅 논리. 컨센 TP 391,500원 대비 66% 상회하는 660,000원 제시 → 통과</div>
+      </div>
+    </div>
+  </div>
+  <p style="font-size:11px;color:#dc2626;margin-top:8px;">⚠️ 조건 1, 4 미달로 핵심→주목 강등. OP +48.7%는 50% 미달, Upside 30%는 40% 미달.</p>
+</section>
+
+<section>
+  <div class="section-title">📊 투자 점수 판정 (v2.0 비바이오)</div>
+  <table>
+    <thead><tr><th>항목</th><th>판정</th><th>근거</th></tr></thead>
+    <tbody>
+      <tr><td>종목 유형</td><td>비바이오</td><td>IT 부품 (카메라 모듈·기판·전장)</td></tr>
+      <tr><td>적용 가설</td><td>가설 2</td><td>1Q26 실적 호조 확인(고성장) + OPM 개선 예상(기판 믹스 개선)</td></tr>
+      <tr><td>촉매 등급</td><td>중급</td><td>1Q26 영업이익 컨센 9.3% 상회 (5~10% 사이) → 중급</td></tr>
+      <tr><td>복합 여부</td><td>복합</td><td>① RF-SiP 성장 ② FC-BGA 본격화 ③ 고객사 점유율 확대 → 복합</td></tr>
+      <tr><td>직접성</td><td>직접</td><td>기판 사업 주력화 진행 중</td></tr>
+      <tr><td>매트릭스 기본 점수</td><td>70점</td><td>가설2 × 중급 × 복합</td></tr>
+      <tr><td>페널티 ① 선반영</td><td class="penalty">-10점</td><td>1개월 +72.4%, 12개월 +243.6% → 단기·장기 모두 큰 폭 상승</td></tr>
+      <tr><td>페널티 ② 리스크 집중</td><td class="penalty">-10점</td><td>고객사(Apple) 단일 매출 비중 높음, 대안 제한적 → 리스크 집중</td></tr>
+      <tr><td>페널티 ③ 컨센 이미 반영</td><td class="penalty">-10점</td><td>커버 22개사, 추천점수 4.0 (BUY 합의) → 컨센 이미 반영</td></tr>
+      <tr class="total-row"><td>최종 투자 점수</td><td><span class="highlight-green">40점</span></td><td>70 - 10 - 10 - 10 = 40점 (주목 40+ 충족)</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section>
+  <div class="section-title">⚡ 성장 인과 체인</div>
+  <div class="chain-box">
+    <div class="chain-step">
+      <div class="chain-arrow">①</div>
+      <div>
+        <div class="chain-label">구조 변화 / 촉매 <span class="chain-confirmed">● 확정 팩트</span></div>
+        <div>1Q26 영업이익 2,450억 컨센 상회 달성(●●●) + FC-BGA(ABF) 기판 사업 25년부터 매출 발생(●●●) + 메모리 쇼티지로 고객사 점유율 유지(●●○)</div>
+      </div>
+    </div>
+    <div class="chain-step">
+      <div class="chain-arrow">↓</div>
+      <div>
+        <div class="chain-label">매출 영향</div>
+        <div>26E 매출 25.3조원(+15.7% YoY, 기존 23.7조→상향), 27E 26.9조원. 기판 매출 26년 1.4조·27년 1.8조(+23%·+25% 성장). 광학솔루션 21.4조→22.7조</div>
+      </div>
+    </div>
+    <div class="chain-step">
+      <div class="chain-arrow">↓</div>
+      <div>
+        <div class="chain-label">OPM 변화 메커니즘</div>
+        <div>타이트한 기판 업황으로 후발주자인 LG이노텍도 베타 높은 성장 가능. BT 소재 기반 기판까지 고사양화 흐름. 기판 + 광학솔루션 수익성 개선으로 전사 OPM 3.0%→3.9%(+0.9%p)</div>
+      </div>
+    </div>
+    <div class="chain-step">
+      <div class="chain-arrow">↓</div>
+      <div>
+        <div class="chain-label">최종 실적 결과 <span class="chain-forecast">● 추정</span></div>
+        <div>26E OP 9,890억(+48.7%), 27E OP 10,610억(+7.3%). 기존 대비 각각 +15.3%, +19.8% 상향</div>
+      </div>
+    </div>
+    <div class="chain-step">
+      <div class="chain-arrow">↓</div>
+      <div>
+        <div class="chain-label">시장 미반영 포인트</div>
+        <div>정체된 모바일 업체→성장 기판 업체로 리레이팅. 27년 BPS 305,783원 × Target PBR 2.1배(과거 ROE 10% 구간 정상 밸류) = TP 650,000원</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="section-title">📌 핵심 팩트 3줄</div>
+  <div class="fact-item">
+    <span class="fact-num">Fact 01</span>
+    <div class="fact-what"><span class="fact-label label-what">WHAT</span>1Q26 영업이익 2,450억원으로 컨센서스 9.3% 상회. 26E 영업이익 9,890억원(기존 추정 대비 +15.3% 상향)</div>
+    <div class="fact-why"><span class="fact-label label-why">WHY</span>주요 모바일 고객사 물동량이 예상보다 강하게 유지. 기판 매출이 당초 예상을 상회했으며, 전장 부문 수익성도 양호하게 방어됨. 메모리 수급 불안과 부품 가격 상승으로 경쟁사 생산이 보수적으로 조정되는 가운데 주력 고객사 점유율 견조</div>
+    <div class="fact-so"><span class="fact-label label-so">SO WHAT</span>1Q 비수기 영업이익 양호로 26E 연간 가이던스 상향 신뢰도 확보. BUY 유지 + TP 330,000→650,000원 (97% 상향)</div>
+  </div>
+  <div class="fact-item">
+    <span class="fact-num">Fact 02</span>
+    <div class="fact-what"><span class="fact-label label-what">WHAT</span>26년·27년 기판 매출 각각 1.4조원·1.8조원(+23%·+25% 성장). FC-BGA 본격 매출 발생</div>
+    <div class="fact-why"><span class="fact-label label-why">WHY</span>AI 관련 고객사들의 주문 강세로 글로벌 FC-BGA 업체 매출 빠르게 증가. 타이트한 업황은 후발 업체(LG이노텍) 실적 탄력성을 더 크게 만듦. 업황이 타이트할수록 더 높은 베타로 성장</div>
+    <div class="fact-so"><span class="fact-label label-so">SO WHAT</span>기판 사업이 주력 성장 동력으로 부상. 증설 가능성 높아 장기 이익 레벨업 스토리 구축. 28년 이익까지 선제 반영 가능</div>
+  </div>
+  <div class="fact-item">
+    <span class="fact-num">Fact 03</span>
+    <div class="fact-what"><span class="fact-label label-what">WHAT</span>Target PBR 2.1배 적용(27년 기준 PER 20배 수준)</div>
+    <div class="fact-why"><span class="fact-label label-why">WHY</span>스마트폰 산업 정체 디스카운트 구간('22~'25)을 제외할 경우, 과거 ROE 10% 수준에서 받았던 정상화된 밸류에이션에 해당</div>
+    <div class="fact-so"><span class="fact-label label-so">SO WHAT</span>'모바일 부품업체 할인'에서 '기판 성장주 프리미엄'으로의 이행 논리. 시장이 28년 이익 증가를 선제 반영 시작 가능성</div>
+  </div>
+</section>
+
+<section>
+  <div class="section-title">📄 원본 리포트 핵심 요약</div>
+  <div style="background:#fafafa;border:1px solid #d0d4e0;border-radius:8px;padding:16px 20px;margin-bottom:12px;">
+    <div style="font-size:11px;font-weight:700;letter-spacing:1px;color:#5a6280;text-transform:uppercase;margin-bottom:10px;">리포트 핵심 주장</div>
+    <p style="font-size:13px;line-height:1.9;">정체된 산업 기업으로 인식되던 LG이노텍이 기판 업체로 재평가될 가능성. 26년 기판 관련 매출 23% 성장 전망. RF-SiP와 FC-BGA 성장 부각. 타이트한 산업 환경은 동사의 기판 증설 가능성을 높이고 있음. 시장은 28년 이익 증가까지 선제 반영 시작 가능.</p>
+    <div style="margin-top:10px;display:flex;gap:8px;flex-wrap:wrap;">
+      <div style="background:#f0f2f8;border:1px solid #d0d4e0;border-radius:6px;padding:6px 12px;font-size:12px;">
+        <span style="color:#5a6280;font-size:10px;display:block;">이전 대비</span>330,000원 → 650,000원 (+97% 상향)
+      </div>
+      <div style="background:#f0f2f8;border:1px solid #d0d4e0;border-radius:6px;padding:6px 12px;font-size:12px;">
+        <span style="color:#5a6280;font-size:10px;display:block;">컨센서스 대비</span>TP 391,500원 대비 +66% 상회, EPS +18.8% 상향
+      </div>
+    </div>
+  </div>
+  <div style="background:#fafafa;border:1px solid #d0d4e0;border-radius:8px;padding:16px 20px;margin-bottom:12px;">
+    <div style="font-size:11px;font-weight:700;letter-spacing:1px;color:#5a6280;text-transform:uppercase;margin-bottom:10px;">사업 구조 & 성장 동력</div>
+    <table style="margin:0;">
+      <thead><tr><th>사업부</th><th>매출 비중(26E)</th><th>핵심 성장 드라이버</th></tr></thead>
+      <tbody>
+        <tr><td>광학솔루션</td><td>84.6% (21.4조)</td><td>주력 고객사 점유율 확대. 메모리 쇼티지로 경쟁사 보수적 운영. 카메라 모듈 경쟁 완화</td></tr>
+        <tr><td>기판소재</td><td>7.8% (1.98조)</td><td>RF-SiP 성장 + FC-BGA(ABF) 본격화. 타이트한 업황으로 후발주자 실적 탄력성 확대. 26년 +23% 성장</td></tr>
+        <tr><td>전장부품</td><td>7.5% (1.90조)</td><td>수익성 방어</td></tr>
+      </tbody>
+    </table>
+    <p style="font-size:12px;color:#5a6280;margin-top:10px;">▶ 핵심 성장 메커니즘: AI 고객사 주문 강세 → FC-BGA 업황 타이트 → 후발주자인 LG이노텍도 높은 베타로 성장 + 기판 증설 기회 부각</p>
+  </div>
+  <div style="background:#fafafa;border:1px solid #d0d4e0;border-radius:8px;padding:16px 20px;margin-bottom:12px;">
+    <div style="font-size:11px;font-weight:700;letter-spacing:1px;color:#5a6280;text-transform:uppercase;margin-bottom:10px;">시장 괴리</div>
+    <table style="margin:0;">
+      <thead><tr><th>구분</th><th>내용</th></tr></thead>
+      <tbody>
+        <tr><td style="color:#5a6280;">시장 현재 인식</td><td>스마트폰 업황에 연동되는 저성장 모바일 부품 업체. 22~25년 밸류에이션 할인 구간 적용</td></tr>
+        <tr><td style="color:#2563eb;">이 리포트 주장</td><td>기판 업체로의 재평가. 정상화된 밸류에이션(ROE 10% 구간) 기준 PBR 2.1배 적용</td></tr>
+        <tr><td style="color:#b45309;">괴리 해소 촉매</td><td>1Q26 실적 가이던스 업데이트 + 기판 증설 공시 + 27년 FC-BGA 매출 본격 확대</td></tr>
+        <tr><td>괴리 강도</td><td><span style="color:#b45309;">중</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div style="background:#fafafa;border:1px solid #d0d4e0;border-radius:8px;padding:16px 20px;">
+    <div style="font-size:11px;font-weight:700;letter-spacing:1px;color:#5a6280;text-transform:uppercase;margin-bottom:10px;">재무 특징</div>
+    <div style="display:flex;flex-wrap:wrap;gap:8px;">
+      <div style="background:#f0f2f8;border:1px solid #d0d4e0;border-radius:6px;padding:8px 12px;font-size:12px;flex:1;min-width:160px;"><span style="color:#5a6280;font-size:10px;display:block;">26E 순부채</span>220억원 (27E 순현금 -1,211억)</div>
+      <div style="background:#f0f2f8;border:1px solid #d0d4e0;border-radius:6px;padding:8px 12px;font-size:12px;flex:1;min-width:160px;"><span style="color:#5a6280;font-size:10px;display:block;">26E 순부채비율</span>3.4% (25A 15.3%)</div>
+      <div style="background:#f0f2f8;border:1px solid #d0d4e0;border-radius:6px;padding:8px 12px;font-size:12px;flex:1;min-width:160px;"><span style="color:#5a6280;font-size:10px;display:block;">26E DPS</span>1,880원 (27E 1,880원)</div>
+      <div style="background:#f0f2f8;border:1px solid #d0d4e0;border-radius:6px;padding:8px 12px;font-size:12px;flex:1;min-width:160px;"><span style="color:#5a6280;font-size:10px;display:block;">26E ROE</span>11.1%</div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="section-title">📈 실적 전망 (연간)</div>
+  <table class="data-table">
+    <caption>단위: 십억원</caption>
+    <thead><tr><th>구분</th><th>2023A</th><th>2024A</th><th>2025A</th><th style="background:#dbeafe;color:#1e40af;font-weight:700;">2026E ★</th><th>2027E</th></tr></thead>
+    <tbody>
+      <tr><td>매출액</td><td>20,605</td><td>21,201</td><td>21,897</td><td class="key-col key-num">25,325</td><td>26,899</td></tr>
+      <tr><td>YoY(%)</td><td>5.2</td><td>2.9</td><td>3.3</td><td class="key-col">15.7</td><td>6.2</td></tr>
+      <tr><td>영업이익</td><td>831</td><td>706</td><td>665</td><td class="key-col key-num">989</td><td>1,061</td></tr>
+      <tr><td>YoY(%)</td><td>-34.7</td><td>-15.0</td><td>-5.8</td><td class="key-col key-num">48.7</td><td>7.3</td></tr>
+      <tr><td>OPM(%)</td><td>4.0</td><td>3.3</td><td>3.0</td><td class="key-col key-opm">3.9</td><td>3.9</td></tr>
+      <tr><td>EPS(원)</td><td>23,881</td><td>18,983</td><td>14,419</td><td class="key-col">28,827</td><td>32,778</td></tr>
+      <tr><td>PER(배)</td><td>10.0</td><td>8.5</td><td>18.8</td><td class="key-col">17.3</td><td>15.3</td></tr>
+      <tr><td>PBR(배)</td><td>1.2</td><td>0.7</td><td>1.1</td><td class="key-col">1.8</td><td>1.6</td></tr>
+      <tr><td>ROE(%)</td><td>12.6</td><td>8.9</td><td>6.1</td><td class="key-col">11.1</td><td>11.3</td></tr>
+    </tbody>
+  </table>
+  <p style="font-size:12px;color:#5a6280;margin-top:10px;">▶ 왜 26E가 변곡점인가: 모바일 감산 국면에서 주력 고객사 점유율 확대 + FC-BGA 기판 본격 매출. 3년 연속 감익에서 반등해 OPM·OP 모두 상승 전환. 28년까지 성장 스토리 가시성 확보</p>
+</section>
+
+<section>
+  <div class="section-title">📅 분기별 실적 전망</div>
+  <table class="data-table">
+    <caption>단위: 십억원</caption>
+    <thead><tr><th>구분</th><th>1Q25</th><th>2Q25</th><th>3Q25</th><th>4Q25</th><th style="background:#dbeafe;color:#1e40af;font-weight:700;">1Q26E ★</th><th>2Q26E</th><th>3Q26E</th><th>4Q26E</th></tr></thead>
+    <tbody>
+      <tr><td>매출액</td><td>4,983</td><td>3,935</td><td>5,369</td><td>7,610</td><td class="key-col key-num">5,813</td><td>4,276</td><td>6,668</td><td>8,567</td></tr>
+      <tr><td>영업이익</td><td>125</td><td>11</td><td>204</td><td>325</td><td class="key-col key-num">245</td><td>94</td><td>265</td><td>386</td></tr>
+      <tr><td>OPM(%)</td><td>2.5</td><td>0.3</td><td>3.8</td><td>4.3</td><td class="key-col key-opm">4.2</td><td>2.2</td><td>4.0</td><td>4.5</td></tr>
+    </tbody>
+  </table>
+  <p style="font-size:12px;color:#5a6280;margin-top:10px;">▶ 1Q26 주목 포인트: 영업이익 2,450억 잠정치 확인(컨센 9.3% 상회). 확인 시 → 연간 9,890억 가이던스 유지, 추가 매수 / 미달 시 → 기판 업체 리레이팅 논리 약화</p>
+</section>
+
+<section>
+  <div class="section-title">💰 밸류에이션</div>
+  <div class="val-box">
+    <div class="val-formula">27년 BPS 305,783원 × Target PBR 2.1배(근거: 과거 ROE 10% 구간 정상 밸류) = TP 650,000원 (= 27년 PER 20배)</div>
+    <p style="color:#5a6280;font-size:12px;margin-top:8px;">▶ 왜 이 배수인가: 22~25년 스마트폰 산업 정체 디스카운트 구간을 제외할 경우, 과거 ROE 10% 수준에서 받았던 정상화된 밸류에이션</p>
+  </div>
+</section>
+
+<section>
+  <div class="section-title">⚠️ 리스크 시나리오</div>
+  <div class="risk-item risk-sev-high">
+    <div class="risk-assumption">🔴 핵심 가정: 주력 고객사(Apple) 점유율 확대로 1Q26 1분기 출하량 +10~15% YoY 유지 (메모리 쇼티지 해소 전까지)</div>
+    <div class="risk-chain">→ 붕괴 시: 메모리 쇼티지 조기 해소 → 경쟁사 생산 회복 → Apple 점유율 상승 정체<br/>→ 실적 영향: 26E OP 9,890억 → 8,000억대(-20%)</div>
+    <div class="risk-impact-num">→ 주가 영향: TP 650,000원 → 500,000원(-23%)</div>
+  </div>
+  <div class="risk-item risk-sev-mid">
+    <div class="risk-assumption">🟠 두 번째 가정: FC-BGA 후발주자로서 높은 베타 성장 (기판 매출 26년 +23%)</div>
+    <div class="risk-chain">→ 붕괴 시: 글로벌 FC-BGA 업체의 CAPEX 확대로 공급 증가 → 업황 타이트 완화 → 후발주자 성장 둔화</div>
+    <div class="risk-impact-num">→ 주가 영향: Target PBR 2.1배 → 1.5배, TP 약 28% 하향</div>
+  </div>
+</section>
+
+<section>
+  <div class="section-title">🎯 모멘텀 체크포인트</div>
+  <div style="background:#fafafa;border:1px solid #d0d4e0;border-radius:8px;padding:4px 16px;">
+    <div class="checkpoint-item">
+      <span class="cp-date">2026.04</span>
+      <div>
+        <div>1Q26 실적 확정 공시 — 영업이익 2,450억 확인</div>
+        <div class="cp-pass">✅ 확인 시 → 기판 리레이팅 유효, 비중 확대</div>
+        <div class="cp-fail">⛔ 하회 시 → 고객사 수혜 논리 약화, 관망</div>
+      </div>
+    </div>
+    <div class="checkpoint-item">
+      <span class="cp-date">2026 2H</span>
+      <div>
+        <div>FC-BGA 기판 증설 공시 여부</div>
+        <div class="cp-pass">✅ 증설 확정 시 → 28년 이익 스토리 가시화, 핵심 승격</div>
+        <div class="cp-fail">⛔ 지연 시 → 성장 논리 약화, 관망</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="section-title">💬 사견 & 투자 행동 결론</div>
+  <div class="opinion-box">
+    <p>컨센서스 대비 차이: 삼성은 TP 650,000원으로 컨센 391,500원 대비 66% 상회, 26E EPS +18.8% 상향으로 가장 공격적. 그러나 우려 포인트는 (1) 1개월 +72.4%·12개월 +243.6% 주가 급등으로 단기 선반영, (2) Apple 단일 고객 리스크 집중, (3) OP +48.7%로 50% 미달·Upside 30%로 40% 미달 — 핵심 5조건 중 2개 미달. 기판 스토리는 설득력 있으나 진입 타이밍 측면에서 주목이 합리적. 기판 증설 공시 등 이벤트 확인 후 진입 권장.</p>
+    <div class="decision-box">
+      <div class="decision-btn decision-buy decision-dim">✅ 지금 진입 가능<br/><span style="font-size:11px;font-weight:400;">조건 1,4 미달</span></div>
+      <div class="decision-btn decision-wait">⏳ 이벤트 후 진입<br/><span style="font-size:11px;font-weight:400;">기판 증설 공시</span></div>
+      <div class="decision-btn decision-avoid decision-dim">🚫 관망<br/><span style="font-size:11px;font-weight:400;">선반영 부담 시</span></div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="section-title">🚀 승격 조건 — 주목 종목 전용</div>
+  <div class="upgrade-box">
+    <div class="upgrade-item">
+      <span class="upgrade-when">2026.2Q~</span>
+      <span>기판 매출 분기 3,500억+ 확인 시 → ⭐ 핵심 승격</span>
+    </div>
+    <div class="upgrade-item">
+      <span class="upgrade-when">FC-BGA 증설 공시</span>
+      <span>대규모 CAPEX 확정 시 → ⭐ 핵심 승격 (28E 이익 가시성 상승)</span>
+    </div>
+    <div class="upgrade-item">
+      <span class="upgrade-when">주가 조정 시</span>
+      <span>주가 조정으로 Upside 40%+ 회복 시 → ⭐ 핵심 승격 (TP 650,000원 기준 CP 465,000원 이하)</span>
+    </div>
+  </div>
+</section>
+
+<div class="disclaimer">
+  ※ 본 글은 증권사 리포트를 개인 학습 목적으로 요약·정리한 것이며, 투자 권유가 아닙니다.<br/>
+  ※ 제공된 PDF 파일만 활용. 외부 검색·참조 없음.
+</div>
+
+</body>
+</html>

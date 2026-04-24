@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>삼성E&A (028050) 정리</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Pretendard','Apple SD Gothic Neo',sans-serif; background: #ffffff; color: #1a1d2e; line-height: 1.7; font-size: 14px; max-width: 900px; margin: 0 auto; padding: 32px 20px 80px; }
+  .header { border-left: 4px solid #2563eb; padding-left: 16px; margin-bottom: 24px; }
+  .header h1 { font-size: 20px; font-weight: 700; margin-bottom: 10px; }
+  .price-row { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 10px; }
+  .price-item { background: #f0f2f8; border: 1px solid #d0d4e0; border-radius: 6px; padding: 6px 14px; font-size: 13px; }
+  .price-item .label { color: #5a6280; font-size: 11px; display: block; }
+  .price-item .val { font-weight: 700; }
+  .upside-val { color: #059669; }
+  .tag-badge { display: inline-flex; padding: 5px 14px; border-radius: 20px; font-size: 13px; font-weight: 700; }
+  .tag-watch { background: #fffbeb; color: #b45309; border: 1px solid #f59e0b; }
+  .score-badge { display: inline-block; padding: 5px 14px; border-radius: 20px; font-size: 13px; font-weight: 700; background: #f0f2f8; border: 1px solid #d0d4e0; color:#5a6280; }
+  .pathway-badge { display: inline-flex; padding: 3px 10px; border-radius: 12px; font-size: 11px; font-weight: 600; background: #f0f2f8; border: 1px solid #d0d4e0; color: #5a6280; }
+  section { margin-bottom: 28px; }
+  .section-title { font-size: 11px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: #5a6280; border-bottom: 1px solid #d0d4e0; padding-bottom: 6px; margin-bottom: 14px; }
+  .pdf-only-banner { background: #fff7ed; border: 1px solid #f97316; border-radius: 8px; padding: 10px 16px; font-size: 12px; color: #c2410c; margin-bottom: 20px; text-align: center; font-weight: 700; }
+  .thesis-box { background: #f8faff; border: 1px solid #2563eb; border-radius: 8px; padding: 16px 20px; font-size: 15px; font-weight: 600; }
+  .thesis-structure { display: flex; gap: 8px; margin-top: 10px; flex-wrap: wrap; }
+  .thesis-part { background: #f0f2f8; border: 1px solid #d0d4e0; border-radius: 6px; padding: 4px 10px; font-size: 12px; }
+  .thesis-arrow { color: #2563eb; font-size: 16px; }
+  .checklist { background: #fafafa; border: 1px solid #d0d4e0; border-radius: 8px; overflow: hidden; }
+  .checklist-item { display: flex; gap: 14px; padding: 12px 16px; border-bottom: 1px solid #d0d4e0; }
+  .checklist-item:last-child { border-bottom: none; }
+  .check-icon { width: 22px; height: 22px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; flex-shrink: 0; }
+  .check-pass { background: #ecfdf5; color: #059669; border: 1px solid #34d399; }
+  .check-fail { background: #fef2f2; color: #dc2626; border: 1px solid #fca5a5; }
+  .check-label { font-weight: 600; font-size: 13px; }
+  .check-detail { color: #5a6280; font-size: 12px; margin-top: 2px; }
+  .check-why { font-size: 13px; }
+  table { width: 100%; border-collapse: collapse; background: #fafafa; border-radius: 8px; border: 1px solid #d0d4e0; }
+  thead tr { background: #f0f2f8; }
+  th { padding: 10px 14px; text-align: left; font-size: 11px; font-weight: 700; color: #5a6280; letter-spacing: 0.8px; text-transform: uppercase; }
+  td { padding: 10px 14px; border-top: 1px solid #d0d4e0; font-size: 13px; }
+  tr.total-row td { background: #e8ecf5; font-weight: 700; }
+  .penalty { color: #dc2626; }
+  .highlight-green { color: #059669; font-weight: 700; }
+  .chain-box { background: #fafafa; border: 1px solid #d0d4e0; border-radius: 8px; padding: 16px 20px; }
+  .chain-step { display: flex; gap: 12px; margin-bottom: 10px; }
+  .chain-arrow { color: #2563eb; font-size: 16px; flex-shrink: 0; }
+  .chain-label { font-size: 10px; font-weight: 700; letter-spacing: 1px; color: #5a6280; text-transform: uppercase; margin-bottom: 2px; }
+  .chain-text { font-size: 13px; }
+  .chain-confirmed { color: #059669; font-size: 11px; margin-left: 6px; }
+  .chain-forecast { color: #b45309; font-size: 11px; margin-left: 6px; }
+  .fact-item { background: #fafafa; border: 1px solid #d0d4e0; border-radius: 8px; padding: 14px 16px; margin-bottom: 8px; }
+  .fact-num { font-size: 10px; font-weight: 700; color: #2563eb; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 8px; display: block; }
+  .fact-what { font-weight: 600; font-size: 14px; margin-bottom: 6px; }
+  .fact-why { font-size: 13px; color: #5a6280; margin-bottom: 6px; }
+  .fact-so { font-size: 13px; color: #059669; }
+  .fact-label { display: inline-block; font-size: 10px; font-weight: 700; padding: 1px 6px; border-radius: 3px; margin-right: 4px; }
+  .label-what { background: #eff6ff; color: #1d4ed8; }
+  .label-why { background: #fff7ed; color: #ea580c; }
+  .label-so { background: #ecfdf5; color: #059669; }
+  .data-table th { background: #e8ecf5; }
+  .data-table td.key-col { background: #f0f6ff; }
+  .data-table .key-num { color: #059669; font-weight: 700; }
+  .data-table .key-opm { color: #b45309; }
+  caption { font-size: 11px; color: #5a6280; text-align: left; padding: 0 0 8px; caption-side: top; }
+  .val-box { background: #fafafa; border: 1px solid #d0d4e0; border-radius: 8px; padding: 16px 20px; font-size: 13px; }
+  .val-formula { background: #f0f2f8; border-radius: 6px; padding: 10px 14px; font-family: monospace; font-size: 13px; color: #b45309; margin: 10px 0; }
+  .risk-item { background: #fafafa; padding: 14px 16px; margin-bottom: 10px; }
+  .risk-sev-high { border-left: 3px solid #dc2626; }
+  .risk-sev-mid { border-left: 3px solid #ea580c; }
+  .risk-assumption { font-weight: 600; font-size: 13px; margin-bottom: 4px; }
+  .risk-chain { font-size: 12px; color: #5a6280; margin: 4px 0; }
+  .risk-impact-num { font-size: 13px; color: #dc2626; font-weight: 600; }
+  .checkpoint-item { display: flex; gap: 12px; padding: 10px 0; border-bottom: 1px solid #d0d4e0; font-size: 13px; }
+  .cp-date { color: #2563eb; font-weight: 600; min-width: 90px; flex-shrink: 0; }
+  .cp-pass { color: #059669; font-size: 12px; margin-top: 2px; }
+  .cp-fail { color: #dc2626; font-size: 12px; margin-top: 2px; }
+  .opinion-box { background: #fafafa; border: 1px solid #d0d4e0; border-radius: 8px; padding: 16px 20px; font-size: 13px; }
+  .decision-box { display: flex; gap: 14px; margin-top: 14px; }
+  .decision-btn { flex: 1; text-align: center; padding: 10px; border-radius: 6px; font-weight: 700; font-size: 13px; border: 1px solid; }
+  .decision-buy { background: #ecfdf5; color: #059669; border-color: #34d399; }
+  .decision-wait { background: #fffbeb; color: #b45309; border-color: #f59e0b; }
+  .decision-avoid { background: #fef2f2; color: #dc2626; border-color: #fca5a5; }
+  .decision-dim { opacity: 0.3; }
+  .upgrade-box { background: #eff6ff; border: 1px solid #93c5fd; border-radius: 8px; padding: 14px 16px; }
+  .upgrade-item { display: flex; gap: 10px; padding: 6px 0; border-bottom: 1px solid #dbeafe; font-size: 13px; }
+  .upgrade-item:last-child { border-bottom: none; }
+  .upgrade-when { color: #1d4ed8; font-weight: 600; min-width: 140px; flex-shrink: 0; }
+  .disclaimer { font-size: 11px; color: #9ca3af; text-align: center; margin-top: 40px; padding-top: 16px; border-top: 1px solid #d0d4e0; }
+</style>
+</head>
+<body>
+
+<div class="pdf-only-banner">🚫 외부 검색 절대 금지 — 제공된 PDF 파일만 활용 | 당일 발간 리포트 기준</div>
+
+<header class="header">
+  <h1>삼성E&A (028050) | 1Q26 Review: 재건, 그리고 Captive Premium | 유진투자증권 류태환 | 발간일: 2026.04.24</h1>
+  <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-bottom:12px;">
+    <span class="tag-badge tag-watch">🔥 주목</span>
+    <span class="score-badge">📊 40점</span>
+    <span style="font-size:12px;color:#5a6280;">비바이오</span>
+    <span class="pathway-badge">경로 ②볼륨드리븐 + ⑤재평가</span>
+  </div>
+  <div class="price-row">
+    <div class="price-item"><span class="label">투자의견</span><span class="val">BUY(유지)</span></div>
+    <div class="price-item"><span class="label">목표주가(TP)</span><span class="val">68,000원</span></div>
+    <div class="price-item"><span class="label">현재주가(CP)</span><span class="val">50,300원</span></div>
+    <div class="price-item"><span class="label">Upside</span><span class="val upside-val">+35.2%</span></div>
+    <div class="price-item"><span class="label">시가총액</span><span class="val">9.86조원</span></div>
+    <div class="price-item"><span class="label">종목 유형</span><span class="val">비바이오</span></div>
+  </div>
+</header>
+
+<section>
+  <div class="section-title">💡 이 종목에 투자해야 하는 이유</div>
+  <div class="thesis-box">
+    "1Q26 신규수주 4.6조 조기 달성(●●●) + 삼성전자 CAPEX 110조 캡티브 물량 증가 + 중동 재건 + LNG/수처리로 26E OP 9,110억(+15.0%) 기록하는데, 중동 재건·캡티브 프리미엄까지 고려해 Target PER 17.5배(글로벌 peer +10% 프리미엄) 적용 시 Upside 35.2%"
+  </div>
+  <div class="thesis-structure">
+    <div class="thesis-part" style="color:#059669;">① 확정 팩트<br/>1Q 신규수주 4.6조 + 삼성전자 CAPEX 110조</div>
+    <div class="thesis-arrow">→</div>
+    <div class="thesis-part" style="color:#b45309;">② 실적 변화<br/>26E OP +15.0%, 매출 +15.9%</div>
+    <div class="thesis-arrow">→</div>
+    <div class="thesis-part" style="color:#2563eb;">③ 시장 미반영<br/>Upside 35.2% (Captive Premium)</div>
+  </div>
+</section>
+
+<section>
+  <div class="section-title">✅ 핵심 태그 5가지 조건 체크</div>
+  <div class="checklist">
+    <div class="checklist-item">
+      <div class="check-icon check-fail">✗</div>
+      <div>
+        <div class="check-label">조건 1 | OP 성장 임계값</div>
+        <div class="check-detail">OP +50%+ AND (OPM +3%p+ OR 15%+)</div>
+        <div class="check-why">26E OP 9,110억(+15.0%), OPM 8.7%(-0.1%p) → 미달</div>
+      </div>
+    </div>
+    <div class="checklist-item">
+      <div class="check-icon check-pass">✓</div>
+      <div>
+        <div class="check-label">조건 2 | 3년 지속성</div>
+        <div class="check-detail">수주잔고 / CAPA / 파이프라인</div>
+        <div class="check-why">① 1Q26 수주잔고 20.6조 ② 파이프라인 SAN-6·Mexinol·Abadi LNG 등 11건 ③ 삼성전자 CAPEX 110조 캡티브 → 3개 충족</div>
+      </div>
+    </div>
+    <div class="checklist-item">
+      <div class="check-icon check-pass">✓</div>
+      <div>
+        <div class="check-label">조건 3 | 확정 팩트(●●●) 2개+</div>
+        <div class="check-detail">●●●</div>
+        <div class="check-why">●●● 1Q26P 실적 확인 (매출 2.27조, OP 1,882억) / ●●● 중동 PJT 24억불 LOA 수령(2/26) → 2개</div>
+      </div>
+    </div>
+    <div class="checklist-item">
+      <div class="check-icon check-fail">✗</div>
+      <div>
+        <div class="check-label">조건 4 | 시장 미반영</div>
+        <div class="check-detail">Upside 40%+ OR 컨센 괴리 20%+</div>
+        <div class="check-why">Upside 35.2%, 컨센 TP 46,500원 대비 +46.2% 상회. Upside 40% 미달</div>
+      </div>
+    </div>
+    <div class="checklist-item">
+      <div class="check-icon check-pass">✓</div>
+      <div>
+        <div class="check-label">조건 5 | 차별화된 시각</div>
+        <div class="check-detail">이 리포트만의 근거</div>
+        <div class="check-why">글로벌 peer PER 15.9배에 "반도체 특수 프리미엄 +10%" 적용으로 Target PER 17.5배 — peer 프리미엄 논리 차별화</div>
+      </div>
+    </div>
+  </div>
+  <p style="font-size:11px;color:#dc2626;margin-top:8px;">⚠️ 조건 1·4 미달 → 🔥주목</p>
+</section>
+
+<section>
+  <div class="section-title">📊 투자 점수 판정 (v2.0 비바이오)</div>
+  <table>
+    <thead><tr><th>항목</th><th>판정</th><th>근거</th></tr></thead>
+    <tbody>
+      <tr><td>종목 유형</td><td>비바이오</td><td>EPC 건설</td></tr>
+      <tr><td>적용 가설</td><td>가설 3</td><td>아직 고성장 전 + 복합 구조 촉매(수주·재건·캡티브·LNG)</td></tr>
+      <tr><td>촉매 등급</td><td>중급</td><td>1Q 수주 4.6조 / 연매출 9조 ≈ 51% → 중급 이상이나 분기 단위 감안 중급</td></tr>
+      <tr><td>복합 여부</td><td>복합</td><td>① 중동 재건 ② 캡티브 CAPEX 110조 ③ 뉴에너지 SAF/암모니아/LNG ④ 수처리 EPC→PPP/O&M 진화</td></tr>
+      <tr><td>직접성</td><td>직접</td><td>수주→매출→OP 1단계</td></tr>
+      <tr><td>매트릭스 기본 점수</td><td>60점</td><td>가설 3 × 중급 × 복합</td></tr>
+      <tr><td>페널티 ① 단기 선반영</td><td class="penalty">-10점</td><td>1M +39.9% 상승</td></tr>
+      <tr><td>페널티 ② 컨센 반영</td><td class="penalty">-10점</td><td>다수 증권사 TP 상향 (컨센 TP 46,500원→추가 상향 진행 중)</td></tr>
+      <tr class="total-row"><td>최종 투자 점수</td><td><span class="highlight-green">40점</span></td><td>🔥주목 기준 충족</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section>
+  <div class="section-title">⚡ 성장 인과 체인</div>
+  <div class="chain-box">
+    <div class="chain-step">
+      <div class="chain-arrow">①</div>
+      <div>
+        <div class="chain-label">촉매 <span class="chain-confirmed">● 확정</span></div>
+        <div class="chain-text">중동 재건(●●○: 쿠웨이트 KNPC, 바레인 BAPCO 협의) + 삼성전자 2026 시설·R&D 투자 110조 확정(●●●) → 캡티브 물량 증액 기대 + 4/17 P5 공장 추가 수주 1.3조 공시(●●●)</div>
+      </div>
+    </div>
+    <div class="chain-step">
+      <div class="chain-arrow">↓</div>
+      <div>
+        <div class="chain-label">매출 영향</div>
+        <div class="chain-text">26F 매출 10.47조(+15.9%) / 27F 11.59조(+10.7%). 첨단산업 3.16조(+24.8%), 뉴에너지 2.91조(+116.1%). 수주잔고 23.7조(+33.6%)</div>
+      </div>
+    </div>
+    <div class="chain-step">
+      <div class="chain-arrow">↓</div>
+      <div>
+        <div class="chain-label">OPM 변화 메커니즘</div>
+        <div class="chain-text">26F OPM 8.7% (25A 8.8%). 원가 개선·첨단 정산 이익·New Energy GPM 14.3%. 중동 모듈화 기반으로 이란 전쟁 상수화 구간에서도 마진 방어</div>
+      </div>
+    </div>
+    <div class="chain-step">
+      <div class="chain-arrow">↓</div>
+      <div>
+        <div class="chain-label">실적 결과 <span class="chain-forecast">● 추정</span></div>
+        <div class="chain-text">26F OP 9,110억(+15.0%), 27F 1조 650억(+16.9%) / 26F EPS 3,903원(+23.9%), 27F 4,595원(+17.7%)</div>
+      </div>
+    </div>
+    <div class="chain-step">
+      <div class="chain-arrow">↓</div>
+      <div>
+        <div class="chain-label">시장 미반영 (So What)</div>
+        <div class="chain-text">글로벌 peer PER 15.9배 + 반도체 특수 캡티브 프리미엄 +10% = Target PER 17.5배. 중동 재건 + 산유국 CAPEX 재개 최대 수혜</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="section-title">📌 핵심 팩트 3줄</div>
+  <div class="fact-item">
+    <span class="fact-num">Fact 01</span>
+    <div class="fact-what"><span class="fact-label label-what">WHAT</span>1Q26P 매출 2.27조(+8.1%), OP 1,882억(+19.6%, OPM 8.3%). 화공 GPM 경상 이익률 9.2% 우수</div>
+    <div class="fact-why"><span class="fact-label label-why">WHY</span>New Energy 매출 5,633억(+136.9%) 가파른 성장. 첨단산업 매출 5,742억(-25.3%)은 P4 정산 + P5 초기 영향. 판관비 6.9%(+0.4%p)는 퇴직급여 일회성</div>
+    <div class="fact-so"><span class="fact-label label-so">SO WHAT</span>일회성 제외 시 구조적 견조함. 캡티브 물량 가속화로 2Q부터 첨단산업 정상화</div>
+  </div>
+  <div class="fact-item">
+    <span class="fact-num">Fact 02</span>
+    <div class="fact-what"><span class="fact-label label-what">WHAT</span>Captive 연간 수주 3조+α (삼성전자 2026 시설·R&D 투자 110조 발표에 따라 기존 3조 대폭 상회 전망)</div>
+    <div class="fact-why"><span class="fact-label label-why">WHY</span>그룹사 CAPEX 확대로 공사 계약고 증액 + 매출 가속화. P5 공장 추가 수주 1.3조 공시(4/17)로 타임라인 앞당겨짐</div>
+    <div class="fact-so"><span class="fact-label label-so">SO WHAT</span>캡티브 기반의 높은 이익 가시성 → PER 프리미엄 +10% 정당화</div>
+  </div>
+  <div class="fact-item">
+    <span class="fact-num">Fact 03</span>
+    <div class="fact-what"><span class="fact-label label-what">WHAT</span>파이프라인: 사우디 수처리 1조(LNTP), Khafji 20억불, SAN-6 35억불, 카타르 Urea 25억불, Mexinol 20억불, 미국 DG Fuels SAF 30억불(FEED→EPC), 인니 Abadi LNG 30억불</div>
+    <div class="fact-why"><span class="fact-label label-why">WHY</span>중동 재건(카타르/바레인/쿠웨이트 핵심 공단 위주) + LNG 5개사 과점 시장 타이트 + SAF/암모니아/메탄올/CCS 확대</div>
+    <div class="fact-so"><span class="fact-label label-so">SO WHAT</span>26~27년 수주잔고 23.7조→26.9조(+33%→+14%) 지속 확대 가능</div>
+  </div>
+</section>
+
+<section>
+  <div class="section-title">📄 원본 리포트 핵심 요약</div>
+  <div style="background:#fafafa;border:1px solid #d0d4e0;border-radius:8px;padding:16px 20px;margin-bottom:12px;">
+    <div style="font-size:11px;font-weight:700;letter-spacing:1px;color:#5a6280;text-transform:uppercase;margin-bottom:10px;">리포트 핵심 주장</div>
+    <p style="font-size:13px;line-height:1.9;">1Q26 실적은 퇴직금 일회성으로 당사 추정 하회했으나 화공 경상 이익률 9.2%로 구조적 견조. 중동 재건(카타르/바레인/쿠웨이트) + 삼성전자 CAPEX 110조 캡티브 물량 + SAF/암모니아/메탄올/CCS/LNG New Energy 파이프라인 확대가 투자포인트. TP 68,000원으로 38.8% 상향.</p>
+    <div style="margin-top:10px;display:flex;gap:8px;flex-wrap:wrap;">
+      <div style="background:#f0f2f8;border:1px solid #d0d4e0;border-radius:6px;padding:6px 12px;font-size:12px;"><span style="color:#5a6280;font-size:10px;display:block;">이전 대비 변화</span>TP 49,000→68,000원 (+38.8%), 26E OP 943→911 (-3.5%)</div>
+      <div style="background:#f0f2f8;border:1px solid #d0d4e0;border-radius:6px;padding:6px 12px;font-size:12px;"><span style="color:#5a6280;font-size:10px;display:block;">컨센 대비</span>TP +46.2%</div>
+    </div>
+  </div>
+  <div style="background:#fafafa;border:1px solid #d0d4e0;border-radius:8px;padding:16px 20px;margin-bottom:12px;">
+    <div style="font-size:11px;font-weight:700;letter-spacing:1px;color:#5a6280;text-transform:uppercase;margin-bottom:10px;">사업 구조 & 성장 동력</div>
+    <table>
+      <thead><tr><th>사업부</th><th>26F 매출 비중</th><th>성장 드라이버</th></tr></thead>
+      <tbody>
+        <tr><td>화공</td><td>42.0% (4.40조, -14.6%)</td><td>1Q 중동 PJT 24억불 수주 인식. 하반기 Khafji·Urea·Mexinol 대형 수주 대기</td></tr>
+        <tr><td>첨단산업</td><td>30.2% (3.16조, +24.8%)</td><td>삼성전자 CAPEX 110조 캡티브 확장. P5 공장 1.3조 추가 수주(4/17 공시)</td></tr>
+        <tr><td>New Energy</td><td>27.8% (2.91조, +116.1%)</td><td>SAF·암모니아·메탄올·CCS·LNG 확대. 수처리 EPC→PPP/O&M→Concession 사업모델 고도화</td></tr>
+      </tbody>
+    </table>
+    <p style="font-size:12px;color:#5a6280;margin-top:10px;">▶ 핵심 메커니즘: 중동 재건·산유국 CAPEX 재개 + 캡티브 이익 가시성 → peer 대비 +10% 프리미엄 정당화</p>
+  </div>
+  <div style="background:#fafafa;border:1px solid #d0d4e0;border-radius:8px;padding:16px 20px;margin-bottom:12px;">
+    <div style="font-size:11px;font-weight:700;letter-spacing:1px;color:#5a6280;text-transform:uppercase;margin-bottom:10px;">시장 괴리</div>
+    <table>
+      <tbody>
+        <tr><td style="color:#5a6280;width:30%;">시장 현재 인식</td><td>글로벌 peer 평균 PER 15.9배 수준 밸류 적용이 한계</td></tr>
+        <tr><td style="color:#2563eb;">이 리포트 주장</td><td>반도체 캡티브 물량의 이익 가시성과 중동 재건 수혜로 +10% 프리미엄 정당화</td></tr>
+        <tr><td style="color:#b45309;">괴리 해소 촉매</td><td>2H26 대형 화공 수주 + 캡티브 매출 가속화 확인</td></tr>
+        <tr><td>괴리 강도</td><td><span style="color:#b45309;">중</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div style="background:#fafafa;border:1px solid #d0d4e0;border-radius:8px;padding:16px 20px;">
+    <div style="font-size:11px;font-weight:700;letter-spacing:1px;color:#5a6280;text-transform:uppercase;margin-bottom:10px;">재무 특징</div>
+    <div style="display:flex;flex-wrap:wrap;gap:8px;">
+      <div style="background:#f0f2f8;border:1px solid #d0d4e0;border-radius:6px;padding:8px 12px;font-size:12px;flex:1;min-width:160px;"><span style="color:#5a6280;font-size:10px;display:block;">순차입금</span>26F -3.10조 (순현금)</div>
+      <div style="background:#f0f2f8;border:1px solid #d0d4e0;border-radius:6px;padding:8px 12px;font-size:12px;flex:1;min-width:160px;"><span style="color:#5a6280;font-size:10px;display:block;">부채비율</span>26F 112.2%</div>
+      <div style="background:#f0f2f8;border:1px solid #d0d4e0;border-radius:6px;padding:8px 12px;font-size:12px;flex:1;min-width:160px;"><span style="color:#5a6280;font-size:10px;display:block;">DPS</span>26F 980원 (배당수익률 1.9%)</div>
+      <div style="background:#f0f2f8;border:1px solid #d0d4e0;border-radius:6px;padding:8px 12px;font-size:12px;flex:1;min-width:160px;"><span style="color:#5a6280;font-size:10px;display:block;">ROE</span>25A 13.8% → 26F 15.2% → 27F 15.8%</div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="section-title">📈 실적 전망 (연간)</div>
+  <table class="data-table">
+    <caption>단위: 십억원, 원, % — 유진투자증권 추정</caption>
+    <thead><tr><th>구분</th><th>2024A</th><th>2025A</th><th style="background:#dbeafe;color:#1e40af;">2026F ★</th><th>2027F</th><th>2028F</th></tr></thead>
+    <tbody>
+      <tr><td>매출액</td><td>9,967</td><td>9,029</td><td class="key-col key-num">10,467</td><td>11,592</td><td>12,010</td></tr>
+      <tr><td>YoY(%)</td><td>-6.2</td><td>-9.4</td><td class="key-col">+15.9</td><td>+10.7</td><td>+3.6</td></tr>
+      <tr><td>영업이익</td><td>972</td><td>792</td><td class="key-col key-num">911</td><td>1,065</td><td>1,115</td></tr>
+      <tr><td>YoY(%)</td><td>-2.2</td><td>-18.5</td><td class="key-col key-num">+15.0</td><td>+16.9</td><td>+4.8</td></tr>
+      <tr><td>OPM(%)</td><td>9.7</td><td>8.8</td><td class="key-col key-opm">8.7</td><td>9.2</td><td>9.3</td></tr>
+      <tr><td>EPS(원)</td><td>3,862</td><td>3,150</td><td class="key-col">3,903</td><td>4,595</td><td>4,884</td></tr>
+      <tr><td>PER(배)</td><td>4.3</td><td>7.6</td><td class="key-col">12.9</td><td>10.9</td><td>10.3</td></tr>
+      <tr><td>PBR(배)</td><td>0.8</td><td>1.0</td><td class="key-col">1.8</td><td>1.6</td><td>1.5</td></tr>
+      <tr><td>ROE(%)</td><td>19.6</td><td>13.8</td><td class="key-col">15.2</td><td>15.8</td><td>14.9</td></tr>
+    </tbody>
+  </table>
+  <p style="font-size:12px;color:#5a6280;margin-top:10px;">▶ 왜 26F가 변곡점인가: 25A -9.4% 역성장 바닥 통과 + 캡티브·New Energy 동시 확장 + OPM 27F부터 9%대 복귀</p>
+</section>
+
+<section>
+  <div class="section-title">📅 분기별 실적 전망</div>
+  <table class="data-table">
+    <caption>단위: 십억원</caption>
+    <thead><tr><th>구분</th><th>1Q25</th><th>2Q25</th><th>3Q25</th><th>4Q25</th><th style="background:#dbeafe;color:#1e40af;">1Q26P ★</th><th>2Q26F</th><th>3Q26F</th><th>4Q26F</th></tr></thead>
+    <tbody>
+      <tr><td>매출액</td><td>2,098</td><td>2,178</td><td>1,996</td><td>2,757</td><td class="key-col key-num">2,267</td><td>2,468</td><td>2,667</td><td>3,065</td></tr>
+      <tr><td>영업이익</td><td>157</td><td>181</td><td>177</td><td>277</td><td class="key-col key-num">188</td><td>210</td><td>235</td><td>277</td></tr>
+      <tr><td>OPM(%)</td><td>7.5</td><td>8.3</td><td>8.8</td><td>10.1</td><td class="key-col key-opm">8.3</td><td>8.5</td><td>8.8</td><td>9.0</td></tr>
+    </tbody>
+  </table>
+  <p style="font-size:12px;color:#5a6280;margin-top:10px;">▶ 1Q26 포인트: 3Q26 매출 YoY +33.6% / 4Q26 OPM 9.0%로 상승 가속</p>
+</section>
+
+<section>
+  <div class="section-title">💰 밸류에이션</div>
+  <div class="val-box">
+    <div class="val-formula">26E EPS 3,903원 × Target PER 17.5배 = TP 68,000원</div>
+    <p style="color:#5a6280;font-size:12px;">▶ 왜 이 배수인가: 글로벌 peer 평균 PER 15.9배에 "반도체 특수(캡티브)" 프리미엄 10% 적용. 캡티브 기반 이익 가시성 + 중동 재건 수혜 기대</p>
+  </div>
+</section>
+
+<section>
+  <div class="section-title">⚠️ 리스크</div>
+  <div class="risk-item risk-sev-high">
+    <div class="risk-assumption">🔴 핵심 가정: 이란 전쟁 영향 제한적, 중동 공정·모듈화 기반 마진 방어</div>
+    <div class="risk-chain">→ 붕괴 시: 장기화 → 중동 현장 공정 둔화 → 26F 매출 10.47조 → 9.8조로 -6% / 리스크 프리미엄 상승<br/>→ 실적 영향: 26F OP 911 → 820으로 -10%</div>
+    <div class="risk-impact-num">→ 주가 영향: TP 68,000 → 60,000원(-12%)</div>
+  </div>
+  <div class="risk-item risk-sev-mid">
+    <div class="risk-assumption">🟠 두 번째 가정: 삼성전자 CAPEX 110조 유지 + P5 공사 가속화</div>
+    <div class="risk-chain">→ 붕괴 시: CAPEX 삭감 → 캡티브 3조+α 달성 불가 → 첨단산업 +24.8% 성장률 훼손</div>
+    <div class="risk-impact-num">→ 주가 영향: +10% 프리미엄 근거 약화 → PER 15.9배 → TP 62,000원</div>
+  </div>
+</section>
+
+<section>
+  <div class="section-title">🎯 모멘텀 체크포인트</div>
+  <div style="background:#fafafa;border:1px solid #d0d4e0;border-radius:8px;padding:4px 16px;">
+    <div class="checkpoint-item">
+      <span class="cp-date">2H26</span>
+      <div>
+        <div>사우디 Khafji(20억불)·SAN-6(35억불)·Mexinol(20억불) 수주 결과</div>
+        <div class="cp-pass">✅ 2건+ 확정 시 → 가이던스 상향 + 핵심 승격 검토</div>
+        <div class="cp-fail">⛔ 지연 시 → 재건 신규 계약으로 상쇄 기대</div>
+      </div>
+    </div>
+    <div class="checkpoint-item">
+      <span class="cp-date">2026 연중</span>
+      <div>
+        <div>중동 재건 본계약 체결 (쿠웨이트 KNPC, 바레인 BAPCO 등)</div>
+        <div class="cp-pass">✅ 체결 확인 시 → Captive+재건 이중 프리미엄 정당화</div>
+        <div class="cp-fail">⛔ 협의만 지속 시 → 프리미엄 근거 약화</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="section-title">💬 사견 & 결론</div>
+  <div class="opinion-box">
+    <p>컨센 TP 46,500원 대비 +46.2% 상회하며 가장 공격적인 전망 중 하나. Captive+재건 이중 프리미엄 논리 차별화. 우려 포인트: (1) 26F OP 성장률 +15%로 테제(+50%) 미달, (2) 이란 전쟁 변수 상수화는 하방 리스크, (3) 10조+ 수주 파이프라인이 실제 계약으로 이어져야 +10% 프리미엄 유지 가능. Upside 35%는 매력적이나 하반기 대형 수주 확인 필요.</p>
+    <div class="decision-box">
+      <div class="decision-btn decision-buy decision-dim">✅ 지금 진입</div>
+      <div class="decision-btn decision-wait">⏳ 이벤트 후 진입<br/><span style="font-size:11px;font-weight:400;">2H26 대형 수주·재건 계약 확인</span></div>
+      <div class="decision-btn decision-avoid decision-dim">🚫 관망</div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="section-title">🚀 승격 조건</div>
+  <div class="upgrade-box">
+    <div class="upgrade-item">
+      <span class="upgrade-when">2H26 수주 공시</span>
+      <span>파이프라인 중 40억불+ 수주 확정 → ⭐핵심 승격</span>
+    </div>
+    <div class="upgrade-item">
+      <span class="upgrade-when">연내 재건 본계약</span>
+      <span>쿠웨이트/카타르/바레인 재건 본계약 1건+ 체결 → 🚀SS급 검토</span>
+    </div>
+  </div>
+</section>
+
+<div class="disclaimer">
+  ※ 본 글은 증권사 리포트를 개인 학습 목적으로 요약·정리한 것이며, 투자 권유가 아닙니다.<br/>
+  ※ 제공된 PDF 파일만 활용.
+</div>
+
+</body>
+</html>

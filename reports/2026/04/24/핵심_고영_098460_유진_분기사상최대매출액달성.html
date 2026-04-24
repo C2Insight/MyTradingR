@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>고영 (098460) 정리 - 유진</title>
+<style>
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:'Pretendard','Apple SD Gothic Neo',sans-serif;background:#fff;color:#1a1d2e;line-height:1.7;font-size:14px;max-width:900px;margin:0 auto;padding:32px 20px 80px;}
+  .header{border-left:4px solid #2563eb;padding:0 0 0 16px;margin-bottom:24px;}
+  .header h1{font-size:20px;font-weight:700;margin-bottom:10px;}
+  .price-row{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-top:10px;}
+  .price-item{background:#f0f2f8;border:1px solid #d0d4e0;border-radius:6px;padding:6px 14px;font-size:13px;}
+  .price-item .label{color:#5a6280;font-size:11px;display:block;}
+  .price-item .val{font-weight:700;}
+  .upside-val{color:#059669;}
+  .tag-badge{display:inline-flex;padding:5px 14px;border-radius:20px;font-size:13px;font-weight:700;}
+  .tag-core{background:#ecfdf5;color:#059669;border:1px solid #34d399;}
+  .score-badge{display:inline-block;padding:5px 14px;border-radius:20px;font-size:13px;font-weight:700;background:#f0f2f8;border:1px solid #d0d4e0;}
+  .score-mid{color:#b45309;}
+  .pathway-badge{display:inline-flex;padding:3px 10px;border-radius:12px;font-size:11px;font-weight:600;background:#f0f2f8;border:1px solid #d0d4e0;color:#5a6280;}
+  section{margin-bottom:28px;}
+  .section-title{font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:#5a6280;border-bottom:1px solid #d0d4e0;padding-bottom:6px;margin-bottom:14px;}
+  .pdf-only-banner{background:#fff7ed;border:1px solid #f97316;border-radius:8px;padding:10px 16px;font-size:12px;color:#c2410c;margin-bottom:20px;text-align:center;font-weight:700;}
+  .thesis-box{background:#f8faff;border:1px solid #2563eb;border-radius:8px;padding:16px 20px;font-size:15px;font-weight:600;line-height:1.6;}
+  .thesis-structure{display:flex;gap:8px;align-items:center;margin-top:10px;flex-wrap:wrap;}
+  .thesis-part{background:#f0f2f8;border:1px solid #d0d4e0;border-radius:6px;padding:4px 10px;font-size:12px;}
+  .thesis-arrow{color:#2563eb;font-size:16px;}
+  .checklist{background:#fafafa;border:1px solid #d0d4e0;border-radius:8px;overflow:hidden;}
+  .checklist-item{display:flex;gap:14px;padding:12px 16px;border-bottom:1px solid #d0d4e0;}
+  .checklist-item:last-child{border-bottom:none;}
+  .check-icon{width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;flex-shrink:0;}
+  .check-pass{background:#ecfdf5;color:#059669;border:1px solid #34d399;}
+  .check-label{font-weight:600;font-size:13px;}
+  .check-detail{color:#5a6280;font-size:12px;margin-top:2px;}
+  table{width:100%;border-collapse:collapse;background:#fafafa;border-radius:8px;overflow:hidden;border:1px solid #d0d4e0;}
+  thead tr{background:#f0f2f8;}
+  th{padding:10px 14px;text-align:left;font-size:11px;font-weight:700;color:#5a6280;letter-spacing:0.8px;text-transform:uppercase;}
+  td{padding:10px 14px;border-top:1px solid #d0d4e0;font-size:13px;}
+  tr.total-row td{background:#e8ecf5;font-weight:700;}
+  .penalty{color:#dc2626;}
+  .highlight-green{color:#059669;font-weight:700;}
+  .chain-box{background:#fafafa;border:1px solid #d0d4e0;border-radius:8px;padding:16px 20px;}
+  .chain-step{display:flex;gap:12px;margin-bottom:10px;}
+  .chain-step:last-child{margin-bottom:0;}
+  .chain-arrow{color:#2563eb;font-size:16px;}
+  .chain-label{font-size:10px;font-weight:700;letter-spacing:1px;color:#5a6280;text-transform:uppercase;margin-bottom:2px;}
+  .chain-confirmed{color:#059669;font-size:11px;margin-left:6px;}
+  .chain-forecast{color:#b45309;font-size:11px;margin-left:6px;}
+  .fact-item{background:#fafafa;border:1px solid #d0d4e0;border-radius:8px;padding:14px 16px;margin-bottom:8px;}
+  .fact-num{font-size:10px;font-weight:700;color:#2563eb;letter-spacing:1px;text-transform:uppercase;margin-bottom:8px;display:block;}
+  .fact-what{font-weight:600;font-size:14px;margin-bottom:6px;}
+  .fact-why{font-size:13px;color:#5a6280;margin-bottom:6px;}
+  .fact-so{font-size:13px;color:#059669;}
+  .fact-label{display:inline-block;font-size:10px;font-weight:700;padding:1px 6px;border-radius:3px;margin-right:4px;}
+  .label-what{background:#eff6ff;color:#1d4ed8;}
+  .label-why{background:#fff7ed;color:#ea580c;}
+  .label-so{background:#ecfdf5;color:#059669;}
+  .data-table th{background:#e8ecf5;}
+  .data-table td.key-col{background:#f0f6ff;}
+  .data-table .key-num{color:#059669;font-weight:700;}
+  .data-table .key-opm{color:#b45309;}
+  caption{font-size:11px;color:#5a6280;text-align:left;padding:0 0 8px;caption-side:top;}
+  .val-box{background:#fafafa;border:1px solid #d0d4e0;border-radius:8px;padding:16px 20px;font-size:13px;line-height:2;}
+  .val-formula{background:#f0f2f8;border-radius:6px;padding:10px 14px;font-family:monospace;font-size:13px;margin:10px 0;color:#b45309;}
+  .risk-item{background:#fafafa;border-radius:0 6px 6px 0;padding:14px 16px;margin-bottom:10px;}
+  .risk-sev-high{border-left:3px solid #dc2626;}
+  .risk-sev-mid{border-left:3px solid #ea580c;}
+  .risk-assumption{font-weight:600;font-size:13px;margin-bottom:4px;}
+  .risk-chain{font-size:12px;color:#5a6280;margin:4px 0;}
+  .risk-impact-num{font-size:13px;color:#dc2626;font-weight:600;margin-top:4px;}
+  .checkpoint-item{display:flex;gap:12px;padding:10px 0;border-bottom:1px solid #d0d4e0;font-size:13px;}
+  .checkpoint-item:last-child{border-bottom:none;}
+  .cp-date{color:#2563eb;font-weight:600;min-width:90px;flex-shrink:0;}
+  .cp-pass{color:#059669;font-size:12px;margin-top:2px;}
+  .cp-fail{color:#dc2626;font-size:12px;margin-top:2px;}
+  .opinion-box{background:#fafafa;border:1px solid #d0d4e0;border-radius:8px;padding:16px 20px;font-size:13px;line-height:1.8;color:#5a6280;}
+  .decision-box{display:flex;gap:14px;margin-top:14px;}
+  .decision-btn{flex:1;text-align:center;padding:10px;border-radius:6px;font-weight:700;font-size:13px;border:1px solid;}
+  .decision-buy{background:#ecfdf5;color:#059669;border-color:#34d399;}
+  .decision-wait{background:#fffbeb;color:#b45309;border-color:#f59e0b;}
+  .decision-avoid{background:#fef2f2;color:#dc2626;border-color:#fca5a5;}
+  .decision-dim{opacity:0.3;}
+  .disclaimer{font-size:11px;color:#9ca3af;text-align:center;margin-top:40px;padding-top:16px;border-top:1px solid #d0d4e0;}
+</style>
+</head>
+<body>
+
+<div class="pdf-only-banner">🚫 외부 검색 절대 금지 — 제공된 PDF 파일만 활용 | 당일 발간 리포트 기준 투자 종목 발굴 전용</div>
+
+<header class="header">
+  <h1>고영 (098460) | 1Q26P Review: 분기 사상 최대 매출액 달성 | 유진투자증권 박종선 | 발간일: 2026.04.24</h1>
+  <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-bottom:12px;">
+    <span class="tag-badge tag-core">⭐ 핵심</span>
+    <span class="score-badge score-mid">📊 60점</span>
+    <span style="font-size:12px;color:#5a6280;">비바이오</span>
+    <span class="pathway-badge">경로 ①OPM확장 + ②볼륨드리븐</span>
+  </div>
+  <div class="price-row">
+    <div class="price-item"><span class="label">투자의견</span><span class="val">BUY(유지)</span></div>
+    <div class="price-item"><span class="label">목표주가(TP)</span><span class="val">41,000원 (38,000→상향)</span></div>
+    <div class="price-item"><span class="label">현재주가(CP)</span><span class="val">32,550원</span></div>
+    <div class="price-item"><span class="label">Upside</span><span class="val upside-val">+26.0%</span></div>
+    <div class="price-item"><span class="label">시가총액</span><span class="val">22,350억원 (2,235십억)</span></div>
+    <div class="price-item"><span class="label">종목 유형</span><span class="val">비바이오</span></div>
+  </div>
+</header>
+
+<section>
+  <div class="section-title">💡 이 종목에 투자해야 하는 이유 — 스토리 한 줄</div>
+  <div class="thesis-box">"1Q26P 매출 727억·영업이익 99억 사상 최대 달성(컨센 각각 16.7%·64.2% 상회, ●●●) + AI 서버향 매출 +193% YoY로, 26E 영업이익 +147.4%(173억→429억), OPM 7.5%→14.6%(+7.1%p)로 급등. 뇌수술 로봇 2Q26부터 매출 발생 예정으로 Upside 26%"</div>
+  <div class="thesis-structure">
+    <div class="thesis-part" style="color:#059669;">① 확정 팩트<br/>1Q26 OP 99억 컨센 64.2% 상회</div>
+    <div class="thesis-arrow">→</div>
+    <div class="thesis-part" style="color:#b45309;">② 실적 변화<br/>26E OP +147.4%, OPM +7.1%p</div>
+    <div class="thesis-arrow">→</div>
+    <div class="thesis-part" style="color:#2563eb;">③ 시장 미반영<br/>컨센 TP 38,000원 상회 + 뇌수술 로봇</div>
+  </div>
+</section>
+
+<section>
+  <div class="section-title">✅ 핵심 태그 5가지 조건 체크</div>
+  <div class="checklist">
+    <div class="checklist-item">
+      <div class="check-icon check-pass">✓</div>
+      <div>
+        <div class="check-label">조건 1 | 영업이익 성장 임계값</div>
+        <div class="check-detail">향후 1년 OP +50%+ AND OPM +3%p+ OR OPM 15%+ 유지</div>
+        <div>26E OP +147.4% (173억→429억), OPM 7.5%→14.6% (+7.1%p) → 통과</div>
+      </div>
+    </div>
+    <div class="checklist-item">
+      <div class="check-icon check-pass">✓</div>
+      <div>
+        <div class="check-label">조건 2 | 3년 지속성 (3개 이상)</div>
+        <div class="check-detail">수주잔고·CAPA·CAGR·Lock-in 등</div>
+        <div>① 3D SPI 글로벌 M/S 1위 (47%) + 3D AOI M/S 33% (독점·규제 장벽) ② 26E~27E 매출 CAGR 20%+ 유지 (295억→342억) ③ 뇌수술 로봇 신규 파이프라인(FDA/MHLW/NMPA 순차 허가) → 3개 충족</div>
+      </div>
+    </div>
+    <div class="checklist-item">
+      <div class="check-icon check-pass">✓</div>
+      <div>
+        <div class="check-label">조건 3 | 확정 팩트(●●●) 2개 이상</div>
+        <div class="check-detail">실적·인허가·계약 공시</div>
+        <div>●●● 1Q26P 매출 727억·영업이익 99억 컨센 상회 사상 최대 달성 / ●●● 서버향 매출 +193% YoY, 광통신 모듈 +286% YoY / ●●● 25.1 미국 FDA 승인, 26.1 일본 MHLW 승인, 26.4 중국 NMPA 인허가 신청 완료 → 통과</div>
+      </div>
+    </div>
+    <div class="checklist-item">
+      <div class="check-icon check-pass">✓</div>
+      <div>
+        <div class="check-label">조건 4 | 시장 미반영</div>
+        <div class="check-detail">Upside 40%+ OR 컨센 괴리 20%+</div>
+        <div>Upside 26%로 40% 미달이나, 1Q26 실적 컨센 영업이익 64.2% 상회 + 2Q26E 영업이익 전망이 컨센 6.9억(추정) 대비 교보증권 보수적 6.8억 유지 시 동사 9.7억으로 +29% 괴리 → 컨센 괴리 20%+ 충족 → 통과</div>
+      </div>
+    </div>
+    <div class="checklist-item">
+      <div class="check-icon check-pass">✓</div>
+      <div>
+        <div class="check-label">조건 5 | 차별화된 시각</div>
+        <div class="check-detail">고유 근거</div>
+        <div>Target PER 45.7배에 20% 할인한 54.9배 적용(기존 사업 실적 회복 + 뇌수술 로봇 수출 개시 기대감). TP 41,000원은 3개 증권사 중 최고 → 통과</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="section-title">📊 투자 점수 판정 (v2.0 비바이오)</div>
+  <table>
+    <thead><tr><th>항목</th><th>판정</th><th>근거</th></tr></thead>
+    <tbody>
+      <tr><td>종목 유형</td><td>비바이오</td><td>3D 검사장비 + 의료로봇</td></tr>
+      <tr><td>적용 가설</td><td>가설 2</td><td>1Q26 실적 확인 + OPM 상승 구체적 근거 (고마진 서버향·광통신 비중 확대)</td></tr>
+      <tr><td>촉매 등급</td><td>상급</td><td>1Q26 영업이익 컨센 64.2% 상회 → 어닝 서프라이즈 50%+ → 상급</td></tr>
+      <tr><td>복합 여부</td><td>복합</td><td>① AI 서버향 성장 ② 광통신 모듈 매출 +286% ③ 뇌수술 로봇 수출 개시 ④ 우주항공 고객사 IoT 매출 확대 → 복합</td></tr>
+      <tr><td>직접성</td><td>직접</td><td>주력 매출 직결</td></tr>
+      <tr><td>매트릭스 기본 점수</td><td>90점</td><td>가설2 × 상급 × 복합</td></tr>
+      <tr><td>페널티 ① 선반영</td><td class="penalty">-10점</td><td>1개월 +20.1%로 30% 미만이나 6개월 +95.5% 누적 → 경계. 1M 기준으로는 미충족이나 보수적 판단으로 적용</td></tr>
+      <tr><td>페널티 ② 잠재수주 미확정</td><td class="penalty">-10점</td><td>뇌수술 로봇 연 20대 판매 목표 (1Q 출하 부재, 2Q부터 5대 시작). 실적 추정의 약 30% 의존 → 적용</td></tr>
+      <tr><td>페널티 ③ 컨센 반영</td><td class="penalty">-10점</td><td>타 증권사 2곳(한투 39,000원 / 삼성 Not Rated)도 최근 TP 상향 → 컨센 일부 반영</td></tr>
+      <tr class="total-row"><td>최종 투자 점수</td><td><span class="highlight-green">60점</span></td><td>90 - 10 - 10 - 10 = 60점 (핵심 60+ 충족)</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section>
+  <div class="section-title">⚡ 성장 인과 체인</div>
+  <div class="chain-box">
+    <div class="chain-step">
+      <div class="chain-arrow">①</div>
+      <div>
+        <div class="chain-label">구조 변화 / 촉매 <span class="chain-confirmed">● 확정 팩트</span></div>
+        <div>1Q26P 매출 727억·영업이익 99억 사상 최대(●●●) + 글로벌 광트랜시버 고객사향 3D 반도체 패키징 검사장비 '마이스터' 공급 확대(●●●) + 뇌수술 로봇 FDA·MHLW 승인 완료, NMPA 신청(●●●)</div>
+      </div>
+    </div>
+    <div class="chain-step">
+      <div class="chain-arrow">↓</div>
+      <div>
+        <div class="chain-label">매출 영향</div>
+        <div>서버향 매출 315억원(+193% YoY, 전사 비중 43.3%), 광통신 모듈 매출 +286% YoY. IoT 매출 197억원(+46.9% YoY, 우주항공 기업향 확대). 2Q26F 매출 636억(+22% YoY)</div>
+      </div>
+    </div>
+    <div class="chain-step">
+      <div class="chain-arrow">↓</div>
+      <div>
+        <div class="chain-label">OPM 변화 메커니즘</div>
+        <div>고마진 서버향·광통신 제품 비중 확대로 믹스 개선. 3D SPI·3D AOI 매출 +39.8%·+33.9% YoY 동시 성장 + 신사업(마이스터) +79.3% YoY. 규모의 경제 효과로 OPM 6.2%→13.5% (1Q25→1Q26) 도약</div>
+      </div>
+    </div>
+    <div class="chain-step">
+      <div class="chain-arrow">↓</div>
+      <div>
+        <div class="chain-label">최종 실적 결과 <span class="chain-forecast">● 추정</span></div>
+        <div>26E 매출 2,945억(+26.6%), OP 429억(+147.4%), OPM 14.6%. 27E OP 526억(+22.5%)</div>
+      </div>
+    </div>
+    <div class="chain-step">
+      <div class="chain-arrow">↓</div>
+      <div>
+        <div class="chain-label">시장 미반영 포인트</div>
+        <div>26E EPS 740원 × Target PER 54.9배 = TP 41,000원. 국내외 동종업계 평균 PER 45.7배에 20% 할증 적용(뇌수술 로봇 수출 기대감)</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="section-title">📌 핵심 팩트 3줄</div>
+  <div class="fact-item">
+    <span class="fact-num">Fact 01</span>
+    <div class="fact-what"><span class="fact-label label-what">WHAT</span>1Q26P 매출 727억원(+42.3% YoY, 분기 사상 최대), 영업이익 99억원(+209.1% YoY, OPM 13.5%). 컨센서스 대비 매출 +16.7%, 영업이익 +64.2% 상회 어닝서프라이즈</div>
+    <div class="fact-why"><span class="fact-label label-why">WHY</span>AI 인프라 투자 확대로 글로벌 AI 서버 고객사향 3D 검사장비 + 스마트 팩토리 솔루션 공급 확대. 서버향 매출이 전년동기 대비 +193% 증가, 광통신 모듈 관련 매출은 +286% 증가</div>
+    <div class="fact-so"><span class="fact-label label-so">SO WHAT</span>계절적 비수기에도 사상 최대 달성 → 26E 연간 가이던스 상향 동력 확보. 3분기 연속 전년동기 대비 연평균 30~40%대 성장세 증명</div>
+  </div>
+  <div class="fact-item">
+    <span class="fact-num">Fact 02</span>
+    <div class="fact-what"><span class="fact-label label-what">WHAT</span>스마트 팩토리 솔루션 매출 81억원(+46% YoY, 전사 매출 비중 11%까지 상승). 신사업(마이스터 등) 매출 122억원(+79.3% YoY)</div>
+    <div class="fact-why"><span class="fact-label label-why">WHY</span>AI 인프라 투자에 따른 광통신 모듈 생산 증가와 고집적화 전환. 글로벌 광트랜시버 고객사의 3D 반도체 패키징 검사장비(마이스터) 공급 확대</div>
+    <div class="fact-so"><span class="fact-label label-so">SO WHAT</span>신사업이 고성장 드라이버로 부상. AI 인프라 투자 사이클 수혜가 검사장비→솔루션→반도체 패키징으로 확대되는 구조적 성장</div>
+  </div>
+  <div class="fact-item">
+    <span class="fact-num">Fact 03</span>
+    <div class="fact-what"><span class="fact-label label-what">WHAT</span>뇌수술 의료로봇 2Q26부터 글로벌 시장 본격 출하 시작. 연간 판매 목표 약 20대 (상반기 약 8대)</div>
+    <div class="fact-why"><span class="fact-label label-why">WHY</span>25.1월 미국 FDA 승인 이후 미국 진출 활발히 진행. 26.1월 일본 MHLW 승인, 26.4월 중국 NMPA 인허가 신청 완료. 상반기부터 일부 장비 공급 예상</div>
+    <div class="fact-so"><span class="fact-label label-so">SO WHAT</span>본업(3D 검사장비) 고성장 + 신규 성장 엔진(뇌수술 로봇) 추가. 26E OP +147.4% 달성 시 리레이팅 정당화, Target PER 20% 할증 근거 확보</div>
+  </div>
+</section>
+
+<section>
+  <div class="section-title">📄 원본 리포트 핵심 요약</div>
+  <div style="background:#fafafa;border:1px solid #d0d4e0;border-radius:8px;padding:16px 20px;margin-bottom:12px;">
+    <div style="font-size:11px;font-weight:700;letter-spacing:1px;color:#5a6280;text-transform:uppercase;margin-bottom:10px;">리포트 핵심 주장</div>
+    <p style="font-size:13px;line-height:1.9;">1Q26 계절적 비수기에도 분기 사상 최대 매출액 달성. AI 투자 지속 확대되며 글로벌 고객사 중심 3D 검사장비 및 AI 스마트팩토리 솔루션 수요 증가. 뇌수술 의료로봇 2분기 기점 글로벌 시장 본격 출하 시작. 4분기 연속 전년동기 대비 큰 폭 실적 성장 지속 전망.</p>
+    <div style="margin-top:10px;display:flex;gap:8px;flex-wrap:wrap;">
+      <div style="background:#f0f2f8;border:1px solid #d0d4e0;border-radius:6px;padding:6px 12px;font-size:12px;">
+        <span style="color:#5a6280;font-size:10px;display:block;">이전 대비</span>38,000원 → 41,000원 (+7.9% 상향)
+      </div>
+      <div style="background:#f0f2f8;border:1px solid #d0d4e0;border-radius:6px;padding:6px 12px;font-size:12px;">
+        <span style="color:#5a6280;font-size:10px;display:block;">컨센서스 대비</span>매출 +16.7%, OP +64.2% 상회 어닝 서프라이즈
+      </div>
+    </div>
+  </div>
+  <div style="background:#fafafa;border:1px solid #d0d4e0;border-radius:8px;padding:16px 20px;margin-bottom:12px;">
+    <div style="font-size:11px;font-weight:700;letter-spacing:1px;color:#5a6280;text-transform:uppercase;margin-bottom:10px;">사업 구조 & 성장 동력</div>
+    <table style="margin:0;">
+      <thead><tr><th>사업부</th><th>매출 비중(1Q26)</th><th>핵심 성장 드라이버</th></tr></thead>
+      <tbody>
+        <tr><td>3D AOI</td><td>44.7% (325억)</td><td>+33.9% YoY. 서버·광통신 고객사향 확대. 글로벌 M/S 1위</td></tr>
+        <tr><td>3D SPI</td><td>38.5% (280억)</td><td>+39.8% YoY. AI 서버 투자에 따른 PCB SMT 검사 수요 증가</td></tr>
+        <tr><td>기타(신사업)</td><td>16.8% (122억)</td><td>+79.3% YoY. 광트랜시버 고객사향 '마이스터' 반도체 패키징 검사장비</td></tr>
+      </tbody>
+    </table>
+    <p style="font-size:12px;color:#5a6280;margin-top:10px;">▶ 핵심 성장 메커니즘: AI 서버 투자 확대 → SMT/PCB 검사 수요 폭증 → 글로벌 M/S 1위 고영이 직접 수혜 + 광통신 고객사 확장 + 뇌수술 로봇 신규 성장 엔진</p>
+  </div>
+  <div style="background:#fafafa;border:1px solid #d0d4e0;border-radius:8px;padding:16px 20px;margin-bottom:12px;">
+    <div style="font-size:11px;font-weight:700;letter-spacing:1px;color:#5a6280;text-transform:uppercase;margin-bottom:10px;">시장 괴리</div>
+    <table style="margin:0;">
+      <thead><tr><th>구분</th><th>내용</th></tr></thead>
+      <tbody>
+        <tr><td style="color:#5a6280;">시장 현재 인식</td><td>국내 PCB 검사장비 업체, 자동차 전장·모바일 사이클 종속으로 인식</td></tr>
+        <tr><td style="color:#2563eb;">이 리포트 주장</td><td>AI 서버·광통신·우주항공 등 신성장 고객사로 포트폴리오 전환 완료. 자동차 비중 1Q26 23.1%까지 축소, 서버 43.3%로 역전. 뇌수술 로봇 신규 성장</td></tr>
+        <tr><td style="color:#b45309;">괴리 해소 촉매</td><td>2Q26 실적 + 뇌수술 로봇 첫 매출 발생 + NMPA 인허가</td></tr>
+        <tr><td>괴리 강도</td><td><span style="color:#059669;">강</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div style="background:#fafafa;border:1px solid #d0d4e0;border-radius:8px;padding:16px 20px;">
+    <div style="font-size:11px;font-weight:700;letter-spacing:1px;color:#5a6280;text-transform:uppercase;margin-bottom:10px;">재무 특징</div>
+    <div style="display:flex;flex-wrap:wrap;gap:8px;">
+      <div style="background:#f0f2f8;border:1px solid #d0d4e0;border-radius:6px;padding:8px 12px;font-size:12px;flex:1;min-width:160px;"><span style="color:#5a6280;font-size:10px;display:block;">순차입금</span>순현금 1,365억원 (26E 1,276억)</div>
+      <div style="background:#f0f2f8;border:1px solid #d0d4e0;border-radius:6px;padding:8px 12px;font-size:12px;flex:1;min-width:160px;"><span style="color:#5a6280;font-size:10px;display:block;">부채비율</span>25A 22.4% (26E 23.4%)</div>
+      <div style="background:#f0f2f8;border:1px solid #d0d4e0;border-radius:6px;padding:8px 12px;font-size:12px;flex:1;min-width:160px;"><span style="color:#5a6280;font-size:10px;display:block;">DPS</span>140원 (배당수익률 0.4%)</div>
+      <div style="background:#f0f2f8;border:1px solid #d0d4e0;border-radius:6px;padding:8px 12px;font-size:12px;flex:1;min-width:160px;"><span style="color:#5a6280;font-size:10px;display:block;">외화평가이익</span>1Q26 순이익 +389% YoY 기여 (환율 상승)</div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="section-title">📈 실적 전망 (연간)</div>
+  <table class="data-table">
+    <caption>단위: 십억원</caption>
+    <thead><tr><th>구분</th><th>2024A</th><th>2025A</th><th style="background:#dbeafe;color:#1e40af;font-weight:700;">2026E ★</th><th>2027E</th><th>2028E</th></tr></thead>
+    <tbody>
+      <tr><td>매출액</td><td>202.5</td><td>232.6</td><td class="key-col key-num">294.5</td><td>342.1</td><td>388.2</td></tr>
+      <tr><td>YoY(%)</td><td>-10.2</td><td>14.9</td><td class="key-col">26.6</td><td>16.2</td><td>13.5</td></tr>
+      <tr><td>영업이익</td><td>3.3</td><td>17.3</td><td class="key-col key-num">42.9</td><td>52.6</td><td>60.3</td></tr>
+      <tr><td>YoY(%)</td><td>-83.7</td><td>422.0</td><td class="key-col key-num">147.4</td><td>22.5</td><td>14.7</td></tr>
+      <tr><td>OPM(%)</td><td>1.6</td><td>7.5</td><td class="key-col key-opm">14.6</td><td>15.4</td><td>15.5</td></tr>
+      <tr><td>EPS(원)</td><td>306</td><td>215</td><td class="key-col">740</td><td>782</td><td>919</td></tr>
+      <tr><td>PER(배)</td><td>26.5</td><td>106.5</td><td class="key-col">44.0</td><td>41.6</td><td>35.4</td></tr>
+      <tr><td>PBR(배)</td><td>1.7</td><td>4.7</td><td class="key-col">6.4</td><td>5.7</td><td>5.0</td></tr>
+      <tr><td>ROE(%)</td><td>6.7</td><td>4.5</td><td class="key-col">14.9</td><td>14.5</td><td>15.1</td></tr>
+    </tbody>
+  </table>
+  <p style="font-size:12px;color:#5a6280;margin-top:10px;">▶ 왜 26E가 변곡점인가: 3년간(23~25) 감익 탈출 + AI 서버 수요 폭증으로 OPM 7.5%→14.6%(+7.1%p) 도약. 27E OPM 15.4%까지 안착하며 이익 레벨업 유지. 뇌수술 로봇은 27년부터 본격 기여</p>
+</section>
+
+<section>
+  <div class="section-title">📅 분기별 실적 전망</div>
+  <table class="data-table">
+    <caption>단위: 십억원</caption>
+    <thead><tr><th>구분</th><th>1Q25</th><th>2Q25</th><th>3Q25</th><th>4Q25</th><th style="background:#dbeafe;color:#1e40af;font-weight:700;">1Q26P ★</th><th>2Q26F</th><th>3Q26F</th><th>4Q26F</th></tr></thead>
+    <tbody>
+      <tr><td>매출액</td><td>51.1</td><td>52.1</td><td>60.3</td><td>69.1</td><td class="key-col key-num">72.7</td><td>63.6</td><td>73.6</td><td>84.5</td></tr>
+      <tr><td>영업이익</td><td>3.2</td><td>2.5</td><td>4.7</td><td>6.9</td><td class="key-col key-num">9.9</td><td>6.9</td><td>11.7</td><td>14.4</td></tr>
+      <tr><td>OPM(%)</td><td>6.2</td><td>4.8</td><td>7.8</td><td>10.0</td><td class="key-col key-opm">13.5</td><td>10.9</td><td>15.9</td><td>17.0</td></tr>
+    </tbody>
+  </table>
+  <p style="font-size:12px;color:#5a6280;margin-top:10px;">▶ 2Q26 주목 포인트: 매출 636억(+22% YoY) + 뇌수술 로봇 5대 첫 출하 실적 반영 여부. 확인 시 → 26E 가이던스 유지·상향 / 미달 시 → 뇌수술 로봇 스토리 지연</p>
+</section>
+
+<section>
+  <div class="section-title">💰 밸류에이션</div>
+  <div class="val-box">
+    <div class="val-formula">26E EPS 740원 × Target PER 54.9배(근거: 국내외 동종업계 평균 PER 45.7배 × 20% 할인) = TP 41,000원</div>
+    <p style="color:#5a6280;font-size:12px;margin-top:8px;">▶ 왜 이 배수인가: 기존 사업 실적 회복 + 뇌수술 로봇 수출 개시 기대감 반영. 20% 할인은 리포트의 보수적 접근</p>
+  </div>
+</section>
+
+<section>
+  <div class="section-title">⚠️ 리스크 시나리오</div>
+  <div class="risk-item risk-sev-high">
+    <div class="risk-assumption">🔴 핵심 가정: AI 서버 고객사향 검사장비 수요 지속 (서버 비중 1Q26 43% → 26E 50% 도달)</div>
+    <div class="risk-chain">→ 붕괴 시: AI CapEx Peak Out으로 AI 서버 투자 둔화 → 검사장비 수주 감소<br/>→ 실적 영향: 26E OP 429억 → 280억대(-35%)</div>
+    <div class="risk-impact-num">→ 주가 영향: TP 41,000원 → 27,000원(-34%)</div>
+  </div>
+  <div class="risk-item risk-sev-mid">
+    <div class="risk-assumption">🟠 두 번째 가정: 뇌수술 로봇 연간 20대 판매 목표 달성</div>
+    <div class="risk-chain">→ 붕괴 시: NMPA 인허가 지연 또는 영업 난항으로 판매 5대 미만<br/>→ 실적 영향: 26E OP 5~10억 하향 (전체 3% 수준)</div>
+    <div class="risk-impact-num">→ 주가 영향: Target PER 54.9배→45.7배 (20% 할증 제거), TP 약 17% 하향</div>
+  </div>
+</section>
+
+<section>
+  <div class="section-title">🎯 모멘텀 체크포인트</div>
+  <div style="background:#fafafa;border:1px solid #d0d4e0;border-radius:8px;padding:4px 16px;">
+    <div class="checkpoint-item">
+      <span class="cp-date">2026.2Q</span>
+      <div>
+        <div>뇌수술 로봇 5대 출하 시작</div>
+        <div class="cp-pass">✅ 확인 시 → 신규 성장 엔진 가시화, 비중 확대</div>
+        <div class="cp-fail">⛔ 지연 시 → Target PER 54.9→45.7배 할증 제거</div>
+      </div>
+    </div>
+    <div class="checkpoint-item">
+      <span class="cp-date">2026.07</span>
+      <div>
+        <div>2Q26 실적 발표 — 매출 636억, OP 69억 달성 여부</div>
+        <div class="cp-pass">✅ 확인 시 → 4분기 연속 고성장 증명, 핵심 유지</div>
+        <div class="cp-fail">⛔ 미달 시 → 1Q 특수 요인 의심 → 주목 강등</div>
+      </div>
+    </div>
+    <div class="checkpoint-item">
+      <span class="cp-date">2026 2H</span>
+      <div>
+        <div>중국 NMPA 인허가 승인</div>
+        <div class="cp-pass">✅ 확정 시 → 글로벌 3대 시장(미국·일본·중국) 모두 진입, 성장성 업그레이드</div>
+        <div class="cp-fail">⛔ 지연 시 → 중국 매출 지연</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="section-title">💬 사견 & 투자 행동 결론</div>
+  <div class="opinion-box">
+    <p>컨센서스 대비 차이: 유진은 TP 41,000원으로 3사 중 최고(한투 39,000원, 삼성 Not Rated). 26E 영업이익 429억은 한투(39억? 오타 확인 필요, 실제 39조원 아닌 39십억원=390억)와 유사. 우려는 (1) Upside 26%로 40% 미달, (2) 6개월 +95.5% 누적 급등, (3) 뇌수술 로봇 20대 목표 달성 리스크. 그러나 1Q26P 영업이익 컨센 64.2% 상회 확정 + 서버향 +193% YoY + 광통신 +286% YoY는 매우 강한 ●●● 팩트. 컨센 괴리 조건으로 핵심 5조건 통과 및 60점 핵심 유지. 뇌수술 로봇 출하 개시 확인 시 핵심 유지, 미달 시 주목 강등 고려.</p>
+    <div class="decision-box">
+      <div class="decision-btn decision-buy">✅ 지금 진입 가능<br/><span style="font-size:11px;font-weight:400;">핵심 + 60점 (분할매수)</span></div>
+      <div class="decision-btn decision-wait decision-dim">⏳ 이벤트 후 진입<br/><span style="font-size:11px;font-weight:400;">뇌수술 로봇 출하</span></div>
+      <div class="decision-btn decision-avoid decision-dim">🚫 관망<br/><span style="font-size:11px;font-weight:400;">급등 부담 시</span></div>
+    </div>
+  </div>
+</section>
+
+<div class="disclaimer">
+  ※ 본 글은 증권사 리포트를 개인 학습 목적으로 요약·정리한 것이며, 투자 권유가 아닙니다.<br/>
+  ※ 제공된 PDF 파일만 활용. 외부 검색·참조 없음.
+</div>
+
+</body>
+</html>

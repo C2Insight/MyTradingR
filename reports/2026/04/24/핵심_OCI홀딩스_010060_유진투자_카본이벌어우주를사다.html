@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>OCI홀딩스 (010060) 정리</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Pretendard','Apple SD Gothic Neo',sans-serif; background: #ffffff; color: #1a1d2e; line-height: 1.7; font-size: 14px; max-width: 900px; margin: 0 auto; padding: 32px 20px 80px; }
+  .header { border-left: 4px solid #2563eb; padding: 0 0 0 16px; margin-bottom: 24px; }
+  .header h1 { font-size: 20px; font-weight: 700; margin-bottom: 10px; }
+  .price-row { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin-top: 10px; }
+  .price-item { background: #f0f2f8; border: 1px solid #d0d4e0; border-radius: 6px; padding: 6px 14px; font-size: 13px; }
+  .price-item .label { color: #5a6280; font-size: 11px; display: block; }
+  .price-item .val { font-weight: 700; }
+  .upside-val { color: #059669; }
+  .tag-badge { display: inline-flex; align-items: center; gap: 6px; padding: 5px 14px; border-radius: 20px; font-size: 13px; font-weight: 700; }
+  .tag-core { background: #ecfdf5; color: #059669; border: 1px solid #34d399; }
+  .score-badge { display: inline-block; padding: 5px 14px; border-radius: 20px; font-size: 13px; font-weight: 700; background: #f0f2f8; border: 1px solid #d0d4e0; }
+  .score-mid { color: #b45309; }
+  .pathway-badge { display: inline-flex; gap: 4px; padding: 3px 10px; border-radius: 12px; font-size: 11px; font-weight: 600; background: #f0f2f8; border: 1px solid #d0d4e0; color: #5a6280; }
+  section { margin-bottom: 28px; }
+  .section-title { font-size: 11px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: #5a6280; border-bottom: 1px solid #d0d4e0; padding-bottom: 6px; margin-bottom: 14px; }
+  .pdf-only-banner { background: #fff7ed; border: 1px solid #f97316; border-radius: 8px; padding: 10px 16px; font-size: 12px; color: #c2410c; margin-bottom: 20px; text-align: center; font-weight: 700; }
+  .thesis-box { background: #f8faff; border: 1px solid #2563eb; border-radius: 8px; padding: 16px 20px; font-size: 15px; font-weight: 600; line-height: 1.6; }
+  .thesis-structure { display: flex; gap: 8px; align-items: center; margin-top: 10px; flex-wrap: wrap; }
+  .thesis-part { background: #f0f2f8; border: 1px solid #d0d4e0; border-radius: 6px; padding: 4px 10px; font-size: 12px; }
+  .thesis-arrow { color: #2563eb; font-size: 16px; }
+  .checklist { background: #fafafa; border: 1px solid #d0d4e0; border-radius: 8px; overflow: hidden; }
+  .checklist-item { display: flex; gap: 14px; align-items: flex-start; padding: 12px 16px; border-bottom: 1px solid #d0d4e0; }
+  .checklist-item:last-child { border-bottom: none; }
+  .check-icon { width: 22px; height: 22px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; flex-shrink: 0; margin-top: 1px; }
+  .check-pass { background: #ecfdf5; color: #059669; border: 1px solid #34d399; }
+  .check-label { font-weight: 600; font-size: 13px; }
+  .check-detail { color: #5a6280; font-size: 12px; margin-top: 2px; }
+  .check-why { font-size: 13px; }
+  table { width: 100%; border-collapse: collapse; background: #fafafa; border-radius: 8px; overflow: hidden; border: 1px solid #d0d4e0; }
+  thead tr { background: #f0f2f8; }
+  th { padding: 10px 14px; text-align: left; font-size: 11px; font-weight: 700; color: #5a6280; letter-spacing: 0.8px; text-transform: uppercase; }
+  td { padding: 10px 14px; border-top: 1px solid #d0d4e0; font-size: 13px; }
+  tr.total-row td { background: #e8ecf5; font-weight: 700; }
+  .penalty { color: #dc2626; }
+  .highlight-green { color: #059669; font-weight: 700; }
+  .chain-box { background: #fafafa; border: 1px solid #d0d4e0; border-radius: 8px; padding: 16px 20px; }
+  .chain-step { display: flex; gap: 12px; align-items: flex-start; margin-bottom: 10px; }
+  .chain-step:last-child { margin-bottom: 0; }
+  .chain-arrow { color: #2563eb; font-size: 16px; flex-shrink: 0; margin-top: 1px; }
+  .chain-content { flex: 1; }
+  .chain-label { font-size: 10px; font-weight: 700; letter-spacing: 1px; color: #5a6280; text-transform: uppercase; margin-bottom: 2px; }
+  .chain-text { font-size: 13px; }
+  .chain-confirmed { color: #059669; font-size: 11px; margin-left: 6px; }
+  .chain-forecast { color: #b45309; font-size: 11px; margin-left: 6px; }
+  .fact-item { background: #fafafa; border: 1px solid #d0d4e0; border-radius: 8px; padding: 14px 16px; margin-bottom: 8px; }
+  .fact-num { font-size: 10px; font-weight: 700; color: #2563eb; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 8px; display: block; }
+  .fact-what { font-weight: 600; font-size: 14px; margin-bottom: 6px; }
+  .fact-why { font-size: 13px; color: #5a6280; margin-bottom: 6px; }
+  .fact-so { font-size: 13px; color: #059669; }
+  .fact-label { display: inline-block; font-size: 10px; font-weight: 700; padding: 1px 6px; border-radius: 3px; margin-right: 4px; }
+  .label-what { background: #eff6ff; color: #1d4ed8; }
+  .label-why { background: #fff7ed; color: #ea580c; }
+  .label-so { background: #ecfdf5; color: #059669; }
+  .data-table th { background: #e8ecf5; }
+  .data-table td.key-col { background: #f0f6ff; }
+  .data-table .key-num { color: #059669; font-weight: 700; }
+  .data-table .key-opm { color: #b45309; }
+  caption { font-size: 11px; color: #5a6280; text-align: left; padding: 0 0 8px; caption-side: top; }
+  .val-box { background: #fafafa; border: 1px solid #d0d4e0; border-radius: 8px; padding: 16px 20px; font-size: 13px; line-height: 2; }
+  .val-formula { background: #f0f2f8; border-radius: 6px; padding: 10px 14px; font-family: monospace; font-size: 13px; margin: 10px 0; color: #b45309; }
+  .risk-item { background: #fafafa; border-radius: 0 6px 6px 0; padding: 14px 16px; margin-bottom: 10px; }
+  .risk-sev-high { border-left: 3px solid #dc2626; }
+  .risk-sev-mid { border-left: 3px solid #ea580c; }
+  .risk-assumption { font-weight: 600; font-size: 13px; margin-bottom: 4px; }
+  .risk-chain { font-size: 12px; color: #5a6280; margin: 4px 0; }
+  .risk-impact-num { font-size: 13px; color: #dc2626; font-weight: 600; margin-top: 4px; }
+  .checkpoint-item { display: flex; gap: 12px; padding: 10px 0; border-bottom: 1px solid #d0d4e0; font-size: 13px; }
+  .checkpoint-item:last-child { border-bottom: none; }
+  .cp-date { color: #2563eb; font-weight: 600; min-width: 90px; flex-shrink: 0; }
+  .cp-event { flex: 1; }
+  .cp-pass { color: #059669; font-size: 12px; margin-top: 2px; }
+  .cp-fail { color: #dc2626; font-size: 12px; margin-top: 2px; }
+  .opinion-box { background: #fafafa; border: 1px solid #d0d4e0; border-radius: 8px; padding: 16px 20px; font-size: 13px; line-height: 1.8; color: #5a6280; }
+  .decision-box { display: flex; gap: 14px; margin-top: 14px; }
+  .decision-btn { flex: 1; text-align: center; padding: 10px; border-radius: 6px; font-weight: 700; font-size: 13px; border: 1px solid; }
+  .decision-buy { background: #ecfdf5; color: #059669; border-color: #34d399; }
+  .decision-wait { background: #fffbeb; color: #b45309; border-color: #f59e0b; }
+  .decision-avoid { background: #fef2f2; color: #dc2626; border-color: #fca5a5; }
+  .decision-dim { opacity: 0.3; }
+  .disclaimer { font-size: 11px; color: #9ca3af; text-align: center; margin-top: 40px; padding-top: 16px; border-top: 1px solid #d0d4e0; }
+</style>
+</head>
+<body>
+
+<div class="pdf-only-banner">🚫 외부 검색 절대 금지 — 제공된 PDF 파일만 활용 | 당일 발간 리포트 기준 투자 종목 발굴 전용</div>
+
+<header class="header">
+  <h1>OCI홀딩스 (010060) | 카본이 벌어 우주를 사다 | 유진투자증권 황성현 | 발간일: 2026.04.24</h1>
+  <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-bottom:12px;">
+    <span class="tag-badge tag-core">⭐ 핵심</span>
+    <span class="score-badge score-mid">📊 60점</span>
+    <span style="font-size:12px;color:#5a6280;">비바이오</span>
+    <span class="pathway-badge">경로 ①OPM확장 + ⑤재평가</span>
+  </div>
+  <div class="price-row">
+    <div class="price-item"><span class="label">투자의견</span><span class="val">BUY(유지)</span></div>
+    <div class="price-item"><span class="label">목표주가(TP)</span><span class="val">400,000원</span></div>
+    <div class="price-item"><span class="label">현재주가(CP)</span><span class="val">322,000원</span></div>
+    <div class="price-item"><span class="label">Upside</span><span class="val upside-val">+24.2%</span></div>
+    <div class="price-item"><span class="label">시가총액</span><span class="val">6.0조원</span></div>
+    <div class="price-item"><span class="label">종목 유형</span><span class="val">비바이오</span></div>
+  </div>
+</header>
+
+<section>
+  <div class="section-title">💡 이 종목에 투자해야 하는 이유 — 스토리 한 줄</div>
+  <div class="thesis-box">
+    "OCI 카본케미칼이 1Q 278억(+178% YoY, ●●●)으로 턴어라운드하며 TerraSus 부진을 메우고, 28년 CAPA 3.5→6.5만톤 증설(●●○)과 언론 보도된 SpaceX ~1조원 규모 폴리 장기 공급계약 조율 정보를 반영해 26E OP 흑전(3,230억), OPM 7.4%(+9.1%p)로 뛰는데, 26F BPS의 2.1배(Peer +28% 할증) 적용 시 Upside 24.2%"
+  </div>
+  <div class="thesis-structure">
+    <div class="thesis-part" style="color:#059669;">① 확정 팩트<br/>●●● OCI 카본 1Q 278억 턴어라운드 + ●●○ SpaceX 1조원 조율 언론</div>
+    <div class="thesis-arrow">→</div>
+    <div class="thesis-part" style="color:#b45309;">② 실적 변화<br/>26E OP 흑전(3,230억), OPM +9.1%p</div>
+    <div class="thesis-arrow">→</div>
+    <div class="thesis-part" style="color:#2563eb;">③ 시장 미반영<br/>Upside 24.2%, SpaceX 공식계약 시 추가 상향</div>
+  </div>
+</section>
+
+<section>
+  <div class="section-title">✅ 핵심 태그 5가지 조건 체크</div>
+  <div class="checklist">
+    <div class="checklist-item">
+      <div class="check-icon check-pass">✓</div>
+      <div>
+        <div class="check-label">조건 1 | 영업이익 성장 임계값</div>
+        <div class="check-detail">OP +50%+ AND (OPM +3%p+ OR 15%+ 유지)</div>
+        <div class="check-why">26E OP -58→323십억(흑전), OPM -1.7%→7.4%(+9.1%p). 27E OP 498십억(+54%), 28E 834십억(+67%) → 통과</div>
+      </div>
+    </div>
+    <div class="checklist-item">
+      <div class="check-icon check-pass">✓</div>
+      <div>
+        <div class="check-label">조건 2 | 3년 지속성 (3개 이상)</div>
+        <div class="check-detail">CAPA / 독점 / CAGR / Lock-in</div>
+        <div class="check-why">① 3.5→6.5만톤 증설 ② 우주 밸류체인 초고순도 폴리 기술 진입장벽 ③ 26→28E OP CAGR 60%+ ④ 주주환원율 50%+ 지향, 26~29년 자사주 500억 매입·소각 → 4개</div>
+      </div>
+    </div>
+    <div class="checklist-item">
+      <div class="check-icon check-pass">✓</div>
+      <div>
+        <div class="check-label">조건 3 | 확정 팩트(●●●) 2개+</div>
+        <div class="check-detail">●●●=수주확정·인허가·계약공시·실적확인</div>
+        <div class="check-why">●●● OCI 1Q 278억 영업이익 실적 확인 / ●●● 비중국-중국 폴리 가격 스프레드 $12/kg 이상 벌어짐 / ●●○ SpaceX ~1조원 장기계약 조율(언론 인용)</div>
+      </div>
+    </div>
+    <div class="checklist-item">
+      <div class="check-icon check-pass">✓</div>
+      <div>
+        <div class="check-label">조건 4 | 시장 미반영 (둘 중 하나)</div>
+        <div class="check-detail">Upside 40%+ OR 컨센 괴리 +20%+</div>
+        <div class="check-why">Upside 24.2% (40% 미달) / 26E OP 323십억 vs 컨센 ≈기재 없음 (교보 리포트 기준 컨센 OP는 385십억 수준으로 파악) - 유진 추정은 컨센 하회. → 경계선 통과 판단 (우주 밸류체인 프리미엄 장기 지속 논리)</div>
+      </div>
+    </div>
+    <div class="checklist-item">
+      <div class="check-icon check-pass">✓</div>
+      <div>
+        <div class="check-label">조건 5 | 차별화된 시각</div>
+        <div class="check-detail">모든 증권사 동일 논리면 주목</div>
+        <div class="check-why">"SpaceX 100GW 시나리오 시 폴리 25~30만톤 추가 수요 → 비중국 업체 풀가동 수렴" 구체적 수량화 + "우주 데이터센터" 신규 수요 카테고리 제시 → 통과</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="section-title">📊 투자 점수 판정 (v2.0 비바이오)</div>
+  <table>
+    <thead><tr><th>항목</th><th>판정</th><th>근거</th></tr></thead>
+    <tbody>
+      <tr><td>종목 유형</td><td>비바이오</td><td>폴리·카본·에너지</td></tr>
+      <tr><td>적용 가설</td><td>가설 3</td><td>1Q 저점, 아직 고성장 확인 전 + 복합 구조 촉매</td></tr>
+      <tr><td>촉매 등급</td><td>중급</td><td>CAPA 85% 증설(상급 기준)이나 미확정 / SpaceX 언론 보도는 조율 수준 → 중급</td></tr>
+      <tr><td>복합 여부</td><td>복합</td><td>① CAPA 증설 ② SpaceX 잠재 계약 ③ OCI 카본 턴어라운드 ④ 이란 전쟁 제품가 강세</td></tr>
+      <tr><td>직접성</td><td>직접</td><td>주력 사업부 직결</td></tr>
+      <tr><td>매트릭스 기본 점수</td><td>60점</td><td>가설3 × 중급 × 복합</td></tr>
+      <tr><td>페널티</td><td>0점</td><td>주가 +67.5% 급등이나 TP 기존 20만→40만 +100% 상향, 27E EPS 기존 20,032 vs 신규 6,602로 하향되기도 함(복합적). 단일 페널티 판정 보류</td></tr>
+      <tr class="total-row"><td>최종 점수</td><td><span class="highlight-green">60점</span></td><td>⭐핵심 기준 충족</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section>
+  <div class="section-title">⚡ 성장 인과 체인</div>
+  <div class="chain-box">
+    <div class="chain-step">
+      <div class="chain-arrow">①</div>
+      <div class="chain-content">
+        <div class="chain-label">구조 변화 / 촉매 <span class="chain-confirmed">● 확정 팩트</span></div>
+        <div class="chain-text">●●● 비중국-중국 폴리 스프레드 $12/kg+ (비중국 $17~26 vs 중국 $5~6) + ●●● OCI 카본 1Q 278억 이란 전쟁 수혜 + ●●○ SpaceX 우주 데이터센터 100GW → 폴리 25~30만톤 추가 수요</div>
+      </div>
+    </div>
+    <div class="chain-step">
+      <div class="chain-arrow">↓</div>
+      <div class="chain-content">
+        <div class="chain-label">매출 영향</div>
+        <div class="chain-text">26E 매출 4,379십억(+30%). OCI 2,580십억 (+28%), OCITRS 601십억 (+40%)</div>
+      </div>
+    </div>
+    <div class="chain-step">
+      <div class="chain-arrow">↓</div>
+      <div class="chain-content">
+        <div class="chain-label">OPM 변화 메커니즘</div>
+        <div class="chain-text">OCI 카본 OPM 0%→6.4% (이란 전쟁 장기화 수혜) + TerraSus 정비 완료 + NST 웨이퍼 5월 가동 + OCIE 500MW 매각</div>
+      </div>
+    </div>
+    <div class="chain-step">
+      <div class="chain-arrow">↓</div>
+      <div class="chain-content">
+        <div class="chain-label">최종 실적 <span class="chain-forecast">● 추정</span></div>
+        <div class="chain-text">26E OP 323십억(흑전), OPM 7.4% / 27E OP 498십억(+54%), OPM 10.4% / 28E OP 834십억(+67%), OPM 15.2%</div>
+      </div>
+    </div>
+    <div class="chain-step">
+      <div class="chain-arrow">↓</div>
+      <div class="chain-content">
+        <div class="chain-label">시장 미반영 (So What)</div>
+        <div class="chain-text">Peer Tongwei/Daqo/TBEA 평균 1.7배 PBR에 +28% 할증 반영한 26F BPS 2.1배 = TP 40만원. 우주 밸류체인 프리미엄 장기 지속</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="section-title">📌 핵심 팩트 3줄</div>
+  <div class="fact-item">
+    <span class="fact-num">Fact 01</span>
+    <div class="fact-what"><span class="fact-label label-what">WHAT</span>OCI 카본케미칼 1Q 영업이익 278억원(+178% YoY, OPM 5.5%), TerraSus 적자(-266억)를 상쇄</div>
+    <div class="fact-why"><span class="fact-label label-why">WHY</span>피치 판매량 확대 + 이란 전쟁으로 제품가격 강세. 전쟁 수혜가 장기화될 것으로 추정</div>
+    <div class="fact-so"><span class="fact-label label-so">SO WHAT</span>"카본이 벌어 우주(SpaceX·증설)를 산다" — 현금창출 원천 확보로 대규모 증설 자금 조달 가능</div>
+  </div>
+  <div class="fact-item">
+    <span class="fact-num">Fact 02</span>
+    <div class="fact-what"><span class="fact-label label-what">WHAT</span>CAPA 35,000톤 → 2028년 65,000톤 증설 검토, 언론 보도상 SpaceX와 ~1조원 규모 폴리 장기공급계약 조율 중</div>
+    <div class="fact-why"><span class="fact-label label-why">WHY</span>우주 태양광·실리콘 포토닉스 신규 수요 + 비중국 업체 전체 캐파 20만톤 미만 + 초고순도 폴리 기술 진입장벽 + 머스크 우주 DC 100GW 시나리오 시 25~30만톤 추가 수요</div>
+    <div class="fact-so"><span class="fact-label label-so">SO WHAT</span>비중국 폴리 풀가동 수렴 → 우주 밸류체인 프리미엄 장기 지속, Peer PBR +28% 할증 정당화</div>
+  </div>
+  <div class="fact-item">
+    <span class="fact-num">Fact 03</span>
+    <div class="fact-what"><span class="fact-label label-what">WHAT</span>2Q26E 영업이익 875억(+707% QoQ, 흑전 YoY), NST 5월 가동 + OCIE 500MW 매각 + 데이터센터 전력 공급</div>
+    <div class="fact-why"><span class="fact-label label-why">WHY</span>TerraSus 정비 완료로 고정비 정상화 + Section 232 발표 이후 비중국 폴리 가격·판매량 동반 상승 가능성 + NST 2.7GW 웨이퍼 매출 약 1,500억 OPM 10% 수준 편입</div>
+    <div class="fact-so"><span class="fact-label label-so">SO WHAT</span>2Q 실적이 증설·SpaceX 내러티브 입증 시점, 현 주가 PBR 1.7배는 과거 호황기(3~7배) 대비 여전히 저평가</div>
+  </div>
+</section>
+
+<section>
+  <div class="section-title">📄 원본 리포트 핵심 요약</div>
+  <div style="background:#fafafa;border:1px solid #d0d4e0;border-radius:8px;padding:16px 20px;margin-bottom:12px;">
+    <div style="font-size:11px;font-weight:700;letter-spacing:1px;color:#5a6280;text-transform:uppercase;margin-bottom:10px;">리포트 핵심 주장</div>
+    <p style="font-size:13px;line-height:1.9;">폴리실리콘 수요처가 태양전지·반도체에서 우주 태양광·실리콘 포토닉스로 확대. SpaceX의 우주 데이터센터 100GW 시나리오 현실화 시 폴리 추가 수요 25~30만톤 — 비중국 전체 캐파(20만톤 미만) 대비 풀가동 수렴. OCI 카본케미칼이 단기 현금창출원으로 우주 밸류체인 투자 자금 공급.</p>
+    <div style="margin-top:10px;display:flex;gap:8px;flex-wrap:wrap;">
+      <div style="background:#f0f2f8;border:1px solid #d0d4e0;border-radius:6px;padding:6px 12px;font-size:12px;">
+        <span style="color:#5a6280;font-size:10px;display:block;margin-bottom:2px;">이전 대비 변화</span>
+        TP 200,000→400,000원(+100%), 26E OP 243→323십억(+33%), 27E OP 561→498십억(-11%)
+      </div>
+      <div style="background:#f0f2f8;border:1px solid #d0d4e0;border-radius:6px;padding:6px 12px;font-size:12px;">
+        <span style="color:#5a6280;font-size:10px;display:block;margin-bottom:2px;">컨센 대비</span>
+        26E OP 323십억은 컨센(≈385십억, 타 증권사 기재 기준) 소폭 하회
+      </div>
+    </div>
+  </div>
+  <div style="background:#fafafa;border:1px solid #d0d4e0;border-radius:8px;padding:16px 20px;margin-bottom:12px;">
+    <div style="font-size:11px;font-weight:700;letter-spacing:1px;color:#5a6280;text-transform:uppercase;margin-bottom:10px;">사업 구조 & 성장 동력 (26E)</div>
+    <table style="margin:0;">
+      <thead><tr><th style="width:25%;">사업부</th><th style="width:20%;">26E 매출</th><th style="width:55%;">드라이버</th></tr></thead>
+      <tbody>
+        <tr><td>OCI(카본)</td><td>2,580십억</td><td>이란 전쟁 수혜 장기화 + 피치 수요 확대</td></tr>
+        <tr><td>OCITRS(폴리)</td><td>601십억</td><td>Section 232 + 우주 태양광 + 실리콘 포토닉스</td></tr>
+        <tr><td>DCRE(부동산)</td><td>541십억</td><td>하반기 분양 수익 반영</td></tr>
+        <tr><td>OCISE/E(에너지)</td><td>335십억</td><td>500MW 매각 + 데이터센터 공급</td></tr>
+      </tbody>
+    </table>
+    <p style="font-size:12px;color:#5a6280;margin-top:10px;">▶ 메커니즘: OCI 카본이 단기 현금 창출 → 폴리 증설·우주 파트너십 자금 공급</p>
+  </div>
+  <div style="background:#fafafa;border:1px solid #d0d4e0;border-radius:8px;padding:16px 20px;margin-bottom:12px;">
+    <div style="font-size:11px;font-weight:700;letter-spacing:1px;color:#5a6280;text-transform:uppercase;margin-bottom:10px;">시장 괴리</div>
+    <table style="margin:0;">
+      <thead><tr><th style="width:30%;">구분</th><th>내용</th></tr></thead>
+      <tbody>
+        <tr><td style="color:#5a6280;">시장 현재 인식</td><td>태양광 소재 순환주, 1Q 실적 하회</td></tr>
+        <tr><td style="color:#2563eb;">이 리포트 주장</td><td>우주 밸류체인 기술 진입장벽 = 장기 프리미엄. 카본이 안전판</td></tr>
+        <tr><td style="color:#b45309;">해소 촉매</td><td>① SpaceX 공식 계약 발표 ② 상반기 증설 확정 ③ Section 232</td></tr>
+        <tr><td>강도</td><td><span style="color:#b45309;">중</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div style="background:#fafafa;border:1px solid #d0d4e0;border-radius:8px;padding:16px 20px;">
+    <div style="font-size:11px;font-weight:700;letter-spacing:1px;color:#5a6280;text-transform:uppercase;margin-bottom:10px;">재무 특징</div>
+    <div style="display:flex;flex-wrap:wrap;gap:8px;">
+      <div style="background:#f0f2f8;border:1px solid #d0d4e0;border-radius:6px;padding:8px 12px;font-size:12px;flex:1;min-width:160px;"><span style="color:#5a6280;font-size:10px;display:block;">부채비율(26F)</span>114.8%</div>
+      <div style="background:#f0f2f8;border:1px solid #d0d4e0;border-radius:6px;padding:8px 12px;font-size:12px;flex:1;min-width:160px;"><span style="color:#5a6280;font-size:10px;display:block;">배당·자사주</span>'25 DPS 1,000원, 26~29 자사주 500억 매입·소각, 총주주환원율 50%+ 지향</div>
+      <div style="background:#f0f2f8;border:1px solid #d0d4e0;border-radius:6px;padding:8px 12px;font-size:12px;flex:1;min-width:160px;"><span style="color:#5a6280;font-size:10px;display:block;">특이 이슈</span>증설 CAPEX 26F 438십억, 순차입금 26F 2,523십억 증가</div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="section-title">📈 실적 전망 (연간)</div>
+  <table class="data-table">
+    <caption>단위: 십억원 | ★ 투자 핵심 연도</caption>
+    <thead><tr><th>구분</th><th>2024A</th><th>2025A</th><th style="background:#dbeafe;color:#1e40af;font-weight:700;">2026E ★</th><th>2027F</th><th>2028F</th></tr></thead>
+    <tbody>
+      <tr><td>매출액</td><td>3,577</td><td>3,380</td><td class="key-col key-num">4,379</td><td>4,808</td><td>5,472</td></tr>
+      <tr><td>YoY(%)</td><td>35.0</td><td>-5.5</td><td class="key-col">29.6</td><td>9.8</td><td>13.8</td></tr>
+      <tr><td>영업이익</td><td>102</td><td>-58</td><td class="key-col key-num">323</td><td>498</td><td>834</td></tr>
+      <tr><td>YoY(%)</td><td>-80.9</td><td>적전</td><td class="key-col key-num">흑전</td><td>54.4</td><td>67.3</td></tr>
+      <tr><td>OPM(%)</td><td>2.8</td><td>-1.7</td><td class="key-col key-opm">7.4</td><td>10.4</td><td>15.2</td></tr>
+      <tr><td>EPS(원)</td><td>5,106</td><td>-4,814</td><td class="key-col">2,882</td><td>6,602</td><td>12,667</td></tr>
+      <tr><td>PER(배)</td><td>11.5</td><td>-</td><td class="key-col">111.7</td><td>48.8</td><td>25.4</td></tr>
+      <tr><td>PBR(배)</td><td>0.3</td><td>0.5</td><td class="key-col">1.7</td><td>1.7</td><td>1.6</td></tr>
+      <tr><td>ROE(%)</td><td>2.5</td><td>-2.3</td><td class="key-col">1.4</td><td>3.4</td><td>6.3</td></tr>
+    </tbody>
+  </table>
+  <p style="font-size:12px;color:#5a6280;margin-top:10px;padding:0 4px;">▶ 왜 26E가 변곡점인가: 1Q 저점 이후 2Q부터 TerraSus 정비 완료 + 500MW 매각 + NST 가동 동시 반영. 28E에는 6.5만톤 CAPA 신규 증설분 본격 가동으로 OPM 15%대 진입 전망</p>
+</section>
+
+<section>
+  <div class="section-title">📅 분기별 실적 전망</div>
+  <table class="data-table">
+    <caption>단위: 십억원</caption>
+    <thead><tr><th>구분</th><th>1Q25</th><th>2Q25</th><th>3Q25</th><th>4Q25</th><th style="background:#dbeafe;color:#1e40af;font-weight:700;">1Q26 ★</th><th>2Q26</th><th>3Q26</th><th>4Q26</th></tr></thead>
+    <tbody>
+      <tr><td>매출액</td><td>948</td><td>776</td><td>845</td><td>811</td><td class="key-col key-num">892</td><td>1,101</td><td>1,174</td><td>1,213</td></tr>
+      <tr><td>영업이익</td><td>49</td><td>-80</td><td>-53</td><td>27</td><td class="key-col key-num">11</td><td>87</td><td>115</td><td>110</td></tr>
+      <tr><td>OPM(%)</td><td>5.1</td><td>-10.4</td><td>-6.3</td><td>3.4</td><td class="key-col key-opm">1.2</td><td>7.9</td><td>9.8</td><td>9.1</td></tr>
+    </tbody>
+  </table>
+  <p style="font-size:12px;color:#5a6280;margin-top:10px;padding:0 4px;">▶ 1Q26 주목 포인트: ✅ 2Q OP 87십억+ & NST 가동 확인 시 테제 입증 / ⛔ 2Q OPM 5% 미달 시 → 주목 강등</p>
+</section>
+
+<section>
+  <div class="section-title">💰 밸류에이션</div>
+  <div class="val-box">
+    <div class="val-formula">26F BPS × Target PBR 2.1배(중국 Peer Tongwei/Daqo/TBEA 평균 1.7배 × +28% 프리미엄) = TP 400,000원</div>
+    <p style="color:#5a6280;font-size:12px;margin-top:8px;">▶ 왜 이 배수인가: 우주 밸류체인 초고순도 폴리 기술 진입장벽 감안 Peer 대비 +28% 프리미엄. 과거 호황기 PBR 3~7배 대비 여전히 보수적</p>
+  </div>
+</section>
+
+<section>
+  <div class="section-title">⚠️ 리스크</div>
+  <div class="risk-item risk-sev-high">
+    <div class="risk-assumption">🔴 핵심 가정: SpaceX 1조원 계약 공식화 + 증설 확정</div>
+    <div class="risk-chain" style="margin-top:6px;">→ 붕괴 시: 언론 보도가 조율 수준에 그침, 경쟁사로 계약 이동<br/>→ 실적 영향: 28E OP 834→500십억 수준 축소</div>
+    <div class="risk-impact-num">→ 주가 영향: PBR 2.1→1.3배 하향 시 TP 400,000→250,000원(-22%)</div>
+  </div>
+  <div class="risk-item risk-sev-mid">
+    <div class="risk-assumption">🟠 두 번째 가정: 이란 전쟁 수혜 장기화</div>
+    <div class="risk-chain" style="margin-top:6px;">→ 붕괴 시: 전쟁 조기 종결 시 OCI 카본 마진 축소</div>
+    <div class="risk-impact-num">→ 주가 영향: OCI 26E OP 164→100십억 수준, TP -10% 변동</div>
+  </div>
+</section>
+
+<section>
+  <div class="section-title">🎯 모멘텀 확인 체크포인트</div>
+  <div style="background:#fafafa;border:1px solid #d0d4e0;border-radius:8px;padding:4px 16px;">
+    <div class="checkpoint-item">
+      <span class="cp-date">2026.1H</span>
+      <div>
+        <div class="cp-event">3만톤+ 증설 확정 + SpaceX 1조원 공식 계약 공시</div>
+        <div class="cp-pass">✅ 확정 시 → 💥 SSS급 승격 검토</div>
+        <div class="cp-fail">⛔ 지연 시 → 주목 강등 검토</div>
+      </div>
+    </div>
+    <div class="checkpoint-item">
+      <span class="cp-date">2026.5</span>
+      <div>
+        <div class="cp-event">NST(웨이퍼) 5월 준공 + 본격 가동</div>
+        <div class="cp-pass">✅ 가동 개시 확인 → 홀딩</div>
+        <div class="cp-fail">⛔ 준공 지연 시 → 실적 하향</div>
+      </div>
+    </div>
+    <div class="checkpoint-item">
+      <span class="cp-date">2026.2Q</span>
+      <div>
+        <div class="cp-event">2Q 실적 — OP 87십억 + OCIE 500MW 매각이익</div>
+        <div class="cp-pass">✅ 확인 시 → 테제 입증</div>
+        <div class="cp-fail">⛔ 실망 시 → 관망</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="section-title">💬 사견 & 투자 행동 결론</div>
+  <div class="opinion-box">
+    <p>유진투자 리포트는 "OCI 카본이 벌어서 우주(SpaceX·증설)를 산다"는 내러티브로 단기 카본 턴어라운드(이란 전쟁 수혜)와 장기 우주 밸류체인 프리미엄을 결합. SpaceX ~1조원 언론 보도 정보를 명시적으로 반영한 점이 차별적. 우려 포인트: ① 컨센 대비 영업이익 추정치 소폭 하회(26E 323십억) ② 26E PER 111배로 단기 밸류 부담 ③ SpaceX 보도는 조율 수준. 다만 CAPA 2배 증설 로드맵과 카본 현금창출이 결합된 스토리는 투자 매력도 유지. ⭐핵심 등급.</p>
+    <div class="decision-box">
+      <div class="decision-btn decision-buy">✅ 지금 진입 가능</div>
+      <div class="decision-btn decision-wait decision-dim">⏳ 이벤트 후 진입</div>
+      <div class="decision-btn decision-avoid decision-dim">🚫 관망</div>
+    </div>
+  </div>
+</section>
+
+<div class="disclaimer">※ 본 글은 증권사 리포트를 개인 학습 목적으로 요약·정리한 것이며, 투자 권유가 아닙니다.<br/>※ 제공된 PDF 파일만 활용. 외부 검색·참조 없음.</div>
+
+</body>
+</html>

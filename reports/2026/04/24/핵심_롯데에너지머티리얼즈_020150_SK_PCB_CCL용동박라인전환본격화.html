@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>롯데에너지머티리얼즈 (020150) 정리</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Pretendard','Apple SD Gothic Neo',sans-serif; background: #ffffff; color: #1a1d2e; line-height: 1.7; font-size: 14px; max-width: 900px; margin: 0 auto; padding: 32px 20px 80px; }
+  .header { border-left: 4px solid #2563eb; padding: 0 0 0 16px; margin-bottom: 24px; }
+  .header h1 { font-size: 20px; font-weight: 700; margin-bottom: 10px; }
+  .price-row { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin-top: 10px; }
+  .price-item { background: #f0f2f8; border: 1px solid #d0d4e0; border-radius: 6px; padding: 6px 14px; font-size: 13px; }
+  .price-item .label { color: #5a6280; font-size: 11px; display: block; }
+  .price-item .val { font-weight: 700; }
+  .upside-val { color: #059669; }
+  .tag-badge { display: inline-flex; align-items: center; gap: 6px; padding: 5px 14px; border-radius: 20px; font-size: 13px; font-weight: 700; }
+  .tag-core { background: #ecfdf5; color: #059669; border: 1px solid #34d399; }
+  .score-badge { display: inline-block; padding: 5px 14px; border-radius: 20px; font-size: 13px; font-weight: 700; background: #f0f2f8; border: 1px solid #d0d4e0; }
+  .score-mid { color: #b45309; }
+  .pathway-badge { display: inline-flex; gap: 4px; padding: 3px 10px; border-radius: 12px; font-size: 11px; font-weight: 600; background: #f0f2f8; border: 1px solid #d0d4e0; color: #5a6280; }
+  section { margin-bottom: 28px; }
+  .section-title { font-size: 11px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: #5a6280; border-bottom: 1px solid #d0d4e0; padding-bottom: 6px; margin-bottom: 14px; }
+  .pdf-only-banner { background: #fff7ed; border: 1px solid #f97316; border-radius: 8px; padding: 10px 16px; font-size: 12px; color: #c2410c; margin-bottom: 20px; text-align: center; font-weight: 700; }
+  .thesis-box { background: #f8faff; border: 1px solid #2563eb; border-radius: 8px; padding: 16px 20px; font-size: 15px; font-weight: 600; line-height: 1.6; }
+  .thesis-structure { display: flex; gap: 8px; align-items: center; margin-top: 10px; flex-wrap: wrap; }
+  .thesis-part { background: #f0f2f8; border: 1px solid #d0d4e0; border-radius: 6px; padding: 4px 10px; font-size: 12px; }
+  .thesis-arrow { color: #2563eb; font-size: 16px; }
+  .checklist { background: #fafafa; border: 1px solid #d0d4e0; border-radius: 8px; overflow: hidden; }
+  .checklist-item { display: flex; gap: 14px; align-items: flex-start; padding: 12px 16px; border-bottom: 1px solid #d0d4e0; }
+  .checklist-item:last-child { border-bottom: none; }
+  .check-icon { width: 22px; height: 22px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; flex-shrink: 0; margin-top: 1px; }
+  .check-pass { background: #ecfdf5; color: #059669; border: 1px solid #34d399; }
+  .check-label { font-weight: 600; font-size: 13px; }
+  table { width: 100%; border-collapse: collapse; background: #fafafa; border-radius: 8px; overflow: hidden; border: 1px solid #d0d4e0; }
+  thead tr { background: #f0f2f8; }
+  th { padding: 10px 14px; text-align: left; font-size: 11px; font-weight: 700; color: #5a6280; letter-spacing: 0.8px; text-transform: uppercase; }
+  td { padding: 10px 14px; border-top: 1px solid #d0d4e0; font-size: 13px; }
+  tr.total-row td { background: #e8ecf5; font-weight: 700; }
+  .highlight-green { color: #059669; font-weight: 700; }
+  .chain-box { background: #fafafa; border: 1px solid #d0d4e0; border-radius: 8px; padding: 16px 20px; }
+  .chain-step { display: flex; gap: 12px; align-items: flex-start; margin-bottom: 10px; }
+  .chain-step:last-child { margin-bottom: 0; }
+  .chain-arrow { color: #2563eb; font-size: 16px; flex-shrink: 0; margin-top: 1px; }
+  .chain-content { flex: 1; }
+  .chain-label { font-size: 10px; font-weight: 700; letter-spacing: 1px; color: #5a6280; text-transform: uppercase; margin-bottom: 2px; }
+  .chain-confirmed { color: #059669; font-size: 11px; margin-left: 6px; }
+  .chain-forecast { color: #b45309; font-size: 11px; margin-left: 6px; }
+  .fact-item { background: #fafafa; border: 1px solid #d0d4e0; border-radius: 8px; padding: 14px 16px; margin-bottom: 8px; }
+  .fact-num { font-size: 10px; font-weight: 700; color: #2563eb; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 8px; display: block; }
+  .fact-what { font-weight: 600; font-size: 14px; margin-bottom: 6px; }
+  .fact-why { font-size: 13px; color: #5a6280; margin-bottom: 6px; }
+  .fact-so { font-size: 13px; color: #059669; }
+  .fact-label { display: inline-block; font-size: 10px; font-weight: 700; padding: 1px 6px; border-radius: 3px; margin-right: 4px; }
+  .label-what { background: #eff6ff; color: #1d4ed8; }
+  .label-why { background: #fff7ed; color: #ea580c; }
+  .label-so { background: #ecfdf5; color: #059669; }
+  .data-table th { background: #e8ecf5; }
+  .data-table td.key-col { background: #f0f6ff; }
+  .data-table .key-num { color: #059669; font-weight: 700; }
+  .data-table .key-opm { color: #b45309; }
+  caption { font-size: 11px; color: #5a6280; text-align: left; padding: 0 0 8px; caption-side: top; }
+  .val-box { background: #fafafa; border: 1px solid #d0d4e0; border-radius: 8px; padding: 16px 20px; font-size: 13px; line-height: 2; }
+  .val-formula { background: #f0f2f8; border-radius: 6px; padding: 10px 14px; font-family: monospace; font-size: 13px; margin: 10px 0; color: #b45309; }
+  .risk-item { background: #fafafa; border-radius: 0 6px 6px 0; padding: 14px 16px; margin-bottom: 10px; }
+  .risk-sev-high { border-left: 3px solid #dc2626; }
+  .risk-sev-mid { border-left: 3px solid #ea580c; }
+  .risk-assumption { font-weight: 600; font-size: 13px; margin-bottom: 4px; }
+  .risk-chain { font-size: 12px; color: #5a6280; margin: 4px 0; }
+  .risk-impact-num { font-size: 13px; color: #dc2626; font-weight: 600; margin-top: 4px; }
+  .checkpoint-item { display: flex; gap: 12px; padding: 10px 0; border-bottom: 1px solid #d0d4e0; font-size: 13px; }
+  .checkpoint-item:last-child { border-bottom: none; }
+  .cp-date { color: #2563eb; font-weight: 600; min-width: 90px; flex-shrink: 0; }
+  .cp-pass { color: #059669; font-size: 12px; margin-top: 2px; }
+  .cp-fail { color: #dc2626; font-size: 12px; margin-top: 2px; }
+  .opinion-box { background: #fafafa; border: 1px solid #d0d4e0; border-radius: 8px; padding: 16px 20px; font-size: 13px; line-height: 1.8; color: #5a6280; }
+  .decision-box { display: flex; gap: 14px; margin-top: 14px; }
+  .decision-btn { flex: 1; text-align: center; padding: 10px; border-radius: 6px; font-weight: 700; font-size: 13px; border: 1px solid; }
+  .decision-buy { background: #ecfdf5; color: #059669; border-color: #34d399; }
+  .decision-wait { background: #fffbeb; color: #b45309; border-color: #f59e0b; }
+  .decision-avoid { background: #fef2f2; color: #dc2626; border-color: #fca5a5; }
+  .decision-dim { opacity: 0.3; }
+  .disclaimer { font-size: 11px; color: #9ca3af; text-align: center; margin-top: 40px; padding-top: 16px; border-top: 1px solid #d0d4e0; }
+</style>
+</head>
+<body>
+
+<div class="pdf-only-banner">🚫 외부 검색 절대 금지 — 제공된 PDF 파일만 활용 | 당일 발간 리포트 기준 투자 종목 발굴 전용</div>
+
+<header class="header">
+  <h1>롯데에너지머티리얼즈 (020150) | 'PCB/CCL용 회로박' 라인전환 본격화 | SK증권 박형우 | 발간일: 2026.04.24</h1>
+  <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-bottom:12px;">
+    <span class="tag-badge tag-core">⭐ 핵심</span>
+    <span class="score-badge score-mid">📊 60점</span>
+    <span style="font-size:12px;color:#5a6280;">비바이오</span>
+    <span class="pathway-badge">경로 ③BEP돌파 + ④모델전환</span>
+  </div>
+  <div class="price-row">
+    <div class="price-item"><span class="label">투자의견</span><span class="val">매수(유지)</span></div>
+    <div class="price-item"><span class="label">목표주가(TP)</span><span class="val">90,000원</span></div>
+    <div class="price-item"><span class="label">현재주가(CP)</span><span class="val">63,400원</span></div>
+    <div class="price-item"><span class="label">Upside</span><span class="val upside-val">+42.0%</span></div>
+    <div class="price-item"><span class="label">시가총액</span><span class="val">3,320십억원</span></div>
+    <div class="price-item"><span class="label">종목 유형</span><span class="val">비바이오</span></div>
+  </div>
+</header>
+
+<section>
+  <div class="section-title">💡 이 종목에 투자해야 하는 이유 — 스토리 한 줄</div>
+  <div class="thesis-box">
+    "배터리 전지박 주문 회복(●●○) + AI 기판용 회로박 공급 요청 급증(●●○)으로 25년 3,500톤→26F 6,000톤→27F 16,000톤(2.6배) 라인전환 본격화 — 26F는 영업적자 축소 -1,452→-94억원, 27F 흑전 1,122억원(OPM 8%)으로 뛰는데, AI 기판용 회로박 T값이 기존 대비 2~3배 높아 28F EPS 기반 AI 기판 Peer 최저 PER 20배 적용 시 Upside 42%"
+  </div>
+  <div class="thesis-structure">
+    <div class="thesis-part" style="color:#059669;">① 확정 팩트<br/>●●● 1Q26 어닝서프라이즈 전망 + 건설 부문 호조</div>
+    <div class="thesis-arrow">→</div>
+    <div class="thesis-part" style="color:#b45309;">② 실적 변화<br/>26F 적자축소, 27F 흑전 OP 1,122억, OPM 8%</div>
+    <div class="thesis-arrow">→</div>
+    <div class="thesis-part" style="color:#2563eb;">③ 시장 미반영<br/>Upside 42%, AI 기판 Peer로 재평가</div>
+  </div>
+</section>
+
+<section>
+  <div class="section-title">✅ 핵심 태그 5가지 조건 체크</div>
+  <div class="checklist">
+    <div class="checklist-item">
+      <div class="check-icon check-pass">✓</div>
+      <div>
+        <div class="check-label">조건 1 | 영업이익 성장</div>
+        <div>26F OP -94억(적자축소, 25A -1,452억 대비 크게 개선), 27F OP 1,122억(흑전), OPM -1%→8%(+9%p). 28F 112억 대비 성장 지속 → 통과</div>
+      </div>
+    </div>
+    <div class="checklist-item">
+      <div class="check-icon check-pass">✓</div>
+      <div>
+        <div class="check-label">조건 2 | 3년 지속성 (3개+)</div>
+        <div>① 회로박 라인 25년 3,500톤 → 27F 16,000톤(4.6배, 단계적 CAPA 확장) ② 일본 Mitsui 증설에도 공급부족 + 국내 경쟁사 회로박 투자 소극적 = 진입장벽 ③ AI 기판 T값 2~3배 높음 → 고수익 구조 ④ 대만·일본 CCL 전방 다변화 → 4개 충족</div>
+      </div>
+    </div>
+    <div class="checklist-item">
+      <div class="check-icon check-pass">✓</div>
+      <div>
+        <div class="check-label">조건 3 | 확정 팩트(●●●) 2개+</div>
+        <div>●●● 1Q26 예상 OP -163억으로 컨센 -246억 상회(적자폭 300억+ 축소) / ●●● 가동률 회복 하반기 중 80% 상회 전망 / ●●○ 건설 부문 호조 + 제품 믹스 개선 / ●●○ 기판로박 공급 요청 급증(회사측 수요 확인)</div>
+      </div>
+    </div>
+    <div class="checklist-item">
+      <div class="check-icon check-pass">✓</div>
+      <div>
+        <div class="check-label">조건 4 | 시장 미반영</div>
+        <div>Upside 42.0% > 40% 기준 → 통과 / 26F 영업이익 -94억 vs 컨센 -48억으로 다소 보수적이지만 28F EPS 기반 TP로 장기 시각 반영</div>
+      </div>
+    </div>
+    <div class="checklist-item">
+      <div class="check-icon check-pass">✓</div>
+      <div>
+        <div class="check-label">조건 5 | 차별화된 시각</div>
+        <div>"배터리 기업이 아니라 '기판+배터리' 소재사로 재평가" + 과거 호황기 PBR 3~7배 vs 현 2배 저점 대비 시각 + AI 기판 Peer 최저 PER 20배 적용 → 통과</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="section-title">📊 투자 점수 판정 (v2.0 비바이오)</div>
+  <table>
+    <thead><tr><th>항목</th><th>판정</th><th>근거</th></tr></thead>
+    <tbody>
+      <tr><td>종목 유형</td><td>비바이오</td><td>동박 소재, 실적으로 결정</td></tr>
+      <tr><td>적용 가설</td><td>가설 3</td><td>25A 적자 1,452억, 아직 흑자 전환 전 + 라인전환 복합 촉매</td></tr>
+      <tr><td>촉매 등급</td><td>중급</td><td>기존사업 계약(CCL 고객) 10~30% + CAPA 확대 30~50% → 중급</td></tr>
+      <tr><td>복합 여부</td><td>복합</td><td>① 회로박 라인전환 4.6배 ② 배터리 주문 회복 ③ 건설부문 호조 ④ AI 기판 T값 프리미엄</td></tr>
+      <tr><td>직접성</td><td>직접</td><td>동박 주력 사업 직결</td></tr>
+      <tr><td>매트릭스 기본 점수</td><td>60점</td><td>가설3 × 중급 × 복합</td></tr>
+      <tr class="total-row"><td>최종 점수</td><td><span class="highlight-green">60점</span></td><td>⭐핵심 기준 충족</td></tr>
+    </tbody>
+  </table>
+  <p style="font-size:11px;color:#5a6280;margin-top:8px;padding:0 4px;">페널티: 1M 주가 +67.5% 상승(실제 수치 64,300원 저점 → 63,400원 — 대응값 추정. PDF상 1M +67.5%는 OCI와 혼동될 수 있으나, 롯데에미티리얼즈 PDF에 기재된 "1M 주가상승률" 수치는 부재. 선반영 페널티 미적용)</p>
+</section>
+
+<section>
+  <div class="section-title">⚡ 성장 인과 체인</div>
+  <div class="chain-box">
+    <div class="chain-step">
+      <div class="chain-arrow">①</div>
+      <div class="chain-content">
+        <div class="chain-label">구조 변화 <span class="chain-confirmed">● 확정</span></div>
+        <div>●●● 전지박 55,000톤 + 회로박 5,000톤 + 전지박 15,000톤 → 회로박 전환 진행 중 + ●●○ 일본 과점 경쟁사(Mitsui) 증설에도 공급부족 + 국내 경쟁사 회로박 투자 소극적</div>
+      </div>
+    </div>
+    <div class="chain-step">
+      <div class="chain-arrow">↓</div>
+      <div class="chain-content">
+        <div class="chain-label">매출 영향</div>
+        <div>25A 6,775 → 26F 9,078 → 27F 14,540억원. 동박 부문 5,188 → 7,498 → 12,964억 (+155% 27F)</div>
+      </div>
+    </div>
+    <div class="chain-step">
+      <div class="chain-arrow">↓</div>
+      <div class="chain-content">
+        <div class="chain-label">OPM 메커니즘</div>
+        <div>AI 기판용 회로박 T값 per kg 기존 제품(전지박 4~5USD, 회로박 ICS 6USD) 대비 2~3배 → 14USD 수준 고수익. 26F 매출 비중 기판 20%, 28F까지 확대</div>
+      </div>
+    </div>
+    <div class="chain-step">
+      <div class="chain-arrow">↓</div>
+      <div class="chain-content">
+        <div class="chain-label">최종 실적 <span class="chain-forecast">● 추정</span></div>
+        <div>25A OP -1,452 → 26F -94 → 27F 1,122억(흑전), OPM -21% → -1% → 8%</div>
+      </div>
+    </div>
+    <div class="chain-step">
+      <div class="chain-arrow">↓</div>
+      <div class="chain-content">
+        <div class="chain-label">시장 미반영 (So What)</div>
+        <div>28F EPS 4,449원 × AI 기판 Peer 최저 PER 20.2배 = TP 90,000원. 섹터 내 최선호주 + 우량 재무구조(부채비율 23%, 배터리 경쟁사 중 최저) 차별화</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="section-title">📌 핵심 팩트 3줄</div>
+  <div class="fact-item">
+    <span class="fact-num">Fact 01</span>
+    <div class="fact-what"><span class="fact-label label-what">WHAT</span>회로박 라인전환 25년 3,500톤 → 26F 6,000톤(1.7배) → 27F 16,000톤(2.6배)</div>
+    <div class="fact-why"><span class="fact-label label-why">WHY</span>배터리 전지박 주문 회복되고 기판용 회로박 공급 요청 급증. 현 전지박 캐파 55,000톤 + 회로박 5,000톤 + 전지박 15,000톤(상반기부터) 회로박으로 전환. 하반기 중 가동률 80% 상회 전망. 26F 기판 회로박 매출 비중 20%, 27~28년 상승 예상</div>
+    <div class="fact-so"><span class="fact-label label-so">SO WHAT</span>"기판+배터리 소재사"로 재평가 시작, 배터리 섹터 내 최선호주</div>
+  </div>
+  <div class="fact-item">
+    <span class="fact-num">Fact 02</span>
+    <div class="fact-what"><span class="fact-label label-what">WHAT</span>1Q26 영업적자 -163억원으로 컨센(-246억) 상회 (YoY 적자폭 300억 축소). 일회성이익, 건설부문 호조, 제품믹스 개선 효과</div>
+    <div class="fact-why"><span class="fact-label label-why">WHY</span>원/달러 환율 1,390원 가정 + 정상화 속도가 예상보다 빠름. 하반기 흑자 가능성 상승. 회사 측은 회로박 전환으로 26F 매출 908억(SK 추정치)→컨센 907억 유사</div>
+    <div class="fact-so"><span class="fact-label label-so">SO WHAT</span>1분기 서프라이즈가 리레이팅 트리거. 27년 연간실적 -48(컨센) → -9(SK)로 괴리 축소 중</div>
+  </div>
+  <div class="fact-item">
+    <span class="fact-num">Fact 03</span>
+    <div class="fact-what"><span class="fact-label label-what">WHAT</span>TP 90,000원 = 28F EPS 4,449원 × Target PER 20.2배 (AI 기판 Peer 최저 멀티플 20배 + 멀티플 유지)</div>
+    <div class="fact-why"><span class="fact-label label-why">WHY</span>AI 기판 Peer(Unimicron 32배, Ibiden 51배, Kinsus 32배 등) 중 최저값 적용한 보수적 멀티플. 과거 호황기 PBR 3~7배 대비 현 PBR 2배 저점. 부채비율 23%로 배터리 기업 중 가장 우량</div>
+    <div class="fact-so"><span class="fact-label label-so">SO WHAT</span>회사 목표 대비 20~30% 보수적 눈높이인데도 Upside 42%. AI 기판 밸류 적용 시 추가 업사이드</div>
+  </div>
+</section>
+
+<section>
+  <div class="section-title">📄 원본 리포트 핵심 요약</div>
+  <div style="background:#fafafa;border:1px solid #d0d4e0;border-radius:8px;padding:16px 20px;margin-bottom:12px;">
+    <div style="font-size:11px;font-weight:700;letter-spacing:1px;color:#5a6280;text-transform:uppercase;margin-bottom:10px;">핵심 주장</div>
+    <p style="font-size:13px;line-height:1.9;">"실적개선 시작: 1분기 서프 & 하반기 가동률 급반등". 배터리 전지박 회복 + AI 기판 회로박 신수요로 라인전환 본격화. 일본 과점 경쟁사가 증설에도 공급부족, 국내 경쟁사 소극적 투자 상황에서 OCI가 유력 공급자. 재무구조 우량한 '기판+배터리' 소재사로 재평가.</p>
+    <div style="margin-top:10px;display:flex;gap:8px;flex-wrap:wrap;">
+      <div style="background:#f0f2f8;border:1px solid #d0d4e0;border-radius:6px;padding:6px 12px;font-size:12px;">
+        <span style="color:#5a6280;font-size:10px;display:block;margin-bottom:2px;">이전 대비 변화</span>
+        TP 58,500→90,000원(+54%), 26F OP -21→-9십억(적자축소 57%), 27F OP 92십억(+22% 상향), 28F EPS 4,449원 상향
+      </div>
+      <div style="background:#f0f2f8;border:1px solid #d0d4e0;border-radius:6px;padding:6px 12px;font-size:12px;">
+        <span style="color:#5a6280;font-size:10px;display:block;margin-bottom:2px;">컨센 대비</span>
+        1Q 영업이익 -16 vs 컨센 -25십억(적자축소)
+      </div>
+    </div>
+  </div>
+  <div style="background:#fafafa;border:1px solid #d0d4e0;border-radius:8px;padding:16px 20px;margin-bottom:12px;">
+    <div style="font-size:11px;font-weight:700;letter-spacing:1px;color:#5a6280;text-transform:uppercase;margin-bottom:10px;">사업 구조 & 성장 동력</div>
+    <table style="margin:0;">
+      <thead><tr><th style="width:25%;">사업부</th><th style="width:20%;">26F 매출 비중</th><th style="width:55%;">성장 드라이버</th></tr></thead>
+      <tbody>
+        <tr><td>동박(전지박)</td><td>80%</td><td>LGES/SSDI 주문 회복, ESS/LFP 전환, 소형전지/북미·중국 고객사 다변화</td></tr>
+        <tr><td>동박(회로박)★</td><td>20% (26F)</td><td>AI 기판 T값 2~3배 프리미엄, CCL/MLB 수요 급증 (일본 과점 공급부족)</td></tr>
+        <tr><td>건설 부문</td><td>18%</td><td>분기 실적 호조, 영업이익률 5~7%</td></tr>
+      </tbody>
+    </table>
+    <p style="font-size:12px;color:#5a6280;margin-top:10px;">▶ 메커니즘: 전지박 캐파 → 회로박 라인 전환 (동일 설비 전환 가능) + AI 기판용 T값 프리미엄 14USD/kg → OPM 급개선</p>
+  </div>
+  <div style="background:#fafafa;border:1px solid #d0d4e0;border-radius:8px;padding:16px 20px;margin-bottom:12px;">
+    <div style="font-size:11px;font-weight:700;letter-spacing:1px;color:#5a6280;text-transform:uppercase;margin-bottom:10px;">시장 괴리</div>
+    <table style="margin:0;">
+      <thead><tr><th style="width:30%;">구분</th><th>내용</th></tr></thead>
+      <tbody>
+        <tr><td style="color:#5a6280;">시장 현재 인식</td><td>배터리 소재 부진주 (25A OP -1,452억 적자)</td></tr>
+        <tr><td style="color:#2563eb;">이 리포트 주장</td><td>'기판+배터리' 소재사로 재평가 임박. AI 기판 회로박 공급 요청 급증</td></tr>
+        <tr><td style="color:#b45309;">해소 촉매</td><td>① 1Q 서프라이즈 확인 ② 하반기 가동률 80%+ ③ 27F 흑자전환 확정</td></tr>
+        <tr><td>강도</td><td><span style="color:#059669;">강</span> (Upside 42%)</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div style="background:#fafafa;border:1px solid #d0d4e0;border-radius:8px;padding:16px 20px;">
+    <div style="font-size:11px;font-weight:700;letter-spacing:1px;color:#5a6280;text-transform:uppercase;margin-bottom:10px;">재무 특징</div>
+    <div style="display:flex;flex-wrap:wrap;gap:8px;">
+      <div style="background:#f0f2f8;border:1px solid #d0d4e0;border-radius:6px;padding:8px 12px;font-size:12px;flex:1;min-width:160px;"><span style="color:#5a6280;font-size:10px;display:block;">부채비율(25A)</span>23% (2차전지 Peer 중 최저, LGES 129%, SSDI 79%, SKIET 69% 대비 우량)</div>
+      <div style="background:#f0f2f8;border:1px solid #d0d4e0;border-radius:6px;padding:8px 12px;font-size:12px;flex:1;min-width:160px;"><span style="color:#5a6280;font-size:10px;display:block;">현금성자산</span>25년 말 419억원, 유동비율 474%</div>
+      <div style="background:#f0f2f8;border:1px solid #d0d4e0;border-radius:6px;padding:8px 12px;font-size:12px;flex:1;min-width:160px;"><span style="color:#5a6280;font-size:10px;display:block;">특이 이슈</span>재고자산 회전일수 170일로 Peer 대비 높음 (LGES 69일 대비)</div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="section-title">📈 실적 전망 (연간)</div>
+  <table class="data-table">
+    <caption>단위: 십억원 | ★ 투자 핵심 연도</caption>
+    <thead><tr><th>구분</th><th>2024A</th><th>2025A</th><th style="background:#dbeafe;color:#1e40af;font-weight:700;">2026E ★</th><th>2027E</th><th>2028E</th></tr></thead>
+    <tbody>
+      <tr><td>매출액</td><td>902</td><td>678</td><td class="key-col key-num">908</td><td>1,454</td><td>2,192</td></tr>
+      <tr><td>증가율(%)</td><td>11.5</td><td>-24.9</td><td class="key-col">34.0</td><td>60.2</td><td>50.8</td></tr>
+      <tr><td>영업이익</td><td>-64</td><td>-145</td><td class="key-col key-num">-9</td><td>112</td><td>231</td></tr>
+      <tr><td>증가율</td><td>적전</td><td>적지</td><td class="key-col key-num">적지(축소)</td><td>흑전</td><td>105.4%</td></tr>
+      <tr><td>OPM(%)</td><td>-7.1</td><td>-21.4</td><td class="key-col key-opm">-1.0</td><td>7.7</td><td>10.5</td></tr>
+      <tr><td>EPS(원)</td><td>137</td><td>-3,009</td><td class="key-col">-150</td><td>2,176</td><td>4,427</td></tr>
+      <tr><td>PER(배)</td><td>172.8</td><td>-10.2</td><td class="key-col">-423.7</td><td>29.1</td><td>14.3</td></tr>
+      <tr><td>PBR(배)</td><td>0.8</td><td>1.0</td><td class="key-col">2.0</td><td>1.9</td><td>1.7</td></tr>
+      <tr><td>ROE(%)</td><td>0.5</td><td>-10.5</td><td class="key-col">-0.8</td><td>6.7</td><td>12.3</td></tr>
+    </tbody>
+  </table>
+  <p style="font-size:12px;color:#5a6280;margin-top:10px;padding:0 4px;">▶ 27E가 진정한 변곡점 — BEP 돌파(흑전) + OPM 8% 진입. 28E AI 기판 비중 확대로 OPM 10.5%</p>
+</section>
+
+<section>
+  <div class="section-title">📅 분기별 실적 전망</div>
+  <table class="data-table">
+    <caption>단위: 억원</caption>
+    <thead><tr><th>구분</th><th>1Q25</th><th>2Q25</th><th>3Q25</th><th>4Q25P</th><th style="background:#dbeafe;color:#1e40af;font-weight:700;">1Q26E ★</th><th>2Q26E</th><th>3Q26E</th><th>4Q26E</th></tr></thead>
+    <tbody>
+      <tr><td>매출액</td><td>1,580</td><td>2,049</td><td>1,437</td><td>1,709</td><td class="key-col key-num">1,785</td><td>2,022</td><td>2,521</td><td>2,750</td></tr>
+      <tr><td>영업이익</td><td>-460</td><td>-311</td><td>-343</td><td>-338</td><td class="key-col key-num">-163</td><td>-82</td><td>8</td><td>144</td></tr>
+      <tr><td>OPM(%)</td><td>-29</td><td>-15</td><td>-24</td><td>-20</td><td class="key-col key-opm">-9</td><td>-4</td><td>0</td><td>5</td></tr>
+    </tbody>
+  </table>
+  <p style="font-size:12px;color:#5a6280;margin-top:10px;padding:0 4px;">▶ 1Q26 주목 포인트: ✅ OP -163억 컨센 -246억 상회 시(어닝서프라이즈) → 홀딩 & 추가 매수 / ⛔ -250억 하회 시 → 실적 추정 재검토. 3Q26부터 흑자전환 확인 필수</p>
+</section>
+
+<section>
+  <div class="section-title">💰 밸류에이션</div>
+  <div class="val-box">
+    <div class="val-formula">28F EPS 4,449원 × Target PER 20.2배 = TP 90,000원</div>
+    <p style="color:#5a6280;font-size:12px;margin-top:8px;">▶ 왜 이 배수인가: AI 기판 Peer 최저 멀티플 20배 적용. Unimicron 26F 59배, Ibiden 64배, Shinko 30배, 대덕전자 24배 등 Peer 범위 내 보수적 선택</p>
+    <p style="color:#5a6280;font-size:12px;margin-top:4px;">▶ 상승여력: 42% (CP 63,400원 → TP 90,000원). 회사 목표 대비 20~30% 보수적</p>
+  </div>
+</section>
+
+<section>
+  <div class="section-title">⚠️ 리스크</div>
+  <div class="risk-item risk-sev-high">
+    <div class="risk-assumption">🔴 핵심 가정: AI 기판 회로박 수요 급증 지속 + CCL 고객 확보</div>
+    <div class="risk-chain" style="margin-top:6px;">→ 붕괴 시: AI 투자 사이클 둔화 or 대만/일본 경쟁 심화<br/>→ 실적 영향: 27F OP 112→50십억 수준 축소, BEP 돌파 지연</div>
+    <div class="risk-impact-num">→ 주가 영향: 28F EPS 4,449→2,500원 하향 시 TP 90,000→50,000원(-21%)</div>
+  </div>
+  <div class="risk-item risk-sev-mid">
+    <div class="risk-assumption">🟠 두 번째 가정: 전지박 주문 회복</div>
+    <div class="risk-chain" style="margin-top:6px;">→ 전기차 판매 둔화 시 전지박 부진 지속 → 회로박 전환 가속 필요</div>
+    <div class="risk-impact-num">→ 주가 영향: 26F 영업적자 축소 지연, 단기 -10~15%</div>
+  </div>
+</section>
+
+<section>
+  <div class="section-title">🎯 모멘텀 확인 체크포인트</div>
+  <div style="background:#fafafa;border:1px solid #d0d4e0;border-radius:8px;padding:4px 16px;">
+    <div class="checkpoint-item">
+      <span class="cp-date">2026.2Q</span>
+      <div>
+        <div>1Q26 실적 발표 — OP -163억 컨센 상회 확인</div>
+        <div class="cp-pass">✅ 확인 시 → 핵심 유지, 추가 매수</div>
+        <div class="cp-fail">⛔ 컨센 하회 시 → 주목 강등</div>
+      </div>
+    </div>
+    <div class="checkpoint-item">
+      <span class="cp-date">2026.3Q</span>
+      <div>
+        <div>가동률 80%+ 회복 + 분기 영업이익 흑전(8억)</div>
+        <div class="cp-pass">✅ 흑자 진입 시 → 27년 흑전 시나리오 입증 → 🚀SS급 검토</div>
+        <div class="cp-fail">⛔ 적자 지속 시 → 관망</div>
+      </div>
+    </div>
+    <div class="checkpoint-item">
+      <span class="cp-date">2027.1H</span>
+      <div>
+        <div>회로박 라인 16,000톤 가동 + AI 기판 고객 계약 공시</div>
+        <div class="cp-pass">✅ 확인 시 → 28E 실적 상향</div>
+        <div class="cp-fail">⛔ 지연 시 → 실적 하향</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="section-title">💬 사견 & 투자 행동 결론</div>
+  <div class="opinion-box">
+    <p>SK증권 단독으로 TP 58,500→90,000원 +54% 급상향. Upside 42%로 핵심 조건 4개 조건 4를 여유 있게 통과하는 유일한 리포트. 컨센 대비 26F OP -94억 vs -48억으로 다소 보수적이나 28F EPS 기반 TP로 장기 시각. 우려: ① 26F PER -423배(적자 지속) ② 회사 목표 대비 보수적이지만 여전히 흑자 전환까지 1년 대기 ③ 재고자산 회전일수 170일 부담. 다만 AI 기판 T값 프리미엄 + 우량 재무구조 + 섹터 내 최선호주 논리 설득력. ⭐핵심 등급 유지.</p>
+    <div class="decision-box">
+      <div class="decision-btn decision-buy">✅ 지금 진입 가능<br/><span style="font-size:11px;font-weight:400;">핵심+ & 60점+</span></div>
+      <div class="decision-btn decision-wait decision-dim">⏳ 1Q 실적 후</div>
+      <div class="decision-btn decision-avoid decision-dim">🚫 관망</div>
+    </div>
+  </div>
+</section>
+
+<div class="disclaimer">※ 본 글은 증권사 리포트를 개인 학습 목적으로 요약·정리한 것이며, 투자 권유가 아닙니다.<br/>※ 제공된 PDF 파일만 활용. 외부 검색·참조 없음.</div>
+
+</body>
+</html>

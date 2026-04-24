@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>SK하이닉스 (000660) 정리 - 교보</title>
+<style>
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:'Pretendard','Apple SD Gothic Neo',-apple-system,sans-serif;background:#fff;color:#1a1d2e;line-height:1.7;font-size:14px;max-width:900px;margin:0 auto;padding:32px 20px 80px;}
+  .header{border-left:4px solid #2563eb;padding:0 0 0 16px;margin-bottom:24px;}
+  .header h1{font-size:20px;font-weight:700;margin-bottom:10px;}
+  .price-row{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-top:10px;}
+  .price-item{background:#f0f2f8;border:1px solid #d0d4e0;border-radius:6px;padding:6px 14px;font-size:13px;}
+  .price-item .label{color:#5a6280;font-size:11px;display:block;}
+  .price-item .val{font-weight:700;}
+  .upside-val{color:#059669;}
+  .tag-badge{display:inline-flex;align-items:center;gap:6px;padding:5px 14px;border-radius:20px;font-size:13px;font-weight:700;}
+  .tag-core{background:#ecfdf5;color:#059669;border:1px solid #34d399;}
+  .score-badge{display:inline-block;padding:5px 14px;border-radius:20px;font-size:13px;font-weight:700;background:#f0f2f8;border:1px solid #d0d4e0;}
+  .score-mid{color:#b45309;}
+  .pathway-badge{display:inline-flex;padding:3px 10px;border-radius:12px;font-size:11px;font-weight:600;background:#f0f2f8;border:1px solid #d0d4e0;color:#5a6280;}
+  section{margin-bottom:28px;}
+  .section-title{font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:#5a6280;border-bottom:1px solid #d0d4e0;padding-bottom:6px;margin-bottom:14px;}
+  .pdf-only-banner{background:#fff7ed;border:1px solid #f97316;border-radius:8px;padding:10px 16px;font-size:12px;color:#c2410c;margin-bottom:20px;text-align:center;font-weight:700;}
+  .thesis-box{background:#f8faff;border:1px solid #2563eb;border-radius:8px;padding:16px 20px;font-size:15px;font-weight:600;line-height:1.6;}
+  .thesis-structure{display:flex;gap:8px;align-items:center;margin-top:10px;flex-wrap:wrap;}
+  .thesis-part{background:#f0f2f8;border:1px solid #d0d4e0;border-radius:6px;padding:4px 10px;font-size:12px;}
+  .thesis-arrow{color:#2563eb;font-size:16px;}
+  .checklist{background:#fafafa;border:1px solid #d0d4e0;border-radius:8px;overflow:hidden;}
+  .checklist-item{display:flex;gap:14px;padding:12px 16px;border-bottom:1px solid #d0d4e0;}
+  .checklist-item:last-child{border-bottom:none;}
+  .check-icon{width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;flex-shrink:0;}
+  .check-pass{background:#ecfdf5;color:#059669;border:1px solid #34d399;}
+  .check-label{font-weight:600;font-size:13px;}
+  .check-detail{color:#5a6280;font-size:12px;margin-top:2px;}
+  .check-why{font-size:13px;}
+  table{width:100%;border-collapse:collapse;background:#fafafa;border-radius:8px;overflow:hidden;border:1px solid #d0d4e0;}
+  thead tr{background:#f0f2f8;}
+  th{padding:10px 14px;text-align:left;font-size:11px;font-weight:700;color:#5a6280;letter-spacing:0.8px;text-transform:uppercase;}
+  td{padding:10px 14px;border-top:1px solid #d0d4e0;font-size:13px;}
+  tr.total-row td{background:#e8ecf5;font-weight:700;}
+  .penalty{color:#dc2626;}
+  .highlight-green{color:#059669;font-weight:700;}
+  .chain-box{background:#fafafa;border:1px solid #d0d4e0;border-radius:8px;padding:16px 20px;}
+  .chain-step{display:flex;gap:12px;margin-bottom:10px;}
+  .chain-step:last-child{margin-bottom:0;}
+  .chain-arrow{color:#2563eb;font-size:16px;}
+  .chain-label{font-size:10px;font-weight:700;letter-spacing:1px;color:#5a6280;text-transform:uppercase;margin-bottom:2px;}
+  .chain-text{font-size:13px;}
+  .chain-confirmed{color:#059669;font-size:11px;margin-left:6px;}
+  .chain-forecast{color:#b45309;font-size:11px;margin-left:6px;}
+  .fact-item{background:#fafafa;border:1px solid #d0d4e0;border-radius:8px;padding:14px 16px;margin-bottom:8px;}
+  .fact-num{font-size:10px;font-weight:700;color:#2563eb;letter-spacing:1px;text-transform:uppercase;margin-bottom:8px;display:block;}
+  .fact-what{font-weight:600;font-size:14px;margin-bottom:6px;}
+  .fact-why{font-size:13px;color:#5a6280;margin-bottom:6px;}
+  .fact-so{font-size:13px;color:#059669;}
+  .fact-label{display:inline-block;font-size:10px;font-weight:700;padding:1px 6px;border-radius:3px;margin-right:4px;}
+  .label-what{background:#eff6ff;color:#1d4ed8;}
+  .label-why{background:#fff7ed;color:#ea580c;}
+  .label-so{background:#ecfdf5;color:#059669;}
+  .data-table th{background:#e8ecf5;}
+  .data-table td.key-col{background:#f0f6ff;}
+  .data-table .key-num{color:#059669;font-weight:700;}
+  .data-table .key-opm{color:#b45309;}
+  caption{font-size:11px;color:#5a6280;text-align:left;padding:0 0 8px;caption-side:top;}
+  .val-box{background:#fafafa;border:1px solid #d0d4e0;border-radius:8px;padding:16px 20px;font-size:13px;line-height:2;}
+  .val-formula{background:#f0f2f8;border-radius:6px;padding:10px 14px;font-family:monospace;font-size:13px;margin:10px 0;color:#b45309;}
+  .risk-item{background:#fafafa;border-radius:0 6px 6px 0;padding:14px 16px;margin-bottom:10px;}
+  .risk-sev-high{border-left:3px solid #dc2626;}
+  .risk-sev-mid{border-left:3px solid #ea580c;}
+  .risk-assumption{font-weight:600;font-size:13px;margin-bottom:4px;}
+  .risk-chain{font-size:12px;color:#5a6280;margin:4px 0;}
+  .risk-impact-num{font-size:13px;color:#dc2626;font-weight:600;margin-top:4px;}
+  .checkpoint-item{display:flex;gap:12px;padding:10px 0;border-bottom:1px solid #d0d4e0;font-size:13px;}
+  .checkpoint-item:last-child{border-bottom:none;}
+  .cp-date{color:#2563eb;font-weight:600;min-width:90px;flex-shrink:0;}
+  .cp-pass{color:#059669;font-size:12px;margin-top:2px;}
+  .cp-fail{color:#dc2626;font-size:12px;margin-top:2px;}
+  .opinion-box{background:#fafafa;border:1px solid #d0d4e0;border-radius:8px;padding:16px 20px;font-size:13px;line-height:1.8;color:#5a6280;}
+  .decision-box{display:flex;gap:14px;margin-top:14px;}
+  .decision-btn{flex:1;text-align:center;padding:10px;border-radius:6px;font-weight:700;font-size:13px;border:1px solid;}
+  .decision-buy{background:#ecfdf5;color:#059669;border-color:#34d399;}
+  .decision-wait{background:#fffbeb;color:#b45309;border-color:#f59e0b;}
+  .decision-avoid{background:#fef2f2;color:#dc2626;border-color:#fca5a5;}
+  .decision-dim{opacity:0.3;}
+  .disclaimer{font-size:11px;color:#9ca3af;text-align:center;margin-top:40px;padding-top:16px;border-top:1px solid #d0d4e0;}
+</style>
+</head>
+<body>
+
+<div class="pdf-only-banner">🚫 외부 검색 절대 금지 — 제공된 PDF 파일만 활용 | 당일 발간 리포트 기준 투자 종목 발굴 전용</div>
+
+<header class="header">
+  <h1>SK하이닉스 (000660) | 가파른 가격 상승세 지속 | 교보증권 최보영 | 발간일: 2026.04.24</h1>
+  <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-bottom:12px;">
+    <span class="tag-badge tag-core">⭐ 핵심</span>
+    <span class="score-badge score-mid">📊 60점</span>
+    <span style="font-size:12px;color:#5a6280;">비바이오</span>
+    <span class="pathway-badge">경로 ①OPM확장 + ②볼륨드리븐</span>
+  </div>
+  <div class="price-row">
+    <div class="price-item"><span class="label">투자의견</span><span class="val">Buy(유지)</span></div>
+    <div class="price-item"><span class="label">목표주가(TP)</span><span class="val">1,900,000원 (상향)</span></div>
+    <div class="price-item"><span class="label">현재주가(CP)</span><span class="val">1,225,000원</span></div>
+    <div class="price-item"><span class="label">Upside</span><span class="val upside-val">+56%</span></div>
+    <div class="price-item"><span class="label">시가총액</span><span class="val">8,730,604억원</span></div>
+    <div class="price-item"><span class="label">종목 유형</span><span class="val">비바이오</span></div>
+  </div>
+</header>
+
+<section>
+  <div class="section-title">💡 이 종목에 투자해야 하는 이유 — 스토리 한 줄</div>
+  <div class="thesis-box">"1Q26 OPM 72% 달성 확정(●●●) + HBM3E 독점·HBM4 60%+ 점유율 기반으로, 26E 영업이익 +421%(47.2조→245.9조), OPM 48.6%→74.5%(+25.9%p)로 뛰는데, 글로벌 Peer(TSMC·마이크론) FWD PBR 4배 대비 괴리가 있어 Upside 56%"</div>
+  <div class="thesis-structure">
+    <div class="thesis-part" style="color:#059669;">① 확정 팩트<br/>1Q26 영업이익 37.6조 / DRAM OPM 77.5%</div>
+    <div class="thesis-arrow">→</div>
+    <div class="thesis-part" style="color:#b45309;">② 실적 변화<br/>26E OP +421%, OPM +25.9%p</div>
+    <div class="thesis-arrow">→</div>
+    <div class="thesis-part" style="color:#2563eb;">③ 시장 미반영<br/>Upside 56% (Target PBR 4배)</div>
+  </div>
+</section>
+
+<section>
+  <div class="section-title">✅ 핵심 태그 5가지 조건 체크</div>
+  <div class="checklist">
+    <div class="checklist-item">
+      <div class="check-icon check-pass">✓</div>
+      <div>
+        <div class="check-label">조건 1 | 영업이익 성장 임계값</div>
+        <div class="check-detail">향후 1년 OP +50%+ AND (OPM +3%p+ OR OPM 15%+ 유지)</div>
+        <div class="check-why">26E OP +421% (47.2조→245.9조), OPM 48.6%→74.5% (+25.9%p) → 통과</div>
+      </div>
+    </div>
+    <div class="checklist-item">
+      <div class="check-icon check-pass">✓</div>
+      <div>
+        <div class="check-label">조건 2 | 3년 지속성 (3개 이상)</div>
+        <div class="check-detail">Capa 확대·독점·CAGR 등</div>
+        <div class="check-why">① HBM3E 독점·HBM4 60%+ 점유율 ② 다년 LTA 통한 실적 변동성 축소 ③ 26E~28E 영업이익 CAGR 유지 (245.9조→366.5조) → 3개 충족</div>
+      </div>
+    </div>
+    <div class="checklist-item">
+      <div class="check-icon check-pass">✓</div>
+      <div>
+        <div class="check-label">조건 3 | 확정 팩트(●●●) 2개 이상</div>
+        <div class="check-detail">실적 확인·계약 공시 등</div>
+        <div class="check-why">●●● 1Q26P 매출 52.6조·영업이익 37.6조 컨센 상회 달성 / ●●● DRAM ASP +63% QoQ 확인 / ●●● 2025 DPS 3,000원 배당 확정 → 통과</div>
+      </div>
+    </div>
+    <div class="checklist-item">
+      <div class="check-icon check-pass">✓</div>
+      <div>
+        <div class="check-label">조건 4 | 시장 미반영</div>
+        <div class="check-detail">Upside 40%+ OR 컨센 괴리 20%+</div>
+        <div class="check-why">Upside 56% → 통과</div>
+      </div>
+    </div>
+    <div class="checklist-item">
+      <div class="check-icon check-pass">✓</div>
+      <div>
+        <div class="check-label">조건 5 | 차별화된 시각</div>
+        <div class="check-detail">고유 근거·Peer 논리</div>
+        <div class="check-why">글로벌 Peer(TSMC·마이크론) FWD PBR 4배를 적용한 리레이팅 논리. 6월 내 결정 예정 ADR 상장 모멘텀 + 동종업계 최고 Pure Player 지위 → 통과</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="section-title">📊 투자 점수 판정 (v2.0 비바이오)</div>
+  <table>
+    <thead><tr><th>항목</th><th>판정</th><th>근거</th></tr></thead>
+    <tbody>
+      <tr><td>종목 유형</td><td>비바이오</td><td>반도체 메모리, 실적 기반 주가</td></tr>
+      <tr><td>적용 가설</td><td>가설 1</td><td>1Q26P 실적 OPM 72% 확인 → 이미 고성장 + OPM 상승 실제 확인</td></tr>
+      <tr><td>촉매 등급</td><td>중급</td><td>어닝 서프라이즈 컨센 초과율 약 3.6% (영업이익 컨센 36.3조 vs 실적 37.6조)로 10% 미만 → 중급</td></tr>
+      <tr><td>복합 여부</td><td>복합</td><td>① HBM3E 독점 ② HBM4 60%+ 점유율 ③ 다년 LTA ④ ADR 상장 예정 → 복합</td></tr>
+      <tr><td>직접성</td><td>직접</td><td>HBM·DRAM 주력 사업 직결</td></tr>
+      <tr><td>매트릭스 기본 점수</td><td>80점</td><td>가설1 × 중급 × 복합 = 80점</td></tr>
+      <tr><td>페널티 ① 선반영</td><td class="penalty">-10점</td><td>1개월 절대주가 +31.3% → 단기 선반영 충족</td></tr>
+      <tr><td>페널티 ② 컨센 반영</td><td class="penalty">-10점</td><td>4사 모두 동일 논리로 TP 대폭 상향 → 컨센 반영</td></tr>
+      <tr class="total-row"><td>최종 투자 점수</td><td><span class="highlight-green">60점</span></td><td>80 - 10 - 10 = 60점 (핵심 60+)</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section>
+  <div class="section-title">⚡ 성장 인과 체인</div>
+  <div class="chain-box">
+    <div class="chain-step">
+      <div class="chain-arrow">①</div>
+      <div>
+        <div class="chain-label">구조 변화 / 촉매 <span class="chain-confirmed">● 확정 팩트</span></div>
+        <div class="chain-text">AI 인프라 투자 확대 + 에이전틱 AI 진화(●●●) + HBM3E 독점·HBM4 60%+ 점유율(●●○)</div>
+      </div>
+    </div>
+    <div class="chain-step">
+      <div class="chain-arrow">↓</div>
+      <div>
+        <div class="chain-label">매출 영향</div>
+        <div class="chain-text">1Q26 DRAM ASP +63% QoQ, NAND ASP +73% QoQ / 2Q26F DRAM B/G +7%, ASP +38% / 26E 매출 330.3조 (+240% YoY)</div>
+      </div>
+    </div>
+    <div class="chain-step">
+      <div class="chain-arrow">↓</div>
+      <div>
+        <div class="chain-label">OPM 변화 메커니즘</div>
+        <div class="chain-text">HBM·고용량 서버 DRAM·기업향 SSD 등 고부가 수요가 강하게 유지 + 물량 확보 우선 기조로 타이트한 공급. 가격 상승분이 그대로 마진으로 전이되어 DRAM OPM 59.8%→79.4%, NAND OPM 10.3%→59.9%</div>
+      </div>
+    </div>
+    <div class="chain-step">
+      <div class="chain-arrow">↓</div>
+      <div>
+        <div class="chain-label">최종 실적 결과 <span class="chain-forecast">● 추정</span></div>
+        <div class="chain-text">26E OP 245.9조원(+421%), OPM 74.5%(+25.9%p)</div>
+      </div>
+    </div>
+    <div class="chain-step">
+      <div class="chain-arrow">↓</div>
+      <div>
+        <div class="chain-label">시장 미반영 포인트</div>
+        <div class="chain-text">글로벌 Peer(TSMC·마이크론) FWD PBR 4배 Target 적용 → Upside 56%. ADR 상장 시 글로벌 투자자 저변 확대</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="section-title">📌 핵심 팩트 3줄</div>
+  <div class="fact-item">
+    <span class="fact-num">Fact 01</span>
+    <div class="fact-what"><span class="fact-label label-what">WHAT</span>1Q26 매출 52.6조(+198.1% YoY, +60.2% QoQ), 영업이익 37.6조(+405.5% YoY, OPM 72%)로 컨센서스 상회</div>
+    <div class="fact-why"><span class="fact-label label-why">WHY</span>AI 인프라 투자 확대 + 에이전틱 AI 진화로 HBM·고용량 서버 DRAM·기업향 SSD 수요가 예상 대비 강하게 유지. 타이트한 공급 환경에서 DRAM OPM 77.5%, NAND OPM 52.1% 기록</div>
+    <div class="fact-so"><span class="fact-label label-so">SO WHAT</span>1분기 비수기 실적이 컨센 상회 → 2H26 연간 가이던스 상향 모멘텀. 메모리 초호황 실제 증빙</div>
+  </div>
+  <div class="fact-item">
+    <span class="fact-num">Fact 02</span>
+    <div class="fact-what"><span class="fact-label label-what">WHAT</span>2Q26F 매출 79.8조(+259.3% YoY), 영업이익 58.2조(+531.9% YoY, OPM 72.9%)로 전망</div>
+    <div class="fact-why"><span class="fact-label label-why">WHY</span>DRAM B/G +7%, ASP +38% / NAND B/G +9%, ASP +35% 전망. 구조적 공급 부족 지속으로 가격 상승세 유지</div>
+    <div class="fact-so"><span class="fact-label label-so">SO WHAT</span>2Q26에 이미 25년 연간 영업이익(47.2조) 대비 1.2배 넘어 달성. 분기 실적 하나로 연간 레벨업 증명</div>
+  </div>
+  <div class="fact-item">
+    <span class="fact-num">Fact 03</span>
+    <div class="fact-what"><span class="fact-label label-what">WHAT</span>HBM3E 독점, HBM4 60%+ 점유율 기반 고부가 제품 믹스 개선, 6월 내 ADR 상장 결정 예정</div>
+    <div class="fact-why"><span class="fact-label label-why">WHY</span>동종업계 최고 Pure Player 지위 + 다년 LTA 통한 실적 변동성 축소 및 사이클 장기화 가시성 확보</div>
+    <div class="fact-so"><span class="fact-label label-so">SO WHAT</span>ADR 상장 시 글로벌 투자자 저변 확대 → Target PBR 4배(TSMC·마이크론 수준) 정당화. Peer 갭 축소 리레이팅 Trigger</div>
+  </div>
+</section>
+
+<section>
+  <div class="section-title">📄 원본 리포트 핵심 요약</div>
+  <div style="background:#fafafa;border:1px solid #d0d4e0;border-radius:8px;padding:16px 20px;margin-bottom:12px;">
+    <div style="font-size:11px;font-weight:700;letter-spacing:1px;color:#5a6280;text-transform:uppercase;margin-bottom:10px;">리포트 핵심 주장</div>
+    <p style="font-size:13px;line-height:1.9;">에이전틱 AI 확산으로 DRAM·NAND 전방위 수요 확대 및 구조적 공급 부족 지속. 2026년 매출 330조, 영업이익 245조(OPM 74.5%) 전망. 하반기에도 가파른 가격 상승 모멘텀을 통한 실적 개선. HBM3E 독점·HBM4 60%+ 점유율 기반 고부가 믹스 개선 + 다년 LTA + ADR 상장 + 동종업계 최고 Pure Player 지위로 TP 상향.</p>
+    <div style="margin-top:10px;display:flex;gap:8px;flex-wrap:wrap;">
+      <div style="background:#f0f2f8;border:1px solid #d0d4e0;border-radius:6px;padding:6px 12px;font-size:12px;">
+        <span style="color:#5a6280;font-size:10px;display:block;">이전 대비</span>1,100,000원 → 1,900,000원 (+73% 상향)
+      </div>
+    </div>
+  </div>
+  <div style="background:#fafafa;border:1px solid #d0d4e0;border-radius:8px;padding:16px 20px;margin-bottom:12px;">
+    <div style="font-size:11px;font-weight:700;letter-spacing:1px;color:#5a6280;text-transform:uppercase;margin-bottom:10px;">사업 구조 & 성장 동력</div>
+    <table style="margin:0;">
+      <thead><tr><th>사업부</th><th>매출 비중</th><th>핵심 성장 드라이버</th></tr></thead>
+      <tbody>
+        <tr><td>DRAM</td><td>26E 76% (250.9조)</td><td>HBM3E 독점·HBM4 60%+ 점유율. 1Q26 OPM 77.5%→26E 79.4%. 서버향 고용량 수요 증가</td></tr>
+        <tr><td>NAND</td><td>26E 23% (77.5조)</td><td>eSSD 고용량 제품 중심. 1Q26 OPM 52.1%→26E 59.9%. AI 훈련용 대용량 스토리지 수요</td></tr>
+      </tbody>
+    </table>
+    <p style="font-size:12px;color:#5a6280;margin-top:10px;">▶ 핵심 성장 메커니즘: AI 인프라 투자 확대·에이전틱 AI → HBM·서버 DRAM·기업향 SSD 수요 폭증 → 타이트 공급 + LTA → 가격 상승 장기화</p>
+  </div>
+  <div style="background:#fafafa;border:1px solid #d0d4e0;border-radius:8px;padding:16px 20px;margin-bottom:12px;">
+    <div style="font-size:11px;font-weight:700;letter-spacing:1px;color:#5a6280;text-transform:uppercase;margin-bottom:10px;">시장 괴리</div>
+    <table style="margin:0;">
+      <thead><tr><th>구분</th><th>내용</th></tr></thead>
+      <tbody>
+        <tr><td style="color:#5a6280;">시장 현재 인식</td><td>한국 메모리 업체를 사이클 종목으로 인식, 글로벌 Peer(TSMC·마이크론) 대비 밸류에이션 디스카운트</td></tr>
+        <tr><td style="color:#2563eb;">이 리포트 주장</td><td>HBM3E 독점·HBM4 60%+ 점유율의 Pure Player 지위 + LTA로 사이클 변동성 축소. Peer와 동일한 Target PBR 4배 정당화</td></tr>
+        <tr><td style="color:#b45309;">괴리 해소 촉매</td><td>6월 내 ADR 상장 결정 + 2Q26 실적</td></tr>
+        <tr><td>괴리 강도</td><td><span style="color:#059669;">강</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div style="background:#fafafa;border:1px solid #d0d4e0;border-radius:8px;padding:16px 20px;">
+    <div style="font-size:11px;font-weight:700;letter-spacing:1px;color:#5a6280;text-transform:uppercase;margin-bottom:10px;">재무 특징</div>
+    <div style="display:flex;flex-wrap:wrap;gap:8px;">
+      <div style="background:#f0f2f8;border:1px solid #d0d4e0;border-radius:6px;padding:8px 12px;font-size:12px;flex:1;min-width:160px;"><span style="color:#5a6280;font-size:10px;display:block;">26E 순차입금</span>순현금 전환 수준 (차입금 26.4조 vs 현금 130조)</div>
+      <div style="background:#f0f2f8;border:1px solid #d0d4e0;border-radius:6px;padding:8px 12px;font-size:12px;flex:1;min-width:160px;"><span style="color:#5a6280;font-size:10px;display:block;">26E 부채비율</span>21.7% (25A 45.9%)</div>
+      <div style="background:#f0f2f8;border:1px solid #d0d4e0;border-radius:6px;padding:8px 12px;font-size:12px;flex:1;min-width:160px;"><span style="color:#5a6280;font-size:10px;display:block;">26E ROE</span>94.5%</div>
+      <div style="background:#f0f2f8;border:1px solid #d0d4e0;border-radius:6px;padding:8px 12px;font-size:12px;flex:1;min-width:160px;"><span style="color:#5a6280;font-size:10px;display:block;">26E FCF</span>107조원</div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="section-title">📈 실적 전망 (연간)</div>
+  <table class="data-table">
+    <caption>단위: 십억원 | ★ = 투자 핵심 연도</caption>
+    <thead>
+      <tr><th>구분</th><th>2024A</th><th>2025A</th><th style="background:#dbeafe;color:#1e40af;font-weight:700;">2026E ★</th><th>2027E</th><th>2028E</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>매출액</td><td>66,193</td><td>97,147</td><td class="key-col key-num">330,324</td><td>459,193</td><td>505,112</td></tr>
+      <tr><td>YoY(%)</td><td>102.0</td><td>46.8</td><td class="key-col">240.0</td><td>39.0</td><td>10.0</td></tr>
+      <tr><td>영업이익</td><td>23,467</td><td>47,206</td><td class="key-col key-num">245,954</td><td>352,409</td><td>366,505</td></tr>
+      <tr><td>YoY(%)</td><td>흑전</td><td>101.2</td><td class="key-col key-num">421.0</td><td>43.3</td><td>4.0</td></tr>
+      <tr><td>OPM(%)</td><td>35.5</td><td>48.6</td><td class="key-col key-opm">74.5</td><td>76.7</td><td>72.6</td></tr>
+      <tr><td>EPS(원)</td><td>27,182</td><td>58,955</td><td class="key-col">300,026</td><td>431,791</td><td>454,561</td></tr>
+      <tr><td>PER(배)</td><td>6.4</td><td>11.0</td><td class="key-col">4.1</td><td>2.8</td><td>2.7</td></tr>
+      <tr><td>PBR(배)</td><td>1.7</td><td>3.9</td><td class="key-col">2.6</td><td>1.4</td><td>0.9</td></tr>
+      <tr><td>ROE(%)</td><td>31.1</td><td>44.2</td><td class="key-col">94.5</td><td>63.5</td><td>40.6</td></tr>
+    </tbody>
+  </table>
+  <p style="font-size:12px;color:#5a6280;margin-top:10px;">▶ 왜 26E가 변곡점인가: 에이전틱 AI 확산으로 DRAM·NAND 전방위 수요 확대 + 구조적 공급 부족으로 OPM 48.6%→74.5% 한 번에 25%p 도약. 25년 이익 대비 5배 이상 레벨업.</p>
+</section>
+
+<section>
+  <div class="section-title">📅 분기별 실적 전망</div>
+  <table class="data-table">
+    <caption>단위: 십억원</caption>
+    <thead>
+      <tr><th>구분</th><th>1Q25</th><th>2Q25</th><th>3Q25</th><th>4Q25</th><th style="background:#dbeafe;color:#1e40af;font-weight:700;">1Q26P ★</th><th>2Q26F</th><th>3Q26F</th><th>4Q26F</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>매출액</td><td>17,639</td><td>22,232</td><td>24,449</td><td>32,827</td><td class="key-col key-num">52,576</td><td>79,880</td><td>94,178</td><td>103,690</td></tr>
+      <tr><td>영업이익</td><td>7,441</td><td>9,213</td><td>11,383</td><td>19,170</td><td class="key-col key-num">37,610</td><td>58,221</td><td>71,011</td><td>79,113</td></tr>
+      <tr><td>OPM(%)</td><td>42</td><td>41</td><td>47</td><td>58</td><td class="key-col key-opm">72</td><td>73</td><td>75</td><td>76</td></tr>
+    </tbody>
+  </table>
+  <p style="font-size:12px;color:#5a6280;margin-top:10px;">▶ 2Q26 주목 포인트: DRAM ASP +38% QoQ, NAND ASP +35% QoQ 확인 여부. 확인 시 → 연간 가이던스 유지 / 미달 시 → 고점 우려 확산</p>
+</section>
+
+<section>
+  <div class="section-title">💰 밸류에이션</div>
+  <div class="val-box">
+    <div class="val-formula">26F BPS 466,076원 × Target PBR 4배(근거: 26F TSMC·마이크론 FWD PBR) = TP 1,900,000원</div>
+    <p style="color:#5a6280;font-size:12px;margin-top:8px;">▶ 왜 이 배수인가: 동종업계 최고 Pure Player 지위 + ADR 상장에 따른 글로벌 Peer 갭 축소를 반영. 글로벌 파운드리·메모리 1위 Peer(TSMC·마이크론) 평균 적용</p>
+  </div>
+</section>
+
+<section>
+  <div class="section-title">⚠️ 리스크 시나리오</div>
+  <div class="risk-item risk-sev-high">
+    <div class="risk-assumption">🔴 핵심 가정: 2Q26~4Q26 DRAM ASP +38%·+10%·+5% / NAND ASP +35%·+15%·+5% 지속 상승</div>
+    <div class="risk-chain">→ 붕괴 시: AI CapEx Peak Out 또는 공급 급증으로 가격 상승률 반토막<br/>→ 실적 영향: 26E OP 245.9조 → 170조대(-30%)</div>
+    <div class="risk-impact-num">→ 주가 영향: TP 1,900,000원 → 1,330,000원(-30%)</div>
+  </div>
+  <div class="risk-item risk-sev-mid">
+    <div class="risk-assumption">🟠 두 번째 가정: HBM3E 독점·HBM4 60%+ 점유율 유지</div>
+    <div class="risk-chain">→ 붕괴 시: 삼성전자 HBM4 품질 승인으로 경쟁 심화 → 점유율 하락 및 ASP 하락</div>
+    <div class="risk-impact-num">→ 주가 영향: Target PBR 4배→3배로 축소, TP 약 25% 하향</div>
+  </div>
+</section>
+
+<section>
+  <div class="section-title">🎯 모멘텀 체크포인트</div>
+  <div style="background:#fafafa;border:1px solid #d0d4e0;border-radius:8px;padding:4px 16px;">
+    <div class="checkpoint-item">
+      <span class="cp-date">2026.06</span>
+      <div>
+        <div>ADR 상장 결정</div>
+        <div class="cp-pass">✅ 확정 시 → Peer 갭 축소 리레이팅 / 비중 확대</div>
+        <div class="cp-fail">⛔ 지연 시 → 밸류 리레이팅 지연 / 관망</div>
+      </div>
+    </div>
+    <div class="checkpoint-item">
+      <span class="cp-date">2026.07</span>
+      <div>
+        <div>2Q26 실적 발표 — OPM 72.9% 달성 여부</div>
+        <div class="cp-pass">✅ 확인 시 → 연간 가이던스 상향, 추가 매수</div>
+        <div class="cp-fail">⛔ 미달 시 → 차익실현 고려</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="section-title">💬 사견 & 투자 행동 결론</div>
+  <div class="opinion-box">
+    <p>컨센서스 대비 차이: 교보는 26F 영업이익 245.9조로 타사(신한 266.9조, DB 289조, 현대차 248.9조) 중 상대적 보수적. 그러나 Target PBR 4배는 가장 공격적으로, 글로벌 Peer 갭 축소 논리가 독특한 포인트. 우려는 (1) 1M +31% 급등 단기 선반영, (2) 실적 가이던스 하향 리스크(신한 대비 매출 22조 낮음) 상존. 그러나 1Q26 어닝 서프라이즈 확정 + ADR 상장 catalyst가 임박하여 60점 핵심 유지. 조정 시 분할매수.</p>
+    <div class="decision-box">
+      <div class="decision-btn decision-buy">✅ 지금 진입 가능<br/><span style="font-size:11px;font-weight:400;">핵심 + 60점</span></div>
+      <div class="decision-btn decision-wait decision-dim">⏳ 이벤트 후 진입<br/><span style="font-size:11px;font-weight:400;">ADR 상장</span></div>
+      <div class="decision-btn decision-avoid decision-dim">🚫 관망<br/><span style="font-size:11px;font-weight:400;">선반영 우려 시</span></div>
+    </div>
+  </div>
+</section>
+
+<div class="disclaimer">
+  ※ 본 글은 증권사 리포트를 개인 학습 목적으로 요약·정리한 것이며, 투자 권유가 아닙니다.<br/>
+  ※ 제공된 PDF 파일만 활용. 외부 검색·참조 없음.
+</div>
+
+</body>
+</html>

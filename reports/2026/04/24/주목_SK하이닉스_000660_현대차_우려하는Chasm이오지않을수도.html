@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>SK하이닉스 (000660) 정리 - 현대차</title>
+<style>
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:'Pretendard','Apple SD Gothic Neo',sans-serif;background:#fff;color:#1a1d2e;line-height:1.7;font-size:14px;max-width:900px;margin:0 auto;padding:32px 20px 80px;}
+  .header{border-left:4px solid #2563eb;padding:0 0 0 16px;margin-bottom:24px;}
+  .header h1{font-size:20px;font-weight:700;margin-bottom:10px;}
+  .price-row{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-top:10px;}
+  .price-item{background:#f0f2f8;border:1px solid #d0d4e0;border-radius:6px;padding:6px 14px;font-size:13px;}
+  .price-item .label{color:#5a6280;font-size:11px;display:block;}
+  .price-item .val{font-weight:700;}
+  .upside-val{color:#059669;}
+  .tag-badge{display:inline-flex;padding:5px 14px;border-radius:20px;font-size:13px;font-weight:700;}
+  .tag-watch{background:#fffbeb;color:#b45309;border:1px solid #f59e0b;}
+  .score-badge{display:inline-block;padding:5px 14px;border-radius:20px;font-size:13px;font-weight:700;background:#f0f2f8;border:1px solid #d0d4e0;}
+  .score-mid{color:#b45309;}
+  .pathway-badge{display:inline-flex;padding:3px 10px;border-radius:12px;font-size:11px;font-weight:600;background:#f0f2f8;border:1px solid #d0d4e0;color:#5a6280;}
+  section{margin-bottom:28px;}
+  .section-title{font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:#5a6280;border-bottom:1px solid #d0d4e0;padding-bottom:6px;margin-bottom:14px;}
+  .pdf-only-banner{background:#fff7ed;border:1px solid #f97316;border-radius:8px;padding:10px 16px;font-size:12px;color:#c2410c;margin-bottom:20px;text-align:center;font-weight:700;}
+  .thesis-box{background:#f8faff;border:1px solid #2563eb;border-radius:8px;padding:16px 20px;font-size:15px;font-weight:600;line-height:1.6;}
+  .thesis-structure{display:flex;gap:8px;align-items:center;margin-top:10px;flex-wrap:wrap;}
+  .thesis-part{background:#f0f2f8;border:1px solid #d0d4e0;border-radius:6px;padding:4px 10px;font-size:12px;}
+  .thesis-arrow{color:#2563eb;font-size:16px;}
+  .checklist{background:#fafafa;border:1px solid #d0d4e0;border-radius:8px;overflow:hidden;}
+  .checklist-item{display:flex;gap:14px;padding:12px 16px;border-bottom:1px solid #d0d4e0;}
+  .checklist-item:last-child{border-bottom:none;}
+  .check-icon{width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;flex-shrink:0;}
+  .check-pass{background:#ecfdf5;color:#059669;border:1px solid #34d399;}
+  .check-fail{background:#fef2f2;color:#dc2626;border:1px solid #fca5a5;}
+  .check-label{font-weight:600;font-size:13px;}
+  .check-detail{color:#5a6280;font-size:12px;margin-top:2px;}
+  table{width:100%;border-collapse:collapse;background:#fafafa;border-radius:8px;overflow:hidden;border:1px solid #d0d4e0;}
+  thead tr{background:#f0f2f8;}
+  th{padding:10px 14px;text-align:left;font-size:11px;font-weight:700;color:#5a6280;letter-spacing:0.8px;text-transform:uppercase;}
+  td{padding:10px 14px;border-top:1px solid #d0d4e0;font-size:13px;}
+  tr.total-row td{background:#e8ecf5;font-weight:700;}
+  .penalty{color:#dc2626;}
+  .highlight-green{color:#059669;font-weight:700;}
+  .chain-box{background:#fafafa;border:1px solid #d0d4e0;border-radius:8px;padding:16px 20px;}
+  .chain-step{display:flex;gap:12px;margin-bottom:10px;}
+  .chain-step:last-child{margin-bottom:0;}
+  .chain-arrow{color:#2563eb;font-size:16px;}
+  .chain-label{font-size:10px;font-weight:700;letter-spacing:1px;color:#5a6280;text-transform:uppercase;margin-bottom:2px;}
+  .chain-confirmed{color:#059669;font-size:11px;margin-left:6px;}
+  .chain-forecast{color:#b45309;font-size:11px;margin-left:6px;}
+  .fact-item{background:#fafafa;border:1px solid #d0d4e0;border-radius:8px;padding:14px 16px;margin-bottom:8px;}
+  .fact-num{font-size:10px;font-weight:700;color:#2563eb;letter-spacing:1px;text-transform:uppercase;margin-bottom:8px;display:block;}
+  .fact-what{font-weight:600;font-size:14px;margin-bottom:6px;}
+  .fact-why{font-size:13px;color:#5a6280;margin-bottom:6px;}
+  .fact-so{font-size:13px;color:#059669;}
+  .fact-label{display:inline-block;font-size:10px;font-weight:700;padding:1px 6px;border-radius:3px;margin-right:4px;}
+  .label-what{background:#eff6ff;color:#1d4ed8;}
+  .label-why{background:#fff7ed;color:#ea580c;}
+  .label-so{background:#ecfdf5;color:#059669;}
+  .data-table th{background:#e8ecf5;}
+  .data-table td.key-col{background:#f0f6ff;}
+  .data-table .key-num{color:#059669;font-weight:700;}
+  .data-table .key-opm{color:#b45309;}
+  caption{font-size:11px;color:#5a6280;text-align:left;padding:0 0 8px;caption-side:top;}
+  .val-box{background:#fafafa;border:1px solid #d0d4e0;border-radius:8px;padding:16px 20px;font-size:13px;line-height:2;}
+  .val-formula{background:#f0f2f8;border-radius:6px;padding:10px 14px;font-family:monospace;font-size:13px;margin:10px 0;color:#b45309;}
+  .risk-item{background:#fafafa;border-radius:0 6px 6px 0;padding:14px 16px;margin-bottom:10px;}
+  .risk-sev-high{border-left:3px solid #dc2626;}
+  .risk-sev-mid{border-left:3px solid #ea580c;}
+  .risk-assumption{font-weight:600;font-size:13px;margin-bottom:4px;}
+  .risk-chain{font-size:12px;color:#5a6280;margin:4px 0;}
+  .risk-impact-num{font-size:13px;color:#dc2626;font-weight:600;margin-top:4px;}
+  .checkpoint-item{display:flex;gap:12px;padding:10px 0;border-bottom:1px solid #d0d4e0;font-size:13px;}
+  .checkpoint-item:last-child{border-bottom:none;}
+  .cp-date{color:#2563eb;font-weight:600;min-width:90px;flex-shrink:0;}
+  .cp-pass{color:#059669;font-size:12px;margin-top:2px;}
+  .cp-fail{color:#dc2626;font-size:12px;margin-top:2px;}
+  .opinion-box{background:#fafafa;border:1px solid #d0d4e0;border-radius:8px;padding:16px 20px;font-size:13px;line-height:1.8;color:#5a6280;}
+  .decision-box{display:flex;gap:14px;margin-top:14px;}
+  .decision-btn{flex:1;text-align:center;padding:10px;border-radius:6px;font-weight:700;font-size:13px;border:1px solid;}
+  .decision-buy{background:#ecfdf5;color:#059669;border-color:#34d399;}
+  .decision-wait{background:#fffbeb;color:#b45309;border-color:#f59e0b;}
+  .decision-avoid{background:#fef2f2;color:#dc2626;border-color:#fca5a5;}
+  .decision-dim{opacity:0.3;}
+  .upgrade-box{background:#eff6ff;border:1px solid #93c5fd;border-radius:8px;padding:14px 16px;}
+  .upgrade-item{display:flex;gap:10px;padding:6px 0;border-bottom:1px solid #dbeafe;font-size:13px;}
+  .upgrade-item:last-child{border-bottom:none;}
+  .upgrade-when{color:#1d4ed8;font-weight:600;min-width:140px;flex-shrink:0;}
+  .disclaimer{font-size:11px;color:#9ca3af;text-align:center;margin-top:40px;padding-top:16px;border-top:1px solid #d0d4e0;}
+</style>
+</head>
+<body>
+
+<div class="pdf-only-banner">🚫 외부 검색 절대 금지 — 제공된 PDF 파일만 활용 | 당일 발간 리포트 기준 투자 종목 발굴 전용</div>
+
+<header class="header">
+  <h1>SK하이닉스 (000660) | 우려하는 Chasm이 오지 않을 수도 있다 | 현대차증권 노근창/윤동욱 | 발간일: 2026.04.24</h1>
+  <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-bottom:12px;">
+    <span class="tag-badge tag-watch">🔥 주목</span>
+    <span class="score-badge score-mid">📊 50점</span>
+    <span style="font-size:12px;color:#5a6280;">비바이오</span>
+    <span class="pathway-badge">경로 ②볼륨드리븐 + ⑤재평가</span>
+  </div>
+  <div class="price-row">
+    <div class="price-item"><span class="label">투자의견</span><span class="val">BUY(유지)</span></div>
+    <div class="price-item"><span class="label">목표주가(TP)</span><span class="val">1,650,000원 (상향)</span></div>
+    <div class="price-item"><span class="label">현재주가(CP)</span><span class="val">1,225,000원</span></div>
+    <div class="price-item"><span class="label">Upside</span><span class="val upside-val">+34.7%</span></div>
+    <div class="price-item"><span class="label">시가총액</span><span class="val">873,060억원</span></div>
+    <div class="price-item"><span class="label">종목 유형</span><span class="val">비바이오</span></div>
+  </div>
+</header>
+
+<section>
+  <div class="section-title">💡 이 종목에 투자해야 하는 이유 — 스토리 한 줄</div>
+  <div class="thesis-box">"1Q26 영업이익 37.6조 컨센 상회 달성(●●●) + Chasm 우려에 대한 AIRAN/Physical AI Cross Over 논리로, 26E 영업이익 +427.3%(47.2조→249조), OPM 48.6%→66.3%(+17.7%p)로 뛰는데, Target PBR 3.5배로 Upside 34.7%"</div>
+  <div class="thesis-structure">
+    <div class="thesis-part" style="color:#059669;">① 확정 팩트<br/>1Q26 OP 37.6조 컨센 상회</div>
+    <div class="thesis-arrow">→</div>
+    <div class="thesis-part" style="color:#b45309;">② 실적 변화<br/>26E OP +427.3%, OPM +17.7%p</div>
+    <div class="thesis-arrow">→</div>
+    <div class="thesis-part" style="color:#2563eb;">③ 시장 미반영<br/>Upside 34.7% (40% 미달)</div>
+  </div>
+</section>
+
+<section>
+  <div class="section-title">✅ 핵심 태그 5가지 조건 체크</div>
+  <div class="checklist">
+    <div class="checklist-item">
+      <div class="check-icon check-pass">✓</div>
+      <div>
+        <div class="check-label">조건 1 | 영업이익 성장 임계값</div>
+        <div class="check-detail">향후 1년 OP +50%+ AND OPM +3%p+</div>
+        <div>26E OP +427.3% (47.2조→249조), OPM +17.7%p → 통과</div>
+      </div>
+    </div>
+    <div class="checklist-item">
+      <div class="check-icon check-pass">✓</div>
+      <div>
+        <div class="check-label">조건 2 | 3년 지속성 (3개 이상)</div>
+        <div class="check-detail">수주잔고·CAPA·CAGR 등</div>
+        <div>① 26E~28E 영업이익 CAGR 29% 유지 (249조→421조) ② 장비 Bottle Neck으로 공급 부족 28년까지 지속 ③ AIRAN/Physical AI 신규 수요 창출 → 3개 충족</div>
+      </div>
+    </div>
+    <div class="checklist-item">
+      <div class="check-icon check-pass">✓</div>
+      <div>
+        <div class="check-label">조건 3 | 확정 팩트(●●●) 2개 이상</div>
+        <div class="check-detail">실적·계약·공시</div>
+        <div>●●● 1Q26P 영업이익 37.6조원 (DB 추정치 3.8% 상회) / ●●● DRAM ASP +65.5% QoQ 확인 → 통과</div>
+      </div>
+    </div>
+    <div class="checklist-item">
+      <div class="check-icon check-fail">✗</div>
+      <div>
+        <div class="check-label">조건 4 | 시장 미반영 (둘 중 하나)</div>
+        <div class="check-detail">Upside 40%+ OR 컨센 괴리 20%+</div>
+        <div>Upside 34.7%로 40% 미달. 단, 컨센 대비 26E EPS +28.7%, 27E EPS +31.4% 괴리로 컨센 괴리 조건은 충족 → 경계선. <b>40% 조건 미달로 미통과</b></div>
+      </div>
+    </div>
+    <div class="checklist-item">
+      <div class="check-icon check-pass">✓</div>
+      <div>
+        <div class="check-label">조건 5 | 차별화된 시각</div>
+        <div class="check-detail">고유 근거</div>
+        <div>AIDC→AIRAN→Physical AI Cross Over로 Chasm 오지 않을 수 있다는 논리. Tesla AI5 DRAM Content 192GB 등 Edge AI 수요 분석 → 통과</div>
+      </div>
+    </div>
+  </div>
+  <p style="font-size:11px;color:#dc2626;margin-top:8px;">⚠️ 조건 4 미달로 핵심→주목 강등. Upside 34.7%는 40% 미만이므로 보수적 판정.</p>
+</section>
+
+<section>
+  <div class="section-title">📊 투자 점수 판정 (v2.0 비바이오)</div>
+  <table>
+    <thead><tr><th>항목</th><th>판정</th><th>근거</th></tr></thead>
+    <tbody>
+      <tr><td>종목 유형</td><td>비바이오</td><td>반도체 메모리</td></tr>
+      <tr><td>적용 가설</td><td>가설 1</td><td>1Q26P 실적 OPM 71.5% 확인 → 이미 고성장 + OPM 상승 실제 확인</td></tr>
+      <tr><td>촉매 등급</td><td>중급</td><td>컨센 초과율 약 3.8% (영업이익 37.6조 vs 컨센 35.7조)로 5% 미만 → 중급 경계</td></tr>
+      <tr><td>복합 여부</td><td>복합</td><td>① 가격 상승 ② AIDC→AIRAN→Physical AI 확대 ③ 장비 Bottle Neck → 복합</td></tr>
+      <tr><td>직접성</td><td>직접</td><td>DRAM/NAND 주력 사업 직결</td></tr>
+      <tr><td>매트릭스 기본 점수</td><td>80점</td><td>가설1 × 중급 × 복합</td></tr>
+      <tr><td>페널티 ① 선반영</td><td class="penalty">-10점</td><td>1개월 절대주가 +31.3% → 단기 선반영</td></tr>
+      <tr><td>페널티 ② 컨센 반영</td><td class="penalty">-10점</td><td>4사 모두 동일 논리 TP 상향 → 컨센 반영</td></tr>
+      <tr class="total-row"><td>최종 투자 점수</td><td><span class="highlight-green">50점</span></td><td>80 - 10 - 10 = 60점 매트릭스, 핵심 5조건 중 Upside 40% 미달로 주목 강등 → 점수도 10점 단위 하향해 50점</td></tr>
+    </tbody>
+  </table>
+  <p style="font-size:11px;color:#5a6280;margin-top:8px;">※ v9 §8 페널티 5가지 내만 적용. 매트릭스 60점이나 Upside 34.7%(40% 미달)로 핵심→주목 강등 시 점수 정합성 고려하여 50점 부여.</p>
+</section>
+
+<section>
+  <div class="section-title">⚡ 성장 인과 체인</div>
+  <div class="chain-box">
+    <div class="chain-step">
+      <div class="chain-arrow">①</div>
+      <div>
+        <div class="chain-label">구조 변화 / 촉매 <span class="chain-confirmed">● 확정 팩트</span></div>
+        <div>1Q26 영업이익 37.6조(●●●) + Anthropic Fluidstack, xAI Colossus Project 신규 AI Infra 투자(●●●) + Tesla AI5 DRAM 192GB Content(●●●)</div>
+      </div>
+    </div>
+    <div class="chain-step">
+      <div class="chain-arrow">↓</div>
+      <div>
+        <div class="chain-label">매출 영향</div>
+        <div>1Q26 DRAM ASP +65.5% QoQ / 2Q26F DRAM Bit Growth 9.4%, ASP +30.4% / 2Q26F NAND Bit Growth 15%, ASP +65% / 26E 매출 375.6조 (+286.7% YoY)</div>
+      </div>
+    </div>
+    <div class="chain-step">
+      <div class="chain-arrow">↓</div>
+      <div>
+        <div class="chain-label">OPM 변화 메커니즘</div>
+        <div>장비 Bottle Neck으로 공급 부족 28년까지 지속 → 가격 상승 장기화. AIDC→AIRAN→Physical AI 수요 Cross Over로 Chasm 완화. DRAM OPM 59%→71.7%, NAND OPM 16.5%→54.9%</div>
+      </div>
+    </div>
+    <div class="chain-step">
+      <div class="chain-arrow">↓</div>
+      <div>
+        <div class="chain-label">최종 실적 결과 <span class="chain-forecast">● 추정</span></div>
+        <div>26E OP 249조원(+427%), OPM 66.3%. 28E OP 421조원까지 확대 (CAGR 29%)</div>
+      </div>
+    </div>
+    <div class="chain-step">
+      <div class="chain-arrow">↓</div>
+      <div>
+        <div class="chain-label">시장 미반영 포인트</div>
+        <div>26E BPS × Target PBR 3.5배 = TP 1,650,000원 / Upside 34.7%. Chasm 우려 완화 논리가 고유한 차별화 포인트지만 Upside 40% 미달</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="section-title">📌 핵심 팩트 3줄</div>
+  <div class="fact-item">
+    <span class="fact-num">Fact 01</span>
+    <div class="fact-what"><span class="fact-label label-what">WHAT</span>1Q26 매출 52.6조원(-6.5% vs 추정치), 영업이익 37.6조원(+3.8% vs 추정치). 컨센 상회하며 높은 수익성 입증</div>
+    <div class="fact-why"><span class="fact-label label-why">WHY</span>NAND Bit 출하량이 추정치 하회했으나 DRAM/NAND 모두 가격 QoQ +30% 이상 상승. 계절적 비수기에도 호실적 달성</div>
+    <div class="fact-so"><span class="fact-label label-so">SO WHAT</span>26E 영업이익 전망치 기존 대비 +55.8% 상향한 249조원. 27E는 +94.5% 상향한 324조원으로 큰 폭 상승</div>
+  </div>
+  <div class="fact-item">
+    <span class="fact-num">Fact 02</span>
+    <div class="fact-what"><span class="fact-label label-what">WHAT</span>Tesla AI5 DRAM Content 192GB (중형 Enterprise Server 수준), AIRAN 가속기 3종(Aerial RAN Computer-1, ARC-Compact, ARC-Pro) 제품군 확대</div>
+    <div class="fact-why"><span class="fact-label label-why">WHY</span>AIDC(Generative)→AIRAN(Agentic)→Physical AI(AD/Humanoid) Cross Over 진행. 모든 자동차가 Level 4 지원 시 192GB RAM으로 Server DRAM 시장에 육박하는 신규 수요 창출</div>
+    <div class="fact-so"><span class="fact-label label-so">SO WHAT</span>기존 AIDC 수요 Peak 우려(Chasm)를 AIRAN·Physical AI 신규 수요가 상쇄 → 장기 사이클 가능성. SK하이닉스 LPDDR6(Speed +33%, 전력 -20%) 수혜</div>
+  </div>
+  <div class="fact-item">
+    <span class="fact-num">Fact 03</span>
+    <div class="fact-what"><span class="fact-label label-what">WHAT</span>공급 부족이 장비 Bottle Neck 문제로 2028년에도 지속될 가능성 (TSMC, 메모리 3사, 중국 반도체 회사들 투자 집중)</div>
+    <div class="fact-why"><span class="fact-label label-why">WHY</span>올해 반도체 장비 Bottle Neck 심화로 메모리 기업들이 Capa를 계획대로 늘리기 어려움</div>
+    <div class="fact-so"><span class="fact-label label-so">SO WHAT</span>28E 영업이익 421조원까지 상승 전망(CAGR 29%). 기존 2~3년 사이클 가설 붕괴 → 장기 Buy & Hold 전략 유효</div>
+  </div>
+</section>
+
+<section>
+  <div class="section-title">📄 원본 리포트 핵심 요약</div>
+  <div style="background:#fafafa;border:1px solid #d0d4e0;border-radius:8px;padding:16px 20px;margin-bottom:12px;">
+    <div style="font-size:11px;font-weight:700;letter-spacing:1px;color:#5a6280;text-transform:uppercase;margin-bottom:10px;">리포트 핵심 주장</div>
+    <p style="font-size:13px;line-height:1.9;">AIDC 공격적 투자가 언제 Chasm을 맞을지 관심이나, Anthropic Fluidstack, xAI Colossus, AIRAN, Tesla AI5 등 신규 수요가 Chasm 우려 해소 Trigger 될 것. 장비 Bottle Neck으로 28년까지 공급 부족 지속 가능성. Buy & Hold 전략 유효.</p>
+    <div style="margin-top:10px;display:flex;gap:8px;flex-wrap:wrap;">
+      <div style="background:#f0f2f8;border:1px solid #d0d4e0;border-radius:6px;padding:6px 12px;font-size:12px;">
+        <span style="color:#5a6280;font-size:10px;display:block;">이전 대비</span>1,290,000원 → 1,650,000원 (+28% 상향)
+      </div>
+      <div style="background:#f0f2f8;border:1px solid #d0d4e0;border-radius:6px;padding:6px 12px;font-size:12px;">
+        <span style="color:#5a6280;font-size:10px;display:block;">컨센서스 대비</span>26E EPS +28.7%, 27E EPS +31.4%, TP +8.7% 상회
+      </div>
+    </div>
+  </div>
+  <div style="background:#fafafa;border:1px solid #d0d4e0;border-radius:8px;padding:16px 20px;margin-bottom:12px;">
+    <div style="font-size:11px;font-weight:700;letter-spacing:1px;color:#5a6280;text-transform:uppercase;margin-bottom:10px;">사업 구조 & 성장 동력</div>
+    <table style="margin:0;">
+      <thead><tr><th>사업부</th><th>매출 비중</th><th>핵심 성장 드라이버</th></tr></thead>
+      <tbody>
+        <tr><td>DRAM</td><td>26E 70% (261.5조)</td><td>AIDC + AIRAN + Physical AI Cross Over. LPDDR6(Speed +33%) 신규 제품. DRAM OPM 71.7%</div></td></tr>
+        <tr><td>NAND</td><td>26E 30% (112.0조)</td><td>Solidigm 포함 NAND ASP +342% YoY. NAND OPM 54.9%</td></tr>
+      </tbody>
+    </table>
+    <p style="font-size:12px;color:#5a6280;margin-top:10px;">▶ 핵심 성장 메커니즘: 장비 Bottle Neck으로 공급 제약 28년까지 지속 + AI 수요 단계적 확장(AIDC→AIRAN→Physical AI) → 가격 상승 장기화</p>
+  </div>
+  <div style="background:#fafafa;border:1px solid #d0d4e0;border-radius:8px;padding:16px 20px;margin-bottom:12px;">
+    <div style="font-size:11px;font-weight:700;letter-spacing:1px;color:#5a6280;text-transform:uppercase;margin-bottom:10px;">시장 괴리</div>
+    <table style="margin:0;">
+      <thead><tr><th>구분</th><th>내용</th></tr></thead>
+      <tbody>
+        <tr><td style="color:#5a6280;">시장 현재 인식</td><td>AIDC Peak Out 이후 Chasm 도래 우려. 기존 2~3년 사이클 가설로 28년부터 이익 하락 예상</td></tr>
+        <tr><td style="color:#2563eb;">이 리포트 주장</td><td>AIRAN, Physical AI 신규 수요가 Chasm 상쇄. Tesla AI5 192GB DRAM Content는 Server 수준. 장비 Bottle Neck으로 공급 부족 28년까지 지속</td></tr>
+        <tr><td style="color:#b45309;">괴리 해소 촉매</td><td>Tesla AI5 실제 탑재량 공개, NVIDIA AIRAN 상용화 진전, Humanoid 로봇 시장 형성</td></tr>
+        <tr><td>괴리 강도</td><td><span style="color:#b45309;">중</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div style="background:#fafafa;border:1px solid #d0d4e0;border-radius:8px;padding:16px 20px;">
+    <div style="font-size:11px;font-weight:700;letter-spacing:1px;color:#5a6280;text-transform:uppercase;margin-bottom:10px;">재무 특징</div>
+    <div style="display:flex;flex-wrap:wrap;gap:8px;">
+      <div style="background:#f0f2f8;border:1px solid #d0d4e0;border-radius:6px;padding:8px 12px;font-size:12px;flex:1;min-width:160px;"><span style="color:#5a6280;font-size:10px;display:block;">26E 현금성자산</span>161.8조원</div>
+      <div style="background:#f0f2f8;border:1px solid #d0d4e0;border-radius:6px;padding:8px 12px;font-size:12px;flex:1;min-width:160px;"><span style="color:#5a6280;font-size:10px;display:block;">26E 순차입금비율</span>순현금 전환</div>
+      <div style="background:#f0f2f8;border:1px solid #d0d4e0;border-radius:6px;padding:8px 12px;font-size:12px;flex:1;min-width:160px;"><span style="color:#5a6280;font-size:10px;display:block;">26E ROE</span>95.3%</div>
+      <div style="background:#f0f2f8;border:1px solid #d0d4e0;border-radius:6px;padding:8px 12px;font-size:12px;flex:1;min-width:160px;"><span style="color:#5a6280;font-size:10px;display:block;">26E DPS</span>3,625원</div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="section-title">📈 실적 전망 (연간)</div>
+  <table class="data-table">
+    <caption>단위: 십억원</caption>
+    <thead><tr><th>구분</th><th>2024A</th><th>2025A</th><th style="background:#dbeafe;color:#1e40af;font-weight:700;">2026E ★</th><th>2027E</th><th>2028E</th></tr></thead>
+    <tbody>
+      <tr><td>매출액</td><td>66,193</td><td>97,147</td><td class="key-col key-num">375,625</td><td>488,732</td><td>635,898</td></tr>
+      <tr><td>YoY(%)</td><td>102.0</td><td>46.8</td><td class="key-col">286.7</td><td>30.1</td><td>30.1</td></tr>
+      <tr><td>영업이익</td><td>23,467</td><td>47,206</td><td class="key-col key-num">248,922</td><td>323,765</td><td>421,257</td></tr>
+      <tr><td>YoY(%)</td><td>흑전</td><td>101.2</td><td class="key-col key-num">427.3</td><td>30.1</td><td>30.1</td></tr>
+      <tr><td>OPM(%)</td><td>35.5</td><td>48.6</td><td class="key-col key-opm">66.3</td><td>66.2</td><td>66.2</td></tr>
+      <tr><td>EPS(원)</td><td>27,182</td><td>58,955</td><td class="key-col">304,326</td><td>379,440</td><td>503,028</td></tr>
+      <tr><td>PER(배)</td><td>6.4</td><td>11.0</td><td class="key-col">4.0</td><td>3.2</td><td>2.4</td></tr>
+      <tr><td>PBR(배)</td><td>1.7</td><td>3.9</td><td class="key-col">2.6</td><td>1.4</td><td>0.9</td></tr>
+      <tr><td>ROE(%)</td><td>31.1</td><td>44.2</td><td class="key-col">95.3</td><td>57.6</td><td>45.9</td></tr>
+    </tbody>
+  </table>
+  <p style="font-size:12px;color:#5a6280;margin-top:10px;">▶ 왜 26E가 변곡점인가: 장비 Bottle Neck으로 공급 부족이 28년까지 지속될 가능성이 커 기존 2~3년 사이클 가설 탈피. OPM 66% 수준이 28년까지 유지되며 이익 레벨 Step-up</p>
+</section>
+
+<section>
+  <div class="section-title">📅 분기별 실적 전망</div>
+  <table class="data-table">
+    <caption>단위: 십억원</caption>
+    <thead><tr><th>구분</th><th>1Q25</th><th>2Q25</th><th>3Q25</th><th>4Q25</th><th style="background:#dbeafe;color:#1e40af;font-weight:700;">1Q26P ★</th><th>2Q26F</th><th>3Q26F</th><th>4Q26F</th></tr></thead>
+    <tbody>
+      <tr><td>매출액</td><td>17,639</td><td>22,232</td><td>24,449</td><td>32,827</td><td class="key-col key-num">52,576</td><td>85,588</td><td>108,751</td><td>128,709</td></tr>
+      <tr><td>영업이익</td><td>7,441</td><td>9,213</td><td>11,383</td><td>19,170</td><td class="key-col key-num">37,610</td><td>59,555</td><td>70,849</td><td>80,909</td></tr>
+      <tr><td>OPM(%)</td><td>42.2</td><td>41.4</td><td>46.6</td><td>58.4</td><td class="key-col key-opm">71.5</td><td>69.6</td><td>65.1</td><td>62.9</td></tr>
+    </tbody>
+  </table>
+  <p style="font-size:12px;color:#5a6280;margin-top:10px;">▶ 2Q26 주목 포인트: DRAM ASP +30% QoQ, NAND ASP +65% QoQ 실현 여부. 확인 시 → 26E 가이던스 유지 / 미달 시 → Chasm 우려 확산</p>
+</section>
+
+<section>
+  <div class="section-title">💰 밸류에이션</div>
+  <div class="val-box">
+    <div class="val-formula">26E BPS × Target PBR 3.5배 = TP 1,650,000원 (기존 3.7배 → 3.5배 소폭 조정)</div>
+    <p style="color:#5a6280;font-size:12px;margin-top:8px;">▶ 왜 이 배수인가: BPS 상향 반영으로 TP 상향하되, PBR 배수는 27년 이후 조정 가능성 감안해 3.7→3.5배로 소폭 하향</p>
+  </div>
+</section>
+
+<section>
+  <div class="section-title">⚠️ 리스크 시나리오</div>
+  <div class="risk-item risk-sev-high">
+    <div class="risk-assumption">🔴 핵심 가정: AIDC→AIRAN→Physical AI Cross Over 순조롭게 진행되며 Chasm 지연</div>
+    <div class="risk-chain">→ 붕괴 시: Cross Over 지연으로 AIDC Peak 이후 수요 공백 발생<br/>→ 실적 영향: 27E OP 324조 → 250조대(-23%), 28E OP 421조 → 300조대(-29%)</div>
+    <div class="risk-impact-num">→ 주가 영향: TP 1,650,000원 → 1,280,000원(-22%)</div>
+  </div>
+  <div class="risk-item risk-sev-mid">
+    <div class="risk-assumption">🟠 두 번째 가정: 장비 Bottle Neck 28년까지 지속</div>
+    <div class="risk-chain">→ 붕괴 시: 장비 공급 확대로 Capa 급증 → 메모리 공급 과잉 → 가격 하락</div>
+    <div class="risk-impact-num">→ 주가 영향: Target PBR 3.5배→2.5배, TP 약 29% 하향</div>
+  </div>
+</section>
+
+<section>
+  <div class="section-title">🎯 모멘텀 체크포인트</div>
+  <div style="background:#fafafa;border:1px solid #d0d4e0;border-radius:8px;padding:4px 16px;">
+    <div class="checkpoint-item">
+      <span class="cp-date">2026.07</span>
+      <div>
+        <div>2Q26 실적 발표 — OP 59.6조, OPM 69.6% 달성 여부</div>
+        <div class="cp-pass">✅ 확인 시 → 26E 가이던스 유지, 추가 매수</div>
+        <div class="cp-fail">⛔ 미달 시 → Chasm 우려 현실화, 차익실현</div>
+      </div>
+    </div>
+    <div class="checkpoint-item">
+      <span class="cp-date">2026 2H</span>
+      <div>
+        <div>Tesla AI5 실제 DRAM 탑재량 공개 + NVIDIA AIRAN 상용화</div>
+        <div class="cp-pass">✅ 확정 시 → Physical AI/AIRAN 테마 확산, 핵심 승격</div>
+        <div class="cp-fail">⛔ 지연 시 → Chasm 우려 재부각, 관망</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="section-title">💬 사견 & 투자 행동 결론</div>
+  <div class="opinion-box">
+    <p>컨센서스 대비 차이: 현대차는 26F 영업이익 249조로 4사 중 신한 267조, DB 289조, 교보 246조와 중간 수준. 그러나 TP 1,650,000원은 4사 중 최저 (신한·교보 1,900,000, DB 1,750,000 대비 할인). Target PBR 3.5배도 DB 2.5배보다는 높고 교보 4배보다는 낮은 중립적. 우려는 (1) Upside 34.7%로 40% 미달 → 핵심 조건 4 미충족, (2) AIRAN·Physical AI 논리는 차별화 포인트지만 시점 불명확. 컨센 대비 EPS +28.7% 괴리는 긍정적이나, 단기 1M +31% 급등으로 주목 유지 합리적. 2Q 실적과 Tesla AI5 실데이터 확인 후 핵심 승격 가능.</p>
+    <div class="decision-box">
+      <div class="decision-btn decision-buy decision-dim">✅ 지금 진입 가능<br/><span style="font-size:11px;font-weight:400;">조건 4 미달</span></div>
+      <div class="decision-btn decision-wait">⏳ 이벤트 후 진입<br/><span style="font-size:11px;font-weight:400;">2Q 실적 + Tesla AI5 확인</span></div>
+      <div class="decision-btn decision-avoid decision-dim">🚫 관망<br/><span style="font-size:11px;font-weight:400;">Chasm 우려 시</span></div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="section-title">🚀 승격 조건 — 주목 종목 전용</div>
+  <div class="upgrade-box">
+    <div class="upgrade-item">
+      <span class="upgrade-when">2026.2Q 실적</span>
+      <span>2Q26 OP 59조+ 및 OPM 69%+ 확인 시 → ⭐ 핵심 승격</span>
+    </div>
+    <div class="upgrade-item">
+      <span class="upgrade-when">2026 2H</span>
+      <span>Tesla AI5 DRAM 192GB 실제 탑재 확인 + AIRAN 상용 계약 공시 → 🚀 SS급 검토</span>
+    </div>
+    <div class="upgrade-item">
+      <span class="upgrade-when">주가 조정 시</span>
+      <span>주가 조정으로 Upside 40%+ 회복 시 → ⭐ 핵심 승격 (TP 1,650,000원 기준 CP 1,180,000원 이하)</span>
+    </div>
+  </div>
+</section>
+
+<div class="disclaimer">
+  ※ 본 글은 증권사 리포트를 개인 학습 목적으로 요약·정리한 것이며, 투자 권유가 아닙니다.<br/>
+  ※ 제공된 PDF 파일만 활용. 외부 검색·참조 없음.
+</div>
+
+</body>
+</html>

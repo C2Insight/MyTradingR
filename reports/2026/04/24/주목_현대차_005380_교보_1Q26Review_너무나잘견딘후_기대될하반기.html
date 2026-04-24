@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>현대차 (005380) 정리</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Pretendard','Apple SD Gothic Neo',-apple-system,sans-serif; background: #ffffff; color: #1a1d2e; line-height: 1.7; font-size: 14px; max-width: 900px; margin: 0 auto; padding: 32px 20px 80px; }
+  .header { border-left: 4px solid #2563eb; padding: 0 0 0 16px; margin-bottom: 24px; }
+  .header h1 { font-size: 20px; font-weight: 700; margin-bottom: 10px; color: #1a1d2e; }
+  .price-row { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin-top: 10px; }
+  .price-item { background: #f0f2f8; border: 1px solid #d0d4e0; border-radius: 6px; padding: 6px 14px; font-size: 13px; }
+  .price-item .label { color: #5a6280; font-size: 11px; display: block; }
+  .price-item .val { font-weight: 700; color: #1a1d2e; }
+  .upside-val { color: #059669; }
+  .tag-badge { display: inline-flex; align-items: center; gap: 6px; padding: 5px 14px; border-radius: 20px; font-size: 13px; font-weight: 700; }
+  .tag-watch { background: #fffbeb; color: #b45309; border: 1px solid #f59e0b; }
+  .score-badge { display: inline-block; padding: 5px 14px; border-radius: 20px; font-size: 13px; font-weight: 700; background: #f0f2f8; border: 1px solid #d0d4e0; color: #1a1d2e; }
+  .score-mid { color: #b45309; }
+  .pathway-badge { display: inline-flex; align-items: center; gap: 4px; padding: 3px 10px; border-radius: 12px; font-size: 11px; font-weight: 600; background: #f0f2f8; border: 1px solid #d0d4e0; color: #5a6280; }
+  section { margin-bottom: 28px; }
+  .section-title { font-size: 11px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: #5a6280; border-bottom: 1px solid #d0d4e0; padding-bottom: 6px; margin-bottom: 14px; }
+  .pdf-only-banner { background: #fff7ed; border: 1px solid #f97316; border-radius: 8px; padding: 10px 16px; font-size: 12px; color: #c2410c; margin-bottom: 20px; text-align: center; font-weight: 700; }
+  .thesis-box { background: #f8faff; border: 1px solid #2563eb; border-radius: 8px; padding: 16px 20px; font-size: 15px; font-weight: 600; line-height: 1.6; color: #1a1d2e; }
+  .thesis-structure { display: flex; gap: 8px; align-items: center; margin-top: 10px; flex-wrap: wrap; }
+  .thesis-part { background: #f0f2f8; border: 1px solid #d0d4e0; border-radius: 6px; padding: 4px 10px; font-size: 12px; color: #1a1d2e; }
+  .thesis-arrow { color: #2563eb; font-size: 16px; }
+  .checklist { background: #fafafa; border: 1px solid #d0d4e0; border-radius: 8px; overflow: hidden; }
+  .checklist-item { display: flex; gap: 14px; align-items: flex-start; padding: 12px 16px; border-bottom: 1px solid #d0d4e0; }
+  .checklist-item:last-child { border-bottom: none; }
+  .check-icon { width: 22px; height: 22px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; flex-shrink: 0; margin-top: 1px; }
+  .check-pass { background: #ecfdf5; color: #059669; border: 1px solid #34d399; }
+  .check-fail { background: #fef2f2; color: #dc2626; border: 1px solid #fca5a5; }
+  .check-label { font-weight: 600; font-size: 13px; color: #1a1d2e; }
+  .check-detail { color: #5a6280; font-size: 12px; margin-top: 2px; }
+  .check-why { color: #1a1d2e; font-size: 13px; }
+  table { width: 100%; border-collapse: collapse; background: #fafafa; border-radius: 8px; overflow: hidden; border: 1px solid #d0d4e0; }
+  thead tr { background: #f0f2f8; }
+  th { padding: 10px 14px; text-align: left; font-size: 11px; font-weight: 700; color: #5a6280; letter-spacing: 0.8px; text-transform: uppercase; }
+  td { padding: 10px 14px; border-top: 1px solid #d0d4e0; font-size: 13px; color: #1a1d2e; }
+  tr.total-row td { background: #e8ecf5; font-weight: 700; }
+  .penalty { color: #dc2626; }
+  .highlight-green { color: #059669; font-weight: 700; }
+  .chain-box { background: #fafafa; border: 1px solid #d0d4e0; border-radius: 8px; padding: 16px 20px; }
+  .chain-step { display: flex; gap: 12px; align-items: flex-start; margin-bottom: 10px; }
+  .chain-step:last-child { margin-bottom: 0; }
+  .chain-arrow { color: #2563eb; font-size: 16px; flex-shrink: 0; margin-top: 1px; }
+  .chain-content { flex: 1; }
+  .chain-label { font-size: 10px; font-weight: 700; letter-spacing: 1px; color: #5a6280; text-transform: uppercase; margin-bottom: 2px; }
+  .chain-text { font-size: 13px; color: #1a1d2e; }
+  .chain-confirmed { color: #059669; font-size: 11px; margin-left: 6px; }
+  .chain-forecast { color: #b45309; font-size: 11px; margin-left: 6px; }
+  .fact-item { background: #fafafa; border: 1px solid #d0d4e0; border-radius: 8px; padding: 14px 16px; margin-bottom: 8px; }
+  .fact-num { font-size: 10px; font-weight: 700; color: #2563eb; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 8px; display: block; }
+  .fact-what { font-weight: 600; font-size: 14px; margin-bottom: 6px; color: #1a1d2e; }
+  .fact-why { font-size: 13px; color: #5a6280; margin-bottom: 6px; }
+  .fact-so { font-size: 13px; color: #059669; }
+  .fact-label { display: inline-block; font-size: 10px; font-weight: 700; padding: 1px 6px; border-radius: 3px; margin-right: 4px; }
+  .label-what { background: #eff6ff; color: #1d4ed8; }
+  .label-why { background: #fff7ed; color: #ea580c; }
+  .label-so { background: #ecfdf5; color: #059669; }
+  .data-table th { background: #e8ecf5; }
+  .data-table td.key-col { background: #f0f6ff; }
+  .data-table .key-num { color: #059669; font-weight: 700; }
+  .data-table .key-opm { color: #b45309; }
+  caption { font-size: 11px; color: #5a6280; text-align: left; padding: 0 0 8px; caption-side: top; }
+  .val-box { background: #fafafa; border: 1px solid #d0d4e0; border-radius: 8px; padding: 16px 20px; font-size: 13px; line-height: 2; color: #1a1d2e; }
+  .val-formula { background: #f0f2f8; border-radius: 6px; padding: 10px 14px; font-family: monospace; font-size: 13px; margin: 10px 0; color: #b45309; }
+  .risk-item { background: #fafafa; border-radius: 0 6px 6px 0; padding: 14px 16px; margin-bottom: 10px; }
+  .risk-sev-high { border-left: 3px solid #dc2626; }
+  .risk-sev-mid { border-left: 3px solid #ea580c; }
+  .risk-assumption { font-weight: 600; font-size: 13px; margin-bottom: 4px; color: #1a1d2e; }
+  .risk-chain { font-size: 12px; color: #5a6280; margin: 4px 0; }
+  .risk-impact-num { font-size: 13px; color: #dc2626; font-weight: 600; margin-top: 4px; }
+  .checkpoint-item { display: flex; gap: 12px; padding: 10px 0; border-bottom: 1px solid #d0d4e0; font-size: 13px; }
+  .checkpoint-item:last-child { border-bottom: none; }
+  .cp-date { color: #2563eb; font-weight: 600; min-width: 90px; flex-shrink: 0; }
+  .cp-event { flex: 1; color: #1a1d2e; }
+  .cp-pass { color: #059669; font-size: 12px; margin-top: 2px; }
+  .cp-fail { color: #dc2626; font-size: 12px; margin-top: 2px; }
+  .opinion-box { background: #fafafa; border: 1px solid #d0d4e0; border-radius: 8px; padding: 16px 20px; font-size: 13px; line-height: 1.8; color: #5a6280; }
+  .decision-box { display: flex; gap: 14px; margin-top: 14px; }
+  .decision-btn { flex: 1; text-align: center; padding: 10px; border-radius: 6px; font-weight: 700; font-size: 13px; border: 1px solid; }
+  .decision-buy { background: #ecfdf5; color: #059669; border-color: #34d399; }
+  .decision-wait { background: #fffbeb; color: #b45309; border-color: #f59e0b; }
+  .decision-avoid { background: #fef2f2; color: #dc2626; border-color: #fca5a5; }
+  .decision-dim { opacity: 0.3; }
+  .upgrade-box { background: #eff6ff; border: 1px solid #93c5fd; border-radius: 8px; padding: 14px 16px; }
+  .upgrade-item { display: flex; gap: 10px; padding: 6px 0; border-bottom: 1px solid #dbeafe; font-size: 13px; color: #1a1d2e; }
+  .upgrade-item:last-child { border-bottom: none; }
+  .upgrade-when { color: #1d4ed8; font-weight: 600; min-width: 140px; flex-shrink: 0; }
+  .disclaimer { font-size: 11px; color: #9ca3af; text-align: center; margin-top: 40px; padding-top: 16px; border-top: 1px solid #d0d4e0; }
+</style>
+</head>
+<body>
+
+<div class="pdf-only-banner">🚫 외부 검색 절대 금지 — 제공된 PDF 파일만 활용 | 당일 발간 리포트 기준 투자 종목 발굴 전용</div>
+
+<header class="header">
+  <h1>현대차 (005380) | 1Q26 Review: 너무나 잘 견딘 후, 기대될 하반기 | 교보증권 김광식 | 발간일: 2026.04.24</h1>
+  <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-bottom:12px;">
+    <span class="tag-badge tag-watch">🔥 주목</span>
+    <span class="score-badge score-mid">📊 50점</span>
+    <span style="font-size:12px;color:#5a6280;">비바이오</span>
+    <span class="pathway-badge">경로 ⑤재평가</span>
+  </div>
+  <div class="price-row">
+    <div class="price-item"><span class="label">투자의견</span><span class="val">Buy(유지)</span></div>
+    <div class="price-item"><span class="label">목표주가(TP)</span><span class="val">800,000원</span></div>
+    <div class="price-item"><span class="label">현재주가(CP)</span><span class="val">528,000원</span></div>
+    <div class="price-item"><span class="label">Upside</span><span class="val upside-val">+51.5%</span></div>
+    <div class="price-item"><span class="label">시가총액</span><span class="val">1,242,514억원</span></div>
+    <div class="price-item"><span class="label">종목 유형</span><span class="val">비바이오</span></div>
+  </div>
+</header>
+
+<section>
+  <div class="section-title">💡 이 종목에 투자해야 하는 이유 — 스토리 한 줄</div>
+  <div class="thesis-box">
+    "1Q26 글로벌 수요 -7.2% 역성장 환경에서도 HEV 비중 확대로 M/S 확장(글로벌 +0.3%p) 방어(●●●) + 관세율 하락(25%→15%, 11월부터 적용, ●●●)으로 26E OP +1.7%(11.7조), 27E OP +13.6%(13.3조) 전환하는데, 중국 신흥 OEM PEER P/E 16배 적용 시 Upside 51.5% (중국 Peer 논리가 차별화 포인트)"
+  </div>
+  <div class="thesis-structure">
+    <div class="thesis-part" style="color:#059669;">① 확정 팩트<br/>HEV M/S +0.3%p·관세율 25%→15% 확정</div>
+    <div class="thesis-arrow">→</div>
+    <div class="thesis-part" style="color:#b45309;">② 실적 변화<br/>26E OP +1.7%, 27E OP +13.6%</div>
+    <div class="thesis-arrow">→</div>
+    <div class="thesis-part" style="color:#2563eb;">③ 시장 미반영<br/>Upside 51.5% (중국 OEM Peer 리레이팅)</div>
+  </div>
+</section>
+
+<section>
+  <div class="section-title">✅ 핵심 태그 5가지 조건 체크 (5개 모두 통과해야 ⭐핵심 이상 가능)</div>
+  <div class="checklist">
+    <div class="checklist-item">
+      <div class="check-icon check-fail">✗</div>
+      <div>
+        <div class="check-label">조건 1 | 영업이익 성장 임계값</div>
+        <div class="check-detail">향후 1년 OP +50%+ AND (OPM +3%p+ OR OPM 15%+ 유지)</div>
+        <div class="check-why">26E OP +1.7%(11.7조), 27E OP +13.6%(13.3조), OPM 6.1→6.5% → 성장률 50% 미달, OPM 15% 미달 → ✗</div>
+      </div>
+    </div>
+    <div class="checklist-item">
+      <div class="check-icon check-pass">✓</div>
+      <div>
+        <div class="check-label">조건 2 | 3년 지속성 (3개 이상 충족)</div>
+        <div class="check-detail">수주잔고 / CAPA 확대 / 독점·특허 / Lock-in / CAGR 15%+ / L/O 로열티 / 리커링 매출 등</div>
+        <div class="check-why">① HEV M/S 지속 확장(미국 24.8%) ② 금융부문 취급자산 확대 CAGR ③ SDV/로봇 신사업 파이프라인(알파마요·Motional·RMAC·아틀라스) → 3개 충족</div>
+      </div>
+    </div>
+    <div class="checklist-item">
+      <div class="check-icon check-pass">✓</div>
+      <div>
+        <div class="check-label">조건 3 | 확정 팩트(●●●) 2개 이상</div>
+        <div class="check-detail">●●● = 수주확정·인허가·계약공시·실적 확인 / ●●○ 4개 = 충족</div>
+        <div class="check-why">●●● 1Q26 실적 확정(매출 45.9조·OP 2.5조) / ●●● 관세율 25%→15% 2Q 온기 반영 / ●●● HEV M/S +0.3%p 확장 확인 → 통과</div>
+      </div>
+    </div>
+    <div class="checklist-item">
+      <div class="check-icon check-pass">✓</div>
+      <div>
+        <div class="check-label">조건 4 | 시장 미반영 (둘 중 하나)</div>
+        <div class="check-detail">Upside 40%+ OR 컨센서스 대비 추정치 +20%+ 괴리</div>
+        <div class="check-why">Upside 51.5% → 통과</div>
+      </div>
+    </div>
+    <div class="checklist-item">
+      <div class="check-icon check-pass">✓</div>
+      <div>
+        <div class="check-label">조건 5 | 이 리포트만의 차별화된 시각</div>
+        <div class="check-detail">모든 증권사 동일 논리면 주목. 신규 커버리지·고유 근거·컨센 상회 필수</div>
+        <div class="check-why">기존 글로벌 완성차 Peer 대신 중국 신흥 OEM (BYD/Leapmotors/Seres) P/E 16.0배 적용한 차별화된 밸류에이션 (타 증권사 5.6~13.7배 적용과 차별화) → 통과</div>
+      </div>
+    </div>
+  </div>
+  <p style="font-size:11px;color:#dc2626;margin-top:8px;padding:0 4px;">⚠️ 조건 1(OP 성장률) 미달 → 🔥 주목 등급으로 분류. 중국 OEM Peer 논리 입증되면 핵심 승격 가능.</p>
+</section>
+
+<section>
+  <div class="section-title">📊 투자 점수 판정 (v2.0 비바이오) — 모든 근거 칸 필수 기재</div>
+  <table>
+    <thead><tr><th>항목</th><th>판정</th><th>근거 (Why — 반드시 기재)</th></tr></thead>
+    <tbody>
+      <tr><td>종목 유형</td><td>비바이오</td><td>완성차 제조업, 실적 기반 주가 결정</td></tr>
+      <tr><td>적용 가설</td><td>가설 3</td><td>26E OP +1.7%로 고성장 미진입, 관세 해소·신차·SDV/로봇 복합 촉매</td></tr>
+      <tr><td>촉매 등급</td><td>중급</td><td>관세율 하락(글로벌 정책), HEV M/S 확장 — 글로벌 1위 Peer 발주 수준은 아님</td></tr>
+      <tr><td>복합 여부</td><td>복합</td><td>촉매: ①관세 하락 ②HEV M/S ③SDV/Physical-AI ④중국 OEM Peer 리레이팅 동시 작동</td></tr>
+      <tr><td>직접성</td><td>직접</td><td>완성차 주력 사업 직결</td></tr>
+      <tr><td>매트릭스 기본 점수</td><td>60점</td><td>가설3 × 중급 × 복합 = 60점</td></tr>
+      <tr><td>페널티 ① 컨센 반영</td><td class="penalty">-10점</td><td>모든 증권사 매수·Buy 유지, TP 상향 대신 오히려 900K→800K 하향 — 컨센 반영</td></tr>
+      <tr class="total-row"><td>최종 투자 점수</td><td><span class="highlight-green">50점</span></td><td>🔥 주목 (40점+) 충족, 핵심 60점은 미달</td></tr>
+    </tbody>
+  </table>
+  <p style="font-size:11px;color:#5a6280;margin-top:8px;padding:0 4px;">페널티 5종만: ①간접성 ②컨센 반영 ③미확정 30%+ ④선반영 30%+ ⑤리스크 집중. 그 외 금지.</p>
+</section>
+
+<section>
+  <div class="section-title">⚡ 성장 인과 체인 — 왜 성장하는가 (각 단계에 수치 필수)</div>
+  <div class="chain-box">
+    <div class="chain-step">
+      <div class="chain-arrow">①</div>
+      <div class="chain-content">
+        <div class="chain-label">구조 변화 / 촉매 <span class="chain-confirmed">● 확정 팩트</span></div>
+        <div class="chain-text">HEV 판매 비중 확장(●●● 1Q26 HEV 17.4만대 vs 1Q25 13.7만대, 미국 HEV 비중 24.8%) + 관세율 25%→15% 하락 확정(●●●, 11월부터) + 팰리세이드 판매 재개(●●●)</div>
+      </div>
+    </div>
+    <div class="chain-step">
+      <div class="chain-arrow">↓</div>
+      <div class="chain-content">
+        <div class="chain-label">매출 영향 (규모·비중 수치)</div>
+        <div class="chain-text">26E 매출 192.3조(+3.2%), 금융 34.5조(+14.2%), 자동차 146.9조(+0.9%). 1Q26 금융 매출 9.0조(+21.5% YoY) 견인</div>
+      </div>
+    </div>
+    <div class="chain-step">
+      <div class="chain-arrow">↓</div>
+      <div class="chain-content">
+        <div class="chain-label">OPM 변화 메커니즘 (왜 마진이 오르는가)</div>
+        <div class="chain-text">관세 8,600억 부담이 2H부터 축소, 판보증 환율 환입 가능, 팰리세이드 ASP 개선 + HEV 고마진 믹스 확대. 27E OPM 6.1%→6.5%(+0.4%p)</div>
+      </div>
+    </div>
+    <div class="chain-step">
+      <div class="chain-arrow">↓</div>
+      <div class="chain-content">
+        <div class="chain-label">최종 실적 결과 <span class="chain-forecast">● 추정</span></div>
+        <div class="chain-text">26E OP 11.7조(+1.7%, OPM 6.1%), 27E OP 13.3조(+13.6%, OPM 6.5%), 28E OP 15.5조(+16.6%, OPM 7.2%)</div>
+      </div>
+    </div>
+    <div class="chain-step">
+      <div class="chain-arrow">↓</div>
+      <div class="chain-content">
+        <div class="chain-label">시장 미반영 포인트 (So What)</div>
+        <div class="chain-text">중국 신흥 OEM Peer(BYD/Leapmotors/Seres) 12MF P/E 16.0배 리레이팅 시 적정주가 800,000원, Upside 51.5% (기존 글로벌 완성차 Peer 대비 차별화)</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="section-title">📌 핵심 팩트 3줄 — WHAT(숫자) + WHY(원인) + SO WHAT(의미) 3요소 필수</div>
+  <div class="fact-item">
+    <span class="fact-num">Fact 01</span>
+    <div class="fact-what"><span class="fact-label label-what">WHAT</span>1Q26 매출 45.9조(+3.4% YoY), OP 2.5조(-30.8% YoY, OPM 5.5%), 컨센서스(OP 2.7조) 하회</div>
+    <div class="fact-why"><span class="fact-label label-why">WHY</span>관세 영향 -8,600억, 판보증 환율 -2,700억, 중동·팰리세이드 중단 -2,500억 일회성 영향. HEV M/S 확장으로 방어</div>
+    <div class="fact-so"><span class="fact-label label-so">SO WHAT</span>일회성 비용 제거 시 조정 OPM 7.3% 수준. 2H26부터 관세율(25%→15%) 온기 반영 + 신차 사이클 가동 시 실적 턴어라운드 예상</div>
+  </div>
+  <div class="fact-item">
+    <span class="fact-num">Fact 02</span>
+    <div class="fact-what"><span class="fact-label label-what">WHAT</span>금융 부문 1Q26 매출 9.0조(+21.5% YoY), OP 5,790억(+1.4%, OPM 6.4%), 26E 매출 34.5조(+14.2%)</div>
+    <div class="fact-why"><span class="fact-label label-why">WHY</span>현대캐피탈·HCA 취급자산 증가가 안정적 성장 견인, 실적 기저 역할</div>
+    <div class="fact-so"><span class="fact-label label-so">SO WHAT</span>자동차 부문 단기 변동성에도 금융부문이 이익 안정성 제공, 전사 OP 저점 방어</div>
+  </div>
+  <div class="fact-item">
+    <span class="fact-num">Fact 03</span>
+    <div class="fact-what"><span class="fact-label label-what">WHAT</span>12MF 지배순이익 10.5조 × 중국 신흥 OEM Peer P/E 16.0배 적용, 적정주가 800,000원, Upside 51.5%</div>
+    <div class="fact-why"><span class="fact-label label-why">WHY</span>기존 글로벌 완성차 Peer(평균 P/E 6~10배) 대신 BYD(16.8배)/Leapmotors(9.9배) 등 중국 신흥 OEM을 Peer로 선정. 엔비디아/구글 Physical-AI 파트너십 가속으로 테크 할증 기대</div>
+    <div class="fact-so"><span class="fact-label label-so">SO WHAT</span>하반기 Physical-AI 이벤트(6/12월 알파마요, 2H Motional 국내/미국 상용화, 3Q RMAC 개소, 아틀라스 공급망 확정) 가시화 시 리레이팅 모멘텀 현실화</div>
+  </div>
+</section>
+
+<section>
+  <div class="section-title">📄 원본 리포트 핵심 요약 — PDF 내용 직접 발췌 (외부 정보 추가 금지)</div>
+  <div style="background:#fafafa;border:1px solid #d0d4e0;border-radius:8px;padding:16px 20px;margin-bottom:12px;">
+    <div style="font-size:11px;font-weight:700;letter-spacing:1px;color:#5a6280;text-transform:uppercase;margin-bottom:10px;">리포트 핵심 주장 (애널리스트 관점 요약)</div>
+    <p style="font-size:13px;line-height:1.9;">1Q26 OP -30.8% 감소했으나 글로벌 신차 수요 -7.2% 역성장 환경에서 HEV M/S 확장으로 시장 대비 아웃퍼폼. 관세/판보증/중동 등 일회성 비용 제외 시 실적 방어력 확인. 하반기 신차 출시 + Physical-AI 모멘텀(엔비디아 협력, 알파마요, Motional, RMAC) 두 축에서 기대. 투자의견 Buy, 업종 Top-Pick 유지하되 추정치 하향으로 TP 900,000→800,000원 조정.</p>
+    <div style="margin-top:10px;display:flex;gap:8px;flex-wrap:wrap;">
+      <div style="background:#f0f2f8;border:1px solid #d0d4e0;border-radius:6px;padding:6px 12px;font-size:12px;">
+        <span style="color:#5a6280;font-size:10px;display:block;margin-bottom:2px;">이전 대비 변화 포인트</span>
+        TP 900,000 → 800,000원 하향 (-11.1%), 26/27년 추정치 하향
+      </div>
+      <div style="background:#f0f2f8;border:1px solid #d0d4e0;border-radius:6px;padding:6px 12px;font-size:12px;">
+        <span style="color:#5a6280;font-size:10px;display:block;margin-bottom:2px;">컨센서스 대비</span>
+        1Q26 OP 2,515 vs 컨센 2,665 (-5.7% 하회)
+      </div>
+    </div>
+  </div>
+  <div style="background:#fafafa;border:1px solid #d0d4e0;border-radius:8px;padding:16px 20px;margin-bottom:12px;">
+    <div style="font-size:11px;font-weight:700;letter-spacing:1px;color:#5a6280;text-transform:uppercase;margin-bottom:10px;">사업 구조 & 성장 동력</div>
+    <table style="margin:0;">
+      <thead><tr><th style="width:25%;">사업부</th><th style="width:20%;">매출 비중</th><th style="width:55%;">핵심 성장 드라이버 (Why 포함)</th></tr></thead>
+      <tbody>
+        <tr><td>자동차</td><td>76.4% (1Q26)</td><td>HEV 확대(1Q26 17.4만대, 미국 24.8%) + 팰리세이드 판매 재개 + 3Q부터 신차(알파마요 Super/Ultra) 판매 회복</td></tr>
+        <tr><td>금융</td><td>19.6% (1Q26)</td><td>현대캐피탈/HCA 취급자산 증가 기반 안정 성장(1Q26 +21.5% YoY)</td></tr>
+        <tr><td>기타</td><td>5.9% (1Q26)</td><td>ASP 개선·환율 효과</td></tr>
+      </tbody>
+    </table>
+    <p style="font-size:12px;color:#5a6280;margin-top:10px;">▶ 핵심 성장 메커니즘: 관세율 하락(25%→15%) 온기 반영과 HEV 고마진 믹스(BEV 6.3% → HEV 18.6%)로 2H부터 OPM 회복 + 엔비디아/빅테크 Physical-AI 협력 리레이팅</p>
+  </div>
+  <div style="background:#fafafa;border:1px solid #d0d4e0;border-radius:8px;padding:16px 20px;margin-bottom:12px;">
+    <div style="font-size:11px;font-weight:700;letter-spacing:1px;color:#5a6280;text-transform:uppercase;margin-bottom:10px;">시장 괴리 — 왜 지금 시장이 틀렸는가</div>
+    <table style="margin:0;">
+      <thead><tr><th style="width:30%;">구분</th><th>내용</th></tr></thead>
+      <tbody>
+        <tr><td style="color:#5a6280;">시장 현재 인식</td><td>전통 완성차 Peer(P/E 6~10배) 기준 밸류, 관세 부담/수요 둔화 리스크 선반영</td></tr>
+        <tr><td style="color:#2563eb;">이 리포트 주장</td><td>엔비디아/구글 협력 통한 Physical-AI 진출로 중국 신흥 OEM(BYD, Leapmotors, Seres) Peer로 재분류, P/E 16.0배 적용 타당</td></tr>
+        <tr><td style="color:#b45309;">괴리 해소 촉매</td><td>6/12월 알파마요 신규 모델(Super/Ultra) 발표, 2H Motional 상용화, 3Q RMAC 개소·아틀라스 공급망 확정</td></tr>
+        <tr><td>괴리 강도</td><td><span style="color:#b45309;">중</span> (Physical-AI 가시화 속도에 의존)</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div style="background:#fafafa;border:1px solid #d0d4e0;border-radius:8px;padding:16px 20px;">
+    <div style="font-size:11px;font-weight:700;letter-spacing:1px;color:#5a6280;text-transform:uppercase;margin-bottom:10px;">재무 특징 (PDF에 있는 경우만)</div>
+    <div style="display:flex;flex-wrap:wrap;gap:8px;">
+      <div style="background:#f0f2f8;border:1px solid #d0d4e0;border-radius:6px;padding:8px 12px;font-size:12px;flex:1;min-width:160px;"><span style="color:#5a6280;font-size:10px;display:block;margin-bottom:2px;">총차입금 (2025)</span>157,593십억원</div>
+      <div style="background:#f0f2f8;border:1px solid #d0d4e0;border-radius:6px;padding:8px 12px;font-size:12px;flex:1;min-width:160px;"><span style="color:#5a6280;font-size:10px;display:block;margin-bottom:2px;">부채비율 (2025)</span>189.0%</div>
+      <div style="background:#f0f2f8;border:1px solid #d0d4e0;border-radius:6px;padding:8px 12px;font-size:12px;flex:1;min-width:160px;"><span style="color:#5a6280;font-size:10px;display:block;margin-bottom:2px;">DPS (2026E)</span>11,000원</div>
+      <div style="background:#f0f2f8;border:1px solid #d0d4e0;border-radius:6px;padding:8px 12px;font-size:12px;flex:1;min-width:160px;"><span style="color:#5a6280;font-size:10px;display:block;margin-bottom:2px;">ROE (2026E)</span>8.7%</div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="section-title">📈 실적 전망 (연간) — PDF 원문 수치만 기재, 추정 금지</div>
+  <table class="data-table">
+    <caption>단위: 십억원 | ★ = 투자 핵심 연도</caption>
+    <thead>
+      <tr><th>구분</th><th>2024A</th><th>2025P</th><th style="background:#dbeafe;color:#1e40af;font-weight:700;">2026E ★</th><th>2027E</th><th>2028E</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>매출액</td><td>175,231</td><td>186,254</td><td class="key-col key-num">192,285</td><td>202,471</td><td>215,834</td></tr>
+      <tr><td>YoY(%)</td><td>7.7</td><td>6.3</td><td class="key-col">3.2</td><td>5.3</td><td>6.6</td></tr>
+      <tr><td>영업이익</td><td>14,240</td><td>11,468</td><td class="key-col key-num">11,668</td><td>13,257</td><td>15,453</td></tr>
+      <tr><td>YoY(%)</td><td>-5.9</td><td>-19.5</td><td class="key-col key-num">1.7</td><td>13.6</td><td>16.6</td></tr>
+      <tr><td>OPM(%)</td><td>8.1</td><td>6.2</td><td class="key-col key-opm">6.1</td><td>6.5</td><td>7.2</td></tr>
+      <tr><td>EPS(원)</td><td>56,300</td><td>42,915</td><td class="key-col">47,599</td><td>51,174</td><td>58,785</td></tr>
+      <tr><td>PER(배)</td><td>3.8</td><td>6.9</td><td class="key-col">11.2</td><td>10.4</td><td>9.0</td></tr>
+      <tr><td>PBR(배)</td><td>0.5</td><td>0.7</td><td class="key-col">1.1</td><td>1.1</td><td>1.0</td></tr>
+      <tr><td>ROE(%)</td><td>12.4</td><td>8.4</td><td class="key-col">8.7</td><td>8.8</td><td>9.4</td></tr>
+    </tbody>
+  </table>
+  <p style="font-size:12px;color:#5a6280;margin-top:10px;padding:0 4px;">▶ 왜 2026E가 변곡점인가: 1Q26 OP 저점 통과 후 관세율 하락(25%→15%) 온기 반영 + 팰리세이드 재개 + HEV M/S 확장으로 OP 턴어라운드. 27E부터 Physical-AI 리레이팅 본격화 예상.</p>
+</section>
+
+<section>
+  <div class="section-title">📅 분기별 실적 전망 — PDF에 있으면 반드시 기재, 생략 금지</div>
+  <table class="data-table">
+    <caption>단위: 십억원</caption>
+    <thead>
+      <tr><th>구분</th><th>1Q25</th><th>2Q25</th><th>3Q25</th><th>4Q25</th><th style="background:#dbeafe;color:#1e40af;font-weight:700;">1Q26P ★</th><th>2Q26E</th><th>3Q26E</th><th>4Q26E</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>매출액</td><td>44,408</td><td>48,287</td><td>46,721</td><td>46,839</td><td class="key-col key-num">45,939</td><td>48,595</td><td>48,432</td><td>49,320</td></tr>
+      <tr><td>영업이익</td><td>3,634</td><td>3,602</td><td>2,537</td><td>1,695</td><td class="key-col key-num">2,515</td><td>2,989</td><td>3,068</td><td>3,096</td></tr>
+      <tr><td>OPM(%)</td><td>8.2</td><td>7.5</td><td>5.4</td><td>3.6</td><td class="key-col key-opm">5.5</td><td>6.2</td><td>6.3</td><td>6.3</td></tr>
+    </tbody>
+  </table>
+  <p style="font-size:12px;color:#5a6280;margin-top:10px;padding:0 4px;">▶ 1Q26 주목 포인트: ✅ 2Q26 판보증 환입 + 관세율 15% 반영 시 OPM 6%대 회복 → 테제 입증 / ⛔ 원자재 추가 상승·인센티브 확대 지속 시 OP 가이던스(6.3~7.3%) 하단 미달</p>
+</section>
+
+<section>
+  <div class="section-title">💰 밸류에이션 — 왜 이 배수인가 1문장 필수</div>
+  <div class="val-box">
+    <div class="val-formula">12MF 지배순익 10,503십억원 × Target P/E 16.0배 = 적정 시총 170,371십억원 ÷ 209,416천주 = TP 800,000원</div>
+    <p style="color:#5a6280;font-size:12px;margin-top:8px;">▶ 왜 이 배수인가: 중국 신흥 OEM Peer (BYD 16.8배, Leapmotors 9.9배, Seres 등) 평균 P/E 16.0배 선정. 엔비디아·구글 Physical-AI 파트너십 심화로 테크 할증 타당</p>
+    <p style="color:#5a6280;font-size:12px;margin-top:4px;">▶ 소각 예정 포함 발행주식수 209,416천주 적용</p>
+  </div>
+</section>
+
+<section>
+  <div class="section-title">⚠️ 리스크 — 핵심 가정이 틀릴 경우 시나리오 (키워드 나열 금지)</div>
+  <div class="risk-item risk-sev-high">
+    <div class="risk-assumption">🔴 핵심 가정: 관세율 25%→15% 하락 효과 2H26 온기 반영 + 팰리세이드 판매 정상 재개</div>
+    <div class="risk-chain" style="margin-top:6px;">→ 붕괴 시: 관세 부담 유지 시 2H 실적 회복 지연<br/>→ 실적 영향: 26E OP 11.7조 → 10.5조 수준 하향</div>
+    <div class="risk-impact-num">→ 주가 영향: Target P/E 16배 유지해도 TP 720,000원 수준(-10%)</div>
+  </div>
+  <div class="risk-item risk-sev-mid">
+    <div class="risk-assumption">🟠 두 번째 가정: 중국 신흥 OEM Peer 선정의 타당성 (리포트 고유 차별화 논리)</div>
+    <div class="risk-chain" style="margin-top:6px;">→ 붕괴 시: 전통 완성차 Peer(평균 P/E 6~10배)로 회귀 시</div>
+    <div class="risk-impact-num">→ 주가 영향: P/E 10배 적용 시 TP 500,000원 수준(-37.5%)</div>
+  </div>
+</section>
+
+<section>
+  <div class="section-title">🎯 모멘텀 확인 체크포인트 — 확인/실망 시 행동 명시</div>
+  <div style="background:#fafafa;border:1px solid #d0d4e0;border-radius:8px;padding:4px 16px;">
+    <div class="checkpoint-item">
+      <span class="cp-date">2026.2Q</span>
+      <div>
+        <div class="cp-event">2Q26 실적 발표 — 관세율 15% 온기 반영 + 판보증 환입 확인</div>
+        <div class="cp-pass">✅ OPM 6%+ 회복 확인 시 → 핵심 승격 검토</div>
+        <div class="cp-fail">⛔ OPM 5% 미만 지속 시 → 관망 유지</div>
+      </div>
+    </div>
+    <div class="checkpoint-item">
+      <span class="cp-date">2026.3Q</span>
+      <div>
+        <div class="cp-event">RMAC(로봇 훈련 센터) 개소 + 아틀라스 공급망 확정</div>
+        <div class="cp-pass">✅ 확정 시 → Physical-AI 리레이팅 본격화, 16배 유지 근거 강화</div>
+        <div class="cp-fail">⛔ 지연·취소 시 → 전통 완성차 Peer로 재분류, TP 하향</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="section-title">💬 사견 & 투자 행동 결론</div>
+  <div class="opinion-box">
+    <p>컨센서스(2Q OP 2.77조, OPM 5.8%) 대비 보수적 1H 실적 전망이나 하반기 구조적 회복 + Physical-AI 리레이팅 논리는 유효. 중국 Peer 적용 P/E 16.0배는 타 증권사 평균(13~14배) 대비 공격적이나, 신차 사이클 + 로봇·SDV 가시화 가정 시 방어 가능. <b>우려 포인트</b>: ① 원자재 가격 재상승 시 2Q 원재료비 추가 발생 가능 ② 인센티브 확대로 Mix 손익 지속 악화 가능성 ③ Physical-AI가 '전망' 수준이면 P/E 16배 유지 근거 약화. 1Q26 실적 저점 통과 가능성 + Upside 51.5%이나 관세·원가 불확실성 상존.</p>
+    <div class="decision-box">
+      <div class="decision-btn decision-buy decision-dim">✅ 지금 진입 가능<br/><span style="font-size:11px;font-weight:400;">핵심+ & 60점+</span></div>
+      <div class="decision-btn decision-wait">⏳ 이벤트 후 진입<br/><span style="font-size:11px;font-weight:400;">2Q26 실적 OPM 6%+ 확인 후</span></div>
+      <div class="decision-btn decision-avoid decision-dim">🚫 관망<br/><span style="font-size:11px;font-weight:400;">[이유]</span></div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="section-title">🚀 승격 조건 — 주목 종목 전용 (핵심 이상은 삭제)</div>
+  <div class="upgrade-box">
+    <div class="upgrade-item">
+      <span class="upgrade-when">2026.2Q 실적</span>
+      <span>OPM 6%+ 회복 + 관세 부담 축소 확인 시 → ⭐ 핵심 승격</span>
+    </div>
+    <div class="upgrade-item">
+      <span class="upgrade-when">2026.3Q (RMAC 개소)</span>
+      <span>아틀라스 공급망 확정 + Physical-AI 계약 가시화 시 → 🚀 SS급 검토</span>
+    </div>
+  </div>
+</section>
+
+<div class="disclaimer">
+  ※ 본 글은 증권사 리포트를 개인 학습 목적으로 요약·정리한 것이며, 투자 권유가 아닙니다.<br/>
+  ※ 제공된 PDF 파일만 활용. 외부 검색·참조 없음. 당일 발간 리포트 기준.
+</div>
+
+</body>
+</html>

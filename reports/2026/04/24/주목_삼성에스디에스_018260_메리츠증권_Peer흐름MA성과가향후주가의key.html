@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>삼성에스디에스 (018260) 정리</title>
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'Pretendard','Apple SD Gothic Neo',sans-serif;background:#fff;color:#1a1d2e;line-height:1.7;font-size:14px;max-width:900px;margin:0 auto;padding:32px 20px 80px}
+  .header{border-left:4px solid #2563eb;padding-left:16px;margin-bottom:24px}
+  .header h1{font-size:20px;font-weight:700;margin-bottom:10px}
+  .price-row{display:flex;flex-wrap:wrap;gap:10px;margin-top:10px}
+  .price-item{background:#f0f2f8;border:1px solid #d0d4e0;border-radius:6px;padding:6px 14px;font-size:13px}
+  .price-item .label{color:#5a6280;font-size:11px;display:block}
+  .price-item .val{font-weight:700}
+  .upside-val{color:#059669}
+  .tag-badge{display:inline-flex;padding:5px 14px;border-radius:20px;font-size:13px;font-weight:700}
+  .tag-watch{background:#fffbeb;color:#b45309;border:1px solid #f59e0b}
+  .score-badge{display:inline-block;padding:5px 14px;border-radius:20px;font-size:13px;font-weight:700;background:#f0f2f8;border:1px solid #d0d4e0;color:#5a6280}
+  .pathway-badge{display:inline-flex;padding:3px 10px;border-radius:12px;font-size:11px;font-weight:600;background:#f0f2f8;border:1px solid #d0d4e0;color:#5a6280}
+  section{margin-bottom:28px}
+  .section-title{font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:#5a6280;border-bottom:1px solid #d0d4e0;padding-bottom:6px;margin-bottom:14px}
+  .pdf-only-banner{background:#fff7ed;border:1px solid #f97316;border-radius:8px;padding:10px 16px;font-size:12px;color:#c2410c;margin-bottom:20px;text-align:center;font-weight:700}
+  .thesis-box{background:#f8faff;border:1px solid #2563eb;border-radius:8px;padding:16px 20px;font-size:15px;font-weight:600}
+  .thesis-structure{display:flex;gap:8px;margin-top:10px;flex-wrap:wrap}
+  .thesis-part{background:#f0f2f8;border:1px solid #d0d4e0;border-radius:6px;padding:4px 10px;font-size:12px}
+  .thesis-arrow{color:#2563eb;font-size:16px}
+  .checklist{background:#fafafa;border:1px solid #d0d4e0;border-radius:8px;overflow:hidden}
+  .checklist-item{display:flex;gap:14px;padding:12px 16px;border-bottom:1px solid #d0d4e0}
+  .checklist-item:last-child{border-bottom:none}
+  .check-icon{width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;flex-shrink:0}
+  .check-pass{background:#ecfdf5;color:#059669;border:1px solid #34d399}
+  .check-fail{background:#fef2f2;color:#dc2626;border:1px solid #fca5a5}
+  .check-label{font-weight:600;font-size:13px}
+  .check-detail{color:#5a6280;font-size:12px;margin-top:2px}
+  .check-why{font-size:13px}
+  table{width:100%;border-collapse:collapse;background:#fafafa;border-radius:8px;border:1px solid #d0d4e0}
+  thead tr{background:#f0f2f8}
+  th{padding:10px 14px;text-align:left;font-size:11px;font-weight:700;color:#5a6280;letter-spacing:0.8px;text-transform:uppercase}
+  td{padding:10px 14px;border-top:1px solid #d0d4e0;font-size:13px}
+  tr.total-row td{background:#e8ecf5;font-weight:700}
+  .penalty{color:#dc2626}
+  .highlight-green{color:#059669;font-weight:700}
+  .chain-box{background:#fafafa;border:1px solid #d0d4e0;border-radius:8px;padding:16px 20px}
+  .chain-step{display:flex;gap:12px;margin-bottom:10px}
+  .chain-arrow{color:#2563eb;font-size:16px;flex-shrink:0}
+  .chain-label{font-size:10px;font-weight:700;letter-spacing:1px;color:#5a6280;text-transform:uppercase;margin-bottom:2px}
+  .chain-text{font-size:13px}
+  .chain-confirmed{color:#059669;font-size:11px;margin-left:6px}
+  .chain-forecast{color:#b45309;font-size:11px;margin-left:6px}
+  .fact-item{background:#fafafa;border:1px solid #d0d4e0;border-radius:8px;padding:14px 16px;margin-bottom:8px}
+  .fact-num{font-size:10px;font-weight:700;color:#2563eb;letter-spacing:1px;text-transform:uppercase;margin-bottom:8px;display:block}
+  .fact-what{font-weight:600;font-size:14px;margin-bottom:6px}
+  .fact-why{font-size:13px;color:#5a6280;margin-bottom:6px}
+  .fact-so{font-size:13px;color:#059669}
+  .fact-label{display:inline-block;font-size:10px;font-weight:700;padding:1px 6px;border-radius:3px;margin-right:4px}
+  .label-what{background:#eff6ff;color:#1d4ed8}
+  .label-why{background:#fff7ed;color:#ea580c}
+  .label-so{background:#ecfdf5;color:#059669}
+  .data-table th{background:#e8ecf5}
+  .data-table td.key-col{background:#f0f6ff}
+  .data-table .key-num{color:#059669;font-weight:700}
+  .data-table .key-opm{color:#b45309}
+  caption{font-size:11px;color:#5a6280;text-align:left;padding:0 0 8px;caption-side:top}
+  .val-box{background:#fafafa;border:1px solid #d0d4e0;border-radius:8px;padding:16px 20px;font-size:13px}
+  .val-formula{background:#f0f2f8;border-radius:6px;padding:10px 14px;font-family:monospace;font-size:13px;color:#b45309;margin:10px 0}
+  .risk-item{background:#fafafa;padding:14px 16px;margin-bottom:10px}
+  .risk-sev-high{border-left:3px solid #dc2626}
+  .risk-sev-mid{border-left:3px solid #ea580c}
+  .risk-assumption{font-weight:600;font-size:13px;margin-bottom:4px}
+  .risk-chain{font-size:12px;color:#5a6280;margin:4px 0}
+  .risk-impact-num{font-size:13px;color:#dc2626;font-weight:600}
+  .checkpoint-item{display:flex;gap:12px;padding:10px 0;border-bottom:1px solid #d0d4e0;font-size:13px}
+  .cp-date{color:#2563eb;font-weight:600;min-width:90px;flex-shrink:0}
+  .cp-pass{color:#059669;font-size:12px;margin-top:2px}
+  .cp-fail{color:#dc2626;font-size:12px;margin-top:2px}
+  .opinion-box{background:#fafafa;border:1px solid #d0d4e0;border-radius:8px;padding:16px 20px;font-size:13px}
+  .decision-box{display:flex;gap:14px;margin-top:14px}
+  .decision-btn{flex:1;text-align:center;padding:10px;border-radius:6px;font-weight:700;font-size:13px;border:1px solid}
+  .decision-buy{background:#ecfdf5;color:#059669;border-color:#34d399}
+  .decision-wait{background:#fffbeb;color:#b45309;border-color:#f59e0b}
+  .decision-avoid{background:#fef2f2;color:#dc2626;border-color:#fca5a5}
+  .decision-dim{opacity:0.3}
+  .upgrade-box{background:#eff6ff;border:1px solid #93c5fd;border-radius:8px;padding:14px 16px}
+  .upgrade-item{display:flex;gap:10px;padding:6px 0;border-bottom:1px solid #dbeafe;font-size:13px}
+  .upgrade-item:last-child{border-bottom:none}
+  .upgrade-when{color:#1d4ed8;font-weight:600;min-width:140px;flex-shrink:0}
+  .disclaimer{font-size:11px;color:#9ca3af;text-align:center;margin-top:40px;padding-top:16px;border-top:1px solid #d0d4e0}
+</style>
+</head>
+<body>
+
+<div class="pdf-only-banner">🚫 외부 검색 절대 금지 — 제공된 PDF 파일만 활용 | 당일 발간 리포트 기준</div>
+
+<header class="header">
+  <h1>삼성에스디에스 (018260) | Peer 흐름, M&A 성과가 향후 주가의 key | 메리츠증권 이효진 | 발간일: 2026.04.24</h1>
+  <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-bottom:12px;">
+    <span class="tag-badge tag-watch">🔥 주목</span>
+    <span class="score-badge">📊 40점</span>
+    <span style="font-size:12px;color:#5a6280;">비바이오</span>
+    <span class="pathway-badge">경로 ①OPM확장 + ⑤재평가</span>
+  </div>
+  <div class="price-row">
+    <div class="price-item"><span class="label">투자의견</span><span class="val">Not Rated</span></div>
+    <div class="price-item"><span class="label">목표주가(TP)</span><span class="val">- (NR)</span></div>
+    <div class="price-item"><span class="label">현재주가(CP)</span><span class="val">178,400원</span></div>
+    <div class="price-item"><span class="label">Upside</span><span class="val">- (NR)</span></div>
+    <div class="price-item"><span class="label">시가총액</span><span class="val">13.80조원</span></div>
+    <div class="price-item"><span class="label">종목 유형</span><span class="val">비바이오</span></div>
+  </div>
+</header>
+
+<section>
+  <div class="section-title">💡 이 종목에 투자해야 하는 이유</div>
+  <div class="thesis-box">
+    "지난 15일 KKR 대상 1.2조원 전환사채 발행(●●●)으로 현금 활용 의지 명확화 + 특화 SW peer 반등·글로벌 클라우드 사업자 반등으로 리레이팅 환경 조성. 주가는 KKR 전환가 18만원에서 거래 중 — 향후 주가는 글로벌 클라우드 사업자 주가 향방 및 실제 M&A 성과에 연동될 전망"
+  </div>
+  <div class="thesis-structure">
+    <div class="thesis-part" style="color:#059669;">① 확정 팩트<br/>KKR CB 1.2조 발행(4/15), 주가 당일 +20%</div>
+    <div class="thesis-arrow">→</div>
+    <div class="thesis-part" style="color:#b45309;">② 실적 변화<br/>25 OP 957(+5.0%) → 26E 역성장 후 턴어라운드</div>
+    <div class="thesis-arrow">→</div>
+    <div class="thesis-part" style="color:#2563eb;">③ 시장 미반영<br/>Not Rated — 글로벌 peer 반등 시 괴리 해소 기대</div>
+  </div>
+</section>
+
+<section>
+  <div class="section-title">✅ 핵심 태그 5가지 조건 체크</div>
+  <div class="checklist">
+    <div class="checklist-item">
+      <div class="check-icon check-fail">✗</div>
+      <div>
+        <div class="check-label">조건 1 | OP 성장 임계값</div>
+        <div class="check-detail">OP +50%+ AND (OPM +3%p+ OR 15%+)</div>
+        <div class="check-why">2025A OP 957억·OPM 6.9% 수준. 26E OP 추정치 비공개(NR). +50% 미달 자명</div>
+      </div>
+    </div>
+    <div class="checklist-item">
+      <div class="check-icon check-pass">✓</div>
+      <div>
+        <div class="check-label">조건 2 | 3년 지속성</div>
+        <div class="check-detail">리커링 / 플랫폼 / 파이프라인</div>
+        <div class="check-why">① 특화 SW peer(SAP/ServiceNow/Palantir 등) 반등 ② KKR과의 6년 양도 제한 장기 파트너십 ③ 클라우드 매출 지속 성장 → 3개 충족</div>
+      </div>
+    </div>
+    <div class="checklist-item">
+      <div class="check-icon check-pass">✓</div>
+      <div>
+        <div class="check-label">조건 3 | 확정 팩트(●●●) 2개+</div>
+        <div class="check-detail">●●●</div>
+        <div class="check-why">●●● 4/15 KKR CB 1.2조 공시(전환가 18만원, 표면금리 2.5%) / ●●● 1Q26P 실적 확인(매출 3.35조, OP 783억) → 2개</div>
+      </div>
+    </div>
+    <div class="checklist-item">
+      <div class="check-icon check-fail">✗</div>
+      <div>
+        <div class="check-label">조건 4 | 시장 미반영</div>
+        <div class="check-detail">Upside 40%+ OR 컨센 괴리 20%+</div>
+        <div class="check-why">Not Rated로 TP 미제시. Upside 평가 불가</div>
+      </div>
+    </div>
+    <div class="checklist-item">
+      <div class="check-icon check-pass">✓</div>
+      <div>
+        <div class="check-label">조건 5 | 차별화된 시각</div>
+        <div class="check-detail">이 리포트만의 근거</div>
+        <div class="check-why">빅테크 CDS 프리미엄·특화 SW peer(SAP, ServiceNow, Oracle, Adobe, Salesforce, Snowflake, Palo Alto, Datadog, Palantir, Cloudflare) 차트 비교 + KKR/Blue Owl 사모채권 보유 기업 주가 반등 연결 — 글로벌 자금 흐름 관점 차별화</div>
+      </div>
+    </div>
+  </div>
+  <p style="font-size:11px;color:#dc2626;margin-top:8px;">⚠️ 조건 1·4 미달 (Not Rated 한계) → 🔥주목</p>
+</section>
+
+<section>
+  <div class="section-title">📊 투자 점수 판정 (v2.0 비바이오)</div>
+  <table>
+    <thead><tr><th>항목</th><th>판정</th><th>근거</th></tr></thead>
+    <tbody>
+      <tr><td>종목 유형</td><td>비바이오</td><td>IT서비스·물류</td></tr>
+      <tr><td>적용 가설</td><td>가설 3</td><td>26E 역성장 후 M&A·클라우드 기반 구조적 촉매</td></tr>
+      <tr><td>촉매 등급</td><td>중급</td><td>KKR CB 1.2조 / 시가총액 13.8조 ≈ 8.7% → 중급</td></tr>
+      <tr><td>복합 여부</td><td>복합</td><td>① KKR 파트너십 ② 10조 투자 로드맵(타사 리포트 기준) ③ 글로벌 peer 반등 ④ Blue Owl·KKR 사모채 보유기업 반등</td></tr>
+      <tr><td>직접성</td><td>직접</td><td>CB 발행→M&A 자금→사업 확장 1단계</td></tr>
+      <tr><td>매트릭스 기본 점수</td><td>60점</td><td>가설 3 × 중급 × 복합</td></tr>
+      <tr><td>페널티 ① 잠재수주 미확정</td><td class="penalty">-10점</td><td>10조 투자 로드맵의 M&A 4조 구체 대상 미확정</td></tr>
+      <tr><td>페널티 ② Not Rated</td><td class="penalty">-10점</td><td>TP 미제시로 Upside 근거 없음, 단기 선반영 판단 제한</td></tr>
+      <tr class="total-row"><td>최종 투자 점수</td><td><span class="highlight-green">40점</span></td><td>🔥주목</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section>
+  <div class="section-title">⚡ 성장 인과 체인</div>
+  <div class="chain-box">
+    <div class="chain-step">
+      <div class="chain-arrow">①</div>
+      <div>
+        <div class="chain-label">촉매 <span class="chain-confirmed">● 확정</span></div>
+        <div class="chain-text">4/15 KKR 대상 1.2조원 전환사채 공시(●●●). 당일 주가 +20% 급등 — 활용 목적 투자자 궁금증 촉발. M&A 대상: ① 미국 SW·아시아 IT서비스, ② 피지컬 AI·디지털자산, ③ 항공 물류 강화</div>
+      </div>
+    </div>
+    <div class="chain-step">
+      <div class="chain-arrow">↓</div>
+      <div>
+        <div class="chain-label">매출 영향</div>
+        <div class="chain-text">1Q26 클라우드 6,909억(+5.8%), CSP +12%·MSP +4%. 전통적 특화 SW 기업 지난해 8~9월 하락 후 4월 들어 크게 반등. M&A 성과 확인 시 외형 성장 가속화</div>
+      </div>
+    </div>
+    <div class="chain-step">
+      <div class="chain-arrow">↓</div>
+      <div>
+        <div class="chain-label">OPM 변화 메커니즘</div>
+        <div class="chain-text">25A OPM 6.9%. 26E는 일회성·투자비 반영으로 하락 후 27E 복귀. 특화 SW peer CDS 프리미엄 안정화 시작 → 리스크 프리미엄 축소로 멀티플 회복</div>
+      </div>
+    </div>
+    <div class="chain-step">
+      <div class="chain-arrow">↓</div>
+      <div>
+        <div class="chain-label">실적 결과 <span class="chain-forecast">● 추정</span></div>
+        <div class="chain-text">2025A OP 957억(+18.4%, PDF 테이블 기준). 1Q26P OP 78.3억(-70.8%). 연간 추정치는 Not Rated로 미제시</div>
+      </div>
+    </div>
+    <div class="chain-step">
+      <div class="chain-arrow">↓</div>
+      <div>
+        <div class="chain-label">시장 미반영 (So What)</div>
+        <div class="chain-text">주가는 KKR 전환가 18만원(현재가 17.84만원) 근처에서 거래 중. 향후 주가는 글로벌 클라우드 사업자 주가 향방 + 실제 M&A 성과에 향방이 달려있음</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="section-title">📌 핵심 팩트 3줄</div>
+  <div class="fact-item">
+    <span class="fact-num">Fact 01</span>
+    <div class="fact-what"><span class="fact-label label-what">WHAT</span>1Q26 매출 3.35조(-3.9% YoY), OP 783억(-70.8%) — 일회성 퇴직급여 1,120억 반영. 컨센서스 부합</div>
+    <div class="fact-why"><span class="fact-label label-why">WHY</span>1월 삼성전자 통상임금 대법원 판결로 임직원 퇴직금 산정 기준 변경. IT서비스 매출 1.61조(+0.6%), 클라우드 6,909억(+5.8%), 물류 1.74조(-7.8%)</div>
+    <div class="fact-so"><span class="fact-label label-so">SO WHAT</span>일회성 제외해도 IT서비스 마진은 경쟁 심화에 따른 판가 인하·인프라비 증가로 10%대 하락. 2Q 11%대로 상승 전망</div>
+  </div>
+  <div class="fact-item">
+    <span class="fact-num">Fact 02</span>
+    <div class="fact-what"><span class="fact-label label-what">WHAT</span>4/15 KKR 대상 1.22조원 전환사채 발행 공시. 당일 주가 20% 상승. 전환가 18만원·표면금리 2.5%·6년 양도 제한</div>
+    <div class="fact-why"><span class="fact-label label-why">WHY</span>6조+ 현금 보유하고도 M&A 및 성장 투자 소극적이던 디레이팅 요인 해소 + KKR 전략적 파트너십으로 M&A·글로벌 진출 자문. AI 전문기업 리더십 제고 목적</div>
+    <div class="fact-so"><span class="fact-label label-so">SO WHAT</span>낮은 표면금리·저가 전환가 방지로 우호적 조건 조달. 중장기 협력 관계로 M&A 가속화</div>
+  </div>
+  <div class="fact-item">
+    <span class="fact-num">Fact 03</span>
+    <div class="fact-what"><span class="fact-label label-what">WHAT</span>특화 SW 기업(SAP, ServiceNow, Oracle, Adobe, Salesforce, Snowflake, Palo Alto, Datadog, Palantir, Cloudflare) 지난해 8~9월 정점 하락 후 4월 크게 반등. 특화 SW 사모채권 보유 기업(Blue Owl, KKR) 주가도 최근 반등</div>
+    <div class="fact-why"><span class="fact-label label-why">WHY</span>글로벌 클라우드 기업 CDS 프리미엄 안정화 시작. 상승세 이어가던 클라우드 기업 CDS 프리미엄이 안정화되며 늦은 캐치업 진행 중이었던 SDS에 CB 발행 뉴스가 기름을 부음</div>
+    <div class="fact-so"><span class="fact-label label-so">SO WHAT</span>향후 주가는 글로벌 클라우드 사업자 주가 향방과 실제 M&A 성과에 향방</div>
+  </div>
+</section>
+
+<section>
+  <div class="section-title">📄 원본 리포트 핵심 요약</div>
+  <div style="background:#fafafa;border:1px solid #d0d4e0;border-radius:8px;padding:16px 20px;margin-bottom:12px;">
+    <div style="font-size:11px;font-weight:700;letter-spacing:1px;color:#5a6280;text-transform:uppercase;margin-bottom:10px;">리포트 핵심 주장</div>
+    <p style="font-size:13px;line-height:1.9;">1Q26 일회성 퇴직급여로 컨센 하회. IT서비스 마진은 경쟁 심화·판가 인하·인프라비 증가로 10%대 하락했으나 2Q 11%대 상승 전망. KKR CB 1.2조 발행으로 M&A 의지 명확화. 특화 SW peer 반등·KKR/Blue Owl 사모채권 보유 기업 주가 반등 분위기 속에 SDS 주가도 반응. 향후 주가는 글로벌 클라우드 사업자 주가 향방 및 실제 M&A 성과가 key.</p>
+    <div style="margin-top:10px;display:flex;gap:8px;flex-wrap:wrap;">
+      <div style="background:#f0f2f8;border:1px solid #d0d4e0;border-radius:6px;padding:6px 12px;font-size:12px;"><span style="color:#5a6280;font-size:10px;display:block;">투자의견</span>Not Rated (적정주가 없음)</div>
+      <div style="background:#f0f2f8;border:1px solid #d0d4e0;border-radius:6px;padding:6px 12px;font-size:12px;"><span style="color:#5a6280;font-size:10px;display:block;">주가 기준점</span>KKR 전환가 18만원 (현재 178,400원)</div>
+    </div>
+  </div>
+  <div style="background:#fafafa;border:1px solid #d0d4e0;border-radius:8px;padding:16px 20px;margin-bottom:12px;">
+    <div style="font-size:11px;font-weight:700;letter-spacing:1px;color:#5a6280;text-transform:uppercase;margin-bottom:10px;">사업 구조 & 성장 동력</div>
+    <table>
+      <thead><tr><th>사업부</th><th>1Q26 매출 비중</th><th>성장 드라이버</th></tr></thead>
+      <tbody>
+        <tr><td>IT서비스</td><td>48% (1.61조, +0.6% YoY)</td><td>AX 사업 수주 확대에도 제조업종 일부 프로젝트 종료 영향. 일회성 비용·사업 확대 투자·경쟁 심화로 영업이익 감소</td></tr>
+        <tr><td>└ 클라우드</td><td>(IT서비스 내 6,909억, +5.8%)</td><td>CSP +12%(공공 AX·GPUaaS·오픈AI 네트워크), MSP +4%, SaaS -4.5%</td></tr>
+        <tr><td>물류</td><td>52% (1.74조, -7.8%)</td><td>대외이슈로 물동량 감소·운임 하락세</td></tr>
+      </tbody>
+    </table>
+    <p style="font-size:12px;color:#5a6280;margin-top:10px;">▶ 핵심 메커니즘: KKR CB 발행·특화 SW peer 반등·사모채 보유 기업 주가 반등이 복합적으로 작동해 밸류 캐치업</p>
+  </div>
+  <div style="background:#fafafa;border:1px solid #d0d4e0;border-radius:8px;padding:16px 20px;margin-bottom:12px;">
+    <div style="font-size:11px;font-weight:700;letter-spacing:1px;color:#5a6280;text-transform:uppercase;margin-bottom:10px;">시장 괴리</div>
+    <table>
+      <tbody>
+        <tr><td style="color:#5a6280;width:30%;">시장 현재 인식</td><td>6조+ 현금 무활용 + 단조 매출 성장률로 디레이팅 지속</td></tr>
+        <tr><td style="color:#2563eb;">이 리포트 주장</td><td>KKR 전략적 파트너 확보 + 특화 SW peer 반등 + Blue Owl/KKR 사모채 보유 기업 반등이 동시 작동. 늦은 캐치업 진행</td></tr>
+        <tr><td style="color:#b45309;">괴리 해소 촉매</td><td>글로벌 클라우드 peer 추가 반등 + 실제 M&A 딜 성사</td></tr>
+        <tr><td>괴리 강도</td><td><span style="color:#b45309;">중</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div style="background:#fafafa;border:1px solid #d0d4e0;border-radius:8px;padding:16px 20px;">
+    <div style="font-size:11px;font-weight:700;letter-spacing:1px;color:#5a6280;text-transform:uppercase;margin-bottom:10px;">재무 특징</div>
+    <div style="display:flex;flex-wrap:wrap;gap:8px;">
+      <div style="background:#f0f2f8;border:1px solid #d0d4e0;border-radius:6px;padding:8px 12px;font-size:12px;flex:1;min-width:160px;"><span style="color:#5a6280;font-size:10px;display:block;">현금성 자산</span>6조+ 보유</div>
+      <div style="background:#f0f2f8;border:1px solid #d0d4e0;border-radius:6px;padding:8px 12px;font-size:12px;flex:1;min-width:160px;"><span style="color:#5a6280;font-size:10px;display:block;">부채비율</span>25 31.1%</div>
+      <div style="background:#f0f2f8;border:1px solid #d0d4e0;border-radius:6px;padding:8px 12px;font-size:12px;flex:1;min-width:160px;"><span style="color:#5a6280;font-size:10px;display:block;">배당성향</span>25A 32.49%, DPS 3,190원</div>
+      <div style="background:#f0f2f8;border:1px solid #d0d4e0;border-radius:6px;padding:8px 12px;font-size:12px;flex:1;min-width:160px;"><span style="color:#5a6280;font-size:10px;display:block;">CB 발행</span>1.22조원, 전환가 18만원, 표면금리 2.5%</div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="section-title">📈 실적 전망 (연간)</div>
+  <table class="data-table">
+    <caption>단위: 십억원(OP), 억원(순이익/EPS) ※주의 — 원본 Forecast 테이블 한정 제공. 2026E 미포함</caption>
+    <thead><tr><th>구분</th><th>2021</th><th>2022</th><th>2023</th><th>2024</th><th style="background:#dbeafe;color:#1e40af;">2025 ★</th></tr></thead>
+    <tbody>
+      <tr><td>매출액(십억원)</td><td>13,630</td><td>17,234</td><td>13,276</td><td>13,828</td><td class="key-col key-num">13,929</td></tr>
+      <tr><td>영업이익(십억원)</td><td>808.1</td><td>916.1</td><td>808.2</td><td>911.1</td><td class="key-col key-num">957.1</td></tr>
+      <tr><td>YoY OP(%)</td><td></td><td>+13.4</td><td>-11.8</td><td>+12.7</td><td class="key-col">+5.0</td></tr>
+      <tr><td>순이익(십억원)</td><td>611.2</td><td>1,099.7</td><td>693.4</td><td>757.0</td><td class="key-col">759.5</td></tr>
+      <tr><td>EPS(원)</td><td>7,899</td><td>14,213</td><td>8,962</td><td>9,783</td><td class="key-col">9,816</td></tr>
+      <tr><td>PER(배)</td><td>19.8</td><td>8.7</td><td>19.0</td><td>13.1</td><td class="key-col">17.5</td></tr>
+      <tr><td>ROE(%)</td><td>8.8</td><td>14.2</td><td>8.2</td><td>8.4</td><td class="key-col">7.9</td></tr>
+      <tr><td>부채비율(%)</td><td>41.3</td><td>41.2</td><td>37.3</td><td>36.4</td><td class="key-col">31.1</td></tr>
+    </tbody>
+  </table>
+  <p style="font-size:12px;color:#5a6280;margin-top:10px;">▶ 왜 2025가 변곡점 표기된 이유: 메리츠증권 Not Rated 리포트로 향후 추정치 미제시. 2025년이 마지막 확인된 실적년도</p>
+</section>
+
+<section>
+  <div class="section-title">📅 분기별 실적 전망</div>
+  <table class="data-table">
+    <caption>단위: 십억원</caption>
+    <thead><tr><th>구분</th><th>1Q25</th><th>2Q25</th><th>3Q25</th><th>4Q25</th><th style="background:#dbeafe;color:#1e40af;">1Q26P ★</th></tr></thead>
+    <tbody>
+      <tr><td>매출</td><td>3,489</td><td>3,512</td><td>3,391</td><td>3,537</td><td class="key-col key-num">3,352.9</td></tr>
+      <tr><td>영업이익</td><td>268.5</td><td>230.2</td><td>232.3</td><td>226.1</td><td class="key-col key-num">78.3</td></tr>
+      <tr><td>OPM(%)</td><td>7.7</td><td>6.6</td><td>6.8</td><td>6.4</td><td class="key-col key-opm">2.3</td></tr>
+      <tr><td>IT서비스 OP</td><td>225.9</td><td>203.7</td><td>197.2</td><td>200.2</td><td class="key-col">63</td></tr>
+      <tr><td>IT서비스 OPM(%)</td><td>14.1</td><td>12.1</td><td>12.4</td><td>12.0</td><td class="key-col">3.9</td></tr>
+      <tr><td>물류 OP</td><td>42.6</td><td>26.5</td><td>35.1</td><td>25.9</td><td class="key-col">15.3</td></tr>
+    </tbody>
+  </table>
+  <p style="font-size:12px;color:#5a6280;margin-top:10px;">▶ 1Q26 포인트: 2Q26 OEM 11% 후반 전망 — 일회성 제외 IT서비스 OP 1,681억. 퓨리오사 협업 국산 NPU 클라우드 서비스 하반기 출시 계획</p>
+</section>
+
+<section>
+  <div class="section-title">💰 밸류에이션</div>
+  <div class="val-box">
+    <div class="val-formula">Not Rated — 메리츠증권은 TP 미제시</div>
+    <p style="color:#5a6280;font-size:12px;">▶ 참고 기준점: KKR 전환가 18만원이 심리적 지지선. 향후 주가는 (1) 글로벌 클라우드 peer 주가 향방, (2) 실제 M&A 성과에 연동</p>
+  </div>
+</section>
+
+<section>
+  <div class="section-title">⚠️ 리스크</div>
+  <div class="risk-item risk-sev-high">
+    <div class="risk-assumption">🔴 핵심 가정: 글로벌 클라우드·특화 SW peer 주가 반등 지속</div>
+    <div class="risk-chain">→ 붕괴 시: peer 반락 → SDS 멀티플 캐치업 근거 약화<br/>→ 주가 영향: KKR 전환가 18만원 하향 이탈 가능</div>
+    <div class="risk-impact-num">→ 주가 영향: KKR 전환가 18만원 기준 하회 시 -10%+</div>
+  </div>
+  <div class="risk-item risk-sev-mid">
+    <div class="risk-assumption">🟠 두 번째 가정: M&A 딜 실제 성사 + 성과 가시화</div>
+    <div class="risk-chain">→ 붕괴 시: KKR CB 1.2조는 조달에 그치고 실제 M&A 지연 → 투자 기대감 약화</div>
+    <div class="risk-impact-num">→ 주가 영향: 디레이팅 지속</div>
+  </div>
+</section>
+
+<section>
+  <div class="section-title">🎯 모멘텀 체크포인트</div>
+  <div style="background:#fafafa;border:1px solid #d0d4e0;border-radius:8px;padding:4px 16px;">
+    <div class="checkpoint-item">
+      <span class="cp-date">연중</span>
+      <div>
+        <div>글로벌 클라우드 peer 주가 향방 (Palantir·Snowflake·Palo Alto 등)</div>
+        <div class="cp-pass">✅ peer 추가 반등 시 → SDS 캐치업 지속</div>
+        <div class="cp-fail">⛔ peer 반락 시 → SDS 리레이팅 근거 약화</div>
+      </div>
+    </div>
+    <div class="checkpoint-item">
+      <span class="cp-date">2H26</span>
+      <div>
+        <div>실제 M&A 딜 성사 공시 (미국 SW/아시아 IT서비스/피지컬AI/디지털자산/항공물류)</div>
+        <div class="cp-pass">✅ 성사 시 → ⭐핵심 승격 검토</div>
+        <div class="cp-fail">⛔ 지연 시 → 투자 로드맵 신뢰도 훼손</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="section-title">💬 사견 & 결론</div>
+  <div class="opinion-box">
+    <p>Not Rated로 TP 미제시지만 글로벌 peer 반등과 KKR 파트너십 관점은 차별적. 우려 포인트: (1) 26E OP 추정치 없어 핵심 테제 검증 불가, (2) KKR 전환가 18만원 근접 거래로 상승 여력 제한, (3) M&A 딜 실행 시점·규모 모두 불확실. Peer 동향과 M&A 공시 이벤트 확인 후 진입이 합리적.</p>
+    <div class="decision-box">
+      <div class="decision-btn decision-buy decision-dim">✅ 지금 진입</div>
+      <div class="decision-btn decision-wait">⏳ 이벤트 후 진입<br/><span style="font-size:11px;font-weight:400;">Peer 반등 지속 + M&A 공시</span></div>
+      <div class="decision-btn decision-avoid decision-dim">🚫 관망</div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="section-title">🚀 승격 조건</div>
+  <div class="upgrade-box">
+    <div class="upgrade-item">
+      <span class="upgrade-when">2H26</span>
+      <span>M&A 딜 1건+ 성사 공시 (특히 미국 SW·피지컬 AI) → ⭐핵심 승격</span>
+    </div>
+    <div class="upgrade-item">
+      <span class="upgrade-when">연중</span>
+      <span>글로벌 특화 SW peer 추가 20%+ 반등 & SDS 동반 → 핵심 재검토</span>
+    </div>
+  </div>
+</section>
+
+<div class="disclaimer">
+  ※ 본 글은 증권사 리포트를 개인 학습 목적으로 요약·정리한 것이며, 투자 권유가 아닙니다.<br/>
+  ※ 제공된 PDF 파일만 활용.
+</div>
+
+</body>
+</html>

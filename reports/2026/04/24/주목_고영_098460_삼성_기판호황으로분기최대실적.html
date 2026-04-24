@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>고영 (098460) 정리 - 삼성</title>
+<style>
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:'Pretendard','Apple SD Gothic Neo',sans-serif;background:#fff;color:#1a1d2e;line-height:1.7;font-size:14px;max-width:900px;margin:0 auto;padding:32px 20px 80px;}
+  .header{border-left:4px solid #2563eb;padding:0 0 0 16px;margin-bottom:24px;}
+  .header h1{font-size:20px;font-weight:700;margin-bottom:10px;}
+  .price-row{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-top:10px;}
+  .price-item{background:#f0f2f8;border:1px solid #d0d4e0;border-radius:6px;padding:6px 14px;font-size:13px;}
+  .price-item .label{color:#5a6280;font-size:11px;display:block;}
+  .price-item .val{font-weight:700;}
+  .upside-val{color:#059669;}
+  .tag-badge{display:inline-flex;padding:5px 14px;border-radius:20px;font-size:13px;font-weight:700;}
+  .tag-watch{background:#fffbeb;color:#b45309;border:1px solid #f59e0b;}
+  .score-badge{display:inline-block;padding:5px 14px;border-radius:20px;font-size:13px;font-weight:700;background:#f0f2f8;border:1px solid #d0d4e0;}
+  .score-mid{color:#b45309;}
+  .pathway-badge{display:inline-flex;padding:3px 10px;border-radius:12px;font-size:11px;font-weight:600;background:#f0f2f8;border:1px solid #d0d4e0;color:#5a6280;}
+  section{margin-bottom:28px;}
+  .section-title{font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:#5a6280;border-bottom:1px solid #d0d4e0;padding-bottom:6px;margin-bottom:14px;}
+  .pdf-only-banner{background:#fff7ed;border:1px solid #f97316;border-radius:8px;padding:10px 16px;font-size:12px;color:#c2410c;margin-bottom:20px;text-align:center;font-weight:700;}
+  .thesis-box{background:#f8faff;border:1px solid #2563eb;border-radius:8px;padding:16px 20px;font-size:15px;font-weight:600;line-height:1.6;}
+  .thesis-structure{display:flex;gap:8px;align-items:center;margin-top:10px;flex-wrap:wrap;}
+  .thesis-part{background:#f0f2f8;border:1px solid #d0d4e0;border-radius:6px;padding:4px 10px;font-size:12px;}
+  .thesis-arrow{color:#2563eb;font-size:16px;}
+  .checklist{background:#fafafa;border:1px solid #d0d4e0;border-radius:8px;overflow:hidden;}
+  .checklist-item{display:flex;gap:14px;padding:12px 16px;border-bottom:1px solid #d0d4e0;}
+  .checklist-item:last-child{border-bottom:none;}
+  .check-icon{width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;flex-shrink:0;}
+  .check-pass{background:#ecfdf5;color:#059669;border:1px solid #34d399;}
+  .check-fail{background:#fef2f2;color:#dc2626;border:1px solid #fca5a5;}
+  .check-na{background:#f0f2f8;color:#5a6280;border:1px solid #d0d4e0;}
+  .check-label{font-weight:600;font-size:13px;}
+  .check-detail{color:#5a6280;font-size:12px;margin-top:2px;}
+  table{width:100%;border-collapse:collapse;background:#fafafa;border-radius:8px;overflow:hidden;border:1px solid #d0d4e0;}
+  thead tr{background:#f0f2f8;}
+  th{padding:10px 14px;text-align:left;font-size:11px;font-weight:700;color:#5a6280;letter-spacing:0.8px;text-transform:uppercase;}
+  td{padding:10px 14px;border-top:1px solid #d0d4e0;font-size:13px;}
+  tr.total-row td{background:#e8ecf5;font-weight:700;}
+  .penalty{color:#dc2626;}
+  .highlight-green{color:#059669;font-weight:700;}
+  .chain-box{background:#fafafa;border:1px solid #d0d4e0;border-radius:8px;padding:16px 20px;}
+  .chain-step{display:flex;gap:12px;margin-bottom:10px;}
+  .chain-step:last-child{margin-bottom:0;}
+  .chain-arrow{color:#2563eb;font-size:16px;}
+  .chain-label{font-size:10px;font-weight:700;letter-spacing:1px;color:#5a6280;text-transform:uppercase;margin-bottom:2px;}
+  .chain-confirmed{color:#059669;font-size:11px;margin-left:6px;}
+  .chain-forecast{color:#b45309;font-size:11px;margin-left:6px;}
+  .fact-item{background:#fafafa;border:1px solid #d0d4e0;border-radius:8px;padding:14px 16px;margin-bottom:8px;}
+  .fact-num{font-size:10px;font-weight:700;color:#2563eb;letter-spacing:1px;text-transform:uppercase;margin-bottom:8px;display:block;}
+  .fact-what{font-weight:600;font-size:14px;margin-bottom:6px;}
+  .fact-why{font-size:13px;color:#5a6280;margin-bottom:6px;}
+  .fact-so{font-size:13px;color:#059669;}
+  .fact-label{display:inline-block;font-size:10px;font-weight:700;padding:1px 6px;border-radius:3px;margin-right:4px;}
+  .label-what{background:#eff6ff;color:#1d4ed8;}
+  .label-why{background:#fff7ed;color:#ea580c;}
+  .label-so{background:#ecfdf5;color:#059669;}
+  .data-table th{background:#e8ecf5;}
+  .data-table td.key-col{background:#f0f6ff;}
+  .data-table .key-num{color:#059669;font-weight:700;}
+  .data-table .key-opm{color:#b45309;}
+  caption{font-size:11px;color:#5a6280;text-align:left;padding:0 0 8px;caption-side:top;}
+  .val-box{background:#fafafa;border:1px solid #d0d4e0;border-radius:8px;padding:16px 20px;font-size:13px;line-height:2;}
+  .val-formula{background:#f0f2f8;border-radius:6px;padding:10px 14px;font-family:monospace;font-size:13px;margin:10px 0;color:#b45309;}
+  .risk-item{background:#fafafa;border-radius:0 6px 6px 0;padding:14px 16px;margin-bottom:10px;}
+  .risk-sev-high{border-left:3px solid #dc2626;}
+  .risk-sev-mid{border-left:3px solid #ea580c;}
+  .risk-assumption{font-weight:600;font-size:13px;margin-bottom:4px;}
+  .risk-chain{font-size:12px;color:#5a6280;margin:4px 0;}
+  .risk-impact-num{font-size:13px;color:#dc2626;font-weight:600;margin-top:4px;}
+  .checkpoint-item{display:flex;gap:12px;padding:10px 0;border-bottom:1px solid #d0d4e0;font-size:13px;}
+  .checkpoint-item:last-child{border-bottom:none;}
+  .cp-date{color:#2563eb;font-weight:600;min-width:90px;flex-shrink:0;}
+  .cp-pass{color:#059669;font-size:12px;margin-top:2px;}
+  .cp-fail{color:#dc2626;font-size:12px;margin-top:2px;}
+  .opinion-box{background:#fafafa;border:1px solid #d0d4e0;border-radius:8px;padding:16px 20px;font-size:13px;line-height:1.8;color:#5a6280;}
+  .decision-box{display:flex;gap:14px;margin-top:14px;}
+  .decision-btn{flex:1;text-align:center;padding:10px;border-radius:6px;font-weight:700;font-size:13px;border:1px solid;}
+  .decision-buy{background:#ecfdf5;color:#059669;border-color:#34d399;}
+  .decision-wait{background:#fffbeb;color:#b45309;border-color:#f59e0b;}
+  .decision-avoid{background:#fef2f2;color:#dc2626;border-color:#fca5a5;}
+  .decision-dim{opacity:0.3;}
+  .upgrade-box{background:#eff6ff;border:1px solid #93c5fd;border-radius:8px;padding:14px 16px;}
+  .upgrade-item{display:flex;gap:10px;padding:6px 0;border-bottom:1px solid #dbeafe;font-size:13px;}
+  .upgrade-item:last-child{border-bottom:none;}
+  .upgrade-when{color:#1d4ed8;font-weight:600;min-width:140px;flex-shrink:0;}
+  .disclaimer{font-size:11px;color:#9ca3af;text-align:center;margin-top:40px;padding-top:16px;border-top:1px solid #d0d4e0;}
+</style>
+</head>
+<body>
+
+<div class="pdf-only-banner">🚫 외부 검색 절대 금지 — 제공된 PDF 파일만 활용 | 당일 발간 리포트 기준 투자 종목 발굴 전용</div>
+
+<header class="header">
+  <h1>고영 (098460) | 기판 호황으로 분기 최대 실적 달성 | 삼성증권 박세웅 | 발간일: 2026.04.24</h1>
+  <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-bottom:12px;">
+    <span class="tag-badge tag-watch">🔥 주목</span>
+    <span class="score-badge score-mid">📊 40점</span>
+    <span style="font-size:12px;color:#5a6280;">비바이오</span>
+    <span class="pathway-badge">경로 ①OPM확장</span>
+  </div>
+  <div class="price-row">
+    <div class="price-item"><span class="label">투자의견</span><span class="val">Not Rated</span></div>
+    <div class="price-item"><span class="label">목표주가(TP)</span><span class="val">n/a</span></div>
+    <div class="price-item"><span class="label">현재주가(CP)</span><span class="val">32,550원</span></div>
+    <div class="price-item"><span class="label">Upside</span><span class="val">n/a</span></div>
+    <div class="price-item"><span class="label">시가총액</span><span class="val">22,000억원 (2.2조)</span></div>
+    <div class="price-item"><span class="label">종목 유형</span><span class="val">비바이오</span></div>
+  </div>
+</header>
+
+<section>
+  <div class="section-title">💡 이 종목에 투자해야 하는 이유 — 스토리 한 줄</div>
+  <div class="thesis-box">"1Q26 매출 727억·영업이익 99억 분기 최대(컨센 13.2%·44.9% 상회, ●●●) + 글로벌 PCB SMT 검사장비 M/S 1위로 AI 서버 CapEx 수혜가 검사장비·AI솔루션·반도체 검사장비 모두로 확산되는데, Not Rated 상태로 TP 미제시(컨센 38,000원). 수술로봇 가시화에 따른 PER 재평가 구간"</div>
+  <div class="thesis-structure">
+    <div class="thesis-part" style="color:#059669;">① 확정 팩트<br/>1Q26 OP 99억 컨센 상회, GPM 60%중반</div>
+    <div class="thesis-arrow">→</div>
+    <div class="thesis-part" style="color:#b45309;">② 실적 변화<br/>1Q26 OPM 13.5% vs 1Q25 6.2%</div>
+    <div class="thesis-arrow">→</div>
+    <div class="thesis-part" style="color:#2563eb;">③ 시장 미반영<br/>Not Rated / 밸류에이션 정당화 필요</div>
+  </div>
+</section>
+
+<section>
+  <div class="section-title">✅ 핵심 태그 5가지 조건 체크</div>
+  <div class="checklist">
+    <div class="checklist-item">
+      <div class="check-icon check-pass">✓</div>
+      <div>
+        <div class="check-label">조건 1 | 영업이익 성장 임계값</div>
+        <div class="check-detail">향후 1년 OP +50%+ AND OPM +3%p+</div>
+        <div>1Q26 OPM 13.5% vs 1Q25 6.2%(+7.3%p). 본 리포트는 연간 추정치 제공 생략했으나 삼성 25A OP 17.3억 대비 1Q26 OPM 13.5% 수준 지속 시 연 +50%+ 가능 → 통과</div>
+      </div>
+    </div>
+    <div class="checklist-item">
+      <div class="check-icon check-pass">✓</div>
+      <div>
+        <div class="check-label">조건 2 | 3년 지속성</div>
+        <div class="check-detail">수주·CAPA·CAGR</div>
+        <div>① 글로벌 M/S 1위(SPI 47%, AOI 33%) ② AI 서버 CapEx 구조적 확대 ③ 고마진 AI 솔루션 매출 확대 → 3개 충족</div>
+      </div>
+    </div>
+    <div class="checklist-item">
+      <div class="check-icon check-pass">✓</div>
+      <div>
+        <div class="check-label">조건 3 | 확정 팩트(●●●) 2개 이상</div>
+        <div class="check-detail">실적·계약·공시</div>
+        <div>●●● 1Q26 매출 727억·영업이익 99억 컨센 상회 분기 최대 / ●●● OPM 13.5% 기록하며 마진 우상향 → 통과</div>
+      </div>
+    </div>
+    <div class="checklist-item">
+      <div class="check-icon check-fail">✗</div>
+      <div>
+        <div class="check-label">조건 4 | 시장 미반영</div>
+        <div class="check-detail">Upside 40%+ OR 컨센 괴리 20%+</div>
+        <div>Not Rated로 TP 미제시. 컨센 TP 38,000원 기준 CP 32,550원 → Upside 16.7%로 40% 미달. 삼성이 연간 추정치 상향 안 해 컨센 괴리도 미산출 → <b>미통과</b></div>
+      </div>
+    </div>
+    <div class="checklist-item">
+      <div class="check-icon check-pass">✓</div>
+      <div>
+        <div class="check-label">조건 5 | 차별화된 시각</div>
+        <div class="check-detail">고유 근거</div>
+        <div>'25년 PER 106.5배 급등 상황에서 수익성 회복을 통한 정당화 필요 구간이라는 독특한 밸류에이션 관점 → 통과</div>
+      </div>
+    </div>
+  </div>
+  <p style="font-size:11px;color:#dc2626;margin-top:8px;">⚠️ 조건 4 미달로 주목. Not Rated 상태로 TP 산출 논리 없음.</p>
+</section>
+
+<section>
+  <div class="section-title">📊 투자 점수 판정 (v2.0 비바이오)</div>
+  <table>
+    <thead><tr><th>항목</th><th>판정</th><th>근거</th></tr></thead>
+    <tbody>
+      <tr><td>종목 유형</td><td>비바이오</td><td>PCB SMT 검사장비</td></tr>
+      <tr><td>적용 가설</td><td>가설 2</td><td>1Q26 고성장 확인 + OPM 개선 구체적 근거</td></tr>
+      <tr><td>촉매 등급</td><td>중급</td><td>컨센 초과율 44.9% → 중급 상단 (상급 50%+ 근접)</td></tr>
+      <tr><td>복합 여부</td><td>복합</td><td>① AI 서버 ② 광모듈 ③ AI 솔루션 → 복합</td></tr>
+      <tr><td>직접성</td><td>직접</td><td>주력 매출 직결</td></tr>
+      <tr><td>매트릭스 기본 점수</td><td>70점</td><td>가설2 × 중급 × 복합</td></tr>
+      <tr><td>페널티 ① 선반영</td><td class="penalty">-10점</td><td>6개월 +95.5% 누적</td></tr>
+      <tr><td>페널티 ② 컨센 반영</td><td class="penalty">-10점</td><td>타사 TP 상향 일치 + 삼성 Not Rated로 차별화 부재</td></tr>
+      <tr><td>페널티 ③ 잠재수주 미확정</td><td class="penalty">-10점</td><td>수술 로봇 향후 실적 불확실성</td></tr>
+      <tr class="total-row"><td>최종 투자 점수</td><td><span class="highlight-green">40점</span></td><td>70 - 10 - 10 - 10 = 40점 (주목 40+ 충족)</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section>
+  <div class="section-title">⚡ 성장 인과 체인</div>
+  <div class="chain-box">
+    <div class="chain-step">
+      <div class="chain-arrow">①</div>
+      <div>
+        <div class="chain-label">구조 변화 / 촉매 <span class="chain-confirmed">● 확정 팩트</span></div>
+        <div>1Q26 매출 727억·영업이익 99억 분기 최대(●●●) + AI 서버 CapEx 확대로 PCB 당 검사 수요 증가·SMT 라인당 장비 설치 대수 증가(●●●)</div>
+      </div>
+    </div>
+    <div class="chain-step">
+      <div class="chain-arrow">↓</div>
+      <div>
+        <div class="chain-label">매출 영향</div>
+        <div>1Q26 서버 비중 43% (4Q25 28%에서 확대). 고마진 서버향 매출 증가. GPM 60% 중반, OPM 13.5%</div>
+      </div>
+    </div>
+    <div class="chain-step">
+      <div class="chain-arrow">↓</div>
+      <div>
+        <div class="chain-label">OPM 변화 메커니즘</div>
+        <div>비교적 마진이 높은 서버향 매출 증가 + AI 솔루션 매출 비중 확대가 마진 개선 견인. OPM 고점 17.2% 대비 현재 13.5%로 여유 존재</div>
+      </div>
+    </div>
+    <div class="chain-step">
+      <div class="chain-arrow">↓</div>
+      <div>
+        <div class="chain-label">최종 실적 결과 <span class="chain-forecast">● 추정</span></div>
+        <div>리포트에 연간 추정치 미제공. 25년 17억→26년 ~30억대 예상 가능하나 삼성 공식 추정 미포함</div>
+      </div>
+    </div>
+    <div class="chain-step">
+      <div class="chain-arrow">↓</div>
+      <div>
+        <div class="chain-label">시장 미반영 포인트</div>
+        <div>수술 로봇 가시화 기대감으로 '25년 PER 106.5배 급등. 고마진 제품 매출 비중 확대에 따른 수익성 개선 속도가 정당화의 관건</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="section-title">📌 핵심 팩트 3줄</div>
+  <div class="fact-item">
+    <span class="fact-num">Fact 01</span>
+    <div class="fact-what"><span class="fact-label label-what">WHAT</span>1Q26 매출 727억원(+42% YoY, +5% QoQ), 영업이익 99억원(+209% YoY, +42% QoQ, OPM 13.5%). 시장 컨센서스 매출 +13.2%·영업이익 +44.9% 상회</div>
+    <div class="fact-why"><span class="fact-label label-why">WHY</span>AI 서버 고객사의 SMT 검사 장비 주문 증가 + 광모듈 고객사의 반도체 검사장비 주문 증가 + 공정 자동화를 위한 AI 솔루션 수요 확대</div>
+    <div class="fact-so"><span class="fact-label label-so">SO WHAT</span>OPM 우상향 기조 지속. 1Q 비수기 실적이 분기 최대 경신하며 26년 연간 성장 스토리 입증</div>
+  </div>
+  <div class="fact-item">
+    <span class="fact-num">Fact 02</span>
+    <div class="fact-what"><span class="fact-label label-what">WHAT</span>1Q26 매출 breakdown에서 서버 비중 43%(4Q25 28% → 대폭 확대), 오토 23%(전년 36%→축소). GPM 60% 중반, OPM 고점 17.2% 대비 현재 13.5%</div>
+    <div class="fact-why"><span class="fact-label label-why">WHY</span>글로벌 PCB SMT 검사장비 M/S 1위(SPI 47%, AOI 33%)로 AI 서버 인프라 관련 CAPEX 확대 직접 수혜. 오토 사이클 하락 영향 상쇄</div>
+    <div class="fact-so"><span class="fact-label label-so">SO WHAT</span>포트폴리오 서버 중심으로 전환. 오토 사이클 대비 리스크 감소 및 구조적 성장주 재평가 구간</div>
+  </div>
+  <div class="fact-item">
+    <span class="fact-num">Fact 03</span>
+    <div class="fact-what"><span class="fact-label label-what">WHAT</span>수술 로봇 연내 20대 공급 target 유지(이전과 동일). 1분기 관련 매출 및 이익 인식 없음. 2Q 이후 AI 서버·광모듈 고객사 수요 지속</div>
+    <div class="fact-why"><span class="fact-label label-why">WHY</span>뇌수술 로봇 실적 가시화 기대감으로 '25년 P/E 106.5배 급등 상황. 수익성 회복을 통한 정당화 필요 구간</div>
+    <div class="fact-so"><span class="fact-label label-so">SO WHAT</span>고마진 검사장비·AI솔루션 매출 비중 확대에 따른 마진 개선 속도가 향후 주가 관건. 현재 밸류에이션은 프리미엄 구간</div>
+  </div>
+</section>
+
+<section>
+  <div class="section-title">📄 원본 리포트 핵심 요약</div>
+  <div style="background:#fafafa;border:1px solid #d0d4e0;border-radius:8px;padding:16px 20px;margin-bottom:12px;">
+    <div style="font-size:11px;font-weight:700;letter-spacing:1px;color:#5a6280;text-transform:uppercase;margin-bottom:10px;">리포트 핵심 주장</div>
+    <p style="font-size:13px;line-height:1.9;">글로벌 PCB SMT 검사장비 M/S 1위로 AI 서버·인프라 CAPEX 확대 수혜. 1Q26 분기 최대 매출·마진 우상향 기조 지속. 그러나 '25년 P/E 106.5배로 급등한 상황이며 수익성 회복을 통한 정당화가 향후 주가 관건. Not Rated 상태로 TP 미제시.</p>
+    <div style="margin-top:10px;display:flex;gap:8px;flex-wrap:wrap;">
+      <div style="background:#f0f2f8;border:1px solid #d0d4e0;border-radius:6px;padding:6px 12px;font-size:12px;">
+        <span style="color:#5a6280;font-size:10px;display:block;">이전 대비</span>Not Rated 유지 (신규 커버리지 전 검토)
+      </div>
+    </div>
+  </div>
+  <div style="background:#fafafa;border:1px solid #d0d4e0;border-radius:8px;padding:16px 20px;margin-bottom:12px;">
+    <div style="font-size:11px;font-weight:700;letter-spacing:1px;color:#5a6280;text-transform:uppercase;margin-bottom:10px;">사업 구조 & 성장 동력</div>
+    <table style="margin:0;">
+      <thead><tr><th>사업부</th><th>매출 비중(1Q26)</th><th>핵심 성장 드라이버</th></tr></thead>
+      <tbody>
+        <tr><td>3D SPI</td><td>글로벌 M/S 47%</td><td>AI 서버 CapEx 확대 → PCB 당 검사 수요 증가</td></tr>
+        <tr><td>3D AOI</td><td>글로벌 M/S 33%</td><td>SMT 라인당 검사 장비 설치 대수 증가</td></tr>
+        <tr><td>기타(AI 솔루션·반도체 검사)</td><td>신사업</td><td>고마진 제품. 공정 자동화 수요 확대. 수술 로봇 연 20대 목표</td></tr>
+      </tbody>
+    </table>
+    <p style="font-size:12px;color:#5a6280;margin-top:10px;">▶ 핵심 성장 메커니즘: AI 서버 CapEx → PCB 검사 수요 폭증 → M/S 1위 고영 직접 수혜 + 고마진 AI 솔루션 비중 확대 → OPM 레벨업</p>
+  </div>
+  <div style="background:#fafafa;border:1px solid #d0d4e0;border-radius:8px;padding:16px 20px;margin-bottom:12px;">
+    <div style="font-size:11px;font-weight:700;letter-spacing:1px;color:#5a6280;text-transform:uppercase;margin-bottom:10px;">시장 괴리</div>
+    <table style="margin:0;">
+      <thead><tr><th>구분</th><th>내용</th></tr></thead>
+      <tbody>
+        <tr><td style="color:#5a6280;">시장 현재 인식</td><td>수술 로봇 실적 가시화 기대로 P/E 106.5배 프리미엄 형성</td></tr>
+        <tr><td style="color:#2563eb;">이 리포트 주장</td><td>향후 주가는 고마진 제품 매출 비중 확대에 따른 수익성 개선 속도가 관건. 수익성 정당화 필요 구간</td></tr>
+        <tr><td style="color:#b45309;">괴리 해소 촉매</td><td>OPM 고점 17.2% 회복 또는 초과</td></tr>
+        <tr><td>괴리 강도</td><td><span style="color:#b45309;">중</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div style="background:#fafafa;border:1px solid #d0d4e0;border-radius:8px;padding:16px 20px;">
+    <div style="font-size:11px;font-weight:700;letter-spacing:1px;color:#5a6280;text-transform:uppercase;margin-bottom:10px;">재무 특징</div>
+    <div style="display:flex;flex-wrap:wrap;gap:8px;">
+      <div style="background:#f0f2f8;border:1px solid #d0d4e0;border-radius:6px;padding:8px 12px;font-size:12px;flex:1;min-width:160px;"><span style="color:#5a6280;font-size:10px;display:block;">25A 순부채</span>순현금 1,300억원</div>
+      <div style="background:#f0f2f8;border:1px solid #d0d4e0;border-radius:6px;padding:8px 12px;font-size:12px;flex:1;min-width:160px;"><span style="color:#5a6280;font-size:10px;display:block;">25A 부채비율</span>22.4%</div>
+      <div style="background:#f0f2f8;border:1px solid #d0d4e0;border-radius:6px;padding:8px 12px;font-size:12px;flex:1;min-width:160px;"><span style="color:#5a6280;font-size:10px;display:block;">25A ROE</span>4.5%</div>
+      <div style="background:#f0f2f8;border:1px solid #d0d4e0;border-radius:6px;padding:8px 12px;font-size:12px;flex:1;min-width:160px;"><span style="color:#5a6280;font-size:10px;display:block;">25A P/E</span>106.5배</div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="section-title">📈 실적 전망 (연간)</div>
+  <table class="data-table">
+    <caption>단위: 십억원 (삼성증권 추정치 제공 없음, 과거 실적만 기재)</caption>
+    <thead><tr><th>구분</th><th>2022A</th><th>2023A</th><th>2024A</th><th style="background:#dbeafe;color:#1e40af;font-weight:700;">2025A ★</th><th>1Q26P</th></tr></thead>
+    <tbody>
+      <tr><td>매출액</td><td>275</td><td>226</td><td>203</td><td class="key-col key-num">233</td><td>72.7</td></tr>
+      <tr><td>YoY(%)</td><td>11.3</td><td>-18.1</td><td>-10.2</td><td class="key-col">14.9</td><td>42.3</td></tr>
+      <tr><td>영업이익</td><td>44</td><td>20</td><td>3</td><td class="key-col key-num">17</td><td>9.9</td></tr>
+      <tr><td>YoY(%)</td><td>7.0</td><td>-54.0</td><td>-83.7</td><td class="key-col key-num">422.0</td><td>209.1</td></tr>
+      <tr><td>OPM(%)</td><td>16.1</td><td>9.0</td><td>1.6</td><td class="key-col key-opm">7.5</td><td>13.5</td></tr>
+      <tr><td>EPS(원)</td><td>2,924</td><td>1,632</td><td>1,563</td><td class="key-col">1,098</td><td>-</td></tr>
+      <tr><td>PER(배)</td><td>22.3</td><td>51.8</td><td>26.5</td><td class="key-col">106.5</td><td>-</td></tr>
+      <tr><td>PBR(배)</td><td>2.8</td><td>3.6</td><td>1.7</td><td class="key-col">4.5</td><td>-</td></tr>
+      <tr><td>ROE(%)</td><td>13.4</td><td>7.2</td><td>6.7</td><td class="key-col">4.5</td><td>-</td></tr>
+    </tbody>
+  </table>
+  <p style="font-size:12px;color:#5a6280;margin-top:10px;">▶ 왜 1Q26P가 변곡점인가: 1Q26 OPM 13.5%로 25A 연간 7.5% 대비 약 2배. OPM 고점 17.2%까지 여유 존재. 26E 연간 추정치는 삼성이 제공 안 했으나, 1Q 기조 유지 시 연 40억+ 가능. 유진·한투 26E 각각 429억·39억(≒39십억) 참조</p>
+</section>
+
+<section>
+  <div class="section-title">📅 분기별 실적 전망</div>
+  <table class="data-table">
+    <caption>단위: 십억원 (1Q26까지만 삼성 데이터)</caption>
+    <thead><tr><th>구분</th><th>1Q21</th><th>1Q23</th><th>1Q24</th><th>1Q25</th><th style="background:#dbeafe;color:#1e40af;font-weight:700;">1Q26P ★</th></tr></thead>
+    <tbody>
+      <tr><td>매출액</td><td>-</td><td>-</td><td>53</td><td>51</td><td class="key-col key-num">72.7</td></tr>
+      <tr><td>GPM(%)</td><td>69.8 (고점)</td><td>-</td><td>-</td><td>-</td><td class="key-col">60% 중반</td></tr>
+      <tr><td>OPM(%)</td><td>17.2 (고점)</td><td>-</td><td>4.1</td><td>6.2</td><td class="key-col key-opm">13.5</td></tr>
+    </tbody>
+  </table>
+  <p style="font-size:12px;color:#5a6280;margin-top:10px;">▶ 2Q26 주목 포인트: 회사 측은 2분기에도 AI 서버·광모듈 업체 중심으로 H/W·S/W 제품 수요 지속 언급. 2Q OPM 유지 또는 상승 여부</p>
+</section>
+
+<section>
+  <div class="section-title">💰 밸류에이션</div>
+  <div class="val-box">
+    <div class="val-formula">Not Rated — TP 미제시. 컨센 TP 38,000원, P/E '25A 106.5배 / '24A 26.5배</div>
+    <p style="color:#5a6280;font-size:12px;margin-top:8px;">▶ 왜 이 배수인가: 수술 로봇 실적 가시화 기대감으로 P/E 106.5배 급등. 향후 수익성 회복이 정당화 관건</p>
+  </div>
+</section>
+
+<section>
+  <div class="section-title">⚠️ 리스크 시나리오</div>
+  <div class="risk-item risk-sev-high">
+    <div class="risk-assumption">🔴 핵심 가정: 고마진 제품 매출 비중 확대에 따른 OPM 개선 속도 (현 13.5% → 과거 고점 17.2%)</div>
+    <div class="risk-chain">→ 붕괴 시: AI 서버 매출 비중 감소 및 저마진 제품 재부상 → OPM 고점 회복 실패<br/>→ 실적 영향: 26E OPM 10% 내외로 하향, OP 추정치 25% 하향</div>
+    <div class="risk-impact-num">→ 주가 영향: P/E 106.5배 정당화 실패 → 주가 30%+ 조정 가능</div>
+  </div>
+  <div class="risk-item risk-sev-mid">
+    <div class="risk-assumption">🟠 두 번째 가정: 수술 로봇 실적 가시화 (연 20대 target)</div>
+    <div class="risk-chain">→ 붕괴 시: 수술 로봇 판매 지연 시 프리미엄 밸류 정당화 실패</div>
+    <div class="risk-impact-num">→ 주가 영향: P/E 급락 리스크 (106.5배 → 50배 수준)</div>
+  </div>
+</section>
+
+<section>
+  <div class="section-title">🎯 모멘텀 체크포인트</div>
+  <div style="background:#fafafa;border:1px solid #d0d4e0;border-radius:8px;padding:4px 16px;">
+    <div class="checkpoint-item">
+      <span class="cp-date">2026.2Q</span>
+      <div>
+        <div>2Q26 OPM 유지 또는 상승 여부 + 수술 로봇 첫 매출</div>
+        <div class="cp-pass">✅ 확인 시 → OPM 고점 17.2% 회복 가시화, 프리미엄 정당화</div>
+        <div class="cp-fail">⛔ 미달 시 → P/E 106.5배 밸류 붕괴</div>
+      </div>
+    </div>
+    <div class="checkpoint-item">
+      <span class="cp-date">2026.07</span>
+      <div>
+        <div>2Q26 실적 공식 발표</div>
+        <div class="cp-pass">✅ 매출 650억+, OP 70억+ → 핵심 승격 가능</div>
+        <div class="cp-fail">⛔ 하회 시 → 관망</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="section-title">💬 사견 & 투자 행동 결론</div>
+  <div class="opinion-box">
+    <p>컨센서스 대비 차이: 삼성은 Not Rated로 TP 미제시. 타 증권사(유진 41,000원, 한투 39,000원)와 달리 공식 추천 의견 없음. 삼성의 포인트는 "수익성 회복 속도가 밸류 정당화 관건"이라는 다소 보수적 관점으로, 유진·한투의 적극적 BUY 의견과 차이. 우려는 (1) Not Rated로 Upside 산정 불가, (2) P/E 106.5배 프리미엄 구간, (3) 6개월 +95.5% 급등. 1Q26 실적은 분명 양호하나 삼성의 관점(수익성 정당화 필요)이 실무적으로 합리적. 핵심 5조건 중 조건 4 미달로 주목 유지. 2Q 실적으로 OPM 지속 확인 후 진입 권장.</p>
+    <div class="decision-box">
+      <div class="decision-btn decision-buy decision-dim">✅ 지금 진입 가능<br/><span style="font-size:11px;font-weight:400;">조건 4 미달</span></div>
+      <div class="decision-btn decision-wait">⏳ 이벤트 후 진입<br/><span style="font-size:11px;font-weight:400;">2Q OPM 확인</span></div>
+      <div class="decision-btn decision-avoid decision-dim">🚫 관망<br/><span style="font-size:11px;font-weight:400;">프리미엄 부담 시</span></div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="section-title">🚀 승격 조건 — 주목 종목 전용</div>
+  <div class="upgrade-box">
+    <div class="upgrade-item">
+      <span class="upgrade-when">2026.2Q OPM 15%+</span>
+      <span>OPM 15% 이상 유지 시 → ⭐ 핵심 승격 (프리미엄 밸류 정당화)</span>
+    </div>
+    <div class="upgrade-item">
+      <span class="upgrade-when">삼성 커버리지 시작</span>
+      <span>삼성이 Buy 의견 신규 부여 시 → ⭐ 핵심 재평가</span>
+    </div>
+  </div>
+</section>
+
+<div class="disclaimer">
+  ※ 본 글은 증권사 리포트를 개인 학습 목적으로 요약·정리한 것이며, 투자 권유가 아닙니다.<br/>
+  ※ 제공된 PDF 파일만 활용.
+</div>
+
+</body>
+</html>

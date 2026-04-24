@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>현대차 (005380) 정리</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Pretendard','Apple SD Gothic Neo',-apple-system,sans-serif; background: #ffffff; color: #1a1d2e; line-height: 1.7; font-size: 14px; max-width: 900px; margin: 0 auto; padding: 32px 20px 80px; }
+  .header { border-left: 4px solid #2563eb; padding: 0 0 0 16px; margin-bottom: 24px; }
+  .header h1 { font-size: 20px; font-weight: 700; margin-bottom: 10px; color: #1a1d2e; }
+  .price-row { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin-top: 10px; }
+  .price-item { background: #f0f2f8; border: 1px solid #d0d4e0; border-radius: 6px; padding: 6px 14px; font-size: 13px; }
+  .price-item .label { color: #5a6280; font-size: 11px; display: block; }
+  .price-item .val { font-weight: 700; color: #1a1d2e; }
+  .upside-val { color: #059669; }
+  .tag-badge { display: inline-flex; align-items: center; gap: 6px; padding: 5px 14px; border-radius: 20px; font-size: 13px; font-weight: 700; }
+  .tag-watch { background: #fffbeb; color: #b45309; border: 1px solid #f59e0b; }
+  .score-badge { display: inline-block; padding: 5px 14px; border-radius: 20px; font-size: 13px; font-weight: 700; background: #f0f2f8; border: 1px solid #d0d4e0; color: #1a1d2e; }
+  .score-mid { color: #b45309; }
+  .pathway-badge { display: inline-flex; align-items: center; gap: 4px; padding: 3px 10px; border-radius: 12px; font-size: 11px; font-weight: 600; background: #f0f2f8; border: 1px solid #d0d4e0; color: #5a6280; }
+  section { margin-bottom: 28px; }
+  .section-title { font-size: 11px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: #5a6280; border-bottom: 1px solid #d0d4e0; padding-bottom: 6px; margin-bottom: 14px; }
+  .pdf-only-banner { background: #fff7ed; border: 1px solid #f97316; border-radius: 8px; padding: 10px 16px; font-size: 12px; color: #c2410c; margin-bottom: 20px; text-align: center; font-weight: 700; }
+  .thesis-box { background: #f8faff; border: 1px solid #2563eb; border-radius: 8px; padding: 16px 20px; font-size: 15px; font-weight: 600; line-height: 1.6; color: #1a1d2e; }
+  .thesis-structure { display: flex; gap: 8px; align-items: center; margin-top: 10px; flex-wrap: wrap; }
+  .thesis-part { background: #f0f2f8; border: 1px solid #d0d4e0; border-radius: 6px; padding: 4px 10px; font-size: 12px; color: #1a1d2e; }
+  .thesis-arrow { color: #2563eb; font-size: 16px; }
+  .checklist { background: #fafafa; border: 1px solid #d0d4e0; border-radius: 8px; overflow: hidden; }
+  .checklist-item { display: flex; gap: 14px; align-items: flex-start; padding: 12px 16px; border-bottom: 1px solid #d0d4e0; }
+  .checklist-item:last-child { border-bottom: none; }
+  .check-icon { width: 22px; height: 22px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; flex-shrink: 0; margin-top: 1px; }
+  .check-pass { background: #ecfdf5; color: #059669; border: 1px solid #34d399; }
+  .check-fail { background: #fef2f2; color: #dc2626; border: 1px solid #fca5a5; }
+  .check-label { font-weight: 600; font-size: 13px; color: #1a1d2e; }
+  .check-detail { color: #5a6280; font-size: 12px; margin-top: 2px; }
+  .check-why { color: #1a1d2e; font-size: 13px; }
+  table { width: 100%; border-collapse: collapse; background: #fafafa; border-radius: 8px; overflow: hidden; border: 1px solid #d0d4e0; }
+  thead tr { background: #f0f2f8; }
+  th { padding: 10px 14px; text-align: left; font-size: 11px; font-weight: 700; color: #5a6280; letter-spacing: 0.8px; text-transform: uppercase; }
+  td { padding: 10px 14px; border-top: 1px solid #d0d4e0; font-size: 13px; color: #1a1d2e; }
+  tr.total-row td { background: #e8ecf5; font-weight: 700; }
+  .penalty { color: #dc2626; }
+  .highlight-green { color: #059669; font-weight: 700; }
+  .chain-box { background: #fafafa; border: 1px solid #d0d4e0; border-radius: 8px; padding: 16px 20px; }
+  .chain-step { display: flex; gap: 12px; align-items: flex-start; margin-bottom: 10px; }
+  .chain-step:last-child { margin-bottom: 0; }
+  .chain-arrow { color: #2563eb; font-size: 16px; flex-shrink: 0; margin-top: 1px; }
+  .chain-content { flex: 1; }
+  .chain-label { font-size: 10px; font-weight: 700; letter-spacing: 1px; color: #5a6280; text-transform: uppercase; margin-bottom: 2px; }
+  .chain-text { font-size: 13px; color: #1a1d2e; }
+  .chain-confirmed { color: #059669; font-size: 11px; margin-left: 6px; }
+  .chain-forecast { color: #b45309; font-size: 11px; margin-left: 6px; }
+  .fact-item { background: #fafafa; border: 1px solid #d0d4e0; border-radius: 8px; padding: 14px 16px; margin-bottom: 8px; }
+  .fact-num { font-size: 10px; font-weight: 700; color: #2563eb; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 8px; display: block; }
+  .fact-what { font-weight: 600; font-size: 14px; margin-bottom: 6px; color: #1a1d2e; }
+  .fact-why { font-size: 13px; color: #5a6280; margin-bottom: 6px; }
+  .fact-so { font-size: 13px; color: #059669; }
+  .fact-label { display: inline-block; font-size: 10px; font-weight: 700; padding: 1px 6px; border-radius: 3px; margin-right: 4px; }
+  .label-what { background: #eff6ff; color: #1d4ed8; }
+  .label-why { background: #fff7ed; color: #ea580c; }
+  .label-so { background: #ecfdf5; color: #059669; }
+  .data-table th { background: #e8ecf5; }
+  .data-table td.key-col { background: #f0f6ff; }
+  .data-table .key-num { color: #059669; font-weight: 700; }
+  .data-table .key-opm { color: #b45309; }
+  caption { font-size: 11px; color: #5a6280; text-align: left; padding: 0 0 8px; caption-side: top; }
+  .val-box { background: #fafafa; border: 1px solid #d0d4e0; border-radius: 8px; padding: 16px 20px; font-size: 13px; line-height: 2; color: #1a1d2e; }
+  .val-formula { background: #f0f2f8; border-radius: 6px; padding: 10px 14px; font-family: monospace; font-size: 13px; margin: 10px 0; color: #b45309; }
+  .risk-item { background: #fafafa; border-radius: 0 6px 6px 0; padding: 14px 16px; margin-bottom: 10px; }
+  .risk-sev-high { border-left: 3px solid #dc2626; }
+  .risk-sev-mid { border-left: 3px solid #ea580c; }
+  .risk-assumption { font-weight: 600; font-size: 13px; margin-bottom: 4px; color: #1a1d2e; }
+  .risk-chain { font-size: 12px; color: #5a6280; margin: 4px 0; }
+  .risk-impact-num { font-size: 13px; color: #dc2626; font-weight: 600; margin-top: 4px; }
+  .checkpoint-item { display: flex; gap: 12px; padding: 10px 0; border-bottom: 1px solid #d0d4e0; font-size: 13px; }
+  .checkpoint-item:last-child { border-bottom: none; }
+  .cp-date { color: #2563eb; font-weight: 600; min-width: 90px; flex-shrink: 0; }
+  .cp-event { flex: 1; color: #1a1d2e; }
+  .cp-pass { color: #059669; font-size: 12px; margin-top: 2px; }
+  .cp-fail { color: #dc2626; font-size: 12px; margin-top: 2px; }
+  .opinion-box { background: #fafafa; border: 1px solid #d0d4e0; border-radius: 8px; padding: 16px 20px; font-size: 13px; line-height: 1.8; color: #5a6280; }
+  .decision-box { display: flex; gap: 14px; margin-top: 14px; }
+  .decision-btn { flex: 1; text-align: center; padding: 10px; border-radius: 6px; font-weight: 700; font-size: 13px; border: 1px solid; }
+  .decision-buy { background: #ecfdf5; color: #059669; border-color: #34d399; }
+  .decision-wait { background: #fffbeb; color: #b45309; border-color: #f59e0b; }
+  .decision-avoid { background: #fef2f2; color: #dc2626; border-color: #fca5a5; }
+  .decision-dim { opacity: 0.3; }
+  .upgrade-box { background: #eff6ff; border: 1px solid #93c5fd; border-radius: 8px; padding: 14px 16px; }
+  .upgrade-item { display: flex; gap: 10px; padding: 6px 0; border-bottom: 1px solid #dbeafe; font-size: 13px; color: #1a1d2e; }
+  .upgrade-item:last-child { border-bottom: none; }
+  .upgrade-when { color: #1d4ed8; font-weight: 600; min-width: 140px; flex-shrink: 0; }
+  .disclaimer { font-size: 11px; color: #9ca3af; text-align: center; margin-top: 40px; padding-top: 16px; border-top: 1px solid #d0d4e0; }
+</style>
+</head>
+<body>
+
+<div class="pdf-only-banner">🚫 외부 검색 절대 금지 — 제공된 PDF 파일만 활용 | 당일 발간 리포트 기준 투자 종목 발굴 전용</div>
+
+<header class="header">
+  <h1>현대차 (005380) | 금융 사업 실적이 견인한 역대 최대 1분기 매출 | 신영증권 문용권 | 발간일: 2026.04.24</h1>
+  <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-bottom:12px;">
+    <span class="tag-badge tag-watch">🔥 주목</span>
+    <span class="score-badge score-mid">📊 40점</span>
+    <span style="font-size:12px;color:#5a6280;">비바이오</span>
+    <span class="pathway-badge">경로 ⑤재평가</span>
+  </div>
+  <div class="price-row">
+    <div class="price-item"><span class="label">투자의견</span><span class="val">매수(유지)</span></div>
+    <div class="price-item"><span class="label">목표주가(TP)</span><span class="val">630,000원</span></div>
+    <div class="price-item"><span class="label">현재주가(CP)</span><span class="val">532,000원</span></div>
+    <div class="price-item"><span class="label">Upside</span><span class="val upside-val">+18.4%</span></div>
+    <div class="price-item"><span class="label">시가총액</span><span class="val">108,931억원</span></div>
+    <div class="price-item"><span class="label">종목 유형</span><span class="val">비바이오</span></div>
+  </div>
+</header>
+
+<section>
+  <div class="section-title">💡 이 종목에 투자해야 하는 이유 — 스토리 한 줄</div>
+  <div class="thesis-box">
+    "금융 사업 매출 +22% 급등으로 1Q26 역대 최대 연결 매출 46조 달성(●●●) + 1Q 관세 860십억원(3개 분기 중 최소, 2H부터 전년비 축소)(●●●), 그랜저 F/L + 아이오닉2 터키 공장 가동률 개선으로 26E OP +6.5%(12.2조) 회복, 보통주 주당순익 13.5배(26F 평균) 적용 Upside 18.4%"
+  </div>
+  <div class="thesis-structure">
+    <div class="thesis-part" style="color:#059669;">① 확정 팩트<br/>금융 +22%·역대 최대 매출 1Q 46조·관세 최소</div>
+    <div class="thesis-arrow">→</div>
+    <div class="thesis-part" style="color:#b45309;">② 실적 변화<br/>26E OP +6.5%, 27E +4.9%</div>
+    <div class="thesis-arrow">→</div>
+    <div class="thesis-part" style="color:#2563eb;">③ 시장 미반영<br/>Upside 18.4% (2H 환율·신차)</div>
+  </div>
+</section>
+
+<section>
+  <div class="section-title">✅ 핵심 태그 5가지 조건 체크 (5개 모두 통과해야 ⭐핵심 이상 가능)</div>
+  <div class="checklist">
+    <div class="checklist-item">
+      <div class="check-icon check-fail">✗</div>
+      <div>
+        <div class="check-label">조건 1 | 영업이익 성장 임계값</div>
+        <div class="check-detail">향후 1년 OP +50%+ AND (OPM +3%p+ OR OPM 15%+ 유지)</div>
+        <div class="check-why">26E OP +6.5%(12,214), OPM 6.2→6.3%(+0.1%p) → 50% 미달 → ✗</div>
+      </div>
+    </div>
+    <div class="checklist-item">
+      <div class="check-icon check-pass">✓</div>
+      <div>
+        <div class="check-label">조건 2 | 3년 지속성 (3개 이상 충족)</div>
+        <div class="check-detail">수주잔고 / CAPA 확대 / 독점·특허 / Lock-in / CAGR 15%+ / L/O 로열티 / 리커링 매출 등</div>
+        <div class="check-why">① 금융부문 지속 고성장(취급자산 증가) ② 그랜저 F/L 내수 + 아이오닉2 유럽 경쟁력 개선 ③ 로봇 등 중장기 신사업 기대감 → 3개 충족</div>
+      </div>
+    </div>
+    <div class="checklist-item">
+      <div class="check-icon check-pass">✓</div>
+      <div>
+        <div class="check-label">조건 3 | 확정 팩트(●●●) 2개 이상</div>
+        <div class="check-detail">●●● = 수주확정·인허가·계약공시·실적 확인 / ●●○ 4개 = 충족</div>
+        <div class="check-why">●●● 1Q26 역대 최대 1분기 매출 46조 확정 / ●●● 관세 860십억원(3개 분기 중 최소) / ●●● 금융 매출 +22% → 통과</div>
+      </div>
+    </div>
+    <div class="checklist-item">
+      <div class="check-icon check-fail">✗</div>
+      <div>
+        <div class="check-label">조건 4 | 시장 미반영 (둘 중 하나)</div>
+        <div class="check-detail">Upside 40%+ OR 컨센서스 대비 추정치 +20%+ 괴리</div>
+        <div class="check-why">Upside 18.4%, 26E OP 12.2조 ≈ 컨센 수준 → 40%·20% 모두 미달 → ✗</div>
+      </div>
+    </div>
+    <div class="checklist-item">
+      <div class="check-icon check-pass">✓</div>
+      <div>
+        <div class="check-label">조건 5 | 이 리포트만의 차별화된 시각</div>
+        <div class="check-detail">모든 증권사 동일 논리면 주목. 신규 커버리지·고유 근거·컨센 상회 필수</div>
+        <div class="check-why">"금융부문이 매출 견인"이라는 독특한 관점 + 일회성(중동·팰리세이드·기말환율 제외 시 1Q 영업이익 3조 수준) 강조 → 통과</div>
+      </div>
+    </div>
+  </div>
+  <p style="font-size:11px;color:#dc2626;margin-top:8px;padding:0 4px;">⚠️ 조건 1·4 미달 → 🔥 주목 등급.</p>
+</section>
+
+<section>
+  <div class="section-title">📊 투자 점수 판정 (v2.0 비바이오) — 모든 근거 칸 필수 기재</div>
+  <table>
+    <thead><tr><th>항목</th><th>판정</th><th>근거 (Why — 반드시 기재)</th></tr></thead>
+    <tbody>
+      <tr><td>종목 유형</td><td>비바이오</td><td>완성차 제조업</td></tr>
+      <tr><td>적용 가설</td><td>가설 3</td><td>26E OP +6.5%로 고성장 미진입, 금융·신차·환율 복합 촉매</td></tr>
+      <tr><td>촉매 등급</td><td>중급</td><td>금융부문 +22% 성장, 관세 축소, 그랜저 F/L 등 기존 사업 레벨업</td></tr>
+      <tr><td>복합 여부</td><td>복합</td><td>①금융부문 ②관세 축소 ③그랜저·아이오닉2 신차 ④로봇 기대</td></tr>
+      <tr><td>직접성</td><td>직접</td><td>자동차/금융 주력 직결</td></tr>
+      <tr><td>매트릭스 기본 점수</td><td>60점</td><td>가설3 × 중급 × 복합 = 60점</td></tr>
+      <tr><td>페널티 ① 컨센 반영</td><td class="penalty">-10점</td><td>복수 증권사 동일한 매수·TP 유지 논리</td></tr>
+      <tr><td>페널티 ② 리스크 집중</td><td class="penalty">-10점</td><td>관세·원자재 등 외부 요인 리스크 집중, 50% 수준 단일 가정 의존</td></tr>
+      <tr class="total-row"><td>최종 투자 점수</td><td><span class="highlight-green">40점</span></td><td>🔥 주목 최소 기준 충족</td></tr>
+    </tbody>
+  </table>
+  <p style="font-size:11px;color:#5a6280;margin-top:8px;padding:0 4px;">페널티 5종만: ①간접성 ②컨센 반영 ③미확정 30%+ ④선반영 30%+ ⑤리스크 집중.</p>
+</section>
+
+<section>
+  <div class="section-title">⚡ 성장 인과 체인 — 왜 성장하는가 (각 단계에 수치 필수)</div>
+  <div class="chain-box">
+    <div class="chain-step">
+      <div class="chain-arrow">①</div>
+      <div class="chain-content">
+        <div class="chain-label">구조 변화 / 촉매 <span class="chain-confirmed">● 확정 팩트</span></div>
+        <div class="chain-text">1Q26 역대 최대 매출 46조(●●●) + 금융부문 매출 +22%(●●●) + 관세 -860십억원(지난 3개 분기 중 최소)(●●●). 엔진 밸브 부품사 화재로 국내 생산 차질→4월부터 만회 예정</div>
+      </div>
+    </div>
+    <div class="chain-step">
+      <div class="chain-arrow">↓</div>
+      <div class="chain-content">
+        <div class="chain-label">매출 영향 (규모·비중 수치)</div>
+        <div class="chain-text">26E 매출 195.4조(+4.9%). 중동·팰리세이드·기말환율 제외 시 1Q OP가 3조 수준(공시대비 +0.5조 업사이드)이었을 것이라고 현대차 밝힘</div>
+      </div>
+    </div>
+    <div class="chain-step">
+      <div class="chain-arrow">↓</div>
+      <div class="chain-content">
+        <div class="chain-label">OPM 변화 메커니즘 (왜 마진이 오르는가)</div>
+        <div class="chain-text">펠리세이드 S/W 리콜로 비용 부담 최소화, 북미 EV ICCU 워런티 비용 1Q 미반영(2Q 우려 요인). 2H부터 관세 전년비 축소 전망. 26E OPM 6.3%</div>
+      </div>
+    </div>
+    <div class="chain-step">
+      <div class="chain-arrow">↓</div>
+      <div class="chain-content">
+        <div class="chain-label">최종 실적 결과 <span class="chain-forecast">● 추정</span></div>
+        <div class="chain-text">26E OP 12,214십억원(+6.5%, OPM 6.3%), 27E 12,814(+4.9%, OPM 6.3%), 28E 13,441(+4.9%, OPM 6.4%) — 보수적 전망</div>
+      </div>
+    </div>
+    <div class="chain-step">
+      <div class="chain-arrow">↓</div>
+      <div class="chain-content">
+        <div class="chain-label">시장 미반영 포인트 (So What)</div>
+        <div class="chain-text">보통주 주당순이익의 13.5배(26F 평균 EPS 대비) 적용으로 TP 630,000원, Upside 18.4%. 현주가 50만원 수준 등락 중, 실적 개선 트리거 필요</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="section-title">📌 핵심 팩트 3줄 — WHAT(숫자) + WHY(원인) + SO WHAT(의미) 3요소 필수</div>
+  <div class="fact-item">
+    <span class="fact-num">Fact 01</span>
+    <div class="fact-what"><span class="fact-label label-what">WHAT</span>1Q26 매출 46조(역대 최대 1분기), OP 2.5조(-31%, 컨센 -5% 하회, OPM 5.5%). 4Q25 대비 48% QoQ 증가</div>
+    <div class="fact-why"><span class="fact-label label-why">WHY</span>중국제외 도매 -2.3%에도 금융부문 +22% 성장. 원재료 상승(+7%) 영향 OPM 2.7%p 하락. 판보증은 전년비 +4%, 4Q 대비 -5%로 우려 대비 양호</div>
+    <div class="fact-so"><span class="fact-label label-so">SO WHAT</span>금융부문이 자동차 변동성을 상쇄, 역대 최대 1분기 매출 달성이 구조적 경쟁력 확인 신호</div>
+  </div>
+  <div class="fact-item">
+    <span class="fact-num">Fact 02</span>
+    <div class="fact-what"><span class="fact-label label-what">WHAT</span>1Q 관세 860십억원(지난 3개 분기 중 최소), 2H부터 전년 동기 대비 관세 축소 기대. 4개 분기 연속 영업이익 감소 지속 중</div>
+    <div class="fact-why"><span class="fact-label label-why">WHY</span>관세 정책 완화 기대 + 미국/인도 外 시장 판매 부진·인센티브 증가가 실적 훼손 요인. 중동·팰리세이드·기말환율 제외 시 1Q OP 3조 수준</div>
+    <div class="fact-so"><span class="fact-label label-so">SO WHAT</span>판매 반등이 필요한 시점. 볼륨 회복 + 환율 효과가 하반기 기대 요인으로 작용</div>
+  </div>
+  <div class="fact-item">
+    <span class="fact-num">Fact 03</span>
+    <div class="fact-what"><span class="fact-label label-what">WHAT</span>그랜저 페이스리프트 출시로 내수 판매 반등 기대, 아이오닉2 출시에 따른 터키 공장 가동률 & 유럽 경쟁력 개선. CES 이후 Boston Dynamics 업데이트는 현재 없음(경영진 발언)</div>
+    <div class="fact-why"><span class="fact-label label-why">WHY</span>로봇 등 중장기 신사업 기대감은 크지만 즉각 트리거 부재. 엔진 밸브 부품사 화재 생산차질 만회 일정이 국내 생산 반등 요인</div>
+    <div class="fact-so"><span class="fact-label label-so">SO WHAT</span>주가 반등 위해 실적 개선 필요. 하반기 우호적 환율 + 신차 사이클이 실적 개선 견인 전망</div>
+  </div>
+</section>
+
+<section>
+  <div class="section-title">📄 원본 리포트 핵심 요약 — PDF 내용 직접 발췌 (외부 정보 추가 금지)</div>
+  <div style="background:#fafafa;border:1px solid #d0d4e0;border-radius:8px;padding:16px 20px;margin-bottom:12px;">
+    <div style="font-size:11px;font-weight:700;letter-spacing:1px;color:#5a6280;text-transform:uppercase;margin-bottom:10px;">리포트 핵심 주장 (애널리스트 관점 요약)</div>
+    <p style="font-size:13px;line-height:1.9;">1Q26 매출 46조 역대 최대 달성, 금융부문 +22% 성장이 차량 부문 -1% 감소를 상쇄. 판매 반등 필요하며 2H부터 관세 축소·환율 효과·신차 사이클이 실적 개선 트리거. Boston Dynamics CES 이후 업데이트 없음. TP 630,000원·Buy 유지.</p>
+    <div style="margin-top:10px;display:flex;gap:8px;flex-wrap:wrap;">
+      <div style="background:#f0f2f8;border:1px solid #d0d4e0;border-radius:6px;padding:6px 12px;font-size:12px;">
+        <span style="color:#5a6280;font-size:10px;display:block;margin-bottom:2px;">이전 대비 변화 포인트</span>
+        TP 630,000원 유지 (26.01.30 상향 후 유지)
+      </div>
+      <div style="background:#f0f2f8;border:1px solid #d0d4e0;border-radius:6px;padding:6px 12px;font-size:12px;">
+        <span style="color:#5a6280;font-size:10px;display:block;margin-bottom:2px;">컨센서스 대비</span>
+        1Q26 OP 2.5조 vs 컨센 2.6조 (-5%)
+      </div>
+    </div>
+  </div>
+  <div style="background:#fafafa;border:1px solid #d0d4e0;border-radius:8px;padding:16px 20px;margin-bottom:12px;">
+    <div style="font-size:11px;font-weight:700;letter-spacing:1px;color:#5a6280;text-transform:uppercase;margin-bottom:10px;">사업 구조 & 성장 동력</div>
+    <table style="margin:0;">
+      <thead><tr><th style="width:25%;">사업부</th><th style="width:20%;">매출 비중</th><th style="width:55%;">핵심 성장 드라이버 (Why 포함)</th></tr></thead>
+      <tbody>
+        <tr><td>자동차</td><td>75.2% (1Q26)</td><td>차량 매출 -1% YoY. 그랜저 F/L·아이오닉2 출시로 하반기 내수·유럽 반등 기대</td></tr>
+        <tr><td>금융</td><td>19.6% (1Q26)</td><td>+22% YoY 고성장, 취급자산 증가 기반 실적 견인</td></tr>
+        <tr><td>기타</td><td>5.2% (1Q26)</td><td>CES 이후 Boston Dynamics 업데이트 없음 — 단기 트리거 부재</td></tr>
+      </tbody>
+    </table>
+    <p style="font-size:12px;color:#5a6280;margin-top:10px;">▶ 핵심 성장 메커니즘: 금융부문이 자동차 변동성 상쇄하며 역대 최대 매출 견인. 하반기 관세 축소 + 환율 효과 + 신차 사이클</p>
+  </div>
+  <div style="background:#fafafa;border:1px solid #d0d4e0;border-radius:8px;padding:16px 20px;margin-bottom:12px;">
+    <div style="font-size:11px;font-weight:700;letter-spacing:1px;color:#5a6280;text-transform:uppercase;margin-bottom:10px;">시장 괴리 — 왜 지금 시장이 틀렸는가</div>
+    <table style="margin:0;">
+      <thead><tr><th style="width:30%;">구분</th><th>내용</th></tr></thead>
+      <tbody>
+        <tr><td style="color:#5a6280;">시장 현재 인식</td><td>4분기 연속 영업이익 감소로 50만원 수준 등락, 실적 개선 회의적 시각</td></tr>
+        <tr><td style="color:#2563eb;">이 리포트 주장</td><td>일회성(중동·팰리세이드·기말환율) 제외 시 1Q OP 3조 수준. 구조적 경쟁력은 역대 최대 매출로 입증</td></tr>
+        <tr><td style="color:#b45309;">괴리 해소 촉매</td><td>4월 생산차질 정상화, 그랜저 F/L 출시, 아이오닉2 터키 공장, 2H 관세 축소</td></tr>
+        <tr><td>괴리 강도</td><td><span style="color:#b45309;">중</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div style="background:#fafafa;border:1px solid #d0d4e0;border-radius:8px;padding:16px 20px;">
+    <div style="font-size:11px;font-weight:700;letter-spacing:1px;color:#5a6280;text-transform:uppercase;margin-bottom:10px;">재무 특징 (PDF에 있는 경우만)</div>
+    <div style="display:flex;flex-wrap:wrap;gap:8px;">
+      <div style="background:#f0f2f8;border:1px solid #d0d4e0;border-radius:6px;padding:8px 12px;font-size:12px;flex:1;min-width:160px;"><span style="color:#5a6280;font-size:10px;display:block;margin-bottom:2px;">부채비율 (2025A)</span>189.0%</div>
+      <div style="background:#f0f2f8;border:1px solid #d0d4e0;border-radius:6px;padding:8px 12px;font-size:12px;flex:1;min-width:160px;"><span style="color:#5a6280;font-size:10px;display:block;margin-bottom:2px;">순차입금비율 (2026F)</span>108.3%</div>
+      <div style="background:#f0f2f8;border:1px solid #d0d4e0;border-radius:6px;padding:8px 12px;font-size:12px;flex:1;min-width:160px;"><span style="color:#5a6280;font-size:10px;display:block;margin-bottom:2px;">DPS (2026F)</span>10,000원</div>
+      <div style="background:#f0f2f8;border:1px solid #d0d4e0;border-radius:6px;padding:8px 12px;font-size:12px;flex:1;min-width:160px;"><span style="color:#5a6280;font-size:10px;display:block;margin-bottom:2px;">배당수익률 (2026F)</span>1.9%</div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="section-title">📈 실적 전망 (연간) — PDF 원문 수치만 기재, 추정 금지</div>
+  <table class="data-table">
+    <caption>단위: 십억원 | ★ = 투자 핵심 연도</caption>
+    <thead>
+      <tr><th>구분</th><th>2024A</th><th>2025A</th><th style="background:#dbeafe;color:#1e40af;font-weight:700;">2026F ★</th><th>2027F</th><th>2028F</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>매출액</td><td>175,231</td><td>186,254</td><td class="key-col key-num">195,352</td><td>203,457</td><td>211,354</td></tr>
+      <tr><td>YoY(%)</td><td>7.7</td><td>6.3</td><td class="key-col">4.9</td><td>4.1</td><td>3.9</td></tr>
+      <tr><td>영업이익</td><td>14,240</td><td>11,468</td><td class="key-col key-num">12,214</td><td>12,814</td><td>13,441</td></tr>
+      <tr><td>YoY(%)</td><td>-5.9</td><td>-19.5</td><td class="key-col key-num">6.5</td><td>4.9</td><td>4.9</td></tr>
+      <tr><td>OPM(%)</td><td>8.1</td><td>6.2</td><td class="key-col key-opm">6.3</td><td>6.3</td><td>6.4</td></tr>
+      <tr><td>EPS(원)</td><td>46,042</td><td>35,331</td><td class="key-col">38,669</td><td>41,340</td><td>43,425</td></tr>
+      <tr><td>PER(배)</td><td>4.6</td><td>8.4</td><td class="key-col">13.8</td><td>12.9</td><td>12.3</td></tr>
+      <tr><td>PBR(배)</td><td>0.5</td><td>0.7</td><td class="key-col">1.1</td><td>1.0</td><td>1.0</td></tr>
+      <tr><td>ROE(%)</td><td>12.4</td><td>8.4</td><td class="key-col">8.6</td><td>8.6</td><td>8.4</td></tr>
+    </tbody>
+  </table>
+  <p style="font-size:12px;color:#5a6280;margin-top:10px;padding:0 4px;">▶ 왜 2026E가 변곡점인가: 4분기 연속 감익에서 턴어라운드. 금융부문 고성장 + 2H 관세 축소 + 신차 사이클이 OP +6.5% 반등 견인</p>
+</section>
+
+<section>
+  <div class="section-title">📅 분기별 실적 전망 — PDF에 있으면 반드시 기재, 생략 금지</div>
+  <table class="data-table">
+    <caption>단위: 십억원</caption>
+    <thead>
+      <tr><th>구분</th><th>1Q25</th><th>2Q25</th><th>3Q25</th><th>4Q25</th><th style="background:#dbeafe;color:#1e40af;font-weight:700;">1Q26P ★</th><th>2Q26F</th><th>3Q26F</th><th>4Q26F</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>매출액</td><td>44,408</td><td>48,287</td><td>46,721</td><td>46,839</td><td class="key-col key-num">45,939</td><td>50,913</td><td>48,311</td><td>50,189</td></tr>
+      <tr><td>영업이익</td><td>3,634</td><td>3,602</td><td>2,537</td><td>1,695</td><td class="key-col key-num">2,515</td><td>3,389</td><td>3,083</td><td>3,227</td></tr>
+      <tr><td>OPM(%)</td><td>8.2</td><td>7.5</td><td>5.4</td><td>3.6</td><td class="key-col key-opm">5.5</td><td>6.7</td><td>6.4</td><td>6.4</td></tr>
+    </tbody>
+  </table>
+  <p style="font-size:12px;color:#5a6280;margin-top:10px;padding:0 4px;">▶ 1Q26 주목 포인트: ✅ 2Q26 OP 3.39조(OPM 6.7%)·금융 지속 +11% 성장 시 → 판매 반등 궤도 진입 / ⛔ 2Q OPM 6% 미만 시 → 4분기 연속 감익 지속 경고</p>
+</section>
+
+<section>
+  <div class="section-title">💰 밸류에이션 — 왜 이 배수인가 1문장 필수</div>
+  <div class="val-box">
+    <div class="val-formula">보통주 주당순이익 × 13.5배 (2026F 평균 EPS 38,669원 적용) = TP 630,000원</div>
+    <p style="color:#5a6280;font-size:12px;margin-top:8px;">▶ 왜 이 배수인가: 과거 밴드 고점 구간 13.5배 적용. 금융부문 안정 + 2H 신차 + 2H 환율 효과 반영</p>
+    <p style="color:#5a6280;font-size:12px;margin-top:4px;">▶ P/B 1.0배 수준에서 자산가치 지지 가능</p>
+  </div>
+</section>
+
+<section>
+  <div class="section-title">⚠️ 리스크 — 핵심 가정이 틀릴 경우 시나리오 (키워드 나열 금지)</div>
+  <div class="risk-item risk-sev-high">
+    <div class="risk-assumption">🔴 핵심 가정: 중동 사태에 따른 알루미늄 등 주요 원재료 조달 리스크는 없음</div>
+    <div class="risk-chain" style="margin-top:6px;">→ 붕괴 시: 중동 사태 장기화, 원재료 조달 차질 및 가격 재상승<br/>→ 실적 영향: 2Q 추가 비용 2,000억+ 추정, 26E OP 12.2조 → 11조 하향</div>
+    <div class="risk-impact-num">→ 주가 영향: P/E 13.5배 유지 시 TP 565,000원(-10%)</div>
+  </div>
+  <div class="risk-item risk-sev-mid">
+    <div class="risk-assumption">🟠 두 번째 가정: 하반기 환율 효과 + 신차(그랜저 F/L·아이오닉2) 판매 반등 실현</div>
+    <div class="risk-chain" style="margin-top:6px;">→ 붕괴 시: 원화 강세 전환·신차 판매 부진</div>
+    <div class="risk-impact-num">→ 주가 영향: 2H 어닝모멘텀 약화 시 TP 하향 압력</div>
+  </div>
+</section>
+
+<section>
+  <div class="section-title">🎯 모멘텀 확인 체크포인트 — 확인/실망 시 행동 명시</div>
+  <div style="background:#fafafa;border:1px solid #d0d4e0;border-radius:8px;padding:4px 16px;">
+    <div class="checkpoint-item">
+      <span class="cp-date">2026.04</span>
+      <div>
+        <div class="cp-event">엔진 밸브 부품사 화재 → 국내 생산 차질 정상화</div>
+        <div class="cp-pass">✅ 4월 중 대체 부품 적용·생산 재개 → 2Q 실적 회복</div>
+        <div class="cp-fail">⛔ 지연 시 → 2Q 판매 추가 차질·OP 감소</div>
+      </div>
+    </div>
+    <div class="checkpoint-item">
+      <span class="cp-date">2H26</span>
+      <div>
+        <div class="cp-event">그랜저 F/L 내수 출시 + 아이오닉2 터키 공장 가동</div>
+        <div class="cp-pass">✅ 신차 판매 호조 + 환율 우호 시 → 4분기 연속 감익 종료, 핵심 승격 검토</div>
+        <div class="cp-fail">⛔ 신차 판매 부진 시 → 판매 반등 실패, 주목 유지</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="section-title">💬 사견 & 투자 행동 결론</div>
+  <div class="opinion-box">
+    <p>컨센서스 대비 5% 하회했으나 금융부문 +22% 고성장이 역대 최대 매출 견인한 점은 긍정적. 다만 Upside 18.4%·OP 성장 6.5%로 진입 매력 제한적. 4분기 연속 감익 지속 중이며 주가 50만원 수준 박스권. <b>우려 포인트</b>: ① Boston Dynamics CES 이후 업데이트 부재로 단기 신사업 트리거 없음 ② 2Q 북미 EV ICCU 워런티 비용 반영 우려 ③ 하반기 환율 효과 가정은 원화 강세 전환 시 붕괴 가능. 판매 반등 확인 후 진입이 합리적.</p>
+    <div class="decision-box">
+      <div class="decision-btn decision-buy decision-dim">✅ 지금 진입 가능<br/><span style="font-size:11px;font-weight:400;">핵심+ & 60점+</span></div>
+      <div class="decision-btn decision-wait">⏳ 이벤트 후 진입<br/><span style="font-size:11px;font-weight:400;">4월 생산정상화·2Q 판매 반등 확인 후</span></div>
+      <div class="decision-btn decision-avoid decision-dim">🚫 관망<br/><span style="font-size:11px;font-weight:400;">[이유]</span></div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="section-title">🚀 승격 조건 — 주목 종목 전용 (핵심 이상은 삭제)</div>
+  <div class="upgrade-box">
+    <div class="upgrade-item">
+      <span class="upgrade-when">2026.2Q 실적</span>
+      <span>OP 3.4조+·OPM 6.7%+ 확인 + 그랜저 F/L 판매 호조 시 → ⭐ 핵심 승격</span>
+    </div>
+    <div class="upgrade-item">
+      <span class="upgrade-when">Boston Dynamics 업데이트</span>
+      <span>IPO·상용화 계획 구체화 시 → 🚀 SS급 검토</span>
+    </div>
+  </div>
+</section>
+
+<div class="disclaimer">
+  ※ 본 글은 증권사 리포트를 개인 학습 목적으로 요약·정리한 것이며, 투자 권유가 아닙니다.<br/>
+  ※ 제공된 PDF 파일만 활용. 외부 검색·참조 없음. 당일 발간 리포트 기준.
+</div>
+
+</body>
+</html>
