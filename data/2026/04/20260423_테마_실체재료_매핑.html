@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>SODream 재료 기반 주가평가 결과 — 2026-04-23</title>
+<style>
+*, *::before, *::after { box-sizing: border-box; }
+body { font-family: 'Malgun Gothic', 'Apple SD Gothic Neo', Arial, sans-serif; font-size: 13px; margin: 24px; background: #f5f6fa; color: #222; }
+a { color: #1a5fb4; text-decoration: none; } a:hover { text-decoration: underline; }
+h1 { color: #1a2a6c; border-bottom: 3px solid #1a2a6c; padding-bottom: 8px; font-size: 18px; }
+.meta { background: #fff; padding: 12px 18px; border-radius: 6px; box-shadow: 0 1px 3px rgba(0,0,0,0.08); margin-bottom: 20px; font-size: 12px; }
+.meta span { display: inline-block; margin-right: 18px; } .meta b { color: #1a2a6c; }
+.badge { display: inline-block; padding: 2px 8px; border-radius: 4px; font-size: 11px; margin-left: 4px; color: #fff; font-weight: bold; }
+.badge-v394 { background: #ede7f6; color: #4527a0; }
+.badge-pass { background: #d4edda; color: #155724; } .badge-fail { background: #f8d7da; color: #721c24; }
+.section-h2 { color: #1a2a6c; border-left: 4px solid #1a2a6c; padding-left: 10px; margin-top: 30px; font-size: 15px; }
+.summary-table { border-collapse: collapse; width: 100%; background: #fff; box-shadow: 0 1px 4px rgba(0,0,0,0.08); margin-bottom: 20px; }
+.summary-table th { background: #1a1a2e; color: #fff; padding: 8px 12px; text-align: center; font-size: 12px; }
+.summary-table td { padding: 8px 12px; border-bottom: 1px solid #e8e8e8; text-align: center; font-size: 12px; }
+.card { background: #fff; border-radius: 10px; margin-bottom: 14px; padding: 16px 20px; box-shadow: 0 2px 6px rgba(0,0,0,0.06); border-left: 6px solid #bbb; }
+.card-pass { border-left-color: #1e7e34; }
+.card-partial { border-left-color: #f0ad4e; }
+.card-insufficient { border-left-color: #17a2b8; }
+.card-fail30 { border-left-color: #6c757d; }
+.card-fail0 { border-left-color: #c82333; }
+.rank { display: inline-block; width: 28px; height: 28px; background: #1a2a6c; color: #fff; border-radius: 50%; text-align: center; line-height: 28px; font-weight: bold; margin-right: 10px; font-size: 13px; }
+.stock-name { font-size: 18px; font-weight: bold; color: #1a2a6c; }
+.stock-code { color: #666; font-size: 14px; margin-left: 6px; }
+.change-up { color: #c82333; font-weight: bold; margin-left: 12px; }
+.badge-type-A { background: #2c3e50; } .badge-type-B { background: #8e44ad; }
+.badge-type-C { background: #16a085; } .badge-type-D { background: #d35400; }
+.score-box { display: inline-block; float: right; padding: 6px 14px; border-radius: 6px; font-weight: bold; font-size: 16px; }
+.score-pass { background: #d4edda; color: #155724; }
+.score-partial { background: #fff3cd; color: #856404; }
+.score-insufficient { background: #d1ecf1; color: #0c5460; }
+.score-fail0 { background: #f8d7da; color: #721c24; }
+.row { margin-top: 8px; font-size: 13px; line-height: 1.7; }
+.row b { color: #1a2a6c; }
+.one-liner { background: #f8f9fa; padding: 8px 12px; border-radius: 4px; margin-top: 8px; font-size: 12px; color: #495057; }
+.dream-size-box { background: #f0f4ff; border: 1px solid #b0c4de; padding: 8px; border-radius: 4px; margin-top: 6px; font-size: 12px; }
+.quality-gate-box { background: #fff8e1; border: 1px solid #ffe082; padding: 8px; border-radius: 4px; margin-top: 6px; font-size: 12px; }
+.qi-pass { color: #2e7d32; font-weight: bold; } .qi-fail { color: #c62828; font-weight: bold; }
+.estimated { color: #e65100; font-style: italic; }
+.cap-70 { background: #fff3e0; padding: 1px 6px; border-radius: 3px; font-size: 11px; color: #e65100; }
+.baseline-box { padding: 6px; margin-top: 4px; font-size: 12px; background: #e3f2fd; border-left: 3px solid #1565c0; border-radius: 4px; }
+.upside-box { padding: 6px; margin-top: 4px; font-size: 12px; background: #e8f5e9; border-left: 3px solid #2e7d32; border-radius: 4px; }
+.tp-consensus-box { padding: 6px; margin-top: 4px; font-size: 12px; background: #fce4ec; border-left: 3px solid #c62828; border-radius: 4px; }
+.penalty-tag { background: #ffebee; color: #b71c1c; padding: 1px 6px; border-radius: 3px; font-size: 11px; margin-right: 4px; }
+.filter-fail { color: #b71c1c; font-weight: bold; background: #ffebee; padding: 1px 6px; border-radius: 3px; font-size: 11px; }
+.gate-60-fail { color: #e65100; font-weight: bold; background: #fff3e0; padding: 1px 6px; border-radius: 3px; font-size: 11px; }
+.zero-table { border-collapse: collapse; width: 100%; background: #fff; margin-bottom: 20px; box-shadow: 0 1px 4px rgba(0,0,0,0.08); }
+.zero-table th { background: #c82333; color: #fff; padding: 6px 10px; font-size: 11px; text-align: left; }
+.zero-table td { padding: 6px 10px; border-bottom: 1px solid #eee; font-size: 11px; }
+.footer { margin-top: 30px; padding: 16px; background: #f8f9fa; border-radius: 6px; font-size: 11px; color: #666; }
+</style>
+</head>
+<body>
+
+<h1>SODream 재료 기반 주가평가 — 2026-04-23</h1>
+
+<div class="meta">
+  <span><b>실행ID:</b> 20260423-SODream-v2</span>
+  <span><b>지침:</b> CLAUDE_재료기반_평가지침_v2.0 (v3.9.4 인라인)</span>
+  <span><b>평가 기준일:</b> 2026-04-23</span>
+  <span><b>시장:</b> 코스피 +0.90%, 코스닥 -0.58%, 환율 1,481.10원(+0.04%)</span>
+  <span><b>입력:</b> 재료조회_20260423.xlsx (11종목, 147건)</span>
+  <span class="badge badge-v394">v3.9.4</span>
+</div>
+
+<!-- 판정 분포 요약 -->
+<h2 class="section-h2">판정 분포</h2>
+<table class="summary-table">
+<tr>
+  <th>구분</th><th>Pass (≥60)</th><th>40~59점</th><th>Step1 Fail (0점)</th><th>6-0 Fail (0점)</th><th>전체</th>
+</tr>
+<tr>
+  <td><b>종목 수</b></td>
+  <td style="color:#155724;font-weight:bold;">0</td>
+  <td style="color:#856404;font-weight:bold;">2</td>
+  <td>7</td>
+  <td>2</td>
+  <td><b>11</b></td>
+</tr>
+</table>
+
+<table class="summary-table">
+<tr><th>지표</th><th>값</th></tr>
+<tr><td>전체 종목 수</td><td>11</td></tr>
+<tr><td>배치 수</td><td>4 (3+3+3+2)</td></tr>
+<tr><td>5절 Fail</td><td>0건</td></tr>
+<tr><td>6-0 Fail</td><td>2건 (해성디에스, LS마린솔루션)</td></tr>
+<tr><td>Step 1 Fail</td><td>7건 (삼성중공업, OCI, LS ELECTRIC, 솔루스첨단소재, 보성파워텍, 오르비텍, 대원전선)</td></tr>
+<tr><td>6-0-C 추정 경로 채택</td><td>4건 (아모그린텍, 코스텍시스, 오르비텍, 솔루스첨단소재)</td></tr>
+<tr><td>70점 캡 적용</td><td>2건 (아모그린텍, 코스텍시스)</td></tr>
+<tr><td>품질 게이트 분포</td><td>0개 미달: 1건(코스텍시스) / 1~2개 미달: 1건(오르비텍) / 미진입: 9건</td></tr>
+<tr><td>교차 검증</td><td>해당 없음 (≥60점 종목 0건)</td></tr>
+</table>
+
+<!-- ═══════════ 40~59점 종목 카드 ═══════════ -->
+<h2 class="section-h2">40~59점 종목 — 2건</h2>
+
+<!-- 1. 아모그린텍 50점 -->
+<div class="card card-partial">
+  <span class="rank">1</span>
+  <span class="stock-name">아모그린텍</span>
+  <span class="stock-code">125210</span>
+  <span class="change-up">+20.20%</span>
+  <span class="badge badge-type-B">유형 B</span>
+  <span class="cap-70">70점 캡 (추정경로)</span>
+  <span class="score-box score-partial">50점</span>
+  <div style="clear:both;"></div>
+
+  <div class="row">
+    <b>5절</b>: Pass (SpaceX·우주항공 기판 04-23, 방산 수출 MOU 04-23) ·
+    <b>6-0</b>: Pass (<span class="estimated">6-0-C 추정</span>) ·
+    <b>Step1</b>: Pass (Upside ≥ 30%)
+  </div>
+
+  <div class="baseline-box">
+    <b>Baseline:</b> 유형 B — 시가총액 2,522억원 · 2025년 OP 적자 · 컨센 OP 부재
+  </div>
+
+  <div class="dream-size-box">
+    <b>꿈의 크기 산출 (6-0-C 추정 — 공식 C/D):</b><br>
+    앵커: SpaceX 우주항공 기판 공급 + 방산 수출 기대<br>
+    변수: 우주항공 기판 계약 추정, 방산 소재 수출 기대<br>
+    <b>꿈의 크기 × 실현 확률 → 시총 대비 ≥ 30% 통과</b>
+  </div>
+
+  <div class="quality-gate-box">
+    <b>품질 게이트:</b> 6-0-C 추정 경로 적용<br>
+    → 70점 캡 적용
+  </div>
+
+  <div class="upside-box">
+    <b>Upside:</b> 6-0-C 추정 경로 — 유형 B 증분매출/시총 ≥ 30%<br>
+    <b>실현 확률:</b> 공식 C/D 적용
+  </div>
+
+  <div class="tp-consensus-box">
+    <b>TP 컨센:</b> 없음 (증권사 커버리지 0곳)
+  </div>
+
+  <div class="row">
+    <b>Step2</b>: 사실[Y] 실적연결[Y] 지속[Y] → 상한 100 ·
+    <b>Step3</b>: 가설 3, 직접 ·
+    <b>Step4</b>: 중급·복합
+  </div>
+  <div class="row">
+    <b>Step5</b>: 매트릭스 60 → 직접성 60 → Step2상한 60 → 가설3캡 min(60,70)=60 → <span class="cap-70">추정캡 min(60,70)=60</span> ·
+    <b>Step6</b>: <span class="penalty-tag">반복 -10</span> → <b>최종 50점</b>
+  </div>
+
+  <div class="one-liner">
+    SpaceX 우주항공 기판 공급 + 방산 수출 MOU 복합 촉매로 적자 기업 턴어라운드 기대. 6-0-C 추정 경로 70캡 내 가설3(60) + 반복 페널티(-10)로 50점. 추격 매수보다 실적 확인 후 분할 진입 검토.
+  </div>
+</div>
+
+<!-- 2. 코스텍시스 50점 -->
+<div class="card card-partial">
+  <span class="rank">2</span>
+  <span class="stock-name">코스텍시스</span>
+  <span class="stock-code">355150</span>
+  <span class="change-up">+30.00%</span>
+  <span class="badge badge-type-A">유형 A</span>
+  <span class="cap-70">70점 캡 (추정경로)</span>
+  <span class="score-box score-partial">50점</span>
+  <div style="clear:both;"></div>
+
+  <div class="row">
+    <b>5절</b>: Pass (칩스페이서 양산 04-23, 수주잔고 역대 최고 04-23) ·
+    <b>6-0</b>: Pass (<span class="estimated">6-0-C 추정</span>) ·
+    <b>Step1</b>: Pass (4,545% ≥ 30%)
+  </div>
+
+  <div class="baseline-box">
+    <b>Baseline:</b> 유형 A — 최근 4Q OP 합산 2억원 (2025: 턴어라운드, Q4 +12억 흑전) · 시총 2,584억원
+  </div>
+
+  <div class="dream-size-box">
+    <b>꿈의 크기 산출 (6-0-C 추정 — 공식 C):</b><br>
+    앵커: 수주잔고 399억원 역대 최고 + 칩스페이서 신기술 양산 + 594억 T사 공급계약(2025.7 공시)<br>
+    변수: ①수주잔고 399억(300~500) ②소화율 60%(50~70%) ③OPM 15%(10~21%) ④칩스페이서 80억/년(50~120)<br>
+    2026E: 매출 491억(+339억 증분), OP 103억(+101억 증분)<br>
+    <b>꿈의 크기: 101억원 (증분 OP)</b>
+  </div>
+
+  <div class="quality-gate-box">
+    <b>품질 게이트 (5항목):</b><br>
+    <span class="qi-pass">(a) Y</span> 변수 WebFetch 성공 ·
+    <span class="qi-pass">(b) Y</span> 중앙값 근거 ·
+    <span class="qi-pass">(c) Y</span> OPM 출처 (Q4 실적 21%) ·
+    <span class="qi-pass">(d) Y</span> 범위 병기 ·
+    <span class="qi-pass">(e) Y</span> 공식 적합<br>
+    → <b>0개 미달 → 중앙값 사용</b>
+  </div>
+
+  <div class="upside-box">
+    <b>실현 확률:</b> 90% (수주잔고 기반 매출, 벤치마크 표 직접 매칭)<br>
+    <b>최종 증분 OP:</b> 101억 × 90% = <b>90.9억원</b><br>
+    <b>Upside%:</b> 90.9 / 2(Baseline OP) = <b>4,545%</b> (Baseline 극소 흑자 → 비율 극단적)
+  </div>
+
+  <div class="tp-consensus-box">
+    <b>TP 컨센:</b> 없음 (증권사 커버리지 0곳)
+  </div>
+
+  <div class="row">
+    <b>Step2</b>: 사실[Y] 실적연결[Y] 지속[Y] → 상한 100 ·
+    <b>Step3</b>: 가설 2 (턴어라운드), 직접 ·
+    <b>Step4</b>: 상급(계약 156%/연매출) · 중급(수주잔고 2.6년) → 복합
+  </div>
+  <div class="row">
+    <b>Step5</b>: 매트릭스 90 → 직접성 90 → Step2상한 min(90,100)=90 → <span class="cap-70">추정캡 min(90,70)=70</span> ·
+    <b>Step6</b>: <span class="penalty-tag">반복 -10</span> <span class="penalty-tag">집중도(T사 61%) -10</span> = -20 → <b>최종 50점</b>
+  </div>
+
+  <div class="one-liner">
+    칩스페이서 신기술 양산 + 방열기판 수주잔고 역대 최고 + 594억 T사 계약으로 2026E 턴어라운드(OP 103억) 기대 유효. 6-0-C 추정 70캡 + 반복(-10) + 단일고객 집중(-10)로 50점. 상한가 후 추격 매수 리스크 높음, 조정 시 재진입 검토.
+  </div>
+</div>
+
+<!-- ═══════════ 0점 종목 카드 (등락률 내림차순) ═══════════ -->
+<h2 class="section-h2">Fail 종목 (0점) — 9건</h2>
+
+<!-- 3. 대원전선 0점 -->
+<div class="card card-fail0">
+  <span class="rank">3</span>
+  <span class="stock-name">대원전선</span>
+  <span class="stock-code">006340</span>
+  <span class="change-up">+26.40%</span>
+  <span class="badge badge-type-A">유형 A</span>
+  <span class="score-box score-fail0">0점</span>
+  <div style="clear:both;"></div>
+  <div class="row"><b>5절</b>: Pass · <b>6-0</b>: Pass (6-0-C 추정) · <b>Step1</b>: <span class="filter-fail">Fail (조건② 3년 지속성 미달)</span></div>
+  <div class="one-liner">AI 전력 수요 급증 전망 + 나프타 수급 안정 기대로 전선주 테마 급등. 글로벌 전력 인프라 투자 기대감이나 3년 지속성 미달(일회성 테마 편승). 시총 6,382억.</div>
+</div>
+
+<!-- 4. 보성파워텍 0점 -->
+<div class="card card-fail0">
+  <span class="rank">4</span>
+  <span class="stock-name">보성파워텍</span>
+  <span class="stock-code">006910</span>
+  <span class="change-up">+18.34%</span>
+  <span class="badge badge-type-A">유형 A</span>
+  <span class="score-box score-fail0">0점</span>
+  <div style="clear:both;"></div>
+  <div class="row"><b>5절</b>: Pass · <b>6-0</b>: Pass (6-0-C 추정) · <b>Step1</b>: <span class="filter-fail">Fail (Upside 0.3% &lt; 30%)</span></div>
+  <div class="one-liner">한-베트남 원전 MOU 소식으로 원자력 관련주 동반 급등. 시총 5,831억 대비 실질 증분 매출 극소(Upside 0.3%), MOU 초기 단계로 단기 실적 기여 부재.</div>
+</div>
+
+<!-- 5. 솔루스첨단소재 0점 -->
+<div class="card card-fail0">
+  <span class="rank">5</span>
+  <span class="stock-name">솔루스첨단소재</span>
+  <span class="stock-code">336370</span>
+  <span class="change-up">+14.81%</span>
+  <span class="badge badge-type-B">유형 B</span>
+  <span class="score-box score-fail0">0점</span>
+  <div style="clear:both;"></div>
+  <div class="row"><b>5절</b>: Pass · <b>6-0</b>: Pass (6-0-C 추정) · <b>Step1</b>: <span class="filter-fail">Fail (Upside 21.8% &lt; 30%)</span></div>
+  <div class="one-liner">전고체 배터리·2차전지 소재(동박) 수혜 기대. 적자 기업 시총 10,883억 대비 증분 매출×실현확률 21.8%로 30% 기준 미달. 실적 턴어라운드 가시성 부족.</div>
+</div>
+
+<!-- 6. 오르비텍 0점 -->
+<div class="card card-fail0">
+  <span class="rank">6</span>
+  <span class="stock-name">오르비텍</span>
+  <span class="stock-code">046120</span>
+  <span class="change-up">+13.42%</span>
+  <span class="badge badge-type-B">유형 B</span>
+  <span class="score-box score-fail0">0점</span>
+  <div style="clear:both;"></div>
+  <div class="row"><b>5절</b>: Pass · <b>6-0</b>: Pass (6-0-C 추정) · <b>Step1</b>: <span class="filter-fail">Fail (Upside 0.86% &lt; 30%)</span></div>
+  <div class="one-liner">한-베트남 원전 MOU(초기 단계) + KF-21 부품 + 원전 해체 모두 장기 이벤트. 적자 기업(2025 OP -140억) 시총 4,089억 대비 증분 매출 0.86%로 Upside 부재. CB 통합(-30), 반복(-10) 페널티 해당. 원전 테마 편승 급등.</div>
+</div>
+
+<!-- 7. OCI 0점 -->
+<div class="card card-fail0">
+  <span class="rank">7</span>
+  <span class="stock-name">OCI</span>
+  <span class="stock-code">456040</span>
+  <span class="change-up">+13.01%</span>
+  <span class="badge badge-type-A">유형 A</span>
+  <span class="score-box score-fail0">0점</span>
+  <div style="clear:both;"></div>
+  <div class="row"><b>5절</b>: Pass · <b>6-0</b>: Pass (6-0-C 추정) · <b>Step1</b>: <span class="filter-fail">Fail (Upside 22.6% &lt; 30%)</span></div>
+  <div class="one-liner">재료 중 OCI홀딩스(010060) 관련 뉴스 다수 혼재. 폴리실리콘 수요 회복 + 美 IRA 수혜 기대이나 증분OP/컨센OP 22.6%로 30% 기준 미달. 시총 12,282억.</div>
+</div>
+
+<!-- 8. LS마린솔루션 0점 -->
+<div class="card card-fail0">
+  <span class="rank">8</span>
+  <span class="stock-name">LS마린솔루션</span>
+  <span class="stock-code">060370</span>
+  <span class="change-up">+12.30%</span>
+  <span class="badge badge-type-A">유형 A</span>
+  <span class="score-box score-fail0">0점</span>
+  <div style="clear:both;"></div>
+  <div class="row"><b>5절</b>: Pass · <b>6-0</b>: <span class="gate-60-fail">Fail (업황 편승, 개별 앵커 부재)</span></div>
+  <div class="one-liner">글로벌 전력 인프라 투자 확대 + 해저케이블 업황 편승 급등. 개별 기업 수주·계약 앵커 부재로 6-0 게이트 Fail. 업황 단독 환산 금지 규칙 적용. 시총 19,798억.</div>
+</div>
+
+<!-- 9. LS ELECTRIC 0점 -->
+<div class="card card-fail0">
+  <span class="rank">9</span>
+  <span class="stock-name">LS ELECTRIC</span>
+  <span class="stock-code">010120</span>
+  <span class="change-up">+11.74%</span>
+  <span class="badge badge-type-A">유형 A</span>
+  <span class="score-box score-fail0">0점</span>
+  <div style="clear:both;"></div>
+  <div class="row"><b>5절</b>: Pass · <b>6-0</b>: Pass (6-0-C 추정) · <b>Step1</b>: <span class="filter-fail">Fail (Upside 9.6% &lt; 30%)</span></div>
+  <div class="one-liner">AI 전력 수요 확대·전력설비 투자 기대감 급등. 대형주 시총 약 34조 대비 증분 OP 미미(Upside 9.6%). 기존 컨센에 이미 반영된 성장 스토리.</div>
+</div>
+
+<!-- 10. 해성디에스 0점 -->
+<div class="card card-fail0">
+  <span class="rank">10</span>
+  <span class="stock-name">해성디에스</span>
+  <span class="stock-code">195870</span>
+  <span class="change-up">+11.09%</span>
+  <span class="badge badge-type-A">유형 A</span>
+  <span class="score-box score-fail0">0점</span>
+  <div style="clear:both;"></div>
+  <div class="row"><b>5절</b>: Pass · <b>6-0</b>: <span class="gate-60-fail">Fail (자체 앵커 이벤트 부재)</span></div>
+  <div class="one-liner">SK하이닉스 1분기 사상 최대 실적 소식에 반도체 섹터 동반 급등. 해성디에스 자체 실적·수주·계약 앵커 없이 섹터 편승. 시총 12,937억.</div>
+</div>
+
+<!-- 11. 삼성중공업 0점 -->
+<div class="card card-fail0">
+  <span class="rank">11</span>
+  <span class="stock-name">삼성중공업</span>
+  <span class="stock-code">010140</span>
+  <span class="change-up">+6.92%</span>
+  <span class="badge badge-type-A">유형 A</span>
+  <span class="score-box score-fail0">0점</span>
+  <div style="clear:both;"></div>
+  <div class="row"><b>5절</b>: Pass · <b>6-0</b>: Pass (1차 팩트) · <b>Step1</b>: <span class="filter-fail">Fail (Upside 2.3% &lt; 30%)</span></div>
+  <div class="one-liner">미 함정 MRO 시장 진출 지원 소식 + 조선 기자재 기대감. 대형주 시총 299,200억 대비 증분 OP 극소(Upside 2.3%). 조선 대형주 특성상 테마성 급등 제한적.</div>
+</div>
+
+<!-- ═══════════ 0점 종목 요약 테이블 ═══════════ -->
+<h2 class="section-h2">0점 종목 사유 요약</h2>
+<table class="zero-table">
+<tr><th>종목</th><th>코드</th><th>등락률</th><th>시총(억)</th><th>Fail 단계</th><th>사유</th></tr>
+<tr><td>대원전선</td><td>006340</td><td>+26.40%</td><td>6,382</td><td>Step1 조건②</td><td>3년 지속성 미달</td></tr>
+<tr><td>보성파워텍</td><td>006910</td><td>+18.34%</td><td>5,831</td><td>Step1 조건①</td><td>Upside 0.3%</td></tr>
+<tr><td>솔루스첨단소재</td><td>336370</td><td>+14.81%</td><td>10,883</td><td>Step1 조건①</td><td>Upside 21.8%</td></tr>
+<tr><td>오르비텍</td><td>046120</td><td>+13.42%</td><td>4,089</td><td>Step1 조건①</td><td>Upside 0.86%</td></tr>
+<tr><td>OCI</td><td>456040</td><td>+13.01%</td><td>12,282</td><td>Step1 조건①</td><td>Upside 22.6%</td></tr>
+<tr><td>LS마린솔루션</td><td>060370</td><td>+12.30%</td><td>19,798</td><td>6-0 Fail</td><td>업황 편승, 개별 앵커 부재</td></tr>
+<tr><td>LS ELECTRIC</td><td>010120</td><td>+11.74%</td><td>~339,750</td><td>Step1 조건①</td><td>Upside 9.6%</td></tr>
+<tr><td>해성디에스</td><td>195870</td><td>+11.09%</td><td>12,937</td><td>6-0 Fail</td><td>자체 앵커 부재</td></tr>
+<tr><td>삼성중공업</td><td>010140</td><td>+6.92%</td><td>299,200</td><td>Step1 조건①</td><td>Upside 2.3%</td></tr>
+</table>
+
+<!-- 푸터 -->
+<div class="footer">
+  <b>SODream 재료 기반 주가평가 v2.0</b> · 연계 지침: CLAUDE_주가평가_v3.9.4 인라인<br>
+  모델: claude-opus-4-6 · 배치: 4개 (Agent 병렬) · 입력: 147건 재료<br>
+  6-0-C 추정 경로: 4건 · 70점 캡 적용: 2건 · 교차 검증: 해당 없음 (≥60점 0건)<br>
+  <br>
+  <b>면책:</b> 본 평가는 SODream 재료 데이터 + 컴퍼니가이드 Baseline + 네이버 뉴스 교차확인에 기반한 자동 평가 결과이며, 투자 권유가 아닙니다. 6-0-C 추정 경로 종목은 70점 캡이 적용되며, 추정치의 불확실성이 반영된 점수입니다. 모든 투자 판단은 투자자 본인 책임입니다.
+</div>
+
+</body>
+</html>
