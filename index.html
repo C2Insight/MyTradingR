@@ -94,6 +94,13 @@ h2 { margin: 0; font-size: 19px; font-weight: 700; }
 .meta { color: var(--ink-2); font-size: 14px; }
 .conds { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px; }
 .cond { font-size: 12.5px; padding: 3px 10px; border: 1px solid var(--line); border-radius: 999px; background: var(--surface); color: var(--ink-2); }
+/* 지난 기록 — 연도 · 월 고르기 */
+.arch { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin: 10px 0 8px; }
+.arch select { font: inherit; font-size: 14px; font-weight: 600; padding: 4px 8px; border-radius: 8px; border: 1px solid var(--line); background: var(--surface); color: var(--ink); }
+.mchips { display: flex; flex-wrap: wrap; gap: 4px; }
+.mchips button { font: inherit; font-size: 13px; border: 1px solid var(--line); background: var(--surface); color: var(--ink-2); padding: 3px 10px; border-radius: 999px; cursor: pointer; }
+.mchips button[aria-pressed="true"] { background: var(--ink); border-color: var(--ink); color: var(--surface); }
+.mchips button:disabled { opacity: .35; cursor: default; }
 
 .kpis { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); border-block: 1px solid var(--line); }
 .kpi { padding: 14px 16px; display: grid; gap: 2px; align-content: start; min-width: 0; }
@@ -228,6 +235,7 @@ footer ul { margin: 0; padding-left: 18px; display: grid; gap: 3px; }
     <section>
       <div class="eyebrow">Daily Stock Movers · 거래대금 Top 3</div>
       <h1>돈이 몰린 종목</h1>
+      <div class="arch" id="arch" hidden></div>
       <div class="meta" id="meta"></div>
       <div class="conds" id="conds"></div>
     </section>
@@ -245,6 +253,7 @@ footer ul { margin: 0; padding-left: 18px; display: grid; gap: 3px; }
       <li>매 거래일 20:15 회차에 4개 조건을 모두 충족한 종목을 거래대금 순으로 정렬해 1~3위를 싣습니다. 봇이 20:15 게시 뒤 리포트와 함께 올리며 20:20경 반영됩니다.</li>
       <li>종가·상승률은 20:15 KRX+NXT 통합 시세, 거래대금은 KRX+NXT 합산, 시장 거래대금은 코스피+코스닥 지수 거래대금입니다.</li>
       <li>종목명 옆 (N위)는 20:15 기준 코스피+코스닥 전 종목(ETF 포함) 거래대금 순위입니다. 앞의 1·2·3은 조건 충족 종목 안에서의 순서입니다.</li>
+      <li>지난 기록: 연도와 월(또는 연간)을 골라 12개월이 지난 기록도 볼 수 있습니다. ‹ › 로 한 달(연간은 한 해)씩 넘깁니다.</li>
       <li>막대 길이 = 거래대금 (보고 있는 기간의 최대값 = 끝까지). 날짜를 누르면 그날 리포트가 열리고, 리포트에서 종목 메모를 쓸 수 있습니다.</li>
     </ul></footer>
   </main>
@@ -322,12 +331,22 @@ function weekdays(a, b) {
 }
 
 // ── 상태 ─────────────────────────────────────────────────
-const PERIODS = [["1m", 1, "1개월"], ["3m", 3, "3개월"], ["6m", 6, "6개월"], ["12m", 12, "12개월"]];
+const FIRST_MONTH = "2026-10", FIRST_YEAR = +FIRST_MONTH.slice(0, 4);   // 기록 시작 (2026-10-28)
+const PERIODS = [["1m", 1, "1개월"], ["3m", 3, "3개월"], ["6m", 6, "6개월"], ["12m", 12, "12개월"], ["arch", 0, "지난 기록"]];
 const lsGet = k => { try { return localStorage.getItem(k); } catch (e) { return null; } };
 const lsSet = (k, v) => { try { localStorage.setItem(k, v); } catch (e) { /* 저장소 없음 */ } };
+const pad2 = n => String(n).padStart(2, "0");
+const thisYear = () => +kstNow().date.slice(0, 4);
+const YEARS = {};                                 // 연도 → dsm/YYYY.json (불러온 해만)
+const MEMO_YEARS = new Set();                     // 메모를 불러온 해
 let DAYS = {}, UPDATED = "", CONDS = null, FIRST = null, loadedAt = 0, started = false;
 let MEMOS = {};                                   // YYYYMMDD → 종목 → {t, at}
 let period = PERIODS.some(p => p[0] === lsGet("dsm-period")) ? lsGet("dsm-period") : "1m";
+// 지난 기록: 연도와 월 (0 = 연간)
+let arch = (() => {
+  const m = /^(\d{4})-(\d{1,2})$/.exec(lsGet("dsm-arch") || "");
+  return m && +m[1] >= FIRST_YEAR && +m[1] <= thisYear() ? { y: +m[1], m: +m[2] } : { y: thisYear(), m: 0 };
+})();
 let focus = null, sortKey = "n", showAll = false;
 let view = null;                                  // 지금 기간의 계산 결과 (compute)
 
@@ -339,38 +358,73 @@ async function init() {
   await refresh();
   const h = decodeURIComponent(location.hash.slice(1));
   if (/^\d{4}-\d{2}-\d{2}$/.test(h)) openReport(h);
-  loadMemoMarks();
   document.addEventListener("visibilitychange", () => {
     if (!document.hidden && Date.now() - loadedAt > 10 * 60e3) refresh();
   });
 }
 
-async function refresh() {
-  const y = +kstNow().date.slice(0, 4);
-  const files = await Promise.all([y - 1, y].map(yr =>
-    fetch(`dsm/${yr}.json?v=${Date.now()}`, { cache: "no-store" }).then(r => r.ok ? r.json() : null).catch(() => null)));
+// 기본은 올해·작년 (12개월 보기까지), 지난 기록은 고른 해를 그때 불러온다
+async function loadYears(ys, force = false) {
+  await Promise.all(ys.filter(y => y >= FIRST_YEAR && (force || !(y in YEARS))).map(async y => {
+    try {
+      const r = await fetch(`dsm/${y}.json?v=${Date.now()}`, { cache: "no-store" });
+      if (r.ok) YEARS[y] = await r.json();
+      else if (r.status === 404) YEARS[y] = { days: {} };
+    } catch (e) { /* 네트워크 오류 — 다음에 다시 */ }
+  }));
   DAYS = {}; UPDATED = ""; CONDS = null;
-  for (const f of files) {
-    if (!f) continue;
+  for (const f of Object.values(YEARS)) {
     Object.assign(DAYS, f.days || {});
     if ((f.updated || "") > UPDATED) { UPDATED = f.updated; CONDS = f.conds || CONDS; }
   }
   FIRST = Object.keys(DAYS).sort()[0] || null;
-  loadedAt = Date.now();
-  render();
 }
 
-async function loadMemoMarks() {
-  const y = +kstNow().date.slice(0, 4);
-  try { MEMOS = await loadMemos([y - 1, y]); render(); } catch (e) { /* 달력의 메모 표시만 빠짐 */ }
+async function refresh() {
+  const y = thisYear();
+  await loadYears([y - 1, y], true);
+  if (period === "arch") await loadYears([arch.y]);
+  loadedAt = Date.now();
+  render();
+  loadMemoMarks(true);
+}
+
+async function loadMemoMarks(force = false) {
+  const ys = [...new Set([thisYear() - 1, thisYear(), ...(period === "arch" ? [arch.y] : [])])]
+    .filter(y => y >= FIRST_YEAR && (force || !MEMO_YEARS.has(y)));
+  if (!ys.length) return;
+  try {
+    Object.assign(MEMOS, await loadMemos(ys));
+    ys.forEach(y => MEMO_YEARS.add(y));
+    render();
+  } catch (e) { /* 달력의 메모 표시만 빠짐 */ }
 }
 const memoOf = (s, code) => ((MEMOS[s.replace(/-/g, "")] || {})[code] || {}).t || "";
 
 // ── 기간 계산 ────────────────────────────────────────────
+function rangeOf(today) {
+  if (period !== "arch") {
+    const p = PERIODS.find(x => x[0] === period);
+    return { start: addDays(minusMonths(today, p[1]), 1), end: today, label: p[2] };
+  }
+  const { y, m } = arch;
+  const start = m ? `${y}-${pad2(m)}-01` : `${y}-01-01`;
+  const last = m ? toS(new Date(Date.UTC(y, m, 0))) : `${y}-12-31`;
+  return { start, end: last < today ? last : today, label: m ? `${y}년 ${m}월` : `${y}년` };
+}
+// 지난 기록 ‹ › — 월 보기는 한 달씩, 연간은 한 해씩 (기록 시작 ~ 이번 달)
+function stepArch(d) {
+  if (!arch.m) { const y = arch.y + d; return y >= FIRST_YEAR && y <= thisYear() ? { y, m: 0 } : null; }
+  let y = arch.y, m = arch.m + d;
+  if (m < 1) { y--; m = 12; } else if (m > 12) { y++; m = 1; }
+  const ym = `${y}-${pad2(m)}`;
+  return ym >= FIRST_MONTH && ym <= kstNow().date.slice(0, 7) ? { y, m } : null;
+}
+
 function compute() {
-  const now = kstNow(), end = now.date;
-  const start = addDays(minusMonths(end, PERIODS.find(p => p[0] === period)[1]), 1);
-  const wds = weekdays(start, end);
+  const now = kstNow();
+  const { start, end, label } = rangeOf(now.date);
+  const wds = start <= end ? weekdays(start, end) : [];
   const open = wds.filter(s => DAYS[s] && DAYS[s].status !== "closed");
   // 분포 칸: 기록이 시작된 날부터의 거래일 (휴장 제외), 70일이 넘으면 주 단위
   const from = FIRST && FIRST > start ? FIRST : start;
@@ -389,13 +443,28 @@ function compute() {
     });
   }
   const list = [...agg.values()].map(a => ({ ...a, n: a.days.length, avgFlu: a.flu / a.days.length }));
-  return { now, start, end, wds, open, slots, weekly, list, maxTv, sumTv };
+  return { now, start, end, label, wds, open, slots, weekly, list, maxTv, sumTv };
 }
 
 // ── 그리기 ───────────────────────────────────────────────
 function render() {
   view = compute();
-  renderTop(); renderKpis(); renderFocus(); renderCalendar();
+  if (focus && !view.list.some(a => a.code === focus)) focus = null;
+  renderTop(); renderArch(); renderKpis(); renderFocus(); renderCalendar();
+}
+
+function renderArch() {
+  const box = $("arch");
+  box.hidden = period !== "arch";
+  if (box.hidden) return;
+  const has = new Set(Object.keys(DAYS).filter(k => k.startsWith(`${arch.y}-`) && DAYS[k].status !== "closed").map(k => +k.slice(5, 7)));
+  const years = [];
+  for (let y = thisYear(); y >= FIRST_YEAR; y--) years.push(y);
+  box.innerHTML = `<button class="btn" type="button" data-step="-1" aria-label="${arch.m ? "이전 달" : "이전 해"}"${stepArch(-1) ? "" : " disabled"}>‹</button>
+    <select id="archYear" aria-label="연도">${years.map(y => `<option value="${y}"${y === arch.y ? " selected" : ""}>${y}년</option>`).join("")}</select>
+    <div class="mchips" role="group" aria-label="월">${Array.from({ length: 13 }, (_, m) =>
+      `<button type="button" data-m="${m}" aria-pressed="${m === arch.m}"${m && !has.has(m) ? " disabled" : ""}>${m ? `${m}월` : "연간"}</button>`).join("")}</div>
+    <button class="btn" type="button" data-step="1" aria-label="${arch.m ? "다음 달" : "다음 해"}"${stepArch(1) ? "" : " disabled"}>›</button>`;
 }
 
 function renderTop() {
@@ -415,7 +484,7 @@ function renderKpis() {
   const best = [...list].sort(SORTS.n)[0];
   const firsts = new Set(open.map(s => ((DAYS[s].stocks || [])[0] || {}).code).filter(Boolean)).size;
   $("kpis").innerHTML = [
-    ["기록 거래일", `${open.length}`, `${PERIODS.find(p => p[0] === period)[2]} 기준`],
+    ["기록 거래일", `${open.length}`, `${view.label} 기준`],
     ["Top 3 종목", `${list.length}`, `1위를 한 종목 ${firsts}`],
     ["Top 3 거래대금 합계", `<span class="num">${eok(sumTv)}</span>`, open.length ? `하루 평균 ${eok(sumTv / open.length)}` : "—"],
     ["가장 자주 든 종목", best ? esc(best.name) : "—", best ? `${best.n}일 · 1위 ${best.top}일` : "기록 없음"],
@@ -515,7 +584,7 @@ function renderCalendar() {
     const mStart = `${ym}-01`, mEnd = toS(new Date(Date.UTC(y, m, 0)));
     const lo = mStart > start ? mStart : start, hi = mEnd < end ? mEnd : end;
     const inMonth = weekdays(lo, hi);
-    if (!inMonth.length) return "";
+    if (!inMonth.length || ym < FIRST_MONTH) return "";          // 기록 시작 전 달은 그리지 않음
     const rec = inMonth.filter(s => DAYS[s] && DAYS[s].stocks && DAYS[s].stocks.length);
     const tv = rec.reduce((t, s) => t + DAYS[s].stocks.slice(0, 3).reduce((u, x) => u + x.tv, 0), 0);
     let weeks = "";
@@ -540,10 +609,25 @@ function renderCalendar() {
 }
 
 // ── 조작 ─────────────────────────────────────────────────
-$("periods").addEventListener("click", e => {
+$("periods").addEventListener("click", async e => {
   const b = e.target.closest("button[data-p]"); if (!b) return;
-  period = b.dataset.p; lsSet("dsm-period", period); render();
+  period = b.dataset.p; lsSet("dsm-period", period);
+  if (period === "arch") { await loadYears([arch.y]); loadMemoMarks(); }
+  render();
 });
+async function setArch(next) {
+  arch = next;
+  lsSet("dsm-arch", `${arch.y}-${arch.m}`);
+  await loadYears([arch.y]);
+  render();
+  loadMemoMarks();
+}
+$("arch").addEventListener("click", e => {
+  const mb = e.target.closest("button[data-m]"), sb = e.target.closest("button[data-step]");
+  if (mb) setArch({ y: arch.y, m: +mb.dataset.m });
+  else if (sb) { const n = stepArch(+sb.dataset.step); if (n) setArch(n); }
+});
+$("arch").addEventListener("change", e => { if (e.target.id === "archYear") setArch({ y: +e.target.value, m: 0 }); });
 $("focus").addEventListener("click", e => {
   const sb = e.target.closest("button[data-sort]");
   if (sb) { sortKey = sb.dataset.sort; renderFocus(); return; }
@@ -575,7 +659,8 @@ monthsEl.addEventListener("pointerover", e => {
 const viewer = $("viewer"), frame = $("viewerFrame");
 let viewing = null;
 const reportDays = () => Object.keys(DAYS).filter(s => DAYS[s].report).sort();
-function openReport(s) {
+async function openReport(s) {
+  if (!DAYS[s]) await loadYears([+s.slice(0, 4)]);   // 바로가기(#날짜)로 지난 해 리포트를 열 때
   const r = DAYS[s];
   if (!r || !r.report) return;
   const url = `dsm/${r.report}`;
@@ -597,7 +682,7 @@ function closeReport() {
   viewer.hidden = true; frame.src = "about:blank"; viewing = null;
   document.body.style.overflow = "";
   history.replaceState(null, "", location.pathname + location.search);
-  loadMemoMarks();                                // 리포트에서 쓴 메모를 달력에 표시
+  loadMemoMarks(true);                            // 리포트에서 쓴 메모를 달력에 표시
 }
 $("viewerClose").addEventListener("click", closeReport);
 viewer.addEventListener("click", e => { if (e.target === viewer) closeReport(); });
