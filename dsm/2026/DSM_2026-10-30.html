@@ -1,0 +1,650 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>DSM 리포트 2026-10-30</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%93%8A%3C/text%3E%3C/svg%3E">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans+KR:wght@400;500;600;700&display=swap">
+<style>
+/* Daily-Stock-Movers 일일 리포트 — report.py 가 아래 dsm-data 에 데이터를 넣어 만든다.
+   화면은 이 파일 안 스크립트가 그린다. 투자 리서치 허브(사이트)에서 열면 메모를 쓸 수 있고(../memo.js →
+   비공개 메모 저장소), 텔레그램으로 받은 파일에서는 메모 대신 사이트 링크를 보여준다. */
+:root {
+  --bg: #f3f4f6; --surface: #ffffff; --ink: #14171c; --ink-2: #4a5160; --ink-3: #6f7786;
+  --line: #e1e4e9; --track: #eceef1; --tracked: #c3c9d2; --band: #eef1f4;
+  --up: #d42a3c; --up-text: #c01e33; --down-text: #1c5bc6; --on-up: #ffffff; --accent: #0b766c;
+  --up-1: #f3a3ab; --up-2: #e4606f; --up-3: #c62539; --up-4: #7d0b20; --wash: #f8d3d7;
+  --font-sans: "IBM Plex Sans KR", "Apple SD Gothic Neo", "Malgun Gothic", "Noto Sans KR", system-ui, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Consolas, monospace;
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #0e1115; --surface: #161a20; --ink: #e8ebf0; --ink-2: #b1b8c4; --ink-3: #8a92a0;
+    --line: #283039; --track: #1e242b; --tracked: #48505c; --band: #1c2128;
+    --up: #f0505f; --up-text: #ff6f7d; --down-text: #6aa5ff; --on-up: #1b0a0d; --accent: #34b5a8;
+    --up-1: #6e2a33; --up-2: #a8343f; --up-3: #e44a5a; --up-4: #ff9aa4; --wash: #4a2027;
+    color-scheme: dark;
+  }
+}
+* { box-sizing: border-box; }
+[hidden] { display: none !important; }
+html { -webkit-text-size-adjust: 100%; }
+body { margin: 0; background: var(--bg); color: var(--ink); font: 15px/1.55 var(--font-sans); }
+.page {
+  max-width: 1280px; margin: 0 auto; display: grid; gap: 28px;
+  padding-block: 20px 110px;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+}
+.page > * { min-width: 0; }
+.num { font-family: var(--font-mono); font-variant-numeric: tabular-nums; }
+a { color: inherit; text-decoration-color: var(--tracked); text-underline-offset: 2px; }
+a:hover { text-decoration-color: currentColor; }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 3px; }
+.up { color: var(--up-text); }
+.down { color: var(--down-text); }
+.muted { color: var(--ink-3); }
+.noscript { max-width: 640px; margin: 40px auto; padding: 16px; font: 15px/1.6 system-ui, sans-serif; }
+
+.masthead { display: grid; gap: 10px; }
+.eyebrow { font-size: 12px; letter-spacing: .12em; text-transform: uppercase; color: var(--ink-3); font-weight: 600; }
+h1 { margin: 0; font-size: clamp(26px, 6vw, 38px); line-height: 1.15; font-weight: 700; letter-spacing: -.01em; text-wrap: balance; }
+.meta { color: var(--ink-2); font-size: 14px; }
+.conds { display: flex; flex-wrap: wrap; gap: 6px; }
+.cond { font-size: 12.5px; padding: 3px 10px; border: 1px solid var(--line); border-radius: 999px; background: var(--surface); color: var(--ink-2); }
+.market { display: flex; flex-wrap: wrap; gap: 4px 14px; align-items: baseline; font-size: 14px; color: var(--ink-2); border-top: 1px solid var(--line); padding-top: 12px; }
+.market b { color: var(--ink); font-weight: 600; }
+.jump { display: flex; flex-wrap: wrap; gap: 6px 18px; font-size: 14px; }
+
+.kpis { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); border-block: 1px solid var(--line); }
+.kpi { padding: 14px 16px; display: grid; gap: 2px; align-content: start; }
+.kpi + .kpi { border-left: 1px solid var(--line); }
+.kpi:first-child { padding-left: 0; }
+.kpi .lbl { font-size: 13px; color: var(--ink-2); }
+.kpi .val { font-size: 28px; font-weight: 600; line-height: 1.2; }
+.kpi .sub { font-size: 13px; color: var(--ink-3); }
+@media (max-width: 640px) {
+  .kpis { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .kpi:nth-child(3) { border-left: 0; padding-left: 0; border-top: 1px solid var(--line); }
+  .kpi:nth-child(4) { border-top: 1px solid var(--line); }
+}
+
+.panel { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 16px; }
+.sec-head { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 4px 16px; margin-bottom: 14px; }
+h2 { margin: 0; font-size: 19px; font-weight: 700; text-wrap: balance; }
+.sec-head p { margin: 0; font-size: 13.5px; color: var(--ink-2); max-width: 64ch; }
+.notice { font-size: 13px; color: var(--ink-2); background: var(--bg); border-radius: 8px; padding: 6px 10px; margin: 0 0 12px; }
+
+.tl { --namew: 92px; position: relative; display: grid; gap: 3px; }
+@media (min-width: 720px) { .tl { --namew: 148px; } }
+.tl-row { display: grid; grid-template-columns: var(--namew) repeat(var(--n), minmax(0, 1fr)); column-gap: 1px; align-items: center; }
+.tl-name { font-size: 13px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; padding-right: 8px; text-decoration: none; }
+.tl-name:hover { text-decoration: underline; }
+.tl-row.hl .tl-name { font-weight: 700; }
+.c { height: 18px; border-radius: 2px; background: var(--track); position: relative; cursor: pointer; }
+.c.trk { background: var(--tracked); }
+.c.u1 { background: var(--up-1); } .c.u2 { background: var(--up-2); }
+.c.u3 { background: var(--up-3); } .c.u4 { background: var(--up-4); }
+.c.post::after { content: ""; position: absolute; left: 50%; top: 50%; width: clamp(3px, 45%, 6px); aspect-ratio: 1; border-radius: 50%; background: var(--surface); transform: translate(-50%, -50%); }
+.tl-band .b { font-size: 11px; color: var(--ink-3); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; border-top: 2px solid var(--line); padding-top: 3px; }
+.tl-band .b.krx { border-top-color: var(--ink-3); color: var(--ink-2); }
+.tl-axis span { font-size: 11px; color: var(--ink-3); justify-self: center; white-space: nowrap; font-family: var(--font-mono); }
+.tl-cursor { position: absolute; pointer-events: none; outline: 2px solid var(--ink); outline-offset: 1px; border-radius: 2px; }
+.legend { display: flex; flex-wrap: wrap; gap: 6px 14px; font-size: 12.5px; color: var(--ink-2); margin-top: 14px; }
+.legend span { display: inline-flex; align-items: center; gap: 5px; }
+.sw { width: 12px; height: 12px; border-radius: 2px; display: inline-block; position: relative; }
+.sw.dot::after { content: ""; position: absolute; inset: 3px; border-radius: 50%; background: var(--surface); }
+.readout { margin-top: 10px; font-size: 13.5px; min-height: 2.8em; padding: 8px 12px; border-radius: 8px; background: var(--bg); color: var(--ink-2); }
+.readout b { color: var(--ink); }
+
+.filters { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 12px; }
+.fbtn { font: inherit; font-size: 13px; padding: 5px 12px; border-radius: 999px; border: 1px solid var(--line); background: var(--surface); color: var(--ink-2); cursor: pointer; }
+.fbtn[aria-pressed="true"] { background: var(--ink); color: var(--surface); border-color: var(--ink); }
+.table-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+table.sum { border-collapse: separate; border-spacing: 0; width: 100%; min-width: 1140px; font-size: 14px; }
+table.sum th { font-size: 12.5px; font-weight: 600; color: var(--ink-2); text-align: right; padding: 8px 10px; border-bottom: 1px solid var(--line); white-space: nowrap; background: var(--surface); }
+table.sum th button { font: inherit; color: inherit; background: none; border: 0; padding: 0; cursor: pointer; }
+table.sum th[aria-sort="descending"] button::after { content: " ↓"; }
+table.sum th[aria-sort="ascending"] button::after { content: " ↑"; }
+table.sum td { padding: 9px 10px; border-bottom: 1px solid var(--line); text-align: right; white-space: nowrap; vertical-align: middle; }
+table.sum tr:last-child td { border-bottom: 0; }
+table.sum .l { text-align: left; }
+table.sum .name { position: sticky; left: 0; z-index: 1; background: var(--surface); text-align: left; box-shadow: 1px 0 0 var(--line); }
+table.sum td.name a { font-weight: 600; }
+.sub { display: block; font-size: 12px; color: var(--ink-3); }
+.chip { display: inline-block; font-size: 12px; line-height: 1.4; padding: 1px 8px; border-radius: 999px; border: 1px solid var(--line); color: var(--ink-2); white-space: nowrap; }
+.chip.limit { background: var(--up); border-color: var(--up); color: var(--on-up); font-weight: 600; }
+.chip.memo-chip { border-color: var(--accent); color: var(--accent); }
+.memo-snip { display: inline-block; max-width: 220px; overflow: hidden; text-overflow: ellipsis; vertical-align: bottom; color: var(--ink-2); }
+.note { font-size: 12.5px; color: var(--ink-3); margin: 10px 0 0; }
+.rg-track { stroke: var(--line); stroke-width: 2; }
+.rg-zero { stroke: var(--ink-3); stroke-width: 1; }
+.rg-bar { fill: var(--wash); }
+.rg-first { fill: var(--surface); stroke: var(--ink-2); stroke-width: 1.5; }
+.rg-close { fill: var(--ink); }
+
+.cards-head { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: 8px; margin-bottom: 12px; }
+.cards { display: grid; gap: 12px; }
+.card { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; scroll-margin-top: 12px; }
+.card > summary { list-style: none; cursor: pointer; display: grid; gap: 6px; padding: 14px 16px; }
+.card > summary::-webkit-details-marker { display: none; }
+.s-top { display: flex; align-items: baseline; gap: 10px; min-width: 0; }
+.s-rank { font-family: var(--font-mono); color: var(--ink-3); font-size: 13px; }
+.s-name { font-size: 17px; font-weight: 700; }
+.s-mkt { font-size: 12px; color: var(--ink-3); }
+.s-chev { margin-left: auto; color: var(--ink-3); transition: transform .15s; }
+.card:not([open]) .s-chev { transform: rotate(-90deg); }
+@media (prefers-reduced-motion: reduce) { .s-chev { transition: none; } }
+.s-metrics { display: flex; flex-wrap: wrap; gap: 4px 20px; align-items: baseline; font-size: 14.5px; }
+.s-metrics .k { font-size: 12px; color: var(--ink-3); margin-right: 5px; }
+.card-body { display: grid; gap: 20px; padding: 16px; border-top: 1px solid var(--line); }
+.card-body > * { min-width: 0; }
+@media (min-width: 860px) { .card-body { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); } .memo { grid-column: 1 / -1; } }
+@media (min-width: 1180px) { .card-body { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) minmax(260px, 300px); } .memo { grid-column: auto; } }
+.col { display: grid; gap: 18px; align-content: start; }
+h3 { font-size: 14px; font-weight: 700; margin: 0 0 8px; }
+h3 small { font-weight: 400; color: var(--ink-3); font-size: 12px; }
+.kv { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px 16px; margin: 0; }
+.kv > div { min-width: 0; }
+.kv dt { font-size: 12.5px; color: var(--ink-3); }
+.kv dd { margin: 0; font-size: 14.5px; }
+.spark { margin: 0; }
+.spark svg { display: block; width: 100%; height: auto; touch-action: pan-y; }
+.spark figcaption { font-size: 13px; color: var(--ink-2); min-height: 1.6em; margin-top: 4px; }
+.sv-band { fill: var(--band); }
+.sv-grid { stroke: var(--line); stroke-width: 1; }
+.sv-thr { stroke: var(--ink-3); stroke-width: 1; opacity: .6; }
+.sv-lbl { fill: var(--ink-3); font-size: 11px; font-family: var(--font-mono); }
+.sv-trk { fill: none; stroke: var(--tracked); stroke-width: 2; stroke-linejoin: round; stroke-linecap: round; }
+.sv-met { fill: none; stroke: var(--up); stroke-width: 2; stroke-linejoin: round; stroke-linecap: round; }
+.sv-first { fill: var(--surface); stroke: var(--up); stroke-width: 2; }
+.sv-post { fill: var(--up); stroke: var(--surface); stroke-width: 2; }
+.sv-end { fill: var(--up); stroke: var(--surface); stroke-width: 2; }
+.sv-endlbl { fill: var(--ink); font-size: 12px; font-weight: 600; font-family: var(--font-mono); }
+.sv-firstlbl { fill: var(--ink-2); font-size: 11px; }
+.sv-cur { stroke: var(--ink-2); stroke-width: 1; }
+.sv-curdot { fill: var(--ink); stroke: var(--surface); stroke-width: 2; }
+.sv-hit { fill: transparent; }
+.mat ol { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; }
+.mat li { display: grid; grid-template-columns: 3.2em auto minmax(0, 1fr); gap: 8px; align-items: baseline; font-size: 14px; }
+.mat time { font-family: var(--font-mono); font-size: 12.5px; color: var(--ink-3); }
+.mat .src { display: block; font-size: 12px; color: var(--ink-3); }
+.tag { font-size: 11.5px; padding: 0 6px; border-radius: 4px; border: 1px solid var(--line); color: var(--ink-2); white-space: nowrap; }
+.tag.add { border-color: var(--up); color: var(--up-text); }
+.mat .none { font-size: 14px; color: var(--ink-3); margin: 0; }
+table.fin { border-collapse: collapse; width: 100%; min-width: 330px; font-size: 13.5px; }
+table.fin th { font-size: 12px; color: var(--ink-3); font-weight: 600; text-align: right; padding: 4px 8px; border-bottom: 1px solid var(--line); }
+table.fin th:first-child, table.fin td:first-child { text-align: left; padding-left: 0; }
+table.fin td { text-align: right; padding: 5px 8px; font-family: var(--font-mono); font-variant-numeric: tabular-nums; vertical-align: top; }
+table.fin td small { display: block; font-size: 11.5px; }
+table.fin tr.gap td { border-top: 1px solid var(--line); padding-top: 8px; }
+.st { font-size: 10.5px; font-family: var(--font-sans); padding: 0 4px; border-radius: 3px; border: 1px solid var(--line); color: var(--ink-2); margin-left: 4px; vertical-align: 1px; }
+.links { grid-column: 1 / -1; display: flex; flex-wrap: wrap; gap: 6px 16px; font-size: 13.5px; color: var(--ink-2); border-top: 1px solid var(--line); padding-top: 12px; }
+.btn { font: inherit; font-size: 13px; padding: 5px 12px; border-radius: 8px; border: 1px solid var(--line); background: var(--surface); color: var(--ink); cursor: pointer; }
+.btn.primary { background: var(--ink); border-color: var(--ink); color: var(--surface); }
+a.btn { display: inline-block; justify-self: start; text-decoration: none; }
+.memo-off { margin: 0; font-size: 13.5px; color: var(--ink-2); }
+
+.memo { background: var(--bg); border-radius: 10px; padding: 14px; display: grid; gap: 12px; align-content: start; min-width: 0; }
+.memo h3 { margin: 0; }
+.memo textarea { width: 100%; min-height: 128px; resize: vertical; font: inherit; font-size: 14px; line-height: 1.55; padding: 10px 12px; border-radius: 8px; border: 1px solid var(--line); background: var(--surface); color: var(--ink); }
+.memo textarea::placeholder { color: var(--ink-3); }
+.memo-row { display: flex; align-items: center; flex-wrap: wrap; gap: 10px; }
+.memo .status { font-size: 12.5px; color: var(--ink-3); }
+.hist { list-style: none; margin: 6px 0 0; padding: 0; display: grid; gap: 8px; font-size: 13px; }
+.hist li { border-top: 1px solid var(--line); padding-top: 8px; display: flex; flex-wrap: wrap; gap: 2px 8px; align-items: baseline; }
+.hist-note { flex-basis: 100%; color: var(--ink-2); white-space: pre-wrap; }
+
+.savebar { position: fixed; left: 0; right: 0; bottom: 0; z-index: 20; display: flex; justify-content: center; pointer-events: none;
+  padding: 10px max(16px, env(safe-area-inset-right, 0px)) calc(10px + env(safe-area-inset-bottom, 0px)) max(16px, env(safe-area-inset-left, 0px)); }
+.savebar-in { pointer-events: auto; display: flex; flex-wrap: wrap; align-items: center; gap: 8px 14px; background: var(--ink); color: var(--surface);
+  border-radius: 12px; padding: 10px 14px; box-shadow: 0 6px 24px rgba(0, 0, 0, .25); font-size: 14px; max-width: 760px; }
+.savebar .btn { background: var(--surface); color: var(--ink); border-color: var(--surface); font-weight: 600; }
+
+footer { font-size: 12.5px; color: var(--ink-3); border-top: 1px solid var(--line); padding-top: 14px; }
+footer ul { margin: 0; padding-left: 18px; display: grid; gap: 3px; }
+</style>
+</head>
+<body>
+<main class="page" id="app"></main>
+<noscript><p class="noscript">이 리포트는 스크립트를 실행할 수 있는 브라우저(Chrome·Edge·Safari 등)에서 파일을 열어야 보입니다.</p></noscript>
+<script id="dsm-data" type="application/json">{"date":"20261030","fileDate":"2026-10-30","dateLabel":"2026년 10월 30일 금요일","generated":"20:15","times":["08:15","08:30","08:45","09:00","09:15","09:30","09:45","10:00","10:15","10:30","10:45","11:00","11:15","11:30","11:45","12:00","12:15","12:30","12:45","13:00","13:15","13:30","13:45","14:00","14:15","14:30","14:45","15:00","15:15","15:30","15:45","16:00","16:15","16:30","16:45","17:00","17:15","17:30","17:45","18:00","18:15","18:30","18:45","19:00","19:15","19:30","19:45","20:00","20:15"],"interval":15,"lastSlot":48,"firstRecorded":0,"market":{"kospi":202484.72,"kosdaq":63174.86},"conds":{"mac":2000.0,"flu":9.0,"tv":300.0,"mult":3.0,"avgDays":120},"detected":4,"site":"https://c2insight.github.io/MyTradingR/","stocks":[{"code":"053800","name":"안랩","mkt":"KOSDAQ","rank":23,"price":121100,"flu":20.98,"tv":3518.95,"avg":143.66774999999998,"mac":13474.0,"upper":false,"base":100100,"ohlc":[100300,127400,95700],"series":[null,null,null,null,[1,11.69,111800,14,838.13],[0,7.39,107500,15,1058.9],[0,7.49,107600,16,1129.54],[0,5.89,106000,19,1188.69],[0,5.39,105500,21,1222.88],[1,10.09,110200,21,1304.61],[0,7.99,108100,21,1354.04],[0,8.19,108300,24,1372.42],[0,8.69,108800,26,1392.8],[1,9.99,110100,25,1440.24],[1,10.29,110400,27,1462.64],[1,9.09,109200,27,1480.05],[0,8.79,108900,28,1492.3],[1,9.49,109600,28,1505.04],[1,9.39,109500,28,1515.56],[0,8.49,108600,28,1552.05],[1,13.79,113900,28,1661.0],[1,13.99,114100,27,1927.7],[1,15.48,115600,27,2012.28],[1,17.08,117200,26,2150.22],[1,15.98,116100,26,2216.17],[1,16.28,116400,26,2284.18],[1,16.28,116400,26,2345.21],[1,18.48,118600,26,2474.98],[1,17.58,117700,26,2573.2],[1,17.18,117300,26,2605.97],[1,18.68,118800,27,2649.26],[1,20.68,120800,25,2764.51],[1,21.88,122000,25,2843.87],[1,22.58,122700,24,2945.36],[1,22.78,122900,24,2991.41],[1,22.78,122900,24,3017.18],[1,21.88,122000,24,3040.25],[1,22.88,123000,24,3060.03],[1,20.98,121100,24,3080.92],[1,21.18,121300,24,3103.59],[1,22.18,122300,24,3112.48],[1,22.68,122800,24,3130.53],[1,22.48,122600,24,3138.3],[1,24.38,124500,24,3200.83],[1,26.67,126800,24,3287.41],[1,26.17,126300,24,3352.43],[1,22.98,123100,24,3405.99],[1,20.98,121100,23,3518.95],[1,20.98,121100,23,3518.95]],"firstHhmm":"09:15","firstSlot":4,"posts":[["09:15",4,"https://t.me/c/4375607115/6598","new"],["10:30",9,"https://t.me/c/4375607115/6606","update"]],"mat":[{"kind":"뉴스","title":"[특징주] 금융권 해킹 확산에 보안주 주목···안랩·라온시큐어 강세","url":"http://www.finomy.com/news/articleView.html?idxno=265156","date":"","hhmm":"10:30"},{"kind":"뉴스","title":"라온시큐어·안랩 강세…금융권 해킹 확산에 보안주 관심[특징주]","url":"https://www.newsway.co.kr/news/view?ud=2026103009200036350","date":"","hhmm":"10:30"}],"fin":{"est":false,"nq":3,"rows":[["3Q26P","P",[794.59,109.31,75.60000000000001],["23.1","38.7","-40.4"]],["2Q26","F",[713.08784756,53.81783016,64.1290657],["14.5","55.6","-52.0"]],["1Q26","F",[590.62128479,19.26829626,39.71485438],["3.3","84.3","45.1"]],["2025","F",[2676.57,332.77,514.95],["2.72","20.21","58.96"]],["2024","F",[2605.69,276.82,323.95],["8.93","4.77","-6.65"]],["2023","F",[2392.01,264.23,347.03],["4.92","-2.09","144.82"]]]},"history":[["20261028",20.39]],"naver":"https://m.stock.naver.com/domestic/stock/053800/total"},{"code":"042510","name":"라온시큐어","mkt":"KOSDAQ","rank":47,"price":19140,"flu":14.95,"tv":1601.64,"avg":195.53866666666664,"mac":2126.0,"upper":false,"base":16650,"ohlc":[16830,19900,16750],"series":[null,null,null,null,null,null,null,null,null,[1,15.68,19260,49,623.79],[1,14.53,19070,46,756.13],[1,13.45,18890,47,798.97],[1,13.69,18930,46,829.96],[1,15.92,19300,44,892.83],[1,17.06,19490,44,936.85],[1,16.28,19360,42,971.71],[1,15.56,19240,42,995.17],[1,15.38,19210,43,1026.04],[1,15.08,19160,44,1042.36],[1,15.92,19300,41,1116.05],[1,18.56,19740,41,1164.45],[1,15.98,19310,39,1239.82],[1,16.64,19420,39,1265.75],[1,18.32,19700,41,1306.34],[1,16.94,19470,41,1334.97],[1,17.36,19540,43,1364.09],[1,15.68,19260,44,1393.65],[1,16.88,19460,44,1412.31],[1,15.92,19300,45,1437.24],[1,16.58,19410,46,1446.42],[1,16.82,19450,48,1455.59],[1,17.12,19500,47,1459.83],[1,17.0,19480,47,1475.09],[1,16.94,19470,47,1484.43],[1,17.0,19480,47,1491.16],[1,17.06,19490,47,1495.05],[1,16.22,19350,47,1500.65],[1,16.7,19430,47,1504.15],[1,15.14,19170,47,1510.56],[1,15.32,19200,47,1518.24],[1,15.38,19210,47,1521.32],[1,16.58,19410,47,1528.06],[1,16.82,19450,47,1531.19],[1,17.24,19520,47,1542.78],[1,18.5,19730,47,1561.98],[1,16.94,19470,47,1573.92],[1,15.56,19240,47,1582.78],[1,14.95,19140,47,1601.64],[1,14.95,19140,47,1601.64]],"firstHhmm":"10:30","firstSlot":9,"posts":[["10:30",9,"https://t.me/c/4375607115/6607","new"]],"mat":[{"kind":"뉴스","title":"[특징주] 금융권 해킹 확산에 보안주 주목···안랩·라온시큐어 강세","url":"http://www.finomy.com/news/articleView.html?idxno=265156","date":"","hhmm":"10:30"},{"kind":"뉴스","title":"[특징주] 라온시큐어, 금융권 해킹 확산에 따른 보안주 관심에 급등세","url":"https://www.widedaily.com/news/articleView.html?idxno=302556","date":"","hhmm":"10:30"}],"fin":{"est":true,"nq":2,"rows":[["2Q26","F",[121.75896121,-6.73730237,2.07758791],["-12.4","적자지속","2807.3"]],["1Q26","F",[94.19644586,-21.48008595,-21.4889688],["-13.5","적자지속","적자지속"]],["2028E","E",[814.0,90.0,97.0],["14.89","34.33","34.72"]],["2027E","E",[708.5,67.0,72.0],["15.20","94.20","54.84"]],["2026E","E",[615.0,34.5,46.5],["-3.53","24.00","30.92"]],["2025","F",[637.51,27.82,35.52],["2.01","41.42","-13.55"]]]},"history":[],"naver":"https://m.stock.naver.com/domestic/stock/042510/total"}]}</script>
+<script>
+(() => {
+  const D = JSON.parse(document.getElementById("dsm-data").textContent);
+  const T = D.times, N = T.length, LAST = N - 1, DATE = D.date;
+  const app = document.getElementById("app");
+
+  // 사이트(https)에서 열렸는지 — 파일(file:// · 텔레그램 뷰어)이면 메모 대신 사이트 링크
+  const HOSTED = /^https?:$/.test(location.protocol);
+  const HUB = HOSTED ? new URL("../../", location.href).href : (D.site || "");
+  const HUB_LINK = HUB ? `${HUB}#${D.fileDate}` : "";
+  const EMBEDDED = window.top !== window;            // 허브의 리포트 패널 안
+  if (HOSTED) {
+    let ok = false;
+    try { ok = sessionStorage.getItem("hub_auth") === "1"; } catch (e) { /* 저장소 없음 */ }
+    if (!ok) { location.replace(HUB_LINK); return; }  // 잠금 화면을 거치지 않고 들어온 경우
+  }
+
+  // ── 서식 ────────────────────────────────────────────────
+  const won = v => v == null ? "-" : Math.round(v).toLocaleString("ko-KR");
+  const eok = v => v == null ? "-" : Math.abs(v) >= 10000 ? (v / 10000).toFixed(2) + "조" : won(v) + "억";
+  const pct = (v, dp = 2) => v == null ? "-" :
+    (v > 0 ? "+" : "") + v.toLocaleString("ko-KR", { minimumFractionDigits: dp, maximumFractionDigits: dp }) + "%";
+  const dir = v => v == null ? "" : v > 0.005 ? "up" : v < -0.005 ? "down" : "";
+  const sp = (v, dp = 2) => `<span class="num ${dir(v)}">${pct(v, dp)}</span>`;
+  const esc = s => String(s ?? "").replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+  const host = u => { try { return new URL(u).hostname.replace(/^www\./, ""); } catch (e) { return ""; } };
+  const md = d => `${d.slice(4, 6)}/${d.slice(6)}`;
+  const hm = d => `${String(d.getHours()).padStart(2, "0")}:${String(d.getMinutes()).padStart(2, "0")}`;
+  const bucket = f => f < 12 ? 1 : f < 18 ? 2 : f < 29.95 ? 3 : 4;
+  const limitChip = s => s.upper ? ` <span class="chip limit">상한가</span>` : "";
+
+  // ── 가공 ────────────────────────────────────────────────
+  const S = D.stocks.map(d => {
+    const s = { ...d };
+    const col = k => d.series.map(r => r ? r[k] : null);
+    s.met = d.series.map(r => !!(r && r[0]));
+    s.flus = col(1); s.prices = col(2); s.ranks = col(3); s.tvs = col(4);
+    s.base = d.base || d.price / (1 + d.flu / 100);
+    const pf = p => p == null ? null : (p / s.base - 1) * 100;
+    const seen = s.prices.filter(v => v != null);
+    const [o, h, l] = d.ohlc || [null, Math.max(...seen), Math.min(...seen)];
+    s.openFlu = pf(o); s.highFlu = pf(h); s.lowFlu = pf(l);
+    s.firstPrice = d.firstSlot != null ? s.prices[d.firstSlot] : null;
+    s.firstFlu = d.firstSlot != null ? s.flus[d.firstSlot] : null;
+    s.after = s.firstPrice ? (d.price / s.firstPrice - 1) * 100 : null;
+    s.surge = d.tv / d.avg;
+    s.metCount = s.met.filter(Boolean).length;
+    s.tracked = d.series.slice(Math.max(0, d.firstSlot ?? s.met.indexOf(true))).filter(Boolean).length;
+    s.bestRank = Math.min(...s.ranks.filter(v => v != null));
+    s.news = d.mat.filter(m => m.kind === "뉴스").length;
+    s.disc = d.mat.length - s.news;
+    return s;
+  });
+  const BY_CODE = Object.fromEntries(S.map(s => [s.code, s]));
+
+  // ── 메모: 사이트에서만 — 비공개 메모 저장소에서 불러와 자동 저장 (날짜 → 종목 → {t 내용, at 시각}) ──
+  const MEMO = {};
+  const memoText = (d, c) => MEMO[d]?.[c]?.t || "";
+  let memoApi = null;                         // ../memo.js — 불러오기 전에는 입력 막음
+
+  // ── 화면 뼈대 ───────────────────────────────────────────
+  const C = D.conds;
+  const kospi = S.filter(s => s.mkt === "KOSPI").length;
+  const limits = S.filter(s => s.upper);
+  const withMat = S.filter(s => s.mat.length);
+  const afters = S.filter(s => s.after != null);
+  const avgAfter = afters.length ? afters.reduce((a, s) => a + s.after, 0) / afters.length : null;
+  const lastT = T[D.lastSlot];
+  app.innerHTML = `
+    <header class="masthead">
+      <div class="eyebrow">Daily Stock Movers · 일일 리포트</div>
+      <h1>${esc(D.dateLabel)}</h1>
+      <div class="meta">${T[0]}–${T[LAST]} · ${D.interval}분 간격 ${N}회 조회 · ${D.generated} 생성 · 오늘 포착 ${D.detected}종목 중 ${lastT} 조건 충족 ${S.length}종목</div>
+      <div class="conds" aria-label="검색 조건">
+        <span class="cond">시총 ≥ ${won(C.mac)}억</span><span class="cond">상승률 ≥ ${C.flu}%</span>
+        <span class="cond">거래대금 ≥ ${won(C.tv)}억 (KRX+NXT)</span><span class="cond">${C.avgDays}일 평균 ×${C.mult} 초과</span>
+      </div>
+      <div class="market">
+        <span>시장 거래대금 <span class="muted">${lastT}</span></span>
+        <span>코스피 <b class="num">${eok(D.market.kospi)}</b></span><span>코스닥 <b class="num">${eok(D.market.kosdaq)}</b></span>
+        <span>합산 <b class="num">${eok(D.market.kospi + D.market.kosdaq)}</b></span>
+      </div>
+      <nav class="jump" aria-label="바로가기">${HOSTED && !EMBEDDED ? `<a href="${esc(HUB)}">← Top 3 달력</a>` : ""}<a href="#timeline">포착 타임라인</a><a href="#summary">총괄표</a><a href="#detail">종목 상세</a>${!HOSTED && HUB_LINK ? `<a href="${esc(HUB_LINK)}" target="_blank" rel="noopener">투자 리서치 허브 ↗</a>` : ""}</nav>
+    </header>
+    <section class="kpis" aria-label="오늘 요약">${[
+      [`${lastT} 조건 충족`, `${S.length}`, `코스피 ${kospi} · 코스닥 ${S.length - kospi}`],
+      ["상한가 마감", `${limits.length}`, limits.map(s => esc(s.name)).join(", ") || "없음"],
+      ["포착가 대비 종가", `<span class="${dir(avgAfter)}">${pct(avgAfter, 1)}</span>`,
+        `평균 · 상승 ${afters.filter(s => s.after > 0).length} · 하락 ${afters.filter(s => s.after < 0).length}`],
+      ["재료 확인", `${withMat.length}<span class="muted" style="font-size:18px"> / ${S.length}</span>`,
+        `뉴스 ${S.reduce((a, s) => a + s.news, 0)} · 공시 ${S.reduce((a, s) => a + s.disc, 0)} · 불분명 ${S.length - withMat.length}`],
+    ].map(([l, v, s]) => `<div class="kpi"><div class="lbl">${l}</div><div class="val">${v}</div><div class="sub">${s}</div></div>`).join("")}</section>
+    <section class="panel" id="timeline">
+      <div class="sec-head"><h2>포착 타임라인</h2>
+        <p>${lastT} 조건 충족 종목이 하루 동안 어느 회차에 조건을 채웠는지 보여줍니다. 칸이 진할수록 등락률이 높습니다. 칸을 누르면 그 회차의 값이 보입니다.</p></div>
+      ${D.firstRecorded > 0 ? `<p class="notice">회차 기록은 ${T[D.firstRecorded]} 회차부터 있습니다. 그 전 회차는 비어 있고, 최초 포착 시각은 텔레그램 게시 기록을 따릅니다.</p>` : ""}
+      <div class="tl" id="tl" style="--n:${N}" aria-label="종목별 회차 조건 충족 격자"></div>
+      <div class="legend">
+        <span><i class="sw" style="background:var(--up-1)"></i>9–12%</span><span><i class="sw" style="background:var(--up-2)"></i>12–18%</span>
+        <span><i class="sw" style="background:var(--up-3)"></i>18–30%</span><span><i class="sw" style="background:var(--up-4)"></i>상한가</span>
+        <span><i class="sw" style="background:var(--tracked)"></i>포착 후 조건 미달 회차</span>
+        <span><i class="sw dot" style="background:var(--up-3)"></i>상세 메시지 게시 (최초 · 재료 추가)</span>
+      </div>
+      <div class="readout" id="readout" aria-live="polite">칸을 누르면 회차 시각, 등락률, 순위, 거래대금이 여기 표시됩니다.</div>
+    </section>
+    <section class="panel" id="summary">
+      <div class="sec-head"><h2>총괄표</h2>
+        <p>${lastT} 회차에 조건을 충족한 종목만 담습니다. 시가·고가·저가는 KRX+NXT 일봉 기준입니다. 머리글을 누르면 정렬됩니다.</p></div>
+      <div class="filters" id="filters" role="group" aria-label="종목 필터"></div>
+      <div class="table-wrap"><table class="sum" id="sumtable"><thead></thead><tbody></tbody></table></div>
+      <p class="note">일중 범위 막대 = 저가~고가 (전일 종가 대비, −5~30% 공통 눈금) · ○ 최초 포착가 · ┃ 종가 · 세로선 = 전일 종가</p>
+    </section>
+    <section id="detail">
+      <div class="cards-head"><h2>종목 상세</h2><button class="btn" id="toggleAll" type="button">모두 접기</button></div>
+      <div class="cards" id="cards"></div>
+    </section>
+    <footer><ul>
+      <li>${lastT} 회차에 ${C.flu}% 이상 상승·거래대금 등 4개 조건을 모두 충족한 종목만 싣습니다. 낮에 포착됐다가 ${lastT}에 조건을 못 채운 종목은 제외합니다.</li>
+      <li>순위는 코스피+코스닥 전 종목(ETF 포함) 통합 거래대금 순위, 거래대금은 KRX+NXT 합산입니다.</li>
+      <li>등락률 추이는 ${D.interval}분 회차 시점의 값입니다. 회차 사이의 움직임은 일중 고가·저가에만 반영됩니다.</li>
+      <li>포착 후 = 최초 포착 회차 가격 대비 종가. 재료 링크는 기사 원문과 DART 공시 뷰어로 연결됩니다.</li>
+      <li>메모는 투자 리서치 허브에서 리포트를 열면 쓸 수 있습니다. 입력하면 비공개 메모 저장소에 자동 저장되어 어느 기기에서나 같은 메모가 보입니다.</li>
+      <li>실적 단위 억원 · E 컨센서스 추정 · P 잠정실적 공시 · 표시 없음 확정. 출처 키움 REST · DART · FnGuide · 네이버 뉴스.</li>
+    </ul></footer>
+    <div class="savebar" id="savebar" hidden><div class="savebar-in" role="status">
+      <span id="savemsg"></span><button type="button" class="btn" id="saveAll">다시 시도</button>
+    </div></div>`;
+
+  // ── 포착 타임라인 ───────────────────────────────────────
+  const tl = document.getElementById("tl");
+  const zone = t => t < "09:00" ? 0 : t <= "15:30" ? 1 : t <= "20:00" ? 2 : 3;
+  const ZONES = [["", "NXT 프리마켓"], ["krx", "KRX 정규장 09:00–15:30"], ["", "NXT 애프터마켓 15:45–20:00"], ["", "마감 후"]];
+  const bands = [];
+  T.forEach((t, i) => { const z = zone(t); if (bands.length && bands.at(-1)[2] === z) bands.at(-1)[1] = i; else bands.push([i, i, z]); });
+  let html = `<div class="tl-row tl-band"><span></span>${bands.map(([a, b, z]) =>
+    `<span class="b ${ZONES[z][0]}" style="grid-column:${a + 2} / ${b + 3}" title="${ZONES[z][1]}">${b - a > 10 ? ZONES[z][1] : ""}</span>`).join("")}</div>`;
+  [...S].sort((a, b) => a.firstHhmm.localeCompare(b.firstHhmm) || b.tv - a.tv).forEach(s => {
+    html += `<div class="tl-row" data-code="${s.code}"><a class="tl-name" href="#s-${s.code}" title="${esc(s.name)} · 최초 ${s.firstHhmm}">${esc(s.name)}</a>`;
+    for (let i = 0; i < N; i++) {
+      const cls = s.series[i] ? (s.met[i] ? `u${bucket(s.flus[i])}` : "trk") : "";
+      const post = s.posts.some(p => p[1] === i) ? " post" : "";
+      html += `<span class="c ${cls}${post}" data-i="${i}"></span>`;
+    }
+    html += `</div>`;
+  });
+  html += `<div class="tl-row tl-axis"><span></span>${["09:00", "12:00", "15:30", "20:00"].map(t => [T.indexOf(t), t]).filter(([i]) => i >= 0)
+    .map(([i, t]) => `<span style="grid-column:${i + 2}">${t}</span>`).join("")}</div><div class="tl-cursor" id="tlcur" hidden></div>`;
+  tl.innerHTML = html;
+
+  const readout = document.getElementById("readout"), cur = document.getElementById("tlcur");
+  function showCell(cell) {
+    const row = cell.parentElement, s = BY_CODE[row.dataset.code], i = +cell.dataset.i;
+    tl.querySelectorAll(".tl-row.hl").forEach(r => r.classList.remove("hl"));
+    row.classList.add("hl");
+    cur.hidden = false;
+    Object.assign(cur.style, { left: cell.offsetLeft + "px", top: cell.offsetTop + "px", width: cell.offsetWidth + "px", height: cell.offsetHeight + "px" });
+    if (!s.series[i]) {
+      readout.innerHTML = `<b class="num">${T[i]}</b> · <b>${esc(s.name)}</b> — ${T[i] < s.firstHhmm ? `포착 전 (최초 포착 ${s.firstHhmm})` : "이 회차 기록 없음"}`;
+      return;
+    }
+    const post = s.posts.find(p => p[1] === i);
+    readout.innerHTML = `<b class="num">${T[i]}</b> <span class="muted">${i + 1}/${N}회</span> · <b>${esc(s.name)}</b> · ${sp(s.flus[i])} · ` +
+      `<span class="num">${won(s.prices[i])}원</span> · ${s.ranks[i]}위 · <span class="num">${eok(s.tvs[i])} ×${(s.tvs[i] / s.avg).toFixed(1)}</span> · ` +
+      (s.met[i] ? "조건 충족" : "조건 미달") +
+      (post && post[2] ? ` · <a href="${esc(post[2])}">${post[3] === "new" ? "최초 상세" : "재료 추가"} 메시지 ↗</a>` : "");
+  }
+  tl.addEventListener("pointerover", e => { const c = e.target.closest(".c"); if (c && e.pointerType === "mouse") showCell(c); });
+  tl.addEventListener("click", e => { const c = e.target.closest(".c"); if (c) showCell(c); });
+
+  // ── 총괄표 ──────────────────────────────────────────────
+  function rangeSvg(s) {
+    const x = p => 4 + (Math.max(-5, Math.min(30, p)) + 5) / 35 * 104;
+    return `<svg width="112" height="20" viewBox="0 0 112 20" role="img" aria-label="저가 ${pct(s.lowFlu)} 고가 ${pct(s.highFlu)} 포착 ${pct(s.firstFlu)} 종가 ${pct(s.flu)}">` +
+      `<line class="rg-track" x1="4" y1="10" x2="108" y2="10"/>` +
+      (s.lowFlu != null && s.highFlu != null ? `<rect class="rg-bar" x="${x(s.lowFlu)}" y="6" width="${Math.max(2, x(s.highFlu) - x(s.lowFlu))}" height="8" rx="2"/>` : "") +
+      `<line class="rg-zero" x1="${x(0)}" y1="3" x2="${x(0)}" y2="17"/>` +
+      `<rect class="rg-close" x="${x(s.flu) - 1}" y="3" width="2" height="14"/>` +
+      (s.firstFlu != null ? `<circle class="rg-first" cx="${x(s.firstFlu)}" cy="10" r="3.5"/>` : "") + `</svg>`;
+  }
+  const COLS = [
+    { t: "종목", cls: "name", key: s => s.name, asc: true, td: s => `<a href="#s-${s.code}">${esc(s.name)}</a><span class="sub">${s.mkt} · ${s.code}</span>` },
+    { t: "최초 포착", key: s => s.firstHhmm, asc: true, td: s => `<span class="num">${s.firstHhmm}</span><span class="sub">${s.firstSlot != null ? `${s.firstSlot + 1}회차 · ${s.ranks[s.firstSlot]}위` : "회차 기록 전"}</span>` },
+    { t: "종가", key: s => s.price, td: s => `<span class="num">${won(s.price)}</span>` },
+    { t: "등락률", key: s => s.flu, td: s => sp(s.flu) + limitChip(s) },
+    { t: "포착 후", key: s => s.after ?? -999, td: s => `${sp(s.after, 1)}<span class="sub num">${s.firstPrice ? won(s.firstPrice) + " →" : "포착가 기록 없음"}</span>` },
+    { t: "일중 범위", cls: "l", td: rangeSvg },
+    { t: "거래대금", key: s => s.tv, td: s => `<span class="num">${eok(s.tv)}</span>` },
+    { t: `${C.avgDays}일 배수`, key: s => s.surge, td: s => `<span class="num">×${s.surge.toFixed(1)}</span><span class="sub num">평균 ${eok(s.avg)}</span>` },
+    { t: "순위", key: s => s.rank, asc: true, td: s => `<span class="num">${s.rank}위</span><span class="sub">최고 ${s.bestRank}위</span>` },
+    { t: "시총", key: s => s.mac, td: s => `<span class="num">${eok(s.mac)}</span>` },
+    { t: "충족 회차", key: s => s.metCount, td: s => `<span class="num">${s.metCount}/${s.tracked}회</span><span class="sub">포착 이후 기록</span>` },
+    { t: "재료", cls: "l", key: s => s.mat.length, td: s => s.mat.length ? `뉴스 ${s.news} · 공시 ${s.disc}` : `<span class="muted">불분명</span>` },
+    { t: "메모", cls: "l", key: s => memoText(DATE, s.code) ? 1 : 0, td: s => memoText(DATE, s.code) ?
+        `<span class="memo-snip" title="${esc(memoText(DATE, s.code))}">${esc(memoText(DATE, s.code))}</span>` : `<span class="muted">—</span>` },
+  ].filter(c => HOSTED || c.t !== "메모");
+  const FILTERS = [["전체", s => true], ["상한가", s => s.upper], ["코스피", s => s.mkt === "KOSPI"], ["코스닥", s => s.mkt === "KOSDAQ"],
+    ["재료 불분명", s => !s.mat.length], ["메모 있음", s => !!memoText(DATE, s.code)]].filter(([t]) => HOSTED || t !== "메모 있음");
+  let sortCol = 6, sortAsc = false, filt = 0;
+  const table = document.getElementById("sumtable"), fbox = document.getElementById("filters");
+  function renderTable() {
+    table.tHead.innerHTML = `<tr>${COLS.map((c, k) => `<th class="${c.cls || ""}" scope="col"${k === sortCol ? ` aria-sort="${sortAsc ? "ascending" : "descending"}"` : ""}>` +
+      (c.key ? `<button type="button" data-k="${k}">${c.t}</button>` : c.t) + `</th>`).join("")}</tr>`;
+    const key = COLS[sortCol].key;
+    const rows = S.filter(FILTERS[filt][1]).sort((a, b) => {
+      const va = key(a), vb = key(b);
+      const r = typeof va === "string" ? va.localeCompare(vb, "ko") : va - vb;
+      return sortAsc ? r : -r;
+    });
+    table.tBodies[0].innerHTML = rows.map(s => `<tr>${COLS.map(c => `<td class="${c.cls || ""}">${c.td(s)}</td>`).join("")}</tr>`).join("");
+  }
+  function renderFilters() {
+    fbox.innerHTML = FILTERS.map(([t, f], k) => `<button type="button" class="fbtn" data-f="${k}" aria-pressed="${k === filt}">${t} ${S.filter(f).length}</button>`).join("");
+  }
+  table.addEventListener("click", e => {
+    const b = e.target.closest("th button"); if (!b) return;
+    const k = +b.dataset.k;
+    if (k === sortCol) sortAsc = !sortAsc; else { sortCol = k; sortAsc = !!COLS[k].asc; }
+    renderTable();
+  });
+  fbox.addEventListener("click", e => { const b = e.target.closest(".fbtn"); if (!b) return; filt = +b.dataset.f; renderFilters(); renderTable(); });
+  renderFilters(); renderTable();
+
+  // ── 종목 카드 ───────────────────────────────────────────
+  const YOY_ABBR = { "흑자전환": "흑전", "적자전환": "적전", "적자지속": "적지", "흑자지속": "흑지" };
+  function yoyCell(y) {
+    if (y == null || String(y).trim() === "" || y === "-") return "";
+    const n = parseFloat(String(y).replace(/,/g, ""));
+    if (!isNaN(n)) return `<small class="${dir(n)}">${pct(n, 1)}</small>`;
+    const t = YOY_ABBR[y] || y;
+    return `<small class="${t.startsWith("흑") ? "up" : "down"}">${esc(t)}</small>`;
+  }
+  function finTable(f) {
+    if (!f) return `<h3>실적·컨센서스</h3><p class="muted" style="margin:0">없음</p>`;
+    const hasP = f.rows.some(r => r[1] === "P");
+    const tr = ([label, st, v, y], k) => `<tr${k === f.nq && k > 0 ? ` class="gap"` : ""}><td>${esc(label.replace(/[PE]$/, ""))}${st === "P" || st === "E" ? `<span class="st">${st}</span>` : ""}</td>` +
+      v.map((x, j) => `<td>${won(x)}${yoyCell(y[j])}</td>`).join("") + `</tr>`;
+    return `<h3>${f.est ? "컨센서스" : "실적"} <small>억원 · YoY${f.est ? " · E 추정" : ""}${hasP ? " · P 잠정" : ""}${f.est ? "" : " · 컨센서스 없음"}</small></h3>` +
+      `<div class="table-wrap"><table class="fin"><thead><tr><th>기간</th><th>매출액</th><th>영업이익</th><th>순이익</th></tr></thead><tbody>` +
+      f.rows.map(tr).join("") + `</tbody></table></div>`;
+  }
+  function materials(s) {
+    if (!s.mat.length) return `<h3>재료</h3><p class="none">재료 불분명 — 직전 거래일~당일 특징주 뉴스·공시 없음</p>`;
+    // 회차 기록을 시작한 회차에 처음 본 재료는 그 전부터 있었을 수 있어 시각을 '기록 전'으로 둔다
+    const startT = D.firstRecorded > 0 ? T[D.firstRecorded] : null;
+    return `<h3>재료 <small>처음 확인한 시각 · 누르면 원문</small></h3><ol>` + s.mat.map(m => {
+      const known = !startT || m.hhmm > startT;
+      const add = known && m.hhmm > s.firstHhmm;
+      const day = m.date && m.date !== DATE ? `(${md(m.date)}) ` : "";
+      return `<li><time>${known ? m.hhmm : "기록 전"}</time><span class="tag${add ? " add" : ""}">${m.kind}${add ? " 추가" : ""}</span>` +
+        `<span><a href="${esc(m.url)}" target="_blank" rel="noopener">${day}${esc(m.title)}</a><span class="src">${m.kind === "공시" ? "DART 공시 뷰어" : esc(host(m.url))}</span></span></li>`;
+    }).join("") + `</ol>`;
+  }
+  function historyList(s) {
+    if (!s.history.length) return `<p class="muted" style="margin:6px 0 0;font-size:13px">이전 리포트 기록 없음 — 오늘 처음 실림</p>`;
+    return `<ol class="hist">${s.history.map(([d, f]) => {
+      const note = memoText(d, s.code);
+      return `<li><span class="num">${md(d)}</span>${sp(f)}` +
+        (HOSTED ? `<span class="hist-note">${note ? esc(note) : `<span class="muted">메모 없음</span>`}</span>` : "") + `</li>`;
+    }).join("")}</ol>`;
+  }
+  const memoBox = s => HOSTED ? `
+        <aside class="memo" aria-label="${esc(s.name)} 메모">
+          <h3>내 메모 <small>${md(DATE)} 리포트 · 입력하면 자동 저장</small></h3>
+          <textarea id="memo-${s.code}" data-code="${s.code}" rows="5" placeholder="판단 근거, 매매 계획, 다음에 확인할 점" disabled></textarea>
+          <div class="memo-row"><span class="status" id="st-${s.code}" aria-live="polite">불러오는 중…</span></div>
+          <div><h3>이전 기록 <small>이 종목이 실린 지난 리포트</small></h3><div id="hist-${s.code}">${historyList(s)}</div></div>
+        </aside>` : `
+        <aside class="memo" aria-label="${esc(s.name)} 이전 기록">
+          <h3>내 메모</h3>
+          <p class="memo-off">메모는 투자 리서치 허브에서 씁니다. 어느 기기에서 열어도 같은 메모가 보입니다.</p>
+          ${HUB_LINK ? `<a class="btn" href="${esc(HUB_LINK)}" target="_blank" rel="noopener">사이트에서 열기 ↗</a>` : ""}
+          <div><h3>이전 기록 <small>이 종목이 실린 지난 리포트</small></h3>${historyList(s)}</div>
+        </aside>`;
+  const cards = document.getElementById("cards");
+  cards.innerHTML = S.map(s => `
+    <details class="card" id="s-${s.code}" open>
+      <summary>
+        <span class="s-top"><span class="s-rank">${s.rank}위</span><span class="s-name">${esc(s.name)}</span><span class="s-mkt">${s.mkt} · ${s.code}</span><span class="s-chev" aria-hidden="true">▾</span></span>
+        <span class="s-metrics">
+          <span><span class="num">${won(s.price)}원</span> ${sp(s.flu)}${limitChip(s)}</span>
+          <span><span class="k">거래대금</span><span class="num">${eok(s.tv)}</span> <span class="muted num">×${s.surge.toFixed(1)}</span></span>
+          <span><span class="k">시총</span><span class="num">${eok(s.mac)}</span></span>
+          <span class="chip memo-chip" data-chip="${s.code}"${memoText(DATE, s.code) ? "" : " hidden"}>메모</span>
+        </span>
+      </summary>
+      <div class="card-body">
+        <div class="col">
+          <dl class="kv">
+            <div><dt>최초 포착</dt><dd>${s.firstPrice ? `<span class="num">${s.firstHhmm} · ${won(s.firstPrice)}원</span> ${sp(s.firstFlu)}` : `<span class="num">${s.firstHhmm}</span> <span class="muted">포착가 기록 없음</span>`}</dd></div>
+            <div><dt>포착 후 (종가 기준)</dt><dd>${sp(s.after, 1)}</dd></div>
+            <div><dt>시가 · 고가 · 저가</dt><dd class="num">${pct(s.openFlu, 1)} · <span class="up">${pct(s.highFlu, 1)}</span> · ${pct(s.lowFlu, 1)}</dd></div>
+            <div><dt>${C.avgDays}일 평균 거래대금</dt><dd><span class="num">${eok(s.avg)}</span> <span class="muted">오늘 ×${s.surge.toFixed(1)}</span></dd></div>
+            <div><dt>거래대금 순위</dt><dd><span class="num">${s.rank}위</span> <span class="muted">최고 ${s.bestRank}위</span></dd></div>
+            <div><dt>조건 충족</dt><dd><span class="num">${s.metCount}/${s.tracked}회</span> <span class="muted">포착 이후 기록</span></dd></div>
+          </dl>
+          <figure class="spark" data-code="${s.code}">
+            <h3>등락률 추이 <small>${D.interval}분 회차 · 빨강 = 조건 충족</small></h3>
+            <div class="spark-svg"></div>
+            <figcaption>그래프를 누르거나 가리키면 회차별 값이 보입니다.</figcaption>
+          </figure>
+        </div>
+        <div class="col">
+          <div class="mat">${materials(s)}</div>
+          <div class="fin">${finTable(s.fin)}</div>
+        </div>
+        ${memoBox(s)}
+        <div class="links">
+          ${s.posts.length ? `<span>텔레그램 상세 ${s.posts.filter(p => p[2]).map(([h, , url, kind]) => `<a href="${esc(url)}">${h} ${kind === "new" ? "최초" : "재료 추가"} ↗</a>`).join(" · ")}</span>` : ""}
+          <a href="${esc(s.naver)}" target="_blank" rel="noopener">네이버 증권 ↗</a>
+        </div>
+      </div>
+    </details>`).join("");
+
+  // 등락률 추이 — 0~30% 공통 눈금, KRX 정규장 음영, 조건선
+  function drawSpark(fig) {
+    const s = BY_CODE[fig.dataset.code], box = fig.querySelector(".spark-svg");
+    const w = Math.max(280, Math.round(box.clientWidth || 480)), h = 160, L = 34, R = 62, TP = 16, B = 24;
+    const x = i => L + i * (w - L - R) / Math.max(1, LAST), y = p => TP + (30 - Math.max(0, Math.min(30, p))) / 30 * (h - TP - B);
+    let trk = "", met = "";
+    for (let i = 0; i < N; i++) {
+      if (!s.series[i]) continue;
+      const pt = `${x(i).toFixed(1)},${y(s.flus[i]).toFixed(1)}`;
+      trk += `${i > 0 && s.series[i - 1] ? "L" : "M"}${pt}`;
+      if (s.met[i]) met += `${i > 0 && s.met[i - 1] ? "L" : "M"}${pt}`;
+    }
+    const grid = [0, C.flu, 20, 30].map(v => `<line class="${v === C.flu ? "sv-thr" : "sv-grid"}" x1="${L}" x2="${w - R}" y1="${y(v)}" y2="${y(v)}"/>` +
+      `<text class="sv-lbl" x="${L - 6}" y="${y(v) + 4}" text-anchor="end">${v}${v === 30 ? "%" : ""}</text>`).join("");
+    const ticks = ["09:00", "12:00", "15:30", "20:00"].map(t => [T.indexOf(t), t]).filter(([i]) => i >= 0)
+      .map(([i, t]) => `<text class="sv-lbl" x="${x(i)}" y="${h - 6}" text-anchor="middle">${t}</text>`).join("");
+    const k0 = T.indexOf("09:00"), k1 = T.indexOf("15:30");
+    const band = k0 >= 0 && k1 > k0 ? `<rect class="sv-band" x="${x(k0)}" y="${TP}" width="${x(k1) - x(k0)}" height="${h - TP - B}"/>` : "";
+    const posts = s.posts.filter(p => p[1] != null && p[1] !== s.firstSlot && s.series[p[1]])
+      .map(([, i]) => `<circle class="sv-post" cx="${x(i)}" cy="${y(s.flus[i])}" r="4.5"/>`).join("");
+    const first = s.firstSlot != null ? `<circle class="sv-first" cx="${x(s.firstSlot)}" cy="${y(s.firstFlu)}" r="4.5"/>` +
+      `<text class="sv-firstlbl" x="${x(s.firstSlot)}" y="${y(s.firstFlu) - 10}" text-anchor="${s.firstSlot > LAST * 0.8 ? "end" : "middle"}">포착 ${s.firstHhmm}</text>` : "";
+    const endI = D.lastSlot;
+    box.innerHTML = `<svg viewBox="0 0 ${w} ${h}" width="${w}" height="${h}" role="img" aria-label="${esc(s.name)} 등락률 추이: 포착 ${s.firstHhmm}, 종가 ${pct(s.flu)}">` +
+      band + grid + ticks + `<path class="sv-trk" d="${trk}"/><path class="sv-met" d="${met}"/>` + posts + first +
+      `<circle class="sv-end" cx="${x(endI)}" cy="${y(s.flu)}" r="4.5"/>` +
+      `<text class="sv-endlbl" x="${x(endI) + 8}" y="${y(s.flu) + 4}">${pct(s.flu, 1)}</text>` +
+      `<g class="cur" visibility="hidden"><line class="sv-cur" y1="${TP}" y2="${h - B}"/><circle class="sv-curdot" r="4"/></g>` +
+      `<rect class="sv-hit" x="${L}" y="0" width="${w - L - R}" height="${h}"/></svg>`;
+    const svg = box.firstChild, g = svg.querySelector(".cur"), cap = fig.querySelector("figcaption");
+    const move = e => {
+      const r = svg.getBoundingClientRect(), px = (e.clientX - r.left) * w / r.width;
+      let i = Math.max(0, Math.min(LAST, Math.round((px - L) / (w - L - R) * LAST)));
+      if (!s.series[i]) return;
+      g.setAttribute("visibility", "visible");
+      g.querySelector("line").setAttribute("x1", x(i)); g.querySelector("line").setAttribute("x2", x(i));
+      const c = g.querySelector("circle"); c.setAttribute("cx", x(i)); c.setAttribute("cy", y(s.flus[i]));
+      cap.innerHTML = `<b class="num">${T[i]}</b> · ${sp(s.flus[i])} · <span class="num">${won(s.prices[i])}원</span> · ${s.ranks[i]}위 · ` +
+        `<span class="num">${eok(s.tvs[i])}</span> · ${s.met[i] ? "조건 충족" : "조건 미달"}`;
+    };
+    svg.addEventListener("pointermove", move);
+    svg.addEventListener("pointerdown", move);
+  }
+  const figs = [...document.querySelectorAll(".spark")];
+  figs.forEach(drawSpark);
+  figs.forEach(f => f.closest(".card").addEventListener("toggle", e => { if (e.target.open) drawSpark(f); }));
+  let rt; addEventListener("resize", () => { clearTimeout(rt); rt = setTimeout(() => figs.forEach(drawSpark), 150); });
+
+  // ── 메모 입력·자동 저장 (사이트에서만) ─────────────────
+  //   ../memo.js 가 비공개 메모 저장소(GitHub)에 저장한다. 저장 전 입력은 이 기기에 보관했다가 다시 보낸다.
+  const savebar = document.getElementById("savebar"), savemsg = document.getElementById("savemsg");
+  const retryBtn = document.getElementById("saveAll");
+  let retryFn = null;
+  function showBar(msg, fn) { savemsg.textContent = msg; retryFn = fn; retryBtn.hidden = !fn; savebar.hidden = false; }
+  const hideBar = () => { savebar.hidden = true; };
+  retryBtn.addEventListener("click", () => retryFn && retryFn());
+  const setStatus = (code, t) => { const el = document.getElementById(`st-${code}`); if (el) el.textContent = t; };
+  function refreshMemoUI() {
+    S.forEach(s => { document.querySelector(`[data-chip="${s.code}"]`).hidden = !memoText(DATE, s.code); });
+  }
+  function onMemoChange(state, keys, err) {
+    const mine = keys.filter(([d, c]) => d === DATE && BY_CODE[c]).map(([, c]) => c);
+    const t = state === "saving" ? "저장 중…" : state === "saved" ? `저장됨 ${hm(new Date())}` : "저장 실패 · 이 기기에 보관 중, 곧 다시 시도";
+    mine.forEach(c => setStatus(c, t));
+    if (state === "error") showBar(`메모 저장 실패 — ${err?.message || "연결 오류"}`, () => memoApi.flush());
+    else if (state === "saved") hideBar();
+  }
+  async function initMemo() {
+    hideBar();
+    try {
+      memoApi ||= await import(new URL("../memo.js", location.href).href);
+      const years = [...new Set([DATE, ...S.flatMap(s => s.history.map(([d]) => d))].map(d => d.slice(0, 4)))];
+      const all = await memoApi.load(years);
+      for (const k of Object.keys(MEMO)) delete MEMO[k];
+      Object.assign(MEMO, all);
+      memoApi.onChange(onMemoChange);
+      S.forEach(s => {
+        const ta = document.getElementById(`memo-${s.code}`);
+        ta.value = memoText(DATE, s.code);
+        ta.disabled = false;
+        setStatus(s.code, memoApi.isPending(DATE, s.code) ? "이 기기에 보관 중 · 곧 저장" : memoText(DATE, s.code) ? "저장됨" : "메모 없음");
+        document.getElementById(`hist-${s.code}`).innerHTML = historyList(s);
+      });
+      refreshMemoUI(); renderFilters(); renderTable();
+    } catch (e) {
+      S.forEach(s => setStatus(s.code, "메모를 불러오지 못했습니다"));
+      showBar(`메모 저장소에 연결하지 못했습니다 — ${e.message}`, initMemo);
+    }
+  }
+  let tt;
+  cards.addEventListener("input", e => {
+    const ta = e.target.closest("textarea[data-code]"); if (!ta || !memoApi) return;
+    const code = ta.dataset.code, t = ta.value.trim();
+    (MEMO[DATE] ||= {})[code] = { t, at: Date.now() };
+    memoApi.set(DATE, code, t);
+    setStatus(code, "입력 중…");
+    clearTimeout(tt);
+    tt = setTimeout(() => { refreshMemoUI(); renderFilters(); renderTable(); }, 250);
+  });
+  cards.addEventListener("focusout", e => { if (e.target.matches("textarea[data-code]") && memoApi) memoApi.flush(); });
+  cards.addEventListener("keydown", e => {
+    if (e.target.matches("textarea[data-code]") && e.key === "Enter" && (e.ctrlKey || e.metaKey) && memoApi) { e.preventDefault(); memoApi.flush(); }
+  });
+  addEventListener("beforeunload", e => {
+    if (memoApi && memoApi.hasPending()) { memoApi.flush(); e.preventDefault(); e.returnValue = ""; }
+  });
+  if (HOSTED) initMemo();
+
+  // 이름 링크로 이동하면 카드 펼치기 · 모두 접기
+  document.addEventListener("click", e => {
+    const a = e.target.closest('a[href^="#s-"]'); if (!a) return;
+    const d = document.getElementById(a.getAttribute("href").slice(1)); if (d) d.open = true;
+  });
+  const tg = document.getElementById("toggleAll");
+  tg.addEventListener("click", () => {
+    const all = [...document.querySelectorAll(".card")], open = all.some(d => d.open);
+    all.forEach(d => { d.open = !open; });
+    tg.textContent = open ? "모두 펼치기" : "모두 접기";
+  });
+})();
+</script>
+</body>
+</html>
